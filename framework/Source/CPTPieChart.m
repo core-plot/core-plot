@@ -36,6 +36,7 @@ NSString *const CPTPieChartBindingPieSliceRadialOffsets = @"sliceRadialOffsets";
 @property (nonatomic, readwrite, copy) NSArray *sliceWidths;
 @property (nonatomic, readwrite, copy) NSArray *sliceFills;
 @property (nonatomic, readwrite, copy) NSArray *sliceRadialOffsets;
+@property (nonatomic, readwrite, assign) NSUInteger pointingDeviceDownIndex;
 
 -(void)updateNormalizedData;
 -(CGFloat)radiansForPieSliceValue:(CGFloat)pieSliceValue;
@@ -118,6 +119,12 @@ NSString *const CPTPieChartBindingPieSliceRadialOffsets = @"sliceRadialOffsets";
  *  If @YES, the labels are rotated relative to the radius of the pie chart (zero rotation is parallel to the radius).
  **/
 @synthesize labelRotationRelativeToRadius;
+
+/** @internal
+ *  @property NSUInteger pointingDeviceDownIndex
+ *  @brief The index that was selected on the pointing device down event.
+ **/
+@synthesize pointingDeviceDownIndex;
 
 #pragma mark -
 #pragma mark Convenience Factory Methods
@@ -212,6 +219,7 @@ static const CGFloat colorLookupTable[10][3] =
         borderLineStyle               = nil;
         overlayFill                   = nil;
         labelRotationRelativeToRadius = NO;
+        pointingDeviceDownIndex       = NSNotFound;
 
         self.labelOffset = CPTFloat(10.0);
         self.labelField  = CPTPieChartFieldSliceWidth;
@@ -237,6 +245,7 @@ static const CGFloat colorLookupTable[10][3] =
         borderLineStyle               = theLayer->borderLineStyle;
         overlayFill                   = theLayer->overlayFill;
         labelRotationRelativeToRadius = theLayer->labelRotationRelativeToRadius;
+        pointingDeviceDownIndex       = NSNotFound;
     }
     return self;
 }
@@ -261,6 +270,9 @@ static const CGFloat colorLookupTable[10][3] =
     [coder encodeObject:self.borderLineStyle forKey:@"CPTPieChart.borderLineStyle"];
     [coder encodeObject:self.overlayFill forKey:@"CPTPieChart.overlayFill"];
     [coder encodeBool:self.labelRotationRelativeToRadius forKey:@"CPTPieChart.labelRotationRelativeToRadius"];
+
+    // No need to archive these properties:
+    // pointingDeviceDownIndex
 }
 
 -(instancetype)initWithCoder:(NSCoder *)coder
@@ -275,6 +287,7 @@ static const CGFloat colorLookupTable[10][3] =
         borderLineStyle               = [[coder decodeObjectForKey:@"CPTPieChart.borderLineStyle"] copy];
         overlayFill                   = [[coder decodeObjectForKey:@"CPTPieChart.overlayFill"] copy];
         labelRotationRelativeToRadius = [coder decodeBoolForKey:@"CPTPieChart.labelRotationRelativeToRadius"];
+        pointingDeviceDownIndex       = NSNotFound;
     }
     return self;
 }
@@ -989,12 +1002,12 @@ static const CGFloat colorLookupTable[10][3] =
 /**
  *  @brief Informs the receiver that the user has
  *  @if MacOnly pressed the mouse button. @endif
- *  @if iOSOnly touched the screen. @endif
+ *  @if iOSOnly started touching the screen. @endif
  *
  *
  *  If this plot has a delegate that responds to the
- *  @link CPTPieChartDelegate::pieChart:sliceWasSelectedAtRecordIndex: -pieChart:sliceWasSelectedAtRecordIndex: @endlink and/or
- *  @link CPTPieChartDelegate::pieChart:sliceWasSelectedAtRecordIndex:withEvent: -pieChart:sliceWasSelectedAtRecordIndex:withEvent: @endlink
+ *  @link CPTPieChartDelegate::pieChart:sliceTouchDownAtRecordIndex: -pieChart:sliceTouchDownAtRecordIndex: @endlink and/or
+ *  @link CPTPieChartDelegate::pieChart:sliceTouchDownAtRecordIndex:withEvent: -pieChart:sliceTouchDownAtRecordIndex:withEvent: @endlink
  *  methods, the @par{interactionPoint} is compared with each slice in index order.
  *  The delegate method will be called and this method returns @YES for the first
  *  index where the @par{interactionPoint} is inside a pie slice.
@@ -1014,23 +1027,99 @@ static const CGFloat colorLookupTable[10][3] =
     }
 
     id<CPTPieChartDelegate> theDelegate = self.delegate;
-    if ( [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:)] ||
+    if ( [theDelegate respondsToSelector:@selector(pieChart:sliceTouchDownAtRecordIndex:)] ||
+         [theDelegate respondsToSelector:@selector(pieChart:sliceTouchDownAtRecordIndex:withEvent:)] ||
+         [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:withEvent:)] ) {
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
 
         NSUInteger idx = [self dataIndexFromInteractionPoint:plotAreaPoint];
+        self.pointingDeviceDownIndex = idx;
+
         if ( idx != NSNotFound ) {
-            if ( [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:)] ) {
-                [theDelegate pieChart:self sliceWasSelectedAtRecordIndex:idx];
+            if ( [theDelegate respondsToSelector:@selector(pieChart:sliceTouchDownAtRecordIndex:)] ) {
+                [theDelegate pieChart:self sliceTouchDownAtRecordIndex:idx];
             }
-            if ( [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:withEvent:)] ) {
-                [theDelegate pieChart:self sliceWasSelectedAtRecordIndex:idx withEvent:event];
+
+            if ( [theDelegate respondsToSelector:@selector(pieChart:sliceTouchDownAtRecordIndex:withEvent:)] ) {
+                [theDelegate pieChart:self sliceTouchDownAtRecordIndex:idx withEvent:event];
             }
+
             return YES;
         }
     }
 
     return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
+}
+
+/**
+ *  @brief Informs the receiver that the user has
+ *  @if MacOnly released the mouse button. @endif
+ *  @if iOSOnly ended touching the screen. @endif
+ *
+ *
+ *  If this plot has a delegate that responds to the
+ *  @link CPTPieChartDelegate::pieChart:sliceTouchUpAtRecordIndex: -pieChart:sliceTouchUpAtRecordIndex: @endlink and/or
+ *  @link CPTPieChartDelegate::pieChart:sliceTouchUpAtRecordIndex:withEvent: -pieChart:sliceTouchUpAtRecordIndex:withEvent: @endlink
+ *  methods, the @par{interactionPoint} is compared with each slice in index order.
+ *  The delegate method will be called and this method returns @YES for the first
+ *  index where the @par{interactionPoint} is inside a pie slice.
+ *  This method returns @NO if the @par{interactionPoint} is outside all of the slices.
+ *
+ *  If the pie slice being released is the same as the one that was pressed (see
+ *  @link CPTPieChart::pointingDeviceDownEvent:atPoint: -pointingDeviceDownEvent:atPoint: @endlink), if the delegate responds to the
+ *  @link CPTPieChartDelegate::pieChart:sliceWasSelectedAtRecordIndex: -pieChart:sliceWasSelectedAtRecordIndex: @endlink and/or
+ *  @link CPTPieChartDelegate::pieChart:sliceWasSelectedAtRecordIndex:withEvent: -pieChart:sliceWasSelectedAtRecordIndex:withEvent: @endlink
+ *  methods, these will be called.
+ *
+ *  @param event The OS event.
+ *  @param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+{
+    NSUInteger selectedDownIndex = self.pointingDeviceDownIndex;
+
+    self.pointingDeviceDownIndex = NSNotFound;
+
+    CPTGraph *theGraph       = self.graph;
+    CPTPlotArea *thePlotArea = self.plotArea;
+
+    if ( !theGraph || !thePlotArea || self.hidden ) {
+        return NO;
+    }
+
+    id<CPTPieChartDelegate> theDelegate = self.delegate;
+    if ( [theDelegate respondsToSelector:@selector(pieChart:sliceTouchUpAtRecordIndex:)] ||
+         [theDelegate respondsToSelector:@selector(pieChart:sliceTouchUpAtRecordIndex:withEvent:)] ||
+         [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:)] ||
+         [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:withEvent:)] ) {
+        CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
+
+        NSUInteger idx = [self dataIndexFromInteractionPoint:plotAreaPoint];
+        if ( idx != NSNotFound ) {
+            if ( [theDelegate respondsToSelector:@selector(pieChart:sliceTouchUpAtRecordIndex:)] ) {
+                [theDelegate pieChart:self sliceTouchUpAtRecordIndex:idx];
+            }
+            if ( [theDelegate respondsToSelector:@selector(pieChart:sliceTouchUpAtRecordIndex:withEvent:)] ) {
+                [theDelegate pieChart:self sliceTouchUpAtRecordIndex:idx withEvent:event];
+            }
+
+            if ( idx == selectedDownIndex ) {
+                if ( [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:)] ) {
+                    [theDelegate pieChart:self sliceWasSelectedAtRecordIndex:idx];
+                }
+
+                if ( [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:withEvent:)] ) {
+                    [theDelegate pieChart:self sliceWasSelectedAtRecordIndex:idx withEvent:event];
+                }
+            }
+
+            return YES;
+        }
+    }
+
+    return [super pointingDeviceUpEvent:event atPoint:interactionPoint];
 }
 
 /// @}

@@ -53,6 +53,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 @property (nonatomic, readwrite, copy) NSArray *lineStyles;
 @property (nonatomic, readwrite, copy) NSArray *increaseLineStyles;
 @property (nonatomic, readwrite, copy) NSArray *decreaseLineStyles;
+@property (nonatomic, readwrite, assign) NSUInteger pointingDeviceDownIndex;
 
 -(void)drawCandleStickInContext:(CGContextRef)context atIndex:(NSUInteger)idx x:(CGFloat)x open:(CGFloat)openValue close:(CGFloat)closeValue high:(CGFloat)highValue low:(CGFloat)lowValue alignPoints:(BOOL)alignPoints;
 -(void)drawOHLCInContext:(CGContextRef)context atIndex:(NSUInteger)idx x:(CGFloat)x open:(CGFloat)openValue close:(CGFloat)closeValue high:(CGFloat)highValue low:(CGFloat)lowValue alignPoints:(BOOL)alignPoints;
@@ -141,6 +142,12 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
  **/
 @synthesize barCornerRadius;
 
+/** @internal
+ *  @property NSUInteger pointingDeviceDownIndex
+ *  @brief The index that was selected on the pointing device down event.
+ **/
+@synthesize pointingDeviceDownIndex;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -200,6 +207,8 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         stickLength       = CPTFloat(3.0);
         barCornerRadius   = CPTFloat(0.0);
 
+        pointingDeviceDownIndex = NSNotFound;
+
         self.labelField = CPTTradingRangePlotFieldClose;
     }
     return self;
@@ -223,6 +232,8 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         barWidth          = theLayer->barWidth;
         stickLength       = theLayer->stickLength;
         barCornerRadius   = theLayer->barCornerRadius;
+
+        pointingDeviceDownIndex = NSNotFound;
     }
     return self;
 }
@@ -247,6 +258,9 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     [coder encodeCGFloat:self.barWidth forKey:@"CPTTradingRangePlot.barWidth"];
     [coder encodeCGFloat:self.stickLength forKey:@"CPTTradingRangePlot.stickLength"];
     [coder encodeCGFloat:self.barCornerRadius forKey:@"CPTTradingRangePlot.barCornerRadius"];
+
+    // No need to archive these properties:
+    // pointingDeviceDownIndex
 }
 
 -(instancetype)initWithCoder:(NSCoder *)coder
@@ -261,6 +275,8 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         barWidth          = [coder decodeCGFloatForKey:@"CPTTradingRangePlot.barWidth"];
         stickLength       = [coder decodeCGFloatForKey:@"CPTTradingRangePlot.stickLength"];
         barCornerRadius   = [coder decodeCGFloatForKey:@"CPTTradingRangePlot.barCornerRadius"];
+
+        pointingDeviceDownIndex = NSNotFound;
     }
     return self;
 }
@@ -1325,12 +1341,12 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 /**
  *  @brief Informs the receiver that the user has
  *  @if MacOnly pressed the mouse button. @endif
- *  @if iOSOnly touched the screen. @endif
+ *  @if iOSOnly started touching the screen. @endif
  *
  *
  *  If this plot has a delegate that responds to the
- *  @link CPTTradingRangePlotDelegate::tradingRangePlot:barWasSelectedAtRecordIndex: -tradingRangePlot:barWasSelectedAtRecordIndex: @endlink and/or
- *  @link CPTTradingRangePlotDelegate::tradingRangePlot:barWasSelectedAtRecordIndex:withEvent: -tradingRangePlot:barWasSelectedAtRecordIndex:withEvent: @endlink
+ *  @link CPTTradingRangePlotDelegate::tradingRangePlot:barTouchDownAtRecordIndex: -tradingRangePlot:barTouchDownAtRecordIndex: @endlink or
+ *  @link CPTTradingRangePlotDelegate::tradingRangePlot:barTouchDownAtRecordIndex:withEvent: -tradingRangePlot:barTouchDownAtRecordIndex:withEvent: @endlink
  *  methods, the @par{interactionPoint} is compared with each bar in index order.
  *  The delegate method will be called and this method returns @YES for the first
  *  index where the @par{interactionPoint} is inside a bar.
@@ -1350,24 +1366,100 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     }
 
     id<CPTTradingRangePlotDelegate> theDelegate = self.delegate;
-    if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barWasSelectedAtRecordIndex:)] ||
+    if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchDownAtRecordIndex:)] ||
+         [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchDownAtRecordIndex:withEvent:)] ||
+         [theDelegate respondsToSelector:@selector(tradingRangePlot:barWasSelectedAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(tradingRangePlot:barWasSelectedAtRecordIndex:withEvent:)] ) {
         // Inform delegate if a point was hit
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
         NSUInteger idx        = [self dataIndexFromInteractionPoint:plotAreaPoint];
+        self.pointingDeviceDownIndex = idx;
 
         if ( idx != NSNotFound ) {
-            if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barWasSelectedAtRecordIndex:)] ) {
-                [theDelegate tradingRangePlot:self barWasSelectedAtRecordIndex:idx];
+            if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchDownAtRecordIndex:)] ) {
+                [theDelegate tradingRangePlot:self barTouchDownAtRecordIndex:idx];
             }
-            if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barWasSelectedAtRecordIndex:withEvent:)] ) {
-                [theDelegate tradingRangePlot:self barWasSelectedAtRecordIndex:idx withEvent:event];
+
+            if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchDownAtRecordIndex:withEvent:)] ) {
+                [theDelegate tradingRangePlot:self barTouchDownAtRecordIndex:idx withEvent:event];
             }
             return YES;
         }
     }
 
     return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
+}
+
+/**
+ *  @brief Informs the receiver that the user has
+ *  @if MacOnly released the mouse button. @endif
+ *  @if iOSOnly ended touching the screen. @endif
+ *
+ *
+ *  If this plot has a delegate that responds to the
+ *  @link CPTTradingRangePlotDelegate::tradingRangePlot:barTouchUpAtRecordIndex: -tradingRangePlot:barTouchUpAtRecordIndex: @endlink and/or
+ *  @link CPTTradingRangePlotDelegate::tradingRangePlot:barTouchUpAtRecordIndex:withEvent: -tradingRangePlot:barTouchUpAtRecordIndex:withEvent: @endlink
+ *  methods, the @par{interactionPoint} is compared with each bar in index order.
+ *  The delegate method will be called and this method returns @YES for the first
+ *  index where the @par{interactionPoint} is inside a bar.
+ *  This method returns @NO if the @par{interactionPoint} is outside all of the bars.
+ *
+ *  If the bar being released is the same as the one that was pressed (see
+ *  @link CPTTradingRangePlot::pointingDeviceDownEvent:atPoint: -pointingDeviceDownEvent:atPoint: @endlink), if the delegate responds to the
+ *  @link CPTTradingRangePlotDelegate::tradingRangePlot:barWasSelectedAtRecordIndex: -tradingRangePlot:barWasSelectedAtRecordIndex: @endlink and/or
+ *  @link CPTTradingRangePlotDelegate::tradingRangePlot:barWasSelectedAtRecordIndex:withEvent: -tradingRangePlot:barWasSelectedAtRecordIndex:withEvent: @endlink
+ *  methods, these will be called.
+ *
+ *  @param event The OS event.
+ *  @param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+{
+    NSUInteger selectedDownIndex = self.pointingDeviceDownIndex;
+
+    self.pointingDeviceDownIndex = NSNotFound;
+
+    CPTGraph *theGraph       = self.graph;
+    CPTPlotArea *thePlotArea = self.plotArea;
+
+    if ( !theGraph || !thePlotArea || self.hidden ) {
+        return NO;
+    }
+
+    id<CPTTradingRangePlotDelegate> theDelegate = self.delegate;
+    if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchUpAtRecordIndex:)] ||
+         [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchUpAtRecordIndex:withEvent:)] ||
+         [theDelegate respondsToSelector:@selector(tradingRangePlot:barWasSelectedAtRecordIndex:)] ||
+         [theDelegate respondsToSelector:@selector(tradingRangePlot:barWasSelectedAtRecordIndex:withEvent:)] ) {
+        // Inform delegate if a point was hit
+        CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
+        NSUInteger idx        = [self dataIndexFromInteractionPoint:plotAreaPoint];
+
+        if ( idx != NSNotFound ) {
+            if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchUpAtRecordIndex:)] ) {
+                [theDelegate tradingRangePlot:self barTouchUpAtRecordIndex:idx];
+            }
+
+            if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchUpAtRecordIndex:withEvent:)] ) {
+                [theDelegate tradingRangePlot:self barTouchUpAtRecordIndex:idx withEvent:event];
+            }
+
+            if ( idx == selectedDownIndex ) {
+                if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barWasSelectedAtRecordIndex:)] ) {
+                    [theDelegate tradingRangePlot:self barWasSelectedAtRecordIndex:idx];
+                }
+
+                if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barWasSelectedAtRecordIndex:withEvent:)] ) {
+                    [theDelegate tradingRangePlot:self barWasSelectedAtRecordIndex:idx withEvent:event];
+                }
+            }
+
+            return YES;
+        }
+    }
+
+    return [super pointingDeviceUpEvent:event atPoint:interactionPoint];
 }
 
 /// @}

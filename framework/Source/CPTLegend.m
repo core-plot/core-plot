@@ -33,6 +33,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 @property (nonatomic, readwrite, strong) NSArray *rowHeightsThatFit;
 @property (nonatomic, readwrite, strong) NSArray *columnWidthsThatFit;
 @property (nonatomic, readwrite, assign) BOOL layoutChanged;
+@property (nonatomic, readwrite, cpt_weak_property) __cpt_weak CPTLegendEntry *pointingDeviceDownEntry;
 
 -(void)recalculateLayout;
 -(void)removeLegendEntriesForPlot:(CPTPlot *)plot;
@@ -219,6 +220,12 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  **/
 @synthesize layoutChanged;
 
+/** @internal
+ *  @property __cpt_weak CPTLegendEntry *pointingDeviceDownEntry
+ *  @brief The legend entry that was selected on the pointing device down event.
+ **/
+@synthesize pointingDeviceDownEntry;
+
 #pragma mark -
 #pragma mark Factory Methods
 
@@ -312,6 +319,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
         rowMargin             = CPTFloat(5.0);
         titleOffset           = CPTFloat(5.0);
 
+        pointingDeviceDownEntry = nil;
+
         self.paddingLeft                = CPTFloat(5.0);
         self.paddingTop                 = CPTFloat(5.0);
         self.paddingRight               = CPTFloat(5.0);
@@ -384,6 +393,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
         columnMargin          = theLayer->columnMargin;
         rowMargin             = theLayer->rowMargin;
         titleOffset           = theLayer->titleOffset;
+
+        pointingDeviceDownEntry = theLayer->pointingDeviceDownEntry;
     }
     return self;
 }
@@ -430,6 +441,9 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     [coder encodeCGFloat:self.columnMargin forKey:@"CPTLegend.columnMargin"];
     [coder encodeCGFloat:self.rowMargin forKey:@"CPTLegend.rowMargin"];
     [coder encodeCGFloat:self.titleOffset forKey:@"CPTLegend.titleOffset"];
+
+    // No need to archive these properties:
+    // pointingDeviceDownEntry
 }
 
 -(instancetype)initWithCoder:(NSCoder *)coder
@@ -461,6 +475,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
         columnMargin          = [coder decodeCGFloatForKey:@"CPTLegend.columnMargin"];
         rowMargin             = [coder decodeCGFloatForKey:@"CPTLegend.rowMargin"];
         titleOffset           = [coder decodeCGFloatForKey:@"CPTLegend.titleOffset"];
+
+        pointingDeviceDownEntry = nil;
     }
     return self;
 }
@@ -1027,12 +1043,12 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 /**
  *  @brief Informs the receiver that the user has
  *  @if MacOnly pressed the mouse button. @endif
- *  @if iOSOnly touched the screen. @endif
+ *  @if iOSOnly started touching the screen. @endif
  *
  *
  *  If this legend has a delegate that responds to the
- *  @link CPTLegendDelegate::legend:legendEntryForPlot:wasSelectedAtIndex: -legend:legendEntryForPlot:wasSelectedAtIndex: @endlink and/or
- *  @link CPTLegendDelegate::legend:legendEntryForPlot:wasSelectedAtIndex:withEvent: -legend:legendEntryForPlot:wasSelectedAtIndex:withEvent: @endlink
+ *  @link CPTLegendDelegate::legend:legendEntryForPlot:touchDownAtIndex: -legend:legendEntryForPlot:touchDownAtIndex: @endlink or
+ *  @link CPTLegendDelegate::legend:legendEntryForPlot:touchDownAtIndex:withEvent: -legend:legendEntryForPlot:touchDownAtIndex:withEvent: @endlink
  *  methods, the legend entries are searched to find the plot and index of the one whose swatch or title contains the @par{interactionPoint}.
  *  The delegate method will be called and this method returns @YES if the @par{interactionPoint} is within a legend entry.
  *  This method returns @NO if the @par{interactionPoint} is too far away from all of the legend entries.
@@ -1050,7 +1066,9 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     }
 
     id<CPTLegendDelegate> theDelegate = self.delegate;
-    if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:)] ||
+    if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchDownAtIndex:)] ||
+         [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchDownAtIndex:withEvent:)] ||
+         [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:)] ||
          [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:withEvent:)] ) {
         // Convert the interaction point to the local coordinate system
         CPTGraph *theGraph = self.graph;
@@ -1112,6 +1130,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
         if ( (row != NSNotFound) && (col != NSNotFound) ) {
             for ( CPTLegendEntry *legendEntry in self.legendEntries ) {
                 if ( (legendEntry.row == row) && (legendEntry.column == col) ) {
+                    self.pointingDeviceDownEntry = legendEntry;
+
                     CPTPlot *legendPlot = legendEntry.plot;
 
                     if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:)] ) {
@@ -1127,6 +1147,132 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     }
 
     return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
+}
+
+/**
+ *  @brief Informs the receiver that the user has
+ *  @if MacOnly released the mouse button. @endif
+ *  @if iOSOnly ended touching the screen. @endif
+ *
+ *
+ *  If this legend has a delegate that responds to the
+ *  @link CPTLegendDelegate::legend:legendEntryForPlot:touchUpAtIndex: -legend:legendEntryForPlot:touchUpAtIndex: @endlink or
+ *  @link CPTLegendDelegate::legend:legendEntryForPlot:touchUpAtIndex:withEvent: -legend:legendEntryForPlot:touchUpAtIndex:withEvent: @endlink
+ *  methods, the legend entries are searched to find the plot and index of the one whose swatch or title contains the @par{interactionPoint}.
+ *  The delegate method will be called and this method returns @YES if the @par{interactionPoint} is within a legend entry.
+ *  This method returns @NO if the @par{interactionPoint} is too far away from all of the legend entries.
+ *
+ *  If the bar being released is the same as the one that was pressed (see
+ *  @link CPTLegend::pointingDeviceDownEvent:atPoint: -pointingDeviceDownEvent:atPoint: @endlink), if the delegate responds to the
+ *  @link CPTLegendDelegate::legend:legendEntryForPlot:WasSelectedAtRecordIndex: -legend:legendEntryForPlot:WasSelectedAtRecordIndex: @endlink and/or
+ *  @link CPTLegendDelegate::legend:legendEntryForPlot:WasSelectedAtRecordIndex:withEvent: -legend:legendEntryForPlot:WasSelectedAtRecordIndex:withEvent: @endlink
+ *  methods, these will be called.
+ *
+ *  @param event The OS event.
+ *  @param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+{
+    CPTLegendEntry *selectedDownEntry = self.pointingDeviceDownEntry;
+
+    self.pointingDeviceDownEntry = nil;
+
+    NSArray *myPlots = self.plots;
+
+    if ( self.hidden || (myPlots.count == 0) ) {
+        return NO;
+    }
+
+    id<CPTLegendDelegate> theDelegate = self.delegate;
+    if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchUpAtIndex:)] ||
+         [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchUpAtIndex:withEvent:)] ||
+         [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:)] ||
+         [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:withEvent:)] ) {
+        // Convert the interaction point to the local coordinate system
+        CPTGraph *theGraph = self.graph;
+        if ( theGraph ) {
+            interactionPoint = [self convertPoint:interactionPoint fromLayer:theGraph];
+        }
+        else {
+            for ( CPTPlot *plot in myPlots ) {
+                CPTGraph *plotGraph = plot.graph;
+
+                if ( plotGraph ) {
+                    interactionPoint = [self convertPoint:interactionPoint fromLayer:plotGraph];
+                    break;
+                }
+            }
+        }
+
+        // Update layout if needed
+        [self recalculateLayout];
+
+        // Hit test the legend entries
+        CGFloat rMargin = self.rowMargin;
+        CGFloat cMargin = self.columnMargin;
+
+        CGFloat swatchWidth = self.swatchSize.width + self.titleOffset;
+
+        NSUInteger row = NSNotFound;
+        NSUInteger col = NSNotFound;
+
+        // Rows
+        CGFloat position = CGRectGetMaxY(self.bounds) - self.paddingTop;
+        NSUInteger i     = 0;
+        for ( NSNumber *height in self.rowHeightsThatFit ) {
+            CGFloat rowHeight = height.cgFloatValue;
+            if ( (interactionPoint.y <= position) && (interactionPoint.y >= position - rowHeight) ) {
+                row = i;
+                break;
+            }
+
+            position -= rowHeight + rMargin;
+            i++;
+        }
+
+        // Columns
+        position = self.paddingLeft;
+        i        = 0;
+        for ( NSNumber *width in self.columnWidthsThatFit ) {
+            CGFloat colWidth = width.cgFloatValue;
+            if ( (interactionPoint.x >= position) && (interactionPoint.x <= position + colWidth) ) {
+                col = i;
+                break;
+            }
+
+            position += colWidth + swatchWidth + cMargin;
+            i++;
+        }
+
+        // Notify the delegate if we found a hit
+        if ( (row != NSNotFound) && (col != NSNotFound) ) {
+            for ( CPTLegendEntry *legendEntry in self.legendEntries ) {
+                if ( (legendEntry.row == row) && (legendEntry.column == col) ) {
+                    if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchUpAtIndex:)] ) {
+                        [theDelegate legend:self legendEntryForPlot:legendEntry.plot touchUpAtIndex:legendEntry.index];
+                    }
+                    if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchUpAtIndex:withEvent:)] ) {
+                        [theDelegate legend:self legendEntryForPlot:legendEntry.plot touchUpAtIndex:legendEntry.index withEvent:event];
+                    }
+
+                    if ( legendEntry == selectedDownEntry ) {
+                        if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:)] ) {
+                            [theDelegate legend:self legendEntryForPlot:legendEntry.plot wasSelectedAtIndex:legendEntry.index];
+                        }
+
+                        if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:withEvent:)] ) {
+                            [theDelegate legend:self legendEntryForPlot:legendEntry.plot wasSelectedAtIndex:legendEntry.index withEvent:event];
+                        }
+                    }
+
+                    return YES;
+                }
+            }
+        }
+    }
+
+    return [super pointingDeviceUpEvent:event atPoint:interactionPoint];
 }
 
 /// @}

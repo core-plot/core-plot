@@ -37,6 +37,8 @@
 @property (nonatomic, readwrite, assign) BOOL needsRelabel;
 @property (nonatomic, readwrite, cpt_weak_property) __cpt_weak CPTGridLines *minorGridLines;
 @property (nonatomic, readwrite, cpt_weak_property) __cpt_weak CPTGridLines *majorGridLines;
+@property (nonatomic, readwrite, cpt_weak_property) __cpt_weak CPTAxisLabel *pointingDeviceDownLabel;
+@property (nonatomic, readwrite, cpt_weak_property) __cpt_weak CPTAxisLabel *pointingDeviceDownTickLabel;
 @property (nonatomic, readwrite, assign) BOOL labelFormatterChanged;
 @property (nonatomic, readwrite, assign) BOOL minorLabelFormatterChanged;
 @property (nonatomic, readwrite, strong) NSMutableArray *mutableBackgroundLimitBands;
@@ -450,6 +452,18 @@ NSDecimal niceLength(NSDecimal length);
  **/
 @dynamic axisSet;
 
+/** @internal
+ *  @property __cpt_weak CPTAxisLabel *pointingDeviceDownLabel
+ *  @brief The label that was selected on the pointing device down event.
+ **/
+@synthesize pointingDeviceDownLabel;
+
+/** @internal
+ *  @property __cpt_weak CPTAxisLabel *pointingDeviceDownTickLabel
+ *  @brief The tick label that was selected on the pointing device down event.
+ **/
+@synthesize pointingDeviceDownTickLabel;
+
 @synthesize inTitleUpdate;
 @synthesize labelsUpdated;
 
@@ -581,6 +595,8 @@ NSDecimal niceLength(NSDecimal length);
         mutableBackgroundLimitBands = nil;
         minorGridLines              = nil;
         majorGridLines              = nil;
+        pointingDeviceDownLabel     = nil;
+        pointingDeviceDownTickLabel = nil;
         inTitleUpdate               = NO;
         labelsUpdated               = NO;
 
@@ -652,6 +668,8 @@ NSDecimal niceLength(NSDecimal length);
         mutableBackgroundLimitBands = theLayer->mutableBackgroundLimitBands;
         minorGridLines              = theLayer->minorGridLines;
         majorGridLines              = theLayer->majorGridLines;
+        pointingDeviceDownLabel     = theLayer->pointingDeviceDownLabel;
+        pointingDeviceDownTickLabel = theLayer->pointingDeviceDownTickLabel;
         inTitleUpdate               = theLayer->inTitleUpdate;
         labelsUpdated               = theLayer->labelsUpdated;
     }
@@ -738,6 +756,8 @@ NSDecimal niceLength(NSDecimal length);
     [coder encodeConditionalObject:self.majorGridLines forKey:@"CPTAxis.majorGridLines"];
 
     // No need to archive these properties:
+    // pointingDeviceDownLabel
+    // pointingDeviceDownTickLabel
     // inTitleUpdate
     // labelsUpdated
 }
@@ -801,6 +821,9 @@ NSDecimal niceLength(NSDecimal length);
         plotArea                    = [coder decodeObjectForKey:@"CPTAxis.plotArea"];
         minorGridLines              = [coder decodeObjectForKey:@"CPTAxis.minorGridLines"];
         majorGridLines              = [coder decodeObjectForKey:@"CPTAxis.majorGridLines"];
+
+        pointingDeviceDownLabel     = nil;
+        pointingDeviceDownTickLabel = nil;
 
         inTitleUpdate = NO;
         labelsUpdated = NO;
@@ -1835,18 +1858,18 @@ NSDecimal niceLength(NSDecimal length)
 /**
  *  @brief Informs the receiver that the user has
  *  @if MacOnly pressed the mouse button. @endif
- *  @if iOSOnly touched the screen. @endif
+ *  @if iOSOnly started touching the screen. @endif
  *
  *
- *  If this axis has a delegate that responds to the
- *  @link CPTAxisDelegate::axis:labelWasSelected: -axis:labelWasSelected: @endlink and/or
- *  @link CPTAxisDelegate::axis:labelWasSelected:withEvent: -axis:labelWasSelected:withEvent: @endlink
+ *  If this axis has a delegate that responds to either
+ *  @link CPTAxisDelegate::axis:labelTouchDown: -axis:labelTouchDown: @endlink or
+ *  @link CPTAxisDelegate::axis:labelTouchDown:withEvent: -axis:labelTouchDown:withEvent: @endlink
  *  methods, the axis labels are searched to find the one containing the @par{interactionPoint}.
  *  The delegate method will be called and this method returns @YES if the @par{interactionPoint} is within a label.
  *
- *  If this axis has a delegate that responds to the
- *  @link CPTAxisDelegate::axis:minorTickLabelWasSelected: -axis:minorTickLabelWasSelected: @endlink and/or
- *  @link CPTAxisDelegate::axis:minorTickLabelWasSelected:withEvent: -axis:minorTickLabelWasSelected:withEvent: @endlink
+ *  If this axis has a delegate that responds to either
+ *  @link CPTAxisDelegate::axis:minorTickTouchDown: -axis:minorTickTouchDown: @endlink or
+ *  @link CPTAxisDelegate::axis:minorTickTouchDown:withEvent: -axis:minorTickTouchDown:withEvent: @endlink
  *  methods, the minor tick axis labels are searched to find the one containing the @par{interactionPoint}.
  *  The delegate method will be called and this method returns @YES if the @par{interactionPoint} is within a label.
  *
@@ -1867,7 +1890,9 @@ NSDecimal niceLength(NSDecimal length)
     id<CPTAxisDelegate> theDelegate = self.delegate;
 
     // Tick labels
-    if ( [theDelegate respondsToSelector:@selector(axis:labelWasSelected:)] ||
+    if ( [theDelegate respondsToSelector:@selector(axis:labelTouchDown:)] ||
+         [theDelegate respondsToSelector:@selector(axis:labelTouchDown:withEvent:)] ||
+         [theDelegate respondsToSelector:@selector(axis:labelWasSelected:)] ||
          [theDelegate respondsToSelector:@selector(axis:labelWasSelected:withEvent:)] ) {
         for ( CPTAxisLabel *label in self.axisLabels ) {
             CPTLayer *contentLayer = label.contentLayer;
@@ -1875,12 +1900,16 @@ NSDecimal niceLength(NSDecimal length)
                 CGPoint labelPoint = [theGraph convertPoint:interactionPoint toLayer:contentLayer];
 
                 if ( CGRectContainsPoint(contentLayer.bounds, labelPoint) ) {
-                    if ( [theDelegate respondsToSelector:@selector(axis:labelWasSelected:)] ) {
-                        [theDelegate axis:self labelWasSelected:label];
+                    self.pointingDeviceDownLabel = label;
+
+                    if ( [theDelegate respondsToSelector:@selector(axis:labelTouchDown:)] ) {
+                        [theDelegate axis:self labelTouchDown:label];
                     }
-                    if ( [theDelegate respondsToSelector:@selector(axis:labelWasSelected:withEvent:)] ) {
-                        [theDelegate axis:self labelWasSelected:label withEvent:event];
+
+                    if ( [theDelegate respondsToSelector:@selector(axis:labelTouchDown:withEvent:)] ) {
+                        [theDelegate axis:self labelTouchDown:label withEvent:event];
                     }
+
                     return YES;
                 }
             }
@@ -1888,7 +1917,9 @@ NSDecimal niceLength(NSDecimal length)
     }
 
     // Minor tick labels
-    if ( [theDelegate respondsToSelector:@selector(axis:minorTickLabelWasSelected:)] ||
+    if ( [theDelegate respondsToSelector:@selector(axis:minorTickTouchDown:)] ||
+         [theDelegate respondsToSelector:@selector(axis:minorTickTouchDown:withEvent:)] ||
+         [theDelegate respondsToSelector:@selector(axis:minorTickLabelWasSelected:)] ||
          [theDelegate respondsToSelector:@selector(axis:minorTickLabelWasSelected:withEvent:)] ) {
         for ( CPTAxisLabel *label in self.minorTickAxisLabels ) {
             CPTLayer *contentLayer = label.contentLayer;
@@ -1896,12 +1927,16 @@ NSDecimal niceLength(NSDecimal length)
                 CGPoint labelPoint = [theGraph convertPoint:interactionPoint toLayer:contentLayer];
 
                 if ( CGRectContainsPoint(contentLayer.bounds, labelPoint) ) {
-                    if ( [theDelegate respondsToSelector:@selector(axis:minorTickLabelWasSelected:)] ) {
-                        [theDelegate axis:self minorTickLabelWasSelected:label];
+                    self.pointingDeviceDownTickLabel = label;
+
+                    if ( [theDelegate respondsToSelector:@selector(axis:minorTickTouchDown:)] ) {
+                        [theDelegate axis:self minorTickTouchDown:label];
                     }
-                    if ( [theDelegate respondsToSelector:@selector(axis:minorTickLabelWasSelected:withEvent:)] ) {
-                        [theDelegate axis:self minorTickLabelWasSelected:label withEvent:event];
+
+                    if ( [theDelegate respondsToSelector:@selector(axis:minorTickTouchDown:withEvent:)] ) {
+                        [theDelegate axis:self minorTickTouchDown:label withEvent:event];
                     }
+
                     return YES;
                 }
             }
@@ -1909,6 +1944,123 @@ NSDecimal niceLength(NSDecimal length)
     }
 
     return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
+}
+
+/**
+ *  @brief Informs the receiver that the user has
+ *  @if MacOnly released the mouse button. @endif
+ *  @if iOSOnly ended touching the screen. @endif
+ *
+ *
+ *  If this axis has a delegate that responds to
+ *  @link CPTAxisDelegate::axis:labelTouchUp: -axis:labelTouchUp: @endlink,
+ *  @link CPTAxisDelegate::axis:labelTouchUp:withEvent: -axis:labelTouchUp:withEvent: @endlink
+ *  @link CPTAxisDelegate::axis:labelWasSelected: -axis:labelWasSelected: @endlink, and/or
+ *  @link CPTAxisDelegate::axis:labelWasSelected:withEvent: -axis:labelWasSelected:withEvent: @endlink
+ *  methods, the axis labels are searched to find the one containing the @par{interactionPoint}.
+ *  The delegate method will be called and this method returns @YES if the @par{interactionPoint} is within a label.
+ *
+ *  If this axis has a delegate that responds to
+ *  @link CPTAxisDelegate::axis:minorTickTouchUp: -axis:minorTickTouchUp: @endlink,
+ *  @link CPTAxisDelegate::axis:minorTickTouchUp:withEvent: -axis:minorTickTouchUp:withEvent: @endlink
+ *  @link CPTAxisDelegate::axis:minorTickLabelWasSelected: -axis:minorTickLabelWasSelected: @endlink, and/or
+ *  @link CPTAxisDelegate::axis:minorTickLabelWasSelected:withEvent: -axis:minorTickLabelWasSelected:withEvent: @endlink
+ *  methods, the minor tick axis labels are searched to find the one containing the @par{interactionPoint}.
+ *  The delegate method will be called and this method returns @YES if the @par{interactionPoint} is within a label.
+ *
+ *  This method returns @NO if the @par{interactionPoint} is outside all of the labels.
+ *
+ *  @param event The OS event.
+ *  @param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+{
+    CPTAxisLabel *selectedDownLabel     = self.pointingDeviceDownLabel;
+    CPTAxisLabel *selectedDownTickLabel = self.pointingDeviceDownTickLabel;
+
+    self.pointingDeviceDownLabel     = nil;
+    self.pointingDeviceDownTickLabel = nil;
+
+    CPTGraph *theGraph = self.graph;
+
+    if ( !theGraph || self.hidden ) {
+        return NO;
+    }
+
+    id<CPTAxisDelegate> theDelegate = self.delegate;
+
+    // Tick labels
+    if ( [theDelegate respondsToSelector:@selector(axis:labelTouchUp:)] ||
+         [theDelegate respondsToSelector:@selector(axis:labelTouchUp:withEvent:)] ||
+         [theDelegate respondsToSelector:@selector(axis:labelWasSelected:)] ||
+         [theDelegate respondsToSelector:@selector(axis:labelWasSelected:withEvent:)] ) {
+        for ( CPTAxisLabel *label in self.axisLabels ) {
+            CPTLayer *contentLayer = label.contentLayer;
+            if ( contentLayer && !contentLayer.hidden ) {
+                CGPoint labelPoint = [theGraph convertPoint:interactionPoint toLayer:contentLayer];
+
+                if ( CGRectContainsPoint(contentLayer.bounds, labelPoint) ) {
+                    if ( [theDelegate respondsToSelector:@selector(axis:labelTouchUp:)] ) {
+                        [theDelegate axis:self labelTouchUp:label];
+                    }
+
+                    if ( [theDelegate respondsToSelector:@selector(axis:labelTouchUp:withEvent:)] ) {
+                        [theDelegate axis:self labelTouchUp:label withEvent:event];
+                    }
+
+                    if ( label == selectedDownLabel ) {
+                        if ( [theDelegate respondsToSelector:@selector(axis:labelWasSelected:)] ) {
+                            [theDelegate axis:self labelWasSelected:label];
+                        }
+
+                        if ( [theDelegate respondsToSelector:@selector(axis:labelWasSelected:withEvent:)] ) {
+                            [theDelegate axis:self labelWasSelected:label withEvent:event];
+                        }
+                    }
+
+                    return YES;
+                }
+            }
+        }
+    }
+
+    // Minor tick labels
+    if ( [theDelegate respondsToSelector:@selector(axis:minorTickTouchUp:)] ||
+         [theDelegate respondsToSelector:@selector(axis:minorTickTouchUp:withEvent:)] ||
+         [theDelegate respondsToSelector:@selector(axis:minorTickLabelWasSelected:)] ||
+         [theDelegate respondsToSelector:@selector(axis:minorTickLabelWasSelected:withEvent:)] ) {
+        for ( CPTAxisLabel *label in self.minorTickAxisLabels ) {
+            CPTLayer *contentLayer = label.contentLayer;
+            if ( contentLayer && !contentLayer.hidden ) {
+                CGPoint labelPoint = [theGraph convertPoint:interactionPoint toLayer:contentLayer];
+
+                if ( CGRectContainsPoint(contentLayer.bounds, labelPoint) ) {
+                    if ( [theDelegate respondsToSelector:@selector(axis:minorTickTouchUp:)] ) {
+                        [theDelegate axis:self minorTickTouchUp:label];
+                    }
+
+                    if ( [theDelegate respondsToSelector:@selector(axis:minorTickTouchUp:withEvent:)] ) {
+                        [theDelegate axis:self minorTickTouchUp:label withEvent:event];
+                    }
+
+                    if ( label == selectedDownTickLabel ) {
+                        if ( [theDelegate respondsToSelector:@selector(axis:minorTickLabelWasSelected:)] ) {
+                            [theDelegate axis:self minorTickLabelWasSelected:label];
+                        }
+
+                        if ( [theDelegate respondsToSelector:@selector(axis:minorTickLabelWasSelected:withEvent:)] ) {
+                            [theDelegate axis:self minorTickLabelWasSelected:label withEvent:event];
+                        }
+                    }
+
+                    return YES;
+                }
+            }
+        }
+    }
+
+    return [super pointingDeviceUpEvent:event atPoint:interactionPoint];
 }
 
 /// @}

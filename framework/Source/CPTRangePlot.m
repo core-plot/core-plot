@@ -54,6 +54,7 @@ typedef struct CGPointError CGPointError;
 @property (nonatomic, readwrite, copy) CPTMutableNumericData *leftValues;
 @property (nonatomic, readwrite, copy) CPTMutableNumericData *rightValues;
 @property (nonatomic, readwrite, copy) NSArray *barLineStyles;
+@property (nonatomic, readwrite, assign) NSUInteger pointingDeviceDownIndex;
 
 -(void)calculatePointsToDraw:(BOOL *)pointDrawFlags numberOfPoints:(NSUInteger)dataCount forPlotSpace:(CPTXYPlotSpace *)xyPlotSpace includeVisiblePointsOnly:(BOOL)visibleOnly;
 -(void)calculateViewPoints:(CGPointError *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags numberOfPoints:(NSUInteger)dataCount;
@@ -119,6 +120,12 @@ typedef struct CGPointError CGPointError;
  **/
 @synthesize gapWidth;
 
+/** @internal
+ *  @property NSUInteger pointingDeviceDownIndex
+ *  @brief The index that was selected on the pointing device down event.
+ **/
+@synthesize pointingDeviceDownIndex;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -161,6 +168,8 @@ typedef struct CGPointError CGPointError;
         barLineStyle = [[CPTLineStyle alloc] init];
         areaFill     = nil;
 
+        pointingDeviceDownIndex = NSNotFound;
+
         self.labelField = CPTRangePlotFieldX;
     }
     return self;
@@ -176,6 +185,8 @@ typedef struct CGPointError CGPointError;
         CPTRangePlot *theLayer = (CPTRangePlot *)layer;
         barLineStyle = theLayer->barLineStyle;
         areaFill     = nil;
+
+        pointingDeviceDownIndex = NSNotFound;
     }
     return self;
 }
@@ -196,6 +207,9 @@ typedef struct CGPointError CGPointError;
     [coder encodeCGFloat:self.gapHeight forKey:@"CPTRangePlot.gapHeight"];
     [coder encodeCGFloat:self.gapWidth forKey:@"CPTRangePlot.gapWidth"];
     [coder encodeObject:self.areaFill forKey:@"CPTRangePlot.areaFill"];
+
+    // No need to archive these properties:
+    // pointingDeviceDownIndex
 }
 
 -(instancetype)initWithCoder:(NSCoder *)coder
@@ -206,6 +220,8 @@ typedef struct CGPointError CGPointError;
         gapHeight    = [coder decodeCGFloatForKey:@"CPTRangePlot.gapHeight"];
         gapWidth     = [coder decodeCGFloatForKey:@"CPTRangePlot.gapWidth"];
         areaFill     = [[coder decodeObjectForKey:@"CPTRangePlot.areaFill"] copy];
+
+        pointingDeviceDownIndex = NSNotFound;
     }
     return self;
 }
@@ -985,12 +1001,12 @@ typedef struct CGPointError CGPointError;
 /**
  *  @brief Informs the receiver that the user has
  *  @if MacOnly pressed the mouse button. @endif
- *  @if iOSOnly touched the screen. @endif
+ *  @if iOSOnly started touching the screen. @endif
  *
  *
  *  If this plot has a delegate that responds to the
- *  @link CPTRangePlotDelegate::rangePlot:rangeWasSelectedAtRecordIndex: -rangePlot:rangeWasSelectedAtRecordIndex: @endlink and/or
- *  @link CPTRangePlotDelegate::rangePlot:rangeWasSelectedAtRecordIndex:withEvent: -rangePlot:rangeWasSelectedAtRecordIndex:withEvent: @endlink
+ *  @link CPTRangePlotDelegate::rangePlot:rangeTouchDownAtRecordIndex: -rangePlot:rangeTouchDownAtRecordIndex: @endlink or
+ *  @link CPTRangePlotDelegate::rangePlot:rangeTouchDownAtRecordIndex:withEvent: -rangePlot:rangeTouchDownAtRecordIndex:withEvent: @endlink
  *  methods, the @par{interactionPoint} is compared with each bar in index order.
  *  The delegate method will be called and this method returns @YES for the first
  *  index where the @par{interactionPoint} is inside a bar.
@@ -1010,24 +1026,101 @@ typedef struct CGPointError CGPointError;
     }
 
     id<CPTRangePlotDelegate> theDelegate = self.delegate;
-    if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:)] ||
+    if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchDownAtRecordIndex:)] ||
+         [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchDownAtRecordIndex:withEvent:)] ||
+         [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:)] ||
+         [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:withEvent:)] ) {
+        // Inform delegate if a point was hit
+        CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
+        NSUInteger idx        = [self dataIndexFromInteractionPoint:plotAreaPoint];
+        self.pointingDeviceDownIndex = idx;
+
+        if ( idx != NSNotFound ) {
+            if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchDownAtRecordIndex:)] ) {
+                [theDelegate rangePlot:self rangeTouchDownAtRecordIndex:idx];
+            }
+
+            if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchDownAtRecordIndex:withEvent:)] ) {
+                [theDelegate rangePlot:self rangeTouchDownAtRecordIndex:idx withEvent:event];
+            }
+
+            return YES;
+        }
+    }
+
+    return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
+}
+
+/**
+ *  @brief Informs the receiver that the user has
+ *  @if MacOnly released the mouse button. @endif
+ *  @if iOSOnly ended touching the screen. @endif
+ *
+ *
+ *  If this plot has a delegate that responds to the
+ *  @link CPTRangePlotDelegate::rangePlot:rangeTouchUpAtRecordIndex: -rangePlot:rangeTouchUpAtRecordIndex: @endlink and/or
+ *  @link CPTRangePlotDelegate::rangePlot:rangeTouchUpAtRecordIndex:withEvent: -rangePlot:rangeTouchUpAtRecordIndex:withEvent: @endlink
+ *  methods, the @par{interactionPoint} is compared with each bar in index order.
+ *  The delegate method will be called and this method returns @YES for the first
+ *  index where the @par{interactionPoint} is inside a bar.
+ *  This method returns @NO if the @par{interactionPoint} is outside all of the bars.
+ *
+ *  If the bar being released is the same as the one that was pressed (see
+ *  @link CPTRangePlot::pointingDeviceDownEvent:atPoint: -pointingDeviceDownEvent:atPoint: @endlink), if the delegate responds to the
+ *  @link CPTRangePlotDelegate::rangePlot:rangeWasSelectedAtRecordIndex: -rangePlot:rangeWasSelectedAtRecordIndex: @endlink and/or
+ *  @link CPTRangePlotDelegate::rangePlot:rangeWasSelectedAtRecordIndex:withEvent: -rangePlot:rangeWasSelectedAtRecordIndex:withEvent: @endlink
+ *  methods, these will be called.
+ *
+ *  @param event The OS event.
+ *  @param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+{
+    NSUInteger selectedDownIndex = self.pointingDeviceDownIndex;
+
+    self.pointingDeviceDownIndex = NSNotFound;
+
+    CPTGraph *theGraph       = self.graph;
+    CPTPlotArea *thePlotArea = self.plotArea;
+
+    if ( !theGraph || !thePlotArea || self.hidden ) {
+        return NO;
+    }
+
+    id<CPTRangePlotDelegate> theDelegate = self.delegate;
+    if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchUpAtRecordIndex:)] ||
+         [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchUpAtRecordIndex:withEvent:)] ||
+         [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:withEvent:)] ) {
         // Inform delegate if a point was hit
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
         NSUInteger idx        = [self dataIndexFromInteractionPoint:plotAreaPoint];
 
         if ( idx != NSNotFound ) {
-            if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:)] ) {
-                [theDelegate rangePlot:self rangeWasSelectedAtRecordIndex:idx];
+            if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchUpAtRecordIndex:)] ) {
+                [theDelegate rangePlot:self rangeTouchUpAtRecordIndex:idx];
             }
-            if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:withEvent:)] ) {
-                [theDelegate rangePlot:self rangeWasSelectedAtRecordIndex:idx withEvent:event];
+
+            if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchUpAtRecordIndex:withEvent:)] ) {
+                [theDelegate rangePlot:self rangeTouchUpAtRecordIndex:idx withEvent:event];
             }
+
+            if ( idx == selectedDownIndex ) {
+                if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:)] ) {
+                    [theDelegate rangePlot:self rangeWasSelectedAtRecordIndex:idx];
+                }
+
+                if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:withEvent:)] ) {
+                    [theDelegate rangePlot:self rangeWasSelectedAtRecordIndex:idx withEvent:event];
+                }
+            }
+
             return YES;
         }
     }
 
-    return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
+    return [super pointingDeviceUpEvent:event atPoint:interactionPoint];
 }
 
 /// @}

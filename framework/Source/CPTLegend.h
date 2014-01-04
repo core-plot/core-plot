@@ -89,9 +89,9 @@ extern NSString *const CPTLegendNeedsReloadEntriesForPlotNotification;
 /// @name Legend Entry Selection
 /// @{
 
-/** @brief @optional Informs the delegate that the swatch or label of a legend entry was
- *  @if MacOnly clicked. @endif
- *  @if iOSOnly touched. @endif
+/** @brief @optional Informs the delegate that the swatch or label of a legend entry
+ *  @if MacOnly was both pressed and released. @endif
+ *  @if iOSOnly received both the touch down and up events. @endif
  *  @param legend The legend.
  *  @param plot The plot associated with the selected legend entry.
  *  @param idx The index of the
@@ -100,9 +100,9 @@ extern NSString *const CPTLegendNeedsReloadEntriesForPlotNotification;
  **/
 -(void)legend:(CPTLegend *)legend legendEntryForPlot:(CPTPlot *)plot wasSelectedAtIndex:(NSUInteger)idx;
 
-/** @brief @optional Informs the delegate that the swatch or label of a legend entry was
- *  @if MacOnly clicked. @endif
- *  @if iOSOnly touched. @endif
+/** @brief @optional Informs the delegate that the swatch or label of a legend entry
+ *  @if MacOnly was both pressed and released. @endif
+ *  @if iOSOnly received both the touch down and up events. @endif
  *  @param legend The legend.
  *  @param plot The plot associated with the selected legend entry.
  *  @param idx The index of the
@@ -111,6 +111,52 @@ extern NSString *const CPTLegendNeedsReloadEntriesForPlotNotification;
  *  @param event The event that triggered the selection.
  **/
 -(void)legend:(CPTLegend *)legend legendEntryForPlot:(CPTPlot *)plot wasSelectedAtIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that the swatch or label of a legend entry
+ *  @if MacOnly was pressed. @endif
+ *  @if iOSOnly touch started. @endif
+ *  @param legend The legend.
+ *  @param plot The plot associated with the selected legend entry.
+ *  @param idx The index of the
+ *  @if MacOnly clicked legend entry. @endif
+ *  @if iOSOnly touched legend entry. @endif
+ **/
+-(void)legend:(CPTLegend *)legend legendEntryForPlot:(CPTPlot *)plot touchDownAtIndex:(NSUInteger)idx;
+
+/** @brief @optional Informs the delegate that the swatch or label of a legend entry
+ *  @if MacOnly was pressed. @endif
+ *  @if iOSOnly touch started. @endif
+ *  @param legend The legend.
+ *  @param plot The plot associated with the selected legend entry.
+ *  @param idx The index of the
+ *  @if MacOnly clicked legend entry. @endif
+ *  @if iOSOnly touched legend entry. @endif
+ *  @param event The event that triggered the selection.
+ **/
+-(void)legend:(CPTLegend *)legend legendEntryForPlot:(CPTPlot *)plot touchDownAtIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that the swatch or label of a legend entry
+ *  @if MacOnly was released. @endif
+ *  @if iOSOnly touch ended. @endif
+ *  @param legend The legend.
+ *  @param plot The plot associated with the selected legend entry.
+ *  @param idx The index of the
+ *  @if MacOnly clicked legend entry. @endif
+ *  @if iOSOnly touched legend entry. @endif
+ **/
+-(void)legend:(CPTLegend *)legend legendEntryForPlot:(CPTPlot *)plot touchUpAtIndex:(NSUInteger)idx;
+
+/** @brief @optional Informs the delegate that the swatch or label of a legend entry
+ *  @if MacOnly was released. @endif
+ *  @if iOSOnly touch ended. @endif
+ *  @param legend The legend.
+ *  @param plot The plot associated with the selected legend entry.
+ *  @param idx The index of the
+ *  @if MacOnly clicked legend entry. @endif
+ *  @if iOSOnly touched legend entry. @endif
+ *  @param event The event that triggered the selection.
+ **/
+-(void)legend:(CPTLegend *)legend legendEntryForPlot:(CPTPlot *)plot touchUpAtIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
 
 /// @}
 
