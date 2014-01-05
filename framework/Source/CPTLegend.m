@@ -1133,14 +1133,20 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
                     self.pointingDeviceDownEntry = legendEntry;
 
                     CPTPlot *legendPlot = legendEntry.plot;
+                    BOOL handled        = NO;
 
-                    if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:)] ) {
-                        [theDelegate legend:self legendEntryForPlot:legendPlot wasSelectedAtIndex:legendEntry.index];
+                    if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchDownAtIndex:)] ) {
+                        handled = YES;
+                        [theDelegate legend:self legendEntryForPlot:legendPlot touchDownAtIndex:legendEntry.index];
                     }
-                    if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:withEvent:)] ) {
-                        [theDelegate legend:self legendEntryForPlot:legendPlot wasSelectedAtIndex:legendEntry.index withEvent:event];
+                    if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchDownAtIndex:withEvent:)] ) {
+                        handled = YES;
+                        [theDelegate legend:self legendEntryForPlot:legendPlot touchDownAtIndex:legendEntry.index withEvent:event];
                     }
-                    return YES;
+
+                    if ( handled ) {
+                        return YES;
+                    }
                 }
             }
         }
@@ -1249,24 +1255,32 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
         if ( (row != NSNotFound) && (col != NSNotFound) ) {
             for ( CPTLegendEntry *legendEntry in self.legendEntries ) {
                 if ( (legendEntry.row == row) && (legendEntry.column == col) ) {
+                    BOOL handled = NO;
+
                     if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchUpAtIndex:)] ) {
+                        handled = YES;
                         [theDelegate legend:self legendEntryForPlot:legendEntry.plot touchUpAtIndex:legendEntry.index];
                     }
                     if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchUpAtIndex:withEvent:)] ) {
+                        handled = YES;
                         [theDelegate legend:self legendEntryForPlot:legendEntry.plot touchUpAtIndex:legendEntry.index withEvent:event];
                     }
 
                     if ( legendEntry == selectedDownEntry ) {
                         if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:)] ) {
+                            handled = YES;
                             [theDelegate legend:self legendEntryForPlot:legendEntry.plot wasSelectedAtIndex:legendEntry.index];
                         }
 
                         if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:withEvent:)] ) {
+                            handled = YES;
                             [theDelegate legend:self legendEntryForPlot:legendEntry.plot wasSelectedAtIndex:legendEntry.index withEvent:event];
                         }
                     }
 
-                    return YES;
+                    if ( handled ) {
+                        return YES;
+                    }
                 }
             }
         }

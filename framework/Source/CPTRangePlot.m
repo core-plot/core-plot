@@ -1036,15 +1036,21 @@ typedef struct CGPointError CGPointError;
         self.pointingDeviceDownIndex = idx;
 
         if ( idx != NSNotFound ) {
+            BOOL handled = NO;
+
             if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchDownAtRecordIndex:)] ) {
+                handled = YES;
                 [theDelegate rangePlot:self rangeTouchDownAtRecordIndex:idx];
             }
 
             if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchDownAtRecordIndex:withEvent:)] ) {
+                handled = YES;
                 [theDelegate rangePlot:self rangeTouchDownAtRecordIndex:idx withEvent:event];
             }
 
-            return YES;
+            if ( handled ) {
+                return YES;
+            }
         }
     }
 
@@ -1098,25 +1104,33 @@ typedef struct CGPointError CGPointError;
         NSUInteger idx        = [self dataIndexFromInteractionPoint:plotAreaPoint];
 
         if ( idx != NSNotFound ) {
+            BOOL handled = NO;
+
             if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchUpAtRecordIndex:)] ) {
+                handled = YES;
                 [theDelegate rangePlot:self rangeTouchUpAtRecordIndex:idx];
             }
 
             if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchUpAtRecordIndex:withEvent:)] ) {
+                handled = YES;
                 [theDelegate rangePlot:self rangeTouchUpAtRecordIndex:idx withEvent:event];
             }
 
             if ( idx == selectedDownIndex ) {
                 if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:)] ) {
+                    handled = YES;
                     [theDelegate rangePlot:self rangeWasSelectedAtRecordIndex:idx];
                 }
 
                 if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:withEvent:)] ) {
+                    handled = YES;
                     [theDelegate rangePlot:self rangeWasSelectedAtRecordIndex:idx withEvent:event];
                 }
             }
 
-            return YES;
+            if ( handled ) {
+                return YES;
+            }
         }
     }
 

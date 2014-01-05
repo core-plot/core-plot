@@ -1239,14 +1239,20 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
             if ( CGRectContainsPoint(symbolRect, plotAreaPoint) ) {
                 self.pointingDeviceDownIndex = idx;
+                BOOL handled = NO;
 
                 if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolTouchDownAtRecordIndex:)] ) {
+                    handled = YES;
                     [theDelegate scatterPlot:self plotSymbolTouchDownAtRecordIndex:idx];
                 }
                 if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolTouchDownAtRecordIndex:withEvent:)] ) {
+                    handled = YES;
                     [theDelegate scatterPlot:self plotSymbolTouchDownAtRecordIndex:idx withEvent:event];
                 }
-                return YES;
+
+                if ( handled ) {
+                    return YES;
+                }
             }
         }
     }
@@ -1319,24 +1325,32 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
             if ( CGRectContainsPoint(symbolRect, plotAreaPoint) ) {
                 self.pointingDeviceDownIndex = idx;
+                BOOL handled = NO;
+
                 if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolTouchUpAtRecordIndex:)] ) {
+                    handled = YES;
                     [theDelegate scatterPlot:self plotSymbolTouchUpAtRecordIndex:idx];
                 }
                 if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolTouchUpAtRecordIndex:withEvent:)] ) {
+                    handled = YES;
                     [theDelegate scatterPlot:self plotSymbolTouchUpAtRecordIndex:idx withEvent:event];
                 }
 
                 if ( idx == selectedDownIndex ) {
                     if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolWasSelectedAtRecordIndex:)] ) {
+                        handled = YES;
                         [theDelegate scatterPlot:self plotSymbolWasSelectedAtRecordIndex:idx];
                     }
 
                     if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolWasSelectedAtRecordIndex:withEvent:)] ) {
+                        handled = YES;
                         [theDelegate scatterPlot:self plotSymbolWasSelectedAtRecordIndex:idx withEvent:event];
                     }
                 }
 
-                return YES;
+                if ( handled ) {
+                    return YES;
+                }
             }
         }
     }

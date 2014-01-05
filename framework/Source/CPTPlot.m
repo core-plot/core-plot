@@ -57,7 +57,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 @property (nonatomic, readwrite, strong) NSMutableArray *labelAnnotations;
 @property (nonatomic, readwrite, copy) NSArray *dataLabels;
 
-@property (nonatomic, readwrite, assign) NSUInteger pointingDeviceDownIndex;
+@property (nonatomic, readwrite, assign) NSUInteger pointingDeviceDownLabelIndex;
 @property (nonatomic, readwrite, assign) NSUInteger cachedDataCount;
 @property (nonatomic, readwrite, assign) BOOL inTitleUpdate;
 
@@ -233,10 +233,10 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 @synthesize inTitleUpdate;
 
 /** @internal
- *  @property NSUInteger pointingDeviceDownIndex
+ *  @property NSUInteger pointingDeviceDownLabelIndex
  *  @brief The index that was selected on the pointing device down event.
  **/
-@synthesize pointingDeviceDownIndex;
+@synthesize pointingDeviceDownLabelIndex;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -310,8 +310,8 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         alignsPointsToPixels = YES;
         inTitleUpdate        = NO;
 
-        pointingDeviceDownIndex    = NSNotFound;
-        drawLegendSwatchDecoration = YES;
+        pointingDeviceDownLabelIndex = NSNotFound;
+        drawLegendSwatchDecoration   = YES;
 
         self.masksToBounds              = YES;
         self.needsDisplayOnBoundsChange = YES;
@@ -350,8 +350,8 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         alignsPointsToPixels = theLayer->alignsPointsToPixels;
         inTitleUpdate        = theLayer->inTitleUpdate;
 
-        drawLegendSwatchDecoration = theLayer->drawLegendSwatchDecoration;
-        pointingDeviceDownIndex    = NSNotFound;
+        drawLegendSwatchDecoration   = theLayer->drawLegendSwatchDecoration;
+        pointingDeviceDownLabelIndex = NSNotFound;
     }
     return self;
 }
@@ -394,7 +394,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     // cachedData
     // cachedDataCount
     // inTitleUpdate
-    // pointingDeviceDownIndex
+    // pointingDeviceDownLabelIndex
 }
 
 -(instancetype)initWithCoder:(NSCoder *)coder
@@ -431,7 +431,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         dataNeedsReloading = YES;
         inTitleUpdate      = NO;
 
-        pointingDeviceDownIndex = NSNotFound;
+        pointingDeviceDownLabelIndex = NSNotFound;
     }
     return self;
 }
@@ -1643,7 +1643,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  **/
 -(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
-    self.pointingDeviceDownIndex = NSNotFound;
+    self.pointingDeviceDownLabelIndex = NSNotFound;
 
     CPTGraph *theGraph = self.graph;
 
@@ -1669,17 +1669,22 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
                     CGPoint labelPoint = [theGraph convertPoint:interactionPoint toLayer:labelLayer];
 
                     if ( CGRectContainsPoint(labelLayer.bounds, labelPoint) ) {
-                        self.pointingDeviceDownIndex = idx;
+                        self.pointingDeviceDownLabelIndex = idx;
+                        BOOL handled = NO;
 
                         if ( [theDelegate respondsToSelector:@selector(plot:dataLabelTouchDownAtRecordIndex:)] ) {
+                            handled = YES;
                             [theDelegate plot:self dataLabelTouchDownAtRecordIndex:idx];
                         }
 
                         if ( [theDelegate respondsToSelector:@selector(plot:dataLabelTouchDownAtRecordIndex:withEvent:)] ) {
+                            handled = YES;
                             [theDelegate plot:self dataLabelTouchDownAtRecordIndex:idx withEvent:event];
                         }
 
-                        return YES;
+                        if ( handled ) {
+                            return YES;
+                        }
                     }
                 }
             }
@@ -1714,9 +1719,9 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  **/
 -(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
-    NSUInteger selectedDownIndex = self.pointingDeviceDownIndex;
+    NSUInteger selectedDownIndex = self.pointingDeviceDownLabelIndex;
 
-    self.pointingDeviceDownIndex = NSNotFound;
+    self.pointingDeviceDownLabelIndex = NSNotFound;
 
     CPTGraph *theGraph = self.graph;
 
@@ -1742,25 +1747,33 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
                     CGPoint labelPoint = [theGraph convertPoint:interactionPoint toLayer:labelLayer];
 
                     if ( CGRectContainsPoint(labelLayer.bounds, labelPoint) ) {
+                        BOOL handled = NO;
+
                         if ( [theDelegate respondsToSelector:@selector(plot:dataLabelTouchUpAtRecordIndex:)] ) {
+                            handled = YES;
                             [theDelegate plot:self dataLabelTouchUpAtRecordIndex:idx];
                         }
 
                         if ( [theDelegate respondsToSelector:@selector(plot:dataLabelTouchUpAtRecordIndex:withEvent:)] ) {
+                            handled = YES;
                             [theDelegate plot:self dataLabelTouchUpAtRecordIndex:idx withEvent:event];
                         }
 
                         if ( idx == selectedDownIndex ) {
                             if ( [theDelegate respondsToSelector:@selector(plot:dataLabelWasSelectedAtRecordIndex:)] ) {
+                                handled = YES;
                                 [theDelegate plot:self dataLabelWasSelectedAtRecordIndex:idx];
                             }
 
                             if ( [theDelegate respondsToSelector:@selector(plot:dataLabelWasSelectedAtRecordIndex:withEvent:)] ) {
+                                handled = YES;
                                 [theDelegate plot:self dataLabelWasSelectedAtRecordIndex:idx withEvent:event];
                             }
                         }
 
-                        return YES;
+                        if ( handled ) {
+                            return YES;
+                        }
                     }
                 }
             }

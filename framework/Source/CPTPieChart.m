@@ -1037,15 +1037,21 @@ static const CGFloat colorLookupTable[10][3] =
         self.pointingDeviceDownIndex = idx;
 
         if ( idx != NSNotFound ) {
+            BOOL handled = NO;
+
             if ( [theDelegate respondsToSelector:@selector(pieChart:sliceTouchDownAtRecordIndex:)] ) {
+                handled = YES;
                 [theDelegate pieChart:self sliceTouchDownAtRecordIndex:idx];
             }
 
             if ( [theDelegate respondsToSelector:@selector(pieChart:sliceTouchDownAtRecordIndex:withEvent:)] ) {
+                handled = YES;
                 [theDelegate pieChart:self sliceTouchDownAtRecordIndex:idx withEvent:event];
             }
 
-            return YES;
+            if ( handled ) {
+                return YES;
+            }
         }
     }
 
@@ -1098,24 +1104,32 @@ static const CGFloat colorLookupTable[10][3] =
 
         NSUInteger idx = [self dataIndexFromInteractionPoint:plotAreaPoint];
         if ( idx != NSNotFound ) {
+            BOOL handled = NO;
+
             if ( [theDelegate respondsToSelector:@selector(pieChart:sliceTouchUpAtRecordIndex:)] ) {
+                handled = YES;
                 [theDelegate pieChart:self sliceTouchUpAtRecordIndex:idx];
             }
             if ( [theDelegate respondsToSelector:@selector(pieChart:sliceTouchUpAtRecordIndex:withEvent:)] ) {
+                handled = YES;
                 [theDelegate pieChart:self sliceTouchUpAtRecordIndex:idx withEvent:event];
             }
 
             if ( idx == selectedDownIndex ) {
                 if ( [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:)] ) {
+                    handled = YES;
                     [theDelegate pieChart:self sliceWasSelectedAtRecordIndex:idx];
                 }
 
                 if ( [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:withEvent:)] ) {
+                    handled = YES;
                     [theDelegate pieChart:self sliceWasSelectedAtRecordIndex:idx withEvent:event];
                 }
             }
 
-            return YES;
+            if ( handled ) {
+                return YES;
+            }
         }
     }
 

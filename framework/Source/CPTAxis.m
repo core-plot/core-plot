@@ -1901,16 +1901,21 @@ NSDecimal niceLength(NSDecimal length)
 
                 if ( CGRectContainsPoint(contentLayer.bounds, labelPoint) ) {
                     self.pointingDeviceDownLabel = label;
+                    BOOL handled = NO;
 
                     if ( [theDelegate respondsToSelector:@selector(axis:labelTouchDown:)] ) {
+                        handled = YES;
                         [theDelegate axis:self labelTouchDown:label];
                     }
 
                     if ( [theDelegate respondsToSelector:@selector(axis:labelTouchDown:withEvent:)] ) {
+                        handled = YES;
                         [theDelegate axis:self labelTouchDown:label withEvent:event];
                     }
 
-                    return YES;
+                    if ( handled ) {
+                        return YES;
+                    }
                 }
             }
         }
@@ -1928,16 +1933,21 @@ NSDecimal niceLength(NSDecimal length)
 
                 if ( CGRectContainsPoint(contentLayer.bounds, labelPoint) ) {
                     self.pointingDeviceDownTickLabel = label;
+                    BOOL handled = NO;
 
                     if ( [theDelegate respondsToSelector:@selector(axis:minorTickTouchDown:)] ) {
+                        handled = YES;
                         [theDelegate axis:self minorTickTouchDown:label];
                     }
 
                     if ( [theDelegate respondsToSelector:@selector(axis:minorTickTouchDown:withEvent:)] ) {
+                        handled = YES;
                         [theDelegate axis:self minorTickTouchDown:label withEvent:event];
                     }
 
-                    return YES;
+                    if ( handled ) {
+                        return YES;
+                    }
                 }
             }
         }
@@ -2001,25 +2011,33 @@ NSDecimal niceLength(NSDecimal length)
                 CGPoint labelPoint = [theGraph convertPoint:interactionPoint toLayer:contentLayer];
 
                 if ( CGRectContainsPoint(contentLayer.bounds, labelPoint) ) {
+                    BOOL handled = NO;
+
                     if ( [theDelegate respondsToSelector:@selector(axis:labelTouchUp:)] ) {
+                        handled = YES;
                         [theDelegate axis:self labelTouchUp:label];
                     }
 
                     if ( [theDelegate respondsToSelector:@selector(axis:labelTouchUp:withEvent:)] ) {
+                        handled = YES;
                         [theDelegate axis:self labelTouchUp:label withEvent:event];
                     }
 
                     if ( label == selectedDownLabel ) {
                         if ( [theDelegate respondsToSelector:@selector(axis:labelWasSelected:)] ) {
+                            handled = YES;
                             [theDelegate axis:self labelWasSelected:label];
                         }
 
                         if ( [theDelegate respondsToSelector:@selector(axis:labelWasSelected:withEvent:)] ) {
+                            handled = YES;
                             [theDelegate axis:self labelWasSelected:label withEvent:event];
                         }
                     }
 
-                    return YES;
+                    if ( handled ) {
+                        return YES;
+                    }
                 }
             }
         }
@@ -2036,25 +2054,33 @@ NSDecimal niceLength(NSDecimal length)
                 CGPoint labelPoint = [theGraph convertPoint:interactionPoint toLayer:contentLayer];
 
                 if ( CGRectContainsPoint(contentLayer.bounds, labelPoint) ) {
+                    BOOL handled = NO;
+
                     if ( [theDelegate respondsToSelector:@selector(axis:minorTickTouchUp:)] ) {
+                        handled = YES;
                         [theDelegate axis:self minorTickTouchUp:label];
                     }
 
                     if ( [theDelegate respondsToSelector:@selector(axis:minorTickTouchUp:withEvent:)] ) {
+                        handled = YES;
                         [theDelegate axis:self minorTickTouchUp:label withEvent:event];
                     }
 
                     if ( label == selectedDownTickLabel ) {
                         if ( [theDelegate respondsToSelector:@selector(axis:minorTickLabelWasSelected:)] ) {
+                            handled = YES;
                             [theDelegate axis:self minorTickLabelWasSelected:label];
                         }
 
                         if ( [theDelegate respondsToSelector:@selector(axis:minorTickLabelWasSelected:withEvent:)] ) {
+                            handled = YES;
                             [theDelegate axis:self minorTickLabelWasSelected:label withEvent:event];
                         }
                     }
 
-                    return YES;
+                    if ( handled ) {
+                        return YES;
+                    }
                 }
             }
         }

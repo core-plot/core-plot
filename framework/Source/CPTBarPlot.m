@@ -1310,15 +1310,21 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         self.pointingDeviceDownIndex = idx;
 
         if ( idx != NSNotFound ) {
+            BOOL handled = NO;
+
             if ( [theDelegate respondsToSelector:@selector(barPlot:barTouchDownAtRecordIndex:)] ) {
+                handled = YES;
                 [theDelegate barPlot:self barTouchDownAtRecordIndex:idx];
             }
 
             if ( [theDelegate respondsToSelector:@selector(barPlot:barTouchDownAtRecordIndex:withEvent:)] ) {
+                handled = YES;
                 [theDelegate barPlot:self barTouchDownAtRecordIndex:idx withEvent:event];
             }
 
-            return YES;
+            if ( handled ) {
+                return YES;
+            }
         }
     }
 
@@ -1372,25 +1378,33 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         NSUInteger idx        = [self dataIndexFromInteractionPoint:plotAreaPoint];
 
         if ( idx != NSNotFound ) {
+            BOOL handled = NO;
+
             if ( [theDelegate respondsToSelector:@selector(barPlot:barTouchUpAtRecordIndex:)] ) {
+                handled = YES;
                 [theDelegate barPlot:self barTouchUpAtRecordIndex:idx];
             }
 
             if ( [theDelegate respondsToSelector:@selector(barPlot:barTouchUpAtRecordIndex:withEvent:)] ) {
+                handled = YES;
                 [theDelegate barPlot:self barTouchUpAtRecordIndex:idx withEvent:event];
             }
 
             if ( idx == selectedDownIndex ) {
                 if ( [theDelegate respondsToSelector:@selector(barPlot:barWasSelectedAtRecordIndex:)] ) {
+                    handled = YES;
                     [theDelegate barPlot:self barWasSelectedAtRecordIndex:idx];
                 }
 
                 if ( [theDelegate respondsToSelector:@selector(barPlot:barWasSelectedAtRecordIndex:withEvent:)] ) {
+                    handled = YES;
                     [theDelegate barPlot:self barWasSelectedAtRecordIndex:idx withEvent:event];
                 }
             }
 
-            return YES;
+            if ( handled ) {
+                return YES;
+            }
         }
     }
 

@@ -1376,14 +1376,21 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         self.pointingDeviceDownIndex = idx;
 
         if ( idx != NSNotFound ) {
+            BOOL handled = NO;
+
             if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchDownAtRecordIndex:)] ) {
+                handled = YES;
                 [theDelegate tradingRangePlot:self barTouchDownAtRecordIndex:idx];
             }
 
             if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchDownAtRecordIndex:withEvent:)] ) {
+                handled = YES;
                 [theDelegate tradingRangePlot:self barTouchDownAtRecordIndex:idx withEvent:event];
             }
-            return YES;
+
+            if ( handled ) {
+                return YES;
+            }
         }
     }
 
@@ -1437,25 +1444,33 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         NSUInteger idx        = [self dataIndexFromInteractionPoint:plotAreaPoint];
 
         if ( idx != NSNotFound ) {
+            BOOL handled = NO;
+
             if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchUpAtRecordIndex:)] ) {
+                handled = YES;
                 [theDelegate tradingRangePlot:self barTouchUpAtRecordIndex:idx];
             }
 
             if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchUpAtRecordIndex:withEvent:)] ) {
+                handled = YES;
                 [theDelegate tradingRangePlot:self barTouchUpAtRecordIndex:idx withEvent:event];
             }
 
             if ( idx == selectedDownIndex ) {
                 if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barWasSelectedAtRecordIndex:)] ) {
+                    handled = YES;
                     [theDelegate tradingRangePlot:self barWasSelectedAtRecordIndex:idx];
                 }
 
                 if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barWasSelectedAtRecordIndex:withEvent:)] ) {
+                    handled = YES;
                     [theDelegate tradingRangePlot:self barWasSelectedAtRecordIndex:idx withEvent:event];
                 }
             }
 
-            return YES;
+            if ( handled ) {
+                return YES;
+            }
         }
     }
 
