@@ -1039,35 +1039,39 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
  **/
 -(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
+    BOOL handledEvent = NO;
+
     // Plots
     for ( CPTPlot *plot in [self.plots reverseObjectEnumerator] ) {
         if ( [plot pointingDeviceUpEvent:event atPoint:interactionPoint] ) {
-            return YES;
+            handledEvent = YES;
+            break;
         }
     }
 
     // Axes Set
-    if ( [self.axisSet pointingDeviceUpEvent:event atPoint:interactionPoint] ) {
-        return YES;
+    if ( !handledEvent && [self.axisSet pointingDeviceUpEvent:event atPoint:interactionPoint] ) {
+        handledEvent = YES;
     }
 
     // Plot area
-    if ( [self.plotAreaFrame pointingDeviceUpEvent:event atPoint:interactionPoint] ) {
-        return YES;
+    if ( !handledEvent && [self.plotAreaFrame pointingDeviceUpEvent:event atPoint:interactionPoint] ) {
+        handledEvent = YES;
     }
 
     // Legend
-    if ( [self.legend pointingDeviceUpEvent:event atPoint:interactionPoint] ) {
-        return YES;
+    if ( !handledEvent && [self.legend pointingDeviceUpEvent:event atPoint:interactionPoint] ) {
+        handledEvent = YES;
     }
 
     // Plot spaces
     // Plot spaces do not block events, because several spaces may need to receive
     // the same event sequence (e.g., dragging coordinate translation)
-    BOOL handledEvent = NO;
     for ( CPTPlotSpace *space in self.plotSpaces ) {
-        BOOL handled = [space pointingDeviceUpEvent:event atPoint:interactionPoint];
-        handledEvent |= handled;
+        if ( !handledEvent || (handledEvent && space.isDragging) ) {
+            BOOL handled = [space pointingDeviceUpEvent:event atPoint:interactionPoint];
+            handledEvent |= handled;
+        }
     }
 
     if ( handledEvent ) {
