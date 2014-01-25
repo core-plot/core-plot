@@ -147,7 +147,7 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
  *  only—the legend may be inserted in the layer tree and positioned like any other CPTLayer
  *  if more flexibility is needed.
  **/
-@dynamic legend;
+@synthesize legend;
 
 /** @property CPTRectAnchor legendAnchor
  *  @brief The location of the legend with respect to the graph frame.
@@ -665,11 +665,6 @@ NSString *const CPTGraphNeedsRedrawNotification = @"CPTGraphNeedsRedrawNotificat
 #pragma mark Legend
 
 /// @cond
-
--(CPTLegend *)legend
-{
-    return (CPTLegend *)self.legendAnnotation.contentLayer;
-}
 
 -(void)setLegend:(CPTLegend *)newLegend
 {
