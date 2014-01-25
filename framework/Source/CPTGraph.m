@@ -680,11 +680,6 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 
 /// @cond
 
--(CPTLegend *)legend
-{
-    return (CPTLegend *)self.legendAnnotation.contentLayer;
-}
-
 -(void)setLegend:(CPTLegend *)newLegend
 {
     if ( newLegend != legend ) {

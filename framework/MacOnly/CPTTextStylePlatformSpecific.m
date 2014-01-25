@@ -200,7 +200,9 @@
             NSForegroundColorAttributeName: foregroundColor,
             NSParagraphStyleAttributeName: paragraphStyle
         };
-        [self drawInRect:NSRectFromCGRect(rect) withAttributes:attributes];
+        [self drawWithRect:NSRectFromCGRect(rect)
+                   options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine
+                attributes:attributes];
     }
     CPTPopCGContext();
 }
