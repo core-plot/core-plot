@@ -111,7 +111,9 @@
     if ( [self respondsToSelector:@selector(drawInRect:)] ) {
         CPTPushCGContext(context);
 
-        [self drawInRect:rect];
+        [self drawWithRect:rect
+                   options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine
+                   context:nil];
 
         CPTPopCGContext();
     }

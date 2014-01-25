@@ -70,7 +70,8 @@
 {
     CPTPushCGContext(context);
 
-    [self drawInRect:NSRectFromCGRect(rect)];
+    [self drawWithRect:NSRectFromCGRect(rect)
+               options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine];
 
     CPTPopCGContext();
 }

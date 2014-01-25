@@ -204,7 +204,9 @@
                                     foregroundColor, NSForegroundColorAttributeName,
                                     paragraphStyle, NSParagraphStyleAttributeName,
                                     nil];
-        [self drawInRect:NSRectFromCGRect(rect) withAttributes:attributes];
+        [self drawWithRect:NSRectFromCGRect(rect)
+                   options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine
+                attributes:attributes];
 
         [paragraphStyle release];
         [attributes release];
