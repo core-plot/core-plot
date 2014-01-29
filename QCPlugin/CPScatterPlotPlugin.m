@@ -201,7 +201,7 @@
 }
 
 #pragma mark -
-#pragma markData source methods
+#pragma mark Data source methods
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {

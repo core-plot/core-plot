@@ -159,7 +159,7 @@ void drawErrorText(CGContextRef context, CGRect rect)
 }
 
 #pragma mark -
-#pragma markInput and output port configuration
+#pragma mark Input and output port configuration
 
 +(NSArray *)sortedPropertyPortKeys
 {
@@ -624,7 +624,7 @@ static void _BufferReleaseCallback(const void *address, void *context)
 }
 
 #pragma mark -
-#pragma markData source methods
+#pragma mark Data source methods
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
@@ -637,7 +637,7 @@ static void _BufferReleaseCallback(const void *address, void *context)
 }
 
 #pragma mark -
-#pragma markMethods for dealing with plugin keys
+#pragma mark Methods for dealing with plugin keys
 
 -(NSUInteger)numberOfPlots
 {

@@ -163,7 +163,7 @@
 }
 
 #pragma mark -
-#pragma markGraph configuration
+#pragma mark Graph configuration
 
 -(void)createGraph
 {
@@ -214,7 +214,7 @@
 }
 
 #pragma mark -
-#pragma markData source methods
+#pragma mark Data source methods
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
