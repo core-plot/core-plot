@@ -1019,6 +1019,7 @@ NSDecimal niceLength(NSDecimal length);
                 }
 
                 NSDecimal zero = CPTDecimalFromInteger(0);
+                NSDecimal one  = CPTDecimalFromInteger(1);
 
                 NSDecimal majorInterval;
                 if ( numTicks == 2 ) {
@@ -1045,18 +1046,17 @@ NSDecimal niceLength(NSDecimal length);
                 NSDecimal maxLimit = range.maxLimit;
 
                 // Determine the initial and final major indexes for the actual visible range
-                NSDecimal idx = CPTDecimalDivide(minLimit, majorInterval);
-                NSDecimalRound(&idx, &idx, 0, NSRoundDown);
-                NSInteger initialIndex = CPTDecimalIntegerValue(idx); // can be negative
+                NSDecimal initialIndex = CPTDecimalDivide(minLimit, majorInterval);
+                NSDecimalRound(&initialIndex, &initialIndex, 0, NSRoundDown);
 
-                idx = CPTDecimalDivide(maxLimit, majorInterval);
-                NSDecimalRound(&idx, &idx, 0, NSRoundUp);
-                NSInteger finalIndex = CPTDecimalIntegerValue(idx); // can be negative
+                NSDecimal finalIndex = CPTDecimalDivide(maxLimit, majorInterval);
+                NSDecimalRound(&finalIndex, &finalIndex, 0, NSRoundUp);
 
                 // Iterate through the indexes with visible ticks and build the locations sets
-                for ( NSInteger i = initialIndex; i <= finalIndex; i++ ) {
-                    NSDecimal pointLocation      = CPTDecimalMultiply( majorInterval, CPTDecimalFromInteger(i) );
+                for ( NSDecimal i = initialIndex; CPTDecimalLessThanOrEqualTo(i, finalIndex); i = CPTDecimalAdd(i, one) ) {
+                    NSDecimal pointLocation      = CPTDecimalMultiply(majorInterval, i);
                     NSDecimal minorPointLocation = pointLocation;
+
                     for ( NSUInteger j = 1; j < minorTicks; j++ ) {
                         minorPointLocation = CPTDecimalAdd(minorPointLocation, minorInterval);
 

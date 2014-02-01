@@ -154,12 +154,12 @@
     CPTCoordinate myCoordinate         = self.coordinate;
     CPTCoordinate orthogonalCoordinate = CPTOrthogonalCoordinate(myCoordinate);
 
-    double plotPoint[2];
+    NSDecimal plotPoint[2];
 
-    plotPoint[myCoordinate]         = CPTDecimalDoubleValue(coordinateDecimalNumber);
-    plotPoint[orthogonalCoordinate] = CPTDecimalDoubleValue(orthogonalCoord);
+    plotPoint[myCoordinate]         = coordinateDecimalNumber;
+    plotPoint[orthogonalCoordinate] = orthogonalCoord;
 
-    return [self convertPoint:[self.plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2] fromLayer:self.plotArea];
+    return [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2] fromLayer:self.plotArea];
 }
 
 -(CGPoint)viewPointForCoordinateDecimalNumber:(NSDecimal)coordinateDecimalNumber
