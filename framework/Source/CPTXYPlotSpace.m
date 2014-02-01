@@ -787,9 +787,9 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         factor = CPTDecimalFromInteger(0);
     }
 
-    CGFloat viewCoordinate = viewLength * CPTDecimalCGFloatValue(factor);
+    NSDecimal viewCoordinate = CPTDecimalMultiply(CPTDecimalFromCGFloat(viewLength), factor);
 
-    return viewCoordinate;
+    return CPTDecimalCGFloatValue(viewCoordinate);
 }
 
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPTPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord
