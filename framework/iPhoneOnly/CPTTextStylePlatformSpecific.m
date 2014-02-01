@@ -236,24 +236,22 @@
 
     CPTPushCGContext(context);
 
-    // -drawWithRect:options:attributes:context: method is available in iOS 7.0 and later
-    if ( [self respondsToSelector:@selector(drawWithRect:options:attributes:context:)] ) {
-        [self drawWithRect:rect
-                   options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine
-                attributes:style.attributes
-                   context:nil];
-    }
-    else {
-        UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
-
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000 // iOS 7.0 supported
+    [self drawWithRect:rect
+               options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine
+            attributes:style.attributes
+               context:nil];
+#else
+    UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
+    
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        [self drawInRect:rect
-                withFont:theFont
-           lineBreakMode:style.lineBreakMode
-               alignment:(NSTextAlignment)style.textAlignment];
+    [self drawInRect:rect
+            withFont:theFont
+       lineBreakMode:style.lineBreakMode
+           alignment:(NSTextAlignment)style.textAlignment];
 #pragma clang diagnostic pop
-    }
+#endif
 
     CGContextRestoreGState(context);
     CPTPopCGContext();
