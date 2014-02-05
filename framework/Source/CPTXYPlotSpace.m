@@ -1067,8 +1067,8 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
         CGPoint interactionPoint = [[[event touchesForView:theHostingView] anyObject] locationInView:theHostingView];
         if ( theHostingView.collapsesLayers ) {
-            plotAreaViewPoint.x = interactionPoint.x;
-            plotAreaViewPoint.y = theHostingView.frame.size.height - interactionPoint.y;
+            interactionPoint.y = theHostingView.frame.size.height - interactionPoint.y;
+            plotAreaViewPoint  = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
         }
         else {
             plotAreaViewPoint = [theHostingView.layer convertPoint:interactionPoint toLayer:thePlotArea];
