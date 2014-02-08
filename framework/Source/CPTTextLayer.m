@@ -6,7 +6,7 @@
 #import "CPTUtilities.h"
 #import <tgmath.h>
 
-const CGFloat kCPTTextLayerMarginWidth = CPTFloat(1.0);
+const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
 
 /// @cond
 @interface CPTTextLayer()
