@@ -179,16 +179,26 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
 {
     CPTPlot *plot = self.dataPlot;
 
-    NSUInteger count = (NSUInteger)ceil(plot.bounds.size.width / self.resolution) + 1;
+    if ( plot ) {
+        CGFloat width = plot.bounds.size.width;
+        if ( width > CPTFloat(0.0) ) {
+            NSUInteger count = (NSUInteger)ceil(width / self.resolution) + 1;
 
-    if ( count > self.cachedCount ) {
-        self.dataCount   = count;
-        self.cachedCount = count;
+            if ( count > self.cachedCount ) {
+                self.dataCount   = count;
+                self.cachedCount = count;
 
-        CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)plot.plotSpace;
-        self.cachedStep = plotSpace.xRange.lengthDouble / count;
+                CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)plot.plotSpace;
+                self.cachedStep = plotSpace.xRange.lengthDouble / count;
 
-        [plot reloadData];
+                [plot reloadData];
+            }
+        }
+        else {
+            self.dataCount   = 0;
+            self.cachedCount = 0;
+            self.cachedStep  = 0.0;
+        }
     }
 }
 
