@@ -77,26 +77,3 @@
 }
 
 @end
-
-#pragma mark - NSColor
-
-#if MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_8
-
-@interface NSColor(CPTPlatformSpecificExtensions)
-
-/** @brief Gets the color value as a CGColorRef.
- *  @return The color value as a CGColorRef.
- **/
--(CGColorRef)CGColor
-{
-    const NSInteger numberOfComponents = [self numberOfComponents];
-    CGFloat components[numberOfComponents];
-    CGColorSpaceRef colorSpace = [[self colorSpace] CGColorSpace];
-
-    [self getComponents:components];
-
-    return (CGColorRef)[(id)CGColorCreate(colorSpace, components) autorelease];
-}
-
-@end
-#endif
