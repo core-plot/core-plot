@@ -47,7 +47,24 @@
     // Color
     NSColor *styleColor = [attributes valueForKey:NSForegroundColorAttributeName];
     if ( styleColor ) {
-        newStyle.color = [CPTColor colorWithCGColor:styleColor.CGColor];
+        // CGColor property is available in Mac OS 10.8 and later
+        if ( [styleColor respondsToSelector:@selector(CGColor)] ) {
+            newStyle.color = [CPTColor colorWithCGColor:styleColor.CGColor];
+        }
+        else {
+            const NSInteger numberOfComponents = [styleColor numberOfComponents];
+
+            CGFloat *components = calloc( (size_t)numberOfComponents, sizeof(CGFloat) );
+            [styleColor getComponents:components];
+
+            CGColorSpaceRef colorSpace = [[styleColor colorSpace] CGColorSpace];
+            CGColorRef styleCGColor    = CGColorCreate(colorSpace, components);
+
+            newStyle.color = [CPTColor colorWithCGColor:styleCGColor];
+
+            CGColorRelease(styleCGColor);
+            free(components);
+        }
     }
 
     // Text alignment and line break mode
@@ -120,7 +137,24 @@
     // Color
     NSColor *styleColor = [attributes valueForKey:NSForegroundColorAttributeName];
     if ( styleColor ) {
-        newStyle.color = [CPTColor colorWithCGColor:styleColor.CGColor];
+        // CGColor property is available in Mac OS 10.8 and later
+        if ( [styleColor respondsToSelector:@selector(CGColor)] ) {
+            newStyle.color = [CPTColor colorWithCGColor:styleColor.CGColor];
+        }
+        else {
+            const NSInteger numberOfComponents = [styleColor numberOfComponents];
+
+            CGFloat *components = calloc( (size_t)numberOfComponents, sizeof(CGFloat) );
+            [styleColor getComponents:components];
+
+            CGColorSpaceRef colorSpace = [[styleColor colorSpace] CGColorSpace];
+            CGColorRef styleCGColor    = CGColorCreate(colorSpace, components);
+
+            newStyle.color = [CPTColor colorWithCGColor:styleCGColor];
+
+            CGColorRelease(styleCGColor);
+            free(components);
+        }
     }
 
     // Text alignment and line break mode
