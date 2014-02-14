@@ -331,10 +331,16 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
 {
     CPTNumericData *numericData = nil;
 
-    NSUInteger count     = self.dataCount;
-    CPTPlotRange *xRange = self.cachedPlotRange;
+    NSUInteger count = self.dataCount;
 
-    if ( xRange && (count > 0) ) {
+    if ( count > 0 ) {
+        CPTPlotRange *xRange = self.cachedPlotRange;
+
+        if ( !xRange ) {
+            [self plotSpaceChanged];
+            xRange = self.cachedPlotRange;
+        }
+
         NSMutableData *data = [[NSMutableData alloc] initWithLength:indexRange.length * 2 * sizeof(double)];
 
         double *xBytes = data.mutableBytes;
