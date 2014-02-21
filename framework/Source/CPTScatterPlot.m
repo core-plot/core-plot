@@ -39,6 +39,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 @property (nonatomic, readwrite, copy) NSArray *yValues;
 @property (nonatomic, readwrite, strong) NSArray *plotSymbols;
 @property (nonatomic, readwrite, assign) NSUInteger pointingDeviceDownIndex;
+@property (nonatomic, readwrite, assign) BOOL pointingDeviceDownOnLine;
 
 -(void)calculatePointsToDraw:(BOOL *)pointDrawFlags forPlotSpace:(CPTXYPlotSpace *)xyPlotSpace includeVisiblePointsOnly:(BOOL)visibleOnly numberOfPoints:(NSUInteger)dataCount;
 -(void)calculateViewPoints:(CGPoint *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags numberOfPoints:(NSUInteger)dataCount;
@@ -122,11 +123,33 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  **/
 @synthesize plotSymbolMarginForHitDetection;
 
+/** @property CGFloat plotLineMarginForHitDetection
+ *  @brief A margin added to each side of a plot line when determining whether it has been hit.
+ *
+ *  Default is 4 points to each side of the line. The margin is set in plot area view coordinates.
+ **/
+@synthesize plotLineMarginForHitDetection;
+
+/** @property BOOL allowSimultaneousSymbolAndPlotSelection
+ *  @brief YES if both symbol selection and line selection can happen on the same upEvent. If NO
+ *  then when an upEvent occurs on a symbol only the symbol will be selected, otherwise the line
+ *  will be selected if the upEvent occured on the line.
+ *
+ *  Default is NO.
+ **/
+@synthesize allowSimultaneousSymbolAndPlotSelection;
+
 /** @internal
  *  @property NSUInteger pointingDeviceDownIndex
  *  @brief The index that was selected on the pointing device down event.
  **/
 @synthesize pointingDeviceDownIndex;
+
+/** @internal
+ *  @property BOOL pointingDeviceDownOnLine
+ *  @brief YES if the pointing device down event occured on the plot line.
+ **/
+@synthesize pointingDeviceDownOnLine;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -160,6 +183,8 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  *  - @ref areaBaseValue = @NAN
  *  - @ref areaBaseValue2 = @NAN
  *  - @ref plotSymbolMarginForHitDetection = @num{0.0}
+ *  - @ref plotLineMarginForHitDetection = @num{4.0}
+ *  - @ref allowSimultaneousSymbolAndPlotSelection = NO
  *  - @ref interpolation = #CPTScatterPlotInterpolationLinear
  *  - @ref labelField = #CPTScatterPlotFieldY
  *
@@ -176,8 +201,10 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         areaBaseValue                   = [[NSDecimalNumber notANumber] decimalValue];
         areaBaseValue2                  = [[NSDecimalNumber notANumber] decimalValue];
         plotSymbolMarginForHitDetection = CPTFloat(0.0);
+        plotLineMarginForHitDetection   = CPTFloat(4.0);
         interpolation                   = CPTScatterPlotInterpolationLinear;
         pointingDeviceDownIndex         = NSNotFound;
+        pointingDeviceDownOnLine        = NO;
         self.labelField                 = CPTScatterPlotFieldY;
     }
     return self;
@@ -199,8 +226,11 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         areaBaseValue                   = theLayer->areaBaseValue;
         areaBaseValue2                  = theLayer->areaBaseValue2;
         plotSymbolMarginForHitDetection = theLayer->plotSymbolMarginForHitDetection;
+        plotLineMarginForHitDetection   = theLayer->plotLineMarginForHitDetection;
+        allowSimultaneousSymbolAndPlotSelection = theLayer->allowSimultaneousSymbolAndPlotSelection;
         interpolation                   = theLayer->interpolation;
         pointingDeviceDownIndex         = NSNotFound;
+        pointingDeviceDownOnLine        = NO;
     }
     return self;
 }
@@ -224,9 +254,12 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     [coder encodeDecimal:self.areaBaseValue forKey:@"CPTScatterPlot.areaBaseValue"];
     [coder encodeDecimal:self.areaBaseValue2 forKey:@"CPTScatterPlot.areaBaseValue2"];
     [coder encodeCGFloat:self.plotSymbolMarginForHitDetection forKey:@"CPTScatterPlot.plotSymbolMarginForHitDetection"];
+    [coder encodeCGFloat:self.plotLineMarginForHitDetection forKey:@"CPTScatterPlot.plotLineMarginForHitDetection"];
+    [coder encodeBool:self.allowSimultaneousSymbolAndPlotSelection forKey:@"CPTScatterPlot.allowSimultaneousSymbolAndPlotSelection"];
 
     // No need to archive these properties:
     // pointingDeviceDownIndex
+    // pointingDeviceDownOnLine
 }
 
 -(instancetype)initWithCoder:(NSCoder *)coder
@@ -240,7 +273,10 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         areaBaseValue                   = [coder decodeDecimalForKey:@"CPTScatterPlot.areaBaseValue"];
         areaBaseValue2                  = [coder decodeDecimalForKey:@"CPTScatterPlot.areaBaseValue2"];
         plotSymbolMarginForHitDetection = [coder decodeCGFloatForKey:@"CPTScatterPlot.plotSymbolMarginForHitDetection"];
+        plotLineMarginForHitDetection   = [coder decodeCGFloatForKey:@"CPTScatterPlot.plotLineMarginForHitDetection"];
+        allowSimultaneousSymbolAndPlotSelection = [coder decodeBoolForKey:@"CPTScatterPlot.allowSimultaneousSymbolAndPlotSelection"];
         pointingDeviceDownIndex         = NSNotFound;
+        pointingDeviceDownOnLine        = NO;
     }
     return self;
 }
@@ -726,6 +762,12 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         // Draw line
         if ( theLineStyle ) {
             CGPathRef dataLinePath = [self newDataLinePathForViewPoints:viewPoints indexRange:viewIndexRange baselineYValue:NAN];
+
+            // Give the delegate a chance to prepare for the drawing.
+            id<CPTScatterPlotDelegate> theDelegate = self.delegate;
+            if ( [theDelegate respondsToSelector:@selector(scatterPlot:prepareForDrawingPlotLine:inContext:)] )
+                [theDelegate scatterPlot:self prepareForDrawingPlotLine:dataLinePath inContext:context];
+
             CGContextBeginPath(context);
             CGContextAddPath(context, dataLinePath);
             [theLineStyle setLineStyleInContext:context];
@@ -1190,12 +1232,22 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  *
  *  If this plot has a delegate that responds to the
  *  @link CPTScatterPlotDelegate::scatterPlot:plotSymbolTouchDownAtRecordIndex: -scatterPlot:plotSymbolTouchDownAtRecordIndex: @endlink or
- *  @link CPTScatterPlotDelegate::scatterPlot:plotSymbolTouchDownAtRecordIndex:withEvent: -scatterPlot:plotSymbolTouchDownAtRecordIndex:withEvent: @endlink
+ *  @link CPTScatterPlotDelegate::scatterPlot:plotSymbolTouchDownAtRecordIndex:withEvent: -scatterPlot:plotSymbolTouchDownAtRecordIndex:withEvent: @endlink or
+ *  @link CPTScatterPlotDelegate::scatterPlot:plotSymbolWasSelectedAtRecordIndex: -scatterPlot:plotSymbolWasSelectedAtRecordIndex: @endlink or
+ *  @link CPTScatterPlotDelegate::scatterPlot:plotSymbolWasSelectedAtRecordIndex:withEvent: -scatterPlot:plotSymbolWasSelectedAtRecordIndex:withEvent: @endlink
  *  methods, the data points are searched to find the index of the one closest to the @par{interactionPoint}.
- *  The delegate method will be called and this method returns @YES if the @par{interactionPoint} is within the
- *  @ref plotSymbolMarginForHitDetection
- *  of the closest data point.
- *  This method returns @NO if the @par{interactionPoint} is too far away from all of the data points.
+ *  The 'touchDown' delegate method(s) will be called and this method will return @YES if the @par{interactionPoint} is within the
+ *  @ref plotSymbolMarginForHitDetection of the closest data point.
+ *  Then, if no plot symbol was hit or @ref allowSimultaneousSymbolAndPlotSelection is @YES and if this plot has
+ *  a delegate that responds to the
+ *  @link CPTScatterPlotDelegate::plotLineTouchDownForScatterPlot: -plotLineTouchDownForScatterPlot: @endlink or
+ *  @link CPTScatterPlotDelegate::scatterPlot:plotLineTouchDownWithEvent: -scatterPlot:plotLineTouchDownWithEvent: @endlink or
+ *  @link CPTScatterPlotDelegate::plotLineWasSelectedForScatterPlot: -plotLineWasSelectedForScatterPlot: @endlink or
+ *  @link CPTScatterPlotDelegate::scatterPlot:plotLineWasSelectedWithEvent: -scatterPlot:plotLineWasSelectedWithEvent: @endlink
+ *  methods and the @par{interactionPoint} falls within @ref plotLineMarginForHitDetection points of the plot line,
+ *  then the 'plotLineTouchDown' delegate method(s) will be called and this method will return @YES.
+ *  This method returns @NO if the @par{interactionPoint} is not within @ref plotSymbolMarginForHitDetection points of any of
+ *  the data points or within @ref plotLineMarginForHitDetection points of the plot line.
  *
  *  @param event The OS event.
  *  @param interactionPoint The coordinates of the interaction.
@@ -1204,6 +1256,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 -(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     self.pointingDeviceDownIndex = NSNotFound;
+    self.pointingDeviceDownOnLine = NO;
 
     CPTGraph *theGraph       = self.graph;
     CPTPlotArea *thePlotArea = self.plotArea;
@@ -1213,6 +1266,8 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 
     id<CPTScatterPlotDelegate> theDelegate = self.delegate;
+    BOOL symbolTouchUpHandled = NO;
+
     if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolTouchDownAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolTouchDownAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolWasSelectedAtRecordIndex:)] ||
@@ -1239,24 +1294,48 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
             if ( CGRectContainsPoint(symbolRect, plotAreaPoint) ) {
                 self.pointingDeviceDownIndex = idx;
-                BOOL handled = NO;
 
                 if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolTouchDownAtRecordIndex:)] ) {
-                    handled = YES;
+                    symbolTouchUpHandled = YES;
                     [theDelegate scatterPlot:self plotSymbolTouchDownAtRecordIndex:idx];
                 }
                 if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolTouchDownAtRecordIndex:withEvent:)] ) {
-                    handled = YES;
+                    symbolTouchUpHandled = YES;
                     [theDelegate scatterPlot:self plotSymbolTouchDownAtRecordIndex:idx withEvent:event];
-                }
-
-                if ( handled ) {
-                    return YES;
                 }
             }
         }
     }
 
+    BOOL plotTouchUpHandled = NO;
+    BOOL plotSelected = NO;
+    
+    if ( self.dataLineStyle &&
+        ( !symbolTouchUpHandled || self.allowSimultaneousSymbolAndPlotSelection ) &&
+        ( [theDelegate respondsToSelector:@selector(plotLineTouchDownForScatterPlot:)] ||
+          [theDelegate respondsToSelector:@selector(scatterPlot:plotLineTouchDownWithEvent:)] ||
+          [theDelegate respondsToSelector:@selector(plotLineWasSelectedForScatterPlot:)] ||
+          [theDelegate respondsToSelector:@selector(scatterPlot:plotLineWasSelectedWithEvent:)])) {
+        plotSelected = [self plotWasLineHitByInteractionPoint:interactionPoint];
+        if ( plotSelected ) {
+            // Let the delegate know that the plot was selected.
+            self.pointingDeviceDownOnLine = YES;
+            
+            if ( [theDelegate respondsToSelector:@selector(plotLineTouchDownForScatterPlot:)] ) {
+                plotTouchUpHandled = YES;
+                [theDelegate plotLineTouchDownForScatterPlot:self];
+            }
+            if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotLineTouchDownWithEvent:)] ) {
+                plotTouchUpHandled = YES;
+                [theDelegate scatterPlot:self plotLineTouchDownWithEvent:event];
+            }
+        }
+    }
+    
+    if ( symbolTouchUpHandled || plotTouchUpHandled ) {
+        return YES;
+    }
+    
     return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
 }
 
@@ -1267,19 +1346,23 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  *
  *
  *  If this plot has a delegate that responds to the
- *  @link CPTScatterPlotDelegate::scatterPlot:plotSymbolTouchUpAtRecordIndex: -scatterPlot:plotSymbolTouchUpAtRecordIndex: @endlink or
- *  @link CPTScatterPlotDelegate::scatterPlot:plotSymbolTouchUpAtRecordIndex:withEvent: -scatterPlot:plotSymbolTouchUpAtRecordIndex:withEvent: @endlink
- *  methods, the data points are searched to find the index of the one closest to the @par{interactionPoint}.
- *  The delegate method will be called and this method returns @YES if the @par{interactionPoint} is within the
- *  @ref plotSymbolMarginForHitDetection
- *  of the closest data point.
- *  This method returns @NO if the @par{interactionPoint} is too far away from all of the data points.
- *
- *  If the symbol being released is the same as the one that was pressed (see
- *  @link CPTScatterPlot::pointingDeviceDownEvent:atPoint: -pointingDeviceDownEvent:atPoint: @endlink), if the delegate responds to the
- *  @link CPTScatterPlotDelegate::scatterPlot:plotSymbolWasSelectedAtRecordIndex: -scatterPlot:plotSymbolWasSelectedAtRecordIndex: @endlink and/or
+ *  @link CPTScatterPlotDelegate::scatterPlot:plotSymbolTouchDownAtRecordIndex: -scatterPlot:plotSymbolTouchDownAtRecordIndex: @endlink or
+ *  @link CPTScatterPlotDelegate::scatterPlot:plotSymbolTouchDownAtRecordIndex:withEvent: -scatterPlot:plotSymbolTouchDownAtRecordIndex:withEvent: @endlink or
+ *  @link CPTScatterPlotDelegate::scatterPlot:plotSymbolWasSelectedAtRecordIndex: -scatterPlot:plotSymbolWasSelectedAtRecordIndex: @endlink or
  *  @link CPTScatterPlotDelegate::scatterPlot:plotSymbolWasSelectedAtRecordIndex:withEvent: -scatterPlot:plotSymbolWasSelectedAtRecordIndex:withEvent: @endlink
- *  methods, these will be called.
+ *  methods, the data points are searched to find the index of the one closest to the @par{interactionPoint}.
+ *  The 'touchDown' delegate method(s) will be called and this method will return @YES if the @par{interactionPoint} is within the
+ *  @ref plotSymbolMarginForHitDetection of the closest data point.
+ *  Then, if no plot symbol was hit or @ref allowSimultaneousSymbolAndPlotSelection is @YES and if this plot has
+ *  a delegate that responds to the
+ *  @link CPTScatterPlotDelegate::plotLineTouchUpForScatterPlot: -plotLineTouchUpForScatterPlot: @endlink or
+ *  @link CPTScatterPlotDelegate::scatterPlot:plotLineTouchUpWithEvent: -scatterPlot:plotLineTouchUpWithEvent: @endlink or
+ *  @link CPTScatterPlotDelegate::plotLineWasSelectedForScatterPlot: -plotLineWasSelectedForScatterPlot: @endlink or
+ *  @link CPTScatterPlotDelegate::scatterPlot:plotLineWasSelectedWithEvent: -scatterPlot:plotLineWasSelectedWithEvent: @endlink
+ *  methods and the @par{interactionPoint} falls within @ref plotLineMarginForHitDetection points of the plot line,
+ *  then the 'plotLineTouchUp' delegate method(s) will be called and this method will return @YES.
+ *  This method returns @NO if the @par{interactionPoint} is not within @ref plotSymbolMarginForHitDetection points of any of
+ *  the data points or within @ref plotLineMarginForHitDetection points of the plot line.
  *
  *  @param event The OS event.
  *  @param interactionPoint The coordinates of the interaction.
@@ -1294,11 +1377,14 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     CPTGraph *theGraph       = self.graph;
     CPTPlotArea *thePlotArea = self.plotArea;
 
-    if ( !theGraph || !thePlotArea || self.hidden ) {
+    // Do not perform any selection if the plotSpace is bring dragged.
+    if ( !theGraph || !thePlotArea || self.hidden || self.plotSpace.isDragging ) {
         return NO;
     }
 
     id<CPTScatterPlotDelegate> theDelegate = self.delegate;
+    BOOL symbolSelectHandled = NO;
+
     if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolTouchUpAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolTouchUpAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolWasSelectedAtRecordIndex:)] ||
@@ -1325,37 +1411,115 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
             if ( CGRectContainsPoint(symbolRect, plotAreaPoint) ) {
                 self.pointingDeviceDownIndex = idx;
-                BOOL handled = NO;
 
                 if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolTouchUpAtRecordIndex:)] ) {
-                    handled = YES;
+                    symbolSelectHandled = YES;
                     [theDelegate scatterPlot:self plotSymbolTouchUpAtRecordIndex:idx];
                 }
                 if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolTouchUpAtRecordIndex:withEvent:)] ) {
-                    handled = YES;
+                    symbolSelectHandled = YES;
                     [theDelegate scatterPlot:self plotSymbolTouchUpAtRecordIndex:idx withEvent:event];
                 }
 
                 if ( idx == selectedDownIndex ) {
                     if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolWasSelectedAtRecordIndex:)] ) {
-                        handled = YES;
+                        symbolSelectHandled = YES;
                         [theDelegate scatterPlot:self plotSymbolWasSelectedAtRecordIndex:idx];
                     }
 
                     if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolWasSelectedAtRecordIndex:withEvent:)] ) {
-                        handled = YES;
+                        symbolSelectHandled = YES;
                         [theDelegate scatterPlot:self plotSymbolWasSelectedAtRecordIndex:idx withEvent:event];
                     }
-                }
-
-                if ( handled ) {
-                    return YES;
                 }
             }
         }
     }
 
+    BOOL plotSelectHandled = NO;
+    BOOL plotSelected = NO;
+    
+    if ( self.dataLineStyle &&
+         ( !symbolSelectHandled || self.allowSimultaneousSymbolAndPlotSelection ) &&
+         ( [theDelegate respondsToSelector:@selector(plotLineTouchUpForScatterPlot:)] ||
+           [theDelegate respondsToSelector:@selector(scatterPlot:plotLineTouchUpWithEvent:)] ||
+           [theDelegate respondsToSelector:@selector(plotLineWasSelectedForScatterPlot:)] ||
+           [theDelegate respondsToSelector:@selector(scatterPlot:plotLineWasSelectedWithEvent:)])) {
+        plotSelected = [self plotWasLineHitByInteractionPoint:interactionPoint];
+
+        if ( plotSelected ) {
+            if ( [theDelegate respondsToSelector:@selector(plotLineTouchUpForScatterPlot:)] ) {
+                symbolSelectHandled = YES;
+                [theDelegate plotLineTouchUpForScatterPlot:self];
+            }
+            if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotLineTouchUpWithEvent:)] ) {
+                symbolSelectHandled = YES;
+                [theDelegate scatterPlot:self plotLineTouchUpWithEvent:event];
+            }
+
+            if ( self.pointingDeviceDownOnLine ) {
+                // Let the delegate know that the plot was selected.
+                if ( [theDelegate respondsToSelector:@selector(plotLineWasSelectedForScatterPlot:)] ) {
+                    plotSelectHandled = YES;
+                    [theDelegate plotLineWasSelectedForScatterPlot:self];
+                }
+                if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotLineWasSelectedWithEvent:)] ) {
+                    plotSelectHandled = YES;
+                    [theDelegate scatterPlot:self plotLineWasSelectedWithEvent:event];
+                }
+            }
+        }
+    }
+    
+    if ( self.dataLineStyle && !plotSelected ) {
+        // Let the plot delegate know that the line was deselected.
+        if ( [theDelegate respondsToSelector:@selector(plotLineWasDeselectedForScatterPlot:)] ) {
+            [theDelegate plotLineWasDeselectedForScatterPlot:self];
+        }
+        if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotLineWasSelectedWithEvent:)] ) {
+            [theDelegate scatterPlot:self plotLineWasDeselectedWithEvent:event];
+        }
+    }
+    
+    if ( symbolSelectHandled || plotSelectHandled ) {
+        return YES;
+    }
+
     return [super pointingDeviceUpEvent:event atPoint:interactionPoint];
+}
+
+- (BOOL)plotWasLineHitByInteractionPoint:(CGPoint)interactionPoint
+{
+    BOOL plotLineHit = NO;
+    
+    // Create the detection path.
+    CPTGraph *theGraph       = self.graph;
+    CPTPlotArea *thePlotArea = self.plotArea;
+    NSUInteger dataCount     = self.cachedDataCount;
+    
+    if ( theGraph && thePlotArea && !self.hidden && dataCount ) {
+        CGPoint *viewPoints  = malloc( dataCount * sizeof(CGPoint) );
+        BOOL *drawPointFlags = malloc( dataCount * sizeof(BOOL) );
+        
+        CPTXYPlotSpace *thePlotSpace = (CPTXYPlotSpace *)self.plotSpace;
+        [self calculatePointsToDraw:drawPointFlags forPlotSpace:thePlotSpace includeVisiblePointsOnly:NO numberOfPoints:dataCount];
+        [self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags numberOfPoints:dataCount];
+        NSInteger firstDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags numberOfPoints:dataCount extremeNumIsLowerBound:YES];
+        
+        if ( firstDrawnPointIndex != NSNotFound ) {
+            NSInteger lastDrawnPointIndex  = [self extremeDrawnPointIndexForFlags:drawPointFlags numberOfPoints:dataCount extremeNumIsLowerBound:NO];
+            NSRange viewIndexRange = NSMakeRange( (NSUInteger)firstDrawnPointIndex, (NSUInteger)(lastDrawnPointIndex - firstDrawnPointIndex + 1) );
+            CGPathRef dataLinePath = [self newDataLinePathForViewPoints:viewPoints indexRange:viewIndexRange baselineYValue:NAN];
+            CGPathRef path = CGPathCreateCopyByStrokingPath(dataLinePath, Nil, self.plotLineMarginForHitDetection * 2.0f, kCGLineCapRound, kCGLineJoinRound, 3.0f);
+            UIBezierPath* detectionPath = [UIBezierPath bezierPathWithCGPath:path];
+            CGPathRelease(path);
+            
+            CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
+            plotLineHit = [detectionPath containsPoint:plotAreaPoint];
+        }
+    }
+    
+    return plotLineHit;
 }
 
 /// @}
