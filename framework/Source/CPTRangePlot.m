@@ -93,6 +93,12 @@ typedef struct CGPointError CGPointError;
  **/
 @synthesize areaFill;
 
+/** @property CPTLineStyle *areaBorderLineStyle
+ *  @brief The line style of the border line around the area fill.
+ *  Set to @nil to have no border line. Default is @nil.
+ **/
+@synthesize areaBorderLineStyle;
+
 /** @property CPTLineStyle *barLineStyle
  *  @brief The line style of the range bars.
  *  Set to @nil to have no bars. Default is a black line style.
@@ -158,8 +164,9 @@ typedef struct CGPointError CGPointError;
 -(id)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
-        barLineStyle = [[CPTLineStyle alloc] init];
-        areaFill     = nil;
+        barLineStyle        = [[CPTLineStyle alloc] init];
+        areaFill            = nil;
+        areaBorderLineStyle = nil;
 
         self.labelField = CPTRangePlotFieldX;
     }
@@ -174,8 +181,10 @@ typedef struct CGPointError CGPointError;
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTRangePlot *theLayer = (CPTRangePlot *)layer;
-        barLineStyle = [theLayer->barLineStyle retain];
-        areaFill     = nil;
+
+        barLineStyle        = [theLayer->barLineStyle retain];
+        areaFill            = [theLayer->areaFill retain];
+        areaBorderLineStyle = [theLayer->areaBorderLineStyle retain];
     }
     return self;
 }
@@ -184,6 +193,7 @@ typedef struct CGPointError CGPointError;
 {
     [barLineStyle release];
     [areaFill release];
+    [areaBorderLineStyle release];
     [super dealloc];
 }
 
@@ -203,16 +213,18 @@ typedef struct CGPointError CGPointError;
     [coder encodeCGFloat:self.gapHeight forKey:@"CPTRangePlot.gapHeight"];
     [coder encodeCGFloat:self.gapWidth forKey:@"CPTRangePlot.gapWidth"];
     [coder encodeObject:self.areaFill forKey:@"CPTRangePlot.areaFill"];
+    [coder encodeObject:self.areaBorderLineStyle forKey:@"CPTRangePlot.areaBorderLineStyle"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        barLineStyle = [[coder decodeObjectForKey:@"CPTRangePlot.barLineStyle"] copy];
-        barWidth     = [coder decodeCGFloatForKey:@"CPTRangePlot.barWidth"];
-        gapHeight    = [coder decodeCGFloatForKey:@"CPTRangePlot.gapHeight"];
-        gapWidth     = [coder decodeCGFloatForKey:@"CPTRangePlot.gapWidth"];
-        areaFill     = [[coder decodeObjectForKey:@"CPTRangePlot.areaFill"] copy];
+        barLineStyle        = [[coder decodeObjectForKey:@"CPTRangePlot.barLineStyle"] copy];
+        barWidth            = [coder decodeCGFloatForKey:@"CPTRangePlot.barWidth"];
+        gapHeight           = [coder decodeCGFloatForKey:@"CPTRangePlot.gapHeight"];
+        gapWidth            = [coder decodeCGFloatForKey:@"CPTRangePlot.gapWidth"];
+        areaFill            = [[coder decodeObjectForKey:@"CPTRangePlot.areaFill"] copy];
+        areaBorderLineStyle = [[coder decodeObjectForKey:@"CPTRangePlot.areaBorderLineStyle"] copy];
     }
     return self;
 }
@@ -629,16 +641,22 @@ typedef struct CGPointError CGPointError;
                 }
             }
 
-            CGContextBeginPath(context);
-            CGContextAddPath(context, fillPath);
-
             // Close the path to have a closed loop
             CGPathCloseSubpath(fillPath);
 
-            CGContextSaveGState(context);
+            CGContextBeginPath(context);
+            CGContextAddPath(context, fillPath);
 
-            // Pick the current line style with a low alpha component
             [self.areaFill fillPathInContext:context];
+
+            CPTLineStyle *lineStyle = self.areaBorderLineStyle;
+            if ( lineStyle ) {
+                CGContextBeginPath(context);
+                CGContextAddPath(context, fillPath);
+
+                [lineStyle setLineStyleInContext:context];
+                [lineStyle strokePathInContext:context];
+            }
 
             CGPathRelease(fillPath);
         }
@@ -786,6 +804,14 @@ typedef struct CGPointError CGPointError;
             CGContextBeginPath(context);
             AddRoundedRectPath(context, CPTAlignIntegralRectToUserSpace(context, rect), legend.swatchCornerRadius);
             [theFill fillPathInContext:context];
+        }
+
+        CPTLineStyle *lineStyle = self.areaBorderLineStyle;
+        if ( lineStyle ) {
+            AddRoundedRectPath(context, CPTAlignIntegralRectToUserSpace(context, rect), legend.swatchCornerRadius);
+
+            [lineStyle setLineStyleInContext:context];
+            [lineStyle strokePathInContext:context];
         }
 
         CPTLineStyle *theBarLineStyle = [self barLineStyleForIndex:idx];
@@ -1060,6 +1086,16 @@ typedef struct CGPointError CGPointError;
     if ( newFill != areaFill ) {
         [areaFill release];
         areaFill = [newFill copy];
+        [self setNeedsDisplay];
+        [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
+    }
+}
+
+-(void)setAreaBorderLineStyle:(CPTLineStyle *)newLineStyle
+{
+    if ( areaBorderLineStyle != newLineStyle ) {
+        [areaBorderLineStyle release];
+        areaBorderLineStyle = [newLineStyle copy];
         [self setNeedsDisplay];
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
     }

@@ -121,6 +121,7 @@ CPTRangePlotField;
 /// @name Drawing
 /// @{
 @property (nonatomic, copy) CPTFill *areaFill;
+@property (nonatomic, readwrite, copy) CPTLineStyle *areaBorderLineStyle;
 /// @}
 
 @end

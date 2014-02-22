@@ -192,7 +192,18 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     CPTRangePlot *rangePlot = (CPTRangePlot *)[graph plotWithIdentifier:@"Range Plot"];
 
     rangePlot.areaFill = (rangePlot.areaFill ? nil : areaFill);
-    //    rangePlot.barLineStyle = ( rangePlot.barLineStyle ? nil : barLineStyle );
+
+    if ( rangePlot.areaFill ) {
+        CPTMutableLineStyle *lineStyle = [[CPTMutableLineStyle alloc] init];
+        lineStyle.lineColor = [CPTColor lightGrayColor];
+
+        rangePlot.areaBorderLineStyle = lineStyle;
+
+        [lineStyle release];
+    }
+    else {
+        rangePlot.areaBorderLineStyle = nil;
+    }
 
     return NO;
 }
