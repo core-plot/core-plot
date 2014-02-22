@@ -8,7 +8,8 @@
 
 #import "PlotItem.h"
 
-@interface SimpleScatterPlot : PlotItem<CPTPlotSpaceDelegate,
+@interface SimpleScatterPlot : PlotItem<CPTPlotAreaDelegate,
+                                        CPTPlotSpaceDelegate,
                                         CPTPlotDataSource,
                                         CPTScatterPlotDelegate>
 {

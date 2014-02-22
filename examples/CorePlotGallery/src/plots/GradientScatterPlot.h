@@ -8,7 +8,8 @@
 
 #import "PlotItem.h"
 
-@interface GradientScatterPlot : PlotItem<CPTPlotSpaceDelegate,
+@interface GradientScatterPlot : PlotItem<CPTPlotAreaDelegate,
+                                          CPTPlotSpaceDelegate,
                                           CPTPlotDataSource,
                                           CPTScatterPlotDelegate>
 {

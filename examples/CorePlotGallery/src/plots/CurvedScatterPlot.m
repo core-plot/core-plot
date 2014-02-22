@@ -379,4 +379,19 @@ NSString *const kSecond = @"Second Derivative";
     [graph.plotAreaFrame.plotArea addAnnotation:symbolTextAnnotation];
 }
 
+#pragma mark -
+#pragma mark Plot area delegate method
+
+-(void)plotAreaWasSelected:(CPTPlotArea *)plotArea
+{
+    // Remove the annotation
+    if ( symbolTextAnnotation ) {
+        CPTXYGraph *graph = [self.graphs objectAtIndex:0];
+
+        [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
+        [symbolTextAnnotation release];
+        symbolTextAnnotation = nil;
+    }
+}
+
 @end
