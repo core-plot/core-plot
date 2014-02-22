@@ -644,8 +644,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
  *  If this plot area has a delegate that responds to the
  *  @link CPTPlotAreaDelegate::plotAreaWasSelected: -plotAreaWasSelected: @endlink and/or
  *  @link CPTPlotAreaDelegate::plotAreaWasSelected:withEvent: -plotAreaWasSelected:withEvent: @endlink
- *  methods, the data points are searched to find the index of the one closest to the @par{interactionPoint}.
- *  The delegate method will be called and this method returns @YES if the @par{interactionPoint} is within the
+ *  methods, the delegate method will be called and this method returns @YES if the @par{interactionPoint} is within the
  *  plot area bounds.
  *
  *  @param event The OS event.
