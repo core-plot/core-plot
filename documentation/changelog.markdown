@@ -16,6 +16,7 @@ To be determined.
 - **New**: Added options to draw a background fill behind and a border line around each legend entry.
 - **New**: Added an axis property to control the offset direction of the title independent of the tick direction.
 - **New**: Added a border line around range plot area fills.
+- **New**: Added plot area delegate methods to report user interaction with the plot area.
 - **Changed**: Switched to a new algorithm for computing curved scatter plots.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 - **Removed**: Removed the elastic global range properties from `CPTXYPlotSpace`. Turning on momentum scrolling now automatically allows elastic ranges, too.
