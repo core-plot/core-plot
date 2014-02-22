@@ -21,20 +21,62 @@
 /// @name Plot Area Selection
 /// @{
 
-/** @brief @optional Informs the delegate that a plot area was
- *  @if MacOnly clicked. @endif
- *  @if iOSOnly touched. @endif
+/** @brief @optional Informs the delegate that a plot area
+ *  @if MacOnly was both pressed and released. @endif
+ *  @if iOSOnly received both the touch down and up events. @endif
  *  @param plotArea The plot area.
  **/
 -(void)plotAreaWasSelected:(CPTPlotArea *)plotArea;
 
-/** @brief @optional Informs the delegate that a plot area was
- *  @if MacOnly clicked. @endif
- *  @if iOSOnly touched. @endif
+/** @brief @optional Informs the delegate that a plot area
+ *  @if MacOnly was both pressed and released. @endif
+ *  @if iOSOnly received both the touch down and up events. @endif
  *  @param plotArea The plot area.
  *  @param event The event that triggered the selection.
  **/
 -(void)plotAreaWasSelected:(CPTPlotArea *)plotArea withEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that a plot area
+ *  @if MacOnly was pressed. @endif
+ *  @if iOSOnly touch started. @endif
+ *  @param plot The bar plot.
+ *  @param idx The index of the
+ *  @if MacOnly clicked bar. @endif
+ *  @if iOSOnly touched bar. @endif
+ **/
+-(void)plotAreaTouchDown:(CPTPlotArea *)plotArea;
+
+/** @brief @optional Informs the delegate that a plot area
+ *  @if MacOnly was pressed. @endif
+ *  @if iOSOnly touch started. @endif
+ *  @param plot The bar plot.
+ *  @param idx The index of the
+ *  @if MacOnly clicked bar. @endif
+ *  @if iOSOnly touched bar. @endif
+ *  @param event The event that triggered the selection.
+ **/
+-(void)plotAreaTouchDown:(CPTPlotArea *)plotArea withEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that a plot area
+ *  @if MacOnly was released. @endif
+ *  @if iOSOnly touch ended. @endif
+ *  @param plot The bar plot.
+ *  @param idx The index of the
+ *  @if MacOnly clicked bar. @endif
+ *  @if iOSOnly touched bar. @endif
+ **/
+-(void)plotAreaTouchUp:(CPTPlotArea *)plotArea;
+
+/** @brief @optional Informs the delegate that a plot area
+ *  @if MacOnly was released. @endif
+ *  @if iOSOnly touch ended. @endif
+ *  @param plot The bar plot.
+ *  @param idx The index of the
+ *  @if MacOnly clicked bar. @endif
+ *  @if iOSOnly touched bar. @endif
+ *  @param event The event that triggered the selection.
+ **/
+-(void)plotAreaTouchUp:(CPTPlotArea *)plotArea withEvent:(CPTNativeEvent *)event;
 
 /// @}
 

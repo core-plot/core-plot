@@ -620,8 +620,8 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
  *
  *
  *  If this plot area has a delegate that responds to the
- *  @link CPTPlotAreaDelegate::plotAreaWasSelected: -plotAreaWasSelected: @endlink and/or
- *  @link CPTPlotAreaDelegate::plotAreaWasSelected:withEvent: -plotAreaWasSelected:withEvent: @endlink
+ *  @link CPTPlotAreaDelegate::plotAreaTouchDown: -plotAreaTouchDown: @endlink and/or
+ *  @link CPTPlotAreaDelegate::plotAreaTouchDown:withEvent: -plotAreaTouchDown:withEvent: @endlink
  *  methods, the delegate method will be called and this method returns @YES if the @par{interactionPoint} is within the
  *  plot area bounds.
  *
@@ -638,23 +638,98 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     }
 
     id<CPTPlotAreaDelegate> theDelegate = self.delegate;
-    if ( [theDelegate respondsToSelector:@selector(plotAreaWasSelected:)] ||
+    if ( [theDelegate respondsToSelector:@selector(plotAreaTouchDown:)] ||
+         [theDelegate respondsToSelector:@selector(plotAreaTouchDown:withEvent:)] ||
+         [theDelegate respondsToSelector:@selector(plotAreaWasSelected:)] ||
          [theDelegate respondsToSelector:@selector(plotAreaWasSelected:withEvent:)] ) {
         // Inform delegate if a point was hit
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:self];
 
         if ( CGRectContainsPoint(self.bounds, plotAreaPoint) ) {
-            if ( [theDelegate respondsToSelector:@selector(plotAreaWasSelected:)] ) {
-                [theDelegate plotAreaWasSelected:self];
+            BOOL handled = NO;
+
+            if ( [theDelegate respondsToSelector:@selector(plotAreaTouchDown:)] ) {
+                handled = YES;
+                [theDelegate plotAreaTouchDown:self];
             }
-            if ( [theDelegate respondsToSelector:@selector(plotAreaWasSelected:withEvent:)] ) {
-                [theDelegate plotAreaWasSelected:self withEvent:event];
+            if ( [theDelegate respondsToSelector:@selector(plotAreaTouchDown:withEvent:)] ) {
+                handled = YES;
+                [theDelegate plotAreaTouchDown:self withEvent:event];
             }
-            return YES;
+
+            if ( handled ) {
+                return YES;
+            }
         }
     }
 
     return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
+}
+
+/**
+ *  @brief Informs the receiver that the user has
+ *  @if MacOnly released the mouse button. @endif
+ *  @if iOSOnly ended touching the screen. @endif
+ *
+ *
+ *  If this plot area has a delegate that responds to the
+ *  @link CPTPlotAreaDelegate::plotAreaTouchUp: -plotAreaTouchUp: @endlink,
+ *  @link CPTPlotAreaDelegate::plotAreaTouchUp:withEvent: -plotAreaTouchUp:withEvent: @endlink,
+ *  @link CPTPlotAreaDelegate::plotAreaWasSelected: -plotAreaWasSelected: @endlink, and/or
+ *  @link CPTPlotAreaDelegate::plotAreaWasSelected:withEvent: -plotAreaWasSelected:withEvent: @endlink
+ *  methods, the delegate method will be called and this method returns @YES if the @par{interactionPoint} is within the
+ *  plot area bounds.
+ *
+ *  @param event The OS event.
+ *  @param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+{
+    CPTGraph *theGraph = self.graph;
+
+    if ( !theGraph || self.hidden ) {
+        return NO;
+    }
+
+    id<CPTPlotAreaDelegate> theDelegate = self.delegate;
+    if ( [theDelegate respondsToSelector:@selector(plotAreaTouchUp:)] ||
+         [theDelegate respondsToSelector:@selector(plotAreaTouchUp:withEvent:)] ||
+         [theDelegate respondsToSelector:@selector(plotAreaWasSelected:)] ||
+         [theDelegate respondsToSelector:@selector(plotAreaWasSelected:withEvent:)] ) {
+        // Inform delegate if a point was hit
+        CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:self];
+
+        if ( CGRectContainsPoint(self.bounds, plotAreaPoint) ) {
+            BOOL handled = NO;
+
+            if ( [theDelegate respondsToSelector:@selector(plotAreaTouchUp:)] ) {
+                handled = YES;
+                [theDelegate plotAreaTouchUp:self];
+            }
+
+            if ( [theDelegate respondsToSelector:@selector(plotAreaTouchUp:withEvent:)] ) {
+                handled = YES;
+                [theDelegate plotAreaTouchUp:self withEvent:event];
+            }
+
+            if ( [theDelegate respondsToSelector:@selector(plotAreaWasSelected:)] ) {
+                handled = YES;
+                [theDelegate plotAreaWasSelected:self];
+            }
+
+            if ( [theDelegate respondsToSelector:@selector(plotAreaWasSelected:withEvent:)] ) {
+                handled = YES;
+                [theDelegate plotAreaWasSelected:self withEvent:event];
+            }
+
+            if ( handled ) {
+                return YES;
+            }
+        }
+    }
+
+    return [super pointingDeviceUpEvent:event atPoint:interactionPoint];
 }
 
 /// @}
