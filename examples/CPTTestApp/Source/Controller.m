@@ -100,6 +100,9 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     graph.paddingTop    = 60.0;
     graph.paddingRight  = 60.0;
     graph.paddingBottom = 60.0;
+
+    // Plot area delegate
+    graph.plotAreaFrame.plotArea.delegate = self;
 }
 
 -(void)setupAxes
@@ -511,6 +514,18 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     animation.autoreverses        = YES;
     animation.removedOnCompletion = YES;
     [plot addAnimation:animation forKey:@"barWidthScale"];
+}
+
+#pragma mark -
+#pragma mark Plot area delegate method
+
+-(void)plotAreaWasSelected:(CPTPlotArea *)plotArea
+{
+    // Remove the annotation
+    if ( symbolTextAnnotation ) {
+        [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
+        symbolTextAnnotation = nil;
+    }
 }
 
 #pragma mark -

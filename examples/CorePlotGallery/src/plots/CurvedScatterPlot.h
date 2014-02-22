@@ -6,7 +6,8 @@
 
 #import "PlotItem.h"
 
-@interface CurvedScatterPlot : PlotItem<CPTPlotSpaceDelegate,
+@interface CurvedScatterPlot : PlotItem<CPTPlotAreaDelegate,
+                                        CPTPlotSpaceDelegate,
                                         CPTPlotDataSource,
                                         CPTScatterPlotDelegate>
 {

@@ -107,6 +107,90 @@
 /// @endcond
 
 #pragma mark -
+#pragma mark Event Handling
+
+/// @name User Interaction
+/// @{
+
+/**
+ *  @brief Informs the receiver that the user has
+ *  @if MacOnly pressed the mouse button. @endif
+ *  @if iOSOnly touched the screen. @endif
+ *
+ *  @param event The OS event.
+ *  @param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+{
+    if ( [self.plotArea pointingDeviceDownEvent:event atPoint:interactionPoint] ) {
+        return YES;
+    }
+    else {
+        return [super pointingDeviceDownEvent:event atPoint:interactionPoint];
+    }
+}
+
+/**
+ *  @brief Informs the receiver that the user has
+ *  @if MacOnly released the mouse button. @endif
+ *  @if iOSOnly lifted their finger off the screen. @endif
+ *
+ *  @param event The OS event.
+ *  @param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+{
+    if ( [self.plotArea pointingDeviceUpEvent:event atPoint:interactionPoint] ) {
+        return YES;
+    }
+    else {
+        return [super pointingDeviceUpEvent:event atPoint:interactionPoint];
+    }
+}
+
+/**
+ *  @brief Informs the receiver that the user has moved
+ *  @if MacOnly the mouse with the button pressed. @endif
+ *  @if iOSOnly their finger while touching the screen. @endif
+ *
+ *  @param event The OS event.
+ *  @param interactionPoint The coordinates of the interaction.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)pointingDeviceDraggedEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+{
+    if ( [self.plotArea pointingDeviceDraggedEvent:event atPoint:interactionPoint] ) {
+        return YES;
+    }
+    else {
+        return [super pointingDeviceDraggedEvent:event atPoint:interactionPoint];
+    }
+}
+
+/**
+ *  @brief Informs the receiver that tracking of
+ *  @if MacOnly mouse moves @endif
+ *  @if iOSOnly touches @endif
+ *  has been cancelled for any reason.
+ *
+ *  @param event The OS event.
+ *  @return Whether the event was handled or not.
+ **/
+-(BOOL)pointingDeviceCancelledEvent:(CPTNativeEvent *)event
+{
+    if ( [self.plotArea pointingDeviceCancelledEvent:event] ) {
+        return YES;
+    }
+    else {
+        return [super pointingDeviceCancelledEvent:event];
+    }
+}
+
+/// @}
+
+#pragma mark -
 #pragma mark Accessors
 
 /// @cond

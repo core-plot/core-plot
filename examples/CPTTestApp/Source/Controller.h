@@ -2,7 +2,7 @@
 #import <Cocoa/Cocoa.h>
 #import <CorePlot/CorePlot.h>
 
-@interface Controller : NSArrayController<CPTPlotDataSource, CPTRotationDelegate, CPTPlotSpaceDelegate, CPTBarPlotDelegate> {
+@interface Controller : NSArrayController<CPTPlotDataSource, CPTRotationDelegate, CPTPlotAreaDelegate, CPTPlotSpaceDelegate, CPTBarPlotDelegate> {
     IBOutlet CPTGraphHostingView *hostView;
     IBOutlet __unsafe_unretained NSWindow *plotSymbolWindow;
     IBOutlet __unsafe_unretained NSWindow *axisDemoWindow;
