@@ -242,61 +242,60 @@ typedef struct CGPointError CGPointError;
         return;
     }
 
-    CPTPlotRangeComparisonResult *xRangeFlags = malloc( dataCount * sizeof(CPTPlotRangeComparisonResult) );
-    CPTPlotRangeComparisonResult *yRangeFlags = malloc( dataCount * sizeof(CPTPlotRangeComparisonResult) );
-    BOOL *nanFlags                            = malloc( dataCount * sizeof(BOOL) );
-
-    CPTPlotRange *xRange = xyPlotSpace.xRange;
-    CPTPlotRange *yRange = xyPlotSpace.yRange;
-
-    // Determine where each point lies in relation to range
-    if ( self.doublePrecisionCache ) {
-        const double *xBytes = (const double *)[self cachedNumbersForField:CPTRangePlotFieldX].data.bytes;
-        const double *yBytes = (const double *)[self cachedNumbersForField:CPTRangePlotFieldY].data.bytes;
+    if ( self.areaFill ) {
+        // show all points to preserve the area fill
         for ( NSUInteger i = 0; i < dataCount; i++ ) {
-            const double x = *xBytes++;
-            const double y = *yBytes++;
-            xRangeFlags[i] = [xRange compareToDouble:x];
-            yRangeFlags[i] = [yRange compareToDouble:y];
-            nanFlags[i]    = isnan(x) || isnan(y);
-        }
-    }
-    else {
-        // Determine where each point lies in relation to range
-        const NSDecimal *xBytes = (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldX].data.bytes;
-        const NSDecimal *yBytes = (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldY].data.bytes;
-
-        for ( NSUInteger i = 0; i < dataCount; i++ ) {
-            const NSDecimal *x = xBytes++;
-            const NSDecimal *y = yBytes++;
-
-            xRangeFlags[i] = [xRange compareToDecimal:*x];
-            yRangeFlags[i] = [yRange compareToDecimal:*y];
-            nanFlags[i]    = NSDecimalIsNotANumber(x); // || NSDecimalIsNotANumber(high) || NSDecimalIsNotANumber(low);
-        }
-    }
-
-    // Ensure that whenever the path crosses over a region boundary, both points
-    // are included. This ensures no lines are left out that shouldn't be.
-    pointDrawFlags[0] = (xRangeFlags[0] == CPTPlotRangeComparisonResultNumberInRange &&
-                         yRangeFlags[0] == CPTPlotRangeComparisonResultNumberInRange &&
-                         !nanFlags[0]);
-    for ( NSUInteger i = 1; i < dataCount; i++ ) {
-        pointDrawFlags[i] = NO;
-        if ( !visibleOnly && !nanFlags[i - 1] && !nanFlags[i] && ( (xRangeFlags[i - 1] != xRangeFlags[i]) || (xRangeFlags[i - 1] != xRangeFlags[i]) ) ) {
-            pointDrawFlags[i - 1] = YES;
-            pointDrawFlags[i]     = YES;
-        }
-        else if ( (xRangeFlags[i] == CPTPlotRangeComparisonResultNumberInRange) &&
-                  (yRangeFlags[i] == CPTPlotRangeComparisonResultNumberInRange) &&
-                  !nanFlags[i] ) {
             pointDrawFlags[i] = YES;
         }
     }
+    else {
+        CPTPlotRangeComparisonResult *xRangeFlags = malloc( dataCount * sizeof(CPTPlotRangeComparisonResult) );
+        CPTPlotRangeComparisonResult *yRangeFlags = malloc( dataCount * sizeof(CPTPlotRangeComparisonResult) );
+        BOOL *nanFlags                            = malloc( dataCount * sizeof(BOOL) );
 
-    free(xRangeFlags);
-    free(yRangeFlags);
-    free(nanFlags);
+        CPTPlotRange *xRange = xyPlotSpace.xRange;
+        CPTPlotRange *yRange = xyPlotSpace.yRange;
+
+        // Determine where each point lies in relation to range
+        if ( self.doublePrecisionCache ) {
+            const double *xBytes = (const double *)[self cachedNumbersForField:CPTRangePlotFieldX].data.bytes;
+            const double *yBytes = (const double *)[self cachedNumbersForField:CPTRangePlotFieldY].data.bytes;
+            for ( NSUInteger i = 0; i < dataCount; i++ ) {
+                const double x = *xBytes++;
+                const double y = *yBytes++;
+
+                xRangeFlags[i] = [xRange compareToDouble:x];
+                yRangeFlags[i] = [yRange compareToDouble:y];
+                nanFlags[i]    = isnan(x) || isnan(y);
+            }
+        }
+        else {
+            // Determine where each point lies in relation to range
+            const NSDecimal *xBytes = (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldX].data.bytes;
+            const NSDecimal *yBytes = (const NSDecimal *)[self cachedNumbersForField:CPTRangePlotFieldY].data.bytes;
+
+            for ( NSUInteger i = 0; i < dataCount; i++ ) {
+                const NSDecimal *x = xBytes++;
+                const NSDecimal *y = yBytes++;
+
+                xRangeFlags[i] = [xRange compareToDecimal:*x];
+                yRangeFlags[i] = [yRange compareToDecimal:*y];
+                nanFlags[i]    = NSDecimalIsNotANumber(x); // || NSDecimalIsNotANumber(high) || NSDecimalIsNotANumber(low);
+            }
+        }
+
+        for ( NSUInteger i = 0; i < dataCount; i++ ) {
+            BOOL drawPoint = (xRangeFlags[i] == CPTPlotRangeComparisonResultNumberInRange) &&
+                             (yRangeFlags[i] == CPTPlotRangeComparisonResultNumberInRange) &&
+                             !nanFlags[i];
+
+            pointDrawFlags[i] = drawPoint;
+        }
+
+        free(xRangeFlags);
+        free(yRangeFlags);
+        free(nanFlags);
+    }
 }
 
 -(void)calculateViewPoints:(CGPointError *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags numberOfPoints:(NSUInteger)dataCount
@@ -804,14 +803,14 @@ typedef struct CGPointError CGPointError;
             CGContextBeginPath(context);
             AddRoundedRectPath(context, CPTAlignIntegralRectToUserSpace(context, rect), legend.swatchCornerRadius);
             [theFill fillPathInContext:context];
-        }
 
-        CPTLineStyle *lineStyle = self.areaBorderLineStyle;
-        if ( lineStyle ) {
-            AddRoundedRectPath(context, CPTAlignIntegralRectToUserSpace(context, rect), legend.swatchCornerRadius);
+            CPTLineStyle *lineStyle = self.areaBorderLineStyle;
+            if ( lineStyle ) {
+                AddRoundedRectPath(context, CPTAlignIntegralRectToUserSpace(context, rect), legend.swatchCornerRadius);
 
-            [lineStyle setLineStyleInContext:context];
-            [lineStyle strokePathInContext:context];
+                [lineStyle setLineStyleInContext:context];
+                [lineStyle strokePathInContext:context];
+            }
         }
 
         CPTLineStyle *theBarLineStyle = [self barLineStyleForIndex:idx];
