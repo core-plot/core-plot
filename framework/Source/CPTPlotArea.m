@@ -15,6 +15,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 
 @property (nonatomic, readwrite, assign) CPTGraphLayerType *bottomUpLayerOrder;
 @property (nonatomic, readwrite, assign, getter = isUpdatingLayers) BOOL updatingLayers;
+@property (nonatomic, readwrite) CGPoint touchedPoint;
 
 -(void)updateLayerOrder;
 -(unsigned)indexForLayerType:(CPTGraphLayerType)layerType;
@@ -111,6 +112,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 // Private properties
 @synthesize bottomUpLayerOrder;
 @synthesize updatingLayers;
+@synthesize touchedPoint;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -145,6 +147,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         axisLabelGroup     = nil;
         axisTitleGroup     = nil;
         fill               = nil;
+        touchedPoint       = CGPointMake(NAN, NAN);
         topDownLayerOrder  = nil;
         bottomUpLayerOrder = malloc( kCPTNumberOfLayers * sizeof(CPTGraphLayerType) );
         [self updateLayerOrder];
@@ -173,6 +176,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         axisLabelGroup     = theLayer->axisLabelGroup;
         axisTitleGroup     = theLayer->axisTitleGroup;
         fill               = theLayer->fill;
+        touchedPoint       = theLayer->touchedPoint;
         topDownLayerOrder  = theLayer->topDownLayerOrder;
         bottomUpLayerOrder = malloc( kCPTNumberOfLayers * sizeof(CPTGraphLayerType) );
         memcpy( bottomUpLayerOrder, theLayer->bottomUpLayerOrder, kCPTNumberOfLayers * sizeof(CPTGraphLayerType) );
@@ -208,6 +212,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     // No need to archive these properties:
     // bottomUpLayerOrder
     // updatingLayers
+    // touchedPoint
 }
 
 -(instancetype)initWithCoder:(NSCoder *)coder
@@ -224,6 +229,8 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 
         bottomUpLayerOrder = malloc( kCPTNumberOfLayers * sizeof(CPTGraphLayerType) );
         [self updateLayerOrder];
+
+        touchedPoint = CGPointMake(NAN, NAN);
     }
     return self;
 }
@@ -646,14 +653,12 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:self];
 
         if ( CGRectContainsPoint(self.bounds, plotAreaPoint) ) {
-            BOOL handled = NO;
+            self.touchedPoint = plotAreaPoint;
 
             if ( [theDelegate respondsToSelector:@selector(plotAreaTouchDown:)] ) {
-                handled = YES;
                 [theDelegate plotAreaTouchDown:self];
             }
             if ( [theDelegate respondsToSelector:@selector(plotAreaTouchDown:withEvent:)] ) {
-                handled = YES;
                 [theDelegate plotAreaTouchDown:self withEvent:event];
             }
 
@@ -690,6 +695,9 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         return NO;
     }
 
+    CGPoint lastPoint = self.touchedPoint;
+    self.touchedPoint = CGPointMake(NAN, NAN);
+
     id<CPTPlotAreaDelegate> theDelegate = self.delegate;
     if ( [theDelegate respondsToSelector:@selector(plotAreaTouchUp:)] ||
          [theDelegate respondsToSelector:@selector(plotAreaTouchUp:withEvent:)] ||
@@ -698,26 +706,20 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         // Inform delegate if a point was hit
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:self];
 
-        if ( CGRectContainsPoint(self.bounds, plotAreaPoint) ) {
-            BOOL handled = NO;
-
+        if ( CGRectContainsPoint(self.bounds, plotAreaPoint) && CGPointEqualToPoint(plotAreaPoint, lastPoint) ) {
             if ( [theDelegate respondsToSelector:@selector(plotAreaTouchUp:)] ) {
-                handled = YES;
                 [theDelegate plotAreaTouchUp:self];
             }
 
             if ( [theDelegate respondsToSelector:@selector(plotAreaTouchUp:withEvent:)] ) {
-                handled = YES;
                 [theDelegate plotAreaTouchUp:self withEvent:event];
             }
 
             if ( [theDelegate respondsToSelector:@selector(plotAreaWasSelected:)] ) {
-                handled = YES;
                 [theDelegate plotAreaWasSelected:self];
             }
 
             if ( [theDelegate respondsToSelector:@selector(plotAreaWasSelected:withEvent:)] ) {
-                handled = YES;
                 [theDelegate plotAreaWasSelected:self withEvent:event];
             }
 
