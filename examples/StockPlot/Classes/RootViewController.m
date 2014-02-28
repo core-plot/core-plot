@@ -247,7 +247,7 @@
 
 -(void)addSymbol:(NSString *)aSymbol
 {
-    NSTimeInterval secondsAgo = -timeIntervalForNumberOfWeeks(14.0); //12 weeks ago
+    NSTimeInterval secondsAgo = -fabs(60.0 * 60.0 * 24.0 * 7.0 * 12.0); //12 weeks ago
     NSDate *start             = [NSDate dateWithTimeIntervalSinceNow:secondsAgo];
     NSDate *end               = [NSDate date];
 

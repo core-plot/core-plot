@@ -657,9 +657,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
                 [theDelegate plotAreaTouchDown:self withEvent:event];
             }
 
-            if ( handled ) {
-                return YES;
-            }
+            return NO; // don't block other events in the responder chain
         }
     }
 
@@ -723,9 +721,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
                 [theDelegate plotAreaWasSelected:self withEvent:event];
             }
 
-            if ( handled ) {
-                return YES;
-            }
+            return NO; // don't block other events in the responder chain
         }
     }
 
