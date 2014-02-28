@@ -10,8 +10,6 @@
 #import "APYahooDataPuller.h"
 #import "APYahooDataPullerGraph.h"
 
-NSTimeInterval timeIntervalForNumberOfWeeks(float numberOfWeeks);
-
 @interface RootViewController : UITableViewController<APYahooDataPullerDelegate> {
     @private
     NSMutableArray *stocks;
