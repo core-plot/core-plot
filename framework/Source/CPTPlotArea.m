@@ -672,7 +672,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
             if ( [theDelegate respondsToSelector:@selector(plotAreaWasSelected:withEvent:)] ) {
                 [theDelegate plotAreaWasSelected:self withEvent:event];
             }
-            return YES;
+            return NO; // don't block other events in the responder chain
         }
     }
 
