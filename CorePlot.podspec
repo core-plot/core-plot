@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'CorePlot'
-  s.version  = '1.4'
+  s.version  = '1.4.1'
   s.license  = 'BSD'
   s.summary  = 'Cocoa plotting framework for Mac OS X and iOS.'
   s.homepage = 'https://github.com/core-plot'
@@ -20,10 +20,4 @@ Pod::Spec.new do |s|
   s.osx.source_files = 'framework/CorePlot.h', 'framework/MacOnly/*.{h,m}'
 
   s.framework   = 'QuartzCore'
-
-  s.prepare_command = <<-CMD
-    mv -v CorePlot_1.4/Source/framework .
-    mv -v CorePlot_1.4/Source/License.txt .
-    dtrace -h -s framework/TestResources/CorePlotProbes.d -o framework/Source/CorePlotProbes.h
-  CMD
 end
