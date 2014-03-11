@@ -20,4 +20,8 @@ Pod::Spec.new do |s|
   s.osx.source_files = 'framework/CorePlot.h', 'framework/MacOnly/*.{h,m}'
 
   s.framework   = 'QuartzCore'
+  
+  s.prepare_command = <<-CMD
+    dtrace -h -s framework/TestResources/CorePlotProbes.d -o framework/Source/CorePlotProbes.h
+  CMD
 end
