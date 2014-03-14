@@ -196,12 +196,12 @@
     CGSize textSize;
 
     // -boundingRectWithSize:options:attributes:context: is available in iOS 7.0 and later
-    if ([self respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)] ) {
+    if ( [self respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)] ) {
         CGRect rect = [self boundingRectWithSize:CPTSizeMake(10000.0, 10000.0)
                                          options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine
                                       attributes:style.attributes
                                          context:nil];
-        textSize = rect.size;
+        textSize        = rect.size;
         textSize.width  = ceil(textSize.width);
         textSize.height = ceil(textSize.height);
     }
