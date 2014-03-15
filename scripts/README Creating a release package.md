@@ -61,9 +61,3 @@ Follow these steps to create a Core Plot release and post it to GitHub:
 15. Change to the HTML documentation directory cloned from [core-plot.github.io](https://github.com/core-plot/core-plot.github.io):
 
     `cd ../documentation/html`
-
-16. Tag the current revision with the release version:
-
-    `$ git tag release_<version>`
-    
-    where **&lt;version&gt;** is the version number for this release.
