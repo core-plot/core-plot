@@ -22,25 +22,27 @@ To be determined.
 
 
 
-# Next Release (TBD)
+# Release 1.5 (March 15, 2014)
 
 ## Release Notes
 
-To be determined.
+This release adds new animation options, user interaction for annotations and plot areas,
+and new customization options for legends, range plots, and axis titles. It also added
+plot space properties to permit more fine-grained control of momentum scrolling.
 
 ## Details
-- **New**: Updated CPTAnimation to allow animations to start at the current value of the animated property instead of a fixed value.
-- **New**: Added annotations to the responder chain.
-- **New**: Added a plot space method to scale the plot range for a single coordinate.
-- **New**: Added properties to control momentum scrolling for the x- and y-directions separately.
-- **New**: Added an identifier and user info dictionary to animation operations.
+- **New**: Updated `CPTAnimation` to allow animations to start at the current value of the animated property instead of a fixed value.
 - **New**: Animations can now start when the value of the animated property enters the animated range.
+- **New**: Added an identifier and user info dictionary to animation operations.
+- **New**: Added annotations to the responder chain.
+- **New**: Added plot area delegate methods to report user interaction with the plot area.
 - **New**: Added legend delegate methods to customize the swatch fill and border line style for each legend entry.
 - **New**: Added a plot property to control drawing of the legend entry swatch.
 - **New**: Added options to draw a background fill behind and a border line around each legend entry.
 - **New**: Added an axis property to control the offset direction of the title independent of the tick direction.
 - **New**: Added a border line around range plot area fills.
-- **New**: Added plot area delegate methods to report user interaction with the plot area.
+- **New**: Added a plot space method to scale the plot range for a single coordinate.
+- **New**: Added properties to control momentum scrolling for the x- and y-directions separately.
 - **Changed**: Switched to a new algorithm for computing curved scatter plots.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 - **Removed**: Removed the elastic global range properties from `CPTXYPlotSpace`. Turning on momentum scrolling now automatically allows elastic ranges, too.
