@@ -233,13 +233,6 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
     [super dealloc];
 }
 
--(void)finalize
-{
-    CGPathRelease(outerBorderPath);
-    CGPathRelease(innerBorderPath);
-    [super finalize];
-}
-
 /// @endcond
 
 #pragma mark -

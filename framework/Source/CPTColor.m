@@ -322,12 +322,6 @@
     [super dealloc];
 }
 
--(void)finalize
-{
-    CGColorRelease(cgColor);
-    [super finalize];
-}
-
 /// @endcond
 
 #pragma mark -

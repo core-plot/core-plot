@@ -79,12 +79,6 @@
     [super dealloc];
 }
 
--(void)finalize
-{
-    CGColorSpaceRelease(cgColorSpace);
-    [super finalize];
-}
-
 /// @endcond
 
 #pragma mark -

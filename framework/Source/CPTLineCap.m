@@ -105,13 +105,6 @@
     [super dealloc];
 }
 
--(void)finalize
-{
-    CGPathRelease(cachedLineCapPath);
-    CGPathRelease(customLineCapPath);
-    [super finalize];
-}
-
 /// @endcond
 
 #pragma mark -

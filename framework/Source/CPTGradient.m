@@ -142,13 +142,6 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     [super dealloc];
 }
 
--(void)finalize
-{
-    CGFunctionRelease(gradientFunction);
-    [self removeAllElements];
-    [super finalize];
-}
-
 /// @endcond
 
 #pragma mark -

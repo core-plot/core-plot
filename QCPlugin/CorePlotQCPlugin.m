@@ -114,15 +114,6 @@ void drawErrorText(CGContextRef context, CGRect rect)
     return self;
 }
 
--(void)finalize
-{
-    /*
-     * Release any non garbage collected resources created in -init.
-     */
-
-    [super finalize];
-}
-
 -(void)dealloc
 {
     /*
