@@ -5,8 +5,6 @@
 
 #import "LineCapDemo.h"
 
-static const CGFloat titleOffset = 25.0;
-
 @implementation LineCapDemo
 
 +(void)load
