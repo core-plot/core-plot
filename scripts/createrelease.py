@@ -45,6 +45,9 @@ mkdir(releaseRootDir)
 copy('License.txt', releaseRootDir)
 copytree('READMEs', join(releaseRootDir, 'READMEs'), ignore=ignore_patterns('*.orig'))
 
+# Copy podspec
+copy('CorePlot.podspec', releaseRootDir)
+
 # Add source code
 sourceDir = join(releaseRootDir, 'Source')
 copytree('framework', join(sourceDir, 'framework'), ignore=ignore_patterns('*.docset','*.orig'))

@@ -8,7 +8,7 @@ Follow these steps to create a Core Plot release and post it to GitHub:
         <li>[Graphviz](http://www.graphviz.org/Download_macos.php), version 2.34.0 or later</li>
     </ul>
 
-2. Ensure the [change log](https://github.com/core-plot/core-plot/blob/master/documentation/changelog.markdown) is up-to-date and committed to the Git repository.
+2. Ensure the [change log](https://github.com/core-plot/core-plot/blob/master/documentation/changelog.markdown) and [podspec](https://github.com/core-plot/core-plot/blob/master/CorePlot.podspec) are up-to-date and committed to the Git repository.
 
 3. Using Git, ensure your local Core Plot source directory is in sync with the public repository on GitHub.
 
