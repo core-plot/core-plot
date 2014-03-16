@@ -1,3 +1,15 @@
+# Release 1.5.1 (March 16, 2014)
+
+## Release Notes
+
+This release updates release 1.5 to work with Xcode 5.1.
+
+## Details
+- **Removed**: Removed the `-all_load` linker flag from the iOS project.
+- **Removed**: Removed support for garbage collection.
+
+
+
 # Release 1.5 (March 15, 2014)
 
 ## Release Notes
