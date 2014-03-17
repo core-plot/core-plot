@@ -578,6 +578,11 @@
             CGContextTranslateCTM(context, center.x + ( symbolAnchor.x - CPTFloat(0.5) ) * symbolSize.width, center.y + ( symbolAnchor.y - CPTFloat(0.5) ) * symbolSize.height);
             CGContextScaleCTM(context, scale, scale);
             [self.shadow setShadowInContext:context];
+            
+            // redraw only symbol rectangle
+            CGRect symbolRect = CGRectMake(symbolAnchor.x - symbolSize.width, symbolAnchor.y - symbolSize.height, symbolSize.width * 2, symbolSize.height * 2);
+            CGContextClipToRect(context, symbolRect);
+            
             CGContextBeginTransparencyLayer(context, NULL);
 
             if ( theFill ) {
