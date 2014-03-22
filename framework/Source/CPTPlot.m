@@ -1631,8 +1631,8 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *
  *
  *  If this plot has a delegate that responds to the
- *  @link CPTPlotDelegate::plot:dataLabelTouchDownRecordIndex: -plot:dataLabelTouchDownRecordIndex: @endlink or
- *  @link CPTPlotDelegate::plot:dataLabelTouchDownRecordIndex:withEvent: -plot:dataLabelTouchDownRecordIndex:withEvent: @endlink
+ *  @link CPTPlotDelegate::plot:dataLabelTouchDownAtRecordIndex: -plot:dataLabelTouchDownAtRecordIndex: @endlink or
+ *  @link CPTPlotDelegate::plot:dataLabelTouchDownAtRecordIndex:withEvent: -plot:dataLabelTouchDownAtRecordIndex:withEvent: @endlink
  *  methods, the data labels are searched to find the index of the one containing the @par{interactionPoint}.
  *  The delegate method will be called and this method returns @YES if the @par{interactionPoint} is within a label.
  *  This method returns @NO if the @par{interactionPoint} is too far away from all of the data labels.

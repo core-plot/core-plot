@@ -1170,8 +1170,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  *
  *  If the bar being released is the same as the one that was pressed (see
  *  @link CPTLegend::pointingDeviceDownEvent:atPoint: -pointingDeviceDownEvent:atPoint: @endlink), if the delegate responds to the
- *  @link CPTLegendDelegate::legend:legendEntryForPlot:WasSelectedAtRecordIndex: -legend:legendEntryForPlot:WasSelectedAtRecordIndex: @endlink and/or
- *  @link CPTLegendDelegate::legend:legendEntryForPlot:WasSelectedAtRecordIndex:withEvent: -legend:legendEntryForPlot:WasSelectedAtRecordIndex:withEvent: @endlink
+ *  @link CPTLegendDelegate::legend:legendEntryForPlot:wasSelectedAtIndex: -legend:legendEntryForPlot:wasSelectedAtIndex: @endlink and/or
+ *  @link CPTLegendDelegate::legend:legendEntryForPlot:wasSelectedAtIndex:withEvent: -legend:legendEntryForPlot:wasSelectedAtIndex:withEvent: @endlink
  *  methods, these will be called.
  *
  *  @param event The OS event.

@@ -170,7 +170,7 @@ typedef NS_ENUM (NSInteger, CPTPieDirection) {
  **/
 -(void)pieChart:(CPTPieChart *)plot sliceTouchUpAtRecordIndex:(NSUInteger)idx;
 
-/** @brief @optional Informs the delegate that a pie slice was
+/** @brief @optional Informs the delegate that a pie slice
  *  @if MacOnly was released. @endif
  *  @if iOSOnly touch ended. @endif
  *  @param plot The pie chart.
