@@ -15,21 +15,7 @@ extern NSString *const CPTLayerBoundsDidChangeNotification;
 
 /// @}
 
-@interface CPTLayer : CALayer<CPTResponder> {
-    @private
-    CGFloat paddingLeft;
-    CGFloat paddingTop;
-    CGFloat paddingRight;
-    CGFloat paddingBottom;
-    BOOL masksToBorder;
-    CPTShadow *shadow;
-    BOOL renderingRecursively;
-    BOOL useFastRendering;
-    __cpt_weak CPTGraph *graph;
-    CGPathRef outerBorderPath;
-    CGPathRef innerBorderPath;
-    id<NSCopying, NSCoding, NSObject> identifier;
-}
+@interface CPTLayer : CALayer<CPTResponder>
 
 /// @name Graph
 /// @{
@@ -47,7 +33,7 @@ extern NSString *const CPTLayerBoundsDidChangeNotification;
 /// @name Drawing
 /// @{
 @property (readwrite) CGFloat contentsScale;
-@property (nonatomic, readonly, assign) BOOL useFastRendering;
+@property (nonatomic, readonly) BOOL useFastRendering;
 @property (nonatomic, readwrite, copy) CPTShadow *shadow;
 @property (nonatomic, readonly) CGSize shadowMargin;
 /// @}
@@ -57,8 +43,8 @@ extern NSString *const CPTLayerBoundsDidChangeNotification;
 @property (nonatomic, readwrite, assign) BOOL masksToBorder;
 @property (nonatomic, readwrite, assign) CGPathRef outerBorderPath;
 @property (nonatomic, readwrite, assign) CGPathRef innerBorderPath;
-@property (nonatomic, readonly, assign) CGPathRef maskingPath;
-@property (nonatomic, readonly, assign) CGPathRef sublayerMaskingPath;
+@property (nonatomic, readonly) CGPathRef maskingPath;
+@property (nonatomic, readonly) CGPathRef sublayerMaskingPath;
 /// @}
 
 /// @name Identification
@@ -68,12 +54,12 @@ extern NSString *const CPTLayerBoundsDidChangeNotification;
 
 /// @name Layout
 /// @{
-@property (readonly) NSSet *sublayersExcludedFromAutomaticLayout;
+@property (nonatomic, readonly) NSSet *sublayersExcludedFromAutomaticLayout;
 /// @}
 
 /// @name Initialization
 /// @{
--(id)initWithFrame:(CGRect)newFrame;
+-(instancetype)initWithFrame:(CGRect)newFrame;
 /// @}
 
 /// @name Drawing
@@ -102,27 +88,3 @@ extern NSString *const CPTLayerBoundsDidChangeNotification;
 /// @}
 
 @end
-
-/// @cond
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#else
-// for MacOS 10.6 SDK compatibility
-#if MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_7
-@interface CALayer(CPTExtensions)
-
-@property (readwrite) CGFloat contentsScale;
-
-@end
-#endif
-
-// for MacOS 10.5 SDK compatibility
-#if MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_6
-@interface CALayer(CPTExtensions2)
-
-+(BOOL)needsDisplayForKey:(NSString *)aKey;
-
-@end
-#endif
-#endif
-
-/// @endcond

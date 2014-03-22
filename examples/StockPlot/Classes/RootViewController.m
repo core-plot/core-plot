@@ -87,7 +87,7 @@
 // Override to support row selection in the table view.
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    APYahooDataPuller *dp = [stocks objectAtIndex:indexPath.row];
+    APYahooDataPuller *dp = stocks[indexPath.row];
 
     [self inspectStock:dp];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -106,7 +106,7 @@
 
 -(void)setupCell:(UITableViewCell *)cell forStockAtIndex:(NSUInteger)row
 {
-    APYahooDataPuller *dp = [stocks objectAtIndex:row];
+    APYahooDataPuller *dp = stocks[row];
 
     [[cell textLabel] setText:[dp symbol]];
 

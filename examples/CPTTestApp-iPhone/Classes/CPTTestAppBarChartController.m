@@ -112,12 +112,12 @@
     // Define some custom labels for the data elements
     x.labelRotation  = M_PI_4;
     x.labelingPolicy = CPTAxisLabelingPolicyNone;
-    NSArray *customTickLocations = [NSArray arrayWithObjects:[NSDecimalNumber numberWithInt:1], [NSDecimalNumber numberWithInt:5], [NSDecimalNumber numberWithInt:10], [NSDecimalNumber numberWithInt:15], nil];
-    NSArray *xAxisLabels         = [NSArray arrayWithObjects:@"Label A", @"Label B", @"Label C", @"Label D", nil];
+    NSArray *customTickLocations = @[@1, @5, @10, @15];
+    NSArray *xAxisLabels         = @[@"Label A", @"Label B", @"Label C", @"Label D"];
     NSUInteger labelLocation     = 0;
     NSMutableSet *customLabels   = [NSMutableSet setWithCapacity:[xAxisLabels count]];
     for ( NSNumber *tickLocation in customTickLocations ) {
-        CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:[xAxisLabels objectAtIndex:labelLocation++] textStyle:x.labelTextStyle];
+        CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:xAxisLabels[labelLocation++] textStyle:x.labelTextStyle];
         newLabel.tickLocation = [tickLocation decimalValue];
         newLabel.offset       = x.labelOffset + x.majorTickLength;
         newLabel.rotation     = M_PI_4;
@@ -170,18 +170,18 @@
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    NSDecimalNumber *num = nil;
+    NSNumber *num = nil;
 
     if ( [plot isKindOfClass:[CPTBarPlot class]] ) {
         switch ( fieldEnum ) {
             case CPTBarPlotFieldBarLocation:
-                num = (NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInteger:index];
+                num = @(index);
                 break;
 
             case CPTBarPlotFieldBarTip:
-                num = (NSDecimalNumber *)[NSDecimalNumber numberWithUnsignedInteger:(index + 1) * (index + 1)];
+                num = @( (index + 1) * (index + 1) );
                 if ( [plot.identifier isEqual:@"Bar Plot 2"] ) {
-                    num = [num decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:@"10"]];
+                    num = @(num.integerValue - 10);
                 }
                 break;
         }

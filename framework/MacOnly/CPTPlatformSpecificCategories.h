@@ -23,7 +23,7 @@
  **/
 @interface CPTColor(CPTPlatformSpecificColorExtensions)
 
-@property (nonatomic, readonly, retain) NSColor *nsColor;
+@property (nonatomic, readonly) NSColor *nsColor;
 
 @end
 
@@ -38,22 +38,5 @@
 /// @{
 -(void)drawInRect:(CGRect)rect inContext:(CGContextRef)context;
 /// @}
-
-@end
-
-#pragma mark - NSColor
-
-/** @category NSColor(CPTPlatformSpecificExtensions)
- *  @brief NSColor extensions for color conversion.
- **/
-@interface NSColor(CPTPlatformSpecificExtensions)
-
-#if MAC_OS_X_VERSION_MAX_ALLOWED<MAC_OS_X_VERSION_10_8
-
-/// @name Converting Colors
-/// @{
--(CGColorRef)CGColor;
-/// @}
-#endif
 
 @end

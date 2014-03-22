@@ -2,17 +2,6 @@
 
 #import "NSCoderExtensions.h"
 
-/// @cond
-@interface CPTColorSpace()
-
-@property (nonatomic, readwrite, assign) CGColorSpaceRef cgColorSpace;
-
-@end
-
-/// @endcond
-
-#pragma mark -
-
 /** @brief An immutable color space.
  *
  *  An immutable object wrapper class around @ref CGColorSpaceRef.
@@ -36,7 +25,7 @@
  *
  *  @return A shared CPTColorSpace object initialized with the standard RGB colorspace.
  **/
-+(CPTColorSpace *)genericRGBSpace
++(instancetype)genericRGBSpace
 {
     static CPTColorSpace *space = nil;
 
@@ -62,7 +51,7 @@
  *  @param colorSpace The color space.
  *  @return The initialized CPTColorSpace object.
  **/
--(id)initWithCGColorSpace:(CGColorSpaceRef)colorSpace
+-(instancetype)initWithCGColorSpace:(CGColorSpaceRef)colorSpace
 {
     if ( (self = [super init]) ) {
         CGColorSpaceRetain(colorSpace);
@@ -76,7 +65,6 @@
 -(void)dealloc
 {
     CGColorSpaceRelease(cgColorSpace);
-    [super dealloc];
 }
 
 /// @endcond
@@ -91,28 +79,12 @@
     [coder encodeCGColorSpace:self.cgColorSpace forKey:@"CPTColorSpace.cgColorSpace"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         cgColorSpace = [coder newCGColorSpaceDecodeForKey:@"CPTColorSpace.cgColorSpace"];
     }
     return self;
-}
-
-/// @endcond
-
-#pragma mark -
-#pragma mark Accessors
-
-/// @cond
-
--(void)setCGColorSpace:(CGColorSpaceRef)newSpace
-{
-    if ( newSpace != cgColorSpace ) {
-        CGColorSpaceRelease(cgColorSpace);
-        CGColorSpaceRetain(newSpace);
-        cgColorSpace = newSpace;
-    }
 }
 
 /// @endcond

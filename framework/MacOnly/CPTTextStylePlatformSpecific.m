@@ -32,7 +32,7 @@
  *  @param attributes A dictionary of standard text attributes.
  *  @return A new CPTTextStyle instance.
  **/
-+(id)textStyleWithAttributes:(NSDictionary *)attributes
++(instancetype)textStyleWithAttributes:(NSDictionary *)attributes
 {
     CPTMutableTextStyle *newStyle = [CPTMutableTextStyle textStyle];
 
@@ -53,14 +53,17 @@
         }
         else {
             const NSInteger numberOfComponents = [styleColor numberOfComponents];
-            CGFloat components[numberOfComponents];
-            CGColorSpaceRef colorSpace = [[styleColor colorSpace] CGColorSpace];
 
+            CGFloat *components = calloc( (size_t)numberOfComponents, sizeof(CGFloat) );
             [styleColor getComponents:components];
 
-            CGColorRef styleCGColor = CGColorCreate(colorSpace, components);
+            CGColorSpaceRef colorSpace = [[styleColor colorSpace] CGColorSpace];
+            CGColorRef styleCGColor    = CGColorCreate(colorSpace, components);
+
             newStyle.color = [CPTColor colorWithCGColor:styleCGColor];
+
             CGColorRelease(styleCGColor);
+            free(components);
         }
     }
 
@@ -71,7 +74,7 @@
         newStyle.lineBreakMode = paragraphStyle.lineBreakMode;
     }
 
-    return [[newStyle copy] autorelease];
+    return [newStyle copy];
 }
 
 #pragma mark -
@@ -106,9 +109,7 @@
     [myAttributes setValue:paragraphStyle
                     forKey:NSParagraphStyleAttributeName];
 
-    [paragraphStyle release];
-
-    return [[myAttributes copy] autorelease];
+    return [myAttributes copy];
 }
 
 /// @endcond
@@ -121,7 +122,7 @@
 
 /// @cond
 
-+(id)textStyleWithAttributes:(NSDictionary *)attributes
++(instancetype)textStyleWithAttributes:(NSDictionary *)attributes
 {
     CPTMutableTextStyle *newStyle = [CPTMutableTextStyle textStyle];
 
@@ -142,14 +143,17 @@
         }
         else {
             const NSInteger numberOfComponents = [styleColor numberOfComponents];
-            CGFloat components[numberOfComponents];
-            CGColorSpaceRef colorSpace = [[styleColor colorSpace] CGColorSpace];
 
+            CGFloat *components = calloc( (size_t)numberOfComponents, sizeof(CGFloat) );
             [styleColor getComponents:components];
 
-            CGColorRef styleCGColor = CGColorCreate(colorSpace, components);
+            CGColorSpaceRef colorSpace = [[styleColor colorSpace] CGColorSpace];
+            CGColorRef styleCGColor    = CGColorCreate(colorSpace, components);
+
             newStyle.color = [CPTColor colorWithCGColor:styleCGColor];
+
             CGColorRelease(styleCGColor);
+            free(components);
         }
     }
 
@@ -185,13 +189,11 @@
     CGSize textSize;
 
     if ( theFont ) {
-        NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                    theFont, NSFontAttributeName,
-                                    nil];
+        NSDictionary *attributes = @{
+            NSFontAttributeName: theFont
+        };
 
         textSize = NSSizeToCGSize([self sizeWithAttributes:attributes]);
-
-        [attributes release];
     }
     else {
         textSize = CGSizeZero;
@@ -227,17 +229,14 @@
         paragraphStyle.alignment     = (NSTextAlignment)style.textAlignment;
         paragraphStyle.lineBreakMode = style.lineBreakMode;
 
-        NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                    theFont, NSFontAttributeName,
-                                    foregroundColor, NSForegroundColorAttributeName,
-                                    paragraphStyle, NSParagraphStyleAttributeName,
-                                    nil];
+        NSDictionary *attributes = @{
+            NSFontAttributeName: theFont,
+            NSForegroundColorAttributeName: foregroundColor,
+            NSParagraphStyleAttributeName: paragraphStyle
+        };
         [self drawWithRect:NSRectFromCGRect(rect)
                    options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine
                 attributes:attributes];
-
-        [paragraphStyle release];
-        [attributes release];
     }
     CPTPopCGContext();
 }

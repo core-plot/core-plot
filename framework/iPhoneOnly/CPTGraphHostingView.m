@@ -65,8 +65,8 @@
 
 -(void)commonInit
 {
-    hostedGraph     = nil;
-    collapsesLayers = NO;
+    self.hostedGraph     = nil;
+    self.collapsesLayers = NO;
 
     self.backgroundColor = [UIColor clearColor];
 
@@ -76,7 +76,7 @@
     self.layer.sublayerTransform = CATransform3DMakeScale( CPTFloat(1.0), CPTFloat(-1.0), CPTFloat(1.0) );
 }
 
--(id)initWithFrame:(CGRect)frame
+-(instancetype)initWithFrame:(CGRect)frame
 {
     if ( (self = [super initWithFrame:frame]) ) {
         [self commonInit];
@@ -87,8 +87,6 @@
 -(void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [hostedGraph release];
-    [super dealloc];
 }
 
 /// @endcond
@@ -110,7 +108,7 @@
     // pinchGestureRecognizer
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         [self commonInit];
@@ -209,18 +207,16 @@
         allowPinchScaling = allowScaling;
         if ( allowPinchScaling ) {
             // Register for pinches
-            Class pinchClass = NSClassFromString(@"UIPinchGestureRecognizer");
-            if ( pinchClass ) {
-                pinchGestureRecognizer = [[pinchClass alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
-                [self addGestureRecognizer:pinchGestureRecognizer];
-                [pinchGestureRecognizer release];
-            }
+            UIPinchGestureRecognizer *gestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
+            [self addGestureRecognizer:gestureRecognizer];
+            self.pinchGestureRecognizer = gestureRecognizer;
         }
         else {
-            if ( pinchGestureRecognizer ) {
-                [self removeGestureRecognizer:pinchGestureRecognizer];
+            UIPinchGestureRecognizer *pinchRecognizer = self.pinchGestureRecognizer;
+            if ( pinchRecognizer ) {
+                [self removeGestureRecognizer:pinchRecognizer];
+                self.pinchGestureRecognizer = nil;
             }
-            pinchGestureRecognizer = nil;
         }
     }
 }
@@ -242,13 +238,17 @@
 
     CGPoint pointInPlotArea = [theHostedGraph convertPoint:interactionPoint toLayer:theHostedGraph.plotAreaFrame.plotArea];
 
+    UIPinchGestureRecognizer *pinchRecognizer = self.pinchGestureRecognizer;
+
+    CGFloat scale = pinchRecognizer.scale;
+
     for ( CPTPlotSpace *space in theHostedGraph.allPlotSpaces ) {
         if ( space.allowsUserInteraction ) {
-            [space scaleBy:[[pinchGestureRecognizer valueForKey:@"scale"] cgFloatValue] aboutPoint:pointInPlotArea];
+            [space scaleBy:scale aboutPoint:pointInPlotArea];
         }
     }
 
-    [pinchGestureRecognizer setScale:CPTFloat(1.0)];
+    pinchRecognizer.scale = 1.0;
 }
 
 /// @endcond
@@ -308,19 +308,16 @@
 
     [hostedGraph removeFromSuperlayer];
     hostedGraph.hostingView = nil;
-    [hostedGraph release];
-    hostedGraph = [newLayer retain];
+    hostedGraph             = newLayer;
 
     // Screen scaling
-    UIScreen *screen = [UIScreen mainScreen];
-    // scale property is available in iOS 4.0 and later
-    if ( [screen respondsToSelector:@selector(scale)] ) {
-        hostedGraph.contentsScale = screen.scale;
+    UIScreen *screen = self.window.screen;
+    if ( !screen ) {
+        screen = [UIScreen mainScreen];
     }
-    else {
-        hostedGraph.contentsScale = (CGFloat)1.0;
-    }
-    hostedGraph.hostingView = self;
+
+    hostedGraph.contentsScale = screen.scale;
+    hostedGraph.hostingView   = self;
 
     if ( self.collapsesLayers ) {
         [self setNeedsDisplay];

@@ -30,7 +30,7 @@ NSString *const kSecond = @"Second Derivative";
 -(void)killGraph
 {
     if ( [self.graphs count] ) {
-        CPTGraph *graph = [self.graphs objectAtIndex:0];
+        CPTGraph *graph = (self.graphs)[0];
 
         if ( symbolTextAnnotation ) {
             [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
@@ -48,9 +48,10 @@ NSString *const kSecond = @"Second Derivative";
         NSMutableArray *contentArray = [NSMutableArray array];
 
         for ( NSUInteger i = 0; i < 11; i++ ) {
-            NSNumber *x = [NSNumber numberWithDouble:1.0 + i * 0.05];
-            NSNumber *y = [NSNumber numberWithDouble:1.2 * rand() / (double)RAND_MAX + 0.5];
-            [contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
+            NSNumber *x = @(1.0 + i * 0.05);
+            NSNumber *y = @(1.2 * rand() / (double)RAND_MAX + 0.5);
+            [contentArray addObject:@{ @"x": x, @"y": y }
+            ];
         }
 
         plotData = [contentArray retain];
@@ -60,21 +61,21 @@ NSString *const kSecond = @"Second Derivative";
         NSMutableArray *contentArray = [NSMutableArray array];
 
         for ( NSUInteger i = 1; i < plotData.count; i++ ) {
-            NSDictionary *point1 = [plotData objectAtIndex:i - 1];
-            NSDictionary *point2 = [plotData objectAtIndex:i];
+            NSDictionary *point1 = plotData[i - 1];
+            NSDictionary *point2 = plotData[i];
 
-            double x1   = [(NSNumber *)[point1 objectForKey:@"x"] doubleValue];
-            double x2   = [(NSNumber *)[point2 objectForKey:@"x"] doubleValue];
+            double x1   = [(NSNumber *)point1[@"x"] doubleValue];
+            double x2   = [(NSNumber *)point2[@"x"] doubleValue];
             double dx   = x2 - x1;
             double xLoc = (x1 + x2) * 0.5;
 
-            double y1 = [(NSNumber *)[point1 objectForKey:@"y"] doubleValue];
-            double y2 = [(NSNumber *)[point2 objectForKey:@"y"] doubleValue];
+            double y1 = [(NSNumber *)point1[@"y"] doubleValue];
+            double y2 = [(NSNumber *)point2[@"y"] doubleValue];
             double dy = y2 - y1;
 
-            [contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                     [NSDecimalNumber numberWithDouble:xLoc], @"x",
-                                     [NSDecimalNumber numberWithDouble:(dy / dx) / 20.0], @"y", nil]];
+            [contentArray addObject:@{ @"x": @(xLoc),
+                                       @"y": @( (dy / dx) / 20.0 ) }
+            ];
         }
 
         plotData1 = [contentArray retain];
@@ -84,21 +85,21 @@ NSString *const kSecond = @"Second Derivative";
         NSMutableArray *contentArray = [NSMutableArray array];
 
         for ( NSUInteger i = 1; i < plotData1.count; i++ ) {
-            NSDictionary *point1 = [plotData1 objectAtIndex:i - 1];
-            NSDictionary *point2 = [plotData1 objectAtIndex:i];
+            NSDictionary *point1 = plotData1[i - 1];
+            NSDictionary *point2 = plotData1[i];
 
-            double x1   = [(NSNumber *)[point1 objectForKey:@"x"] doubleValue];
-            double x2   = [(NSNumber *)[point2 objectForKey:@"x"] doubleValue];
+            double x1   = [(NSNumber *)point1[@"x"] doubleValue];
+            double x2   = [(NSNumber *)point2[@"x"] doubleValue];
             double dx   = x2 - x1;
             double xLoc = (x1 + x2) * 0.5;
 
-            double y1 = [(NSNumber *)[point1 objectForKey:@"y"] doubleValue];
-            double y2 = [(NSNumber *)[point2 objectForKey:@"y"] doubleValue];
+            double y1 = [(NSNumber *)point1[@"y"] doubleValue];
+            double y2 = [(NSNumber *)point2[@"y"] doubleValue];
             double dy = y2 - y1;
 
-            [contentArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                     [NSDecimalNumber numberWithDouble:xLoc], @"x",
-                                     [NSDecimalNumber numberWithDouble:(dy / dx) / 20.0], @"y", nil]];
+            [contentArray addObject:@{ @"x": @(xLoc),
+                                       @"y": @( (dy / dx) / 20.0 ) }
+            ];
         }
 
         plotData2 = [contentArray retain];
@@ -186,7 +187,7 @@ NSString *const kSecond = @"Second Derivative";
     y.titleOffset = 32.0;
 
     // Set axes
-    graph.axisSet.axes = [NSArray arrayWithObjects:x, y, nil];
+    graph.axisSet.axes = @[x, y];
 
     // Create a plot that uses the data source method
     CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
@@ -304,13 +305,13 @@ NSString *const kSecond = @"Second Derivative";
     NSString *identifier = (NSString *)plot.identifier;
 
     if ( [identifier isEqualToString:kData] ) {
-        num = [[plotData objectAtIndex:index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
+        num = [plotData[index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
     }
     else if ( [identifier isEqualToString:kFirst] ) {
-        num = [[plotData1 objectAtIndex:index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
+        num = [plotData1[index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
     }
     else if ( [identifier isEqualToString:kSecond] ) {
-        num = [[plotData2 objectAtIndex:index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
+        num = [plotData2[index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
     }
 
     return num;
@@ -349,7 +350,7 @@ NSString *const kSecond = @"Second Derivative";
 
 -(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index
 {
-    CPTXYGraph *graph = [self.graphs objectAtIndex:0];
+    CPTXYGraph *graph = (self.graphs)[0];
 
     if ( symbolTextAnnotation ) {
         [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
@@ -364,9 +365,9 @@ NSString *const kSecond = @"Second Derivative";
     hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
 
     // Determine point of symbol in plot coordinates
-    NSNumber *x          = [[plotData objectAtIndex:index] valueForKey:@"x"];
-    NSNumber *y          = [[plotData objectAtIndex:index] valueForKey:@"y"];
-    NSArray *anchorPoint = [NSArray arrayWithObjects:x, y, nil];
+    NSNumber *x          = [plotData[index] valueForKey:@"x"];
+    NSNumber *y          = [plotData[index] valueForKey:@"y"];
+    NSArray *anchorPoint = @[x, y];
 
     // Add annotation
     // First make a string for the y value

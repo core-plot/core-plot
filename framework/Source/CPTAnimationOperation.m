@@ -31,10 +31,15 @@
  **/
 @synthesize boundSetter;
 
-/** @property __cpt_weak NSObject<CPTAnimationDelegate> *delegate
- *  @brief The animation delegate
+/** @property __cpt_weak id<CPTAnimationDelegate>delegate
+ *  @brief The animation delegate.
  **/
 @synthesize delegate;
+
+/** @property BOOL canceled
+ *  @brief If @YES, this animation operation has been canceled and will no longer post updates.
+ **/
+@synthesize canceled;
 
 /** @property id<NSCopying, NSObject> identifier
  *  @brief An object used to identify the layer in collections.
@@ -58,12 +63,13 @@
  *  - @ref boundGetter = @NULL
  *  - @ref boundSetter = @NULL
  *  - @ref delegate = @nil
+ *  - @ref canceled = @NO
  *  - @ref identifier = @nil
  *  - @ref userInfo = @nil
  *
  *  @return The initialized object.
  **/
--(id)init
+-(instancetype)init
 {
     if ( (self = [super init]) ) {
         period         = nil;
@@ -72,6 +78,7 @@
         boundGetter    = NULL;
         boundSetter    = NULL;
         delegate       = nil;
+        canceled       = NO;
         identifier     = nil;
         userInfo       = nil;
     }
@@ -81,19 +88,6 @@
 
 /// @}
 
-/// @cond
-
--(void)dealloc
-{
-    [period release];
-    [boundObject release];
-    [identifier release];
-    [userInfo release];
-    [super dealloc];
-}
-
-/// @endcond
-
 #pragma mark -
 #pragma mark Description
 
@@ -101,7 +95,7 @@
 
 -(NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@ animate %@ %@ with period %@>", [super description], self.boundObject, NSStringFromSelector(self.boundGetter), period];
+    return [NSString stringWithFormat:@"<%@ animate %@ %@ with period %@>", [super description], self.boundObject, NSStringFromSelector(self.boundGetter), self.period];
 }
 
 /// @endcond

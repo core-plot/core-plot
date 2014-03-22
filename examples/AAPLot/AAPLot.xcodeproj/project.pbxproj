@@ -26,6 +26,7 @@
 		AB8F94580FDEFA1500E61485 /* APYahooDataPuller.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8F94570FDEFA1500E61485 /* APYahooDataPuller.m */; };
 		ABA5345E0FEB40CE0046A8DA /* AAPL.plist in Resources */ = {isa = PBXBuildFile; fileRef = ABA5345D0FEB40CE0046A8DA /* AAPL.plist */; };
 		C3BB7D44163343E700BC9515 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BB7D43163343E700BC9515 /* Default-568h@2x.png */; };
+		C3CD283017DE9B9C008EED1E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CD282F17DE9B9C008EED1E /* Accelerate.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,7 @@
 		AB8F94570FDEFA1500E61485 /* APYahooDataPuller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APYahooDataPuller.m; sourceTree = "<group>"; };
 		ABA5345D0FEB40CE0046A8DA /* AAPL.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AAPL.plist; sourceTree = "<group>"; };
 		C3BB7D43163343E700BC9515 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		C3CD282F17DE9B9C008EED1E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 				288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */,
 				AB8F944A0FDEF5DC00E61485 /* libCorePlot-CocoaTouch.a in Frameworks */,
 				AB8989470FE0309E00FDC37F /* QuartzCore.framework in Frameworks */,
+				C3CD283017DE9B9C008EED1E /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +198,7 @@
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765580DF743DE002DB57D /* CoreGraphics.framework */,
+				C3CD282F17DE9B9C008EED1E /* Accelerate.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -359,7 +363,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SYMROOT = "$(SRCROOT)/../../build";
@@ -375,7 +379,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework\"/**";
 			};

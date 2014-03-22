@@ -16,7 +16,7 @@
  *	@param newFrame The frame rectangle.
  *  @return The initialized CPTMaskLayer object.
  **/
--(id)initWithFrame:(CGRect)newFrame
+-(instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         self.needsDisplayOnBoundsChange = YES;

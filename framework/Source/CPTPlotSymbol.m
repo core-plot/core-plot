@@ -69,7 +69,7 @@
  **/
 @synthesize usesEvenOddClipRule;
 
-@dynamic cachedSymbolPath;
+@synthesize cachedSymbolPath;
 
 @synthesize cachedLayer;
 @synthesize cachedScale;
@@ -94,7 +94,7 @@
  *
  *  @return The initialized object.
  **/
--(id)init
+-(instancetype)init
 {
     if ( (self = [super init]) ) {
         anchorPoint         = CPTPointMake(0.5, 0.5);
@@ -118,14 +118,9 @@
 
 -(void)dealloc
 {
-    [lineStyle release];
-    [fill release];
-    [shadow release];
     CGPathRelease(cachedSymbolPath);
     CGPathRelease(customSymbolPath);
     CGLayerRelease(cachedLayer);
-
-    [super dealloc];
 }
 
 /// @endcond
@@ -139,7 +134,7 @@
 {
     [coder encodeCPTPoint:self.anchorPoint forKey:@"CPTPlotSymbol.anchorPoint"];
     [coder encodeCPTSize:self.size forKey:@"CPTPlotSymbol.size"];
-    [coder encodeInt:self.symbolType forKey:@"CPTPlotSymbol.symbolType"];
+    [coder encodeInteger:self.symbolType forKey:@"CPTPlotSymbol.symbolType"];
     [coder encodeObject:self.lineStyle forKey:@"CPTPlotSymbol.lineStyle"];
     [coder encodeObject:self.fill forKey:@"CPTPlotSymbol.fill"];
     [coder encodeObject:self.shadow forKey:@"CPTPlotSymbol.shadow"];
@@ -152,14 +147,14 @@
     // cachedScale
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         anchorPoint         = [coder decodeCPTPointForKey:@"CPTPlotSymbol.anchorPoint"];
         size                = [coder decodeCPTSizeForKey:@"CPTPlotSymbol.size"];
-        symbolType          = (CPTPlotSymbolType)[coder decodeIntForKey : @"CPTPlotSymbol.symbolType"];
-        lineStyle           = [[coder decodeObjectForKey:@"CPTPlotSymbol.lineStyle"] retain];
-        fill                = [[coder decodeObjectForKey:@"CPTPlotSymbol.fill"] retain];
+        symbolType          = (CPTPlotSymbolType)[coder decodeIntegerForKey : @"CPTPlotSymbol.symbolType"];
+        lineStyle           = [coder decodeObjectForKey:@"CPTPlotSymbol.lineStyle"];
+        fill                = [coder decodeObjectForKey:@"CPTPlotSymbol.fill"];
         shadow              = [[coder decodeObjectForKey:@"CPTPlotSymbol.shadow"] copy];
         customSymbolPath    = [coder newCGPathDecodeForKey:@"CPTPlotSymbol.customSymbolPath"];
         usesEvenOddClipRule = [coder decodeBoolForKey:@"CPTPlotSymbol.usesEvenOddClipRule"];
@@ -197,7 +192,6 @@
 -(void)setShadow:(CPTShadow *)newShadow
 {
     if ( newShadow != shadow ) {
-        [shadow release];
         shadow                = [newShadow copy];
         self.cachedSymbolPath = NULL;
     }
@@ -215,8 +209,7 @@
 -(void)setLineStyle:(CPTLineStyle *)newLineStyle
 {
     if ( newLineStyle != lineStyle ) {
-        [lineStyle release];
-        lineStyle        = [newLineStyle retain];
+        lineStyle        = newLineStyle;
         self.cachedLayer = NULL;
     }
 }
@@ -224,8 +217,7 @@
 -(void)setFill:(CPTFill *)newFill
 {
     if ( newFill != fill ) {
-        [fill release];
-        fill             = [newFill retain];
+        fill             = newFill;
         self.cachedLayer = NULL;
     }
 }
@@ -271,159 +263,159 @@
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeNone.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeNone.
  **/
-+(CPTPlotSymbol *)plotSymbol
++(instancetype)plotSymbol
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
     symbol.symbolType = CPTPlotSymbolTypeNone;
 
-    return [symbol autorelease];
+    return symbol;
 }
 
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeCross.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeCross.
  **/
-+(CPTPlotSymbol *)crossPlotSymbol
++(instancetype)crossPlotSymbol
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
     symbol.symbolType = CPTPlotSymbolTypeCross;
 
-    return [symbol autorelease];
+    return symbol;
 }
 
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeEllipse.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeEllipse.
  **/
-+(CPTPlotSymbol *)ellipsePlotSymbol
++(instancetype)ellipsePlotSymbol
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
     symbol.symbolType = CPTPlotSymbolTypeEllipse;
 
-    return [symbol autorelease];
+    return symbol;
 }
 
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeRectangle.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeRectangle.
  **/
-+(CPTPlotSymbol *)rectanglePlotSymbol
++(instancetype)rectanglePlotSymbol
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
     symbol.symbolType = CPTPlotSymbolTypeRectangle;
 
-    return [symbol autorelease];
+    return symbol;
 }
 
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypePlus.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypePlus.
  **/
-+(CPTPlotSymbol *)plusPlotSymbol
++(instancetype)plusPlotSymbol
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
     symbol.symbolType = CPTPlotSymbolTypePlus;
 
-    return [symbol autorelease];
+    return symbol;
 }
 
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeStar.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeStar.
  **/
-+(CPTPlotSymbol *)starPlotSymbol
++(instancetype)starPlotSymbol
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
     symbol.symbolType = CPTPlotSymbolTypeStar;
 
-    return [symbol autorelease];
+    return symbol;
 }
 
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeDiamond.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeDiamond.
  **/
-+(CPTPlotSymbol *)diamondPlotSymbol
++(instancetype)diamondPlotSymbol
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
     symbol.symbolType = CPTPlotSymbolTypeDiamond;
 
-    return [symbol autorelease];
+    return symbol;
 }
 
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeTriangle.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeTriangle.
  **/
-+(CPTPlotSymbol *)trianglePlotSymbol
++(instancetype)trianglePlotSymbol
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
     symbol.symbolType = CPTPlotSymbolTypeTriangle;
 
-    return [symbol autorelease];
+    return symbol;
 }
 
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypePentagon.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypePentagon.
  **/
-+(CPTPlotSymbol *)pentagonPlotSymbol
++(instancetype)pentagonPlotSymbol
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
     symbol.symbolType = CPTPlotSymbolTypePentagon;
 
-    return [symbol autorelease];
+    return symbol;
 }
 
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeHexagon.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeHexagon.
  **/
-+(CPTPlotSymbol *)hexagonPlotSymbol
++(instancetype)hexagonPlotSymbol
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
     symbol.symbolType = CPTPlotSymbolTypeHexagon;
 
-    return [symbol autorelease];
+    return symbol;
 }
 
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeDash.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeDash.
  **/
-+(CPTPlotSymbol *)dashPlotSymbol
++(instancetype)dashPlotSymbol
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
     symbol.symbolType = CPTPlotSymbolTypeDash;
 
-    return [symbol autorelease];
+    return symbol;
 }
 
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeSnow.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeSnow.
  **/
-+(CPTPlotSymbol *)snowPlotSymbol
++(instancetype)snowPlotSymbol
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
     symbol.symbolType = CPTPlotSymbolTypeSnow;
 
-    return [symbol autorelease];
+    return symbol;
 }
 
 /** @brief Creates and returns a new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeCustom.
  *  @param aPath The bounding path for the custom symbol.
  *  @return A new CPTPlotSymbol instance initialized with a symbol type of #CPTPlotSymbolTypeCustom.
  **/
-+(CPTPlotSymbol *)customPlotSymbolWithPath:(CGPathRef)aPath
++(instancetype)customPlotSymbolWithPath:(CGPathRef)aPath
 {
     CPTPlotSymbol *symbol = [[self alloc] init];
 
     symbol.symbolType       = CPTPlotSymbolTypeCustom;
     symbol.customSymbolPath = aPath;
 
-    return [symbol autorelease];
+    return symbol;
 }
 
 #pragma mark -
@@ -439,9 +431,9 @@
     copy.size                = self.size;
     copy.symbolType          = self.symbolType;
     copy.usesEvenOddClipRule = self.usesEvenOddClipRule;
-    copy.lineStyle           = [[self.lineStyle copy] autorelease];
-    copy.fill                = [[self.fill copy] autorelease];
-    copy.shadow              = [[self.shadow copy] autorelease];
+    copy.lineStyle           = [self.lineStyle copy];
+    copy.fill                = [self.fill copy];
+    copy.shadow              = [self.shadow copy];
 
     if ( self.customSymbolPath ) {
         CGPathRef pathCopy = CGPathCreateCopy(self.customSymbolPath);

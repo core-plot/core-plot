@@ -35,9 +35,8 @@
 
     NSImage *image = [[NSImage alloc] initWithSize:NSSizeFromCGSize(boundsSize)];
     [image addRepresentation:layerImage];
-    [layerImage release];
 
-    return [image autorelease];
+    return image;
 }
 
 @end

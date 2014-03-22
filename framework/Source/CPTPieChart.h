@@ -5,8 +5,6 @@
 
 @class CPTColor;
 @class CPTFill;
-@class CPTMutableNumericData;
-@class CPTNumericData;
 @class CPTPieChart;
 @class CPTTextLayer;
 @class CPTLineStyle;
@@ -21,21 +19,19 @@ extern NSString *const CPTPieChartBindingPieSliceRadialOffsets;
 /**
  *  @brief Enumeration of pie chart data source field types.
  **/
-typedef enum _CPTPieChartField {
+typedef NS_ENUM (NSInteger, CPTPieChartField) {
     CPTPieChartFieldSliceWidth,           ///< Pie slice width.
     CPTPieChartFieldSliceWidthNormalized, ///< Pie slice width normalized [0, 1].
     CPTPieChartFieldSliceWidthSum         ///< Cumulative sum of pie slice widths.
-}
-CPTPieChartField;
+};
 
 /**
  *  @brief Enumeration of pie slice drawing directions.
  **/
-typedef enum _CPTPieDirection {
+typedef NS_ENUM (NSInteger, CPTPieDirection) {
     CPTPieDirectionClockwise,       ///< Pie slices are drawn in a clockwise direction.
     CPTPieDirectionCounterClockwise ///< Pie slices are drawn in a counter-clockwise direction.
-}
-CPTPieDirection;
+};
 
 #pragma mark -
 
@@ -122,9 +118,9 @@ CPTPieDirection;
 /// @name Slice Selection
 /// @{
 
-/** @brief @optional Informs the delegate that a pie slice was
- *  @if MacOnly clicked. @endif
- *  @if iOSOnly touched. @endif
+/** @brief @optional Informs the delegate that a pie slice
+ *  @if MacOnly was both pressed and released. @endif
+ *  @if iOSOnly received both the touch down and up events. @endif
  *  @param plot The pie chart.
  *  @param idx The index of the
  *  @if MacOnly clicked pie slice. @endif
@@ -132,9 +128,9 @@ CPTPieDirection;
  **/
 -(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)idx;
 
-/** @brief @optional Informs the delegate that a pie slice was
- *  @if MacOnly clicked. @endif
- *  @if iOSOnly touched. @endif
+/** @brief @optional Informs the delegate that a pie slice
+ *  @if MacOnly was both pressed and released. @endif
+ *  @if iOSOnly received both the touch down and up events. @endif
  *  @param plot The pie chart.
  *  @param idx The index of the
  *  @if MacOnly clicked pie slice. @endif
@@ -143,24 +139,55 @@ CPTPieDirection;
  **/
 -(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
 
+/** @brief @optional Informs the delegate that a pie slice
+ *  @if MacOnly was pressed. @endif
+ *  @if iOSOnly touch started. @endif
+ *  @param plot The pie chart.
+ *  @param idx The index of the
+ *  @if MacOnly clicked pie slice. @endif
+ *  @if iOSOnly touched pie slice. @endif
+ **/
+-(void)pieChart:(CPTPieChart *)plot sliceTouchDownAtRecordIndex:(NSUInteger)idx;
+
+/** @brief @optional Informs the delegate that a pie slice
+ *  @if MacOnly was pressed. @endif
+ *  @if iOSOnly touch started. @endif
+ *  @param plot The pie chart.
+ *  @param idx The index of the
+ *  @if MacOnly clicked pie slice. @endif
+ *  @if iOSOnly touched pie slice. @endif
+ *  @param event The event that triggered the selection.
+ **/
+-(void)pieChart:(CPTPieChart *)plot sliceTouchDownAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that a pie slice
+ *  @if MacOnly was released. @endif
+ *  @if iOSOnly touch ended. @endif
+ *  @param plot The pie chart.
+ *  @param idx The index of the
+ *  @if MacOnly clicked pie slice. @endif
+ *  @if iOSOnly touched pie slice. @endif
+ **/
+-(void)pieChart:(CPTPieChart *)plot sliceTouchUpAtRecordIndex:(NSUInteger)idx;
+
+/** @brief @optional Informs the delegate that a pie slice was
+ *  @if MacOnly was released. @endif
+ *  @if iOSOnly touch ended. @endif
+ *  @param plot The pie chart.
+ *  @param idx The index of the
+ *  @if MacOnly clicked pie slice. @endif
+ *  @if iOSOnly touched pie slice. @endif
+ *  @param event The event that triggered the selection.
+ **/
+-(void)pieChart:(CPTPieChart *)plot sliceTouchUpAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
+
 /// @}
 
 @end
 
 #pragma mark -
 
-@interface CPTPieChart : CPTPlot {
-    @private
-    CGFloat pieRadius;
-    CGFloat pieInnerRadius;
-    CGFloat startAngle;
-    CGFloat endAngle;
-    CPTPieDirection sliceDirection;
-    CGPoint centerAnchor;
-    CPTLineStyle *borderLineStyle;
-    CPTFill *overlayFill;
-    BOOL labelRotationRelativeToRadius;
-}
+@interface CPTPieChart : CPTPlot
 
 /// @name Appearance
 /// @{

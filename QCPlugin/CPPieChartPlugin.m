@@ -27,10 +27,10 @@
 
 +(NSDictionary *)attributes
 {
-    return [NSDictionary dictionaryWithObjectsAndKeys:
-            @"Core Plot Pie Chart", QCPlugInAttributeNameKey,
-            @"Pie chart", QCPlugInAttributeDescriptionKey,
-            nil];
+    return @{
+               QCPlugInAttributeNameKey: @"Core Plot Pie Chart",
+               QCPlugInAttributeDescriptionKey: @"Pie chart"
+    };
 }
 
 -(double)inputXMax
@@ -62,7 +62,7 @@
 
 +(NSArray *)sortedPropertyPortKeys
 {
-    NSArray *pieChartPropertyPortKeys = [NSArray arrayWithObjects:@"inputPieRadius", @"inputSliceLabelOffset", @"inputStartAngle", @"inputSliceDirection", @"inputBorderColor", @"inputBorderWidth", nil];
+    NSArray *pieChartPropertyPortKeys = @[@"inputPieRadius", @"inputSliceLabelOffset", @"inputStartAngle", @"inputSliceDirection", @"inputBorderColor", @"inputBorderWidth"];
 
     return [[super sortedPropertyPortKeys] arrayByAddingObjectsFromArray:pieChartPropertyPortKeys];
 }
@@ -71,54 +71,54 @@
 {
     // A few additional ports for the pie chart type ...
     if ( [key isEqualToString:@"inputPieRadius"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Pie Radius", QCPortAttributeNameKey,
-                [NSNumber numberWithFloat:0.0], QCPortAttributeMinimumValueKey,
-                [NSNumber numberWithFloat:0.75], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Pie Radius",
+                   QCPortAttributeMinimumValueKey: @0.0,
+                   QCPortAttributeDefaultValueKey: @0.75
+        };
     }
     else if ( [key isEqualToString:@"inputSliceLabelOffset"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Label Offset", QCPortAttributeNameKey,
-                [NSNumber numberWithFloat:20.0], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Label Offset",
+                   QCPortAttributeDefaultValueKey: @20.0
+        };
     }
     else if ( [key isEqualToString:@"inputStartAngle"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Start Angle", QCPortAttributeNameKey,
-                [NSNumber numberWithFloat:0.0], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Start Angle",
+                   QCPortAttributeDefaultValueKey: @0.0
+        };
     }
     else if ( [key isEqualToString:@"inputSliceDirection"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Slice Direction", QCPortAttributeNameKey,
-                [NSNumber numberWithInt:1], QCPortAttributeMaximumValueKey,
-                [NSArray arrayWithObjects:@"Clockwise", @"Counter-Clockwise", nil], QCPortAttributeMenuItemsKey,
-                [NSNumber numberWithInt:0], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Slice Direction",
+                   QCPortAttributeMaximumValueKey: @1,
+                   QCPortAttributeMenuItemsKey: @[@"Clockwise", @"Counter-Clockwise"],
+                   QCPortAttributeDefaultValueKey: @0
+        };
     }
     else if ( [key isEqualToString:@"inputBorderWidth"] ) {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"Border Width", QCPortAttributeNameKey,
-                [NSNumber numberWithFloat:0.0], QCPortAttributeMinimumValueKey,
-                [NSNumber numberWithFloat:1.0], QCPortAttributeDefaultValueKey,
-                nil];
+        return @{
+                   QCPortAttributeNameKey: @"Border Width",
+                   QCPortAttributeMinimumValueKey: @0.0,
+                   QCPortAttributeDefaultValueKey: @1.0
+        };
     }
     else if ( [key isEqualToString:@"inputBorderColor"] ) {
         CGColorRef grayColor = CGColorCreateGenericGray(0.0, 1.0);
-        NSDictionary *result = [NSDictionary dictionaryWithObjectsAndKeys:
-                                @"Border Color", QCPortAttributeNameKey,
-                                grayColor, QCPortAttributeDefaultValueKey,
-                                nil];
+        NSDictionary *result = @{
+            QCPortAttributeNameKey: @"Border Color",
+            QCPortAttributeDefaultValueKey: (id)grayColor
+        };
         CGColorRelease(grayColor);
         return result;
     }
     else if ( [key isEqualToString:@"inputLabelColor"] ) {
         CGColorRef grayColor = CGColorCreateGenericGray(1.0, 1.0);
-        NSDictionary *result = [NSDictionary dictionaryWithObjectsAndKeys:
-                                @"Label Color", QCPortAttributeNameKey,
-                                grayColor, QCPortAttributeDefaultValueKey,
-                                nil];
+        NSDictionary *result = @{
+            QCPortAttributeNameKey: @"Label Color",
+            QCPortAttributeDefaultValueKey: (id)grayColor
+        };
         CGColorRelease(grayColor);
         return result;
     }
@@ -132,28 +132,25 @@
     if ( index == 0 ) {
         [self addInputPortWithType:QCPortTypeStructure
                             forKey:[NSString stringWithFormat:@"plotNumbers%lu", (unsigned long)index]
-                    withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                    [NSString stringWithFormat:@"Data Values %u", (unsigned)(index + 1)], QCPortAttributeNameKey,
-                                    QCPortTypeStructure, QCPortAttributeTypeKey,
-                                    nil]];
+                    withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Data Values %u", (unsigned)(index + 1)],
+                                      QCPortAttributeTypeKey: QCPortTypeStructure }
+        ];
 
         [self addInputPortWithType:QCPortTypeStructure
                             forKey:[NSString stringWithFormat:@"plotLabels%lu", (unsigned long)index]
-                    withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                    [NSString stringWithFormat:@"Data Labels %lu", (unsigned long)(index + 1)], QCPortAttributeNameKey,
-                                    QCPortTypeStructure, QCPortAttributeTypeKey,
-                                    nil]];
+                    withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Data Labels %lu", (unsigned long)(index + 1)],
+                                      QCPortAttributeTypeKey: QCPortTypeStructure }
+        ];
 
         // TODO: add support for used defined fill colors.  As of now we use a single color
         // multiplied against the 'default' pie chart colors
         CGColorRef grayColor = CGColorCreateGenericGray(1.0, 1.0);
         [self addInputPortWithType:QCPortTypeColor
                             forKey:[NSString stringWithFormat:@"plotFillColor%lu", (unsigned long)index]
-                    withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                    [NSString stringWithFormat:@"Primary Fill Color %lu", (unsigned long)(index + 1)], QCPortAttributeNameKey,
-                                    QCPortTypeColor, QCPortAttributeTypeKey,
-                                    grayColor, QCPortAttributeDefaultValueKey,
-                                    nil]];
+                    withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Primary Fill Color %lu", (unsigned long)(index + 1)],
+                                      QCPortAttributeTypeKey: QCPortTypeColor,
+                                      QCPortAttributeDefaultValueKey: (id)grayColor }
+        ];
         CGColorRelease(grayColor);
 
         // Add the new plot to the graph
@@ -166,7 +163,7 @@
 }
 
 #pragma mark -
-#pragma markGraph configuration
+#pragma mark Graph configuration
 
 -(void)createGraph
 {
@@ -217,7 +214,7 @@
 }
 
 #pragma mark -
-#pragma markData source methods
+#pragma mark Data source methods
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
@@ -261,7 +258,7 @@
 
     CGColorRelease(fillColor);
 
-    return [[(CPTFill *)[CPTFill alloc] initWithColor : fillCPColor] autorelease];
+    return [[[CPTFill alloc] initWithColor:fillCPColor] autorelease];
 }
 
 -(CPTTextLayer *)sliceLabelForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index

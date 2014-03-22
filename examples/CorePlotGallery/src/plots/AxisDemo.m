@@ -97,7 +97,7 @@
     x.title                       = @"X Axis";
     x.titleTextStyle              = axisTitleTextStyle;
     x.titleOffset                 = 25.0;
-    x.alternatingBandFills        = [NSArray arrayWithObjects:[[CPTColor redColor] colorWithAlphaComponent:0.1], [[CPTColor greenColor] colorWithAlphaComponent:0.1], nil];
+    x.alternatingBandFills        = @[[[CPTColor redColor] colorWithAlphaComponent:0.1], [[CPTColor greenColor] colorWithAlphaComponent:0.1]];
     x.delegate                    = self;
 
     // Label y with an automatic labeling policy.
@@ -117,7 +117,7 @@
     y.title                 = @"Y Axis";
     y.titleTextStyle        = axisTitleTextStyle;
     y.titleOffset           = 30.0;
-    y.alternatingBandFills  = [NSArray arrayWithObjects:[[CPTColor blueColor] colorWithAlphaComponent:0.1], [NSNull null], nil];
+    y.alternatingBandFills  = @[[[CPTColor blueColor] colorWithAlphaComponent:0.1], [NSNull null]];
     y.delegate              = self;
 
     CPTFill *bandFill = [CPTFill fillWithColor:[[CPTColor darkGrayColor] colorWithAlphaComponent:0.5]];
@@ -148,7 +148,7 @@
     y2.delegate                    = self;
 
     // Add the y2 axis to the axis set
-    graph.axisSet.axes = [NSArray arrayWithObjects:x, y, y2, nil];
+    graph.axisSet.axes = @[x, y, y2];
 }
 
 #pragma mark - Axis delegate

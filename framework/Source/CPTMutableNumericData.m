@@ -37,21 +37,6 @@
     return [(NSMutableData *)self.data mutableBytes];
 }
 
--(void)setShape:(NSArray *)newShape
-{
-    if ( newShape != shape ) {
-        [shape release];
-        shape = [newShape copy];
-
-        NSUInteger sampleCount = 1;
-        for ( NSNumber *num in shape ) {
-            sampleCount *= [num unsignedIntegerValue];
-        }
-
-        ( (NSMutableData *)self.data ).length = sampleCount * self.sampleBytes;
-    }
-}
-
 /// @endcond
 
 @end

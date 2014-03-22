@@ -25,12 +25,11 @@ extern NSString *const CPTBarPlotBindingBarLineStyles;
 /**
  *  @brief Enumeration of bar plot data source field types
  **/
-typedef enum _CPTBarPlotField {
+typedef NS_ENUM (NSInteger, CPTBarPlotField) {
     CPTBarPlotFieldBarLocation, ///< Bar location on independent coordinate axis.
     CPTBarPlotFieldBarTip,      ///< Bar tip value.
     CPTBarPlotFieldBarBase      ///< Bar base (used only if @link CPTBarPlot::barBasesVary barBasesVary @endlink is YES).
-}
-CPTBarPlotField;
+};
 
 #pragma mark -
 
@@ -113,26 +112,70 @@ CPTBarPlotField;
 /// @name Point Selection
 /// @{
 
-/** @brief @optional Informs the delegate that a bar was
- *  @if MacOnly clicked. @endif
- *  @if iOSOnly touched. @endif
+/** @brief @optional Informs the delegate that a bar
+ *  @if MacOnly was both pressed and released. @endif
+ *  @if iOSOnly received both the touch down and up events. @endif
  *  @param plot The bar plot.
  *  @param idx The index of the
+ *
  *  @if MacOnly clicked bar. @endif
  *  @if iOSOnly touched bar. @endif
  **/
 -(void)barPlot:(CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)idx;
 
-/** @brief @optional Informs the delegate that a bar was
- *  @if MacOnly clicked. @endif
- *  @if iOSOnly touched. @endif
+/** @brief @optional Informs the delegate that a bar
+ *  @if MacOnly was both pressed and released. @endif
+ *  @if iOSOnly received both the touch down and up events. @endif
+ *  @param plot The bar plot.
+ *  @param idx The index of the
+ *
+ *  @if MacOnly clicked bar. @endif
+ *  @if iOSOnly touched bar. @endif
+ *  @param event The event that triggered the selection.
+ **/
+-(void)barPlot:(CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that a bar
+ *  @if MacOnly was pressed. @endif
+ *  @if iOSOnly touch started. @endif
+ *  @param plot The bar plot.
+ *  @param idx The index of the
+ *  @if MacOnly clicked bar. @endif
+ *  @if iOSOnly touched bar. @endif
+ **/
+-(void)barPlot:(CPTBarPlot *)plot barTouchDownAtRecordIndex:(NSUInteger)idx;
+
+/** @brief @optional Informs the delegate that a bar
+ *  @if MacOnly was pressed. @endif
+ *  @if iOSOnly touch started. @endif
  *  @param plot The bar plot.
  *  @param idx The index of the
  *  @if MacOnly clicked bar. @endif
  *  @if iOSOnly touched bar. @endif
  *  @param event The event that triggered the selection.
  **/
--(void)barPlot:(CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
+-(void)barPlot:(CPTBarPlot *)plot barTouchDownAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that a bar
+ *  @if MacOnly was released. @endif
+ *  @if iOSOnly touch ended. @endif
+ *  @param plot The bar plot.
+ *  @param idx The index of the
+ *  @if MacOnly clicked bar. @endif
+ *  @if iOSOnly touched bar. @endif
+ **/
+-(void)barPlot:(CPTBarPlot *)plot barTouchUpAtRecordIndex:(NSUInteger)idx;
+
+/** @brief @optional Informs the delegate that a bar
+ *  @if MacOnly was released. @endif
+ *  @if iOSOnly touch ended. @endif
+ *  @param plot The bar plot.
+ *  @param idx The index of the
+ *  @if MacOnly clicked bar. @endif
+ *  @if iOSOnly touched bar. @endif
+ *  @param event The event that triggered the selection.
+ **/
+-(void)barPlot:(CPTBarPlot *)plot barTouchUpAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
 
 /// @}
 
@@ -140,22 +183,7 @@ CPTBarPlotField;
 
 #pragma mark -
 
-@interface CPTBarPlot : CPTPlot {
-    @private
-    CPTLineStyle *lineStyle;
-    CPTFill *fill;
-    NSDecimal barWidth;
-    CGFloat barWidthScale;
-    NSDecimal barOffset;
-    CGFloat barOffsetScale;
-    CGFloat barCornerRadius;
-    CGFloat barBaseCornerRadius;
-    NSDecimal baseValue;
-    BOOL barsAreHorizontal;
-    BOOL barBasesVary;
-    BOOL barWidthsAreInViewCoordinates;
-    CPTPlotRange *plotRange;
-}
+@interface CPTBarPlot : CPTPlot
 
 /// @name Appearance
 /// @{
@@ -180,7 +208,7 @@ CPTBarPlotField;
 
 /// @name Factory Methods
 /// @{
-+(CPTBarPlot *)tubularBarPlotWithColor:(CPTColor *)color horizontalBars:(BOOL)horizontal;
++(instancetype)tubularBarPlotWithColor:(CPTColor *)color horizontalBars:(BOOL)horizontal;
 /// @}
 
 /// @name Data Ranges

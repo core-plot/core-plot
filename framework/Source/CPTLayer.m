@@ -163,7 +163,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
  *  @param newFrame The frame rectangle.
  *  @return The initialized object.
  **/
--(id)initWithFrame:(CGRect)newFrame
+-(instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super init]) ) {
         paddingLeft          = CPTFloat(0.0);
@@ -193,7 +193,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 /** @brief Initializes a newly allocated CPTLayer object with an empty frame rectangle.
  *  @return The initialized object.
  **/
--(id)init
+-(instancetype)init
 {
     return [self initWithFrame:CGRectZero];
 }
@@ -202,7 +202,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 
 /// @cond
 
--(id)initWithLayer:(id)layer
+-(instancetype)initWithLayer:(id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTLayer *theLayer = (CPTLayer *)layer;
@@ -212,12 +212,12 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
         paddingRight         = theLayer->paddingRight;
         paddingBottom        = theLayer->paddingBottom;
         masksToBorder        = theLayer->masksToBorder;
-        shadow               = [theLayer->shadow retain];
+        shadow               = theLayer->shadow;
         renderingRecursively = theLayer->renderingRecursively;
         graph                = theLayer->graph;
         outerBorderPath      = CGPathRetain(theLayer->outerBorderPath);
         innerBorderPath      = CGPathRetain(theLayer->innerBorderPath);
-        identifier           = [theLayer->identifier retain];
+        identifier           = theLayer->identifier;
     }
     return self;
 }
@@ -225,12 +225,8 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 -(void)dealloc
 {
     graph = nil;
-    [shadow release];
-    [identifier release];
     CGPathRelease(outerBorderPath);
     CGPathRelease(innerBorderPath);
-
-    [super dealloc];
 }
 
 /// @endcond
@@ -259,7 +255,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
     // innerBorderPath
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         paddingLeft   = [coder decodeCGFloatForKey:@"CPTLayer.paddingLeft"];
@@ -368,7 +364,6 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
             }
             CGContextRestoreGState(context);
         }
-        [sublayersCopy release];
 
         CGContextRestoreGState(context);
     }
@@ -414,7 +409,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 -(NSData *)dataForPDFRepresentationOfLayer
 {
     NSMutableData *pdfData         = [[NSMutableData alloc] init];
-    CGDataConsumerRef dataConsumer = CGDataConsumerCreateWithCFData( (CFMutableDataRef)pdfData );
+    CGDataConsumerRef dataConsumer = CGDataConsumerCreateWithCFData( (__bridge CFMutableDataRef)pdfData );
 
     const CGRect mediaBox   = CPTRectMake(0.0, 0.0, self.bounds.size.width, self.bounds.size.height);
     CGContextRef pdfContext = CGPDFContextCreate(dataConsumer, &mediaBox, NULL);
@@ -431,7 +426,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
     CGContextRelease(pdfContext);
     CGDataConsumerRelease(dataConsumer);
 
-    return [pdfData autorelease];
+    return pdfData;
 }
 
 #pragma mark -
@@ -459,6 +454,14 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 {
     return NO;
 }
+
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#else
+-(BOOL)scrollWheelEvent:(CPTNativeEvent *)event fromPoint:(CGPoint)fromPoint toPoint:(CGPoint)toPoint
+{
+    return NO;
+}
+#endif
 
 /// @}
 
@@ -828,10 +831,10 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
         CGRect currentFrame = self.frame;
         if ( !CGRectEqualToRect( currentFrame, CGRectIntegral(self.frame) ) ) {
             COREPLOT_LAYER_POSITION_CHANGE( (char *)class_getName([self class]),
-                                            (int)ceil(currentFrame.origin.x * 1000.0),
-                                            (int)ceil(currentFrame.origin.y * 1000.0),
-                                            (int)ceil(currentFrame.size.width * 1000.0),
-                                            (int)ceil(currentFrame.size.height * 1000.0) );
+                                            (int)lrint( ceil(currentFrame.origin.x * 1000.0) ),
+                                            (int)lrint( ceil(currentFrame.origin.y * 1000.0) ),
+                                            (int)lrint( ceil(currentFrame.size.width * 1000.0) ),
+                                            (int)lrint( ceil(currentFrame.size.height * 1000.0) ) );
         }
     }
 }
@@ -858,7 +861,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
             Class layerClass = [CPTLayer class];
             for ( CALayer *subLayer in self.sublayers ) {
                 if ( [subLayer isKindOfClass:layerClass] ) {
-                    ( (CPTLayer *)subLayer ).contentsScale = newContentsScale;
+                    subLayer.contentsScale = newContentsScale;
                 }
             }
         }
@@ -879,7 +882,6 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 -(void)setShadow:(CPTShadow *)newShadow
 {
     if ( newShadow != shadow ) {
-        [shadow release];
         shadow = [newShadow copy];
         [self setNeedsLayout];
         [self setNeedsDisplay];

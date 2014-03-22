@@ -23,7 +23,7 @@
     NSTimeInterval oneDay = 24 * 60 * 60;
 
     // Create graph from theme
-    graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame : CGRectZero];
+    graph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
     CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
     [graph applyTheme:theme];
     hostView.hostedGraph = graph;
@@ -87,8 +87,7 @@
 
     // Add some data
     NSMutableArray *newData = [NSMutableArray array];
-    NSUInteger i;
-    for ( i = 0; i < 5; i++ ) {
+    for ( NSUInteger i = 0; i < 5; i++ ) {
         NSTimeInterval x = oneDay * (i + 1.0);
         double y         = 3.0 * rand() / (double)RAND_MAX + 1.2;
         double rHigh     = rand() / (double)RAND_MAX * 0.5 + 0.25;
@@ -97,14 +96,13 @@
         double rRight    = (rand() / (double)RAND_MAX * 0.125 + 0.125) * oneDay;
 
         [newData addObject:
-         [NSDictionary dictionaryWithObjectsAndKeys:
-          [NSDecimalNumber numberWithDouble:x], [NSNumber numberWithInt:CPTRangePlotFieldX],
-          [NSDecimalNumber numberWithDouble:y], [NSNumber numberWithInt:CPTRangePlotFieldY],
-          [NSDecimalNumber numberWithDouble:rHigh], [NSNumber numberWithInt:CPTRangePlotFieldHigh],
-          [NSDecimalNumber numberWithDouble:rLow], [NSNumber numberWithInt:CPTRangePlotFieldLow],
-          [NSDecimalNumber numberWithDouble:rLeft], [NSNumber numberWithInt:CPTRangePlotFieldLeft],
-          [NSDecimalNumber numberWithDouble:rRight], [NSNumber numberWithInt:CPTRangePlotFieldRight],
-          nil]];
+         @{ @(CPTRangePlotFieldX): @(x),
+            @(CPTRangePlotFieldY): @(y),
+            @(CPTRangePlotFieldHigh): @(rHigh),
+            @(CPTRangePlotFieldLow): @(rLow),
+            @(CPTRangePlotFieldLeft): @(rLeft),
+            @(CPTRangePlotFieldRight): @(rRight) }
+        ];
     }
     plotData = newData;
 }
@@ -119,9 +117,7 @@
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    NSDecimalNumber *num = [[plotData objectAtIndex:index] objectForKey:[NSNumber numberWithInt:fieldEnum]];
-
-    return num;
+    return plotData[index][@(fieldEnum)];
 }
 
 -(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceUpEvent:(id)event atPoint:(CGPoint)point

@@ -4,8 +4,6 @@
 /// @file
 
 @class CPTLineStyle;
-@class CPTMutableNumericData;
-@class CPTNumericData;
 @class CPTPlotSymbol;
 @class CPTScatterPlot;
 @class CPTFill;
@@ -20,22 +18,20 @@ extern NSString *const CPTScatterPlotBindingPlotSymbols;
 /**
  *  @brief Enumeration of scatter plot data source field types
  **/
-typedef enum _CPTScatterPlotField {
+typedef NS_ENUM (NSInteger, CPTScatterPlotField) {
     CPTScatterPlotFieldX, ///< X values.
     CPTScatterPlotFieldY  ///< Y values.
-}
-CPTScatterPlotField;
+};
 
 /**
  *  @brief Enumeration of scatter plot interpolation algorithms
  **/
-typedef enum _CPTScatterPlotInterpolation {
+typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
     CPTScatterPlotInterpolationLinear,    ///< Linear interpolation.
     CPTScatterPlotInterpolationStepped,   ///< Steps beginning at data point.
     CPTScatterPlotInterpolationHistogram, ///< Steps centered at data point.
     CPTScatterPlotInterpolationCurved     ///< Bezier curve interpolation.
-}
-CPTScatterPlotInterpolation;
+};
 
 #pragma mark -
 
@@ -82,9 +78,9 @@ CPTScatterPlotInterpolation;
 /// @name Point Selection
 /// @{
 
-/** @brief @optional Informs the delegate that a data point was
- *  @if MacOnly clicked. @endif
- *  @if iOSOnly touched. @endif
+/** @brief @optional Informs the delegate that a data point
+ *  @if MacOnly was both pressed and released. @endif
+ *  @if iOSOnly received both the touch down and up events. @endif
  *  @param plot The scatter plot.
  *  @param idx The index of the
  *  @if MacOnly clicked data point. @endif
@@ -92,9 +88,9 @@ CPTScatterPlotInterpolation;
  **/
 -(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)idx;
 
-/** @brief @optional Informs the delegate that a data point was
- *  @if MacOnly clicked. @endif
- *  @if iOSOnly touched. @endif
+/** @brief @optional Informs the delegate that a data point
+ *  @if MacOnly was both pressed and released. @endif
+ *  @if iOSOnly received both the touch down and up events. @endif
  *  @param plot The scatter plot.
  *  @param idx The index of the
  *  @if MacOnly clicked data point. @endif
@@ -103,23 +99,55 @@ CPTScatterPlotInterpolation;
  **/
 -(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
 
+/** @brief @optional Informs the delegate that a data point
+ *  @if MacOnly was pressed. @endif
+ *  @if iOSOnly touch started. @endif
+ *  @param plot The scatter plot.
+ *  @param idx The index of the
+ *  @if MacOnly clicked data point. @endif
+ *  @if iOSOnly touched data point. @endif
+ **/
+-(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolTouchDownAtRecordIndex:(NSUInteger)idx;
+
+/** @brief @optional Informs the delegate that a data point
+ *  @if MacOnly was pressed. @endif
+ *  @if iOSOnly touch started. @endif
+ *  @param plot The scatter plot.
+ *  @param idx The index of the
+ *  @if MacOnly clicked data point. @endif
+ *  @if iOSOnly touched data point. @endif
+ *  @param event The event that triggered the selection.
+ **/
+-(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolTouchDownAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that a data point
+ *  @if MacOnly was released. @endif
+ *  @if iOSOnly touch ended. @endif
+ *  @param plot The scatter plot.
+ *  @param idx The index of the
+ *  @if MacOnly clicked data point. @endif
+ *  @if iOSOnly touched data point. @endif
+ **/
+-(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolTouchUpAtRecordIndex:(NSUInteger)idx;
+
+/** @brief @optional Informs the delegate that a data point
+ *  @if MacOnly was released. @endif
+ *  @if iOSOnly touch ended. @endif
+ *  @param plot The scatter plot.
+ *  @param idx The index of the
+ *  @if MacOnly clicked data point. @endif
+ *  @if iOSOnly touched data point. @endif
+ *  @param event The event that triggered the selection.
+ **/
+-(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolTouchUpAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
+
 /// @}
 
 @end
 
 #pragma mark -
 
-@interface CPTScatterPlot : CPTPlot {
-    @private
-    CPTScatterPlotInterpolation interpolation;
-    CPTLineStyle *dataLineStyle;
-    CPTPlotSymbol *plotSymbol;
-    CPTFill *areaFill;
-    CPTFill *areaFill2;
-    NSDecimal areaBaseValue;
-    NSDecimal areaBaseValue2;
-    CGFloat plotSymbolMarginForHitDetection;
-}
+@interface CPTScatterPlot : CPTPlot
 
 /// @name Appearance
 /// @{

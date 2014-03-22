@@ -6,7 +6,7 @@
 /// @cond
 @interface CPTAnnotationHostLayer()
 
-@property (nonatomic, readwrite, retain) NSMutableArray *mutableAnnotations;
+@property (nonatomic, readwrite, strong) NSMutableArray *mutableAnnotations;
 
 @end
 
@@ -42,7 +42,7 @@
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTAnnotationHostLayer object.
  **/
--(id)initWithFrame:(CGRect)newFrame
+-(instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         mutableAnnotations = [[NSMutableArray alloc] init];
@@ -54,20 +54,14 @@
 
 /// @cond
 
--(id)initWithLayer:(id)layer
+-(instancetype)initWithLayer:(id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTAnnotationHostLayer *theLayer = (CPTAnnotationHostLayer *)layer;
 
-        mutableAnnotations = [theLayer->mutableAnnotations retain];
+        mutableAnnotations = theLayer->mutableAnnotations;
     }
     return self;
-}
-
--(void)dealloc
-{
-    [mutableAnnotations release];
-    [super dealloc];
 }
 
 /// @endcond
@@ -84,7 +78,7 @@
     [coder encodeObject:self.mutableAnnotations forKey:@"CPTAnnotationHostLayer.mutableAnnotations"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         mutableAnnotations = [[coder decodeObjectForKey:@"CPTAnnotationHostLayer.mutableAnnotations"] mutableCopy];
@@ -99,7 +93,7 @@
 
 -(NSArray *)annotations
 {
-    return [[self.mutableAnnotations copy] autorelease];
+    return [self.mutableAnnotations copy];
 }
 
 /**
@@ -127,7 +121,8 @@
         [self.mutableAnnotations removeObject:annotation];
     }
     else {
-        [NSException raise:CPTException format:@"Tried to remove CPTAnnotation from %@. Host layer was %@.", self, annotation.annotationHostLayer];
+        CPTAnnotationHostLayer *hostLayer = annotation.annotationHostLayer;
+        [NSException raise:CPTException format:@"Tried to remove CPTAnnotation from %@. Host layer was %@.", self, hostLayer];
     }
 }
 
@@ -154,7 +149,7 @@
     NSMutableArray *annotations = self.mutableAnnotations;
 
     if ( annotations.count > 0 ) {
-        NSMutableSet *excludedSublayers = [[[super sublayersExcludedFromAutomaticLayout] mutableCopy] autorelease];
+        NSMutableSet *excludedSublayers = [[super sublayersExcludedFromAutomaticLayout] mutableCopy];
 
         if ( !excludedSublayers ) {
             excludedSublayers = [NSMutableSet set];

@@ -7,7 +7,7 @@
 /// @cond
 @interface CPTPlotAreaFrame()
 
-@property (nonatomic, readwrite, retain) CPTPlotArea *plotArea;
+@property (nonatomic, readwrite, strong) CPTPlotArea *plotArea;
 
 @end
 
@@ -54,14 +54,13 @@
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTPlotAreaFrame object.
  **/
--(id)initWithFrame:(CGRect)newFrame
+-(instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         plotArea = nil;
 
-        CPTPlotArea *newPlotArea = [(CPTPlotArea *)[CPTPlotArea alloc] initWithFrame : newFrame];
+        CPTPlotArea *newPlotArea = [[CPTPlotArea alloc] initWithFrame:newFrame];
         self.plotArea = newPlotArea;
-        [newPlotArea release];
 
         self.masksToBorder              = YES;
         self.needsDisplayOnBoundsChange = YES;
@@ -73,20 +72,14 @@
 
 /// @cond
 
--(id)initWithLayer:(id)layer
+-(instancetype)initWithLayer:(id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTPlotAreaFrame *theLayer = (CPTPlotAreaFrame *)layer;
 
-        plotArea = [theLayer->plotArea retain];
+        plotArea = theLayer->plotArea;
     }
     return self;
-}
-
--(void)dealloc
-{
-    [plotArea release];
-    [super dealloc];
 }
 
 /// @endcond
@@ -103,10 +96,10 @@
     [coder encodeObject:self.plotArea forKey:@"CPTPlotAreaFrame.plotArea"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        plotArea = [[coder decodeObjectForKey:@"CPTPlotAreaFrame.plotArea"] retain];
+        plotArea = [coder decodeObjectForKey:@"CPTPlotAreaFrame.plotArea"];
     }
     return self;
 }
@@ -206,8 +199,7 @@
 {
     if ( newPlotArea != plotArea ) {
         [plotArea removeFromSuperlayer];
-        [plotArea release];
-        plotArea = [newPlotArea retain];
+        plotArea = newPlotArea;
         if ( plotArea ) {
             [self insertSublayer:plotArea atIndex:0];
             plotArea.graph = self.graph;

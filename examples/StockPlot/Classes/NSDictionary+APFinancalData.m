@@ -31,20 +31,20 @@
 
     // Date,Open,High,Low,Close,Volume,Adj Close
     // 2009-06-08,143.82,144.23,139.43,143.85,33255400,143.85
-    NSDate *theDate = [[NSDateFormatter yahooCSVDateFormatter] dateFromString:(NSString *)[csvChunks objectAtIndex:0]];
-    [csvDict setObject:theDate forKey:@"date"];
-    NSDecimalNumber *theOpen = [NSDecimalNumber decimalNumberWithString:(NSString *)[csvChunks objectAtIndex:1]];
-    [csvDict setObject:theOpen forKey:@"open"];
-    NSDecimalNumber *theHigh = [NSDecimalNumber decimalNumberWithString:(NSString *)[csvChunks objectAtIndex:2]];
-    [csvDict setObject:theHigh forKey:@"high"];
-    NSDecimalNumber *theLow = [NSDecimalNumber decimalNumberWithString:(NSString *)[csvChunks objectAtIndex:3]];
-    [csvDict setObject:theLow forKey:@"low"];
-    NSDecimalNumber *theClose = [NSDecimalNumber decimalNumberWithString:(NSString *)[csvChunks objectAtIndex:4]];
-    [csvDict setObject:theClose forKey:@"close"];
-    NSDecimalNumber *theVolume = [NSDecimalNumber decimalNumberWithString:(NSString *)[csvChunks objectAtIndex:5]];
-    [csvDict setObject:theVolume forKey:@"volume"];
-    NSDecimalNumber *theAdjClose = [NSDecimalNumber decimalNumberWithString:(NSString *)[csvChunks objectAtIndex:6]];
-    [csvDict setObject:theAdjClose forKey:@"adjClose"];
+    NSDate *theDate = [[NSDateFormatter yahooCSVDateFormatter] dateFromString:(NSString *)csvChunks[0]];
+    csvDict[@"date"] = theDate;
+    NSDecimalNumber *theOpen = [NSDecimalNumber decimalNumberWithString:(NSString *)csvChunks[1]];
+    csvDict[@"open"] = theOpen;
+    NSDecimalNumber *theHigh = [NSDecimalNumber decimalNumberWithString:(NSString *)csvChunks[2]];
+    csvDict[@"high"] = theHigh;
+    NSDecimalNumber *theLow = [NSDecimalNumber decimalNumberWithString:(NSString *)csvChunks[3]];
+    csvDict[@"low"] = theLow;
+    NSDecimalNumber *theClose = [NSDecimalNumber decimalNumberWithString:(NSString *)csvChunks[4]];
+    csvDict[@"close"] = theClose;
+    NSDecimalNumber *theVolume = [NSDecimalNumber decimalNumberWithString:(NSString *)csvChunks[5]];
+    csvDict[@"volume"] = theVolume;
+    NSDecimalNumber *theAdjClose = [NSDecimalNumber decimalNumberWithString:(NSString *)csvChunks[6]];
+    csvDict[@"adjClose"] = theAdjClose;
 
     //non-mutable autoreleased dict
     return [NSDictionary dictionaryWithDictionary:csvDict];

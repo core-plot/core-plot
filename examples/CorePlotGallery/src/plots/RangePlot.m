@@ -40,14 +40,13 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
             double rRight    = (rand() / (double)RAND_MAX * 0.125 + 0.125) * oneDay;
 
             [newData addObject:
-             [NSDictionary dictionaryWithObjectsAndKeys:
-              [NSDecimalNumber numberWithDouble:x], [NSNumber numberWithInt:CPTRangePlotFieldX],
-              [NSDecimalNumber numberWithDouble:y], [NSNumber numberWithInt:CPTRangePlotFieldY],
-              [NSDecimalNumber numberWithDouble:rHigh], [NSNumber numberWithInt:CPTRangePlotFieldHigh],
-              [NSDecimalNumber numberWithDouble:rLow], [NSNumber numberWithInt:CPTRangePlotFieldLow],
-              [NSDecimalNumber numberWithDouble:rLeft], [NSNumber numberWithInt:CPTRangePlotFieldLeft],
-              [NSDecimalNumber numberWithDouble:rRight], [NSNumber numberWithInt:CPTRangePlotFieldRight],
-              nil]];
+             @{ @(CPTRangePlotFieldX): @(x),
+                @(CPTRangePlotFieldY): @(y),
+                @(CPTRangePlotFieldHigh): @(rHigh),
+                @(CPTRangePlotFieldLow): @(rLow),
+                @(CPTRangePlotFieldLeft): @(rLeft),
+                @(CPTRangePlotFieldRight): @(rRight) }
+            ];
         }
 
         plotData = [newData retain];
@@ -68,7 +67,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 #endif
 
     [graph release];
-    graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame : bounds];
+    graph = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
@@ -99,7 +98,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     // Setup fill and bar style
     if ( !areaFill ) {
         CPTColor *transparentGreen = [[CPTColor greenColor] colorWithAlphaComponent:0.2];
-        areaFill = [(CPTFill *)[CPTFill alloc] initWithColor : transparentGreen];
+        areaFill = [[CPTFill alloc] initWithColor:transparentGreen];
     }
 
     if ( !barLineStyle ) {
@@ -179,9 +178,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    NSDecimalNumber *num = [[plotData objectAtIndex:index] objectForKey:[NSNumber numberWithUnsignedInteger:fieldEnum]];
-
-    return num;
+    return plotData[index][@(fieldEnum)];
 }
 
 #pragma mark -

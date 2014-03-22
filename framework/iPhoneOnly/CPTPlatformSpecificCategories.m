@@ -29,19 +29,14 @@
 {
     CGSize boundsSize = self.bounds.size;
 
-    if ( UIGraphicsBeginImageContextWithOptions ) {
-        UIGraphicsBeginImageContextWithOptions(boundsSize, self.opaque, (CGFloat)0.0);
-    }
-    else {
-        UIGraphicsBeginImageContext(boundsSize);
-    }
+    UIGraphicsBeginImageContextWithOptions( boundsSize, self.opaque, CPTFloat(0.0) );
 
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSaveGState(context);
     CGContextSetAllowsAntialiasing(context, true);
 
-    CGContextTranslateCTM(context, (CGFloat)0.0, boundsSize.height);
-    CGContextScaleCTM(context, (CGFloat)1.0, (CGFloat) - 1.0);
+    CGContextTranslateCTM(context, CPTFloat(0.0), boundsSize.height);
+    CGContextScaleCTM( context, CPTFloat(1.0), CPTFloat(-1.0) );
 
     [self layoutAndRenderInContext:context];
     CPTNativeImage *layerImage = UIGraphicsGetImageFromCurrentImageContext();

@@ -10,7 +10,7 @@
 
 @property (nonatomic, readwrite, assign) CGSize shadowOffset;
 @property (nonatomic, readwrite, assign) CGFloat shadowBlurRadius;
-@property (nonatomic, readwrite, retain) CPTColor *shadowColor;
+@property (nonatomic, readwrite, strong) CPTColor *shadowColor;
 
 @end
 
@@ -51,9 +51,9 @@
 /** @brief Creates and returns a new CPTShadow instance.
  *  @return A new CPTShadow instance.
  **/
-+(id)shadow
++(instancetype)shadow
 {
-    return [[[self alloc] init] autorelease];
+    return [[self alloc] init];
 }
 
 /// @name Initialization
@@ -68,7 +68,7 @@
  *
  *  @return The initialized object.
  **/
--(id)init
+-(instancetype)init
 {
     if ( (self = [super init]) ) {
         shadowOffset     = CGSizeZero;
@@ -79,17 +79,6 @@
 }
 
 /// @}
-
-/// @cond
-
--(void)dealloc
-{
-    [shadowColor release];
-
-    [super dealloc];
-}
-
-/// @endcond
 
 #pragma mark -
 #pragma mark NSCoding Methods
@@ -103,12 +92,12 @@
     [coder encodeObject:self.shadowColor forKey:@"CPTShadow.shadowColor"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         shadowOffset     = [coder decodeCPTSizeForKey:@"CPTShadow.shadowOffset"];
         shadowBlurRadius = [coder decodeCGFloatForKey:@"CPTShadow.shadowBlurRadius"];
-        shadowColor      = [[coder decodeObjectForKey:@"CPTShadow.shadowColor"] retain];
+        shadowColor      = [coder decodeObjectForKey:@"CPTShadow.shadowColor"];
     }
     return self;
 }
@@ -138,9 +127,9 @@
 {
     CPTShadow *shadowCopy = [[CPTShadow allocWithZone:zone] init];
 
-    shadowCopy->shadowOffset     = self->shadowOffset;
-    shadowCopy->shadowBlurRadius = self->shadowBlurRadius;
-    shadowCopy->shadowColor      = [self->shadowColor copy];
+    shadowCopy.shadowOffset     = self.shadowOffset;
+    shadowCopy.shadowBlurRadius = self.shadowBlurRadius;
+    shadowCopy.shadowColor      = self.shadowColor;
 
     return shadowCopy;
 }
@@ -156,9 +145,9 @@
 {
     CPTShadow *shadowCopy = [[CPTMutableShadow allocWithZone:zone] init];
 
-    shadowCopy->shadowOffset     = self->shadowOffset;
-    shadowCopy->shadowBlurRadius = self->shadowBlurRadius;
-    shadowCopy->shadowColor      = [self->shadowColor copy];
+    shadowCopy.shadowOffset     = self.shadowOffset;
+    shadowCopy.shadowBlurRadius = self.shadowBlurRadius;
+    shadowCopy.shadowColor      = self.shadowColor;
 
     return shadowCopy;
 }

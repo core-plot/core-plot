@@ -21,20 +21,62 @@
 /// @name Plot Area Selection
 /// @{
 
-/** @brief @optional Informs the delegate that a plot area was
- *  @if MacOnly clicked. @endif
- *  @if iOSOnly touched. @endif
+/** @brief @optional Informs the delegate that a plot area
+ *  @if MacOnly was both pressed and released. @endif
+ *  @if iOSOnly received both the touch down and up events. @endif
  *  @param plotArea The plot area.
  **/
 -(void)plotAreaWasSelected:(CPTPlotArea *)plotArea;
 
-/** @brief @optional Informs the delegate that a plot area was
- *  @if MacOnly clicked. @endif
- *  @if iOSOnly touched. @endif
+/** @brief @optional Informs the delegate that a plot area
+ *  @if MacOnly was both pressed and released. @endif
+ *  @if iOSOnly received both the touch down and up events. @endif
  *  @param plotArea The plot area.
  *  @param event The event that triggered the selection.
  **/
 -(void)plotAreaWasSelected:(CPTPlotArea *)plotArea withEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that a plot area
+ *  @if MacOnly was pressed. @endif
+ *  @if iOSOnly touch started. @endif
+ *  @param plot The bar plot.
+ *  @param idx The index of the
+ *  @if MacOnly clicked bar. @endif
+ *  @if iOSOnly touched bar. @endif
+ **/
+-(void)plotAreaTouchDown:(CPTPlotArea *)plotArea;
+
+/** @brief @optional Informs the delegate that a plot area
+ *  @if MacOnly was pressed. @endif
+ *  @if iOSOnly touch started. @endif
+ *  @param plot The bar plot.
+ *  @param idx The index of the
+ *  @if MacOnly clicked bar. @endif
+ *  @if iOSOnly touched bar. @endif
+ *  @param event The event that triggered the selection.
+ **/
+-(void)plotAreaTouchDown:(CPTPlotArea *)plotArea withEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that a plot area
+ *  @if MacOnly was released. @endif
+ *  @if iOSOnly touch ended. @endif
+ *  @param plot The bar plot.
+ *  @param idx The index of the
+ *  @if MacOnly clicked bar. @endif
+ *  @if iOSOnly touched bar. @endif
+ **/
+-(void)plotAreaTouchUp:(CPTPlotArea *)plotArea;
+
+/** @brief @optional Informs the delegate that a plot area
+ *  @if MacOnly was released. @endif
+ *  @if iOSOnly touch ended. @endif
+ *  @param plot The bar plot.
+ *  @param idx The index of the
+ *  @if MacOnly clicked bar. @endif
+ *  @if iOSOnly touched bar. @endif
+ *  @param event The event that triggered the selection.
+ **/
+-(void)plotAreaTouchUp:(CPTPlotArea *)plotArea withEvent:(CPTNativeEvent *)event;
 
 /// @}
 
@@ -42,33 +84,20 @@
 
 #pragma mark -
 
-@interface CPTPlotArea : CPTAnnotationHostLayer {
-    @private
-    CPTGridLineGroup *minorGridLineGroup;
-    CPTGridLineGroup *majorGridLineGroup;
-    CPTAxisSet *axisSet;
-    CPTPlotGroup *plotGroup;
-    CPTAxisLabelGroup *axisLabelGroup;
-    CPTAxisLabelGroup *axisTitleGroup;
-    CPTFill *fill;
-    NSArray *topDownLayerOrder;
-    CPTGraphLayerType *bottomUpLayerOrder;
-    BOOL updatingLayers;
-}
-
+@interface CPTPlotArea : CPTAnnotationHostLayer
 /// @name Layers
 /// @{
-@property (nonatomic, readwrite, retain) CPTGridLineGroup *minorGridLineGroup;
-@property (nonatomic, readwrite, retain) CPTGridLineGroup *majorGridLineGroup;
-@property (nonatomic, readwrite, retain) CPTAxisSet *axisSet;
-@property (nonatomic, readwrite, retain) CPTPlotGroup *plotGroup;
-@property (nonatomic, readwrite, retain) CPTAxisLabelGroup *axisLabelGroup;
-@property (nonatomic, readwrite, retain) CPTAxisLabelGroup *axisTitleGroup;
+@property (nonatomic, readwrite, strong) CPTGridLineGroup *minorGridLineGroup;
+@property (nonatomic, readwrite, strong) CPTGridLineGroup *majorGridLineGroup;
+@property (nonatomic, readwrite, strong) CPTAxisSet *axisSet;
+@property (nonatomic, readwrite, strong) CPTPlotGroup *plotGroup;
+@property (nonatomic, readwrite, strong) CPTAxisLabelGroup *axisLabelGroup;
+@property (nonatomic, readwrite, strong) CPTAxisLabelGroup *axisTitleGroup;
 /// @}
 
 /// @name Layer Ordering
 /// @{
-@property (nonatomic, readwrite, retain) NSArray *topDownLayerOrder;
+@property (nonatomic, readwrite, strong) NSArray *topDownLayerOrder;
 /// @}
 
 /// @name Decorations

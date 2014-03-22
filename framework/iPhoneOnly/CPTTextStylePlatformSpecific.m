@@ -34,7 +34,7 @@
  *  @param attributes A dictionary of standard text attributes.
  *  @return A new CPTTextStyle instance.
  **/
-+(id)textStyleWithAttributes:(NSDictionary *)attributes
++(instancetype)textStyleWithAttributes:(NSDictionary *)attributes
 {
     CPTMutableTextStyle *newStyle = [CPTMutableTextStyle textStyle];
 
@@ -71,7 +71,7 @@
         }
     }
 
-    return [[newStyle copy] autorelease];
+    return [newStyle copy];
 }
 
 #pragma mark -
@@ -117,11 +117,9 @@
 
         [myAttributes setValue:paragraphStyle
                         forKey:NSParagraphStyleAttributeName];
-
-        [paragraphStyle release];
     }
 
-    return [[myAttributes copy] autorelease];
+    return [myAttributes copy];
 }
 
 /// @endcond
@@ -134,7 +132,7 @@
 
 /// @cond
 
-+(id)textStyleWithAttributes:(NSDictionary *)attributes
++(instancetype)textStyleWithAttributes:(NSDictionary *)attributes
 {
     CPTMutableTextStyle *newStyle = [CPTMutableTextStyle textStyle];
 

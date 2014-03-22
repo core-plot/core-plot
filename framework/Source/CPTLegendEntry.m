@@ -9,8 +9,8 @@
 /// @cond
 @interface CPTLegendEntry()
 
-@property (nonatomic, readonly, retain) NSString *title;
-@property (nonatomic, readonly, retain) NSAttributedString *attributedTitle;
+@property (nonatomic, readonly) NSString *title;
+@property (nonatomic, readonly) NSAttributedString *attributedTitle;
 
 @end
 
@@ -79,7 +79,7 @@
  *
  *  @return The initialized object.
  **/
--(id)init
+-(instancetype)init
 {
     if ( (self = [super init]) ) {
         plot      = nil;
@@ -92,17 +92,6 @@
 }
 
 /// @}
-
-/// @cond
-
--(void)dealloc
-{
-    [textStyle release];
-
-    [super dealloc];
-}
-
-/// @endcond
 
 #pragma mark -
 #pragma mark NSCoding Methods
@@ -118,14 +107,14 @@
     [coder encodeObject:self.textStyle forKey:@"CPTLegendEntry.textStyle"];
 }
 
--(id)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         plot      = [coder decodeObjectForKey:@"CPTLegendEntry.plot"];
         index     = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegendEntry.index"];
         row       = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegendEntry.row"];
         column    = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegendEntry.column"];
-        textStyle = [[coder decodeObjectForKey:@"CPTLegendEntry.textStyle"] retain];
+        textStyle = [coder decodeObjectForKey:@"CPTLegendEntry.textStyle"];
     }
     return self;
 }
@@ -193,12 +182,16 @@
 
 -(NSString *)title
 {
-    return [self.plot titleForLegendEntryAtIndex:self.index];
+    CPTPlot *thePlot = self.plot;
+
+    return [thePlot titleForLegendEntryAtIndex:self.index];
 }
 
 -(NSAttributedString *)attributedTitle
 {
-    return [self.plot attributedTitleForLegendEntryAtIndex:self.index];
+    CPTPlot *thePlot = self.plot;
+
+    return [thePlot attributedTitleForLegendEntryAtIndex:self.index];
 }
 
 -(CGSize)titleSize
