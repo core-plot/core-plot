@@ -573,23 +573,35 @@
         if ( theLineStyle || theFill ) {
             CGPoint symbolAnchor = self.anchorPoint;
             CGSize symbolSize    = self.size;
+            CPTShadow *myShadow  = self.shadow;
 
             CGContextSaveGState(context);
             CGContextTranslateCTM(context, center.x + ( symbolAnchor.x - CPTFloat(0.5) ) * symbolSize.width, center.y + ( symbolAnchor.y - CPTFloat(0.5) ) * symbolSize.height);
             CGContextScaleCTM(context, scale, scale);
-            [self.shadow setShadowInContext:context];
-            
+            [myShadow setShadowInContext:context];
+
             // redraw only symbol rectangle
-            CGRect symbolRect = CGRectMake(symbolAnchor.x - symbolSize.width, symbolAnchor.y - symbolSize.height, symbolSize.width * 2, symbolSize.height * 2);
+            CGSize halfSize = CPTSizeMake( symbolSize.width * CPTFloat(0.5), symbolSize.height * CPTFloat(0.5) );
+            CGRect bounds   = CPTRectMake(-halfSize.width, -halfSize.height, symbolSize.width, symbolSize.height);
+
+            CGRect symbolRect = bounds;
+
+            if ( myShadow ) {
+                CGFloat shadowRadius = myShadow.shadowBlurRadius;
+                CGSize shadowOffset  = myShadow.shadowOffset;
+                symbolRect = CGRectInset( symbolRect, -( ABS(shadowOffset.width) + ABS(shadowRadius) ), -( ABS(shadowOffset.height) + ABS(shadowRadius) ) );
+            }
+            if ( theLineStyle ) {
+                CGFloat lineWidth = ABS(theLineStyle.lineWidth);
+                symbolRect = CGRectInset(symbolRect, -lineWidth, -lineWidth);
+            }
+
             CGContextClipToRect(context, symbolRect);
-            
+
             CGContextBeginTransparencyLayer(context, NULL);
 
             if ( theFill ) {
                 // use fillRect instead of fillPath so that images and gradients are properly centered in the symbol
-                CGSize halfSize = CPTSizeMake( symbolSize.width * CPTFloat(0.5), symbolSize.height * CPTFloat(0.5) );
-                CGRect bounds   = CPTRectMake(-halfSize.width, -halfSize.height, symbolSize.width, symbolSize.height);
-
                 CGContextSaveGState(context);
                 if ( !CGPathIsEmpty(theSymbolPath) ) {
                     CGContextBeginPath(context);
