@@ -464,10 +464,15 @@ NSDecimal CPTDecimalFromUnsignedInteger(NSUInteger anInt)
  **/
 NSDecimal CPTDecimalFromFloat(float aFloat)
 {
-    NSString *stringValue = [[NSString alloc] initWithFormat:@"%f", aFloat];
-    NSDecimal result      = CPTDecimalFromString(stringValue);
+    if ( isnan(aFloat) ) {
+        return CPTDecimalNaN();
+    }
+    else {
+        NSString *stringValue = [[NSString alloc] initWithFormat:@"%f", aFloat];
+        NSDecimal result      = CPTDecimalFromString(stringValue);
 
-    return result;
+        return result;
+    }
 }
 
 /**
@@ -477,10 +482,15 @@ NSDecimal CPTDecimalFromFloat(float aFloat)
  **/
 NSDecimal CPTDecimalFromDouble(double aDouble)
 {
-    NSString *stringValue = [[NSString alloc] initWithFormat:@"%f", aDouble];
-    NSDecimal result      = CPTDecimalFromString(stringValue);
+    if ( isnan(aDouble) ) {
+        return CPTDecimalNaN();
+    }
+    else {
+        NSString *stringValue = [[NSString alloc] initWithFormat:@"%f", aDouble];
+        NSDecimal result      = CPTDecimalFromString(stringValue);
 
-    return result;
+        return result;
+    }
 }
 
 /**
@@ -490,10 +500,15 @@ NSDecimal CPTDecimalFromDouble(double aDouble)
  **/
 NSDecimal CPTDecimalFromCGFloat(CGFloat aCGFloat)
 {
-    NSString *stringValue = [[NSString alloc] initWithFormat:@"%f", aCGFloat];
-    NSDecimal result      = CPTDecimalFromString(stringValue);
+    if ( isnan(aCGFloat) ) {
+        return CPTDecimalNaN();
+    }
+    else {
+        NSString *stringValue = [[NSString alloc] initWithFormat:@"%f", aCGFloat];
+        NSDecimal result      = CPTDecimalFromString(stringValue);
 
-    return result;
+        return result;
+    }
 }
 
 /**
