@@ -27,7 +27,7 @@ static const double precision = 1.0e-6;
     // starting layer positions for each test
     self.positions = @[@10.49999, @10.5, @10.50001, @10.99999, @11.0, @11.00001];
 
-    CPTLayer *newLayer = [(CPTLayer *)[CPTLayer alloc] initWithFrame : CPTRectMake(0.0, 0.0, 99.0, 99.0)];
+    CPTLayer *newLayer = [[CPTLayer alloc] initWithFrame:CPTRectMake(0.0, 0.0, 99.0, 99.0)];
 
     self.layer = newLayer;
 }
