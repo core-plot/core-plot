@@ -188,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+				4F22FFE7123431D2006BF615 /* Quartz.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -221,7 +222,6 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				4F22FFE7123431D2006BF615 /* Quartz.framework */,
 			);
 			indentWidth = 4;
 			name = "Plot Gallery-Mac";
