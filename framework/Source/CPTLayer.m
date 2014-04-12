@@ -293,6 +293,16 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 
 /// @cond
 
+-(void)display
+{
+    if ( self.hidden ) {
+        return;
+    }
+    else {
+        [super display];
+    }
+}
+
 -(void)drawInContext:(CGContextRef)context
 {
     self.useFastRendering = YES;
