@@ -90,6 +90,20 @@
 /// @endcond
 
 #pragma mark -
+#pragma mark Drawing
+
+/// @cond
+
+-(void)display
+{
+    if ( self.borderLineStyle ) {
+        [super display];
+    }
+}
+
+/// @endcond
+
+#pragma mark -
 #pragma mark Labeling
 
 /**
@@ -222,6 +236,7 @@
 {
     if ( newLineStyle != borderLineStyle ) {
         borderLineStyle = [newLineStyle copy];
+        [self setNeedsLayout];
         [self setNeedsDisplay];
     }
 }

@@ -295,6 +295,9 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 {
     [super layoutSublayers];
 
+    CPTAxisSet *myAxisSet = self.axisSet;
+    BOOL axisSetHasBorder = (myAxisSet.borderLineStyle != nil);
+
     CALayer *superlayer   = self.superlayer;
     CGRect sublayerBounds = [self convertRect:superlayer.bounds fromLayer:superlayer];
     sublayerBounds.origin = CGPointZero;
@@ -304,7 +307,9 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 
     self.minorGridLineGroup.frame = sublayerFrame;
     self.majorGridLineGroup.frame = sublayerFrame;
-    self.axisSet.frame            = sublayerFrame;
+    if ( axisSetHasBorder ) {
+        self.axisSet.frame = sublayerFrame;
+    }
 
     // make the plot group the same size as the plot area to clip the plots
     CPTPlotGroup *thePlotGroup = self.plotGroup;
@@ -317,6 +322,10 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     sublayerFrame             = CPTRectMake(sublayerPosition.x, sublayerPosition.y, 0.0, 0.0);
     self.axisLabelGroup.frame = sublayerFrame;
     self.axisTitleGroup.frame = sublayerFrame;
+    if ( !axisSetHasBorder ) {
+        myAxisSet.frame = sublayerFrame;
+        [myAxisSet layoutSublayers];
+    }
 }
 
 -(NSSet *)sublayersExcludedFromAutomaticLayout
