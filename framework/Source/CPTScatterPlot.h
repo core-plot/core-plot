@@ -147,32 +147,33 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
 /// @{
 
 /** @brief @optional Informs the delegate that
- *  @if MacOnly the mouse was released @endif
- *  @if iOSOnly a touch ended @endif
+ *  @if MacOnly the mouse was both pressed and released on the plot line.@endif
+ *  @if iOSOnly the plot line received both the touch down and up events. @endif
  *  while over the plot line.
  *  @param plot The scatter plot.
  **/
 -(void)scatterPlotDataLineWasSelected:(CPTScatterPlot *)plot;
 
 /** @brief @optional Informs the delegate that
- *  @if MacOnly the mouse was released @endif
- *  @if iOSOnly a touch ended @endif
- *  while over the plot line.
+ *  @if MacOnly the mouse was both pressed and released on the plot line.@endif
+ *  @if iOSOnly the plot line received both the touch down and up events. @endif
  *  @param plot The scatter plot.
  *  @param event The event that triggered the selection.
  **/
 -(void)scatterPlot:(CPTScatterPlot *)plot dataLineWasSelectedWithEvent:(CPTNativeEvent *)event;
 
 /** @brief @optional Informs the delegate that
- *  @if MacOnly the plot line was pressed. @endif
- *  @if iOSOnly a touch started on the plot line. @endif
+ *  @if MacOnly the mouse was pressed @endif
+ *  @if iOSOnly touch started @endif
+ *  while over the plot line.
  *  @param plot The scatter plot.
  **/
 -(void)scatterPlotDataLineTouchDown:(CPTScatterPlot *)plot;
 
 /** @brief @optional Informs the delegate that
- *  @if MacOnly the plot line was pressed. @endif
- *  @if iOSOnly a touch started on the plot line. @endif
+ *  @if MacOnly the mouse was pressed @endif
+ *  @if iOSOnly touch started @endif
+ *  while over the plot line.
  *  @param plot The scatter plot.
  *  @param event The event that triggered the selection.
  **/
