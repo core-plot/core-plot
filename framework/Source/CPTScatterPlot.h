@@ -75,7 +75,7 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
 
 @optional
 
-/// @name Point Selection
+/// @name Data Point Selection
 /// @{
 
 /** @brief @optional Informs the delegate that a data point
@@ -141,22 +141,27 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
  **/
 -(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolTouchUpAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
 
+/// @}
+
+/// @name Data Line Selection
+/// @{
+
 /** @brief @optional Informs the delegate that
  *  @if MacOnly the mouse was released @endif
  *  @if iOSOnly a touch ended @endif
  *  while over the plot line.
  *  @param plot The scatter plot.
  **/
--(void)plotLineWasSelectedForScatterPlot:(CPTScatterPlot *)plot;
+-(void)scatterPlotDataLineWasSelected:(CPTScatterPlot *)plot;
 
 /** @brief @optional Informs the delegate that
  *  @if MacOnly the mouse was released @endif
  *  @if iOSOnly a touch ended @endif
- *  while over a scatter plot line.
+ *  while over the plot line.
  *  @param plot The scatter plot.
  *  @param event The event that triggered the selection.
  **/
--(void)scatterPlot:(CPTScatterPlot *)plot plotLineWasSelectedWithEvent:(CPTNativeEvent *)event;
+-(void)scatterPlot:(CPTScatterPlot *)plot dataLineWasSelectedWithEvent:(CPTNativeEvent *)event;
 
 /** @brief @optional Informs the delegate that
  *  @if MacOnly the mouse was released @endif
@@ -164,23 +169,23 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
  *  while not over the plot line and that the line has been deselected.
  *  @param plot The scatter plot.
  **/
--(void)plotLineWasDeselectedForScatterPlot:(CPTScatterPlot *)plot;
+-(void)scatterPlotDataLineWasDeselected:(CPTScatterPlot *)plot;
 
 /** @brief @optional Informs the delegate that
  *  @if MacOnly the mouse was released @endif
  *  @if iOSOnly a touch ended @endif
- *  while not over a scatter plot line.
- *  @param plot The scatter plot and that the line has been deselected.
+ *  while not over the plot line.
+ *  @param plot The scatter plot.
  *  @param event The event that triggered the selection.
  **/
--(void)scatterPlot:(CPTScatterPlot *)plot plotLineWasDeselectedWithEvent:(CPTNativeEvent *)event;
+-(void)scatterPlot:(CPTScatterPlot *)plot dataLineWasDeselectedWithEvent:(CPTNativeEvent *)event;
 
 /** @brief @optional Informs the delegate that
  *  @if MacOnly the plot line was pressed. @endif
  *  @if iOSOnly a touch started on the plot line. @endif
  *  @param plot The scatter plot.
  **/
--(void)plotLineTouchDownForScatterPlot:(CPTScatterPlot *)plot;
+-(void)scatterPlotDataLineTouchDown:(CPTScatterPlot *)plot;
 
 /** @brief @optional Informs the delegate that
  *  @if MacOnly the plot line was pressed. @endif
@@ -188,7 +193,7 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
  *  @param plot The scatter plot.
  *  @param event The event that triggered the selection.
  **/
--(void)scatterPlot:(CPTScatterPlot *)plot plotLineTouchDownWithEvent:(CPTNativeEvent *)event;
+-(void)scatterPlot:(CPTScatterPlot *)plot dataLineTouchDownWithEvent:(CPTNativeEvent *)event;
 
 /** @brief @optional Informs the delegate that
  *  @if MacOnly the mouse was released @endif
@@ -196,7 +201,7 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
  *  while over the plot line.
  *  @param plot The scatter plot.
  **/
--(void)plotLineTouchUpForScatterPlot:(CPTScatterPlot *)plot;
+-(void)scatterPlotDataLineTouchUp:(CPTScatterPlot *)plot;
 
 /** @brief @optional Informs the delegate that
  *  @if MacOnly the mouse was released @endif
@@ -205,12 +210,17 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
  *  @param plot The scatter plot.
  *  @param event The event that triggered the selection.
  **/
--(void)scatterPlot:(CPTScatterPlot *)plot plotLineTouchUpWithEvent:(CPTNativeEvent *)event;
+-(void)scatterPlot:(CPTScatterPlot *)plot dataLineTouchUpWithEvent:(CPTNativeEvent *)event;
+
+/// @}
+
+/// @name Drawing
+/// @{
 
 /** @brief @optional Gives the delegate an opportunity to do something just before the
  *  plot line will be drawn. A common operation is to draw a selection indicator for the
  *  plot line. This is called after the plot fill has been drawn.
- *  @param plot The scatter plot and that the line has been deselected.
+ *  @param plot The scatter plot.
  *  @param dataLinePath The CGPath describing the plot line that is about to be drawn.
  *  @param context The graphics context in which the plot line will be drawn.
  **/
