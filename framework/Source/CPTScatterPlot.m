@@ -1488,37 +1488,43 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     return [super pointingDeviceUpEvent:event atPoint:interactionPoint];
 }
 
-- (BOOL)plotWasLineHitByInteractionPoint:(CGPoint)interactionPoint
+-(BOOL)plotWasLineHitByInteractionPoint:(CGPoint)interactionPoint
 {
     BOOL plotLineHit = NO;
-    
+
     // Create the detection path.
     CPTGraph *theGraph       = self.graph;
     CPTPlotArea *thePlotArea = self.plotArea;
     NSUInteger dataCount     = self.cachedDataCount;
-    
+
     if ( theGraph && thePlotArea && !self.hidden && dataCount ) {
         CGPoint *viewPoints  = malloc( dataCount * sizeof(CGPoint) );
         BOOL *drawPointFlags = malloc( dataCount * sizeof(BOOL) );
-        
+
         CPTXYPlotSpace *thePlotSpace = (CPTXYPlotSpace *)self.plotSpace;
         [self calculatePointsToDraw:drawPointFlags forPlotSpace:thePlotSpace includeVisiblePointsOnly:NO numberOfPoints:dataCount];
         [self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags numberOfPoints:dataCount];
         NSInteger firstDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags numberOfPoints:dataCount extremeNumIsLowerBound:YES];
-        
+
         if ( firstDrawnPointIndex != NSNotFound ) {
-            NSInteger lastDrawnPointIndex  = [self extremeDrawnPointIndexForFlags:drawPointFlags numberOfPoints:dataCount extremeNumIsLowerBound:NO];
+            NSInteger lastDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags numberOfPoints:dataCount extremeNumIsLowerBound:NO];
+
             NSRange viewIndexRange = NSMakeRange( (NSUInteger)firstDrawnPointIndex, (NSUInteger)(lastDrawnPointIndex - firstDrawnPointIndex + 1) );
             CGPathRef dataLinePath = [self newDataLinePathForViewPoints:viewPoints indexRange:viewIndexRange baselineYValue:NAN];
-            CGPathRef path = CGPathCreateCopyByStrokingPath(dataLinePath, Nil, self.plotLineMarginForHitDetection * 2.0f, kCGLineCapRound, kCGLineJoinRound, 3.0f);
-            UIBezierPath* detectionPath = [UIBezierPath bezierPathWithCGPath:path];
-            CGPathRelease(path);
-            
+            CGPathRef path         = CGPathCreateCopyByStrokingPath( dataLinePath,
+                                                                     NULL,
+                                                                     self.plotLineMarginForHitDetection * CPTFloat(2.0),
+                                                                     kCGLineCapRound,
+                                                                     kCGLineJoinRound,
+                                                                     CPTFloat(3.0) );
+
             CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
-            plotLineHit = [detectionPath containsPoint:plotAreaPoint];
+
+            plotLineHit = CGPathContainsPoint(path, NULL, plotAreaPoint, false);
+            CGPathRelease(path);
         }
     }
-    
+
     return plotLineHit;
 }
 
