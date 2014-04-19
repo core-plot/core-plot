@@ -164,23 +164,6 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
 -(void)scatterPlot:(CPTScatterPlot *)plot dataLineWasSelectedWithEvent:(CPTNativeEvent *)event;
 
 /** @brief @optional Informs the delegate that
- *  @if MacOnly the mouse was released @endif
- *  @if iOSOnly a touch ended @endif
- *  while not over the plot line and that the line has been deselected.
- *  @param plot The scatter plot.
- **/
--(void)scatterPlotDataLineWasDeselected:(CPTScatterPlot *)plot;
-
-/** @brief @optional Informs the delegate that
- *  @if MacOnly the mouse was released @endif
- *  @if iOSOnly a touch ended @endif
- *  while not over the plot line.
- *  @param plot The scatter plot.
- *  @param event The event that triggered the selection.
- **/
--(void)scatterPlot:(CPTScatterPlot *)plot dataLineWasDeselectedWithEvent:(CPTNativeEvent *)event;
-
-/** @brief @optional Informs the delegate that
  *  @if MacOnly the plot line was pressed. @endif
  *  @if iOSOnly a touch started on the plot line. @endif
  *  @param plot The scatter plot.

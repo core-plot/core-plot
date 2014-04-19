@@ -1472,16 +1472,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         }
     }
 
-    if ( self.dataLineStyle && !plotSelected ) {
-        // Let the plot delegate know that the line was deselected.
-        if ( [theDelegate respondsToSelector:@selector(scatterPlotDataLineWasDeselected:)] ) {
-            [theDelegate scatterPlotDataLineWasDeselected:self];
-        }
-        if ( [theDelegate respondsToSelector:@selector(scatterPlot:dataLineWasSelectedWithEvent:)] ) {
-            [theDelegate scatterPlot:self dataLineWasDeselectedWithEvent:event];
-        }
-    }
-
     if ( symbolSelectHandled || plotSelectHandled ) {
         return YES;
     }
