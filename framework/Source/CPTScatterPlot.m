@@ -1512,6 +1512,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
             CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:thePlotArea];
 
             plotLineHit = CGPathContainsPoint(path, NULL, plotAreaPoint, false);
+            CGPathRelease(dataLinePath);
             CGPathRelease(path);
         }
     }
