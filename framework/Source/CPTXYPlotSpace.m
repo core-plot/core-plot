@@ -151,6 +151,11 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
  **/
 @synthesize bounceAcceleration;
 
+/** @property CGFloat minimumDisplacementToDrag
+ *  @brief The minimum distance the interaction point must move before the event is considered a drag. Defaults to @num{2.0}.
+ **/
+@synthesize minimumDisplacementToDrag;
+
 @dynamic isDragging;
 @synthesize lastDragPoint;
 @synthesize lastDisplacement;
@@ -180,6 +185,7 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
  *  - @ref bounceAnimationCurve = #CPTAnimationCurveQuadraticOut
  *  - @ref momentumAcceleration = @num{2000.0}
  *  - @ref bounceAcceleration = @num{3000.0}
+ *  - @ref minimumDisplacementToDrag = @num{2.0}
  *
  *  @return The initialized object.
  **/
@@ -204,6 +210,7 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
         bounceAnimationCurve   = CPTAnimationCurveQuadraticOut;
         momentumAcceleration   = 2000.0;
         bounceAcceleration     = 3000.0;
+        minimumDisplacementToDrag   = 2.0;
     }
     return self;
 }
@@ -231,6 +238,7 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
     [coder encodeInt:self.bounceAnimationCurve forKey:@"CPTXYPlotSpace.bounceAnimationCurve"];
     [coder encodeCGFloat:self.momentumAcceleration forKey:@"CPTXYPlotSpace.momentumAcceleration"];
     [coder encodeCGFloat:self.bounceAcceleration forKey:@"CPTXYPlotSpace.bounceAcceleration"];
+    [coder encodeCGFloat:self.minimumDisplacementToDrag forKey:@"CPTXYPlotSpace.minimumDisplacementToDrag"];
 
     // No need to archive these properties:
     // lastDragPoint
@@ -261,6 +269,7 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
         bounceAnimationCurve   = (CPTAnimationCurve)[coder decodeIntForKey : @"CPTXYPlotSpace.bounceAnimationCurve"];
         momentumAcceleration   = [coder decodeCGFloatForKey:@"CPTXYPlotSpace.momentumAcceleration"];
         bounceAcceleration     = [coder decodeCGFloatForKey:@"CPTXYPlotSpace.bounceAcceleration"];
+        minimumDisplacementToDrag   = [coder decodeCGFloatForKey:@"CPTXYPlotSpace.minimumDisplacementToDrag"];
 
         lastDragPoint    = CGPointZero;
         lastDisplacement = CGPointZero;
@@ -1237,10 +1246,10 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
  **/
 -(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
-    BOOL handledByDelegate = [super pointingDeviceDownEvent:event atPoint:interactionPoint];
+    self.isDragging = NO;
 
+    BOOL handledByDelegate = [super pointingDeviceDownEvent:event atPoint:interactionPoint];
     if ( handledByDelegate ) {
-        self.isDragging = NO;
         return YES;
     }
 
@@ -1257,7 +1266,6 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         self.lastDisplacement = CGPointZero;
         self.lastDragTime     = event.timestamp;
         self.lastDeltaTime    = 0.0;
-        self.isDragging       = YES;
 
         // Clear any previous animations
         NSMutableArray *animationArray = self.animations;
@@ -1305,8 +1313,6 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
     }
 
     if ( self.isDragging ) {
-        self.isDragging = NO;
-
         CGFloat acceleration = CPTFloat(0.0);
         CGFloat speed        = CPTFloat(0.0);
         CGFloat momentumTime = CPTFloat(0.0);
@@ -1380,7 +1386,7 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
  *  If @ref allowsUserInteraction is @NO
  *  or the graph does not have a @link CPTPlotAreaFrame::plotArea plotArea @endlink layer,
  *  this method always returns @NO.
- *  Otherwise, if a drag operation is in progress, the @ref xRange
+ *  Otherwise, if a drag operation commences or is in progress, the @ref xRange
  *  and @ref yRange are shifted to follow the drag and
  *  this method returns @YES.
  *
@@ -1402,11 +1408,17 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         return NO;
     }
 
-    if ( self.isDragging ) {
-        CGPoint lastDraggedPoint = self.lastDragPoint;
+    CGPoint lastDraggedPoint = self.lastDragPoint;
+    CGPoint pointInPlotArea = [theGraph convertPoint:interactionPoint toLayer:plotArea];
+    CGPoint displacement    = CPTPointMake(pointInPlotArea.x - lastDraggedPoint.x, pointInPlotArea.y - lastDraggedPoint.y);
 
-        CGPoint pointInPlotArea = [theGraph convertPoint:interactionPoint toLayer:plotArea];
-        CGPoint displacement    = CPTPointMake(pointInPlotArea.x - lastDraggedPoint.x, pointInPlotArea.y - lastDraggedPoint.y);
+    if ( !self.isDragging ) {
+        // Have we started dragging? I.e. has the interactionPoint moved sufficiently to indicate a drag has started?
+        CGFloat displacedBy = fabs(sqrt(powf(displacement.x, 2.0) + powf(displacement.y, 2.0)));
+        self.isDragging = ( displacedBy > self.minimumDisplacementToDrag);
+    }
+    
+    if ( self.isDragging ) {
         CGPoint pointToUse      = pointInPlotArea;
 
         id<CPTPlotSpaceDelegate> theDelegate = self.delegate;

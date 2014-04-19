@@ -141,6 +141,81 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
  **/
 -(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolTouchUpAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
 
+/** @brief @optional Informs the delegate that
+ *  @if MacOnly the mouse was released @endif
+ *  @if iOSOnly a touch ended @endif
+ *  while over the plot line.
+ *  @param plot The scatter plot.
+ **/
+-(void)plotLineWasSelectedForScatterPlot:(CPTScatterPlot *)plot;
+
+/** @brief @optional Informs the delegate that
+ *  @if MacOnly the mouse was released @endif
+ *  @if iOSOnly a touch ended @endif
+ *  while over a scatter plot line.
+ *  @param plot The scatter plot.
+ *  @param event The event that triggered the selection.
+ **/
+-(void)scatterPlot:(CPTScatterPlot *)plot plotLineWasSelectedWithEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that
+ *  @if MacOnly the mouse was released @endif
+ *  @if iOSOnly a touch ended @endif
+ *  while not over the plot line and that the line has been deselected.
+ *  @param plot The scatter plot.
+ **/
+-(void)plotLineWasDeselectedForScatterPlot:(CPTScatterPlot *)plot;
+
+/** @brief @optional Informs the delegate that
+ *  @if MacOnly the mouse was released @endif
+ *  @if iOSOnly a touch ended @endif
+ *  while not over a scatter plot line.
+ *  @param plot The scatter plot and that the line has been deselected.
+ *  @param event The event that triggered the selection.
+ **/
+-(void)scatterPlot:(CPTScatterPlot *)plot plotLineWasDeselectedWithEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that
+ *  @if MacOnly the plot line was pressed. @endif
+ *  @if iOSOnly a touch started on the plot line. @endif
+ *  @param plot The scatter plot.
+ **/
+-(void)plotLineTouchDownForScatterPlot:(CPTScatterPlot *)plot;
+
+/** @brief @optional Informs the delegate that
+ *  @if MacOnly the plot line was pressed. @endif
+ *  @if iOSOnly a touch started on the plot line. @endif
+ *  @param plot The scatter plot.
+ *  @param event The event that triggered the selection.
+ **/
+-(void)scatterPlot:(CPTScatterPlot *)plot plotLineTouchDownWithEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that
+ *  @if MacOnly the mouse was released @endif
+ *  @if iOSOnly touch ended @endif
+ *  while over the plot line.
+ *  @param plot The scatter plot.
+ **/
+-(void)plotLineTouchUpForScatterPlot:(CPTScatterPlot *)plot;
+
+/** @brief @optional Informs the delegate that
+ *  @if MacOnly the mouse was released @endif
+ *  @if iOSOnly touch ended @endif
+ *  while over the plot line.
+ *  @param plot The scatter plot.
+ *  @param event The event that triggered the selection.
+ **/
+-(void)scatterPlot:(CPTScatterPlot *)plot plotLineTouchUpWithEvent:(CPTNativeEvent *)event;
+
+/** @brief @optional Gives the delegate an opportunity to do something just before the
+ *  plot line will be drawn. A common operation is to draw a selection indicator for the
+ *  plot line. This is called after the plot fill has been drawn.
+ *  @param plot The scatter plot and that the line has been deselected.
+ *  @param dataLinePath The CGPath describing the plot line that is about to be drawn.
+ *  @param context The graphics context in which the plot line will be drawn.
+ **/
+-(void)scatterPlot:(CPTScatterPlot *)plot prepareForDrawingPlotLine:(CGPathRef)dataLinePath inContext:(CGContextRef)context;
+
 /// @}
 
 @end
@@ -167,6 +242,8 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
 /// @name User Interaction
 /// @{
 @property (nonatomic, readwrite, assign) CGFloat plotSymbolMarginForHitDetection;
+@property (nonatomic, readwrite, assign) CGFloat plotLineMarginForHitDetection;
+@property (nonatomic, readwrite, assign) BOOL allowSimultaneousSymbolAndPlotSelection;
 /// @}
 
 /// @name Visible Points
