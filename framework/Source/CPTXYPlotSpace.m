@@ -204,13 +204,13 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
         lastDeltaTime    = 0.0;
         animations       = [[NSMutableArray alloc] init];
 
-        allowsMomentumX        = NO;
-        allowsMomentumY        = NO;
-        momentumAnimationCurve = CPTAnimationCurveQuadraticOut;
-        bounceAnimationCurve   = CPTAnimationCurveQuadraticOut;
-        momentumAcceleration   = 2000.0;
-        bounceAcceleration     = 3000.0;
-        minimumDisplacementToDrag   = 2.0;
+        allowsMomentumX           = NO;
+        allowsMomentumY           = NO;
+        momentumAnimationCurve    = CPTAnimationCurveQuadraticOut;
+        bounceAnimationCurve      = CPTAnimationCurveQuadraticOut;
+        momentumAcceleration      = 2000.0;
+        bounceAcceleration        = 3000.0;
+        minimumDisplacementToDrag = 2.0;
     }
     return self;
 }
@@ -265,11 +265,11 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
             allowsMomentumX = [coder decodeBoolForKey:@"CPTXYPlotSpace.allowsMomentumX"];
             allowsMomentumY = [coder decodeBoolForKey:@"CPTXYPlotSpace.allowsMomentumY"];
         }
-        momentumAnimationCurve = (CPTAnimationCurve)[coder decodeIntForKey : @"CPTXYPlotSpace.momentumAnimationCurve"];
-        bounceAnimationCurve   = (CPTAnimationCurve)[coder decodeIntForKey : @"CPTXYPlotSpace.bounceAnimationCurve"];
-        momentumAcceleration   = [coder decodeCGFloatForKey:@"CPTXYPlotSpace.momentumAcceleration"];
-        bounceAcceleration     = [coder decodeCGFloatForKey:@"CPTXYPlotSpace.bounceAcceleration"];
-        minimumDisplacementToDrag   = [coder decodeCGFloatForKey:@"CPTXYPlotSpace.minimumDisplacementToDrag"];
+        momentumAnimationCurve    = (CPTAnimationCurve)[coder decodeIntForKey : @"CPTXYPlotSpace.momentumAnimationCurve"];
+        bounceAnimationCurve      = (CPTAnimationCurve)[coder decodeIntForKey : @"CPTXYPlotSpace.bounceAnimationCurve"];
+        momentumAcceleration      = [coder decodeCGFloatForKey:@"CPTXYPlotSpace.momentumAcceleration"];
+        bounceAcceleration        = [coder decodeCGFloatForKey:@"CPTXYPlotSpace.bounceAcceleration"];
+        minimumDisplacementToDrag = [coder decodeCGFloatForKey:@"CPTXYPlotSpace.minimumDisplacementToDrag"];
 
         lastDragPoint    = CGPointZero;
         lastDisplacement = CGPointZero;
@@ -1313,6 +1313,8 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
     }
 
     if ( self.isDragging ) {
+        self.isDragging = NO;
+
         CGFloat acceleration = CPTFloat(0.0);
         CGFloat speed        = CPTFloat(0.0);
         CGFloat momentumTime = CPTFloat(0.0);
@@ -1409,17 +1411,17 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
     }
 
     CGPoint lastDraggedPoint = self.lastDragPoint;
-    CGPoint pointInPlotArea = [theGraph convertPoint:interactionPoint toLayer:plotArea];
-    CGPoint displacement    = CPTPointMake(pointInPlotArea.x - lastDraggedPoint.x, pointInPlotArea.y - lastDraggedPoint.y);
+    CGPoint pointInPlotArea  = [theGraph convertPoint:interactionPoint toLayer:plotArea];
+    CGPoint displacement     = CPTPointMake(pointInPlotArea.x - lastDraggedPoint.x, pointInPlotArea.y - lastDraggedPoint.y);
 
     if ( !self.isDragging ) {
-        // Have we started dragging? I.e. has the interactionPoint moved sufficiently to indicate a drag has started?
-        CGFloat displacedBy = fabs(sqrt(powf(displacement.x, 2.0) + powf(displacement.y, 2.0)));
-        self.isDragging = ( displacedBy > self.minimumDisplacementToDrag);
+        // Have we started dragging, i.e., has the interactionPoint moved sufficiently to indicate a drag has started?
+        CGFloat displacedBy = sqrt(displacement.x * displacement.x + displacement.y * displacement.y);
+        self.isDragging = (displacedBy > self.minimumDisplacementToDrag);
     }
-    
+
     if ( self.isDragging ) {
-        CGPoint pointToUse      = pointInPlotArea;
+        CGPoint pointToUse = pointInPlotArea;
 
         id<CPTPlotSpaceDelegate> theDelegate = self.delegate;
 
