@@ -56,6 +56,8 @@
     stocks = nil;
     [graph release];
     graph = nil;
+
+    [super viewDidUnload];
 }
 
 #pragma mark Table view methods

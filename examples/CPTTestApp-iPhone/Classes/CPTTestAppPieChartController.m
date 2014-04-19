@@ -54,6 +54,8 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
+
     // Add some initial data
     NSMutableArray *contentArray = [NSMutableArray arrayWithObjects:@20.0, @30.0, @60.0, nil];
 

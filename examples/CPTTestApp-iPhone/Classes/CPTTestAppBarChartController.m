@@ -19,6 +19,8 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
+
     [self timerFired];
 #ifdef MEMORY_TEST
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self
