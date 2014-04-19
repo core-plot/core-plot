@@ -20,5 +20,6 @@
 @property (nonatomic, readwrite) CPTAnimationCurve bounceAnimationCurve;
 @property (nonatomic, readwrite) CGFloat momentumAcceleration;
 @property (nonatomic, readwrite) CGFloat bounceAcceleration;
+@property (nonatomic, readwrite) CGFloat minimumDisplacementToDrag;
 
 @end

@@ -346,7 +346,7 @@ NSString *const kSecond = @"Second Derivative";
 }
 
 #pragma mark -
-#pragma mark CPTScatterPlot delegate method
+#pragma mark CPTScatterPlot delegate methods
 
 -(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index
 {
@@ -381,6 +381,21 @@ NSString *const kSecond = @"Second Derivative";
     symbolTextAnnotation.contentLayer = textLayer;
     symbolTextAnnotation.displacement = CGPointMake(0.0, 20.0);
     [graph.plotAreaFrame.plotArea addAnnotation:symbolTextAnnotation];
+}
+
+-(void)scatterPlotDataLineWasSelected:(CPTScatterPlot *)plot
+{
+    NSLog(@"scatterPlotDataLineWasSelected: %@", plot);
+}
+
+-(void)scatterPlotDataLineTouchDown:(CPTScatterPlot *)plot
+{
+    NSLog(@"scatterPlotDataLineTouchDown: %@", plot);
+}
+
+-(void)scatterPlotDataLineTouchUp:(CPTScatterPlot *)plot
+{
+    NSLog(@"scatterPlotDataLineTouchUp: %@", plot);
 }
 
 #pragma mark -
