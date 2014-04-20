@@ -149,7 +149,6 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
 /** @brief @optional Informs the delegate that
  *  @if MacOnly the mouse was both pressed and released on the plot line.@endif
  *  @if iOSOnly the plot line received both the touch down and up events. @endif
- *  while over the plot line.
  *  @param plot The scatter plot.
  **/
 -(void)scatterPlotDataLineWasSelected:(CPTScatterPlot *)plot;
