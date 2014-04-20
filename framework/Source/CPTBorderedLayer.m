@@ -232,9 +232,10 @@
             return path;
         }
 
-        CGFloat radius = self.cornerRadius + self.borderLineStyle.lineWidth;
+        CGFloat radius = self.cornerRadius + self.borderLineStyle.lineWidth * CPTFloat(0.5);
 
-        path                 = CreateRoundedRectPath(self.bounds, radius);
+        path = CreateRoundedRectPath(self.bounds, radius);
+
         self.outerBorderPath = path;
         CGPathRelease(path);
 
@@ -256,7 +257,8 @@
         CGFloat lineWidth = self.borderLineStyle.lineWidth;
         CGRect selfBounds = CGRectInset(self.bounds, lineWidth, lineWidth);
 
-        path                 = CreateRoundedRectPath( selfBounds, self.cornerRadius - lineWidth * CPTFloat(0.5) );
+        path = CreateRoundedRectPath( selfBounds, self.cornerRadius - lineWidth * CPTFloat(0.5) );
+
         self.innerBorderPath = path;
         CGPathRelease(path);
 
@@ -337,7 +339,12 @@
         fill = [newFill copy];
 
         CPTLayer *border = self.borderLayer;
-        border.backgroundColor = fill.cgColor;
+        if ( self.cornerRadius != CPTFloat(0.0) ) {
+            border.backgroundColor = NULL;
+        }
+        else {
+            border.backgroundColor = fill.cgColor;
+        }
         [border setNeedsDisplay];
 
         [self updateOpacity];
@@ -348,6 +355,8 @@
 {
     if ( newRadius != self.cornerRadius ) {
         super.cornerRadius = newRadius;
+
+        self.borderLayer.backgroundColor = NULL;
 
         [self updateOpacity];
     }
