@@ -381,7 +381,7 @@
     else {
         if ( index % 8 ) {
             NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
-            num = [dataForPlot[index] valueForKey:key];
+            num = dataForPlot[index][key];
             // Green plot gets shifted above the blue
             if ( [(NSString *)plot.identifier isEqualToString : @"Green Plot"] ) {
                 if ( fieldEnum == CPTScatterPlotFieldY ) {

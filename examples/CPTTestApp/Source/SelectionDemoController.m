@@ -199,7 +199,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 
     if ( [(NSString *)plot.identifier isEqualToString : MAIN_PLOT] ) {
         NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
-        num = [(self.dataForPlot)[index] valueForKey : key];
+        num = (self.dataForPlot)[index][key];
     }
     else if ( [(NSString *)plot.identifier isEqualToString : SELECTION_PLOT] ) {
         CPTXYPlotSpace *thePlotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
@@ -218,7 +218,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
                     case 2:
                     case 3:
                     case 4:
-                        num = [(self.dataForPlot)[self.selectedIndex] valueForKey : @"x"];
+                        num = (self.dataForPlot)[self.selectedIndex][@"x"];
                         break;
 
                     default:
@@ -231,7 +231,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
                     case 0:
                     case 1:
                     case 2:
-                        num = [(self.dataForPlot)[self.selectedIndex] valueForKey : @"y"];
+                        num = (self.dataForPlot)[self.selectedIndex][@"y"];
                         break;
 
                     case 3:

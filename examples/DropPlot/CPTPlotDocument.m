@@ -232,12 +232,12 @@
 
     // get the ful range min and max values
     for ( NSDictionary *xyValues in dataPoints ) {
-        xval = [[xyValues valueForKey:@"x"] doubleValue];
+        xval = [xyValues[@"x"] doubleValue];
 
         minimumValueForXAxis = fmin(xval, minimumValueForXAxis);
         maximumValueForXAxis = fmax(xval, maximumValueForXAxis);
 
-        yval = [[xyValues valueForKey:@"y"] doubleValue];
+        yval = [xyValues[@"y"] doubleValue];
 
         minimumValueForYAxis = fmin(yval, minimumValueForYAxis);
         maximumValueForYAxis = fmax(yval, maximumValueForYAxis);
@@ -297,7 +297,7 @@
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
-    NSNumber *num = [dataPoints[index] valueForKey:key];
+    NSNumber *num = dataPoints[index][key];
 
     return num;
 }

@@ -122,7 +122,7 @@
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
-    NSNumber *num = [plotData[index] valueForKey:key];
+    NSNumber *num = plotData[index][key];
 
     return num;
 }

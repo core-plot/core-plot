@@ -305,13 +305,13 @@ NSString *const kSecond = @"Second Derivative";
     NSString *identifier = (NSString *)plot.identifier;
 
     if ( [identifier isEqualToString:kData] ) {
-        num = [plotData[index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
+        num = plotData[index][(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
     }
     else if ( [identifier isEqualToString:kFirst] ) {
-        num = [plotData1[index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
+        num = plotData1[index][(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
     }
     else if ( [identifier isEqualToString:kSecond] ) {
-        num = [plotData2[index] valueForKey:(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
+        num = plotData2[index][(fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y")];
     }
 
     return num;
@@ -365,8 +365,11 @@ NSString *const kSecond = @"Second Derivative";
     hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
 
     // Determine point of symbol in plot coordinates
-    NSNumber *x          = [plotData[index] valueForKey:@"x"];
-    NSNumber *y          = [plotData[index] valueForKey:@"y"];
+    NSDictionary *dataPoint = plotData[index];
+
+    NSNumber *x = dataPoint[@"x"];
+    NSNumber *y = dataPoint[@"y"];
+
     NSArray *anchorPoint = @[x, y];
 
     // Add annotation

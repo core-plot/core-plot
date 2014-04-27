@@ -185,7 +185,7 @@
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
-    NSNumber *num = [plotData[index] valueForKey:key];
+    NSNumber *num = plotData[index][key];
 
     if ( fieldEnum == CPTScatterPlotFieldY ) {
         num = @([num doubleValue]);
@@ -229,8 +229,11 @@
     hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
 
     // Determine point of symbol in plot coordinates
-    NSNumber *x          = [plotData[index] valueForKey:@"x"];
-    NSNumber *y          = [plotData[index] valueForKey:@"y"];
+    NSDictionary *dataPoint = plotData[index];
+
+    NSNumber *x = dataPoint[@"x"];
+    NSNumber *y = dataPoint[@"y"];
+
     NSArray *anchorPoint = @[x, y];
 
     // Add annotation

@@ -411,7 +411,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     }
     else {
         NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
-        num = [(self.arrangedObjects)[index] valueForKey : key];
+        num = (self.arrangedObjects)[index][key];
         if ( fieldEnum == CPTScatterPlotFieldY ) {
             num = @([num doubleValue] + 1.0);
         }
@@ -452,8 +452,11 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
 
     // Determine point of symbol in plot coordinates
-    NSNumber *x          = [(self.arrangedObjects)[index] valueForKey : @"x"];
-    NSNumber *y          = [(self.arrangedObjects)[index] valueForKey : @"y"];
+    NSDictionary *dataPoint = (self.arrangedObjects)[index];
+
+    NSNumber *x = dataPoint[@"x"];
+    NSNumber *y = dataPoint[@"y"];
+
     NSArray *anchorPoint = @[x, y];
 
     // Add annotation
