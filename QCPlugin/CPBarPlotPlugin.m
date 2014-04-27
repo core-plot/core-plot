@@ -222,7 +222,7 @@
     }
     else {
         for ( NSUInteger i = 0; i < keyCount; i++ ) {
-            [array addObject:[NSDecimalNumber decimalNumberWithString:[[dict valueForKey:[NSString stringWithFormat:@"%lu", (unsigned long)i]] stringValue]]];
+            [array addObject:[NSDecimalNumber decimalNumberWithString:[dict[[NSString stringWithFormat:@"%lu", (unsigned long)i]] stringValue]]];
         }
     }
 

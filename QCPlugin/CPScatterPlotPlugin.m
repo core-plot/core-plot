@@ -238,7 +238,7 @@
 
     NSString *dictionaryKey = [NSString stringWithFormat:@"%lu", (unsigned long)index];
 
-    NSNumber *number = [dict valueForKey:dictionaryKey];
+    NSNumber *number = dict[dictionaryKey];
 
     if ( number == nil ) {
         NSLog(@"No value for key: %@", dictionaryKey);

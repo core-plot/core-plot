@@ -238,7 +238,7 @@
     }
 
     NSDictionary *dict = [self valueForInputKey:key];
-    return [NSDecimalNumber decimalNumberWithString:[[dict valueForKey:[NSString stringWithFormat:@"%lu", (unsigned long)index]] stringValue]];
+    return [NSDecimalNumber decimalNumberWithString:[dict[[NSString stringWithFormat:@"%lu", (unsigned long)index]] stringValue]];
 }
 
 -(CPTFill *)sliceFillForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index
@@ -272,7 +272,7 @@
 
     NSDictionary *dict = [self valueForInputKey:key];
 
-    NSString *label = [dict valueForKey:[NSString stringWithFormat:@"%lu", (unsigned long)index]];
+    NSString *label = dict[[NSString stringWithFormat:@"%lu", (unsigned long)index]];
 
     CPTTextLayer *layer = [[[CPTTextLayer alloc] initWithText:label] autorelease];
     [layer sizeToFit];
