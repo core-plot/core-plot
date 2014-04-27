@@ -42,7 +42,7 @@
     BOOL hasFontAttributeName = (&NSFontAttributeName != NULL);
 
     if ( hasFontAttributeName ) {
-        UIFont *styleFont = [attributes valueForKey:NSFontAttributeName];
+        UIFont *styleFont = attributes[NSFontAttributeName];
 
         if ( styleFont ) {
             newStyle.fontName = styleFont.fontName;
@@ -54,7 +54,7 @@
     BOOL hasColorAttributeName = (&NSForegroundColorAttributeName != NULL);
 
     if ( hasColorAttributeName ) {
-        UIColor *styleColor = [attributes valueForKey:NSForegroundColorAttributeName];
+        UIColor *styleColor = attributes[NSForegroundColorAttributeName];
         if ( styleColor ) {
             newStyle.color = [CPTColor colorWithCGColor:styleColor.CGColor];
         }
@@ -64,7 +64,7 @@
     BOOL hasParagraphAttributeName = (&NSParagraphStyleAttributeName != NULL);
 
     if ( hasParagraphAttributeName ) {
-        NSParagraphStyle *paragraphStyle = [attributes valueForKey:NSParagraphStyleAttributeName];
+        NSParagraphStyle *paragraphStyle = attributes[NSParagraphStyleAttributeName];
         if ( paragraphStyle ) {
             newStyle.textAlignment = (CPTTextAlignment)paragraphStyle.alignment;
             newStyle.lineBreakMode = paragraphStyle.lineBreakMode;
@@ -140,7 +140,7 @@
     BOOL hasFontAttributeName = (&NSFontAttributeName != NULL);
 
     if ( hasFontAttributeName ) {
-        UIFont *styleFont = [attributes valueForKey:NSFontAttributeName];
+        UIFont *styleFont = attributes[NSFontAttributeName];
 
         if ( styleFont ) {
             newStyle.fontName = styleFont.fontName;
@@ -152,7 +152,7 @@
     BOOL hasColorAttributeName = (&NSForegroundColorAttributeName != NULL);
 
     if ( hasColorAttributeName ) {
-        UIColor *styleColor = [attributes valueForKey:NSForegroundColorAttributeName];
+        UIColor *styleColor = attributes[NSForegroundColorAttributeName];
 
         if ( styleColor ) {
             newStyle.color = [CPTColor colorWithCGColor:styleColor.CGColor];
@@ -163,7 +163,7 @@
     BOOL hasParagraphAttributeName = (&NSParagraphStyleAttributeName != NULL);
 
     if ( hasParagraphAttributeName ) {
-        NSParagraphStyle *paragraphStyle = [attributes valueForKey:NSParagraphStyleAttributeName];
+        NSParagraphStyle *paragraphStyle = attributes[NSParagraphStyleAttributeName];
 
         if ( paragraphStyle ) {
             newStyle.textAlignment = (CPTTextAlignment)paragraphStyle.alignment;

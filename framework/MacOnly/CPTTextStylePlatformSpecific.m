@@ -37,7 +37,7 @@
     CPTMutableTextStyle *newStyle = [CPTMutableTextStyle textStyle];
 
     // Font
-    NSFont *styleFont = [attributes valueForKey:NSFontAttributeName];
+    NSFont *styleFont = attributes[NSFontAttributeName];
 
     if ( styleFont ) {
         newStyle.fontName = styleFont.fontName;
@@ -45,7 +45,7 @@
     }
 
     // Color
-    NSColor *styleColor = [attributes valueForKey:NSForegroundColorAttributeName];
+    NSColor *styleColor = attributes[NSForegroundColorAttributeName];
     if ( styleColor ) {
         // CGColor property is available in Mac OS 10.8 and later
         if ( [styleColor respondsToSelector:@selector(CGColor)] ) {
@@ -68,7 +68,7 @@
     }
 
     // Text alignment and line break mode
-    NSParagraphStyle *paragraphStyle = [attributes valueForKey:NSParagraphStyleAttributeName];
+    NSParagraphStyle *paragraphStyle = attributes[NSParagraphStyleAttributeName];
     if ( paragraphStyle ) {
         newStyle.textAlignment = (CPTTextAlignment)paragraphStyle.alignment;
         newStyle.lineBreakMode = paragraphStyle.lineBreakMode;
@@ -127,7 +127,7 @@
     CPTMutableTextStyle *newStyle = [CPTMutableTextStyle textStyle];
 
     // Font
-    NSFont *styleFont = [attributes valueForKey:NSFontAttributeName];
+    NSFont *styleFont = attributes[NSFontAttributeName];
 
     if ( styleFont ) {
         newStyle.fontName = styleFont.fontName;
@@ -135,7 +135,7 @@
     }
 
     // Color
-    NSColor *styleColor = [attributes valueForKey:NSForegroundColorAttributeName];
+    NSColor *styleColor = attributes[NSForegroundColorAttributeName];
     if ( styleColor ) {
         // CGColor property is available in Mac OS 10.8 and later
         if ( [styleColor respondsToSelector:@selector(CGColor)] ) {
@@ -158,7 +158,7 @@
     }
 
     // Text alignment and line break mode
-    NSParagraphStyle *paragraphStyle = [attributes valueForKey:NSParagraphStyleAttributeName];
+    NSParagraphStyle *paragraphStyle = attributes[NSParagraphStyleAttributeName];
     if ( paragraphStyle ) {
         newStyle.textAlignment = (CPTTextAlignment)paragraphStyle.alignment;
         newStyle.lineBreakMode = paragraphStyle.lineBreakMode;
