@@ -293,6 +293,8 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
 -(void)relabel;
 -(void)relabelIndexRange:(NSRange)indexRange;
 -(void)repositionAllLabelAnnotations;
+-(void)reloadDataLabels;
+-(void)reloadDataLabelsInIndexRange:(NSRange)indexRange;
 /// @}
 
 /// @name Data Loading
@@ -303,6 +305,8 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
 -(void)reloadDataInIndexRange:(NSRange)indexRange;
 -(void)insertDataAtIndex:(NSUInteger)idx numberOfRecords:(NSUInteger)numberOfRecords;
 -(void)deleteDataInIndexRange:(NSRange)indexRange;
+-(void)reloadPlotData;
+-(void)reloadPlotDataInIndexRange:(NSRange)indexRange;
 /// @}
 
 /// @name Plot Data

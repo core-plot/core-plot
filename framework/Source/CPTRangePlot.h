@@ -158,4 +158,10 @@ typedef NS_ENUM (NSInteger, CPTRangePlotField) {
 @property (nonatomic, readwrite, copy) CPTLineStyle *areaBorderLineStyle;
 /// @}
 
+/// @name Bar Style
+/// @{
+-(void)reloadBarLineStyles;
+-(void)reloadBarLineStylesInIndexRange:(NSRange)indexRange;
+/// @}
+
 @end

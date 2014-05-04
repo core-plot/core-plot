@@ -292,9 +292,20 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 {
     [super reloadDataInIndexRange:indexRange];
 
-    id<CPTTradingRangePlotDataSource> theDataSource = (id<CPTTradingRangePlotDataSource>)self.dataSource;
+    // Fills
+    [self reloadBarFillsInIndexRange:indexRange];
+
+    // Line styles
+    [self reloadBarLineStylesInIndexRange:indexRange];
+}
+
+-(void)reloadPlotDataInIndexRange:(NSRange)indexRange
+{
+    [super reloadPlotDataInIndexRange:indexRange];
 
     if ( ![self loadNumbersForAllFieldsFromDataSourceInRecordIndexRange:indexRange] ) {
+        id<CPTTradingRangePlotDataSource> theDataSource = (id<CPTTradingRangePlotDataSource>)self.dataSource;
+
         if ( theDataSource ) {
             id newXValues = [self numbersFromDataSourceForField:CPTTradingRangePlotFieldX recordIndexRange:indexRange];
             [self cacheNumbers:newXValues forField:CPTTradingRangePlotFieldX atRecordIndex:indexRange.location];
@@ -315,14 +326,38 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
             self.closeValues = nil;
         }
     }
+}
 
-    // Fills
+/// @endcond
+
+/**
+ *  @brief Reload all bar fills from the data source immediately.
+ **/
+-(void)reloadBarFills
+{
+    [self reloadBarFillsInIndexRange:NSMakeRange(0, self.cachedDataCount)];
+}
+
+/** @brief Reload bar fills in the given index range from the data source immediately.
+ *  @param indexRange The index range to load.
+ **/
+-(void)reloadBarFillsInIndexRange:(NSRange)indexRange
+{
+    id<CPTTradingRangePlotDataSource> theDataSource = (id<CPTTradingRangePlotDataSource>)self.dataSource;
+
+    BOOL needsLegendUpdate = NO;
+
+    // Increase fills
     if ( [theDataSource respondsToSelector:@selector(increaseFillsForTradingRangePlot:recordIndexRange:)] ) {
+        needsLegendUpdate = YES;
+
         [self cacheArray:[theDataSource increaseFillsForTradingRangePlot:self recordIndexRange:indexRange]
                   forKey:CPTTradingRangePlotBindingIncreaseFills
            atRecordIndex:indexRange.location];
     }
     else if ( [theDataSource respondsToSelector:@selector(increaseFillForTradingRangePlot:recordIndex:)] ) {
+        needsLegendUpdate = YES;
+
         id nilObject          = [CPTPlot nilData];
         NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
         NSUInteger maxIndex   = NSMaxRange(indexRange);
@@ -340,12 +375,17 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         [self cacheArray:array forKey:CPTTradingRangePlotBindingIncreaseFills atRecordIndex:indexRange.location];
     }
 
+    // Decrease fills
     if ( [theDataSource respondsToSelector:@selector(decreaseFillsForTradingRangePlot:recordIndexRange:)] ) {
+        needsLegendUpdate = YES;
+
         [self cacheArray:[theDataSource decreaseFillsForTradingRangePlot:self recordIndexRange:indexRange]
                   forKey:CPTTradingRangePlotBindingDecreaseFills
            atRecordIndex:indexRange.location];
     }
     else if ( [theDataSource respondsToSelector:@selector(decreaseFillForTradingRangePlot:recordIndex:)] ) {
+        needsLegendUpdate = YES;
+
         id nilObject          = [CPTPlot nilData];
         NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
         NSUInteger maxIndex   = NSMaxRange(indexRange);
@@ -363,13 +403,42 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         [self cacheArray:array forKey:CPTTradingRangePlotBindingDecreaseFills atRecordIndex:indexRange.location];
     }
 
-    // Line styles
+    // Legend
+    if ( needsLegendUpdate ) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
+    }
+
+    [self setNeedsDisplay];
+}
+
+/**
+ *  @brief Reload all bar line styles from the data source immediately.
+ **/
+-(void)reloadBarLineStyles
+{
+    [self reloadBarLineStylesInIndexRange:NSMakeRange(0, self.cachedDataCount)];
+}
+
+/** @brief Reload bar line styles in the given index range from the data source immediately.
+ *  @param indexRange The index range to load.
+ **/
+-(void)reloadBarLineStylesInIndexRange:(NSRange)indexRange
+{
+    id<CPTTradingRangePlotDataSource> theDataSource = (id<CPTTradingRangePlotDataSource>)self.dataSource;
+
+    BOOL needsLegendUpdate = NO;
+
+    // Line style
     if ( [theDataSource respondsToSelector:@selector(lineStylesForTradingRangePlot:recordIndexRange:)] ) {
+        needsLegendUpdate = YES;
+
         [self cacheArray:[theDataSource lineStylesForTradingRangePlot:self recordIndexRange:indexRange]
                   forKey:CPTTradingRangePlotBindingLineStyles
            atRecordIndex:indexRange.location];
     }
     else if ( [theDataSource respondsToSelector:@selector(lineStyleForTradingRangePlot:recordIndex:)] ) {
+        needsLegendUpdate = YES;
+
         id nilObject          = [CPTPlot nilData];
         NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
         NSUInteger maxIndex   = NSMaxRange(indexRange);
@@ -387,12 +456,17 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         [self cacheArray:array forKey:CPTTradingRangePlotBindingLineStyles atRecordIndex:indexRange.location];
     }
 
+    // Increase line style
     if ( [theDataSource respondsToSelector:@selector(increaseLineStylesForTradingRangePlot:recordIndexRange:)] ) {
+        needsLegendUpdate = YES;
+
         [self cacheArray:[theDataSource increaseLineStylesForTradingRangePlot:self recordIndexRange:indexRange]
                   forKey:CPTTradingRangePlotBindingIncreaseLineStyles
            atRecordIndex:indexRange.location];
     }
     else if ( [theDataSource respondsToSelector:@selector(increaseLineStyleForTradingRangePlot:recordIndex:)] ) {
+        needsLegendUpdate = YES;
+
         id nilObject          = [CPTPlot nilData];
         NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
         NSUInteger maxIndex   = NSMaxRange(indexRange);
@@ -410,12 +484,17 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         [self cacheArray:array forKey:CPTTradingRangePlotBindingIncreaseLineStyles atRecordIndex:indexRange.location];
     }
 
+    // Decrease line styles
     if ( [theDataSource respondsToSelector:@selector(decreaseLineStylesForTradingRangePlot:recordIndexRange:)] ) {
+        needsLegendUpdate = YES;
+
         [self cacheArray:[theDataSource decreaseLineStylesForTradingRangePlot:self recordIndexRange:indexRange]
                   forKey:CPTTradingRangePlotBindingDecreaseLineStyles
            atRecordIndex:indexRange.location];
     }
     else if ( [theDataSource respondsToSelector:@selector(decreaseLineStyleForTradingRangePlot:recordIndex:)] ) {
+        needsLegendUpdate = YES;
+
         id nilObject          = [CPTPlot nilData];
         NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
         NSUInteger maxIndex   = NSMaxRange(indexRange);
@@ -432,9 +511,14 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
         [self cacheArray:array forKey:CPTTradingRangePlotBindingDecreaseLineStyles atRecordIndex:indexRange.location];
     }
-}
 
-/// @endcond
+    // Legend
+    if ( needsLegendUpdate ) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
+    }
+
+    [self setNeedsDisplay];
+}
 
 #pragma mark -
 #pragma mark Drawing

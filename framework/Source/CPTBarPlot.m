@@ -358,9 +358,27 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 {
     [super reloadDataInIndexRange:indexRange];
 
+    // Bar fills
+    [self reloadBarFillsInIndexRange:indexRange];
+
+    // Bar line styles
+    [self reloadBarLineStylesInIndexRange:indexRange];
+
+    // Legend
     id<CPTBarPlotDataSource> theDataSource = (id<CPTBarPlotDataSource>)self.dataSource;
 
+    if ( [theDataSource respondsToSelector:@selector(legendTitleForBarPlot:recordIndex:)] ) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
+    }
+}
+
+-(void)reloadPlotDataInIndexRange:(NSRange)indexRange
+{
+    [super reloadPlotDataInIndexRange:indexRange];
+
     if ( ![self loadNumbersForAllFieldsFromDataSourceInRecordIndexRange:indexRange] ) {
+        id<CPTBarPlotDataSource> theDataSource = (id<CPTBarPlotDataSource>)self.dataSource;
+
         // Bar lengths
         if ( theDataSource ) {
             id newBarLengths = [self numbersFromDataSourceForField:CPTBarPlotFieldBarTip recordIndexRange:indexRange];
@@ -462,14 +480,37 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
             [self cacheNumbers:locationData forField:CPTBarPlotFieldBarLocation atRecordIndex:indexRange.location];
         }
     }
+}
 
-    // Bar fills
+/// @endcond
+
+/**
+ *  @brief Reload all bar fills from the data source immediately.
+ **/
+-(void)reloadBarFills
+{
+    [self reloadBarFillsInIndexRange:NSMakeRange(0, self.cachedDataCount)];
+}
+
+/** @brief Reload bar fills in the given index range from the data source immediately.
+ *  @param indexRange The index range to load.
+ **/
+-(void)reloadBarFillsInIndexRange:(NSRange)indexRange
+{
+    id<CPTBarPlotDataSource> theDataSource = (id<CPTBarPlotDataSource>)self.dataSource;
+
+    BOOL needsLegendUpdate = NO;
+
     if ( [theDataSource respondsToSelector:@selector(barFillsForBarPlot:recordIndexRange:)] ) {
+        needsLegendUpdate = YES;
+
         [self cacheArray:[theDataSource barFillsForBarPlot:self recordIndexRange:indexRange]
                   forKey:CPTBarPlotBindingBarFills
            atRecordIndex:indexRange.location];
     }
     else if ( [theDataSource respondsToSelector:@selector(barFillForBarPlot:recordIndex:)] ) {
+        needsLegendUpdate = YES;
+
         id nilObject          = [CPTPlot nilData];
         NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
         NSUInteger maxIndex   = NSMaxRange(indexRange);
@@ -487,13 +528,41 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         [self cacheArray:array forKey:CPTBarPlotBindingBarFills atRecordIndex:indexRange.location];
     }
 
-    // Bar line styles
+    // Legend
+    if ( needsLegendUpdate ) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
+    }
+
+    [self setNeedsDisplay];
+}
+
+/**
+ *  @brief Reload all bar line styles from the data source immediately.
+ **/
+-(void)reloadBarLineStyles
+{
+    [self reloadBarLineStylesInIndexRange:NSMakeRange(0, self.cachedDataCount)];
+}
+
+/** @brief Reload bar line styles in the given index range from the data source immediately.
+ *  @param indexRange The index range to load.
+ **/
+-(void)reloadBarLineStylesInIndexRange:(NSRange)indexRange
+{
+    id<CPTBarPlotDataSource> theDataSource = (id<CPTBarPlotDataSource>)self.dataSource;
+
+    BOOL needsLegendUpdate = NO;
+
     if ( [theDataSource respondsToSelector:@selector(barLineStylesForBarPlot:recordIndexRange:)] ) {
+        needsLegendUpdate = YES;
+
         [self cacheArray:[theDataSource barLineStylesForBarPlot:self recordIndexRange:indexRange]
                   forKey:CPTBarPlotBindingBarLineStyles
            atRecordIndex:indexRange.location];
     }
     else if ( [theDataSource respondsToSelector:@selector(barLineStyleForBarPlot:recordIndex:)] ) {
+        needsLegendUpdate = YES;
+
         id nilObject          = [CPTPlot nilData];
         NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
         NSUInteger maxIndex   = NSMaxRange(indexRange);
@@ -512,13 +581,12 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     }
 
     // Legend
-    if ( [theDataSource respondsToSelector:@selector(legendTitleForBarPlot:recordIndex:)] ||
-         [theDataSource respondsToSelector:@selector(barFillForBarPlot:recordIndex:)] ) {
+    if ( needsLegendUpdate ) {
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
     }
-}
 
-/// @endcond
+    [self setNeedsDisplay];
+}
 
 #pragma mark -
 #pragma mark Length Conversions for Independent Coordinate (e.g., widths, offsets)

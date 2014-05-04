@@ -249,4 +249,12 @@ typedef NS_ENUM (NSInteger, CPTTradingRangePlotField) {
 @property (nonatomic, readwrite, copy) CPTFill *decreaseFill;
 /// @}
 
+/// @name Bar Style
+/// @{
+-(void)reloadBarFills;
+-(void)reloadBarFillsInIndexRange:(NSRange)indexRange;
+-(void)reloadBarLineStyles;
+-(void)reloadBarLineStylesInIndexRange:(NSRange)indexRange;
+/// @}
+
 @end

@@ -216,4 +216,12 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
 -(CPTPlotRange *)plotRangeEnclosingBars;
 /// @}
 
+/// @name Bar Style
+/// @{
+-(void)reloadBarFills;
+-(void)reloadBarFillsInIndexRange:(NSRange)indexRange;
+-(void)reloadBarLineStyles;
+-(void)reloadBarLineStylesInIndexRange:(NSRange)indexRange;
+/// @}
+
 @end

@@ -516,6 +516,14 @@ typedef struct CGPointError CGPointError;
 {
     [super reloadDataInIndexRange:indexRange];
 
+    // Bar line styles
+    [self reloadBarLineStylesInIndexRange:indexRange];
+}
+
+-(void)reloadPlotDataInIndexRange:(NSRange)indexRange
+{
+    [super reloadPlotDataInIndexRange:indexRange];
+
     if ( ![self loadNumbersForAllFieldsFromDataSourceInRecordIndexRange:indexRange] ) {
         id<CPTRangePlotDataSource> theDataSource = (id<CPTRangePlotDataSource>)self.dataSource;
 
@@ -532,28 +540,6 @@ typedef struct CGPointError CGPointError;
             [self cacheNumbers:newLeftValues forField:CPTRangePlotFieldLeft atRecordIndex:indexRange.location];
             id newRightValues = [self numbersFromDataSourceForField:CPTRangePlotFieldRight recordIndexRange:indexRange];
             [self cacheNumbers:newRightValues forField:CPTRangePlotFieldRight atRecordIndex:indexRange.location];
-
-            // Bar line styles
-            if ( [theDataSource respondsToSelector:@selector(barLineStylesForRangePlot:recordIndexRange:)] ) {
-                [self cacheArray:[theDataSource barLineStylesForRangePlot:self recordIndexRange:indexRange] forKey:CPTRangePlotBindingBarLineStyles atRecordIndex:indexRange.location];
-            }
-            else if ( [theDataSource respondsToSelector:@selector(barLineStyleForRangePlot:recordIndex:)] ) {
-                id nilObject          = [CPTPlot nilData];
-                NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
-                NSUInteger maxIndex   = NSMaxRange(indexRange);
-
-                for ( NSUInteger idx = indexRange.location; idx < maxIndex; idx++ ) {
-                    CPTLineStyle *dataSourceLineStyle = [theDataSource barLineStyleForRangePlot:self recordIndex:idx];
-                    if ( dataSourceLineStyle ) {
-                        [array addObject:dataSourceLineStyle];
-                    }
-                    else {
-                        [array addObject:nilObject];
-                    }
-                }
-
-                [self cacheArray:array forKey:CPTRangePlotBindingBarLineStyles atRecordIndex:indexRange.location];
-            }
         }
         else {
             self.xValues     = nil;
@@ -567,6 +553,58 @@ typedef struct CGPointError CGPointError;
 }
 
 /// @endcond
+
+/**
+ *  @brief Reload all bar line styles from the data source immediately.
+ **/
+-(void)reloadBarLineStyles
+{
+    [self reloadBarLineStylesInIndexRange:NSMakeRange(0, self.cachedDataCount)];
+}
+
+/** @brief Reload bar line styles in the given index range from the data source immediately.
+ *  @param indexRange The index range to load.
+ **/
+-(void)reloadBarLineStylesInIndexRange:(NSRange)indexRange
+{
+    id<CPTRangePlotDataSource> theDataSource = (id<CPTRangePlotDataSource>)self.dataSource;
+
+    BOOL needsLegendUpdate = NO;
+
+    if ( [theDataSource respondsToSelector:@selector(barLineStylesForRangePlot:recordIndexRange:)] ) {
+        needsLegendUpdate = YES;
+
+        [self cacheArray:[theDataSource barLineStylesForRangePlot:self recordIndexRange:indexRange]
+                  forKey:CPTRangePlotBindingBarLineStyles
+           atRecordIndex:indexRange.location];
+    }
+    else if ( [theDataSource respondsToSelector:@selector(barLineStyleForRangePlot:recordIndex:)] ) {
+        needsLegendUpdate = YES;
+
+        id nilObject          = [CPTPlot nilData];
+        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
+        NSUInteger maxIndex   = NSMaxRange(indexRange);
+
+        for ( NSUInteger idx = indexRange.location; idx < maxIndex; idx++ ) {
+            CPTLineStyle *dataSourceLineStyle = [theDataSource barLineStyleForRangePlot:self recordIndex:idx];
+            if ( dataSourceLineStyle ) {
+                [array addObject:dataSourceLineStyle];
+            }
+            else {
+                [array addObject:nilObject];
+            }
+        }
+
+        [self cacheArray:array forKey:CPTRangePlotBindingBarLineStyles atRecordIndex:indexRange.location];
+    }
+
+    // Legend
+    if ( needsLegendUpdate ) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
+    }
+
+    [self setNeedsDisplay];
+}
 
 #pragma mark -
 #pragma mark Drawing

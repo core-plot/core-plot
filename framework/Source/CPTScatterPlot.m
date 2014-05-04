@@ -292,9 +292,17 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 {
     [super reloadDataInIndexRange:indexRange];
 
-    id<CPTScatterPlotDataSource> theDataSource = (id<CPTScatterPlotDataSource>)self.dataSource;
+    // Update plot symbols
+    [self reloadPlotSymbolsInIndexRange:indexRange];
+}
+
+-(void)reloadPlotDataInIndexRange:(NSRange)indexRange
+{
+    [super reloadPlotDataInIndexRange:indexRange];
 
     if ( ![self loadNumbersForAllFieldsFromDataSourceInRecordIndexRange:indexRange] ) {
+        id<CPTScatterPlotDataSource> theDataSource = (id<CPTScatterPlotDataSource>)self.dataSource;
+
         if ( theDataSource ) {
             id newXValues = [self numbersFromDataSourceForField:CPTScatterPlotFieldX recordIndexRange:indexRange];
             [self cacheNumbers:newXValues forField:CPTScatterPlotFieldX atRecordIndex:indexRange.location];
@@ -302,14 +310,37 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
             [self cacheNumbers:newYValues forField:CPTScatterPlotFieldY atRecordIndex:indexRange.location];
         }
     }
+}
 
-    // Update plot symbols
+/// @endcond
+
+/**
+ *  @brief Reload all plot symbols from the data source immediately.
+ **/
+-(void)reloadPlotSymbols
+{
+    [self reloadPlotSymbolsInIndexRange:NSMakeRange(0, self.cachedDataCount)];
+}
+
+/** @brief Reload plot symbols in the given index range from the data source immediately.
+ *  @param indexRange The index range to load.
+ **/
+-(void)reloadPlotSymbolsInIndexRange:(NSRange)indexRange
+{
+    id<CPTScatterPlotDataSource> theDataSource = (id<CPTScatterPlotDataSource>)self.dataSource;
+
+    BOOL needsLegendUpdate = NO;
+
     if ( [theDataSource respondsToSelector:@selector(symbolsForScatterPlot:recordIndexRange:)] ) {
+        needsLegendUpdate = YES;
+
         [self cacheArray:[theDataSource symbolsForScatterPlot:self recordIndexRange:indexRange]
                   forKey:CPTScatterPlotBindingPlotSymbols
            atRecordIndex:indexRange.location];
     }
     else if ( [theDataSource respondsToSelector:@selector(symbolForScatterPlot:recordIndex:)] ) {
+        needsLegendUpdate = YES;
+
         id nilObject          = [CPTPlot nilData];
         NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
         NSUInteger maxIndex   = NSMaxRange(indexRange);
@@ -326,9 +357,14 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
         [self cacheArray:array forKey:CPTScatterPlotBindingPlotSymbols atRecordIndex:indexRange.location];
     }
-}
 
-/// @endcond
+    // Legend
+    if ( needsLegendUpdate ) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
+    }
+
+    [self setNeedsDisplay];
+}
 
 #pragma mark -
 #pragma mark Symbols

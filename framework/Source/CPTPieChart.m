@@ -309,9 +309,27 @@ static const CGFloat colorLookupTable[10][3] =
 {
     [super reloadDataInIndexRange:indexRange];
 
+    // Slice fills
+    [self reloadSliceFillsInIndexRange:indexRange];
+
+    // Radial offsets
+    [self reloadRadialOffsetsInIndexRange:indexRange];
+
+    // Legend
     id<CPTPieChartDataSource> theDataSource = (id<CPTPieChartDataSource>)self.dataSource;
 
+    if ( [theDataSource respondsToSelector:@selector(legendTitleForPieChart:recordIndex:)] ) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
+    }
+}
+
+-(void)reloadPlotDataInIndexRange:(NSRange)indexRange
+{
+    [super reloadPlotDataInIndexRange:indexRange];
+
     if ( ![self loadNumbersForAllFieldsFromDataSourceInRecordIndexRange:indexRange] ) {
+        id<CPTPieChartDataSource> theDataSource = (id<CPTPieChartDataSource>)self.dataSource;
+
         // Pie slice widths
         if ( theDataSource ) {
             // Grab all values from the data source
@@ -324,54 +342,6 @@ static const CGFloat colorLookupTable[10][3] =
     }
 
     [self updateNormalizedData];
-
-    // Slice fills
-    if ( [theDataSource respondsToSelector:@selector(sliceFillsForPieChart:recordIndexRange:)] ) {
-        [self cacheArray:[theDataSource sliceFillsForPieChart:self recordIndexRange:indexRange]
-                  forKey:CPTPieChartBindingPieSliceFills
-           atRecordIndex:indexRange.location];
-    }
-    else if ( [theDataSource respondsToSelector:@selector(sliceFillForPieChart:recordIndex:)] ) {
-        id nilObject          = [CPTPlot nilData];
-        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
-        NSUInteger maxIndex   = NSMaxRange(indexRange);
-
-        for ( NSUInteger idx = indexRange.location; idx < maxIndex; idx++ ) {
-            CPTFill *dataSourceFill = [theDataSource sliceFillForPieChart:self recordIndex:idx];
-            if ( dataSourceFill ) {
-                [array addObject:dataSourceFill];
-            }
-            else {
-                [array addObject:nilObject];
-            }
-        }
-
-        [self cacheArray:array forKey:CPTPieChartBindingPieSliceFills atRecordIndex:indexRange.location];
-    }
-
-    // Slice radial offsets
-    if ( [theDataSource respondsToSelector:@selector(radialOffsetsForPieChart:recordIndexRange:)] ) {
-        [self cacheArray:[theDataSource radialOffsetsForPieChart:self recordIndexRange:indexRange]
-                  forKey:CPTPieChartBindingPieSliceRadialOffsets
-           atRecordIndex:indexRange.location];
-    }
-    else if ( [theDataSource respondsToSelector:@selector(radialOffsetForPieChart:recordIndex:)] ) {
-        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
-        NSUInteger maxIndex   = NSMaxRange(indexRange);
-
-        for ( NSUInteger idx = indexRange.location; idx < maxIndex; idx++ ) {
-            CGFloat offset = [theDataSource radialOffsetForPieChart:self recordIndex:idx];
-            [array addObject:@(offset)];
-        }
-
-        [self cacheArray:array forKey:CPTPieChartBindingPieSliceRadialOffsets atRecordIndex:indexRange.location];
-    }
-
-    // Legend
-    if ( [theDataSource respondsToSelector:@selector(legendTitleForPieChart:recordIndex:)] ||
-         [theDataSource respondsToSelector:@selector(sliceFillForPieChart:recordIndex:)] ) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
-    }
 }
 
 -(void)insertDataAtIndex:(NSUInteger)idx numberOfRecords:(NSUInteger)numberOfRecords
@@ -482,6 +452,93 @@ static const CGFloat colorLookupTable[10][3] =
 }
 
 /// @endcond
+
+/**
+ *  @brief Reload all slice fills from the data source immediately.
+ **/
+-(void)reloadSliceFills
+{
+    [self reloadSliceFillsInIndexRange:NSMakeRange(0, self.cachedDataCount)];
+}
+
+/** @brief Reload slice fills in the given index range from the data source immediately.
+ *  @param indexRange The index range to load.
+ **/
+-(void)reloadSliceFillsInIndexRange:(NSRange)indexRange
+{
+    id<CPTPieChartDataSource> theDataSource = (id<CPTPieChartDataSource>)self.dataSource;
+
+    BOOL needsLegendUpdate = NO;
+
+    if ( [theDataSource respondsToSelector:@selector(sliceFillsForPieChart:recordIndexRange:)] ) {
+        needsLegendUpdate = YES;
+
+        [self cacheArray:[theDataSource sliceFillsForPieChart:self recordIndexRange:indexRange]
+                  forKey:CPTPieChartBindingPieSliceFills
+           atRecordIndex:indexRange.location];
+    }
+    else if ( [theDataSource respondsToSelector:@selector(sliceFillForPieChart:recordIndex:)] ) {
+        needsLegendUpdate = YES;
+
+        id nilObject          = [CPTPlot nilData];
+        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
+        NSUInteger maxIndex   = NSMaxRange(indexRange);
+
+        for ( NSUInteger idx = indexRange.location; idx < maxIndex; idx++ ) {
+            CPTFill *dataSourceFill = [theDataSource sliceFillForPieChart:self recordIndex:idx];
+            if ( dataSourceFill ) {
+                [array addObject:dataSourceFill];
+            }
+            else {
+                [array addObject:nilObject];
+            }
+        }
+
+        [self cacheArray:array forKey:CPTPieChartBindingPieSliceFills atRecordIndex:indexRange.location];
+    }
+
+    // Legend
+    if ( needsLegendUpdate ) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
+    }
+
+    [self setNeedsDisplay];
+}
+
+/**
+ *  @brief Reload all slice offsets from the data source immediately.
+ **/
+-(void)reloadRadialOffsets
+{
+    [self reloadRadialOffsetsInIndexRange:NSMakeRange(0, self.cachedDataCount)];
+}
+
+/** @brief Reload slice offsets in the given index range from the data source immediately.
+ *  @param indexRange The index range to load.
+ **/
+-(void)reloadRadialOffsetsInIndexRange:(NSRange)indexRange
+{
+    id<CPTPieChartDataSource> theDataSource = (id<CPTPieChartDataSource>)self.dataSource;
+
+    if ( [theDataSource respondsToSelector:@selector(radialOffsetsForPieChart:recordIndexRange:)] ) {
+        [self cacheArray:[theDataSource radialOffsetsForPieChart:self recordIndexRange:indexRange]
+                  forKey:CPTPieChartBindingPieSliceRadialOffsets
+           atRecordIndex:indexRange.location];
+    }
+    else if ( [theDataSource respondsToSelector:@selector(radialOffsetForPieChart:recordIndex:)] ) {
+        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
+        NSUInteger maxIndex   = NSMaxRange(indexRange);
+
+        for ( NSUInteger idx = indexRange.location; idx < maxIndex; idx++ ) {
+            CGFloat offset = [theDataSource radialOffsetForPieChart:self recordIndex:idx];
+            [array addObject:@(offset)];
+        }
+
+        [self cacheArray:array forKey:CPTPieChartBindingPieSliceRadialOffsets atRecordIndex:indexRange.location];
+    }
+
+    [self setNeedsDisplay];
+}
 
 #pragma mark -
 #pragma mark Drawing

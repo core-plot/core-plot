@@ -210,6 +210,18 @@ typedef NS_ENUM (NSInteger, CPTPieDirection) {
 @property (nonatomic, readwrite, assign) BOOL labelRotationRelativeToRadius;
 /// @}
 
+/// @name Slice Style
+/// @{
+-(void)reloadSliceFills;
+-(void)reloadSliceFillsInIndexRange:(NSRange)indexRange;
+/// @}
+
+/// @name Slice Layout
+/// @{
+-(void)reloadRadialOffsets;
+-(void)reloadRadialOffsetsInIndexRange:(NSRange)indexRange;
+/// @}
+
 /// @name Information
 /// @{
 -(NSUInteger)pieSliceIndexAtAngle:(CGFloat)angle;

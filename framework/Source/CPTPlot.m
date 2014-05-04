@@ -517,7 +517,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 }
 
 /**
- *  @brief Reload all plot data from the data source immediately.
+ *  @brief Reload all plot data, labels, and plot-specific information from the data source immediately.
  **/
 -(void)reloadData
 {
@@ -538,7 +538,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     }
 }
 
-/** @brief Reload plot data in the given index range from the data source immediately.
+/** @brief Reload plot data, labels, and plot-specific information in the given index range from the data source immediately.
  *  @param indexRange The index range to load.
  **/
 -(void)reloadDataInIndexRange:(NSRange)indexRange
@@ -549,33 +549,10 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
     self.dataNeedsReloading = NO;
 
+    [self reloadPlotDataInIndexRange:indexRange];
+
     // Data labels
-    if ( [theDataSource respondsToSelector:@selector(dataLabelsForPlot:recordIndexRange:)] ) {
-        [self cacheArray:[theDataSource dataLabelsForPlot:self recordIndexRange:indexRange]
-                  forKey:CPTPlotBindingDataLabels
-           atRecordIndex:indexRange.location];
-    }
-    else if ( [theDataSource respondsToSelector:@selector(dataLabelForPlot:recordIndex:)] ) {
-        id nilObject          = [CPTPlot nilData];
-        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
-        NSUInteger maxIndex   = NSMaxRange(indexRange);
-
-        for ( NSUInteger idx = indexRange.location; idx < maxIndex; idx++ ) {
-            CPTLayer *labelLayer = [theDataSource dataLabelForPlot:self recordIndex:idx];
-            if ( labelLayer ) {
-                [array addObject:labelLayer];
-            }
-            else {
-                [array addObject:nilObject];
-            }
-        }
-
-        [self cacheArray:array
-                  forKey:CPTPlotBindingDataLabels
-           atRecordIndex:indexRange.location];
-    }
-
-    [self relabelIndexRange:indexRange];
+    [self reloadDataLabelsInIndexRange:indexRange];
 }
 
 /** @brief Insert records into the plot data cache at the given index.
@@ -645,6 +622,73 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     self.cachedDataCount -= indexRange.length;
     [self relabelIndexRange:NSMakeRange(indexRange.location, self.cachedDataCount - indexRange.location)];
     [self setNeedsDisplay];
+}
+
+/**
+ *  @brief Reload all plot data from the data source immediately.
+ **/
+-(void)reloadPlotData
+{
+    NSMutableDictionary *dataCache = self.cachedData;
+
+    for ( NSNumber *fieldID in self.fieldIdentifiers ) {
+        [dataCache removeObjectForKey:fieldID];
+    }
+
+    [self reloadPlotDataInIndexRange:NSMakeRange(0, self.cachedDataCount)];
+}
+
+/** @brief Reload plot data in the given index range from the data source immediately.
+ *  @param indexRange The index range to load.
+ **/
+-(void)reloadPlotDataInIndexRange:(NSRange)indexRange
+{
+    // do nothing--implementation provided by subclasses
+}
+
+/**
+ *  @brief Reload all data labels from the data source immediately.
+ **/
+-(void)reloadDataLabels
+{
+    [self.cachedData removeObjectForKey:CPTPlotBindingDataLabels];
+
+    [self reloadDataLabelsInIndexRange:NSMakeRange(0, self.cachedDataCount)];
+}
+
+/** @brief Reload data labels in the given index range from the data source immediately.
+ *  @param indexRange The index range to load.
+ **/
+-(void)reloadDataLabelsInIndexRange:(NSRange)indexRange
+{
+    id<CPTPlotDataSource> theDataSource = (id<CPTPlotDataSource>)self.dataSource;
+
+    if ( [theDataSource respondsToSelector:@selector(dataLabelsForPlot:recordIndexRange:)] ) {
+        [self cacheArray:[theDataSource dataLabelsForPlot:self recordIndexRange:indexRange]
+                  forKey:CPTPlotBindingDataLabels
+           atRecordIndex:indexRange.location];
+    }
+    else if ( [theDataSource respondsToSelector:@selector(dataLabelForPlot:recordIndex:)] ) {
+        id nilObject          = [CPTPlot nilData];
+        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
+        NSUInteger maxIndex   = NSMaxRange(indexRange);
+
+        for ( NSUInteger idx = indexRange.location; idx < maxIndex; idx++ ) {
+            CPTLayer *labelLayer = [theDataSource dataLabelForPlot:self recordIndex:idx];
+            if ( labelLayer ) {
+                [array addObject:labelLayer];
+            }
+            else {
+                [array addObject:nilObject];
+            }
+        }
+
+        [self cacheArray:array
+                  forKey:CPTPlotBindingDataLabels
+           atRecordIndex:indexRange.location];
+    }
+
+    [self relabelIndexRange:indexRange];
 }
 
 /**

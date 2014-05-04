@@ -13,6 +13,7 @@ To be determined.
 - **New**: Added a scroll wheel event to `<CPTResponder>`.
 - **New**: Added axis and plot delegate methods for touch down and up events on labels.
 - **New**: Added scatter plot data line selection delegate methods. 
+- **New**: Added new methods to all plots to allow labels, styles, and plot symbols to be updated independent of the plot data. 
 - **Changed**: Increased the deployment target to iOS 5.0 and Mac OS X 10.7.
 - **Changed**: Enabled automatic reference counting (ARC) in the framework projects.
 - **Changed**: Updated `CPTImage` to automatically handle switching between Retina and non-Retina displays.

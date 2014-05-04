@@ -248,6 +248,8 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
 /// @name Plot Symbols
 /// @{
 -(CPTPlotSymbol *)plotSymbolForRecordIndex:(NSUInteger)idx;
+-(void)reloadPlotSymbols;
+-(void)reloadPlotSymbolsInIndexRange:(NSRange)indexRange;
 /// @}
 
 @end
