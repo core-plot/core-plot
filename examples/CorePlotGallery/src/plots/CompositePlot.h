@@ -9,7 +9,7 @@
 #import "PlotItem.h"
 
 @interface CompositePlot : PlotItem<CPTPlotSpaceDelegate,
-                                    CPTPlotDataSource,
+                                    CPTScatterPlotDataSource,
                                     CPTScatterPlotDelegate,
                                     CPTBarPlotDelegate>
 {
@@ -24,6 +24,8 @@
 
     NSMutableArray *dataForChart;
     NSMutableArray *dataForPlot;
+
+    NSInteger selectedIndex;
 }
 
 @property (readwrite, retain, nonatomic) NSMutableArray *dataForChart;

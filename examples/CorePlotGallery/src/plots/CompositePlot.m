@@ -8,8 +8,15 @@
 
 #import "CompositePlot.h"
 
+@interface CompositePlot()
+
+@property (nonatomic) NSInteger selectedIndex;
+
+@end
+
 @implementation CompositePlot
 
+@synthesize selectedIndex;
 @synthesize dataForChart;
 @synthesize dataForPlot;
 
@@ -21,11 +28,21 @@
 -(id)init
 {
     if ( (self = [super init]) ) {
+        selectedIndex = NSNotFound;
+
         self.title   = @"Composite Plot";
         self.section = kDemoPlots;
     }
 
     return self;
+}
+
+-(void)dealloc
+{
+    [dataForChart release];
+    [dataForPlot release];
+
+    [super dealloc];
 }
 
 #pragma mark -
@@ -159,6 +176,8 @@
     scatterPlot.paddingRight  = 10.0;
     scatterPlot.paddingBottom = 10.0;
 
+    scatterPlot.plotAreaFrame.plotArea.delegate = self;
+
     // Setup plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)scatterPlot.defaultPlotSpace;
     plotSpace.allowsUserInteraction = YES;
@@ -204,6 +223,7 @@
     CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient1];
     boundLinePlot.areaFill      = areaGradientFill;
     boundLinePlot.areaBaseValue = [[NSDecimalNumber zero] decimalValue];
+    boundLinePlot.delegate      = self;
 
     // Add plot symbols
     CPTMutableLineStyle *symbolLineStyle = [CPTMutableLineStyle lineStyle];
@@ -380,7 +400,7 @@
 }
 
 #pragma mark -
-#pragma mark CPTBarPlot delegate method
+#pragma mark CPTBarPlot delegate
 
 -(void)barPlot:(CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index
 {
@@ -388,7 +408,27 @@
 }
 
 #pragma mark -
-#pragma mark Plot Data Source Methods
+#pragma mark CPTScatterPlot delegate
+
+-(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index
+{
+    if ( [(NSString *)plot.identifier isEqualToString : @"Blue Plot"] ) {
+        self.selectedIndex = index;
+    }
+}
+
+#pragma mark -
+#pragma mark Plot area delegate
+
+-(void)plotAreaWasSelected:(CPTPlotArea *)plotArea
+{
+    if ( [plotArea.graph isEqual:scatterPlot] ) {
+        self.selectedIndex = NSNotFound;
+    }
+}
+
+#pragma mark -
+#pragma mark Plot Data Source
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
@@ -478,13 +518,28 @@
     return newLayer;
 }
 
--(void)dealloc
+-(CPTPlotSymbol *)symbolForScatterPlot:(CPTScatterPlot *)plot recordIndex:(NSUInteger)index
 {
-    [dataForChart release];
-    [dataForPlot release];
+    static CPTPlotSymbol *redDot = nil;
 
-    [super dealloc];
+    CPTPlotSymbol *symbol = nil; // Use the default symbol
+
+    if ( [(NSString *)plot.identifier isEqualToString : @"Blue Plot"] && (index == self.selectedIndex) ) {
+        if ( !redDot ) {
+            redDot            = [[CPTPlotSymbol alloc] init];
+            redDot.symbolType = CPTPlotSymbolTypeEllipse;
+            redDot.size       = CGSizeMake(10.0, 10.0);
+            redDot.fill       = [CPTFill fillWithColor:[CPTColor redColor]];
+            redDot.lineStyle  = [CPTLineStyle lineStyle];
+        }
+        symbol = redDot;
+    }
+
+    return symbol;
 }
+
+#pragma mark -
+#pragma mark UIViewController Methods
 
 #if TARGET_OS_IPHONE
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
@@ -503,5 +558,25 @@
     }
 }
 #endif
+
+#pragma mark -
+#pragma mark Accessors
+
+-(void)setSelectedIndex:(NSInteger)newIndex
+{
+    if ( newIndex != selectedIndex ) {
+        NSInteger oldIndex = selectedIndex;
+
+        selectedIndex = newIndex;
+
+        CPTScatterPlot *thePlot = (CPTScatterPlot *)[scatterPlot plotWithIdentifier:@"Blue Plot"];
+        if ( oldIndex != NSNotFound ) {
+            [thePlot reloadPlotSymbolsInIndexRange:NSMakeRange(oldIndex, 1)];
+        }
+        if ( newIndex != NSNotFound ) {
+            [thePlot reloadPlotSymbolsInIndexRange:NSMakeRange(newIndex, 1)];
+        }
+    }
+}
 
 @end
