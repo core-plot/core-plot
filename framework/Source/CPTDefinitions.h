@@ -188,3 +188,16 @@ typedef NS_ENUM (NSInteger, CPTAlignment) {
     CPTAlignmentMiddle, ///< Align vertically to the middle.
     CPTAlignmentBottom  ///< Align vertically to the bottom.
 };
+
+/**
+ *  @brief Edge inset distances for stretchable images.
+ **/
+typedef struct _CPTEdgeInsets {
+    CGFloat top;    ///< The top inset.
+    CGFloat left;   ///< The left inset.
+    CGFloat bottom; ///< The bottom inset.
+    CGFloat right;  ///< The right inset.
+}
+CPTEdgeInsets;
+
+extern const CPTEdgeInsets CPTEdgeInsetsZero; ///< Defines a set of stretchable image edge insets where all of the values are zero (@num{0}).

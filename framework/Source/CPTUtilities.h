@@ -140,6 +140,13 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2);
 
 /// @}
 
+/// @name Edge Inset Utilities
+/// @{
+CPTEdgeInsets CPTEdgeInsetsMake(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right);
+BOOL CPTEdgeInsetsEqualToEdgeInsets(CPTEdgeInsets insets1, CPTEdgeInsets insets2);
+
+/// @}
+
 #if __cplusplus
 }
 #endif

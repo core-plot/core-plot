@@ -1000,3 +1000,26 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 
     return distanceSquared;
 }
+
+#pragma mark -
+#pragma mark Edge Inset Utilities
+
+CPTEdgeInsets CPTEdgeInsetsMake(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right)
+{
+    CPTEdgeInsets insets;
+
+    insets.top    = top;
+    insets.left   = left;
+    insets.bottom = bottom;
+    insets.right  = right;
+
+    return insets;
+}
+
+BOOL CPTEdgeInsetsEqualToEdgeInsets(CPTEdgeInsets insets1, CPTEdgeInsets insets2)
+{
+    return (insets1.top == insets2.top) &&
+           (insets1.left == insets2.left) &&
+           (insets1.bottom == insets2.bottom) &&
+           (insets1.right == insets2.right);
+}
