@@ -28,6 +28,8 @@
 		4FABDD421291110D003A2DB7 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F4892891290FFCD00EDB93F /* CorePlot.framework */; };
 		4FABDD4612911127003A2DB7 /* CorePlot.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4F4892891290FFCD00EDB93F /* CorePlot.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		C3440A1F191FEDDB003C3804 /* BlueBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = C3440A1D191FEDDB003C3804 /* BlueBackground.png */; };
+		C3440A20191FEDDB003C3804 /* BlueBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3440A1E191FEDDB003C3804 /* BlueBackground@2x.png */; };
 		C3457A4D17AD7C5D000880F3 /* PiNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3457A4C17AD7C5D000880F3 /* PiNumberFormatter.m */; };
 		C354C0D713C7CDBE00DA8822 /* RealTimePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C354C0D613C7CDBE00DA8822 /* RealTimePlot.m */; };
 		C35597961437E07800B41DA7 /* ControlChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C35597951437E07800B41DA7 /* ControlChart.m */; };
@@ -124,6 +126,8 @@
 		4F8E1CC012908B0000D2035F /* AxisDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AxisDemo.h; path = src/plots/AxisDemo.h; sourceTree = "<group>"; };
 		4F8E1CC112908B0000D2035F /* AxisDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AxisDemo.m; path = src/plots/AxisDemo.m; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Plot Gallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Plot Gallery.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3440A1D191FEDDB003C3804 /* BlueBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BlueBackground.png; path = img/BlueBackground.png; sourceTree = "<group>"; };
+		C3440A1E191FEDDB003C3804 /* BlueBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BlueBackground@2x.png"; path = "img/BlueBackground@2x.png"; sourceTree = "<group>"; };
 		C3457A4B17AD7C5D000880F3 /* PiNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PiNumberFormatter.h; path = src/shared/PiNumberFormatter.h; sourceTree = "<group>"; };
 		C3457A4C17AD7C5D000880F3 /* PiNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PiNumberFormatter.m; path = src/shared/PiNumberFormatter.m; sourceTree = "<group>"; };
 		C354C0D513C7CDBE00DA8822 /* RealTimePlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RealTimePlot.h; path = src/plots/RealTimePlot.h; sourceTree = "<group>"; };
@@ -260,6 +264,8 @@
 		4F22FF9812342D54006BF615 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				C3440A1D191FEDDB003C3804 /* BlueBackground.png */,
+				C3440A1E191FEDDB003C3804 /* BlueBackground@2x.png */,
 				C3BA6761175EC22F00CFABBA /* Checkerboard.png */,
 				C3BA6762175EC23000CFABBA /* Checkerboard@2x.png */,
 				4F22FFAD12342DB1006BF615 /* PlotItem.h */,
@@ -409,6 +415,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F22FF5B12342A21006BF615 /* InfoPlist.strings in Resources */,
+				C3440A20191FEDDB003C3804 /* BlueBackground@2x.png in Resources */,
+				C3440A1F191FEDDB003C3804 /* BlueBackground.png in Resources */,
 				4F22FF5C12342A21006BF615 /* MainMenu.xib in Resources */,
 				4F35EBBD12360D89007C3389 /* Icon.icns in Resources */,
 				C3BA6763175EC23000CFABBA /* Checkerboard.png in Resources */,

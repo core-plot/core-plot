@@ -35,6 +35,8 @@
 		4F8E1C6012907C1800D2035F /* DatePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E1C5F12907C1800D2035F /* DatePlot.m */; };
 		4F8E1CA0129089D600D2035F /* SteppedScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E1C9F129089D600D2035F /* SteppedScatterPlot.m */; };
 		C31A40BA17ABD6910020C5C6 /* FunctionPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C31A40B917ABD6910020C5C6 /* FunctionPlot.m */; };
+		C3440A25191FEDEE003C3804 /* BlueBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = C3440A23191FEDEE003C3804 /* BlueBackground.png */; };
+		C3440A26191FEDEE003C3804 /* BlueBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3440A24191FEDEE003C3804 /* BlueBackground@2x.png */; };
 		C3457A5317AD7C72000880F3 /* PiNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3457A5217AD7C72000880F3 /* PiNumberFormatter.m */; };
 		C354C0D413C7CDA900DA8822 /* RealTimePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C354C0D313C7CDA900DA8822 /* RealTimePlot.m */; };
 		C35597A21437E09300B41DA7 /* ControlChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C35597A11437E09300B41DA7 /* ControlChart.m */; };
@@ -124,6 +126,8 @@
 		8D1107310486CEB800E47090 /* Plot_Gallery-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Plot_Gallery-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		C31A40B817ABD6910020C5C6 /* FunctionPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FunctionPlot.h; path = src/plots/FunctionPlot.h; sourceTree = "<group>"; };
 		C31A40B917ABD6910020C5C6 /* FunctionPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FunctionPlot.m; path = src/plots/FunctionPlot.m; sourceTree = "<group>"; };
+		C3440A23191FEDEE003C3804 /* BlueBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BlueBackground.png; path = img/BlueBackground.png; sourceTree = "<group>"; };
+		C3440A24191FEDEE003C3804 /* BlueBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BlueBackground@2x.png"; path = "img/BlueBackground@2x.png"; sourceTree = "<group>"; };
 		C3457A5117AD7C72000880F3 /* PiNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PiNumberFormatter.h; path = src/shared/PiNumberFormatter.h; sourceTree = "<group>"; };
 		C3457A5217AD7C72000880F3 /* PiNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PiNumberFormatter.m; path = src/shared/PiNumberFormatter.m; sourceTree = "<group>"; };
 		C354C0D213C7CDA900DA8822 /* RealTimePlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RealTimePlot.h; path = src/plots/RealTimePlot.h; sourceTree = "<group>"; };
@@ -266,6 +270,8 @@
 		4F22FE351234043F006BF615 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				C3440A23191FEDEE003C3804 /* BlueBackground.png */,
+				C3440A24191FEDEE003C3804 /* BlueBackground@2x.png */,
 				C3BA675B175EC22100CFABBA /* Checkerboard.png */,
 				C3BA675C175EC22100CFABBA /* Checkerboard@2x.png */,
 				4F22FE3812340464006BF615 /* PlotItem.h */,
@@ -406,6 +412,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F22FE7C123406DF006BF615 /* ThemeTableViewController.xib in Resources */,
+				C3440A26191FEDEE003C3804 /* BlueBackground@2x.png in Resources */,
+				C3440A25191FEDEE003C3804 /* BlueBackground.png in Resources */,
 				4F22FEB612340B6B006BF615 /* Icon.png in Resources */,
 				4F7541B4126B54A500313026 /* MainWindow-iPad.xib in Resources */,
 				4F7541C0126B564000313026 /* MainWindow.xib in Resources */,

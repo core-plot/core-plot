@@ -380,9 +380,18 @@ NSString *const kSecond = @"Second Derivative";
 
     // Now add the annotation to the plot area
     CPTTextLayer *textLayer = [[[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle] autorelease];
-    symbolTextAnnotation              = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:graph.defaultPlotSpace anchorPlotPoint:anchorPoint];
-    symbolTextAnnotation.contentLayer = textLayer;
-    symbolTextAnnotation.displacement = CGPointMake(0.0, 20.0);
+    CPTImage *background    = [CPTImage imageNamed:@"BlueBackground"];
+    background.edgeInsets   = CPTEdgeInsetsMake(8.0, 8.0, 8.0, 8.0);
+    textLayer.fill          = [CPTFill fillWithImage:background];
+    textLayer.paddingLeft   = 2.0;
+    textLayer.paddingTop    = 2.0;
+    textLayer.paddingRight  = 2.0;
+    textLayer.paddingBottom = 2.0;
+
+    symbolTextAnnotation                    = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:graph.defaultPlotSpace anchorPlotPoint:anchorPoint];
+    symbolTextAnnotation.contentLayer       = textLayer;
+    symbolTextAnnotation.contentAnchorPoint = CGPointMake(0.5, 0.0);
+    symbolTextAnnotation.displacement       = CGPointMake(0.0, 10.0);
     [graph.plotAreaFrame.plotArea addAnnotation:symbolTextAnnotation];
 }
 
