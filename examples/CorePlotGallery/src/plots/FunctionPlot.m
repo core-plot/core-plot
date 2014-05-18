@@ -122,6 +122,7 @@
     for ( NSUInteger plotNum = 0; plotNum < 2; plotNum++ ) {
         NSString *titleString          = nil;
         CPTDataSourceFunction function = NULL;
+        CPTDataSourceBlock block       = nil;
         CPTColor *lineColor            = nil;
 
         switch ( plotNum ) {
@@ -133,8 +134,10 @@
 
             case 1:
                 titleString = @"y = cos(x)";
-                function    = &cos;
-                lineColor   = [CPTColor greenColor];
+                block       = ^(double x) {
+                    return cos(x);
+                };
+                lineColor = [CPTColor greenColor];
                 break;
 
             case 2:
@@ -176,7 +179,14 @@
 
         linePlot.alignsPointsToPixels = NO;
 
-        CPTFunctionDataSource *plotDataSource = [CPTFunctionDataSource dataSourceForPlot:linePlot withFunction:function];
+        CPTFunctionDataSource *plotDataSource = nil;
+
+        if ( function ) {
+            plotDataSource = [CPTFunctionDataSource dataSourceForPlot:linePlot withFunction:function];
+        }
+        else {
+            plotDataSource = [CPTFunctionDataSource dataSourceForPlot:linePlot withBlock:block];
+        }
 
         plotDataSource.resolution = 2.0;
 

@@ -19,6 +19,7 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
 @property (nonatomic, readwrite) NSUInteger cachedCount;
 @property (nonatomic, readwrite, strong) CPTMutablePlotRange *cachedPlotRange;
 
+-(instancetype)initForPlot:(CPTPlot *)plot;
 -(void)plotBoundsChanged;
 -(void)plotSpaceChanged;
 
@@ -29,7 +30,7 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
 #pragma mark -
 
 /**
- *  @brief A datasource class that automatically creates scatter plot data from a function.
+ *  @brief A datasource class that automatically creates scatter plot data from a function or Objective-C block.
  **/
 @implementation CPTFunctionDataSource
 
@@ -37,6 +38,11 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
  *  @brief The function used to generate plot data.
  **/
 @synthesize dataSourceFunction;
+
+/** @property CPTDataSourceBlock dataSourceBlock
+ *  @brief The Objective-C block used to generate plot data.
+ **/
+@synthesize dataSourceBlock;
 
 /** @property __cpt_weak CPTPlot *dataPlot
  *  @brief The plot that will display the function values. Must be an instance of CPTScatterPlot.
@@ -71,6 +77,16 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
     return [[self alloc] initForPlot:plot withFunction:function];
 }
 
+/** @brief Creates and returns a new CPTFunctionDataSource instance initialized with the provided block and plot.
+ *  @param plot The plot that will display the function values.
+ *  @param block The Objective-C block used to generate plot data.
+ *  @return A new CPTFunctionDataSource instance initialized with the provided block and plot.
+ **/
++(instancetype)dataSourceForPlot:(CPTPlot *)plot withBlock:(CPTDataSourceBlock)block
+{
+    return [[self alloc] initForPlot:plot withBlock:block];
+}
+
 /** @brief Initializes a newly allocated CPTFunctionDataSource object with the provided function and plot.
  *  @param plot The plot that will display the function values.
  *  @param function The function used to generate plot data.
@@ -81,9 +97,38 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
     NSParameterAssert([plot isKindOfClass:[CPTScatterPlot class]]);
     NSParameterAssert(function);
 
+    if ( (self = [self initForPlot:plot]) ) {
+        dataSourceFunction = function;
+    }
+    return self;
+}
+
+/** @brief Initializes a newly allocated CPTFunctionDataSource object with the provided block and plot.
+ *  @param plot The plot that will display the function values.
+ *  @param block The Objective-C block used to generate plot data.
+ *  @return The initialized CPTFunctionDataSource object.
+ **/
+-(instancetype)initForPlot:(CPTPlot *)plot withBlock:(CPTDataSourceBlock)block
+{
+    NSParameterAssert([plot isKindOfClass:[CPTScatterPlot class]]);
+    NSParameterAssert(block);
+
+    if ( (self = [self initForPlot:plot]) ) {
+        dataSourceBlock = block;
+    }
+    return self;
+}
+
+/// @cond
+
+-(instancetype)initForPlot:(CPTPlot *)plot
+{
+    NSParameterAssert([plot isKindOfClass:[CPTScatterPlot class]]);
+
     if ( (self = [super init]) ) {
         dataPlot           = plot;
-        dataSourceFunction = function;
+        dataSourceFunction = NULL;
+        dataSourceBlock    = nil;
         resolution         = CPTFloat(1.0);
         cachedStep         = 0.0;
         dataCount          = 0;
@@ -105,8 +150,6 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
     }
     return self;
 }
-
-/// @cond
 
 // function and plot are required; this will fail the assertions in -initForPlot:withFunction:
 -(instancetype)init
@@ -346,19 +389,31 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
         double *xBytes = data.mutableBytes;
         double *yBytes = data.mutableBytes + ( indexRange.length * sizeof(double) );
 
-        CPTDataSourceFunction function = self.dataSourceFunction;
-
         double location = xRange.locationDouble;
         double length   = xRange.lengthDouble;
         double denom    = (double)( count - ( (count > 1) ? 1 : 0 ) );
 
         NSUInteger lastIndex = NSMaxRange(indexRange);
 
-        for ( NSUInteger i = indexRange.location; i < lastIndex; i++ ) {
-            double x = location + ( (double)i / denom ) * length;
+        CPTDataSourceFunction function = self.dataSourceFunction;
 
-            *xBytes++ = x;
-            *yBytes++ = function(x);
+        if ( function ) {
+            for ( NSUInteger i = indexRange.location; i < lastIndex; i++ ) {
+                double x = location + ( (double)i / denom ) * length;
+
+                *xBytes++ = x;
+                *yBytes++ = function(x);
+            }
+        }
+        else {
+            CPTDataSourceBlock functionBlock = self.dataSourceBlock;
+
+            for ( NSUInteger i = indexRange.location; i < lastIndex; i++ ) {
+                double x = location + ( (double)i / denom ) * length;
+
+                *xBytes++ = x;
+                *yBytes++ = functionBlock(x);
+            }
         }
 
         numericData = [CPTNumericData numericDataWithData:data
