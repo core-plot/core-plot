@@ -75,7 +75,7 @@ CPTImageSlices;
  *  @brief The edge insets for a stretchable image.
  *
  *  The edge insets define the end caps or regions that do not resize when stretching the image.
- *  The midde sections between the end caps are stretched or tiled (as determined by the
+ *  The middle sections between the end caps are stretched or tiled (as determined by the
  *  @ref tiled property) to fill the remaining space in the final image.
  *  The default value is @ref CPTEdgeInsetsZero which allows the entire image to stretch
  *  or tile to fill the final image size.
