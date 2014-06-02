@@ -140,6 +140,8 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
+
     themeBarButton.title = currentThemeName;
 }
 
@@ -147,6 +149,8 @@
 {
     self.popoverController = nil;
     self.themeBarButton    = nil;
+
+    [super viewDidUnload];
 }
 
 #pragma mark -

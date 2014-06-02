@@ -95,6 +95,8 @@
 -(void)viewDidUnload
 {
     detailViewController = nil;
+
+    [super viewDidUnload];
 }
 
 -(void)dealloc

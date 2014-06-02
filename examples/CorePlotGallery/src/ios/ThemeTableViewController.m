@@ -91,10 +91,6 @@
     [super didReceiveMemoryWarning];
 }
 
--(void)viewDidUnload
-{
-}
-
 -(void)dealloc
 {
     [self.tableView setDataSource:nil];
