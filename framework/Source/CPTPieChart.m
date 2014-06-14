@@ -569,7 +569,7 @@ static const CGFloat colorLookupTable[10][3] =
     CGPoint anchor        = self.centerAnchor;
     CGPoint centerPoint   = CPTPointMake(plotAreaBounds.origin.x + plotAreaBounds.size.width * anchor.x,
                                          plotAreaBounds.origin.y + plotAreaBounds.size.height * anchor.y);
-    centerPoint = [self convertPoint:centerPoint fromLayer:self.plotArea];
+    centerPoint = [self convertPoint:centerPoint fromLayer:thePlotArea];
     if ( self.alignsPointsToPixels ) {
         centerPoint = CPTAlignPointToUserSpace(context, centerPoint);
     }

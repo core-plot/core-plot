@@ -1394,9 +1394,11 @@ NSDecimal niceLength(NSDecimal length)
     BOOL theLabelFormatterChanged;
     CPTShadow *theShadow;
 
+    id<CPTAxisDelegate> theDelegate = self.delegate;
+
     if ( useMajorAxisLabels ) {
-        if ( [self.delegate respondsToSelector:@selector(axis:shouldUpdateAxisLabelsAtLocations:)] ) {
-            BOOL shouldContinue = [self.delegate axis:self shouldUpdateAxisLabelsAtLocations:locations];
+        if ( [theDelegate respondsToSelector:@selector(axis:shouldUpdateAxisLabelsAtLocations:)] ) {
+            BOOL shouldContinue = [theDelegate axis:self shouldUpdateAxisLabelsAtLocations:locations];
             if ( !shouldContinue ) {
                 return;
             }
@@ -1411,8 +1413,8 @@ NSDecimal niceLength(NSDecimal length)
         theShadow                = self.labelShadow;
     }
     else {
-        if ( [self.delegate respondsToSelector:@selector(axis:shouldUpdateMinorAxisLabelsAtLocations:)] ) {
-            BOOL shouldContinue = [self.delegate axis:self shouldUpdateMinorAxisLabelsAtLocations:locations];
+        if ( [theDelegate respondsToSelector:@selector(axis:shouldUpdateMinorAxisLabelsAtLocations:)] ) {
+            BOOL shouldContinue = [theDelegate axis:self shouldUpdateMinorAxisLabelsAtLocations:locations];
             if ( !shouldContinue ) {
                 return;
             }
@@ -1560,7 +1562,8 @@ NSDecimal niceLength(NSDecimal length)
     if ( !self.plotSpace ) {
         return;
     }
-    if ( [self.delegate respondsToSelector:@selector(axisShouldRelabel:)] && ![self.delegate axisShouldRelabel:self] ) {
+    id<CPTAxisDelegate> theDelegate = self.delegate;
+    if ( [theDelegate respondsToSelector:@selector(axisShouldRelabel:)] && ![theDelegate axisShouldRelabel:self] ) {
         self.needsRelabel = NO;
         return;
     }
@@ -1640,8 +1643,8 @@ NSDecimal niceLength(NSDecimal length)
         [thePlotArea setNeedsDisplay];
     }
 
-    if ( [self.delegate respondsToSelector:@selector(axisDidRelabel:)] ) {
-        [self.delegate axisDidRelabel:self];
+    if ( [theDelegate respondsToSelector:@selector(axisDidRelabel:)] ) {
+        [theDelegate axisDidRelabel:self];
     }
 }
 

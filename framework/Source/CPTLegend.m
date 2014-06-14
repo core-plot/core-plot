@@ -1257,24 +1257,26 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
                 if ( (legendEntry.row == row) && (legendEntry.column == col) ) {
                     BOOL handled = NO;
 
+                    CPTPlot *entryPlot = legendEntry.plot;
+
                     if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchUpAtIndex:)] ) {
                         handled = YES;
-                        [theDelegate legend:self legendEntryForPlot:legendEntry.plot touchUpAtIndex:legendEntry.index];
+                        [theDelegate legend:self legendEntryForPlot:entryPlot touchUpAtIndex:legendEntry.index];
                     }
                     if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchUpAtIndex:withEvent:)] ) {
                         handled = YES;
-                        [theDelegate legend:self legendEntryForPlot:legendEntry.plot touchUpAtIndex:legendEntry.index withEvent:event];
+                        [theDelegate legend:self legendEntryForPlot:entryPlot touchUpAtIndex:legendEntry.index withEvent:event];
                     }
 
                     if ( legendEntry == selectedDownEntry ) {
                         if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:)] ) {
                             handled = YES;
-                            [theDelegate legend:self legendEntryForPlot:legendEntry.plot wasSelectedAtIndex:legendEntry.index];
+                            [theDelegate legend:self legendEntryForPlot:entryPlot wasSelectedAtIndex:legendEntry.index];
                         }
 
                         if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:withEvent:)] ) {
                             handled = YES;
-                            [theDelegate legend:self legendEntryForPlot:legendEntry.plot wasSelectedAtIndex:legendEntry.index withEvent:event];
+                            [theDelegate legend:self legendEntryForPlot:entryPlot wasSelectedAtIndex:legendEntry.index withEvent:event];
                         }
                     }
 

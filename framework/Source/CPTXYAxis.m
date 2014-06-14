@@ -159,7 +159,9 @@
     plotPoint[myCoordinate]         = coordinateDecimalNumber;
     plotPoint[orthogonalCoordinate] = orthogonalCoord;
 
-    return [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2] fromLayer:self.plotArea];
+    CPTPlotArea *thePlotArea = self.plotArea;
+
+    return [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2] fromLayer:thePlotArea];
 }
 
 -(CGPoint)viewPointForCoordinateDecimalNumber:(NSDecimal)coordinateDecimalNumber
