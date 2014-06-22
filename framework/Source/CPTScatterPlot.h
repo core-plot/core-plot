@@ -232,6 +232,11 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
 @property (nonatomic, readwrite, copy) CPTFill *areaFill2;
 /// @}
 
+/// @name Data Line
+/// @{
+@property (nonatomic, readonly) CGPathRef newDataLinePath;
+/// @}
+
 /// @name User Interaction
 /// @{
 @property (nonatomic, readwrite, assign) CGFloat plotSymbolMarginForHitDetection;

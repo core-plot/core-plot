@@ -123,19 +123,24 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  **/
 @synthesize plotSymbolMarginForHitDetection;
 
+/** @property CGPathRef newDataLinePath
+ *  @brief The path used to draw the data line. The caller must release the returned path.
+ **/
+@dynamic newDataLinePath;
+
 /** @property CGFloat plotLineMarginForHitDetection
  *  @brief A margin added to each side of a plot line when determining whether it has been hit.
  *
- *  Default is 4 points to each side of the line. The margin is set in plot area view coordinates.
+ *  Default is four points to each side of the line. The margin is set in plot area view coordinates.
  **/
 @synthesize plotLineMarginForHitDetection;
 
 /** @property BOOL allowSimultaneousSymbolAndPlotSelection
- *  @brief YES if both symbol selection and line selection can happen on the same upEvent. If NO
+ *  @brief @YES if both symbol selection and line selection can happen on the same upEvent. If @NO
  *  then when an upEvent occurs on a symbol only the symbol will be selected, otherwise the line
  *  will be selected if the upEvent occured on the line.
  *
- *  Default is NO.
+ *  Default is @NO.
  **/
 @synthesize allowSimultaneousSymbolAndPlotSelection;
 
@@ -147,7 +152,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 /** @internal
  *  @property BOOL pointingDeviceDownOnLine
- *  @brief YES if the pointing device down event occured on the plot line.
+ *  @brief @YES if the pointing device down event occured on the plot line.
  **/
 @synthesize pointingDeviceDownOnLine;
 
@@ -1615,6 +1620,36 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     areaBaseValue = newAreaBaseValue;
     [self setNeedsDisplay];
     [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
+}
+
+-(CGPathRef)newDataLinePath
+{
+    [self reloadDataIfNeeded];
+
+    NSUInteger dataCount = self.cachedDataCount;
+    if ( dataCount == 0 ) {
+        return CGPathCreateMutable();
+    }
+
+    // Calculate view points
+    CGPoint *viewPoints  = malloc( dataCount * sizeof(CGPoint) );
+    BOOL *drawPointFlags = malloc( dataCount * sizeof(BOOL) );
+
+    for ( NSUInteger i = 0; i < dataCount; i++ ) {
+        drawPointFlags[i] = YES;
+    }
+
+    [self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags numberOfPoints:dataCount];
+
+    // Create the path
+    CGPathRef dataLinePath = [self newDataLinePathForViewPoints:viewPoints
+                                                     indexRange:NSMakeRange(0, dataCount)
+                                                 baselineYValue:NAN];
+
+    free(viewPoints);
+    free(drawPointFlags);
+
+    return dataLinePath;
 }
 
 -(void)setAreaBaseValue2:(NSDecimal)newAreaBaseValue
