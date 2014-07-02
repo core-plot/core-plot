@@ -381,6 +381,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 -(void)reloadData
 {
     [self.plots makeObjectsPerformSelector:@selector(reloadData)];
+    [self.plotSpaces makeObjectsPerformSelector:@selector(removeAllCategories)];
 }
 
 /**

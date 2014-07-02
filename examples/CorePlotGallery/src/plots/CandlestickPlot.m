@@ -186,7 +186,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     return plotData.count;
 }
 
--(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSDecimalNumber *num = [NSDecimalNumber zero];
 

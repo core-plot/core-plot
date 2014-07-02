@@ -1135,6 +1135,29 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     return result;
 }
 
+-(CPTCoordinate)coordinateForFieldIdentifier:(NSUInteger)field
+{
+    CPTCoordinate coordinate = CPTCoordinateNone;
+
+    switch ( field ) {
+        case CPTTradingRangePlotFieldX:
+            coordinate = CPTCoordinateX;
+            break;
+
+        case CPTTradingRangePlotFieldOpen:
+        case CPTTradingRangePlotFieldLow:
+        case CPTTradingRangePlotFieldHigh:
+        case CPTTradingRangePlotFieldClose:
+            coordinate = CPTCoordinateY;
+            break;
+
+        default:
+            break;
+    }
+
+    return coordinate;
+}
+
 /// @endcond
 
 #pragma mark -

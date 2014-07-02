@@ -1228,6 +1228,26 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     return result;
 }
 
+-(CPTCoordinate)coordinateForFieldIdentifier:(NSUInteger)field
+{
+    CPTCoordinate coordinate = CPTCoordinateNone;
+
+    switch ( field ) {
+        case CPTScatterPlotFieldX:
+            coordinate = CPTCoordinateX;
+            break;
+
+        case CPTScatterPlotFieldY:
+            coordinate = CPTCoordinateY;
+            break;
+
+        default:
+            break;
+    }
+
+    return coordinate;
+}
+
 /// @endcond
 
 #pragma mark -

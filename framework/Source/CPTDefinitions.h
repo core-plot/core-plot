@@ -130,16 +130,17 @@ typedef NS_ENUM (NSInteger, CPTScaleType) {
     CPTScaleTypeLog,      ///< Logarithmic axis scale
     CPTScaleTypeAngular,  ///< Angular axis scale (not implemented)
     CPTScaleTypeDateTime, ///< Date/time axis scale (not implemented)
-    CPTScaleTypeCategory  ///< Category axis scale (not implemented)
+    CPTScaleTypeCategory  ///< Category axis scale
 };
 
 /**
  *  @brief Enumeration of axis coordinates
  **/
 typedef NS_ENUM (NSInteger, CPTCoordinate) {
-    CPTCoordinateX = 0, ///< X axis
-    CPTCoordinateY = 1, ///< Y axis
-    CPTCoordinateZ = 2  ///< Z axis
+    CPTCoordinateX    = 0,           ///< X axis
+    CPTCoordinateY    = 1,           ///< Y axis
+    CPTCoordinateZ    = 2,           ///< Z axis
+    CPTCoordinateNone = NSIntegerMax ///< Invalid coordinate value
 };
 
 /**

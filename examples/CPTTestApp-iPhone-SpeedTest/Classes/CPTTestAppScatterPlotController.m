@@ -146,7 +146,7 @@
 
 #else
 #if USE_ONEVALUEPATH
--(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)indx
+-(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)indx
 {
     NSNumber *num  = nil;
     double *values = [self valuesForPlotWithIdentifier:[plot identifier] field:fieldEnum];

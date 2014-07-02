@@ -72,7 +72,7 @@
     return [self.dataForChart count];
 }
 
--(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     if ( index >= [self.dataForChart count] ) {
         return nil;

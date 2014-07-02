@@ -1695,6 +1695,27 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     return result;
 }
 
+-(CPTCoordinate)coordinateForFieldIdentifier:(NSUInteger)field
+{
+    CPTCoordinate coordinate = CPTCoordinateNone;
+
+    switch ( field ) {
+        case CPTBarPlotFieldBarLocation:
+            coordinate = (self.barsAreHorizontal ? CPTCoordinateY : CPTCoordinateX);
+            break;
+
+        case CPTBarPlotFieldBarTip:
+        case CPTBarPlotFieldBarBase:
+            coordinate = (self.barsAreHorizontal ? CPTCoordinateX : CPTCoordinateY);
+            break;
+
+        default:
+            break;
+    }
+
+    return coordinate;
+}
+
 /// @endcond
 
 @end

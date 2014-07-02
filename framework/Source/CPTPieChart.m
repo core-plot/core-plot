@@ -885,11 +885,6 @@ static const CGFloat colorLookupTable[10][3] =
     return @[@(CPTPieChartFieldSliceWidth)];
 }
 
--(NSArray *)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
-{
-    return nil;
-}
-
 /// @endcond
 
 #pragma mark -

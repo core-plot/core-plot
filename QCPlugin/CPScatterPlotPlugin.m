@@ -219,7 +219,7 @@
     return [[self valueForInputKey:xKey] count];
 }
 
--(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSUInteger plotIndex = [[graph allPlots] indexOfObject:plot];
     NSString *xKey       = [NSString stringWithFormat:@"plotXNumbers%lu", (unsigned long)plotIndex];

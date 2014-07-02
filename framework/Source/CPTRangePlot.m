@@ -959,6 +959,30 @@ typedef struct CGPointError CGPointError;
     return result;
 }
 
+-(CPTCoordinate)coordinateForFieldIdentifier:(NSUInteger)field
+{
+    CPTCoordinate coordinate = CPTCoordinateNone;
+
+    switch ( field ) {
+        case CPTRangePlotFieldX:
+        case CPTRangePlotFieldLeft:
+        case CPTRangePlotFieldRight:
+            coordinate = CPTCoordinateX;
+            break;
+
+        case CPTRangePlotFieldY:
+        case CPTRangePlotFieldHigh:
+        case CPTRangePlotFieldLow:
+            coordinate = CPTCoordinateY;
+            break;
+
+        default:
+            break;
+    }
+
+    return coordinate;
+}
+
 /// @endcond
 
 #pragma mark -

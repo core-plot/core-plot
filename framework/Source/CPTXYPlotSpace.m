@@ -928,6 +928,7 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 
     switch ( self.xScaleType ) {
         case CPTScaleTypeLinear:
+        case CPTScaleTypeCategory:
             viewPoint.x = [self viewCoordinateForViewLength:layerSize.width linearPlotRange:self.xRange plotCoordinateValue:plotPoint[CPTCoordinateX]];
             break;
 
@@ -944,6 +945,7 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 
     switch ( self.yScaleType ) {
         case CPTScaleTypeLinear:
+        case CPTScaleTypeCategory:
             viewPoint.y = [self viewCoordinateForViewLength:layerSize.height linearPlotRange:self.yRange plotCoordinateValue:plotPoint[CPTCoordinateY]];
             break;
 
@@ -978,6 +980,7 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 
     switch ( self.xScaleType ) {
         case CPTScaleTypeLinear:
+        case CPTScaleTypeCategory:
             viewPoint.x = [self viewCoordinateForViewLength:layerSize.width linearPlotRange:self.xRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateX]];
             break;
 
@@ -991,6 +994,7 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 
     switch ( self.yScaleType ) {
         case CPTScaleTypeLinear:
+        case CPTScaleTypeCategory:
             viewPoint.y = [self viewCoordinateForViewLength:layerSize.height linearPlotRange:self.yRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY]];
             break;
 
@@ -1026,6 +1030,7 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 
     switch ( self.xScaleType ) {
         case CPTScaleTypeLinear:
+        case CPTScaleTypeCategory:
             plotPoint[CPTCoordinateX] = [self plotCoordinateForViewLength:point.x linearPlotRange:self.xRange boundsLength:boundsSize.width];
             break;
 
@@ -1039,6 +1044,7 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 
     switch ( self.yScaleType ) {
         case CPTScaleTypeLinear:
+        case CPTScaleTypeCategory:
             plotPoint[CPTCoordinateY] = [self plotCoordinateForViewLength:point.y linearPlotRange:self.yRange boundsLength:boundsSize.height];
             break;
 
@@ -1070,6 +1076,7 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 
     switch ( self.xScaleType ) {
         case CPTScaleTypeLinear:
+        case CPTScaleTypeCategory:
             plotPoint[CPTCoordinateX] = [self doublePrecisionPlotCoordinateForViewLength:point.x linearPlotRange:self.xRange boundsLength:boundsSize.width];
             break;
 
@@ -1083,6 +1090,7 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 
     switch ( self.yScaleType ) {
         case CPTScaleTypeLinear:
+        case CPTScaleTypeCategory:
             plotPoint[CPTCoordinateY] = [self doublePrecisionPlotCoordinateForViewLength:point.y linearPlotRange:self.yRange boundsLength:boundsSize.height];
             break;
 

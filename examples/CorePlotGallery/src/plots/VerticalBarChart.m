@@ -69,6 +69,7 @@
 
     // Add plot space for bar charts
     CPTXYPlotSpace *barPlotSpace = [[[CPTXYPlotSpace alloc] init] autorelease];
+    [barPlotSpace setScaleType:CPTScaleTypeCategory forCoordinate:CPTCoordinateX];
 #if HORIZONTAL
     barPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-10.0f) length:CPTDecimalFromFloat(120.0f)];
     barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromFloat(11.0f)];
@@ -307,13 +308,13 @@
     return 10;
 }
 
--(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    NSNumber *num = nil;
+    id num = nil;
 
     if ( fieldEnum == CPTBarPlotFieldBarLocation ) {
         // location
-        num = @(index);
+        num = [NSString stringWithFormat:@"Cat %lu", (unsigned long)index];
     }
     else if ( fieldEnum == CPTBarPlotFieldBarTip ) {
         // length

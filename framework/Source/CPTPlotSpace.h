@@ -164,6 +164,19 @@ extern NSString *const CPTPlotSpaceDisplacementKey;
 
 @property (nonatomic, readonly) NSUInteger numberOfCoordinates;
 
+/// @name Categorical Data
+/// @{
+-(void)addCategory:(NSString *)category forCoordinate:(CPTCoordinate)coordinate;
+-(void)removeCategory:(NSString *)category forCoordinate:(CPTCoordinate)coordinate;
+-(void)insertCategory:(NSString *)category forCoordinate:(CPTCoordinate)coordinate atIndex:(NSUInteger)idx;
+-(void)setCategories:(NSArray *)newCategories forCoordinate:(CPTCoordinate)coordinate;
+-(void)removeAllCategories;
+
+-(NSArray *)categoriesForCoordinate:(CPTCoordinate)coordinate;
+-(NSString *)categoryForCoordinate:(CPTCoordinate)coordinate atIndex:(NSUInteger)idx;
+-(NSUInteger)indexOfCategory:(NSString *)category forCoordinate:(CPTCoordinate)coordinate;
+/// @}
+
 @end
 
 #pragma mark -

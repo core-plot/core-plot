@@ -1443,6 +1443,10 @@ NSDecimal niceLength(NSDecimal length)
     BOOL hasAttributedFormatter  = ([theLabelFormatter attributedStringForObjectValue:[NSDecimalNumber zero]
                                                                 withDefaultAttributes:textAttributes] != nil);
 
+    CPTPlotSpace *thePlotSpace = self.plotSpace;
+    CPTCoordinate myCoordinate = self.coordinate;
+    BOOL hasCategories         = ([thePlotSpace scaleTypeForCoordinate:myCoordinate] == CPTScaleTypeCategory);
+
     CPTSign direction = self.tickDirection;
 
     if ( theLabelDirection == CPTSignNone ) {
@@ -1497,8 +1501,14 @@ NSDecimal niceLength(NSDecimal length)
         newAxisLabel.alignment = theLabelAlignment;
 
         if ( needsNewContentLayer || theLabelFormatterChanged ) {
-            CPTTextLayer *newLabelLayer;
-            if ( hasAttributedFormatter ) {
+            CPTTextLayer *newLabelLayer = nil;
+            if ( hasCategories ) {
+                NSString *labelString = [thePlotSpace categoryForCoordinate:myCoordinate atIndex:tickLocation.unsignedIntegerValue];
+                if ( labelString ) {
+                    newLabelLayer = [[CPTTextLayer alloc] initWithText:labelString style:theLabelTextStyle];
+                }
+            }
+            else if ( hasAttributedFormatter ) {
                 NSAttributedString *labelString = [theLabelFormatter attributedStringForObjectValue:tickLocation withDefaultAttributes:textAttributes];
                 newLabelLayer = [[CPTTextLayer alloc] initWithAttributedText:labelString];
             }
@@ -1507,13 +1517,15 @@ NSDecimal niceLength(NSDecimal length)
                 newLabelLayer = [[CPTTextLayer alloc] initWithText:labelString style:theLabelTextStyle];
             }
             [oldAxisLabel.contentLayer removeFromSuperlayer];
-            newAxisLabel.contentLayer = newLabelLayer;
+            if ( newLabelLayer ) {
+                newAxisLabel.contentLayer = newLabelLayer;
 
-            if ( lastLayer ) {
-                [axisLabelGroup insertSublayer:newLabelLayer below:lastLayer];
-            }
-            else {
-                [axisLabelGroup insertSublayer:newLabelLayer atIndex:[thePlotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeAxisLabels]];
+                if ( lastLayer ) {
+                    [axisLabelGroup insertSublayer:newLabelLayer below:lastLayer];
+                }
+                else {
+                    [axisLabelGroup insertSublayer:newLabelLayer atIndex:[thePlotArea sublayerIndexForAxis:self layerType:CPTGraphLayerTypeAxisLabels]];
+                }
             }
         }
 
