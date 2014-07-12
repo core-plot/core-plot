@@ -71,7 +71,7 @@
         dateFormatter         = aDateFormatter;
         referenceDate         = nil;
         referenceCalendar     = nil;
-        referenceCalendarUnit = NSEraCalendarUnit;
+        referenceCalendarUnit = NSCalendarUnitEra;
     }
     return self;
 }
@@ -149,48 +149,44 @@
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
 
     switch ( self.referenceCalendarUnit ) {
-        case NSEraCalendarUnit:
+        case NSCalendarUnitEra:
             dateComponents.era = componentIncrement;
             break;
 
-        case NSYearCalendarUnit:
+        case NSCalendarUnitYear:
             dateComponents.year = componentIncrement;
             break;
 
-        case NSMonthCalendarUnit:
+        case NSCalendarUnitMonth:
             dateComponents.month = componentIncrement;
             break;
 
-        case NSWeekCalendarUnit:
-            dateComponents.week = componentIncrement;
-            break;
-
-        case NSDayCalendarUnit:
+        case NSCalendarUnitDay:
             dateComponents.day = componentIncrement;
             break;
 
-        case NSHourCalendarUnit:
+        case NSCalendarUnitHour:
             dateComponents.hour = componentIncrement;
             break;
 
-        case NSMinuteCalendarUnit:
+        case NSCalendarUnitMinute:
             dateComponents.minute = componentIncrement;
             break;
 
-        case NSSecondCalendarUnit:
+        case NSCalendarUnitSecond:
             dateComponents.second = componentIncrement;
             break;
 
-        case NSWeekdayCalendarUnit:
+        case NSCalendarUnitWeekday:
             dateComponents.weekday = componentIncrement;
             break;
 
-        case NSWeekdayOrdinalCalendarUnit:
+        case NSCalendarUnitWeekdayOrdinal:
             dateComponents.weekdayOrdinal = componentIncrement;
             break;
 
 #if MAC_OS_X_VERSION_10_5 < MAC_OS_X_VERSION_MAX_ALLOWED || __IPHONE_3_0 < __IPHONE_OS_VERSION_MAX_ALLOWED
-        case NSQuarterCalendarUnit:
+        case NSCalendarUnitQuarter:
             if ( [dateComponents respondsToSelector:@selector(setQuarter:)] ) {
                 dateComponents.quarter = componentIncrement;
             }
@@ -200,7 +196,7 @@
             break;
 #endif
 #if MAC_OS_X_VERSION_10_6 < MAC_OS_X_VERSION_MAX_ALLOWED || __IPHONE_4_0 < __IPHONE_OS_VERSION_MAX_ALLOWED
-        case NSWeekOfMonthCalendarUnit:
+        case NSCalendarUnitWeekOfMonth:
             if ( [dateComponents respondsToSelector:@selector(setWeekOfMonth:)] ) {
                 dateComponents.weekOfMonth = componentIncrement;
             }
@@ -209,7 +205,7 @@
             }
             break;
 
-        case NSWeekOfYearCalendarUnit:
+        case NSCalendarUnitWeekOfYear:
             if ( [dateComponents respondsToSelector:@selector(setWeekOfYear:)] ) {
                 dateComponents.weekOfYear = componentIncrement;
             }
@@ -218,7 +214,7 @@
             }
             break;
 
-        case NSYearForWeekOfYearCalendarUnit:
+        case NSCalendarUnitYearForWeekOfYear:
             if ( [dateComponents respondsToSelector:@selector(setYearForWeekOfYear:)] ) {
                 dateComponents.yearForWeekOfYear = componentIncrement;
             }
@@ -228,11 +224,11 @@
             break;
 #endif
 #if MAC_OS_X_VERSION_10_7 < MAC_OS_X_VERSION_MAX_ALLOWED || __IPHONE_4_0 < __IPHONE_OS_VERSION_MAX_ALLOWED
-        case NSCalendarCalendarUnit:
+        case NSCalendarUnitCalendar:
             [NSException raise:CPTException format:@"Unsupported calendar unit: NSCalendarCalendarUnit"];
             break;
 
-        case NSTimeZoneCalendarUnit:
+        case NSCalendarUnitTimeZone:
             [NSException raise:CPTException format:@"Unsupported calendar unit: NSTimeZoneCalendarUnit"];
             break;
 #endif
