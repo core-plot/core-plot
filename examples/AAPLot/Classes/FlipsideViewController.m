@@ -13,7 +13,13 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    if ( [UIColor respondsToSelector:@selector(viewFlipsideBackgroundColor)] ) {
+        self.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];
+    }
+#pragma clang diagnostic pop
 }
 
 /*

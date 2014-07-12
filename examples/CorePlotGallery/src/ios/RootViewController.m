@@ -20,7 +20,16 @@
 {
     [super viewDidLoad];
     self.clearsSelectionOnViewWillAppear = NO;
-    self.contentSizeForViewInPopover     = self.view.bounds.size;
+
+    if ( [self respondsToSelector:@selector(setPreferredContentSize:)] ) {
+        self.preferredContentSize = self.view.bounds.size;
+    }
+    else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        self.contentSizeForViewInPopover = self.view.bounds.size;
+#pragma clang diagnostic pop
+    }
 }
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

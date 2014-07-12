@@ -2,6 +2,9 @@
 
 @implementation UIViewController(LegacyRotation)
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 -(NSUInteger)supportedInterfaceOrientations
 {
     NSUInteger ret = 0;
@@ -21,6 +24,8 @@
 
     return ret;
 }
+
+#pragma clang diagnostic pop
 
 -(BOOL)shouldAutorotate
 {
