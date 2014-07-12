@@ -491,11 +491,12 @@
 -(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index
 {
     static CPTMutableTextStyle *whiteText = nil;
+    static dispatch_once_t onceToken;
 
-    if ( !whiteText ) {
-        whiteText       = [[CPTMutableTextStyle alloc] init];
+    dispatch_once(&onceToken, ^{
+        whiteText = [[CPTMutableTextStyle alloc] init];
         whiteText.color = [CPTColor whiteColor];
-    }
+    });
 
     CPTTextLayer *newLayer = nil;
 
@@ -521,17 +522,19 @@
 -(CPTPlotSymbol *)symbolForScatterPlot:(CPTScatterPlot *)plot recordIndex:(NSUInteger)index
 {
     static CPTPlotSymbol *redDot = nil;
+    static dispatch_once_t onceToken;
 
     CPTPlotSymbol *symbol = nil; // Use the default symbol
 
     if ( [(NSString *)plot.identifier isEqualToString : @"Blue Plot"] && (index == self.selectedIndex) ) {
-        if ( !redDot ) {
-            redDot            = [[CPTPlotSymbol alloc] init];
+        dispatch_once(&onceToken, ^{
+            redDot = [[CPTPlotSymbol alloc] init];
             redDot.symbolType = CPTPlotSymbolTypeEllipse;
-            redDot.size       = CGSizeMake(10.0, 10.0);
-            redDot.fill       = [CPTFill fillWithColor:[CPTColor redColor]];
-            redDot.lineStyle  = [CPTLineStyle lineStyle];
-        }
+            redDot.size = CGSizeMake(10.0, 10.0);
+            redDot.fill = [CPTFill fillWithColor:[CPTColor redColor]];
+            redDot.lineStyle = [CPTLineStyle lineStyle];
+        });
+
         symbol = redDot;
     }
 

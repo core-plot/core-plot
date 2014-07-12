@@ -851,14 +851,15 @@ static const CGFloat colorLookupTable[10][3] =
 +(BOOL)needsDisplayForKey:(NSString *)aKey
 {
     static NSSet *keys = nil;
+    static dispatch_once_t onceToken;
 
-    if ( !keys ) {
+    dispatch_once(&onceToken, ^{
         keys = [NSSet setWithArray:@[@"pieRadius",
                                      @"pieInnerRadius",
                                      @"startAngle",
                                      @"endAngle",
                                      @"centerAnchor"]];
-    }
+    });
 
     if ( [keys containsObject:aKey] ) {
         return YES;

@@ -172,6 +172,8 @@
 {
     static CPTTextStyle *positiveStyle = nil;
     static CPTTextStyle *negativeStyle = nil;
+    static dispatch_once_t positiveOnce;
+    static dispatch_once_t negativeOnce;
 
     NSFormatter *formatter = axis.labelFormatter;
     CGFloat labelOffset    = axis.labelOffset;
@@ -183,19 +185,21 @@
         CPTTextStyle *theLabelTextStyle;
 
         if ( [tickLocation isGreaterThanOrEqualTo:zero] ) {
-            if ( !positiveStyle ) {
+            dispatch_once(&positiveOnce, ^{
                 CPTMutableTextStyle *newStyle = [axis.labelTextStyle mutableCopy];
                 newStyle.color = [CPTColor greenColor];
-                positiveStyle  = newStyle;
-            }
+                positiveStyle = newStyle;
+            });
+
             theLabelTextStyle = positiveStyle;
         }
         else {
-            if ( !negativeStyle ) {
+            dispatch_once(&negativeOnce, ^{
                 CPTMutableTextStyle *newStyle = [axis.labelTextStyle mutableCopy];
                 newStyle.color = [CPTColor redColor];
-                negativeStyle  = newStyle;
-            }
+                negativeStyle = newStyle;
+            });
+
             theLabelTextStyle = negativeStyle;
         }
 

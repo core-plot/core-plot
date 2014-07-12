@@ -152,14 +152,15 @@ NSString *const outerChartName = @"Outer";
 -(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index
 {
     static CPTMutableTextStyle *whiteText = nil;
+    static dispatch_once_t onceToken;
 
     CPTTextLayer *newLayer = nil;
 
     if ( [(NSString *)plot.identifier isEqualToString : outerChartName] ) {
-        if ( !whiteText ) {
-            whiteText       = [[CPTMutableTextStyle alloc] init];
+        dispatch_once(&onceToken, ^{
+            whiteText = [[CPTMutableTextStyle alloc] init];
             whiteText.color = [CPTColor whiteColor];
-        }
+        });
 
         newLayer                 = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%.0f", [plotData[index] floatValue]] style:whiteText] autorelease];
         newLayer.fill            = [CPTFill fillWithColor:[CPTColor darkGrayColor]];

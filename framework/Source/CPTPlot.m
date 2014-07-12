@@ -480,11 +480,12 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 +(BOOL)needsDisplayForKey:(NSString *)aKey
 {
     static NSSet *keys = nil;
+    static dispatch_once_t onceToken;
 
-    if ( !keys ) {
+    dispatch_once(&onceToken, ^{
         keys = [NSSet setWithArray:@[@"labelOffset",
                                      @"labelRotation"]];
-    }
+    });
 
     if ( [keys containsObject:aKey] ) {
         return YES;
@@ -701,10 +702,11 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 +(id)nilData
 {
     static id nilObject = nil;
+    static dispatch_once_t onceToken;
 
-    if ( !nilObject ) {
+    dispatch_once(&onceToken, ^{
         nilObject = [[NSObject alloc] init];
-    }
+    });
 
     return nilObject;
 }
@@ -1284,12 +1286,11 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 -(CPTNumericDataType)doubleDataType
 {
     static CPTNumericDataType dataType;
-    static BOOL initialized = NO;
+    static dispatch_once_t onceToken;
 
-    if ( !initialized ) {
-        dataType    = CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() );
-        initialized = YES;
-    }
+    dispatch_once(&onceToken, ^{
+        dataType = CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() );
+    });
 
     return dataType;
 }
@@ -1297,12 +1298,11 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 -(CPTNumericDataType)decimalDataType
 {
     static CPTNumericDataType dataType;
-    static BOOL initialized = NO;
+    static dispatch_once_t onceToken;
 
-    if ( !initialized ) {
-        dataType    = CPTDataType( CPTDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent() );
-        initialized = YES;
-    }
+    dispatch_once(&onceToken, ^{
+        dataType = CPTDataType( CPTDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent() );
+    });
 
     return dataType;
 }

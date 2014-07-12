@@ -902,12 +902,13 @@ typedef struct CGPointError CGPointError;
 +(BOOL)needsDisplayForKey:(NSString *)aKey
 {
     static NSSet *keys = nil;
+    static dispatch_once_t onceToken;
 
-    if ( !keys ) {
+    dispatch_once(&onceToken, ^{
         keys = [NSSet setWithArray:@[@"barWidth",
                                      @"gapHeight",
                                      @"gapWidth"]];
-    }
+    });
 
     if ( [keys containsObject:aKey] ) {
         return YES;

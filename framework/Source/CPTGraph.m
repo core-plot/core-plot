@@ -356,11 +356,12 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 +(BOOL)needsDisplayForKey:(NSString *)aKey
 {
     static NSSet *keys = nil;
+    static dispatch_once_t onceToken;
 
-    if ( !keys ) {
+    dispatch_once(&onceToken, ^{
         keys = [NSSet setWithArray:@[@"titleDisplacement",
                                      @"legendDisplacement"]];
-    }
+    });
 
     if ( [keys containsObject:aKey] ) {
         return YES;

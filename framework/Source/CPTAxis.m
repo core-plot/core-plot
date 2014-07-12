@@ -841,15 +841,16 @@ NSDecimal niceLength(NSDecimal length);
 +(BOOL)needsDisplayForKey:(NSString *)aKey
 {
     static NSSet *keys = nil;
+    static dispatch_once_t onceToken;
 
-    if ( !keys ) {
+    dispatch_once(&onceToken, ^{
         keys = [NSSet setWithArray:@[@"titleOffset",
                                      @"titleRotation",
                                      @"labelOffset",
                                      @"minorTickLabelOffset",
                                      @"labelRotation",
                                      @"minorTickLabelRotation"]];
-    }
+    });
 
     if ( [keys containsObject:aKey] ) {
         return YES;

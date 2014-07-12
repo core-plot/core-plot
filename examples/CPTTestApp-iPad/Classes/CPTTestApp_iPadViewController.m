@@ -404,11 +404,12 @@
     }
 
     static CPTMutableTextStyle *whiteText = nil;
+    static dispatch_once_t onceToken;
 
-    if ( !whiteText ) {
-        whiteText       = [[CPTMutableTextStyle alloc] init];
+    dispatch_once(&onceToken, ^{
+        whiteText = [[CPTMutableTextStyle alloc] init];
         whiteText.color = [CPTColor whiteColor];
-    }
+    });
 
     CPTTextLayer *newLayer = nil;
 

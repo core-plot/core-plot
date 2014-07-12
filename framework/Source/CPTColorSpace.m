@@ -28,8 +28,9 @@
 +(instancetype)genericRGBSpace
 {
     static CPTColorSpace *space = nil;
+    static dispatch_once_t onceToken;
 
-    if ( nil == space ) {
+    dispatch_once(&onceToken, ^{
         CGColorSpaceRef cgSpace = NULL;
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
         cgSpace = CGColorSpaceCreateDeviceRGB();
@@ -38,7 +39,8 @@
 #endif
         space = [[CPTColorSpace alloc] initWithCGColorSpace:cgSpace];
         CGColorSpaceRelease(cgSpace);
-    }
+    });
+
     return space;
 }
 

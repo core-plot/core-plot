@@ -33,14 +33,18 @@
 +(instancetype)clearColor
 {
     static CPTColor *color = nil;
+    static dispatch_once_t onceToken;
 
-    if ( nil == color ) {
-        CGColorRef clear  = NULL;
+    dispatch_once(&onceToken, ^{
         CGFloat values[4] = { CPTFloat(0.0), CPTFloat(0.0), CPTFloat(0.0), CPTFloat(0.0) };
-        clear = CGColorCreate([CPTColorSpace genericRGBSpace].cgColorSpace, values);
+
+        CGColorRef clear = CGColorCreate([CPTColorSpace genericRGBSpace].cgColorSpace, values);
+
         color = [[CPTColor alloc] initWithCGColor:clear];
+
         CGColorRelease(clear);
-    }
+    });
+
     return color;
 }
 
@@ -51,10 +55,12 @@
 +(instancetype)whiteColor
 {
     static CPTColor *color = nil;
+    static dispatch_once_t onceToken;
 
-    if ( nil == color ) {
+    dispatch_once(&onceToken, ^{
         color = [self colorWithGenericGray:CPTFloat(1.0)];
-    }
+    });
+
     return color;
 }
 
@@ -65,10 +71,12 @@
 +(instancetype)lightGrayColor
 {
     static CPTColor *color = nil;
+    static dispatch_once_t onceToken;
 
-    if ( nil == color ) {
+    dispatch_once(&onceToken, ^{
         color = [self colorWithGenericGray:(CGFloat)(2.0 / 3.0)];
-    }
+    });
+
     return color;
 }
 
@@ -79,10 +87,12 @@
 +(instancetype)grayColor
 {
     static CPTColor *color = nil;
+    static dispatch_once_t onceToken;
 
-    if ( nil == color ) {
+    dispatch_once(&onceToken, ^{
         color = [self colorWithGenericGray:CPTFloat(0.5)];
-    }
+    });
+
     return color;
 }
 
@@ -93,10 +103,12 @@
 +(instancetype)darkGrayColor
 {
     static CPTColor *color = nil;
+    static dispatch_once_t onceToken;
 
-    if ( nil == color ) {
+    dispatch_once(&onceToken, ^{
         color = [self colorWithGenericGray:(CGFloat)(1.0 / 3.0)];
-    }
+    });
+
     return color;
 }
 
@@ -107,10 +119,12 @@
 +(instancetype)blackColor
 {
     static CPTColor *color = nil;
+    static dispatch_once_t onceToken;
 
-    if ( nil == color ) {
+    dispatch_once(&onceToken, ^{
         color = [self colorWithGenericGray:CPTFloat(0.0)];
-    }
+    });
+
     return color;
 }
 
@@ -121,10 +135,15 @@
 +(instancetype)redColor
 {
     static CPTColor *color = nil;
+    static dispatch_once_t onceToken;
 
-    if ( nil == color ) {
-        color = [[CPTColor alloc] initWithComponentRed:CPTFloat(1.0) green:CPTFloat(0.0) blue:CPTFloat(0.0) alpha:CPTFloat(1.0)];
-    }
+    dispatch_once(&onceToken, ^{
+        color = [[CPTColor alloc] initWithComponentRed:CPTFloat(1.0)
+                                                 green:CPTFloat(0.0)
+                                                  blue:CPTFloat(0.0)
+                                                 alpha:CPTFloat(1.0)];
+    });
+
     return color;
 }
 
@@ -135,10 +154,15 @@
 +(instancetype)greenColor
 {
     static CPTColor *color = nil;
+    static dispatch_once_t onceToken;
 
-    if ( nil == color ) {
-        color = [[CPTColor alloc] initWithComponentRed:CPTFloat(0.0) green:CPTFloat(1.0) blue:CPTFloat(0.0) alpha:CPTFloat(1.0)];
-    }
+    dispatch_once(&onceToken, ^{
+        color = [[CPTColor alloc] initWithComponentRed:CPTFloat(0.0)
+                                                 green:CPTFloat(1.0)
+                                                  blue:CPTFloat(0.0)
+                                                 alpha:CPTFloat(1.0)];
+    });
+
     return color;
 }
 
@@ -149,10 +173,15 @@
 +(instancetype)blueColor
 {
     static CPTColor *color = nil;
+    static dispatch_once_t onceToken;
 
-    if ( nil == color ) {
-        color = [[CPTColor alloc] initWithComponentRed:CPTFloat(0.0) green:CPTFloat(0.0) blue:CPTFloat(1.0) alpha:CPTFloat(1.0)];
-    }
+    dispatch_once(&onceToken, ^{
+        color = [[CPTColor alloc] initWithComponentRed:CPTFloat(0.0)
+                                                 green:CPTFloat(0.0)
+                                                  blue:CPTFloat(1.0)
+                                                 alpha:CPTFloat(1.0)];
+    });
+
     return color;
 }
 
@@ -163,10 +192,15 @@
 +(instancetype)cyanColor
 {
     static CPTColor *color = nil;
+    static dispatch_once_t onceToken;
 
-    if ( nil == color ) {
-        color = [[CPTColor alloc] initWithComponentRed:CPTFloat(0.0) green:CPTFloat(1.0) blue:CPTFloat(1.0) alpha:CPTFloat(1.0)];
-    }
+    dispatch_once(&onceToken, ^{
+        color = [[CPTColor alloc] initWithComponentRed:CPTFloat(0.0)
+                                                 green:CPTFloat(1.0)
+                                                  blue:CPTFloat(1.0)
+                                                 alpha:CPTFloat(1.0)];
+    });
+
     return color;
 }
 
@@ -177,10 +211,12 @@
 +(instancetype)yellowColor
 {
     static CPTColor *color = nil;
+    static dispatch_once_t onceToken;
 
-    if ( nil == color ) {
+    dispatch_once(&onceToken, ^{
         color = [[CPTColor alloc] initWithComponentRed:CPTFloat(1.0) green:CPTFloat(1.0) blue:CPTFloat(0.0) alpha:CPTFloat(1.0)];
-    }
+    });
+
     return color;
 }
 
@@ -205,10 +241,12 @@
 +(instancetype)orangeColor
 {
     static CPTColor *color = nil;
+    static dispatch_once_t onceToken;
 
-    if ( nil == color ) {
+    dispatch_once(&onceToken, ^{
         color = [[CPTColor alloc] initWithComponentRed:CPTFloat(1.0) green:CPTFloat(0.5) blue:CPTFloat(0.0) alpha:CPTFloat(1.0)];
-    }
+    });
+
     return color;
 }
 
@@ -219,10 +257,12 @@
 +(instancetype)purpleColor
 {
     static CPTColor *color = nil;
+    static dispatch_once_t onceToken;
 
-    if ( nil == color ) {
+    dispatch_once(&onceToken, ^{
         color = [[CPTColor alloc] initWithComponentRed:CPTFloat(0.5) green:CPTFloat(0.0) blue:CPTFloat(0.5) alpha:CPTFloat(1.0)];
-    }
+    });
+
     return color;
 }
 
@@ -233,10 +273,12 @@
 +(instancetype)brownColor
 {
     static CPTColor *color = nil;
+    static dispatch_once_t onceToken;
 
-    if ( nil == color ) {
+    dispatch_once(&onceToken, ^{
         color = [[CPTColor alloc] initWithComponentRed:CPTFloat(0.6) green:CPTFloat(0.4) blue:CPTFloat(0.2) alpha:CPTFloat(1.0)];
-    }
+    });
+
     return color;
 }
 
