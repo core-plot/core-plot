@@ -360,6 +360,9 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
                     handled = [theGraph scrollWheelEvent:theEvent fromPoint:pointInHostedGraph toPoint:scrolledPointInHostedGraph];
                 }
                 break;
+
+            default:
+                break;
         }
     }
 
