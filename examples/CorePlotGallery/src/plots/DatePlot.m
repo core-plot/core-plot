@@ -60,8 +60,14 @@
     [dateComponents setHour:12];
     [dateComponents setMinute:0];
     [dateComponents setSecond:0];
+
+#ifdef NSCalendarIdentifierGregorian
+    NSCalendar *gregorian = [[NSCalendar alloc]
+                             initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+#else
     NSCalendar *gregorian = [[NSCalendar alloc]
                              initWithCalendarIdentifier:NSGregorianCalendar];
+#endif
     NSDate *refDate = [gregorian dateFromComponents:dateComponents];
     [dateComponents release];
     [gregorian release];

@@ -319,7 +319,7 @@
 
 -(void)barPlot:(CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index
 {
-    NSLog(@"barWasSelectedAtRecordIndex %d", index);
+    NSLog(@"barWasSelectedAtRecordIndex %lu", (unsigned long)index);
 }
 
 #pragma mark -

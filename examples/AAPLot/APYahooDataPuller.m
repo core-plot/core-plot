@@ -181,10 +181,15 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 // http://www.goldb.org/ystockquote.html
 -(NSString *)URL
 {
-    unsigned int unitFlags = NSMonthCalendarUnit | NSDayCalendarUnit | NSYearCalendarUnit;
+    unsigned int unitFlags = NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitYear;
 
+#ifdef NSCalendarIdentifierGregorian
+    NSCalendar *gregorian = [[NSCalendar alloc]
+                             initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+#else
     NSCalendar *gregorian = [[NSCalendar alloc]
                              initWithCalendarIdentifier:NSGregorianCalendar];
+#endif
 
     NSDateComponents *compsStart = [gregorian components:unitFlags fromDate:targetStartDate];
     NSDateComponents *compsEnd   = [gregorian components:unitFlags fromDate:targetEndDate];
@@ -192,13 +197,13 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     [gregorian release];
 
     NSString *url = [NSString stringWithFormat:@"http://ichart.yahoo.com/table.csv?s=%@&", [self targetSymbol]];
-    url = [url stringByAppendingFormat:@"a=%d&", [compsStart month] - 1];
-    url = [url stringByAppendingFormat:@"b=%d&", [compsStart day]];
-    url = [url stringByAppendingFormat:@"c=%d&", [compsStart year]];
+    url = [url stringByAppendingFormat:@"a=%ld&", (long)[compsStart month] - 1];
+    url = [url stringByAppendingFormat:@"b=%ld&", (long)[compsStart day]];
+    url = [url stringByAppendingFormat:@"c=%ld&", (long)[compsStart year]];
 
-    url = [url stringByAppendingFormat:@"d=%d&", [compsEnd month] - 1];
-    url = [url stringByAppendingFormat:@"e=%d&", [compsEnd day]];
-    url = [url stringByAppendingFormat:@"f=%d&", [compsEnd year]];
+    url = [url stringByAppendingFormat:@"d=%ld&", (long)[compsEnd month] - 1];
+    url = [url stringByAppendingFormat:@"e=%ld&", (long)[compsEnd day]];
+    url = [url stringByAppendingFormat:@"f=%ld&", (long)[compsEnd year]];
     url = [url stringByAppendingString:@"g=d&"];
 
     url = [url stringByAppendingString:@"ignore=.csv"];
