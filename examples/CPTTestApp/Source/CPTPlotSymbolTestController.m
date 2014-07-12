@@ -117,7 +117,7 @@
         CGPathAddEllipseInRect( path, NULL, CGRectMake(1.5, 4., 3., 3.) );
         CGPathAddEllipseInRect( path, NULL, CGRectMake(5.5, 4., 3., 3.) );
         CGPathMoveToPoint(path, NULL, 5., 2.);
-        CGPathAddArc(path, NULL, 5., 3.3, 2.8, 0., pi, TRUE);
+        CGPathAddArc(path, NULL, 5., 3.3, 2.8, 0., M_PI, TRUE);
         CGPathCloseSubpath(path);
 
         symbol.customSymbolPath    = path;
