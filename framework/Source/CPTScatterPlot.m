@@ -1576,6 +1576,9 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
             CGPathRelease(dataLinePath);
             CGPathRelease(path);
         }
+
+        free(viewPoints);
+        free(drawPointFlags);
     }
 
     return plotLineHit;
