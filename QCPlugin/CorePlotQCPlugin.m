@@ -726,7 +726,7 @@ static void _BufferReleaseCallback(const void *address, void *context)
      */
 
     // Configure the graph area
-    CGRect frame = CGRectMake( 0.0, 0.0, MAX(1, self.inputPixelsWide), MAX(1, self.inputPixelsHigh) );
+    CGRect frame = CPTRectMake( 0.0, 0.0, MAX(1, self.inputPixelsWide), MAX(1, self.inputPixelsHigh) );
 
     [graph setBounds:frame];
 
@@ -789,9 +789,9 @@ static void _BufferReleaseCallback(const void *address, void *context)
 
     // Draw the plot ...
     CGSize boundsSize = graph.bounds.size;
-    CGContextClearRect( bitmapContext, CGRectMake(0.0, 0.0, boundsSize.width, boundsSize.height) );
+    CGContextClearRect( bitmapContext, CPTRectMake(0.0, 0.0, boundsSize.width, boundsSize.height) );
     CGContextSetRGBFillColor(bitmapContext, 0.0, 0.0, 0.0, 0.0);
-    CGContextFillRect( bitmapContext, CGRectMake(0, 0, boundsSize.width, boundsSize.height) );
+    CGContextFillRect( bitmapContext, CPTRectMake(0, 0, boundsSize.width, boundsSize.height) );
     CGContextSetAllowsAntialiasing(bitmapContext, true);
 
     if ( configurationCheck ) {
@@ -799,7 +799,7 @@ static void _BufferReleaseCallback(const void *address, void *context)
         [graph recursivelyRenderInContext:bitmapContext];
     }
     else {
-        drawErrorText( bitmapContext, CGRectMake(0, 0, self.inputPixelsWide, self.inputPixelsHigh) );
+        drawErrorText( bitmapContext, CPTRectMake(0, 0, self.inputPixelsWide, self.inputPixelsHigh) );
     }
 
     //CGContextSetAllowsAntialiasing(bitmapContext, false);
