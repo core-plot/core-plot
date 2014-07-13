@@ -1600,6 +1600,21 @@
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
 				INFOPLIST_FILE = "UnitTests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_CFLAGS = (
+					"-Weverything",
+					"-Wno-unused-parameter",
+					"-Wno-undef",
+					"-Wno-switch-enum",
+					"-Wno-float-equal",
+					"-Wno-padded",
+					"-Wno-dollar-in-identifier-extension",
+					"-Wno-custom-atomic-properties",
+					"-Wno-gnu",
+					"-Wno-assign-enum",
+					"-Wno-pedantic",
+					"-Wno-documentation",
+					"-Wno-objc-interface-ivars",
+				);
 				OTHER_LDFLAGS = (
 					"-framework",
 					Cocoa,
@@ -1627,6 +1642,21 @@
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
 				INFOPLIST_FILE = "UnitTests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_CFLAGS = (
+					"-Weverything",
+					"-Wno-unused-parameter",
+					"-Wno-undef",
+					"-Wno-switch-enum",
+					"-Wno-float-equal",
+					"-Wno-padded",
+					"-Wno-dollar-in-identifier-extension",
+					"-Wno-custom-atomic-properties",
+					"-Wno-gnu",
+					"-Wno-assign-enum",
+					"-Wno-pedantic",
+					"-Wno-documentation",
+					"-Wno-objc-interface-ivars",
+				);
 				OTHER_LDFLAGS = (
 					"-framework",
 					Cocoa,
@@ -1658,20 +1688,6 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@loader_path/../Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = (
-					"-Weverything",
-					"-Wno-unused-parameter",
-					"-Wno-undef",
-					"-Wno-switch-enum",
-					"-Wno-float-equal",
-					"-Wno-padded",
-					"-Wno-dollar-in-identifier-extension",
-					"-Wno-custom-atomic-properties",
-					"-Wno-gnu",
-					"-Wno-assign-enum",
-					"-Wno-pedantic",
-					"-Wno-documentation",
-				);
 				PRODUCT_NAME = CorePlot;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
@@ -1696,20 +1712,6 @@
 				GCC_PREFIX_HEADER = CorePlot_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@loader_path/../Frameworks";
-				OTHER_CFLAGS = (
-					"-Weverything",
-					"-Wno-unused-parameter",
-					"-Wno-undef",
-					"-Wno-switch-enum",
-					"-Wno-float-equal",
-					"-Wno-padded",
-					"-Wno-dollar-in-identifier-extension",
-					"-Wno-custom-atomic-properties",
-					"-Wno-gnu",
-					"-Wno-assign-enum",
-					"-Wno-pedantic",
-					"-Wno-documentation",
-				);
 				PRODUCT_NAME = CorePlot;
 				SKIP_INSTALL = YES;
 				"VALID_ARCHS[sdk=*]" = "i386 x86_64";
@@ -1760,8 +1762,18 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
-					"-Wextra",
+					"-Weverything",
 					"-Wno-unused-parameter",
+					"-Wno-undef",
+					"-Wno-switch-enum",
+					"-Wno-float-equal",
+					"-Wno-padded",
+					"-Wno-dollar-in-identifier-extension",
+					"-Wno-custom-atomic-properties",
+					"-Wno-gnu",
+					"-Wno-assign-enum",
+					"-Wno-pedantic",
+					"-Wno-documentation",
 				);
 				OTHER_LDFLAGS = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
@@ -1815,8 +1827,18 @@
 				LINKER_DISPLAYS_MANGLED_NAMES = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CFLAGS = (
-					"-Wextra",
+					"-Weverything",
 					"-Wno-unused-parameter",
+					"-Wno-undef",
+					"-Wno-switch-enum",
+					"-Wno-float-equal",
+					"-Wno-padded",
+					"-Wno-dollar-in-identifier-extension",
+					"-Wno-custom-atomic-properties",
+					"-Wno-gnu",
+					"-Wno-assign-enum",
+					"-Wno-pedantic",
+					"-Wno-documentation",
 				);
 				OTHER_LDFLAGS = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;

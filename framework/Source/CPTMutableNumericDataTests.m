@@ -143,7 +143,7 @@
     data   = [NSMutableData dataWithLength:nElems * sizeof(char)];
     char *charSamples = (char *)[data mutableBytes];
     for ( NSUInteger i = 0; i < nElems; i++ ) {
-        charSamples[i] = (char)sin(i);
+        charSamples[i] = (char)lrint(sin(i) * 100.0);
     }
 
     nd = [[CPTMutableNumericData alloc] initWithData:data

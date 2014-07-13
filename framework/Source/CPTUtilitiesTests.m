@@ -17,21 +17,21 @@
 
     CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
 
-    context = CGBitmapContextCreate(NULL,
-                                    width,
-                                    height,
-                                    bitsPerComponent,
-                                    width * bitsPerComponent * 4,
-                                    colorSpace,
-                                    (CGBitmapInfo)kCGImageAlphaNoneSkipLast);
+    self.context = CGBitmapContextCreate(NULL,
+                                         width,
+                                         height,
+                                         bitsPerComponent,
+                                         width * bitsPerComponent * 4,
+                                         colorSpace,
+                                         (CGBitmapInfo)kCGImageAlphaNoneSkipLast);
 
     CGColorSpaceRelease(colorSpace);
 }
 
 -(void)tearDown
 {
-    CGContextRelease(context);
-    context = NULL;
+    CGContextRelease(self.context);
+    self.context = NULL;
 }
 
 #pragma mark -
