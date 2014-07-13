@@ -18,7 +18,7 @@
 
 -(void)setUp
 {
-    self.graph = [[CPTXYGraph alloc] initWithFrame:CGRectMake(0.0, 0.0, 100.0, 50.0)];
+    self.graph = [[CPTXYGraph alloc] initWithFrame:CPTRectMake(0.0, 0.0, 100.0, 50.0)];
 
     self.graph.paddingLeft   = 0.0;
     self.graph.paddingRight  = 0.0;
@@ -54,8 +54,8 @@
 
     CGPoint viewPoint = [plotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
 
-    STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
-    STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat)25.0, (CGFloat)0.01, @"");
+    STAssertEqualsWithAccuracy(viewPoint.x, CPTFloat(50.0), CPTFloat(0.01), @"");
+    STAssertEqualsWithAccuracy(viewPoint.y, CPTFloat(25.0), CPTFloat(0.01), @"");
 
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0)
                                                     length:CPTDecimalFromDouble(10.0)];
@@ -64,8 +64,8 @@
 
     viewPoint = [plotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
 
-    STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
-    STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat)50.0, (CGFloat)0.01, @"");
+    STAssertEqualsWithAccuracy(viewPoint.x, CPTFloat(50.0), CPTFloat(0.01), @"");
+    STAssertEqualsWithAccuracy(viewPoint.y, CPTFloat(50.0), CPTFloat(0.01), @"");
 }
 
 -(void)testViewPointForDoublePrecisionPlotPointLinear
@@ -86,8 +86,8 @@
 
     CGPoint viewPoint = [plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
 
-    STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
-    STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat)25.0, (CGFloat)0.01, @"");
+    STAssertEqualsWithAccuracy(viewPoint.x, CPTFloat(50.0), CPTFloat(0.01), @"");
+    STAssertEqualsWithAccuracy(viewPoint.y, CPTFloat(25.0), CPTFloat(0.01), @"");
 
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0)
                                                     length:CPTDecimalFromDouble(10.0)];
@@ -96,8 +96,8 @@
 
     viewPoint = [plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
 
-    STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
-    STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat)50.0, (CGFloat)0.01, @"");
+    STAssertEqualsWithAccuracy(viewPoint.x, CPTFloat(50.0), CPTFloat(0.01), @"");
+    STAssertEqualsWithAccuracy(viewPoint.y, CPTFloat(50.0), CPTFloat(0.01), @"");
 }
 
 #pragma mark -
@@ -121,8 +121,8 @@
 
     CGPoint viewPoint = [plotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
 
-    STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
-    STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat)25.0, (CGFloat)0.01, @"");
+    STAssertEqualsWithAccuracy(viewPoint.x, CPTFloat(50.0), CPTFloat(0.01), @"");
+    STAssertEqualsWithAccuracy(viewPoint.y, CPTFloat(25.0), CPTFloat(0.01), @"");
 
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0)
                                                     length:CPTDecimalFromDouble(9.0)];
@@ -131,8 +131,8 @@
 
     viewPoint = [plotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
 
-    STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
-    STAssertEqualsWithAccuracy(viewPoint.y, -CPTFloat(25.0), (CGFloat)0.01, @"");
+    STAssertEqualsWithAccuracy(viewPoint.x, CPTFloat(50.0), CPTFloat(0.01), @"");
+    STAssertEqualsWithAccuracy(viewPoint.y, -CPTFloat(25.0), CPTFloat(0.01), @"");
 }
 
 -(void)testViewPointForDoublePrecisionPlotPointLog
@@ -153,8 +153,8 @@
 
     CGPoint viewPoint = [plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
 
-    STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
-    STAssertEqualsWithAccuracy(viewPoint.y, (CGFloat)25.0, (CGFloat)0.01, @"");
+    STAssertEqualsWithAccuracy(viewPoint.x, CPTFloat(50.0), CPTFloat(0.01), @"");
+    STAssertEqualsWithAccuracy(viewPoint.y, CPTFloat(25.0), CPTFloat(0.01), @"");
 
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0)
                                                     length:CPTDecimalFromDouble(9.0)];
@@ -163,8 +163,8 @@
 
     viewPoint = [plotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
 
-    STAssertEqualsWithAccuracy(viewPoint.x, (CGFloat)50.0, (CGFloat)0.01, @"");
-    STAssertEqualsWithAccuracy(viewPoint.y, -CPTFloat(25.0), (CGFloat)0.01, @"");
+    STAssertEqualsWithAccuracy(viewPoint.x, CPTFloat(50.0), CPTFloat(0.01), @"");
+    STAssertEqualsWithAccuracy(viewPoint.y, -CPTFloat(25.0), CPTFloat(0.01), @"");
 }
 
 #pragma mark -
@@ -183,7 +183,7 @@
                                                     length:CPTDecimalFromDouble(10.0)];
 
     NSDecimal plotPoint[2];
-    CGPoint viewPoint = CGPointMake(50.0, 25.0);
+    CGPoint viewPoint = CPTPointMake(50.0, 25.0);
     NSString *errMessage;
 
     [plotSpace plotPoint:plotPoint numberOfCoordinates:2 forPlotAreaViewPoint:viewPoint];
@@ -207,7 +207,7 @@
                                                     length:CPTDecimalFromDouble(10.0)];
 
     double plotPoint[2];
-    CGPoint viewPoint = CGPointMake(50.0, 25.0);
+    CGPoint viewPoint = CPTPointMake(50.0, 25.0);
     NSString *errMessage;
 
     [plotSpace doublePrecisionPlotPoint:plotPoint numberOfCoordinates:2 forPlotAreaViewPoint:viewPoint];
@@ -234,7 +234,7 @@
                                                     length:CPTDecimalFromDouble(9.0)];
 
     NSDecimal plotPoint[2];
-    CGPoint viewPoint = CGPointMake(50.0, 25.0);
+    CGPoint viewPoint = CPTPointMake(50.0, 25.0);
     NSString *errMessage;
 
     [plotSpace plotPoint:plotPoint numberOfCoordinates:2 forPlotAreaViewPoint:viewPoint];
@@ -258,7 +258,7 @@
                                                     length:CPTDecimalFromDouble(9.0)];
 
     double plotPoint[2];
-    CGPoint viewPoint = CGPointMake(50.0, 25.0);
+    CGPoint viewPoint = CPTPointMake(50.0, 25.0);
     NSString *errMessage;
 
     [plotSpace doublePrecisionPlotPoint:plotPoint numberOfCoordinates:2 forPlotAreaViewPoint:viewPoint];
