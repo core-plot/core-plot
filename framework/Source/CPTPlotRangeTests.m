@@ -30,61 +30,61 @@
 
 -(void)testContains
 {
-    STAssertFalse([self.plotRange contains:CPTDecimalFromDouble(0.999)], @"Test contains:0.999");
-    STAssertTrue([self.plotRange contains:CPTDecimalFromDouble(1.0)], @"Test contains:1.0");
-    STAssertTrue([self.plotRange contains:CPTDecimalFromDouble(2.0)], @"Test contains:2.0");
-    STAssertTrue([self.plotRange contains:CPTDecimalFromDouble(3.0)], @"Test contains:3.0");
-    STAssertFalse([self.plotRange contains:CPTDecimalFromDouble(3.001)], @"Test contains:3.001");
+    XCTAssertFalse([self.plotRange contains:CPTDecimalFromDouble(0.999)], @"Test contains:0.999");
+    XCTAssertTrue([self.plotRange contains:CPTDecimalFromDouble(1.0)], @"Test contains:1.0");
+    XCTAssertTrue([self.plotRange contains:CPTDecimalFromDouble(2.0)], @"Test contains:2.0");
+    XCTAssertTrue([self.plotRange contains:CPTDecimalFromDouble(3.0)], @"Test contains:3.0");
+    XCTAssertFalse([self.plotRange contains:CPTDecimalFromDouble(3.001)], @"Test contains:3.001");
 }
 
 -(void)testContainsNegative
 {
     self.plotRange.length = CPTDecimalFromDouble(-2.0);
 
-    STAssertFalse([self.plotRange contains:CPTDecimalFromDouble(-1.001)], @"Test contains:-1.001");
-    STAssertTrue([self.plotRange contains:CPTDecimalFromDouble(-1.0)], @"Test contains:-1.0");
-    STAssertTrue([self.plotRange contains:CPTDecimalFromDouble(0.0)], @"Test contains:0.0");
-    STAssertTrue([self.plotRange contains:CPTDecimalFromDouble(1.0)], @"Test contains:1.0");
-    STAssertFalse([self.plotRange contains:CPTDecimalFromDouble(1.001)], @"Test contains:1.001");
+    XCTAssertFalse([self.plotRange contains:CPTDecimalFromDouble(-1.001)], @"Test contains:-1.001");
+    XCTAssertTrue([self.plotRange contains:CPTDecimalFromDouble(-1.0)], @"Test contains:-1.0");
+    XCTAssertTrue([self.plotRange contains:CPTDecimalFromDouble(0.0)], @"Test contains:0.0");
+    XCTAssertTrue([self.plotRange contains:CPTDecimalFromDouble(1.0)], @"Test contains:1.0");
+    XCTAssertFalse([self.plotRange contains:CPTDecimalFromDouble(1.001)], @"Test contains:1.001");
 }
 
 -(void)testContainsDouble
 {
-    STAssertFalse([self.plotRange containsDouble:0.999], @"Test contains:0.999");
-    STAssertTrue([self.plotRange containsDouble:1.0], @"Test contains:1.0");
-    STAssertTrue([self.plotRange containsDouble:2.0], @"Test contains:2.0");
-    STAssertTrue([self.plotRange containsDouble:3.0], @"Test contains:3.0");
-    STAssertFalse([self.plotRange containsDouble:3.001], @"Test contains:3.001");
+    XCTAssertFalse([self.plotRange containsDouble:0.999], @"Test contains:0.999");
+    XCTAssertTrue([self.plotRange containsDouble:1.0], @"Test contains:1.0");
+    XCTAssertTrue([self.plotRange containsDouble:2.0], @"Test contains:2.0");
+    XCTAssertTrue([self.plotRange containsDouble:3.0], @"Test contains:3.0");
+    XCTAssertFalse([self.plotRange containsDouble:3.001], @"Test contains:3.001");
 }
 
 -(void)testContainsDoubleNegative
 {
     self.plotRange.length = CPTDecimalFromDouble(-2.0);
 
-    STAssertFalse([self.plotRange containsDouble:-1.001], @"Test contains:-1.001");
-    STAssertTrue([self.plotRange containsDouble:-1.0], @"Test contains:-1.0");
-    STAssertTrue([self.plotRange containsDouble:0.0], @"Test contains:0.0");
-    STAssertTrue([self.plotRange containsDouble:1.0], @"Test contains:1.0");
-    STAssertFalse([self.plotRange containsDouble:1.001], @"Test contains:1.001");
+    XCTAssertFalse([self.plotRange containsDouble:-1.001], @"Test contains:-1.001");
+    XCTAssertTrue([self.plotRange containsDouble:-1.0], @"Test contains:-1.0");
+    XCTAssertTrue([self.plotRange containsDouble:0.0], @"Test contains:0.0");
+    XCTAssertTrue([self.plotRange containsDouble:1.0], @"Test contains:1.0");
+    XCTAssertFalse([self.plotRange containsDouble:1.001], @"Test contains:1.001");
 }
 
 -(void)testContainsRange
 {
     CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(4.0)];
 
-    STAssertFalse([self.plotRange containsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+    XCTAssertFalse([self.plotRange containsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
 
     otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0) length:CPTDecimalFromDouble(2.0)];
-    STAssertTrue([self.plotRange containsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+    XCTAssertTrue([self.plotRange containsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
 
     otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(2.0) length:CPTDecimalFromDouble(1.0)];
-    STAssertTrue([self.plotRange containsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+    XCTAssertTrue([self.plotRange containsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
 
     otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(2.0) length:CPTDecimalFromDouble(4.0)];
-    STAssertFalse([self.plotRange containsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+    XCTAssertFalse([self.plotRange containsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
 
     otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(2.0)];
-    STAssertFalse([self.plotRange containsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+    XCTAssertFalse([self.plotRange containsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
 }
 
 #pragma mark -
@@ -141,17 +141,17 @@
 {
     CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(4.0)];
 
-    STAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+    XCTAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:1.0 length:2.0];
 
     otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0) length:CPTDecimalFromDouble(1.0)];
-    STAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+    XCTAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:1.0 length:1.0];
 
     otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.0) length:CPTDecimalFromDouble(1.0)];
-    STAssertFalse([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+    XCTAssertFalse([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:1.0 length:0.0];
 }
@@ -160,17 +160,17 @@
 {
     CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(4.0) length:CPTDecimalFromDouble(-4.0)];
 
-    STAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+    XCTAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:1.0 length:2.0];
 
     otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(2.0) length:CPTDecimalFromDouble(-1.0)];
-    STAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+    XCTAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:1.0 length:1.0];
 
     otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(-4.0)];
-    STAssertFalse([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+    XCTAssertFalse([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:1.0 length:0.0];
 }
@@ -180,17 +180,17 @@
     self.plotRange.length = CPTDecimalFromDouble(-2.0);
 
     CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(4.0)];
-    STAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+    XCTAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:1.0 length:-1.0];
 
     otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(1.0)];
-    STAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+    XCTAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:1.0 length:-1.0];
 
     otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.0) length:CPTDecimalFromDouble(2.0)];
-    STAssertFalse([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+    XCTAssertFalse([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:1.0 length:0.0];
 }
@@ -200,17 +200,17 @@
     self.plotRange.length = CPTDecimalFromDouble(-2.0);
 
     CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(-4.0)];
-    STAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+    XCTAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:0.0 length:-1.0];
 
     otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(2.0) length:CPTDecimalFromDouble(-4.0)];
-    STAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+    XCTAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:0.0 length:-1.0];
 
     otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.0) length:CPTDecimalFromDouble(-4.0)];
-    STAssertFalse([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
+    XCTAssertFalse([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:0.0 length:0.0];
 }
@@ -356,42 +356,42 @@
 
 -(void)testCompareToDecimal
 {
-    STAssertEquals([self.plotRange compareToDecimal:CPTDecimalFromDouble(0.999)], CPTPlotRangeComparisonResultNumberBelowRange, @"Test compareTo:0.999");
-    STAssertEquals([self.plotRange compareToDecimal:CPTDecimalFromDouble(1.0)], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:1.0");
-    STAssertEquals([self.plotRange compareToDecimal:CPTDecimalFromDouble(2.0)], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:2.0");
-    STAssertEquals([self.plotRange compareToDecimal:CPTDecimalFromDouble(3.0)], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:3.0");
-    STAssertEquals([self.plotRange compareToDecimal:CPTDecimalFromDouble(3.001)], CPTPlotRangeComparisonResultNumberAboveRange, @"Test compareTo:3.001");
+    XCTAssertEqual([self.plotRange compareToDecimal:CPTDecimalFromDouble(0.999)], CPTPlotRangeComparisonResultNumberBelowRange, @"Test compareTo:0.999");
+    XCTAssertEqual([self.plotRange compareToDecimal:CPTDecimalFromDouble(1.0)], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:1.0");
+    XCTAssertEqual([self.plotRange compareToDecimal:CPTDecimalFromDouble(2.0)], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:2.0");
+    XCTAssertEqual([self.plotRange compareToDecimal:CPTDecimalFromDouble(3.0)], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:3.0");
+    XCTAssertEqual([self.plotRange compareToDecimal:CPTDecimalFromDouble(3.001)], CPTPlotRangeComparisonResultNumberAboveRange, @"Test compareTo:3.001");
 }
 
 -(void)testCompareToDecimalNegative
 {
     self.plotRange.length = CPTDecimalFromDouble(-2.0);
 
-    STAssertEquals([self.plotRange compareToDecimal:CPTDecimalFromDouble(-1.001)], CPTPlotRangeComparisonResultNumberBelowRange, @"Test compareTo:-1.001");
-    STAssertEquals([self.plotRange compareToDecimal:CPTDecimalFromDouble(-1.0)], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:-1.0");
-    STAssertEquals([self.plotRange compareToDecimal:CPTDecimalFromDouble(0.0)], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:0.0");
-    STAssertEquals([self.plotRange compareToDecimal:CPTDecimalFromDouble(1.0)], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:1.0");
-    STAssertEquals([self.plotRange compareToDecimal:CPTDecimalFromDouble(1.001)], CPTPlotRangeComparisonResultNumberAboveRange, @"Test compareTo:1.001");
+    XCTAssertEqual([self.plotRange compareToDecimal:CPTDecimalFromDouble(-1.001)], CPTPlotRangeComparisonResultNumberBelowRange, @"Test compareTo:-1.001");
+    XCTAssertEqual([self.plotRange compareToDecimal:CPTDecimalFromDouble(-1.0)], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:-1.0");
+    XCTAssertEqual([self.plotRange compareToDecimal:CPTDecimalFromDouble(0.0)], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:0.0");
+    XCTAssertEqual([self.plotRange compareToDecimal:CPTDecimalFromDouble(1.0)], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:1.0");
+    XCTAssertEqual([self.plotRange compareToDecimal:CPTDecimalFromDouble(1.001)], CPTPlotRangeComparisonResultNumberAboveRange, @"Test compareTo:1.001");
 }
 
 -(void)testCompareToDouble
 {
-    STAssertEquals([self.plotRange compareToDouble:0.999], CPTPlotRangeComparisonResultNumberBelowRange, @"Test compareTo:0.999");
-    STAssertEquals([self.plotRange compareToDouble:1.0], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:1.0");
-    STAssertEquals([self.plotRange compareToDouble:2.0], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:2.0");
-    STAssertEquals([self.plotRange compareToDouble:3.0], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:3.0");
-    STAssertEquals([self.plotRange compareToDouble:3.001], CPTPlotRangeComparisonResultNumberAboveRange, @"Test compareTo:3.001");
+    XCTAssertEqual([self.plotRange compareToDouble:0.999], CPTPlotRangeComparisonResultNumberBelowRange, @"Test compareTo:0.999");
+    XCTAssertEqual([self.plotRange compareToDouble:1.0], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:1.0");
+    XCTAssertEqual([self.plotRange compareToDouble:2.0], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:2.0");
+    XCTAssertEqual([self.plotRange compareToDouble:3.0], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:3.0");
+    XCTAssertEqual([self.plotRange compareToDouble:3.001], CPTPlotRangeComparisonResultNumberAboveRange, @"Test compareTo:3.001");
 }
 
 -(void)testCompareToDoubleNegative
 {
     self.plotRange.length = CPTDecimalFromDouble(-2.0);
 
-    STAssertEquals([self.plotRange compareToDouble:-1.001], CPTPlotRangeComparisonResultNumberBelowRange, @"Test compareTo:-1.001");
-    STAssertEquals([self.plotRange compareToDouble:-1.0], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:-1.0");
-    STAssertEquals([self.plotRange compareToDouble:0.0], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:0.0");
-    STAssertEquals([self.plotRange compareToDouble:1.0], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:1.0");
-    STAssertEquals([self.plotRange compareToDouble:1.001], CPTPlotRangeComparisonResultNumberAboveRange, @"Test compareTo:1.001");
+    XCTAssertEqual([self.plotRange compareToDouble:-1.001], CPTPlotRangeComparisonResultNumberBelowRange, @"Test compareTo:-1.001");
+    XCTAssertEqual([self.plotRange compareToDouble:-1.0], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:-1.0");
+    XCTAssertEqual([self.plotRange compareToDouble:0.0], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:0.0");
+    XCTAssertEqual([self.plotRange compareToDouble:1.0], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:1.0");
+    XCTAssertEqual([self.plotRange compareToDouble:1.001], CPTPlotRangeComparisonResultNumberAboveRange, @"Test compareTo:1.001");
 }
 
 #pragma mark -
@@ -401,7 +401,7 @@
 {
     CPTPlotRange *newRange = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:self.plotRange]];
 
-    STAssertTrue([self.plotRange isEqualToRange:newRange], @"Ranges equal");
+    XCTAssertTrue([self.plotRange isEqualToRange:newRange], @"Ranges equal");
 }
 
 #pragma mark -
@@ -409,11 +409,16 @@
 
 -(void)checkRangeWithLocation:(double)loc length:(double)len
 {
+    NSString *errMessage;
+
     NSDecimal newLocation = self.plotRange.location;
 
-    STAssertTrue(CPTDecimalEquals( newLocation, CPTDecimalFromDouble(loc) ), [NSString stringWithFormat:@"expected location = %g, was %@", loc, NSDecimalString(&newLocation, nil)]);
+    errMessage = [NSString stringWithFormat:@"expected location = %g, was %@", loc, NSDecimalString(&newLocation, nil)];
+    XCTAssertTrue(CPTDecimalEquals( newLocation, CPTDecimalFromDouble(loc) ), @"%@", errMessage);
+
     NSDecimal newLength = self.plotRange.length;
-    STAssertTrue(CPTDecimalEquals( newLength, CPTDecimalFromDouble(len) ), [NSString stringWithFormat:@"expected length = %g, was %@", len, NSDecimalString(&newLength, nil)]);
+    errMessage = [NSString stringWithFormat:@"expected location = %g, was %@", loc, NSDecimalString(&newLength, nil)];
+    XCTAssertTrue(CPTDecimalEquals( newLength, CPTDecimalFromDouble(len) ), @"%@", errMessage);
 }
 
 @end

@@ -27,7 +27,7 @@ static const double precision           = 1.0e-6;
 
     const double *doubleSamples = (const double *)[dd.data bytes];
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        STAssertEqualsWithAccuracy( (double)samples[i], doubleSamples[i], precision, @"(float)%g != (double)%g", samples[i], doubleSamples[i] );
+        XCTAssertEqualWithAccuracy( (double)samples[i], doubleSamples[i], precision, @"(float)%g != (double)%g", samples[i], doubleSamples[i] );
     }
 }
 
@@ -50,7 +50,7 @@ static const double precision           = 1.0e-6;
 
     const float *floatSamples = (const float *)[fd.data bytes];
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        STAssertEqualsWithAccuracy( (double)floatSamples[i], samples[i], precision, @"(float)%g != (double)%g", floatSamples[i], samples[i] );
+        XCTAssertEqualWithAccuracy( (double)floatSamples[i], samples[i], precision, @"(float)%g != (double)%g", floatSamples[i], samples[i] );
     }
 }
 
@@ -73,7 +73,7 @@ static const double precision           = 1.0e-6;
 
     const NSInteger *intSamples = (const NSInteger *)[intData.data bytes];
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        STAssertEqualsWithAccuracy( (NSInteger)samples[i], intSamples[i], precision, @"(float)%g != (NSInteger)%ld", samples[i], (long)intSamples[i] );
+        XCTAssertEqualWithAccuracy( (NSInteger)samples[i], intSamples[i], precision, @"(float)%g != (NSInteger)%ld", samples[i], (long)intSamples[i] );
     }
 }
 
@@ -96,7 +96,7 @@ static const double precision           = 1.0e-6;
 
     const float *floatSamples = (const float *)[fd.data bytes];
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        STAssertEqualsWithAccuracy(floatSamples[i], (float)samples[i], precision, @"(float)%g != (NSInteger)%ld", floatSamples[i], (long)samples[i]);
+        XCTAssertEqualWithAccuracy(floatSamples[i], (float)samples[i], precision, @"(float)%g != (NSInteger)%ld", floatSamples[i], (long)samples[i]);
     }
 }
 
@@ -120,14 +120,14 @@ static const double precision           = 1.0e-6;
 
     uint32_t end = *(const uint32_t *)swappedData.bytes;
 
-    STAssertEquals(CFSwapInt32(start), end, @"Bytes swapped");
+    XCTAssertEqual(CFSwapInt32(start), end, @"Bytes swapped");
 
     CPTNumericData *roundTripData = [swappedData dataByConvertingToType:CPTUnsignedIntegerDataType
                                                             sampleBytes:sizeof(uint32_t)
                                                               byteOrder:hostByteOrder];
 
     uint32_t startRoundTrip = *(const uint32_t *)roundTripData.bytes;
-    STAssertEquals(start, startRoundTrip, @"Round trip");
+    XCTAssertEqual(start, startRoundTrip, @"Round trip");
 }
 
 -(void)testDecimalToDoubleConversion
@@ -149,7 +149,7 @@ static const double precision           = 1.0e-6;
 
     const double *doubleSamples = (const double *)[doubleData.data bytes];
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        STAssertEquals(CPTDecimalDoubleValue(samples[i]), doubleSamples[i], @"(NSDecimal)%@ != (double)%g", CPTDecimalStringValue(samples[i]), doubleSamples[i]);
+        XCTAssertEqual(CPTDecimalDoubleValue(samples[i]), doubleSamples[i], @"(NSDecimal)%@ != (double)%g", CPTDecimalStringValue(samples[i]), doubleSamples[i]);
     }
 }
 
@@ -172,7 +172,7 @@ static const double precision           = 1.0e-6;
 
     const NSDecimal *decimalSamples = (const NSDecimal *)[decimalData.data bytes];
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        STAssertTrue(CPTDecimalEquals( decimalSamples[i], CPTDecimalFromDouble(samples[i]) ), @"(NSDecimal)%@ != (double)%g", CPTDecimalStringValue(decimalSamples[i]), samples[i]);
+        XCTAssertTrue(CPTDecimalEquals( decimalSamples[i], CPTDecimalFromDouble(samples[i]) ), @"(NSDecimal)%@ != (double)%g", CPTDecimalStringValue(decimalSamples[i]), samples[i]);
     }
 }
 
@@ -202,14 +202,14 @@ static const double precision           = 1.0e-6;
     result;
 
     result.v = start;
-    STAssertEquals(CFSwapInt64(result.sv.v), end, @"Bytes swapped");
+    XCTAssertEqual(CFSwapInt64(result.sv.v), end, @"Bytes swapped");
 
     CPTNumericData *roundTripData = [swappedData dataByConvertingToType:CPTFloatingPointDataType
                                                             sampleBytes:sizeof(double)
                                                               byteOrder:hostByteOrder];
 
     double startRoundTrip = *(const double *)roundTripData.bytes;
-    STAssertEquals(start, startRoundTrip, @"Round trip");
+    XCTAssertEqual(start, startRoundTrip, @"Round trip");
 }
 
 -(void)testRoundTripToDoubleArray
@@ -227,16 +227,16 @@ static const double precision           = 1.0e-6;
                                                                 shape:nil];
 
     NSArray *doubleArray = [doubleData sampleArray];
-    STAssertEquals(doubleArray.count, numberOfSamples, @"doubleArray size");
+    XCTAssertEqual(doubleArray.count, numberOfSamples, @"doubleArray size");
 
     CPTNumericData *roundTripData = [[CPTNumericData alloc] initWithArray:doubleArray
                                                                  dataType:theDataType
                                                                     shape:nil];
-    STAssertEquals(roundTripData.numberOfSamples, numberOfSamples, @"roundTripData size");
+    XCTAssertEqual(roundTripData.numberOfSamples, numberOfSamples, @"roundTripData size");
 
     const double *roundTrip = (const double *)roundTripData.bytes;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        STAssertEquals(samples[i], roundTrip[i], @"Round trip");
+        XCTAssertEqual(samples[i], roundTrip[i], @"Round trip");
     }
 }
 
@@ -255,16 +255,16 @@ static const double precision           = 1.0e-6;
                                                              shape:nil];
 
     NSArray *integerArray = [intData sampleArray];
-    STAssertEquals(integerArray.count, numberOfSamples, @"integerArray size");
+    XCTAssertEqual(integerArray.count, numberOfSamples, @"integerArray size");
 
     CPTNumericData *roundTripData = [[CPTNumericData alloc] initWithArray:integerArray
                                                                  dataType:theDataType
                                                                     shape:nil];
-    STAssertEquals(roundTripData.numberOfSamples, numberOfSamples, @"roundTripData size");
+    XCTAssertEqual(roundTripData.numberOfSamples, numberOfSamples, @"roundTripData size");
 
     const NSInteger *roundTrip = (const NSInteger *)roundTripData.bytes;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        STAssertEquals(samples[i], roundTrip[i], @"Round trip");
+        XCTAssertEqual(samples[i], roundTrip[i], @"Round trip");
     }
 }
 
@@ -283,16 +283,16 @@ static const double precision           = 1.0e-6;
                                                                  shape:nil];
 
     NSArray *decimalArray = [decimalData sampleArray];
-    STAssertEquals(decimalArray.count, numberOfSamples, @"doubleArray size");
+    XCTAssertEqual(decimalArray.count, numberOfSamples, @"doubleArray size");
 
     CPTNumericData *roundTripData = [[CPTNumericData alloc] initWithArray:decimalArray
                                                                  dataType:theDataType
                                                                     shape:nil];
-    STAssertEquals(roundTripData.numberOfSamples, numberOfSamples, @"roundTripData size");
+    XCTAssertEqual(roundTripData.numberOfSamples, numberOfSamples, @"roundTripData size");
 
     const NSDecimal *roundTrip = (const NSDecimal *)roundTripData.bytes;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        STAssertTrue(CPTDecimalEquals(samples[i], roundTrip[i]), @"Round trip");
+        XCTAssertTrue(CPTDecimalEquals(samples[i], roundTrip[i]), @"Round trip");
     }
 }
 

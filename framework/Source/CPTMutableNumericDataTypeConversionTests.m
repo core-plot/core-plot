@@ -25,7 +25,7 @@ static const double precision           = 1.0e-6;
 
     const double *doubleSamples = (const double *)[numericData.data bytes];
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        STAssertEqualsWithAccuracy( (double)samples[i], doubleSamples[i], precision, @"(float)%g != (double)%g", samples[i], doubleSamples[i] );
+        XCTAssertEqualWithAccuracy( (double)samples[i], doubleSamples[i], precision, @"(float)%g != (double)%g", samples[i], doubleSamples[i] );
     }
 }
 
@@ -46,7 +46,7 @@ static const double precision           = 1.0e-6;
 
     const float *floatSamples = (const float *)[numericData.data bytes];
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        STAssertEqualsWithAccuracy( (double)floatSamples[i], samples[i], precision, @"(float)%g != (double)%g", floatSamples[i], samples[i] );
+        XCTAssertEqualWithAccuracy( (double)floatSamples[i], samples[i], precision, @"(float)%g != (double)%g", floatSamples[i], samples[i] );
     }
 }
 
@@ -67,7 +67,7 @@ static const double precision           = 1.0e-6;
 
     const NSInteger *intSamples = (const NSInteger *)[numericData.data bytes];
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        STAssertEqualsWithAccuracy( (NSInteger)samples[i], intSamples[i], precision, @"(float)%g != (NSInteger)%ld", samples[i], (long)intSamples[i] );
+        XCTAssertEqualWithAccuracy( (NSInteger)samples[i], intSamples[i], precision, @"(float)%g != (NSInteger)%ld", samples[i], (long)intSamples[i] );
     }
 }
 
@@ -88,7 +88,7 @@ static const double precision           = 1.0e-6;
 
     const float *floatSamples = (const float *)[numericData.data bytes];
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        STAssertEqualsWithAccuracy(floatSamples[i], (float)samples[i], precision, @"(float)%g != (NSInteger)%ld", floatSamples[i], (long)samples[i]);
+        XCTAssertEqualWithAccuracy(floatSamples[i], (float)samples[i], precision, @"(float)%g != (NSInteger)%ld", floatSamples[i], (long)samples[i]);
     }
 }
 
@@ -109,7 +109,7 @@ static const double precision           = 1.0e-6;
 
     const double *doubleSamples = (const double *)[numericData.data bytes];
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        STAssertEquals(CPTDecimalDoubleValue(samples[i]), doubleSamples[i], @"(NSDecimal)%@ != (double)%g", CPTDecimalStringValue(samples[i]), doubleSamples[i]);
+        XCTAssertEqual(CPTDecimalDoubleValue(samples[i]), doubleSamples[i], @"(NSDecimal)%@ != (double)%g", CPTDecimalStringValue(samples[i]), doubleSamples[i]);
     }
 }
 
@@ -130,7 +130,7 @@ static const double precision           = 1.0e-6;
 
     const NSDecimal *decimalSamples = (const NSDecimal *)[numericData.data bytes];
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        STAssertTrue(CPTDecimalEquals( decimalSamples[i], CPTDecimalFromDouble(samples[i]) ), @"(NSDecimal)%@ != (double)%g", CPTDecimalStringValue(decimalSamples[i]), samples[i]);
+        XCTAssertTrue(CPTDecimalEquals( decimalSamples[i], CPTDecimalFromDouble(samples[i]) ), @"(NSDecimal)%@ != (double)%g", CPTDecimalStringValue(decimalSamples[i]), samples[i]);
     }
 }
 
@@ -151,12 +151,12 @@ static const double precision           = 1.0e-6;
     numericData.byteOrder = swappedByteOrder;
 
     uint32_t end = *(const uint32_t *)numericData.bytes;
-    STAssertEquals(CFSwapInt32(start), end, @"Bytes swapped");
+    XCTAssertEqual(CFSwapInt32(start), end, @"Bytes swapped");
 
     numericData.byteOrder = hostByteOrder;
 
     uint32_t startRoundTrip = *(const uint32_t *)numericData.bytes;
-    STAssertEquals(start, startRoundTrip, @"Round trip");
+    XCTAssertEqual(start, startRoundTrip, @"Round trip");
 }
 
 -(void)testTypeConversionSwapsByteOrderDoubleInPlace
@@ -182,12 +182,12 @@ static const double precision           = 1.0e-6;
     }
     result;
     result.v = start;
-    STAssertEquals(CFSwapInt64(result.sv.v), end, @"Bytes swapped");
+    XCTAssertEqual(CFSwapInt64(result.sv.v), end, @"Bytes swapped");
 
     numericData.byteOrder = hostByteOrder;
 
     double startRoundTrip = *(const double *)numericData.bytes;
-    STAssertEquals(start, startRoundTrip, @"Round trip");
+    XCTAssertEqual(start, startRoundTrip, @"Round trip");
 }
 
 @end

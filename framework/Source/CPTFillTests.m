@@ -42,7 +42,7 @@
 
     _CPTFillColor *newFill = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:fill]];
 
-    STAssertEqualObjects(fill.fillColor, newFill.fillColor, @"Fill with color not equal");
+    XCTAssertEqualObjects(fill.fillColor, newFill.fillColor, @"Fill with color not equal");
 }
 
 -(void)testKeyedArchivingRoundTripGradient
@@ -51,7 +51,7 @@
 
     _CPTFillGradient *newFill = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:fill]];
 
-    STAssertEqualObjects(fill.fillGradient, newFill.fillGradient, @"Fill with gradient not equal");
+    XCTAssertEqualObjects(fill.fillGradient, newFill.fillGradient, @"Fill with gradient not equal");
 }
 
 -(void)testKeyedArchivingRoundTripImage
@@ -76,7 +76,7 @@
 
     _CPTFillImage *newFill = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:fill]];
 
-    STAssertEqualObjects(fill.fillImage, newFill.fillImage, @"Fill with image not equal");
+    XCTAssertEqualObjects(fill.fillImage, newFill.fillImage, @"Fill with image not equal");
 }
 
 @end

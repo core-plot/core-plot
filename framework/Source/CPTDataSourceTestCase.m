@@ -27,7 +27,7 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
 -(void)setUp
 {
     //check CPTDataSource conformance
-    STAssertTrue([self conformsToProtocol:@protocol(CPTPlotDataSource)], @"CPTDataSourceTestCase should conform to <CPTPlotDataSource>");
+    XCTAssertTrue([self conformsToProtocol:@protocol(CPTPlotDataSource)], @"CPTDataSourceTestCase should conform to <CPTPlotDataSource>");
 }
 
 -(void)tearDown
@@ -114,7 +114,7 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
         case CPTScatterPlotFieldY:
             result = [[self yData] objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:indexRange]];
             if ( self.plots.count > 1 ) {
-                STAssertTrue([[self plots] containsObject:plot], @"Plot missing");
+                XCTAssertTrue([[self plots] containsObject:plot], @"Plot missing");
                 NSMutableArray *shiftedResult = [NSMutableArray arrayWithCapacity:result.count];
                 for ( NSDecimalNumber *d in result ) {
                     [shiftedResult addObject:[d decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromDouble( CPTDataSourceTestCasePlotOffset * ([[self plots] indexOfObject:plot] + 1) )]]];

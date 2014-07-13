@@ -12,7 +12,7 @@
 
     CPTColor *newColor = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:color]];
 
-    STAssertEqualObjects(color, newColor, @"Colors not equal");
+    XCTAssertEqualObjects(color, newColor, @"Colors not equal");
 }
 
 @end

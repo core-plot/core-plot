@@ -33,8 +33,8 @@
 
     CPTPlotSpace *newPlotSpace = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:plotSpace]];
 
-    STAssertEqualObjects(plotSpace.identifier, newPlotSpace.identifier, @"identifier not equal");
-    STAssertEquals(plotSpace.allowsUserInteraction, newPlotSpace.allowsUserInteraction, @"allowsUserInteraction not equal");
+    XCTAssertEqualObjects(plotSpace.identifier, newPlotSpace.identifier, @"identifier not equal");
+    XCTAssertEqual(plotSpace.allowsUserInteraction, newPlotSpace.allowsUserInteraction, @"allowsUserInteraction not equal");
 }
 
 @end

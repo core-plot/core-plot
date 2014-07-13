@@ -26,7 +26,7 @@
 
     CPTImage *newImage = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:image]];
 
-    STAssertEqualObjects(image, newImage, @"Images not equal");
+    XCTAssertEqualObjects(image, newImage, @"Images not equal");
 }
 
 @end
