@@ -311,6 +311,22 @@
     return (number >= self.minLimitDouble) && (number <= self.maxLimitDouble);
 }
 
+/** @brief Determines whether a given number is inside the range.
+ *  @param number The number to check.
+ *  @return @YES if @ref location ≤ @par{number} ≤ @ref end.
+ **/
+-(BOOL)containsNumber:(NSNumber *)number
+{
+    if ( [number isKindOfClass:[NSDecimalNumber class]] ) {
+        NSDecimal numericValue = number.decimalValue;
+        return CPTDecimalGreaterThanOrEqualTo(numericValue, self.minLimit) && CPTDecimalLessThanOrEqualTo(numericValue, self.maxLimit);
+    }
+    else {
+        double numericValue = number.doubleValue;
+        return (numericValue >= self.minLimitDouble) && (numericValue <= self.maxLimitDouble);
+    }
+}
+
 /** @brief Determines whether a given range is equal to the range of the receiver.
  *  @param otherRange The range to check.
  *  @return @YES if the ranges both have the same location and length.

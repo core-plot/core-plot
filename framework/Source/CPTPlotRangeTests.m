@@ -57,6 +57,15 @@
     XCTAssertFalse([self.plotRange containsDouble:3.001], @"Test contains:3.001");
 }
 
+-(void)testContainsNumber
+{
+    XCTAssertFalse([self.plotRange containsNumber:@(0.999)], @"Test contains:0.999");
+    XCTAssertTrue([self.plotRange containsNumber:[NSDecimalNumber one]], @"Test contains:1.0");
+    XCTAssertTrue([self.plotRange containsNumber:@(2.0)], @"Test contains:2.0");
+    XCTAssertTrue([self.plotRange containsNumber:@(3.0)], @"Test contains:3.0");
+    XCTAssertFalse([self.plotRange containsNumber:@(3.001)], @"Test contains:3.001");
+}
+
 -(void)testContainsDoubleNegative
 {
     self.plotRange.length = CPTDecimalFromDouble(-2.0);

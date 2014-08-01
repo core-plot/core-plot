@@ -44,6 +44,7 @@ typedef NS_ENUM (NSInteger, CPTPlotRangeComparisonResult) {
 /// @{
 -(BOOL)contains:(NSDecimal)number;
 -(BOOL)containsDouble:(double)number;
+-(BOOL)containsNumber:(NSNumber *)number;
 -(BOOL)isEqualToRange:(CPTPlotRange *)otherRange;
 -(BOOL)containsRange:(CPTPlotRange *)otherRange;
 -(BOOL)intersectsRange:(CPTPlotRange *)otherRange;

@@ -1320,8 +1320,8 @@ NSDecimal niceLength(NSDecimal length)
     if ( exclusionRanges ) {
         NSMutableSet *filteredLocations = [allLocations mutableCopy];
         for ( CPTPlotRange *range in exclusionRanges ) {
-            for ( NSDecimalNumber *location in allLocations ) {
-                if ( [range contains:[location decimalValue]] ) {
+            for ( NSNumber *location in allLocations ) {
+                if ( [range containsNumber:location] ) {
                     [filteredLocations removeObject:location];
                 }
             }
