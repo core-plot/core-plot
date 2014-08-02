@@ -1,3 +1,4 @@
+#import <Accelerate/Accelerate.h>
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
