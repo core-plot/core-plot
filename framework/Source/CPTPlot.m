@@ -16,6 +16,7 @@
 #import "CPTTextLayer.h"
 #import "CPTUtilities.h"
 #import "NSCoderExtensions.h"
+#import <Accelerate/Accelerate.h>
 #import <tgmath.h>
 
 /** @defgroup plotAnimation Plots
