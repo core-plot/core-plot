@@ -1,4 +1,3 @@
-#import <Accelerate/Accelerate.h>
 #import <Cocoa/Cocoa.h>
 
 #import <CorePlot/CPTAnimation.h>
