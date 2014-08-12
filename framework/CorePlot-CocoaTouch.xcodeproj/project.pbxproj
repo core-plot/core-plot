@@ -347,6 +347,7 @@
 		C30E97A014B290650012204A /* DoxygenLayout.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = DoxygenLayout.xml; path = ../documentation/doxygen/DoxygenLayout.xml; sourceTree = "<group>"; };
 		C318F4BF11EA18A400595FF9 /* CPTLimitBand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTLimitBand.h; path = Source/CPTLimitBand.h; sourceTree = "<group>"; };
 		C318F4C011EA18A400595FF9 /* CPTLimitBand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTLimitBand.m; path = Source/CPTLimitBand.m; sourceTree = "<group>"; };
+		C31908A3199813D400B61898 /* CorePlot.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = CorePlot.xcconfig; sourceTree = "<group>"; };
 		C31A40BD17ABD6C60020C5C6 /* CPTFunctionDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTFunctionDataSource.h; path = Source/CPTFunctionDataSource.h; sourceTree = "<group>"; };
 		C31A40BE17ABD6C60020C5C6 /* CPTFunctionDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTFunctionDataSource.m; path = Source/CPTFunctionDataSource.m; sourceTree = "<group>"; };
 		C3286C0515D8769800A436A8 /* _CPTMaskLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _CPTMaskLayer.h; path = Source/_CPTMaskLayer.h; sourceTree = "<group>"; };
@@ -622,6 +623,7 @@
 				BC9B83C20FB8AC4B0035D8DA /* CorePlot-CocoaTouch.h */,
 				C3D9825016BD406600DE7977 /* CorePlot_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main-cocoatouch.m */,
+				C31908A3199813D400B61898 /* CorePlot.xcconfig */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -1210,9 +1212,9 @@
 		};
 		BC9B83480FB8A0A50035D8DA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C31908A3199813D400B61898 /* CorePlot.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_SYMBOL_SEPARATION = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1222,15 +1224,14 @@
 				OTHER_CPTLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "CorePlot-CocoaTouch";
 				PUBLIC_HEADERS_FOLDER_PATH = "include/$(PROJECT_NAME)";
-				SYMROOT = "$(PROJECT_DIR)/../build";
 			};
 			name = Debug;
 		};
 		BC9B83490FB8A0A50035D8DA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C31908A3199813D400B61898 /* CorePlot.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ENABLE_OBJC_ARC = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_SYMBOL_SEPARATION = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1239,7 +1240,6 @@
 				OTHER_CPTLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "CorePlot-CocoaTouch";
 				PUBLIC_HEADERS_FOLDER_PATH = "include/$(PROJECT_NAME)";
-				SYMROOT = "$(PROJECT_DIR)/../build";
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -1247,61 +1247,14 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
-				CLANG_WARN_OBJC_EXPLICIT_OWNERSHIP_TYPE = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
-				CLANG_WARN_OBJC_RECEIVER_WEAK = YES;
-				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
-				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
-				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
-				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
-				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
-				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
-				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
-				GCC_WARN_SHADOW = YES;
-				GCC_WARN_SIGN_COMPARE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = NO;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_LABEL = YES;
-				GCC_WARN_UNUSED_VALUE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				MACH_O_TYPE = staticlib;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = (
-					"-Weverything",
-					"-Wno-unused-parameter",
-					"-Wno-undef",
-					"-Wno-switch-enum",
-					"-Wno-float-equal",
-					"-Wno-padded",
-					"-Wno-dollar-in-identifier-extension",
-					"-Wno-custom-atomic-properties",
-					"-Wno-gnu",
-					"-Wno-assign-enum",
-					"-Wno-pedantic",
-					"-Wno-documentation",
-				);
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
-				SEPARATE_STRIP = YES;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
-				STRIP_STYLE = debugging;
-				SYMROOT = "$(PROJECT_DIR)/../build";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1309,61 +1262,14 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
-				CLANG_WARN_OBJC_EXPLICIT_OWNERSHIP_TYPE = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
-				CLANG_WARN_OBJC_RECEIVER_WEAK = YES;
-				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
-				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
-				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
-				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
-				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
-				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
-				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
-				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
-				GCC_WARN_SHADOW = YES;
-				GCC_WARN_SIGN_COMPARE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = NO;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_LABEL = YES;
-				GCC_WARN_UNUSED_VALUE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				MACH_O_TYPE = staticlib;
-				OTHER_CFLAGS = (
-					"-Weverything",
-					"-Wno-unused-parameter",
-					"-Wno-undef",
-					"-Wno-switch-enum",
-					"-Wno-float-equal",
-					"-Wno-padded",
-					"-Wno-dollar-in-identifier-extension",
-					"-Wno-custom-atomic-properties",
-					"-Wno-gnu",
-					"-Wno-assign-enum",
-					"-Wno-pedantic",
-					"-Wno-documentation",
-				);
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
-				SEPARATE_STRIP = YES;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
-				STRIP_STYLE = debugging;
-				SYMROOT = "$(PROJECT_DIR)/../build";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
