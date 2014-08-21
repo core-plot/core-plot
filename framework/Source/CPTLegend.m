@@ -530,7 +530,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     CGFloat *actualRowHeights   = malloc(sizeof(CGFloat) * rowCount);
     CGFloat *rowPositions       = malloc(sizeof(CGFloat) * rowCount);
     rowPositions[rowCount - 1] = self.paddingBottom;
-    CGFloat theRowMargin = self.rowMargin;
+    CGFloat theRowMargin  = self.rowMargin;
+    CGFloat lastRowHeight = 0.0;
 
     for ( NSUInteger rw = 0; rw < rowCount; rw++ ) {
         NSUInteger row      = rowCount - rw - 1;
@@ -538,8 +539,9 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
         CGFloat height      = [rowHeight cgFloatValue];
         actualRowHeights[row] = height;
         if ( row < rowCount - 1 ) {
-            rowPositions[row] = rowPositions[row + 1] + padBottom + height + padTop + theRowMargin;
+            rowPositions[row] = rowPositions[row + 1] + padBottom + lastRowHeight + padTop + theRowMargin;
         }
+        lastRowHeight = height;
     }
 
     // draw legend entries
