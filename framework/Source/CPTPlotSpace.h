@@ -181,6 +181,13 @@ extern NSString *const CPTPlotSpaceDisplacementKey;
 
 #pragma mark -
 
+struct LayerSize {
+    CGSize asFloat;
+    NSDecimal width;
+    NSDecimal height;
+};
+typedef struct LayerSize LayerSize;
+
 /** @category CPTPlotSpace(AbstractMethods)
  *  @brief CPTPlotSpace abstract methods—must be overridden by subclasses
  **/
@@ -189,6 +196,7 @@ extern NSString *const CPTPlotSpaceDisplacementKey;
 /// @name Coordinate Space Conversions
 /// @{
 -(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint numberOfCoordinates:(NSUInteger)count;
+-(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint numberOfCoordinates:(NSUInteger)count forLayerSize:(const LayerSize *)layerSize;
 -(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint numberOfCoordinates:(NSUInteger)count;
 
 -(void)plotPoint:(NSDecimal *)plotPoint numberOfCoordinates:(NSUInteger)count forPlotAreaViewPoint:(CGPoint)point;

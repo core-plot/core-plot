@@ -484,6 +484,13 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
     return CGPointZero;
 }
 
+-(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint numberOfCoordinates:(NSUInteger)count forLayerSize:(const LayerSize *)layerSize
+{
+    NSParameterAssert(count == self.numberOfCoordinates);
+
+    return CGPointZero;
+}
+
 /** @brief Converts a data point to plot area drawing coordinates.
  *  @param plotPoint A c-style array of data point coordinates (as @double values).
  *  @param count The number of coordinate values in the @par{plotPoint} array.
