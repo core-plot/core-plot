@@ -402,12 +402,17 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
     CPTLineStyle *lineStyle = self.dataLineStyle;
 
-    if ( self.areaFill || self.areaFill2 || lineStyle.dashPattern || lineStyle.lineFill || (self.interpolation == CPTScatterPlotInterpolationCurved) ) {
+    /*
+     MB: for performance improvement
+     */
+    // if ( self.areaFill || self.areaFill2 || lineStyle.dashPattern || lineStyle.lineFill || (self.interpolation == CPTScatterPlotInterpolationCurved) ) {
+    if ( self.areaFill || self.areaFill2 || lineStyle.dashPattern || lineStyle.lineFill ) {
         // show all points to preserve the line dash and area fills
         for ( NSUInteger i = 0; i < dataCount; i++ ) {
             pointDrawFlags[i] = YES;
         }
     }
+
     else {
         CPTPlotRangeComparisonResult *xRangeFlags = malloc( dataCount * sizeof(CPTPlotRangeComparisonResult) );
         CPTPlotRangeComparisonResult *yRangeFlags = malloc( dataCount * sizeof(CPTPlotRangeComparisonResult) );
@@ -734,7 +739,15 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     BOOL *drawPointFlags = malloc( dataCount * sizeof(BOOL) );
 
     CPTXYPlotSpace *thePlotSpace = (CPTXYPlotSpace *)self.plotSpace;
-    [self calculatePointsToDraw:drawPointFlags forPlotSpace:thePlotSpace includeVisiblePointsOnly:NO numberOfPoints:dataCount];
+    
+    /*
+     
+     MB: drawing performance hacks
+     */
+    
+    //  [self calculatePointsToDraw:drawPointFlags forPlotSpace:thePlotSpace includeVisiblePointsOnly:NO numberOfPoints:dataCount];
+    [self calculatePointsToDraw:drawPointFlags forPlotSpace:thePlotSpace includeVisiblePointsOnly:YES numberOfPoints:dataCount];
+
     [self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags numberOfPoints:dataCount];
 
     BOOL pixelAlign = self.alignsPointsToPixels;
@@ -836,11 +849,19 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                 }
             }
             else {
+                CGFloat scale = self.contentsScale;
                 for ( NSUInteger i = (NSUInteger)firstDrawnPointIndex; i <= (NSUInteger)lastDrawnPointIndex; i++ ) {
                     if ( drawPointFlags[i] ) {
                         CPTPlotSymbol *currentSymbol = [self plotSymbolForRecordIndex:i];
                         if ( [currentSymbol isKindOfClass:symbolClass] ) {
-                            [currentSymbol renderAsVectorInContext:context atPoint:viewPoints[i] scale:CPTFloat(1.0)];
+                            /*
+                             
+                             MB: drawing performance hacks
+                             */
+                            
+                            
+                            //[currentSymbol renderAsVectorInContext:context atPoint:viewPoints[i] scale:CPTFloat(1.0)];
+                            [currentSymbol renderInContext:context atPoint:viewPoints[i] scale:scale alignToPixels:pixelAlign];
                         }
                     }
                 }
