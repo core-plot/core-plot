@@ -3,6 +3,7 @@
 
 /// @file
 
+@class CPTLimitBand;
 @class CPTLineStyle;
 @class CPTPlotSymbol;
 @class CPTScatterPlot;
@@ -224,6 +225,11 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
 @property (nonatomic, readwrite, assign) CPTScatterPlotInterpolation interpolation;
 /// @}
 
+/// @name Area Fill Bands
+/// @{
+@property (nonatomic, readonly) NSArray *areaFillBands;
+/// @}
+
 /// @name Drawing
 /// @{
 @property (nonatomic, readwrite, copy) CPTLineStyle *dataLineStyle;
@@ -255,6 +261,12 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
 -(CPTPlotSymbol *)plotSymbolForRecordIndex:(NSUInteger)idx;
 -(void)reloadPlotSymbols;
 -(void)reloadPlotSymbolsInIndexRange:(NSRange)indexRange;
+/// @}
+
+/// @name Area Fill Bands
+/// @{
+-(void)addAreaFillBand:(CPTLimitBand *)limitBand;
+-(void)removeAreaFillBand:(CPTLimitBand *)limitBand;
 /// @}
 
 @end

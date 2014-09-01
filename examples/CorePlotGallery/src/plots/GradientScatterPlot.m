@@ -135,6 +135,23 @@
     dataSourceLinePlot.areaFill      = areaGradientFill;
     dataSourceLinePlot.areaBaseValue = CPTDecimalFromDouble(0.0);
 
+    // Add some fill bands
+    CPTColor *band1Color       = [CPTColor colorWithComponentRed:0.3 green:0.3 blue:1.0 alpha:0.8];
+    CPTGradient *band1Gradient = [CPTGradient gradientWithBeginningColor:band1Color endingColor:[CPTColor clearColor]];
+    band1Gradient.angle = -90.0;
+    CPTFill *band1Fill = [CPTFill fillWithGradient:band1Gradient];
+    [dataSourceLinePlot addAreaFillBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.05)
+                                                                                                      length:CPTDecimalFromDouble(0.15)]
+                                                                    fill:band1Fill]];
+
+    CPTColor *band2Color       = [CPTColor colorWithComponentRed:1.0 green:0.3 blue:0.3 alpha:0.8];
+    CPTGradient *band2Gradient = [CPTGradient gradientWithBeginningColor:band2Color endingColor:[CPTColor clearColor]];
+    band2Gradient.angle = -90.0;
+    CPTFill *band2Fill = [CPTFill fillWithGradient:band2Gradient];
+    [dataSourceLinePlot addAreaFillBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.3)
+                                                                                                      length:CPTDecimalFromDouble(0.1)]
+                                                                    fill:band2Fill]];
+
     // Auto scale the plot space to fit the plot data
     // Extend the ranges by 30% for neatness
     [plotSpace scaleToFitPlots:@[dataSourceLinePlot]];

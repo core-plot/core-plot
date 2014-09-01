@@ -13,6 +13,7 @@ To be determined.
 - **New**: Added a scroll wheel event to `<CPTResponder>`.
 - **New**: Added axis and plot delegate methods for touch down and up events on labels.
 - **New**: Added scatter plot data line selection delegate methods. 
+- **New**: Added scatter plot area fill bands.
 - **New**: Added new methods to all plots to allow labels, styles, and plot symbols to be updated independent of the plot data.
 - **New**: Added support for stretchable images.
 - **New**: Added support for using an Objective-C block to calculate plot values in the function datasource class. 
