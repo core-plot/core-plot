@@ -14,7 +14,11 @@ void CPTPushCGContext(CGContextRef newContext)
         if ( !pushedContexts ) {
             pushedContexts = [[NSMutableArray alloc] init];
         }
-        [pushedContexts addObject:[NSGraphicsContext currentContext]];
+        
+        if ([NSGraphicsContext currentContext]) {
+            [pushedContexts addObject:[NSGraphicsContext currentContext]];
+        }
+        
         [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:newContext flipped:NO]];
     }
 }
