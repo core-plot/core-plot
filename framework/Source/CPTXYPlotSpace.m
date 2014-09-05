@@ -661,6 +661,7 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
                         animationCurve:self.bounceAnimationCurve
                               delegate:self];
             [animationArray addObject:op];
+            NSLog(@"animation start");
         }
     }
 }
