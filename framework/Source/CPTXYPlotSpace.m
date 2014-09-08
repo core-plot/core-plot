@@ -1188,6 +1188,8 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 
     // New locations
     NSDecimal newLocationX;
+    NSLog(@"%f", oldRangeX.minLimitDouble);
+    NSLog(@"%f",oldRangeX.locationDouble);
     if ( CPTDecimalGreaterThanOrEqualTo( oldRangeX.length, CPTDecimalFromInteger(0) ) ) {
         NSDecimal oldFirstLengthX = CPTDecimalSubtract(plotInteractionPoint[CPTCoordinateX], oldRangeX.minLimit); // x - minX
         NSDecimal newFirstLengthX = CPTDecimalDivide(oldFirstLengthX, decimalScale);                              // (x - minX) / scale
