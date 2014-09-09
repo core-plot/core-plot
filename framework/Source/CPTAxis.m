@@ -1681,6 +1681,8 @@ NSDecimal niceLength(NSDecimal length)
             CPTCoordinate orthogonalCoordinate = CPTOrthogonalCoordinate(self.coordinate);
             CPTSign direction                  = self.tickDirection;
 
+            
+            
             for ( CPTAxisLabel *label in self.axisLabels ) {
                 BOOL visible = [range contains:label.tickLocation];
                 label.contentLayer.hidden = !visible;
