@@ -22,6 +22,6 @@
 @property (nonatomic, readwrite) CGFloat bounceAcceleration;
 @property (nonatomic, readwrite) CGFloat minimumDisplacementToDrag;
 
-- (void)cancelAnimations;
+-(void)cancelAnimations;
 
 @end

@@ -1582,7 +1582,7 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 /**
  *  @brief Reset the dragging state and cancel any active animations.
  **/
-- (void)cancelAnimations
+-(void)cancelAnimations
 {
     self.isDragging = NO;
     for ( CPTAnimationOperation *op in self.animations ) {
