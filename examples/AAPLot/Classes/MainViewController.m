@@ -78,14 +78,14 @@
     areaGradient.angle = -90.0;
     CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill      = areaGradientFill;
-    dataSourceLinePlot.areaBaseValue = CPTDecimalFromDouble(200.0);
+    dataSourceLinePlot.areaBaseValue = @200.0;
 
     areaColor                         = [CPTColor colorWithComponentRed:0.0 green:1.0 blue:0.0 alpha:0.6];
     areaGradient                      = [CPTGradient gradientWithBeginningColor:[CPTColor clearColor] endingColor:areaColor];
     areaGradient.angle                = -90.0;
     areaGradientFill                  = [CPTFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill2      = areaGradientFill;
-    dataSourceLinePlot.areaBaseValue2 = CPTDecimalFromDouble(400.0);
+    dataSourceLinePlot.areaBaseValue2 = @400.0;
 
     // OHLC plot
     CPTMutableLineStyle *whiteLineStyle = [CPTMutableLineStyle lineStyle];
@@ -121,7 +121,7 @@
     [lineStyle release];
 
     volumePlot.fill           = nil;
-    volumePlot.barWidth       = CPTDecimalFromFloat(1.0f);
+    volumePlot.barWidth       = @1.0;
     volumePlot.identifier     = @"Volume Plot";
     volumePlot.cachePrecision = CPTPlotCachePrecisionDouble;
     [graph addPlot:volumePlot toPlotSpace:volumePlotSpace];
@@ -629,12 +629,12 @@
     NSDecimalNumber *lowDisplayLocation      = [low decimalNumberBySubtracting:lengthDisplacementValue];
     NSDecimalNumber *lengthDisplayLocation   = [length decimalNumberByAdding:lengthDisplacementValue];
 
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromUnsignedInteger(datapuller.financialData.count + 1)];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:[lowDisplayLocation decimalValue] length:[lengthDisplayLocation decimalValue]];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@(datapuller.financialData.count + 1)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:lowDisplayLocation length:lengthDisplayLocation];
 
     CPTScatterPlot *linePlot = (CPTScatterPlot *)[graph plotWithIdentifier:@"Data Source Plot"];
-    linePlot.areaBaseValue  = [high decimalValue];
-    linePlot.areaBaseValue2 = [low decimalValue];
+    linePlot.areaBaseValue  = high;
+    linePlot.areaBaseValue2 = low;
 
     // Axes
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
@@ -652,8 +652,8 @@
     NSDecimalNumber *volumeLowDisplayLocation      = overallVolumeLow;
     NSDecimalNumber *volumeLengthDisplayLocation   = [volumeLength decimalNumberByAdding:volumeLengthDisplacementValue];
 
-    volumePlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromUnsignedInteger(datapuller.financialData.count + 1)];
-//    volumePlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:[volumeLowDisplayLocation decimalValue] length:[volumeLengthDisplayLocation decimalValue]];
+    volumePlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@(datapuller.financialData.count + 1)];
+//    volumePlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:volumeLowDisplayLocation length:volumeLengthDisplayLocation];
 
     if ( animationOperation ) {
         [[CPTAnimation sharedInstance] removeAnimationOperation:animationOperation];
@@ -662,17 +662,17 @@
 
     animationOperation = [[CPTAnimation animate:volumePlotSpace
                                        property:@"yRange"
-                                  fromPlotRange:[CPTPlotRange plotRangeWithLocation:[volumeLowDisplayLocation decimalValue]
-                                                                             length:CPTDecimalMultiply( [volumeLengthDisplayLocation decimalValue], CPTDecimalFromInteger(10) )]
-                                    toPlotRange:[CPTPlotRange plotRangeWithLocation:[volumeLowDisplayLocation decimalValue]
-                                                                             length:[volumeLengthDisplayLocation decimalValue]]
+                                  fromPlotRange:[CPTPlotRange plotRangeWithLocationDecimal:[volumeLowDisplayLocation decimalValue]
+                                                                             lengthDecimal:CPTDecimalMultiply( [volumeLengthDisplayLocation decimalValue], CPTDecimalFromInteger(10) )]
+                                    toPlotRange:[CPTPlotRange plotRangeWithLocation:volumeLowDisplayLocation
+                                                                             length:volumeLengthDisplayLocation]
                                        duration:2.5] retain];
 
-    axisSet.xAxis.orthogonalCoordinateDecimal = [low decimalValue];
-    axisSet.yAxis.majorIntervalLength         = CPTDecimalFromDouble(50.0);
-    axisSet.yAxis.minorTicksPerInterval       = 4;
-    axisSet.yAxis.orthogonalCoordinateDecimal = CPTDecimalFromDouble(1.0);
-    NSArray *exclusionRanges = @[[CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:[low decimalValue]]];
+    axisSet.xAxis.orthogonalPosition    = low;
+    axisSet.yAxis.majorIntervalLength   = @50.0;
+    axisSet.yAxis.minorTicksPerInterval = 4;
+    axisSet.yAxis.orthogonalPosition    = @1.0;
+    NSArray *exclusionRanges = @[[CPTPlotRange plotRangeWithLocation:@0.0 length:low]];
 
     axisSet.yAxis.labelExclusionRanges = exclusionRanges;
 

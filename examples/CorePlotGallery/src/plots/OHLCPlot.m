@@ -85,7 +85,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     // Axes
     CPTXYAxisSet *xyAxisSet = (id)graph.axisSet;
     CPTXYAxis *xAxis        = xyAxisSet.xAxis;
-    xAxis.majorIntervalLength   = CPTDecimalFromDouble(oneDay);
+    xAxis.majorIntervalLength   = @(oneDay);
     xAxis.minorTicksPerInterval = 0;
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     dateFormatter.dateStyle = kCFDateFormatterShortStyle;
@@ -101,7 +101,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     [lineCap release];
 
     CPTXYAxis *yAxis = xyAxisSet.yAxis;
-    yAxis.orthogonalCoordinateDecimal = CPTDecimalFromDouble(-0.5 * oneDay);
+    yAxis.orthogonalPosition = @(-0.5 * oneDay);
 
     // Line plot with gradient fill
     CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
@@ -116,14 +116,14 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     areaGradient.angle = -90.0;
     CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill      = areaGradientFill;
-    dataSourceLinePlot.areaBaseValue = CPTDecimalFromDouble(0.0);
+    dataSourceLinePlot.areaBaseValue = @0.0;
 
     areaColor                         = [CPTColor colorWithComponentRed:0.0 green:1.0 blue:0.0 alpha:0.6];
     areaGradient                      = [CPTGradient gradientWithBeginningColor:[CPTColor clearColor] endingColor:areaColor];
     areaGradient.angle                = -90.0;
     areaGradientFill                  = [CPTFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill2      = areaGradientFill;
-    dataSourceLinePlot.areaBaseValue2 = CPTDecimalFromDouble(5.0);
+    dataSourceLinePlot.areaBaseValue2 = @5.0;
 
     // OHLC plot
     CPTMutableLineStyle *whiteLineStyle = [CPTMutableLineStyle lineStyle];
@@ -156,8 +156,8 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 
     // Set plot ranges
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-0.5 * oneDay) length:CPTDecimalFromDouble(oneDay * plotData.count)];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromInteger(0) length:CPTDecimalFromInteger(4)];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@(-0.5 * oneDay) length:@(oneDay * plotData.count)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@4.0];
 }
 
 -(void)dealloc

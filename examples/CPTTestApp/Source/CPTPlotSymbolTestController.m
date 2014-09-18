@@ -36,8 +36,8 @@
 
     // Setup plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0) length:CPTDecimalFromFloat(11.0)];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0) length:CPTDecimalFromFloat(14.0)];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@(-1.0) length:@11.0];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@(-1.0) length:@14.0];
 
     CPTMutableShadow *lineShadow = [CPTMutableShadow shadow];
     lineShadow.shadowOffset     = CGSizeMake(3.0, -3.0);

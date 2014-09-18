@@ -170,9 +170,9 @@
         lineStyle.lineColor    = [CPTColor colorWithCGColor:(CGColorRef)[self dataLineColor : index]];
         lineStyle.lineWidth    = [self dataLineWidth:index];
         plot.lineStyle         = lineStyle;
-        plot.baseValue         = CPTDecimalFromDouble(self.inputBaseValue);
-        plot.barWidth          = CPTDecimalFromDouble(barWidth);
-        plot.barOffset         = CPTDecimalFromDouble(self.inputBarOffset);
+        plot.baseValue         = @(self.inputBaseValue);
+        plot.barWidth          = @(barWidth);
+        plot.barOffset         = @(self.inputBarOffset);
         plot.barsAreHorizontal = self.inputHorizontalBars;
         plot.fill              = [CPTFill fillWithColor:[CPTColor colorWithCGColor:(CGColorRef)[self areaFillColor : index]]];
 

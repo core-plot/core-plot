@@ -37,8 +37,8 @@
 
     // Setup plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.xRange     = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(-10.0)];
-    plotSpace.yRange     = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.5) length:CPTDecimalFromDouble(1500.0)];
+    plotSpace.xRange     = [CPTPlotRange plotRangeWithLocation:@0.0 length:@(-10.0)];
+    plotSpace.yRange     = [CPTPlotRange plotRangeWithLocation:@0.5 length:@1500.0];
     plotSpace.yScaleType = CPTScaleTypeLog;
 
     // Line styles
@@ -63,22 +63,22 @@
     // Label x axis with a fixed interval policy
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
-    x.separateLayers              = NO;
-    x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.5);
-    x.majorIntervalLength         = CPTDecimalFromDouble(0.5);
-    x.minorTicksPerInterval       = 4;
-    x.tickDirection               = CPTSignNone;
-    x.axisLineStyle               = axisLineStyle;
-    x.majorTickLength             = 12.0;
-    x.majorTickLineStyle          = axisLineStyle;
-    x.majorGridLineStyle          = majorGridLineStyle;
-    x.minorTickLength             = 8.0;
-    x.minorGridLineStyle          = minorGridLineStyle;
-    x.title                       = @"X Axis";
-    x.titleTextStyle              = axisTitleTextStyle;
-    x.titleOffset                 = 25.0;
-    x.alternatingBandFills        = @[[[CPTColor redColor] colorWithAlphaComponent:0.1], [[CPTColor greenColor] colorWithAlphaComponent:0.1]];
-    x.labelingPolicy              = CPTAxisLabelingPolicyAutomatic;
+    x.separateLayers        = NO;
+    x.orthogonalPosition    = @0.5;
+    x.majorIntervalLength   = @0.5;
+    x.minorTicksPerInterval = 4;
+    x.tickDirection         = CPTSignNone;
+    x.axisLineStyle         = axisLineStyle;
+    x.majorTickLength       = 12.0;
+    x.majorTickLineStyle    = axisLineStyle;
+    x.majorGridLineStyle    = majorGridLineStyle;
+    x.minorTickLength       = 8.0;
+    x.minorGridLineStyle    = minorGridLineStyle;
+    x.title                 = @"X Axis";
+    x.titleTextStyle        = axisTitleTextStyle;
+    x.titleOffset           = 25.0;
+    x.alternatingBandFills  = @[[[CPTColor redColor] colorWithAlphaComponent:0.1], [[CPTColor greenColor] colorWithAlphaComponent:0.1]];
+    x.labelingPolicy        = CPTAxisLabelingPolicyAutomatic;
 
     // Label y with an automatic label policy.
     axisLineStyle.lineColor = [CPTColor greenColor];
@@ -100,8 +100,8 @@
     y.labelingPolicy        = CPTAxisLabelingPolicyAutomatic;
 
     CPTFill *bandFill = [CPTFill fillWithColor:[[CPTColor darkGrayColor] colorWithAlphaComponent:0.5]];
-    [y addBackgroundLimitBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(7.0) length:CPTDecimalFromDouble(1.5)] fill:bandFill]];
-    [y addBackgroundLimitBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.5) length:CPTDecimalFromDouble(3.0)] fill:bandFill]];
+    [y addBackgroundLimitBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:@7.0 length:@1.5] fill:bandFill]];
+    [y addBackgroundLimitBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:@1.5 length:@3.0] fill:bandFill]];
 }
 
 @end

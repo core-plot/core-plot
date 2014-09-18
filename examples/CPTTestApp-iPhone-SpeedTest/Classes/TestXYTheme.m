@@ -28,18 +28,18 @@
 -(void)applyThemeToAxis:(CPTXYAxis *)axis usingMajorLineStyle:(CPTLineStyle *)majorLineStyle
          minorLineStyle:(CPTLineStyle *)minorLineStyle majorGridLineStyle:majorGridLineStyle textStyle:(CPTTextStyle *)textStyle
 {
-    axis.labelingPolicy              = CPTAxisLabelingPolicyFixedInterval;
-    axis.majorIntervalLength         = CPTDecimalFromDouble(20.0);
-    axis.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
-    axis.tickDirection               = CPTSignNone;
-    axis.minorTicksPerInterval       = 3;
-    axis.majorTickLineStyle          = majorLineStyle;
-    axis.minorTickLineStyle          = minorLineStyle;
-    axis.axisLineStyle               = majorLineStyle;
-    axis.majorTickLength             = 5.0;
-    axis.minorTickLength             = 3.0;
-    axis.labelTextStyle              = textStyle;
-    axis.titleTextStyle              = textStyle;
+    axis.labelingPolicy        = CPTAxisLabelingPolicyFixedInterval;
+    axis.majorIntervalLength   = @20.0;
+    axis.orthogonalPosition    = @0.0;
+    axis.tickDirection         = CPTSignNone;
+    axis.minorTicksPerInterval = 3;
+    axis.majorTickLineStyle    = majorLineStyle;
+    axis.minorTickLineStyle    = minorLineStyle;
+    axis.axisLineStyle         = majorLineStyle;
+    axis.majorTickLength       = 5.0;
+    axis.minorTickLength       = 3.0;
+    axis.labelTextStyle        = textStyle;
+    axis.titleTextStyle        = textStyle;
     //axis.labelFormatter = numberFormatter ;
     axis.majorGridLineStyle = majorGridLineStyle;
     axis.labelingPolicy     = CPTAxisLabelingPolicyAutomatic;

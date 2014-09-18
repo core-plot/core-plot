@@ -39,27 +39,27 @@
     // Setup plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.allowsUserInteraction = YES;
-    plotSpace.xRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0) length:CPTDecimalFromDouble(2.0)];
-    plotSpace.yRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0) length:CPTDecimalFromDouble(3.0)];
+    plotSpace.xRange                = [CPTPlotRange plotRangeWithLocation:@1.0 length:@2.0];
+    plotSpace.yRange                = [CPTPlotRange plotRangeWithLocation:@1.0 length:@3.0];
 
     // Axes
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
-    x.majorIntervalLength         = CPTDecimalFromDouble(0.5);
-    x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(2.0);
-    x.minorTicksPerInterval       = 2;
-    NSArray *exclusionRanges = @[[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.99) length:CPTDecimalFromDouble(0.02)],
-                                 [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.99) length:CPTDecimalFromDouble(0.02)],
-                                 [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(2.99) length:CPTDecimalFromDouble(0.02)]];
+    x.majorIntervalLength   = @0.5;
+    x.orthogonalPosition    = @2.0;
+    x.minorTicksPerInterval = 2;
+    NSArray *exclusionRanges = @[[CPTPlotRange plotRangeWithLocation:@1.99 length:@0.02],
+                                 [CPTPlotRange plotRangeWithLocation:@0.99 length:@0.02],
+                                 [CPTPlotRange plotRangeWithLocation:@2.99 length:@0.02]];
     x.labelExclusionRanges = exclusionRanges;
 
     CPTXYAxis *y = axisSet.yAxis;
-    y.majorIntervalLength         = CPTDecimalFromDouble(0.5);
-    y.minorTicksPerInterval       = 5;
-    y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(2.0);
-    exclusionRanges               = @[[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.99) length:CPTDecimalFromDouble(0.02)],
-                                      [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.99) length:CPTDecimalFromDouble(0.02)],
-                                      [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(3.99) length:CPTDecimalFromDouble(0.02)]];
+    y.majorIntervalLength   = @0.5;
+    y.minorTicksPerInterval = 5;
+    y.orthogonalPosition    = @2.0;
+    exclusionRanges         = @[[CPTPlotRange plotRangeWithLocation:@1.99 length:@0.02],
+                                [CPTPlotRange plotRangeWithLocation:@0.99 length:@0.02],
+                                [CPTPlotRange plotRangeWithLocation:@3.99 length:@0.02]];
     y.labelExclusionRanges = exclusionRanges;
     y.delegate             = self;
 
@@ -78,7 +78,7 @@
     fillImage.tiled = YES;
     CPTFill *areaImageFill = [CPTFill fillWithImage:fillImage];
     boundLinePlot.areaFill      = areaImageFill;
-    boundLinePlot.areaBaseValue = [[NSDecimalNumber zero] decimalValue];
+    boundLinePlot.areaBaseValue = @0.0;
 
     // Add plot symbols
     CPTMutableLineStyle *symbolLineStyle = [CPTMutableLineStyle lineStyle];
@@ -105,7 +105,7 @@
     areaGradient.angle = -90.0;
     CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill      = areaGradientFill;
-    dataSourceLinePlot.areaBaseValue = CPTDecimalFromDouble(1.75);
+    dataSourceLinePlot.areaBaseValue = @1.75;
 
     // Animate in the new plot, as an example
     dataSourceLinePlot.opacity = 0.0;
@@ -139,8 +139,8 @@
     // Setup plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
 
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(3.0 + 2.0 * rand() / RAND_MAX)];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(3.0 + 2.0 * rand() / RAND_MAX)];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@(3.0 + 2.0 * rand() / RAND_MAX)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@(3.0 + 2.0 * rand() / RAND_MAX)];
 }
 
 #pragma mark -
@@ -207,7 +207,7 @@
         CPTTextLayer *newLabelLayer = [[CPTTextLayer alloc] initWithText:labelString style:theLabelTextStyle];
 
         CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithContentLayer:newLabelLayer];
-        newLabel.tickLocation = tickLocation.decimalValue;
+        newLabel.tickLocation = tickLocation;
         newLabel.offset       = labelOffset;
 
         [newLabels addObject:newLabel];

@@ -143,7 +143,7 @@
 
     [nf release];
 
-    [[cell detailTextLabel] setText:[NSString stringWithFormat:@"%@ - %@; Low:%@ High:%@", startString, endString, overallLow, overallHigh]];
+    [[cell detailTextLabel] setText:[NSString stringWithFormat:@"%@(-%@; Low:%@ High:%@", startString, endString, overallLow, overallHigh]];
 
     UIView *accessory = [cell accessoryView];
     if ( [dp loadingData] ) {

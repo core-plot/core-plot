@@ -42,24 +42,24 @@
     NSDecimalNumber *length = [high decimalNumberBySubtracting:low];
 
     //NSLog(@"high = %@, low = %@, length = %@", high, low, length);
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromUnsignedInteger([dataPuller.financialData count])];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:[low decimalValue] length:[length decimalValue]];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@(dataPuller.financialData.count)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:low length:length];
     // Axes
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
 
     CPTXYAxis *x = axisSet.xAxis;
-    x.majorIntervalLength         = CPTDecimalFromDouble(10.0);
-    x.orthogonalCoordinateDecimal = CPTDecimalFromInteger(0);
-    x.minorTicksPerInterval       = 1;
+    x.majorIntervalLength   = @10.0;
+    x.orthogonalPosition    = @0.0;
+    x.minorTicksPerInterval = 1;
 
     CPTXYAxis *y  = axisSet.yAxis;
     NSDecimal six = CPTDecimalFromInteger(6);
-    y.majorIntervalLength         = CPTDecimalDivide([length decimalValue], six);
-    y.majorTickLineStyle          = nil;
-    y.minorTicksPerInterval       = 4;
-    y.minorTickLineStyle          = nil;
-    y.orthogonalCoordinateDecimal = CPTDecimalFromInteger(0);
-    y.alternatingBandFills        = @[[[CPTColor whiteColor] colorWithAlphaComponent:0.1], [NSNull null]];
+    y.majorIntervalLength   = [NSDecimalNumber decimalNumberWithDecimal:CPTDecimalDivide(length.decimalValue, six)];
+    y.majorTickLineStyle    = nil;
+    y.minorTicksPerInterval = 4;
+    y.minorTickLineStyle    = nil;
+    y.orthogonalPosition    = @0.0;
+    y.alternatingBandFills  = @[[[CPTColor whiteColor] colorWithAlphaComponent:0.1], [NSNull null]];
 
     [graph reloadData];
 

@@ -80,13 +80,13 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
     // X axis
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
-    x.labelingPolicy              = CPTAxisLabelingPolicyAutomatic;
-    x.orthogonalCoordinateDecimal = CPTDecimalFromUnsignedInteger(0);
-    x.majorGridLineStyle          = majorGridLineStyle;
-    x.minorGridLineStyle          = minorGridLineStyle;
-    x.minorTicksPerInterval       = 9;
-    x.title                       = @"X Axis";
-    x.titleOffset                 = 35.0;
+    x.labelingPolicy        = CPTAxisLabelingPolicyAutomatic;
+    x.orthogonalPosition    = @0.0;
+    x.majorGridLineStyle    = majorGridLineStyle;
+    x.minorGridLineStyle    = minorGridLineStyle;
+    x.minorTicksPerInterval = 9;
+    x.title                 = @"X Axis";
+    x.titleOffset           = 35.0;
     NSNumberFormatter *labelFormatter = [[NSNumberFormatter alloc] init];
     labelFormatter.numberStyle = NSNumberFormatterNoStyle;
     x.labelFormatter           = labelFormatter;
@@ -94,15 +94,15 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
 
     // Y axis
     CPTXYAxis *y = axisSet.yAxis;
-    y.labelingPolicy              = CPTAxisLabelingPolicyAutomatic;
-    y.orthogonalCoordinateDecimal = CPTDecimalFromUnsignedInteger(0);
-    y.majorGridLineStyle          = majorGridLineStyle;
-    y.minorGridLineStyle          = minorGridLineStyle;
-    y.minorTicksPerInterval       = 3;
-    y.labelOffset                 = 5.0;
-    y.title                       = @"Y Axis";
-    y.titleOffset                 = 30.0;
-    y.axisConstraints             = [CPTConstraints constraintWithLowerOffset:0.0];
+    y.labelingPolicy        = CPTAxisLabelingPolicyAutomatic;
+    y.orthogonalPosition    = @0.0;
+    y.majorGridLineStyle    = majorGridLineStyle;
+    y.minorGridLineStyle    = minorGridLineStyle;
+    y.minorTicksPerInterval = 3;
+    y.labelOffset           = 5.0;
+    y.title                 = @"Y Axis";
+    y.titleOffset           = 30.0;
+    y.axisConstraints       = [CPTConstraints constraintWithLowerOffset:0.0];
 
     // Rotate the labels by 45 degrees, just to show it can be done.
     x.labelRotation = M_PI_4;
@@ -122,8 +122,8 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
 
     // Plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger(0) length:CPTDecimalFromUnsignedInteger(kMaxDataPoints - 2)];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger(0) length:CPTDecimalFromUnsignedInteger(1)];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@(kMaxDataPoints - 2)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@1.0];
 
     [dataTimer invalidate];
     [dataTimer release];
@@ -167,10 +167,10 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
         CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)theGraph.defaultPlotSpace;
         NSUInteger location       = (currentIndex >= kMaxDataPoints ? currentIndex - kMaxDataPoints + 2 : 0);
 
-        CPTPlotRange *oldRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger( (location > 0) ? (location - 1) : 0 )
-                                                              length:CPTDecimalFromUnsignedInteger(kMaxDataPoints - 2)];
-        CPTPlotRange *newRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger(location)
-                                                              length:CPTDecimalFromUnsignedInteger(kMaxDataPoints - 2)];
+        CPTPlotRange *oldRange = [CPTPlotRange plotRangeWithLocation:@( (location > 0) ? (location - 1) : 0 )
+                                                              length:@(kMaxDataPoints - 2)];
+        CPTPlotRange *newRange = [CPTPlotRange plotRangeWithLocation:@(location)
+                                                              length:@(kMaxDataPoints - 2)];
 
         [CPTAnimation animate:plotSpace
                      property:@"xRange"

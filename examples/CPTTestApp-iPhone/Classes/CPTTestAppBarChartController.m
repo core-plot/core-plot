@@ -97,19 +97,19 @@
 
     // Add plot space for horizontal bar charts
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)barChart.defaultPlotSpace;
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(300.0f)];
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(16.0f)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@300.0];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@16.0];
 
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)barChart.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
-    x.axisLineStyle               = nil;
-    x.majorTickLineStyle          = nil;
-    x.minorTickLineStyle          = nil;
-    x.majorIntervalLength         = CPTDecimalFromDouble(5.0);
-    x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
-    x.title                       = @"X Axis";
-    x.titleLocation               = CPTDecimalFromFloat(7.5f);
-    x.titleOffset                 = 55.0;
+    x.axisLineStyle       = nil;
+    x.majorTickLineStyle  = nil;
+    x.minorTickLineStyle  = nil;
+    x.majorIntervalLength = @5.0;
+    x.orthogonalPosition  = @0.0;
+    x.title               = @"X Axis";
+    x.titleLocation       = @7.5;
+    x.titleOffset         = 55.0;
 
     // Define some custom labels for the data elements
     x.labelRotation  = M_PI_4;
@@ -120,7 +120,7 @@
     NSMutableSet *customLabels   = [NSMutableSet setWithCapacity:[xAxisLabels count]];
     for ( NSNumber *tickLocation in customTickLocations ) {
         CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:xAxisLabels[labelLocation++] textStyle:x.labelTextStyle];
-        newLabel.tickLocation = [tickLocation decimalValue];
+        newLabel.tickLocation = tickLocation;
         newLabel.offset       = x.labelOffset + x.majorTickLength;
         newLabel.rotation     = M_PI_4;
         [customLabels addObject:newLabel];
@@ -129,28 +129,28 @@
     x.axisLabels = customLabels;
 
     CPTXYAxis *y = axisSet.yAxis;
-    y.axisLineStyle               = nil;
-    y.majorTickLineStyle          = nil;
-    y.minorTickLineStyle          = nil;
-    y.majorIntervalLength         = CPTDecimalFromDouble(50.0);
-    y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
-    y.title                       = @"Y Axis";
-    y.titleOffset                 = 45.0;
-    y.titleLocation               = CPTDecimalFromFloat(150.0f);
+    y.axisLineStyle       = nil;
+    y.majorTickLineStyle  = nil;
+    y.minorTickLineStyle  = nil;
+    y.majorIntervalLength = @50.0;
+    y.orthogonalPosition  = @0.0;
+    y.title               = @"Y Axis";
+    y.titleOffset         = 45.0;
+    y.titleLocation       = @150.0;
 
     // First bar plot
     CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor darkGrayColor] horizontalBars:NO];
-    barPlot.baseValue  = CPTDecimalFromDouble(0.0);
+    barPlot.baseValue  = @0.0;
     barPlot.dataSource = self;
-    barPlot.barOffset  = CPTDecimalFromFloat(-0.25f);
+    barPlot.barOffset  = @(-0.25);
     barPlot.identifier = @"Bar Plot 1";
     [barChart addPlot:barPlot toPlotSpace:plotSpace];
 
     // Second bar plot
     barPlot                 = [CPTBarPlot tubularBarPlotWithColor:[CPTColor blueColor] horizontalBars:NO];
     barPlot.dataSource      = self;
-    barPlot.baseValue       = CPTDecimalFromDouble(0.0);
-    barPlot.barOffset       = CPTDecimalFromFloat(0.25f);
+    barPlot.baseValue       = @0.0;
+    barPlot.barOffset       = @0.25;
     barPlot.barCornerRadius = 2.0;
     barPlot.identifier      = @"Bar Plot 2";
     [barChart addPlot:barPlot toPlotSpace:plotSpace];

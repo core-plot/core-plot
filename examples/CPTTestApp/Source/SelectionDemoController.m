@@ -148,15 +148,15 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
     [plotSpace scaleToFitPlots:@[dataSourceLinePlot]];
     CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
-    [xRange expandRangeByFactor:CPTDecimalFromDouble(0.75)];
+    [xRange expandRangeByFactor:@0.75];
     plotSpace.xRange = xRange;
     CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
-    [yRange expandRangeByFactor:CPTDecimalFromDouble(0.75)];
+    [yRange expandRangeByFactor:@0.75];
     plotSpace.yRange = yRange;
 
-    CPTPlotRange *globalXRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.0) length:CPTDecimalFromDouble(10.0)];
+    CPTPlotRange *globalXRange = [CPTPlotRange plotRangeWithLocation:@(-1.0) length:@10.0];
     plotSpace.globalXRange = globalXRange;
-    CPTPlotRange *globalYRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-5.0) length:CPTDecimalFromDouble(10.0)];
+    CPTPlotRange *globalYRange = [CPTPlotRange plotRangeWithLocation:@(-5.0) length:@10.0];
     plotSpace.globalYRange = globalYRange;
 }
 
@@ -208,11 +208,11 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
             case CPTScatterPlotFieldX:
                 switch ( index ) {
                     case 0:
-                        num = [NSDecimalNumber decimalNumberWithDecimal:thePlotSpace.globalXRange.minLimit];
+                        num = thePlotSpace.globalXRange.minLimit;
                         break;
 
                     case 1:
-                        num = [NSDecimalNumber decimalNumberWithDecimal:thePlotSpace.globalXRange.maxLimit];
+                        num = thePlotSpace.globalXRange.maxLimit;
                         break;
 
                     case 2:
@@ -235,11 +235,11 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
                         break;
 
                     case 3:
-                        num = [NSDecimalNumber decimalNumberWithDecimal:thePlotSpace.globalYRange.maxLimit];
+                        num = thePlotSpace.globalYRange.maxLimit;
                         break;
 
                     case 4:
-                        num = [NSDecimalNumber decimalNumberWithDecimal:thePlotSpace.globalYRange.minLimit];
+                        num = thePlotSpace.globalYRange.minLimit;
                         break;
 
                     default:

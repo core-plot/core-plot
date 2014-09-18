@@ -74,8 +74,8 @@
     // Setup scatter plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.allowsUserInteraction = YES;
-    plotSpace.xRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(2.0 * M_PI)];
-    plotSpace.yRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.1) length:CPTDecimalFromDouble(2.2)];
+    plotSpace.xRange                = [CPTPlotRange plotRangeWithLocation:@0.0 length:@(2.0 * M_PI)];
+    plotSpace.yRange                = [CPTPlotRange plotRangeWithLocation:@(-1.1) length:@2.2];
 
     // Grid line styles
     CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
@@ -93,7 +93,7 @@
     // Label x axis with a fixed interval policy
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
-    x.majorIntervalLength   = CPTDecimalFromDouble(M_PI_4);
+    x.majorIntervalLength   = @(M_PI_4);
     x.minorTicksPerInterval = 3;
     x.labelFormatter        = formatter;
     x.majorGridLineStyle    = majorGridLineStyle;
@@ -196,8 +196,8 @@
     }
 
     // Restrict y range to a global range
-    CPTPlotRange *globalYRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-2.5)
-                                                              length:CPTDecimalFromDouble(5.0)];
+    CPTPlotRange *globalYRange = [CPTPlotRange plotRangeWithLocation:@(-2.5)
+                                                              length:@5.0];
     plotSpace.globalYRange = globalYRange;
 
     // Add legend

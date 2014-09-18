@@ -194,7 +194,7 @@ void drawErrorText(CGContextRef context, CGRect rect)
     if ( [key isEqualToString:@"inputXMin"] ) {
         return @{
                    QCPortAttributeNameKey: @"X Range Min",
-                   QCPortAttributeDefaultValueKey: @ - 1.0
+                   QCPortAttributeDefaultValueKey: @(-1.0)
         };
     }
 
@@ -208,7 +208,7 @@ void drawErrorText(CGContextRef context, CGRect rect)
     if ( [key isEqualToString:@"inputYMin"] ) {
         return @{
                    QCPortAttributeNameKey: @"Y Range Min",
-                   QCPortAttributeDefaultValueKey: @ - 1.0
+                   QCPortAttributeDefaultValueKey: @(-1.0)
         };
     }
 
@@ -364,18 +364,18 @@ void drawErrorText(CGContextRef context, CGRect rect)
 
         // Setup scatter plot space
         CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-        plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(1.0) length:CPTDecimalFromFloat(1.0)];
-        plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0) length:CPTDecimalFromFloat(1.0)];
+        plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@1.0 length:@1.0];
+        plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@(-1.0) length:@1.0];
 
         // Axes
         CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
 
         CPTXYAxis *x = axisSet.xAxis;
-        x.majorIntervalLength   = CPTDecimalFromFloat(0.5);
+        x.majorIntervalLength   = @0.5;
         x.minorTicksPerInterval = 2;
 
         CPTXYAxis *y = axisSet.yAxis;
-        y.majorIntervalLength   = CPTDecimalFromFloat(0.5);
+        y.majorIntervalLength   = @0.5;
         y.minorTicksPerInterval = 5;
     }
 }
@@ -449,11 +449,11 @@ void drawErrorText(CGContextRef context, CGRect rect)
     set.xAxis.labelTextStyle = textStyle;
 
     double xrange = self.inputXMax - self.inputXMin;
-    set.xAxis.majorIntervalLength   = CPTDecimalFromDouble( xrange / (self.inputXMajorIntervals) );
+    set.xAxis.majorIntervalLength   = @( xrange / (self.inputXMajorIntervals) );
     set.xAxis.minorTicksPerInterval = self.inputXMinorIntervals;
 
     double yrange = self.inputYMax - self.inputYMin;
-    set.yAxis.majorIntervalLength   = CPTDecimalFromDouble( yrange / (self.inputYMajorIntervals) );
+    set.yAxis.majorIntervalLength   = @( yrange / (self.inputYMajorIntervals) );
     set.yAxis.minorTicksPerInterval = self.inputYMinorIntervals;
 
     set.xAxis.minorTickLength = self.inputAxisMinorTickLength;
@@ -757,8 +757,8 @@ static void _BufferReleaseCallback(const void *address, void *context)
 
     // Configure the plot space and axis sets
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(self.inputXMin) length:CPTDecimalFromFloat(self.inputXMax - self.inputXMin)];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(self.inputYMin) length:CPTDecimalFromFloat(self.inputYMax - self.inputYMin)];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@(self.inputXMin) length:@(self.inputXMax - self.inputXMin)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@(self.inputYMin) length:@(self.inputYMax - self.inputYMin)];
 
     [self configureAxis];
 

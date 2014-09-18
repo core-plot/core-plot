@@ -94,20 +94,20 @@
     // Label x axis with a fixed interval policy
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
-    x.majorIntervalLength         = CPTDecimalFromDouble(0.5);
-    x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(1.0);
-    x.minorTicksPerInterval       = 2;
-    x.majorGridLineStyle          = majorGridLineStyle;
-    x.minorGridLineStyle          = minorGridLineStyle;
+    x.majorIntervalLength   = @0.5;
+    x.orthogonalPosition    = @1.0;
+    x.minorTicksPerInterval = 2;
+    x.majorGridLineStyle    = majorGridLineStyle;
+    x.minorGridLineStyle    = minorGridLineStyle;
 
     x.title         = @"X Axis";
     x.titleOffset   = 30.0;
-    x.titleLocation = CPTDecimalFromDouble(1.25);
+    x.titleLocation = @1.25;
 
     // Label y with an automatic label policy.
     CPTXYAxis *y = axisSet.yAxis;
     y.labelingPolicy              = CPTAxisLabelingPolicyAutomatic;
-    y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(1.0);
+    y.orthogonalPosition          = @1.0;
     y.minorTicksPerInterval       = 2;
     y.preferredNumberOfMajorTicks = 8;
     y.majorGridLineStyle          = majorGridLineStyle;
@@ -116,10 +116,9 @@
 
     y.title         = @"Y Axis";
     y.titleOffset   = 30.0;
-    y.titleLocation = CPTDecimalFromDouble(1.0);
+    y.titleLocation = @1.0;
 
     // Set axes
-    //graph.axisSet.axes = [NSArray arrayWithObjects:x, y, y2, nil];
     graph.axisSet.axes = @[x, y];
 
     // Create a plot that uses the data source method
@@ -139,14 +138,14 @@
     [plotSpace scaleToFitPlots:@[dataSourceLinePlot]];
     CPTMutablePlotRange *xRange = [[plotSpace.xRange mutableCopy] autorelease];
     CPTMutablePlotRange *yRange = [[plotSpace.yRange mutableCopy] autorelease];
-    [xRange expandRangeByFactor:CPTDecimalFromDouble(1.3)];
-    [yRange expandRangeByFactor:CPTDecimalFromDouble(1.3)];
+    [xRange expandRangeByFactor:@1.3];
+    [yRange expandRangeByFactor:@1.3];
     plotSpace.xRange = xRange;
     plotSpace.yRange = yRange;
 
     // Restrict y range to a global range
-    CPTPlotRange *globalYRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f)
-                                                              length:CPTDecimalFromFloat(2.0f)];
+    CPTPlotRange *globalYRange = [CPTPlotRange plotRangeWithLocation:@0.0
+                                                              length:@2.0];
     plotSpace.globalYRange = globalYRange;
 
     // Add plot symbols
@@ -204,7 +203,7 @@
 {
     // Impose a limit on how far user can scroll in x
     if ( coordinate == CPTCoordinateX ) {
-        CPTPlotRange *maxRange            = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromFloat(6.0f)];
+        CPTPlotRange *maxRange            = [CPTPlotRange plotRangeWithLocation:@(-1.0) length:@6.0];
         CPTMutablePlotRange *changedRange = [[newRange mutableCopy] autorelease];
         [changedRange shiftEndToFitInRange:maxRange];
         [changedRange shiftLocationToFitInRange:maxRange];

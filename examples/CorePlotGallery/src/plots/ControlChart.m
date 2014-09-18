@@ -176,8 +176,8 @@ static const NSUInteger numberOfPoints = 11;
     CPTMutablePlotRange *xRange = [[plotSpace.xRange mutableCopy] autorelease];
     CPTMutablePlotRange *yRange = [[plotSpace.yRange mutableCopy] autorelease];
 
-    x.orthogonalCoordinateDecimal = yRange.location;
-    y.orthogonalCoordinateDecimal = xRange.location;
+    x.orthogonalPosition = yRange.location;
+    y.orthogonalPosition = xRange.location;
 
     x.visibleRange = xRange;
     y.visibleRange = yRange;
@@ -185,8 +185,8 @@ static const NSUInteger numberOfPoints = 11;
     x.gridLinesRange = yRange;
     y.gridLinesRange = xRange;
 
-    [xRange expandRangeByFactor:CPTDecimalFromDouble(1.05)];
-    [yRange expandRangeByFactor:CPTDecimalFromDouble(1.05)];
+    [xRange expandRangeByFactor:@1.05];
+    [yRange expandRangeByFactor:@1.05];
     plotSpace.xRange = xRange;
     plotSpace.yRange = yRange;
 

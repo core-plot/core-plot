@@ -91,20 +91,20 @@
     // Label x axis with a fixed interval policy
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
-    x.majorIntervalLength         = CPTDecimalFromDouble(0.5);
-    x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(1.0);
-    x.minorTicksPerInterval       = 2;
-    x.majorGridLineStyle          = majorGridLineStyle;
-    x.minorGridLineStyle          = minorGridLineStyle;
+    x.majorIntervalLength   = @0.5;
+    x.orthogonalPosition    = @1.0;
+    x.minorTicksPerInterval = 2;
+    x.majorGridLineStyle    = majorGridLineStyle;
+    x.minorGridLineStyle    = minorGridLineStyle;
 
     x.title         = @"X Axis";
     x.titleOffset   = 30.0;
-    x.titleLocation = CPTDecimalFromDouble(1.25);
+    x.titleLocation = @1.25;
 
     // Label y with an automatic label policy.
     CPTXYAxis *y = axisSet.yAxis;
     y.labelingPolicy              = CPTAxisLabelingPolicyAutomatic;
-    y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(1.0);
+    y.orthogonalPosition          = @1.0;
     y.minorTicksPerInterval       = 2;
     y.preferredNumberOfMajorTicks = 8;
     y.majorGridLineStyle          = majorGridLineStyle;
@@ -113,7 +113,7 @@
 
     y.title         = @"Y Axis";
     y.titleOffset   = 30.0;
-    y.titleLocation = CPTDecimalFromDouble(1.0);
+    y.titleLocation = @1.0;
 
     // Create a plot that uses the data source method
     CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
@@ -133,23 +133,23 @@
     areaGradient.angle = -90.0;
     CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill      = areaGradientFill;
-    dataSourceLinePlot.areaBaseValue = CPTDecimalFromDouble(0.0);
+    dataSourceLinePlot.areaBaseValue = @0.0;
 
     // Add some fill bands
     CPTColor *band1Color       = [CPTColor colorWithComponentRed:0.3 green:0.3 blue:1.0 alpha:0.8];
     CPTGradient *band1Gradient = [CPTGradient gradientWithBeginningColor:band1Color endingColor:[CPTColor clearColor]];
     band1Gradient.angle = -90.0;
     CPTFill *band1Fill = [CPTFill fillWithGradient:band1Gradient];
-    [dataSourceLinePlot addAreaFillBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.05)
-                                                                                                      length:CPTDecimalFromDouble(0.15)]
+    [dataSourceLinePlot addAreaFillBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:@1.05
+                                                                                                      length:@0.15]
                                                                     fill:band1Fill]];
 
     CPTColor *band2Color       = [CPTColor colorWithComponentRed:1.0 green:0.3 blue:0.3 alpha:0.8];
     CPTGradient *band2Gradient = [CPTGradient gradientWithBeginningColor:band2Color endingColor:[CPTColor clearColor]];
     band2Gradient.angle = -90.0;
     CPTFill *band2Fill = [CPTFill fillWithGradient:band2Gradient];
-    [dataSourceLinePlot addAreaFillBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.3)
-                                                                                                      length:CPTDecimalFromDouble(0.1)]
+    [dataSourceLinePlot addAreaFillBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:@1.3
+                                                                                                      length:@0.1]
                                                                     fill:band2Fill]];
 
     // Auto scale the plot space to fit the plot data
@@ -157,14 +157,14 @@
     [plotSpace scaleToFitPlots:@[dataSourceLinePlot]];
     CPTMutablePlotRange *xRange = [[plotSpace.xRange mutableCopy] autorelease];
     CPTMutablePlotRange *yRange = [[plotSpace.yRange mutableCopy] autorelease];
-    [xRange expandRangeByFactor:CPTDecimalFromDouble(1.3)];
-    [yRange expandRangeByFactor:CPTDecimalFromDouble(1.3)];
+    [xRange expandRangeByFactor:@1.3];
+    [yRange expandRangeByFactor:@1.3];
     plotSpace.xRange = xRange;
     plotSpace.yRange = yRange;
 
     // Restrict y range to a global range
-    CPTPlotRange *globalYRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f)
-                                                              length:CPTDecimalFromFloat(2.0f)];
+    CPTPlotRange *globalYRange = [CPTPlotRange plotRangeWithLocation:@0.0
+                                                              length:@2.0];
     plotSpace.globalYRange = globalYRange;
 
     // Add plot symbols
@@ -218,7 +218,7 @@
 {
     // Impose a limit on how far user can scroll in x
     if ( coordinate == CPTCoordinateX ) {
-        CPTPlotRange *maxRange            = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromFloat(6.0f)];
+        CPTPlotRange *maxRange            = [CPTPlotRange plotRangeWithLocation:@(-1.0) length:@6.0];
         CPTMutablePlotRange *changedRange = [[newRange mutableCopy] autorelease];
         [changedRange shiftEndToFitInRange:maxRange];
         [changedRange shiftLocationToFitInRange:maxRange];

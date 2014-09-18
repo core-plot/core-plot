@@ -111,15 +111,15 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     // Setup scatter plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
     NSTimeInterval xLow       = oneDay * 0.5;
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(xLow) length:CPTDecimalFromDouble(oneDay * 5.0)];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.5) length:CPTDecimalFromDouble(3.5)];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@(xLow) length:@(oneDay * 5.0)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@1.5 length:@3.5];
 
     // Axes
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
-    x.majorIntervalLength         = CPTDecimalFromDouble(oneDay);
-    x.orthogonalCoordinateDecimal = CPTDecimalFromInteger(2);
-    x.minorTicksPerInterval       = 0;
+    x.majorIntervalLength   = @(oneDay);
+    x.orthogonalPosition    = @2.0;
+    x.minorTicksPerInterval = 0;
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     dateFormatter.dateStyle = kCFDateFormatterShortStyle;
     CPTTimeFormatter *timeFormatter = [[[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter] autorelease];
@@ -127,9 +127,9 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     x.labelFormatter            = timeFormatter;
 
     CPTXYAxis *y = axisSet.yAxis;
-    y.majorIntervalLength         = CPTDecimalFromDouble(0.5);
-    y.minorTicksPerInterval       = 5;
-    y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(oneDay);
+    y.majorIntervalLength   = @0.5;
+    y.minorTicksPerInterval = 5;
+    y.orthogonalPosition    = @(oneDay);
 
     // Create a plot that uses the data source method
     CPTRangePlot *rangePlot = [[[CPTRangePlot alloc] init] autorelease];

@@ -82,18 +82,18 @@
     areaGradient.angle = -90.0;
     CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill      = areaGradientFill;
-    dataSourceLinePlot.areaBaseValue = CPTDecimalFromDouble(1.75);
+    dataSourceLinePlot.areaBaseValue = @1.75;
 
     // Auto scale the plot space to fit the plot data
     // Extend the y range by 10% for neatness
     CPTXYPlotSpace *plotSpace = (id)graph.defaultPlotSpace;
     [plotSpace scaleToFitPlots:@[dataSourceLinePlot]];
     CPTMutablePlotRange *yRange = [[plotSpace.yRange mutableCopy] autorelease];
-    [yRange expandRangeByFactor:CPTDecimalFromDouble(1.1)];
+    [yRange expandRangeByFactor:@1.1];
     plotSpace.yRange = yRange;
 
     // Restrict y range to a global range
-    CPTPlotRange *globalYRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(6.0f)];
+    CPTPlotRange *globalYRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@6.0];
     plotSpace.globalYRange = globalYRange;
 }
 
