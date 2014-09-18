@@ -189,7 +189,7 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
 /// @{
 @property (nonatomic, readwrite, copy) CPTLineStyle *axisLineStyle;
 @property (nonatomic, readwrite, assign) CPTCoordinate coordinate;
-@property (nonatomic, readwrite, assign) NSDecimal labelingOrigin;
+@property (nonatomic, readwrite, strong) NSNumber *labelingOrigin;
 @property (nonatomic, readwrite, assign) CPTSign tickDirection;
 @property (nonatomic, readwrite, copy) CPTPlotRange *visibleRange;
 @property (nonatomic, readwrite, copy) CPTPlotRange *visibleAxisRange;
@@ -206,8 +206,8 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
 @property (nonatomic, readwrite, copy) NSAttributedString *attributedTitle;
 @property (nonatomic, readwrite, assign) CGFloat titleRotation;
 @property (nonatomic, readwrite, assign) CPTSign titleDirection;
-@property (nonatomic, readwrite, assign) NSDecimal titleLocation;
-@property (nonatomic, readonly) NSDecimal defaultTitleLocation;
+@property (nonatomic, readwrite, strong) NSNumber *titleLocation;
+@property (nonatomic, readonly) NSNumber *defaultTitleLocation;
 /// @}
 
 /// @name Labels
@@ -235,7 +235,7 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
 
 /// @name Major Ticks
 /// @{
-@property (nonatomic, readwrite, assign) NSDecimal majorIntervalLength;
+@property (nonatomic, readwrite, strong) NSNumber *majorIntervalLength;
 @property (nonatomic, readwrite, assign) CGFloat majorTickLength;
 @property (nonatomic, readwrite, copy) CPTLineStyle *majorTickLineStyle;
 @property (nonatomic, readwrite, strong) NSSet *majorTickLocations;
@@ -313,7 +313,7 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
 
 /// @name Coordinate Space Conversions
 /// @{
--(CGPoint)viewPointForCoordinateDecimalNumber:(NSDecimal)coordinateDecimalNumber;
+-(CGPoint)viewPointForCoordinateValue:(NSNumber *)coordinateValue;
 /// @}
 
 /// @name Grid Lines

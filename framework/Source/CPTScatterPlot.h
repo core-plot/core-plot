@@ -220,8 +220,8 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
 
 /// @name Appearance
 /// @{
-@property (nonatomic, readwrite) NSDecimal areaBaseValue;
-@property (nonatomic, readwrite) NSDecimal areaBaseValue2;
+@property (nonatomic, readwrite, strong) NSNumber *areaBaseValue;
+@property (nonatomic, readwrite, strong) NSNumber *areaBaseValue2;
 @property (nonatomic, readwrite, assign) CPTScatterPlotInterpolation interpolation;
 /// @}
 

@@ -17,7 +17,7 @@
 
 -(void)setUp
 {
-    self.plotRange = [CPTMutablePlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0) length:CPTDecimalFromDouble(2.0)];
+    self.plotRange = [CPTMutablePlotRange plotRangeWithLocation:@1.0 length:@2.0];
 }
 
 -(void)tearDown
@@ -39,7 +39,7 @@
 
 -(void)testContainsNegative
 {
-    self.plotRange.length = CPTDecimalFromDouble(-2.0);
+    self.plotRange.lengthDouble = -2.0;
 
     XCTAssertFalse([self.plotRange contains:CPTDecimalFromDouble(-1.001)], @"Test contains:-1.001");
     XCTAssertTrue([self.plotRange contains:CPTDecimalFromDouble(-1.0)], @"Test contains:-1.0");
@@ -68,7 +68,7 @@
 
 -(void)testContainsDoubleNegative
 {
-    self.plotRange.length = CPTDecimalFromDouble(-2.0);
+    self.plotRange.lengthDouble = -2.0;
 
     XCTAssertFalse([self.plotRange containsDouble:-1.001], @"Test contains:-1.001");
     XCTAssertTrue([self.plotRange containsDouble:-1.0], @"Test contains:-1.0");
@@ -79,20 +79,20 @@
 
 -(void)testContainsRange
 {
-    CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(4.0)];
+    CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@4.0];
 
     XCTAssertFalse([self.plotRange containsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
 
-    otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0) length:CPTDecimalFromDouble(2.0)];
+    otherRange = [CPTPlotRange plotRangeWithLocation:@1.0 length:@2.0];
     XCTAssertTrue([self.plotRange containsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
 
-    otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(2.0) length:CPTDecimalFromDouble(1.0)];
+    otherRange = [CPTPlotRange plotRangeWithLocation:@2.0 length:@1.0];
     XCTAssertTrue([self.plotRange containsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
 
-    otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(2.0) length:CPTDecimalFromDouble(4.0)];
+    otherRange = [CPTPlotRange plotRangeWithLocation:@2.0 length:@4.0];
     XCTAssertFalse([self.plotRange containsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
 
-    otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(2.0)];
+    otherRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@2.0];
     XCTAssertFalse([self.plotRange containsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
 }
 
@@ -101,45 +101,45 @@
 
 -(void)testUnionRange
 {
-    [self.plotRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(4.0)]];
+    [self.plotRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:@0.0 length:@4.0]];
     [self checkRangeWithLocation:0.0 length:4.0];
 
-    [self.plotRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.0) length:CPTDecimalFromDouble(1.0)]];
+    [self.plotRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:@(-1.0) length:@1.0]];
     [self checkRangeWithLocation:-1.0 length:5.0];
 
-    [self.plotRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.0) length:CPTDecimalFromDouble(2.0)]];
+    [self.plotRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:@5.0 length:@2.0]];
     [self checkRangeWithLocation:-1.0 length:8.0];
 
-    [self.plotRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(-4.0)]];
+    [self.plotRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:@0.0 length:@(-4.0)]];
     [self checkRangeWithLocation:-4.0 length:11.0];
 
-    [self.plotRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.0) length:CPTDecimalFromDouble(-4.0)]];
+    [self.plotRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:@(-1.0) length:@(-4.0)]];
     [self checkRangeWithLocation:-5.0 length:12.0];
 
-    [self.plotRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.0) length:CPTDecimalFromDouble(-4.0)]];
+    [self.plotRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:@5.0 length:@(-4.0)]];
     [self checkRangeWithLocation:-5.0 length:12.0];
 }
 
 -(void)testUnionRangeNegative
 {
-    self.plotRange.length = CPTDecimalFromDouble(-2.0);
+    self.plotRange.lengthDouble = -2.0;
 
-    [self.plotRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(4.0)]];
+    [self.plotRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:@0.0 length:@4.0]];
     [self checkRangeWithLocation:4.0 length:-5.0];
 
-    [self.plotRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.0) length:CPTDecimalFromDouble(1.0)]];
+    [self.plotRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:@(-1.0) length:@1.0]];
     [self checkRangeWithLocation:4.0 length:-5.0];
 
-    [self.plotRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.0) length:CPTDecimalFromDouble(2.0)]];
+    [self.plotRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:@5.0 length:@2.0]];
     [self checkRangeWithLocation:7.0 length:-8.0];
 
-    [self.plotRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(-4.0)]];
+    [self.plotRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:@0.0 length:@(-4.0)]];
     [self checkRangeWithLocation:7.0 length:-11.0];
 
-    [self.plotRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.0) length:CPTDecimalFromDouble(-4.0)]];
+    [self.plotRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:@(-1.0) length:@(-4.0)]];
     [self checkRangeWithLocation:7.0 length:-12.0];
 
-    [self.plotRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.0) length:CPTDecimalFromDouble(-4.0)]];
+    [self.plotRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:@5.0 length:@(-4.0)]];
     [self checkRangeWithLocation:7.0 length:-12.0];
 }
 
@@ -148,18 +148,18 @@
 
 -(void)testIntersectRange
 {
-    CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(4.0)];
+    CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@4.0];
 
     XCTAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:1.0 length:2.0];
 
-    otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0) length:CPTDecimalFromDouble(1.0)];
+    otherRange = [CPTPlotRange plotRangeWithLocation:@1.0 length:@1.0];
     XCTAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:1.0 length:1.0];
 
-    otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.0) length:CPTDecimalFromDouble(1.0)];
+    otherRange = [CPTPlotRange plotRangeWithLocation:@(-1.0) length:@1.0];
     XCTAssertFalse([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:1.0 length:0.0];
@@ -167,18 +167,18 @@
 
 -(void)testIntersectRange2
 {
-    CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(4.0) length:CPTDecimalFromDouble(-4.0)];
+    CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:@4.0 length:@(-4.0)];
 
     XCTAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:1.0 length:2.0];
 
-    otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(2.0) length:CPTDecimalFromDouble(-1.0)];
+    otherRange = [CPTPlotRange plotRangeWithLocation:@2.0 length:@(-1.0)];
     XCTAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:1.0 length:1.0];
 
-    otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(-4.0)];
+    otherRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@(-4.0)];
     XCTAssertFalse([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:1.0 length:0.0];
@@ -186,19 +186,19 @@
 
 -(void)testIntersectRangeNegative
 {
-    self.plotRange.length = CPTDecimalFromDouble(-2.0);
+    self.plotRange.lengthDouble = -2.0;
 
-    CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(4.0)];
+    CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@4.0];
     XCTAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:1.0 length:-1.0];
 
-    otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(1.0)];
+    otherRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@1.0];
     XCTAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:1.0 length:-1.0];
 
-    otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.0) length:CPTDecimalFromDouble(2.0)];
+    otherRange = [CPTPlotRange plotRangeWithLocation:@5.0 length:@2.0];
     XCTAssertFalse([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:1.0 length:0.0];
@@ -206,19 +206,19 @@
 
 -(void)testIntersectRangeNegative2
 {
-    self.plotRange.length = CPTDecimalFromDouble(-2.0);
+    self.plotRange.lengthDouble = -2.0;
 
-    CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(-4.0)];
+    CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@(-4.0)];
     XCTAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:0.0 length:-1.0];
 
-    otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(2.0) length:CPTDecimalFromDouble(-4.0)];
+    otherRange = [CPTPlotRange plotRangeWithLocation:@2.0 length:@(-4.0)];
     XCTAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:0.0 length:-1.0];
 
-    otherRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.0) length:CPTDecimalFromDouble(-4.0)];
+    otherRange = [CPTPlotRange plotRangeWithLocation:@5.0 length:@(-4.0)];
     XCTAssertFalse([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:0.0 length:0.0];
@@ -229,89 +229,89 @@
 
 -(void)testShiftLocation
 {
-    [self.plotRange shiftLocationToFitInRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(4.0)]];
+    [self.plotRange shiftLocationToFitInRange:[CPTPlotRange plotRangeWithLocation:@0.0 length:@4.0]];
     [self checkRangeWithLocation:1.0 length:2.0];
 
-    [self.plotRange shiftLocationToFitInRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.0) length:CPTDecimalFromDouble(1.0)]];
+    [self.plotRange shiftLocationToFitInRange:[CPTPlotRange plotRangeWithLocation:@(-1.0) length:@1.0]];
     [self checkRangeWithLocation:0.0 length:2.0];
 
-    [self.plotRange shiftLocationToFitInRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.0) length:CPTDecimalFromDouble(2.0)]];
+    [self.plotRange shiftLocationToFitInRange:[CPTPlotRange plotRangeWithLocation:@5.0 length:@2.0]];
     [self checkRangeWithLocation:5.0 length:2.0];
 
-    [self.plotRange shiftLocationToFitInRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(-4.0)]];
+    [self.plotRange shiftLocationToFitInRange:[CPTPlotRange plotRangeWithLocation:@0.0 length:@(-4.0)]];
     [self checkRangeWithLocation:0.0 length:2.0];
 
-    [self.plotRange shiftLocationToFitInRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.0) length:CPTDecimalFromDouble(-4.0)]];
+    [self.plotRange shiftLocationToFitInRange:[CPTPlotRange plotRangeWithLocation:@(-1.0) length:@(-4.0)]];
     [self checkRangeWithLocation:-1.0 length:2.0];
 
-    [self.plotRange shiftLocationToFitInRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.0) length:CPTDecimalFromDouble(-4.0)]];
+    [self.plotRange shiftLocationToFitInRange:[CPTPlotRange plotRangeWithLocation:@5.0 length:@(-4.0)]];
     [self checkRangeWithLocation:1.0 length:2.0];
 }
 
 -(void)testShiftLocationNegative
 {
-    self.plotRange.length = CPTDecimalFromDouble(-2.0);
+    self.plotRange.lengthDouble = -2.0;
 
-    [self.plotRange shiftLocationToFitInRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(4.0)]];
+    [self.plotRange shiftLocationToFitInRange:[CPTPlotRange plotRangeWithLocation:@0.0 length:@4.0]];
     [self checkRangeWithLocation:1.0 length:-2.0];
 
-    [self.plotRange shiftLocationToFitInRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.0) length:CPTDecimalFromDouble(1.0)]];
+    [self.plotRange shiftLocationToFitInRange:[CPTPlotRange plotRangeWithLocation:@(-1.0) length:@1.0]];
     [self checkRangeWithLocation:0.0 length:-2.0];
 
-    [self.plotRange shiftLocationToFitInRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.0) length:CPTDecimalFromDouble(2.0)]];
+    [self.plotRange shiftLocationToFitInRange:[CPTPlotRange plotRangeWithLocation:@5.0 length:@2.0]];
     [self checkRangeWithLocation:5.0 length:-2.0];
 
-    [self.plotRange shiftLocationToFitInRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(-4.0)]];
+    [self.plotRange shiftLocationToFitInRange:[CPTPlotRange plotRangeWithLocation:@0.0 length:@(-4.0)]];
     [self checkRangeWithLocation:0.0 length:-2.0];
 
-    [self.plotRange shiftLocationToFitInRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.0) length:CPTDecimalFromDouble(-4.0)]];
+    [self.plotRange shiftLocationToFitInRange:[CPTPlotRange plotRangeWithLocation:@(-1.0) length:@(-4.0)]];
     [self checkRangeWithLocation:-1.0 length:-2.0];
 
-    [self.plotRange shiftLocationToFitInRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.0) length:CPTDecimalFromDouble(-4.0)]];
+    [self.plotRange shiftLocationToFitInRange:[CPTPlotRange plotRangeWithLocation:@5.0 length:@(-4.0)]];
     [self checkRangeWithLocation:1.0 length:-2.0];
 }
 
 -(void)testShiftEnd
 {
-    [self.plotRange shiftEndToFitInRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(4.0)]];
+    [self.plotRange shiftEndToFitInRange:[CPTPlotRange plotRangeWithLocation:@0.0 length:@4.0]];
     [self checkRangeWithLocation:1.0 length:2.0];
 
-    [self.plotRange shiftEndToFitInRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.0) length:CPTDecimalFromDouble(1.0)]];
+    [self.plotRange shiftEndToFitInRange:[CPTPlotRange plotRangeWithLocation:@(-1.0) length:@1.0]];
     [self checkRangeWithLocation:-2.0 length:2.0];
 
-    [self.plotRange shiftEndToFitInRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.0) length:CPTDecimalFromDouble(2.0)]];
+    [self.plotRange shiftEndToFitInRange:[CPTPlotRange plotRangeWithLocation:@5.0 length:@2.0]];
     [self checkRangeWithLocation:3.0 length:2.0];
 
-    [self.plotRange shiftEndToFitInRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(-4.0)]];
+    [self.plotRange shiftEndToFitInRange:[CPTPlotRange plotRangeWithLocation:@0.0 length:@(-4.0)]];
     [self checkRangeWithLocation:-2.0 length:2.0];
 
-    [self.plotRange shiftEndToFitInRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.0) length:CPTDecimalFromDouble(-4.0)]];
+    [self.plotRange shiftEndToFitInRange:[CPTPlotRange plotRangeWithLocation:@(-1.0) length:@(-4.0)]];
     [self checkRangeWithLocation:-3.0 length:2.0];
 
-    [self.plotRange shiftEndToFitInRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.0) length:CPTDecimalFromDouble(-4.0)]];
+    [self.plotRange shiftEndToFitInRange:[CPTPlotRange plotRangeWithLocation:@5.0 length:@(-4.0)]];
     [self checkRangeWithLocation:-1.0 length:2.0];
 }
 
 -(void)testShiftEndNegative
 {
-    self.plotRange.length = CPTDecimalFromDouble(-2.0);
+    self.plotRange.lengthDouble = -2.0;
 
-    [self.plotRange shiftEndToFitInRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(4.0)]];
+    [self.plotRange shiftEndToFitInRange:[CPTPlotRange plotRangeWithLocation:@0.0 length:@4.0]];
     [self checkRangeWithLocation:2.0 length:-2.0];
 
-    [self.plotRange shiftEndToFitInRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.0) length:CPTDecimalFromDouble(1.0)]];
+    [self.plotRange shiftEndToFitInRange:[CPTPlotRange plotRangeWithLocation:@(-1.0) length:@1.0]];
     [self checkRangeWithLocation:2.0 length:-2.0];
 
-    [self.plotRange shiftEndToFitInRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.0) length:CPTDecimalFromDouble(2.0)]];
+    [self.plotRange shiftEndToFitInRange:[CPTPlotRange plotRangeWithLocation:@5.0 length:@2.0]];
     [self checkRangeWithLocation:7.0 length:-2.0];
 
-    [self.plotRange shiftEndToFitInRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(-4.0)]];
+    [self.plotRange shiftEndToFitInRange:[CPTPlotRange plotRangeWithLocation:@0.0 length:@(-4.0)]];
     [self checkRangeWithLocation:2.0 length:-2.0];
 
-    [self.plotRange shiftEndToFitInRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-1.0) length:CPTDecimalFromDouble(-4.0)]];
+    [self.plotRange shiftEndToFitInRange:[CPTPlotRange plotRangeWithLocation:@(-1.0) length:@(-4.0)]];
     [self checkRangeWithLocation:1.0 length:-2.0];
 
-    [self.plotRange shiftEndToFitInRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(5.0) length:CPTDecimalFromDouble(-4.0)]];
+    [self.plotRange shiftEndToFitInRange:[CPTPlotRange plotRangeWithLocation:@5.0 length:@(-4.0)]];
     [self checkRangeWithLocation:3.0 length:-2.0];
 }
 
@@ -320,43 +320,43 @@
 
 -(void)testExpandRangeHalf
 {
-    [self.plotRange expandRangeByFactor:CPTDecimalFromDouble(0.5)];
+    [self.plotRange expandRangeByFactor:@0.5];
     [self checkRangeWithLocation:1.5 length:1.0];
 }
 
 -(void)testExpandRangeSame
 {
-    [self.plotRange expandRangeByFactor:CPTDecimalFromDouble(1.0)];
+    [self.plotRange expandRangeByFactor:@1.0];
     [self checkRangeWithLocation:1.0 length:2.0];
 }
 
 -(void)testExpandRangeDouble
 {
-    [self.plotRange expandRangeByFactor:CPTDecimalFromDouble(2.0)];
+    [self.plotRange expandRangeByFactor:@2.0];
     [self checkRangeWithLocation:0.0 length:4.0];
 }
 
 -(void)testExpandRangeHalfNegative
 {
-    self.plotRange.length = CPTDecimalFromDouble(-2.0);
+    self.plotRange.lengthDouble = -2.0;
 
-    [self.plotRange expandRangeByFactor:CPTDecimalFromDouble(0.5)];
+    [self.plotRange expandRangeByFactor:@0.5];
     [self checkRangeWithLocation:0.5 length:-1.0];
 }
 
 -(void)testExpandRangeSameNegative
 {
-    self.plotRange.length = CPTDecimalFromDouble(-2.0);
+    self.plotRange.lengthDouble = -2.0;
 
-    [self.plotRange expandRangeByFactor:CPTDecimalFromDouble(1.0)];
+    [self.plotRange expandRangeByFactor:@1.0];
     [self checkRangeWithLocation:1.0 length:-2.0];
 }
 
 -(void)testExpandRangeDoubleNegative
 {
-    self.plotRange.length = CPTDecimalFromDouble(-2.0);
+    self.plotRange.lengthDouble = -2.0;
 
-    [self.plotRange expandRangeByFactor:CPTDecimalFromDouble(2.0)];
+    [self.plotRange expandRangeByFactor:@2.0];
     [self checkRangeWithLocation:2.0 length:-4.0];
 }
 
@@ -374,7 +374,7 @@
 
 -(void)testCompareToDecimalNegative
 {
-    self.plotRange.length = CPTDecimalFromDouble(-2.0);
+    self.plotRange.lengthDouble = -2.0;
 
     XCTAssertEqual([self.plotRange compareToDecimal:CPTDecimalFromDouble(-1.001)], CPTPlotRangeComparisonResultNumberBelowRange, @"Test compareTo:-1.001");
     XCTAssertEqual([self.plotRange compareToDecimal:CPTDecimalFromDouble(-1.0)], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:-1.0");
@@ -394,7 +394,7 @@
 
 -(void)testCompareToDoubleNegative
 {
-    self.plotRange.length = CPTDecimalFromDouble(-2.0);
+    self.plotRange.lengthDouble = -2.0;
 
     XCTAssertEqual([self.plotRange compareToDouble:-1.001], CPTPlotRangeComparisonResultNumberBelowRange, @"Test compareTo:-1.001");
     XCTAssertEqual([self.plotRange compareToDouble:-1.0], CPTPlotRangeComparisonResultNumberInRange, @"Test compareTo:-1.0");
@@ -420,12 +420,12 @@
 {
     NSString *errMessage;
 
-    NSDecimal newLocation = self.plotRange.location;
+    NSDecimal newLocation = self.plotRange.locationDecimal;
 
     errMessage = [NSString stringWithFormat:@"expected location = %g, was %@", loc, NSDecimalString(&newLocation, nil)];
     XCTAssertTrue(CPTDecimalEquals( newLocation, CPTDecimalFromDouble(loc) ), @"%@", errMessage);
 
-    NSDecimal newLength = self.plotRange.length;
+    NSDecimal newLength = self.plotRange.lengthDecimal;
     errMessage = [NSString stringWithFormat:@"expected location = %g, was %@", loc, NSDecimalString(&newLength, nil)];
     XCTAssertTrue(CPTDecimalEquals( newLength, CPTDecimalFromDouble(len) ), @"%@", errMessage);
 }

@@ -9,7 +9,7 @@
 @property (nonatomic, readwrite, assign) CGFloat offset;
 @property (nonatomic, readwrite, assign) CGFloat rotation;
 @property (nonatomic, readwrite, assign) CPTAlignment alignment;
-@property (nonatomic, readwrite) NSDecimal tickLocation;
+@property (nonatomic, readwrite, strong) NSNumber *tickLocation;
 
 /// @name Initialization
 /// @{

@@ -15,16 +15,22 @@ typedef NS_ENUM (NSInteger, CPTPlotRangeComparisonResult) {
 
 /// @name Range Limits
 /// @{
-@property (nonatomic, readonly) NSDecimal location;
-@property (nonatomic, readonly) NSDecimal length;
-@property (nonatomic, readonly) NSDecimal end;
+@property (nonatomic, readonly, strong) NSNumber *location;
+@property (nonatomic, readonly, strong) NSNumber *length;
+@property (nonatomic, readonly, strong) NSNumber *end;
+@property (nonatomic, readonly) NSDecimal locationDecimal;
+@property (nonatomic, readonly) NSDecimal lengthDecimal;
+@property (nonatomic, readonly) NSDecimal endDecimal;
 @property (nonatomic, readonly) double locationDouble;
 @property (nonatomic, readonly) double lengthDouble;
 @property (nonatomic, readonly) double endDouble;
 
-@property (nonatomic, readonly) NSDecimal minLimit;
-@property (nonatomic, readonly) NSDecimal midPoint;
-@property (nonatomic, readonly) NSDecimal maxLimit;
+@property (nonatomic, readonly, strong) NSNumber *minLimit;
+@property (nonatomic, readonly, strong) NSNumber *midPoint;
+@property (nonatomic, readonly, strong) NSNumber *maxLimit;
+@property (nonatomic, readonly) NSDecimal minLimitDecimal;
+@property (nonatomic, readonly) NSDecimal midPointDecimal;
+@property (nonatomic, readonly) NSDecimal maxLimitDecimal;
 @property (nonatomic, readonly) double minLimitDouble;
 @property (nonatomic, readonly) double midPointDouble;
 @property (nonatomic, readonly) double maxLimitDouble;
@@ -32,12 +38,14 @@ typedef NS_ENUM (NSInteger, CPTPlotRangeComparisonResult) {
 
 /// @name Factory Methods
 /// @{
-+(instancetype)plotRangeWithLocation:(NSDecimal)loc length:(NSDecimal)len;
++(instancetype)plotRangeWithLocation:(NSNumber *)loc length:(NSNumber *)len;
++(instancetype)plotRangeWithLocationDecimal:(NSDecimal)loc lengthDecimal:(NSDecimal)len;
 /// @}
 
 /// @name Initialization
 /// @{
--(instancetype)initWithLocation:(NSDecimal)loc length:(NSDecimal)len;
+-(instancetype)initWithLocation:(NSNumber *)loc length:(NSNumber *)len;
+-(instancetype)initWithLocationDecimal:(NSDecimal)loc lengthDecimal:(NSDecimal)len;
 /// @}
 
 /// @name Checking Ranges

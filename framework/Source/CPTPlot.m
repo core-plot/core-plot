@@ -1407,7 +1407,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
             vDSP_maxvD(doubles, 1, &max, (vDSP_Length)numberOfSamples);
 
             if ( max >= min ) {
-                range = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(min) length:CPTDecimalFromDouble(max - min)];
+                range = [CPTPlotRange plotRangeWithLocation:@(min) length:@(max - min)];
             }
         }
         else {
@@ -1430,7 +1430,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
             }
 
             if ( CPTDecimalGreaterThanOrEqualTo(max, min) ) {
-                range = [CPTPlotRange plotRangeWithLocation:min length:CPTDecimalSubtract(max, min)];
+                range = [CPTPlotRange plotRangeWithLocationDecimal:min lengthDecimal:CPTDecimalSubtract(max, min)];
             }
         }
     }

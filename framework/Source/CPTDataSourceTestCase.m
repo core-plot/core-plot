@@ -76,7 +76,7 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
     CPTMutablePlotRange *range = [self plotRangeForData:self.yData];
 
     if ( self.plots.count > 1 ) {
-        range.length = CPTDecimalAdd( [range length], CPTDecimalFromDouble(self.plots.count) );
+        range.lengthDecimal = CPTDecimalAdd( range.lengthDecimal, CPTDecimalFromUnsignedInteger(self.plots.count) );
     }
 
     return range;
@@ -88,8 +88,8 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
     double max   = [[dataArray valueForKeyPath:@"@max.doubleValue"] doubleValue];
     double range = max - min;
 
-    return [CPTMutablePlotRange plotRangeWithLocation:CPTDecimalFromDouble(min - 0.05 * range)
-                                               length:CPTDecimalFromDouble(range + 0.1 * range)];
+    return [CPTMutablePlotRange plotRangeWithLocation:@(min - 0.05 * range)
+                                               length:@(range + 0.1 * range)];
 }
 
 #pragma mark -

@@ -608,7 +608,7 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
 
     // Set range
     if ( unionRange ) {
-        if ( CPTDecimalEquals( unionRange.length, CPTDecimalFromInteger(0) ) ) {
+        if ( CPTDecimalEquals( unionRange.lengthDecimal, CPTDecimalFromInteger(0) ) ) {
             [unionRange unionPlotRange:[self plotRangeForCoordinate:coordinate]];
         }
         [self setPlotRange:unionRange forCoordinate:coordinate];

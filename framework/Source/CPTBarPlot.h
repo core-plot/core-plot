@@ -188,14 +188,12 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
 /// @name Appearance
 /// @{
 @property (nonatomic, readwrite, assign) BOOL barWidthsAreInViewCoordinates;
-@property (nonatomic, readwrite, assign) NSDecimal barWidth;
-@property (nonatomic, readwrite, assign) CGFloat barWidthScale;
-@property (nonatomic, readwrite, assign) NSDecimal barOffset;
-@property (nonatomic, readwrite, assign) CGFloat barOffsetScale;
+@property (nonatomic, readwrite, strong) NSNumber *barWidth;
+@property (nonatomic, readwrite, strong) NSNumber *barOffset;
 @property (nonatomic, readwrite, assign) CGFloat barCornerRadius;
 @property (nonatomic, readwrite, assign) CGFloat barBaseCornerRadius;
 @property (nonatomic, readwrite, assign) BOOL barsAreHorizontal;
-@property (nonatomic, readwrite, assign) NSDecimal baseValue;
+@property (nonatomic, readwrite, strong) NSNumber *baseValue;
 @property (nonatomic, readwrite, assign) BOOL barBasesVary;
 @property (nonatomic, readwrite, copy) CPTPlotRange *plotRange;
 /// @}
