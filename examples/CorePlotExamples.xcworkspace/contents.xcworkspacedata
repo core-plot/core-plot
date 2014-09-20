@@ -43,9 +43,6 @@
          location = "group:CPTTestApp-iPhone/CPTTestApp-iPhone.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:CPTTestApp-iPhone-SpeedTest/CPTTestApp-iPhone.xcodeproj">
-      </FileRef>
-      <FileRef
          location = "group:StockPlot/StockPlot.xcodeproj">
       </FileRef>
    </Group>
