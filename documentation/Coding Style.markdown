@@ -300,7 +300,7 @@ Comments are used in Core Plot headers to group related methods, in much the sam
 
     // Organizing plots
     -(void)addPlot:(CPTPlot *)plot; 
-    -(void)addPlot:(CPTPlot *)plot toPlotSpace:(CPPlotSpace *)space;
+    -(void)addPlot:(CPTPlot *)plot toPlotSpace:(CPTPlotSpace *)space;
     -(void)removePlot:(CPTPlot *)plot;
     -(void)insertPlot:(CPTPlot*)plot atIndex:(NSUInteger)index;
     -(void)insertPlot:(CPTPlot*)plot atIndex:(NSUInteger)index intoPlotSpace:(CPTPlotSpace *)space;
