@@ -20,6 +20,7 @@ To be determined.
 - **New**: Added support for categorical plot data.
 - **Changed**: Increased the deployment target to iOS 5.0 and Mac OS X 10.7.
 - **Changed**: Enabled automatic reference counting (ARC) in the framework projects.
+- **Changed**: Changed the Installation Directory for the Mac framework to "@rpath" and updated the Runpath Search Path in each Mac example app.
 - **Changed**: Changed all public properties and methods that take `NSDecimal` values to take `NSNumber` values instead. Use `NSDecimalNumber` to maintain full decimal precision.
 - **Changed**: Added properties to `CPTPlotRange` and `CPTMutablePlotRange` to read and write all range properties as `NSNumber`, `NSDecimal`, or `double`.
 - **Changed**: Renamed the `CPTXYAxis.orthogonalCoordinateDecimal` property to `CPTXYAxis.orthogonalPosition`.

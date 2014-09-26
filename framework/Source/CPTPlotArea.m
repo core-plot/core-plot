@@ -715,24 +715,27 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         // Inform delegate if a point was hit
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:self];
 
-        if ( CGRectContainsPoint(self.bounds, plotAreaPoint) && CGPointEqualToPoint(plotAreaPoint, lastPoint) ) {
-            if ( [theDelegate respondsToSelector:@selector(plotAreaTouchUp:)] ) {
-                [theDelegate plotAreaTouchUp:self];
-            }
+        if ( CGRectContainsPoint(self.bounds, plotAreaPoint) ) {
+            CGVector offset = CGVectorMake(plotAreaPoint.x - lastPoint.x, plotAreaPoint.y - lastPoint.y);
+            if ( (offset.dx * offset.dx + offset.dy * offset.dy) <= CPTFloat(25.0) ) {
+                if ( [theDelegate respondsToSelector:@selector(plotAreaTouchUp:)] ) {
+                    [theDelegate plotAreaTouchUp:self];
+                }
 
-            if ( [theDelegate respondsToSelector:@selector(plotAreaTouchUp:withEvent:)] ) {
-                [theDelegate plotAreaTouchUp:self withEvent:event];
-            }
+                if ( [theDelegate respondsToSelector:@selector(plotAreaTouchUp:withEvent:)] ) {
+                    [theDelegate plotAreaTouchUp:self withEvent:event];
+                }
 
-            if ( [theDelegate respondsToSelector:@selector(plotAreaWasSelected:)] ) {
-                [theDelegate plotAreaWasSelected:self];
-            }
+                if ( [theDelegate respondsToSelector:@selector(plotAreaWasSelected:)] ) {
+                    [theDelegate plotAreaWasSelected:self];
+                }
 
-            if ( [theDelegate respondsToSelector:@selector(plotAreaWasSelected:withEvent:)] ) {
-                [theDelegate plotAreaWasSelected:self withEvent:event];
-            }
+                if ( [theDelegate respondsToSelector:@selector(plotAreaWasSelected:withEvent:)] ) {
+                    [theDelegate plotAreaWasSelected:self withEvent:event];
+                }
 
-            return NO; // don't block other events in the responder chain
+                return NO; // don't block other events in the responder chain
+            }
         }
     }
 

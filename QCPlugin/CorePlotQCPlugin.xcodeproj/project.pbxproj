@@ -244,7 +244,7 @@
 		A8F18CF511FA634B00B2C42F /* UnitTests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = UnitTests.octest;
+			path = UnitTests.xctest;
 			remoteRef = A8F18CF411FA634B00B2C42F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -337,6 +337,7 @@
 				GCC_PREFIX_HEADER = CorePlotQCPlugin_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Graphics/Quartz Composer Plug-Ins";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = CorePlotQCPlugin;
 				SDKROOT = macosx;
@@ -357,6 +358,7 @@
 				GCC_PREFIX_HEADER = CorePlotQCPlugin_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Graphics/Quartz Composer Plug-Ins";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = CorePlotQCPlugin;
 				SDKROOT = macosx;

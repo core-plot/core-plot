@@ -331,7 +331,7 @@
 			isa = PBXGroup;
 			children = (
 				4F4892891290FFCD00EDB93F /* CorePlot.framework */,
-				4F48928B1290FFCD00EDB93F /* UnitTests.octest */,
+				4F48928B1290FFCD00EDB93F /* UnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -400,10 +400,10 @@
 			remoteRef = 4F4892881290FFCD00EDB93F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4F48928B1290FFCD00EDB93F /* UnitTests.octest */ = {
+		4F48928B1290FFCD00EDB93F /* UnitTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = UnitTests.octest;
+			path = UnitTests.xctest;
 			remoteRef = 4F48928A1290FFCD00EDB93F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -508,6 +508,7 @@
 				GCC_PREFIX_HEADER = Plot_Gallery_Mac_Prefix.pch;
 				INFOPLIST_FILE = "Plot_Gallery_Mac-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -531,6 +532,7 @@
 				GCC_PREFIX_HEADER = Plot_Gallery_Mac_Prefix.pch;
 				INFOPLIST_FILE = "Plot_Gallery_Mac-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
