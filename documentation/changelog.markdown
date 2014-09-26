@@ -20,6 +20,7 @@ To be determined.
 - **New**: Added support for categorical plot data.
 - **Changed**: Increased the deployment target to iOS 5.0 and Mac OS X 10.7.
 - **Changed**: Enabled automatic reference counting (ARC) in the framework projects.
+- **Changed**: Changed the Installation Directory for the Mac framework to "@rpath" and updated the Runpath Search Path in each Mac example app.
 - **Changed**: Updated `CPTImage` to automatically handle switching between Retina and non-Retina displays.
 - **Changed**: Changed the behavior of all axis and plot xxxWasSelected delegate methods to require both a down and up event on the same element instead of only the down event.
 - **Changed**: Miscellaneous bug fixes and cleanup.
