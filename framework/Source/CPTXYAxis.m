@@ -18,8 +18,8 @@
 
 -(void)drawTicksInContext:(CGContextRef)context atLocations:(NSSet *)locations withLength:(CGFloat)length inRange:(CPTPlotRange *)labeledRange isMajor:(BOOL)major;
 
--(void)orthogonalCoordinateViewLowerBound:(CGFloat *)lower upperBound:(CGFloat *)upper;
--(CGPoint)viewPointForOrthogonalCoordinateDecimal:(NSDecimal)orthogonalCoord axisCoordinateDecimal:(NSDecimal)coordinateDecimalNumber;
+-(void)orthogonalCoordinateViewLowerBound:(CGFloat *)lower upperBound:(CGFloat *)upper forLayerSize:(const LayerSize *)layerSize;
+-(CGPoint)viewPointForOrthogonalCoordinateDecimal:(NSDecimal)orthogonalCoord axisCoordinateDecimal:(NSDecimal)coordinateDecimalNumber forLayerSize:(const LayerSize *)layerSize;
 
 @end
 
@@ -119,7 +119,7 @@
 
 /// @cond
 
--(void)orthogonalCoordinateViewLowerBound:(CGFloat *)lower upperBound:(CGFloat *)upper
+-(void)orthogonalCoordinateViewLowerBound:(CGFloat *)lower upperBound:(CGFloat *)upper forLayerSize:(const LayerSize *)layerSize
 {
     CPTCoordinate orthogonalCoordinate = CPTOrthogonalCoordinate(self.coordinate);
     CPTXYPlotSpace *xyPlotSpace        = (CPTXYPlotSpace *)self.plotSpace;
@@ -128,8 +128,8 @@
     NSAssert(orthogonalRange != nil, @"The orthogonalRange was nil in orthogonalCoordinateViewLowerBound:upperBound:");
 
     NSDecimal zero          = CPTDecimalFromInteger(0);
-    CGPoint lowerBoundPoint = [self viewPointForOrthogonalCoordinateDecimal:orthogonalRange.location axisCoordinateDecimal:zero];
-    CGPoint upperBoundPoint = [self viewPointForOrthogonalCoordinateDecimal:orthogonalRange.end axisCoordinateDecimal:zero];
+    CGPoint lowerBoundPoint = [self viewPointForOrthogonalCoordinateDecimal:orthogonalRange.location axisCoordinateDecimal:zero forLayerSize:layerSize];
+    CGPoint upperBoundPoint = [self viewPointForOrthogonalCoordinateDecimal:orthogonalRange.end axisCoordinateDecimal:zero forLayerSize:layerSize];
 
     switch ( self.coordinate ) {
         case CPTCoordinateX:
@@ -149,7 +149,7 @@
     }
 }
 
--(CGPoint)viewPointForOrthogonalCoordinateDecimal:(NSDecimal)orthogonalCoord axisCoordinateDecimal:(NSDecimal)coordinateDecimalNumber
+-(CGPoint)viewPointForOrthogonalCoordinateDecimal:(NSDecimal)orthogonalCoord axisCoordinateDecimal:(NSDecimal)coordinateDecimalNumber forLayerSize:(const LayerSize *)layerSize
 {
     CPTCoordinate myCoordinate         = self.coordinate;
     CPTCoordinate orthogonalCoordinate = CPTOrthogonalCoordinate(myCoordinate);
@@ -161,19 +161,36 @@
 
     CPTPlotArea *thePlotArea = self.plotArea;
 
-    return [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2] fromLayer:thePlotArea];
+    return [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2 forLayerSize:layerSize] fromLayer:thePlotArea];
 }
 
 -(CGPoint)viewPointForCoordinateDecimalNumber:(NSDecimal)coordinateDecimalNumber
 {
+    CPTPlotArea *thePlotArea = self.plotArea;
+    LayerSize layerSizeValue;
+    const LayerSize *layerSize;
+    if ( thePlotArea ) {
+        layerSizeValue.asFloat = thePlotArea.bounds.size;
+        layerSizeValue.width = CPTDecimalFromCGFloat(layerSizeValue.asFloat.width);
+        layerSizeValue.height = CPTDecimalFromCGFloat(layerSizeValue.asFloat.height);
+        layerSize = &layerSizeValue;
+    } else {
+        layerSize = nil;
+    }
+    return [self viewPointForCoordinateDecimalNumber:coordinateDecimalNumber forLayerSize:layerSize];
+}
+
+-(CGPoint)viewPointForCoordinateDecimalNumber:(NSDecimal)coordinateDecimalNumber forLayerSize:(const LayerSize *)layerSize
+{
     CGPoint point = [self viewPointForOrthogonalCoordinateDecimal:self.orthogonalCoordinateDecimal
-                                            axisCoordinateDecimal:coordinateDecimalNumber];
+                                            axisCoordinateDecimal:coordinateDecimalNumber
+                                                     forLayerSize:layerSize];
 
     CPTConstraints *theAxisConstraints = self.axisConstraints;
 
     if ( theAxisConstraints ) {
         CGFloat lb, ub;
-        [self orthogonalCoordinateViewLowerBound:&lb upperBound:&ub];
+        [self orthogonalCoordinateViewLowerBound:&lb upperBound:&ub forLayerSize:layerSize];
         CGFloat constrainedPosition = [theAxisConstraints positionForLowerBound:lb upperBound:ub];
 
         switch ( self.coordinate ) {
@@ -229,6 +246,18 @@
         alignmentFunction = CPTAlignPointToUserSpace;
     }
 
+    CPTPlotArea *thePlotArea = self.plotArea;
+    LayerSize layerSizeValue;
+    const LayerSize *layerSize;
+    if ( thePlotArea ) {
+        layerSizeValue.asFloat = thePlotArea.bounds.size;
+        layerSizeValue.width = CPTDecimalFromCGFloat(layerSizeValue.asFloat.width);
+        layerSizeValue.height = CPTDecimalFromCGFloat(layerSizeValue.asFloat.height);
+        layerSize = &layerSizeValue;
+    } else {
+        layerSize = nil;
+    }
+
     [lineStyle setLineStyleInContext:context];
     CGContextBeginPath(context);
 
@@ -240,7 +269,7 @@
         }
 
         // Tick end points
-        CGPoint baseViewPoint  = [self viewPointForCoordinateDecimalNumber:locationDecimal];
+        CGPoint baseViewPoint  = [self viewPointForCoordinateDecimalNumber:locationDecimal forLayerSize:layerSize];
         CGPoint startViewPoint = baseViewPoint;
         CGPoint endViewPoint   = baseViewPoint;
 
@@ -390,6 +419,18 @@
     CPTLineStyle *lineStyle = (major ? self.majorGridLineStyle : self.minorGridLineStyle);
 
     if ( lineStyle ) {
+        CPTPlotArea *thePlotArea = self.plotArea;
+        LayerSize layerSizeValue;
+        const LayerSize *layerSize;
+        if ( thePlotArea ) {
+            layerSizeValue.asFloat = thePlotArea.bounds.size;
+            layerSizeValue.width = CPTDecimalFromCGFloat(layerSizeValue.asFloat.width);
+            layerSizeValue.height = CPTDecimalFromCGFloat(layerSizeValue.asFloat.height);
+            layerSize = &layerSizeValue;
+        } else {
+            layerSize = nil;
+        }
+
         [super renderAsVectorInContext:context];
 
         [self relabel];
@@ -422,7 +463,6 @@
             [orthogonalRange intersectionPlotRange:theGridLineRange];
         }
 
-        CPTPlotArea *thePlotArea = self.plotArea;
         NSDecimal startPlotPoint[2];
         NSDecimal endPlotPoint[2];
         startPlotPoint[orthogonalCoordinate] = orthogonalRange.location;
@@ -452,12 +492,12 @@
             endPlotPoint[selfCoordinate]   = locationDecimal;
 
             // Start point
-            CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint numberOfCoordinates:2];
+            CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint numberOfCoordinates:2 forLayerSize:layerSize];
             startViewPoint.x += originTransformed.x;
             startViewPoint.y += originTransformed.y;
 
             // End point
-            CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint numberOfCoordinates:2];
+            CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint numberOfCoordinates:2 forLayerSize:layerSize];
             endViewPoint.x += originTransformed.x;
             endViewPoint.y += originTransformed.y;
 
@@ -492,6 +532,18 @@
         NSArray *locations = [self.majorTickLocations allObjects];
 
         if ( locations.count > 0 ) {
+            CPTPlotArea *thePlotArea = self.plotArea;
+            LayerSize layerSizeValue;
+            const LayerSize *layerSize;
+            if ( thePlotArea ) {
+                layerSizeValue.asFloat = thePlotArea.bounds.size;
+                layerSizeValue.width = CPTDecimalFromCGFloat(layerSizeValue.asFloat.width);
+                layerSizeValue.height = CPTDecimalFromCGFloat(layerSizeValue.asFloat.height);
+                layerSize = &layerSizeValue;
+            } else {
+                layerSize = nil;
+            }
+
             CPTPlotSpace *thePlotSpace = self.plotSpace;
 
             CPTCoordinate selfCoordinate = self.coordinate;
@@ -556,11 +608,11 @@
                     if ( bandFill != null ) {
                         // Start point
                         startPlotPoint[selfCoordinate] = currentLocation;
-                        CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint numberOfCoordinates:2];
+                        CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint numberOfCoordinates:2 forLayerSize:layerSize];
 
                         // End point
                         endPlotPoint[selfCoordinate] = lastLocation;
-                        CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint numberOfCoordinates:2];
+                        CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint numberOfCoordinates:2 forLayerSize:layerSize];
 
                         // Fill band
                         CGRect fillRect = CPTRectMake( MIN(startViewPoint.x, endViewPoint.x),
@@ -588,11 +640,11 @@
                 if ( bandFill != null ) {
                     // Start point
                     startPlotPoint[selfCoordinate] = endLocation;
-                    CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint numberOfCoordinates:2];
+                    CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint numberOfCoordinates:2 forLayerSize:layerSize];
 
                     // End point
                     endPlotPoint[selfCoordinate] = lastLocation;
-                    CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint numberOfCoordinates:2];
+                    CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint numberOfCoordinates:2 forLayerSize:layerSize];
 
                     // Fill band
                     CGRect fillRect = CPTRectMake( MIN(startViewPoint.x, endViewPoint.x),
@@ -611,6 +663,18 @@
     NSArray *limitArray = self.backgroundLimitBands;
 
     if ( limitArray.count > 0 ) {
+        CPTPlotArea *thePlotArea = self.plotArea;
+        LayerSize layerSizeValue;
+        const LayerSize *layerSize;
+        if ( thePlotArea ) {
+            layerSizeValue.asFloat = thePlotArea.bounds.size;
+            layerSizeValue.width = CPTDecimalFromCGFloat(layerSizeValue.asFloat.width);
+            layerSizeValue.height = CPTDecimalFromCGFloat(layerSizeValue.asFloat.height);
+            layerSize = &layerSizeValue;
+        } else {
+            layerSize = nil;
+        }
+
         CPTPlotSpace *thePlotSpace = self.plotSpace;
 
         CPTCoordinate selfCoordinate = self.coordinate;
@@ -646,11 +710,11 @@
 
                     // Start point
                     startPlotPoint[selfCoordinate] = bandRange.location;
-                    CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint numberOfCoordinates:2];
+                    CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint numberOfCoordinates:2 forLayerSize:layerSize];
 
                     // End point
                     endPlotPoint[selfCoordinate] = bandRange.end;
-                    CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint numberOfCoordinates:2];
+                    CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint numberOfCoordinates:2 forLayerSize:layerSize];
 
                     // Fill band
                     CGRect fillRect = CPTRectMake( MIN(startViewPoint.x, endViewPoint.x),
