@@ -113,7 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				07032B6A11ABB9E000463D20 /* CorePlot.framework */,
-				07032B6C11ABB9E000463D20 /* UnitTests.octest */,
+				07032B6C11ABB9E000463D20 /* UnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -277,10 +277,10 @@
 			remoteRef = 07032B6911ABB9E000463D20 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		07032B6C11ABB9E000463D20 /* UnitTests.octest */ = {
+		07032B6C11ABB9E000463D20 /* UnitTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = UnitTests.octest;
+			path = UnitTests.xctest;
 			remoteRef = 07032B6B11ABB9E000463D20 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -356,6 +356,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
 				PRODUCT_NAME = CPTTestApp;
 			};
 			name = Debug;
@@ -373,6 +374,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
 				PRODUCT_NAME = CPTTestApp;
 			};
 			name = Release;

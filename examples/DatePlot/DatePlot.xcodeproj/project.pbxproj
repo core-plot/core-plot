@@ -94,7 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				076184C10F3CAD5900A89A76 /* CorePlot.framework */,
-				07E0DF80109C4E9500F108D2 /* UnitTests.octest */,
+				07E0DF80109C4E9500F108D2 /* UnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -247,10 +247,10 @@
 			remoteRef = 076184C00F3CAD5900A89A76 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		07E0DF80109C4E9500F108D2 /* UnitTests.octest */ = {
+		07E0DF80109C4E9500F108D2 /* UnitTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = UnitTests.octest;
+			path = UnitTests.xctest;
 			remoteRef = 07E0DF7F109C4E9500F108D2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -317,6 +317,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
 				PRODUCT_NAME = DatePlot;
 			};
 			name = Debug;
@@ -333,6 +334,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
 				PRODUCT_NAME = DatePlot;
 			};
 			name = Release;
