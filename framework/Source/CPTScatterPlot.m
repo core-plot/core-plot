@@ -78,8 +78,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  **/
 @synthesize interpolation;
 
-@synthesize histogramOptions;
-
 /** @property CPTLineStyle *dataLineStyle
  *  @brief The line style for the data line.
  *  If @nil, the line is not drawn.
@@ -956,10 +954,8 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                     case CPTScatterPlotInterpolationHistogram:
                     {
                         CGFloat x = (lastPoint.x + viewPoint.x) / CPTFloat(2.0);
-                        if( CPTScatterPlotHistogramSkipFirstStep != self.histogramOptions )
-                            CGPathAddLineToPoint(dataLinePath, NULL, x, lastPoint.y);
-                        if( CPTScatterPlotHistogramSkipSecondStep != self.histogramOptions )
-                            CGPathAddLineToPoint(dataLinePath, NULL, x, viewPoint.y);
+                        CGPathAddLineToPoint(dataLinePath, NULL, x, lastPoint.y);
+                        CGPathAddLineToPoint(dataLinePath, NULL, x, viewPoint.y);
                         CGPathAddLineToPoint(dataLinePath, NULL, viewPoint.x, viewPoint.y);
                     }
                     break;
