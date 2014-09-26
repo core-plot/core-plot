@@ -130,6 +130,8 @@
     lineStyle.lineWidth              = 3.0;
     lineStyle.lineColor              = [CPTColor greenColor];
     dataSourceLinePlot.dataLineStyle = lineStyle;
+    dataSourceLinePlot.interpolation = CPTScatterPlotInterpolationCurved;  //Histogram;
+    dataSourceLinePlot.histogramOptions = CPTScatterPlotHistogramSkipSecondStep;
 
     dataSourceLinePlot.dataSource = self;
     [graph addPlot:dataSourceLinePlot];
