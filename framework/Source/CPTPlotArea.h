@@ -94,6 +94,12 @@
 @property (nonatomic, readwrite, copy) CPTFill *fill;
 /// @}
 
+/// @name Dimensions
+/// @{
+@property (nonatomic, readonly) NSDecimal widthDecimal;
+@property (nonatomic, readonly) NSDecimal heightDecimal;
+/// @}
+
 /// @name Axis Set Layer Management
 /// @{
 -(void)updateAxisSetLayersForType:(CPTGraphLayerType)layerType;
