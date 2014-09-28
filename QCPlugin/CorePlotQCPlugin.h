@@ -19,33 +19,33 @@
  * You can access their values in the appropriate plug-in methods using self.inputFoo or self.inputBar
  */
 
-@property (assign) id<QCPlugInOutputImageProvider> outputImage;
+@property (nonatomic, readwrite, assign) id<QCPlugInOutputImageProvider> outputImage;
 
-@property (assign) NSUInteger numberOfPlots;
+@property (nonatomic, readwrite, assign) NSUInteger numberOfPlots;
 
-@property (assign) NSUInteger inputPixelsWide;
-@property (assign) NSUInteger inputPixelsHigh;
+@property (nonatomic, readwrite, assign) NSUInteger inputPixelsWide;
+@property (nonatomic, readwrite, assign) NSUInteger inputPixelsHigh;
 
-@property (strong) NSColor *inputPlotAreaColor;
+@property (nonatomic, readwrite, strong) NSColor *inputPlotAreaColor;
 
-@property (strong) NSColor *inputAxisColor;
-@property (assign) double inputAxisLineWidth;
-@property (assign) double inputAxisMajorTickWidth;
-@property (assign) double inputAxisMinorTickWidth;
-@property (assign) double inputAxisMajorTickLength;
-@property (assign) double inputAxisMinorTickLength;
-@property (assign) double inputMajorGridLineWidth;
-@property (assign) double inputMinorGridLineWidth;
+@property (nonatomic, readwrite, strong) NSColor *inputAxisColor;
+@property (nonatomic, readwrite, assign) double inputAxisLineWidth;
+@property (nonatomic, readwrite, assign) double inputAxisMajorTickWidth;
+@property (nonatomic, readwrite, assign) double inputAxisMinorTickWidth;
+@property (nonatomic, readwrite, assign) double inputAxisMajorTickLength;
+@property (nonatomic, readwrite, assign) double inputAxisMinorTickLength;
+@property (nonatomic, readwrite, assign) double inputMajorGridLineWidth;
+@property (nonatomic, readwrite, assign) double inputMinorGridLineWidth;
 
-@property (assign) NSUInteger inputXMajorIntervals;
-@property (assign) NSUInteger inputYMajorIntervals;
-@property (assign) NSUInteger inputXMinorIntervals;
-@property (assign) NSUInteger inputYMinorIntervals;
+@property (nonatomic, readwrite, assign) NSUInteger inputXMajorIntervals;
+@property (nonatomic, readwrite, assign) NSUInteger inputYMajorIntervals;
+@property (nonatomic, readwrite, assign) NSUInteger inputXMinorIntervals;
+@property (nonatomic, readwrite, assign) NSUInteger inputYMinorIntervals;
 
-@property (assign) double inputXMin;
-@property (assign) double inputXMax;
-@property (assign) double inputYMin;
-@property (assign) double inputYMax;
+@property (nonatomic, readwrite, assign) double inputXMin;
+@property (nonatomic, readwrite, assign) double inputXMax;
+@property (nonatomic, readwrite, assign) double inputYMin;
+@property (nonatomic, readwrite, assign) double inputYMax;
 
 -(void)createGraph;
 -(void)addPlots:(NSUInteger)count;

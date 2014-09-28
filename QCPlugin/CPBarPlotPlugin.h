@@ -4,9 +4,9 @@
 @interface CPBarPlotPlugIn : CorePlotQCPlugIn<CPTBarPlotDataSource> {
 }
 
-@property (assign) double inputBaseValue;
-@property (assign) double inputBarWidth;
-@property (assign) double inputBarOffset;
-@property (assign) BOOL inputHorizontalBars;
+@property (nonatomic, readwrite, assign) double inputBaseValue;
+@property (nonatomic, readwrite, assign) double inputBarWidth;
+@property (nonatomic, readwrite, assign) double inputBarOffset;
+@property (nonatomic, readwrite, assign) BOOL inputHorizontalBars;
 
 @end

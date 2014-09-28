@@ -9,15 +9,15 @@
 @protocol CPTRotationDelegate;
 
 @interface RotationView : NSView {
-    id<CPTRotationDelegate> __unsafe_unretained rotationDelegate;
+    id<CPTRotationDelegate> __weak rotationDelegate;
 
     CATransform3D rotationTransform;
 
     NSPoint previousLocation;
 }
 
-@property (readwrite, nonatomic) CATransform3D rotationTransform;
-@property (readwrite, unsafe_unretained, nonatomic) id<CPTRotationDelegate> rotationDelegate;
+@property (nonatomic, readwrite) CATransform3D rotationTransform;
+@property (nonatomic, readwrite, weak) id<CPTRotationDelegate> rotationDelegate;
 
 @end
 

@@ -4,12 +4,12 @@
 @interface CPPieChartPlugIn : CorePlotQCPlugIn<CPTPieChartDataSource> {
 }
 
-@property (assign) double inputPieRadius;
-@property (assign) double inputSliceLabelOffset;
-@property (assign) double inputStartAngle;
-@property (assign) NSUInteger inputSliceDirection;
-@property (assign) double inputBorderWidth;
-@property (strong) NSColor *inputBorderColor;
-@property (strong) NSColor *inputLabelColor;
+@property (nonatomic, readwrite, assign) double inputPieRadius;
+@property (nonatomic, readwrite, assign) double inputSliceLabelOffset;
+@property (nonatomic, readwrite, assign) double inputStartAngle;
+@property (nonatomic, readwrite, assign) NSUInteger inputSliceDirection;
+@property (nonatomic, readwrite, assign) double inputBorderWidth;
+@property (nonatomic, readwrite, strong) NSColor *inputBorderColor;
+@property (nonatomic, readwrite, strong) NSColor *inputLabelColor;
 
 @end

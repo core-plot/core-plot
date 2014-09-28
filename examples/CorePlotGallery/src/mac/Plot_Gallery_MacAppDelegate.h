@@ -14,6 +14,6 @@
     NSWindow *window;
 }
 
-@property (strong) IBOutlet NSWindow *window;
+@property (nonatomic, readwrite, strong) IBOutlet NSWindow *window;
 
 @end
