@@ -15,11 +15,6 @@
 @end
 
 @interface PlotView : NSView
-{
-    @private
-    id<PlotViewDelegate> __weak delegate;
-}
-
 @property (nonatomic, weak) id<PlotViewDelegate> delegate;
 
 @end

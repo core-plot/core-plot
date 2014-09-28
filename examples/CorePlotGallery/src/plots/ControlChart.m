@@ -1,13 +1,25 @@
 #import "ControlChart.h"
 
-NSString *const kDataLine    = @"Data Line";
-NSString *const kCenterLine  = @"Center Line";
-NSString *const kControlLine = @"Control Line";
-NSString *const kWarningLine = @"Warning Line";
+static NSString *const kDataLine    = @"Data Line";
+static NSString *const kCenterLine  = @"Center Line";
+static NSString *const kControlLine = @"Control Line";
+static NSString *const kWarningLine = @"Warning Line";
 
 static const NSUInteger numberOfPoints = 11;
 
+@interface ControlChart()
+
+@property (nonatomic, readwrite, strong) NSArray *plotData;
+@property (nonatomic, readwrite, assign) double meanValue;
+@property (nonatomic, readwrite, assign) double standardError;
+
+@end
+
 @implementation ControlChart
+
+@synthesize plotData;
+@synthesize meanValue;
+@synthesize standardError;
 
 +(void)load
 {
@@ -26,7 +38,7 @@ static const NSUInteger numberOfPoints = 11;
 
 -(void)generateData
 {
-    if ( plotData == nil ) {
+    if ( self.plotData == nil ) {
         NSMutableArray *contentArray = [NSMutableArray array];
 
         double sum = 0.0;
@@ -37,17 +49,17 @@ static const NSUInteger numberOfPoints = 11;
             [contentArray addObject:@(y)];
         }
 
-        plotData = contentArray;
+        self.plotData = contentArray;
 
-        meanValue = sum / numberOfPoints;
+        self.meanValue = sum / numberOfPoints;
 
         sum = 0.0;
         for ( NSNumber *value in contentArray ) {
-            double error = [value doubleValue] - meanValue;
+            double error = [value doubleValue] - self.meanValue;
             sum += error * error;
         }
         double stdDev = sqrt( ( 1.0 / (numberOfPoints - 1) ) * sum );
-        standardError = stdDev / sqrt(numberOfPoints);
+        self.standardError = stdDev / sqrt(numberOfPoints);
     }
 }
 
@@ -207,7 +219,7 @@ static const NSUInteger numberOfPoints = 11;
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
     if ( plot.identifier == kDataLine ) {
-        return [plotData count];
+        return self.plotData.count;
     }
     else if ( plot.identifier == kCenterLine ) {
         return 2;
@@ -233,7 +245,7 @@ static const NSUInteger numberOfPoints = 11;
                         break;
 
                     case 1:
-                        number = (double)([plotData count] - 1);
+                        number = (double)(self.plotData.count - 1);
                         break;
 
                     case 2:
@@ -246,16 +258,16 @@ static const NSUInteger numberOfPoints = 11;
 
         case CPTScatterPlotFieldY:
             if ( plot.identifier == kDataLine ) {
-                number = [plotData[index] doubleValue];
+                number = [self.plotData[index] doubleValue];
             }
             else if ( plot.identifier == kCenterLine ) {
-                number = meanValue;
+                number = self.meanValue;
             }
             else if ( plot.identifier == kControlLine ) {
                 switch ( index ) {
                     case 0:
                     case 1:
-                        number = meanValue + 3.0 * standardError;
+                        number = self.meanValue + 3.0 * self.standardError;
                         break;
 
                     case 2:
@@ -264,7 +276,7 @@ static const NSUInteger numberOfPoints = 11;
 
                     case 3:
                     case 4:
-                        number = meanValue - 3.0 * standardError;
+                        number = self.meanValue - 3.0 * self.standardError;
                         break;
                 }
             }
@@ -272,7 +284,7 @@ static const NSUInteger numberOfPoints = 11;
                 switch ( index ) {
                     case 0:
                     case 1:
-                        number = meanValue + 2.0 * standardError;
+                        number = self.meanValue + 2.0 * self.standardError;
                         break;
 
                     case 2:
@@ -281,7 +293,7 @@ static const NSUInteger numberOfPoints = 11;
 
                     case 3:
                     case 4:
-                        number = meanValue - 2.0 * standardError;
+                        number = self.meanValue - 2.0 * self.standardError;
                         break;
                 }
             }

@@ -8,7 +8,17 @@
 
 #import "SimpleScatterPlot.h"
 
+@interface SimpleScatterPlot()
+
+@property (nonatomic, readwrite, strong) CPTPlotSpaceAnnotation *symbolTextAnnotation;
+@property (nonatomic, readwrite, strong) NSArray *plotData;
+
+@end
+
 @implementation SimpleScatterPlot
+
+@synthesize symbolTextAnnotation;
+@synthesize plotData;
 
 +(void)load
 {
@@ -30,9 +40,10 @@
     if ( [self.graphs count] ) {
         CPTGraph *graph = (self.graphs)[0];
 
-        if ( symbolTextAnnotation ) {
-            [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
-            symbolTextAnnotation = nil;
+        CPTPlotSpaceAnnotation *annotation = self.symbolTextAnnotation;
+        if ( annotation ) {
+            [graph.plotAreaFrame.plotArea removeAnnotation:annotation];
+            annotation = nil;
         }
     }
 
@@ -41,7 +52,7 @@
 
 -(void)generateData
 {
-    if ( plotData == nil ) {
+    if ( self.plotData == nil ) {
         NSMutableArray *contentArray = [NSMutableArray array];
         for ( NSUInteger i = 0; i < 10; i++ ) {
             NSNumber *x = @(1.0 + i * 0.05);
@@ -49,7 +60,7 @@
             [contentArray addObject:@{ @"x": x, @"y": y }
             ];
         }
-        plotData = contentArray;
+        self.plotData = contentArray;
     }
 }
 
@@ -178,13 +189,13 @@
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    return [plotData count];
+    return self.plotData.count;
 }
 
 -(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
-    NSNumber *num = plotData[index][key];
+    NSNumber *num = self.plotData[index][key];
 
     return num;
 }
@@ -213,9 +224,11 @@
 {
     CPTXYGraph *graph = (self.graphs)[0];
 
-    if ( symbolTextAnnotation ) {
-        [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
-        symbolTextAnnotation = nil;
+    CPTPlotSpaceAnnotation *annotation = self.symbolTextAnnotation;
+
+    if ( annotation ) {
+        [graph.plotAreaFrame.plotArea removeAnnotation:annotation];
+        annotation = nil;
     }
 
     // Setup a style for the annotation
@@ -225,7 +238,7 @@
     hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
 
     // Determine point of symbol in plot coordinates
-    NSDictionary *dataPoint = plotData[index];
+    NSDictionary *dataPoint = self.plotData[index];
 
     NSNumber *x = dataPoint[@"x"];
     NSNumber *y = dataPoint[@"y"];
@@ -240,10 +253,11 @@
 
     // Now add the annotation to the plot area
     CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle];
-    symbolTextAnnotation              = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:graph.defaultPlotSpace anchorPlotPoint:anchorPoint];
-    symbolTextAnnotation.contentLayer = textLayer;
-    symbolTextAnnotation.displacement = CGPointMake(0.0, 20.0);
-    [graph.plotAreaFrame.plotArea addAnnotation:symbolTextAnnotation];
+    annotation                = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:graph.defaultPlotSpace anchorPlotPoint:anchorPoint];
+    annotation.contentLayer   = textLayer;
+    annotation.displacement   = CGPointMake(0.0, 20.0);
+    self.symbolTextAnnotation = annotation;
+    [graph.plotAreaFrame.plotArea addAnnotation:annotation];
 }
 
 -(void)scatterPlotDataLineWasSelected:(CPTScatterPlot *)plot
@@ -267,11 +281,13 @@
 -(void)plotAreaWasSelected:(CPTPlotArea *)plotArea
 {
     // Remove the annotation
-    if ( symbolTextAnnotation ) {
+    CPTPlotSpaceAnnotation *annotation = self.symbolTextAnnotation;
+
+    if ( annotation ) {
         CPTXYGraph *graph = [self.graphs objectAtIndex:0];
 
-        [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
-        symbolTextAnnotation = nil;
+        [graph.plotAreaFrame.plotArea removeAnnotation:annotation];
+        self.symbolTextAnnotation = nil;
     }
 }
 

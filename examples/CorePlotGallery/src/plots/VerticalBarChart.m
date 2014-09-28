@@ -8,7 +8,14 @@
 
 #import "VerticalBarChart.h"
 
+@interface VerticalBarChart()
+
+@property (nonatomic, readwrite, strong) CPTPlotSpaceAnnotation *symbolTextAnnotation;
+@end
+
 @implementation VerticalBarChart
+
+@synthesize symbolTextAnnotation;
 
 +(void)load
 {
@@ -30,9 +37,10 @@
     if ( [self.graphs count] ) {
         CPTGraph *graph = (self.graphs)[0];
 
-        if ( symbolTextAnnotation ) {
-            [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
-            symbolTextAnnotation = nil;
+        CPTPlotSpaceAnnotation *annotation = self.symbolTextAnnotation;
+        if ( annotation ) {
+            [graph.plotAreaFrame.plotArea removeAnnotation:annotation];
+            self.symbolTextAnnotation = nil;
         }
     }
 
@@ -262,9 +270,10 @@
 
     CPTGraph *graph = (self.graphs)[0];
 
-    if ( symbolTextAnnotation ) {
-        [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
-        symbolTextAnnotation = nil;
+    CPTPlotSpaceAnnotation *annotation = self.symbolTextAnnotation;
+    if ( annotation ) {
+        [graph.plotAreaFrame.plotArea removeAnnotation:annotation];
+        self.symbolTextAnnotation = nil;
     }
 
     // Setup a style for the annotation
@@ -290,11 +299,12 @@
 
     // Now add the annotation to the plot area
     CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle];
-    symbolTextAnnotation              = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:plot.plotSpace anchorPlotPoint:anchorPoint];
-    symbolTextAnnotation.contentLayer = textLayer;
-    symbolTextAnnotation.displacement = CGPointMake(0.0, 0.0);
+    annotation                = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:plot.plotSpace anchorPlotPoint:anchorPoint];
+    annotation.contentLayer   = textLayer;
+    annotation.displacement   = CGPointMake(0.0, 0.0);
+    self.symbolTextAnnotation = annotation;
 
-    [graph.plotAreaFrame.plotArea addAnnotation:symbolTextAnnotation];
+    [graph.plotAreaFrame.plotArea addAnnotation:annotation];
 }
 
 #pragma mark -

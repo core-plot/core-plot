@@ -12,9 +12,5 @@
                                      CPTPieChartDelegate,
                                      CPTLegendDelegate,
                                      CPTPlotDataSource>
-{
-    @private
-    NSArray *plotData;
-}
 
 @end

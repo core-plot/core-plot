@@ -310,8 +310,7 @@
     [pieGraph addPlot:piePlot];
 
     // Add some initial data
-    NSMutableArray *contentArray = [NSMutableArray arrayWithObjects:@20.0, @30.0, @(NAN), @60.0, nil];
-    self.dataForChart = contentArray;
+    self.dataForChart = @[@20.0, @30.0, @(NAN), @60.0];
 }
 
 #pragma mark -

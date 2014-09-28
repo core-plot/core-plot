@@ -65,7 +65,8 @@
     // Axes
     NSMutableArray *axes = [[NSMutableArray alloc] init];
 
-    for ( CPTLineCapType lineCapType = CPTLineCapTypeNone; lineCapType < CPTLineCapTypeCustom; ) {
+    CPTLineCapType lineCapType = CPTLineCapTypeNone;
+    while ( lineCapType < CPTLineCapTypeCustom ) {
         CPTXYAxis *axis = [[CPTXYAxis alloc] init];
         axis.plotSpace                   = graph.defaultPlotSpace;
         axis.labelingPolicy              = CPTAxisLabelingPolicyNone;

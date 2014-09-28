@@ -11,8 +11,4 @@
 @interface SteppedScatterPlot : PlotItem<CPTPlotSpaceDelegate,
                                          CPTPlotDataSource,
                                          CPTScatterPlotDelegate>
-{
-    NSArray *plotData;
-}
-
 @end

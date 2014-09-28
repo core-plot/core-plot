@@ -1,6 +1,14 @@
 #import "ColoredBarChart.h"
 
+@interface ColoredBarChart()
+
+@property (nonatomic, readwrite, strong) NSArray *plotData;
+
+@end
+
 @implementation ColoredBarChart
+
+@synthesize plotData;
 
 +(void)load
 {
@@ -19,12 +27,12 @@
 
 -(void)generateData
 {
-    if ( plotData == nil ) {
+    if ( self.plotData == nil ) {
         NSMutableArray *contentArray = [NSMutableArray array];
         for ( NSUInteger i = 0; i < 8; i++ ) {
             [contentArray addObject:@(10.0 * rand() / (double)RAND_MAX + 5.0)];
         }
-        plotData = contentArray;
+        self.plotData = contentArray;
     }
 }
 
@@ -142,7 +150,7 @@
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    return plotData.count;
+    return self.plotData.count;
 }
 
 -(NSArray *)numbersForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange
@@ -158,7 +166,7 @@
             break;
 
         case CPTBarPlotFieldBarTip:
-            nums = [plotData objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:indexRange]];
+            nums = [self.plotData objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:indexRange]];
             break;
 
         default:

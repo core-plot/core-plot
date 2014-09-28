@@ -8,7 +8,15 @@
 
 #import "SimplePieChart.h"
 
+@interface SimplePieChart()
+
+@property (nonatomic, readwrite, strong) NSArray *plotData;
+
+@end
+
 @implementation SimplePieChart
+
+@synthesize plotData;
 
 +(void)load
 {
@@ -27,12 +35,8 @@
 
 -(void)generateData
 {
-    if ( plotData == nil ) {
-        plotData = [[NSMutableArray alloc] initWithObjects:
-                    @20.0,
-                    @30.0,
-                    @60.0,
-                    nil];
+    if ( self.plotData == nil ) {
+        self.plotData = @[@20.0, @30.0, @60.0];
     }
 }
 
@@ -111,7 +115,7 @@
         whiteText.color = [CPTColor whiteColor];
     });
 
-    CPTTextLayer *newLayer = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%1.0f", [plotData[index] floatValue]]
+    CPTTextLayer *newLayer = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%1.0f", [self.plotData[index] floatValue]]
                                                           style:whiteText];
     return newLayer;
 }
@@ -126,16 +130,16 @@
 
 -(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)index
 {
-    NSLog(@"Slice was selected at index %d. Value = %f", (int)index, [plotData[index] floatValue]);
+    NSLog(@"Slice was selected at index %d. Value = %f", (int)index, [self.plotData[index] floatValue]);
 
     NSMutableArray *newData = [[NSMutableArray alloc] init];
-    NSUInteger dataCount    = ceil(10.0 * rand() / (double)RAND_MAX) + 1;
+    NSUInteger dataCount    = (NSUInteger)lrint( ceil(10.0 * rand() / (double)RAND_MAX) ) + 1;
     for ( NSUInteger i = 1; i < dataCount; i++ ) {
         [newData addObject:@(100.0 * rand() / (double)RAND_MAX)];
     }
     NSLog(@"newData: %@", newData);
 
-    plotData = newData;
+    self.plotData = newData;
 
     [plot reloadData];
 }
@@ -143,7 +147,7 @@
 #pragma mark -
 #pragma mark CPTLegendDelegate Methods
 
--(void)legend:(CPTLegend *)legend legendEntryForPlot:(CPTPlot *)plot wasSelectedAtIndex:(NSUInteger)idx;
+-(void)legend:(CPTLegend *)legend legendEntryForPlot:(CPTPlot *)plot wasSelectedAtIndex:(NSUInteger)idx
 {
     NSLog(@"Legend entry for '%@' was selected at index %lu.", plot.identifier, (unsigned long)idx);
 }
@@ -153,7 +157,7 @@
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    return [plotData count];
+    return self.plotData.count;
 }
 
 -(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
@@ -161,7 +165,7 @@
     NSNumber *num;
 
     if ( fieldEnum == CPTPieChartFieldSliceWidth ) {
-        num = plotData[index];
+        num = self.plotData[index];
     }
     else {
         return @(index);

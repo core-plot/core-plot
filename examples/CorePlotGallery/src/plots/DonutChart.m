@@ -1,9 +1,17 @@
 #import "DonutChart.h"
 
-NSString *const innerChartName = @"Inner";
-NSString *const outerChartName = @"Outer";
+static NSString *const innerChartName = @"Inner";
+static NSString *const outerChartName = @"Outer";
+
+@interface DonutChart()
+
+@property (nonatomic, readwrite, strong) NSArray *plotData;
+
+@end
 
 @implementation DonutChart
+
+@synthesize plotData;
 
 +(void)load
 {
@@ -22,12 +30,8 @@ NSString *const outerChartName = @"Outer";
 
 -(void)generateData
 {
-    if ( plotData == nil ) {
-        plotData = [[NSMutableArray alloc] initWithObjects:
-                    @20.0,
-                    @30.0,
-                    @60.0,
-                    nil];
+    if ( self.plotData == nil ) {
+        self.plotData = @[@20.0, @30.0, @60.0];
     }
 }
 
@@ -114,7 +118,7 @@ NSString *const outerChartName = @"Outer";
 
 -(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)index
 {
-    NSLog(@"%@ slice was selected at index %lu. Value = %@", plot.identifier, (unsigned long)index, plotData[index]);
+    NSLog(@"%@ slice was selected at index %lu. Value = %@", plot.identifier, (unsigned long)index, self.plotData[index]);
 }
 
 #pragma mark -
@@ -122,7 +126,7 @@ NSString *const outerChartName = @"Outer";
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    return [plotData count];
+    return self.plotData.count;
 }
 
 -(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
@@ -130,7 +134,7 @@ NSString *const outerChartName = @"Outer";
     NSNumber *num;
 
     if ( fieldEnum == CPTPieChartFieldSliceWidth ) {
-        num = plotData[index];
+        num = self.plotData[index];
     }
     else {
         return @(index);
@@ -152,7 +156,7 @@ NSString *const outerChartName = @"Outer";
             whiteText.color = [CPTColor whiteColor];
         });
 
-        newLayer                 = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%.0f", [plotData[index] floatValue]] style:whiteText];
+        newLayer                 = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%.0f", [self.plotData[index] floatValue]] style:whiteText];
         newLayer.fill            = [CPTFill fillWithColor:[CPTColor darkGrayColor]];
         newLayer.cornerRadius    = 5.0;
         newLayer.paddingLeft     = 3.0;
@@ -178,7 +182,7 @@ NSString *const outerChartName = @"Outer";
 #pragma mark -
 #pragma mark Animation Delegate
 
--(void)animationDidStart:(CPTAnimationOperation *)operation
+-(void)animationDidStart:(id)operation
 {
     NSLog(@"animationDidStart: %@", operation);
 }

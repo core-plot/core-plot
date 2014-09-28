@@ -57,9 +57,7 @@
     [super viewDidAppear:animated];
 
     // Add some initial data
-    NSMutableArray *contentArray = [NSMutableArray arrayWithObjects:@20.0, @30.0, @60.0, nil];
-
-    self.dataForChart = contentArray;
+    self.dataForChart = @[@20.0, @30.0, @60.0];
 
     [self timerFired];
 #ifdef MEMORY_TEST

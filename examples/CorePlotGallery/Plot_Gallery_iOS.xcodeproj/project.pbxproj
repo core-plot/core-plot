@@ -157,6 +157,7 @@
 		C3BA675B175EC22100CFABBA /* Checkerboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Checkerboard.png; path = img/Checkerboard.png; sourceTree = "<group>"; };
 		C3BA675C175EC22100CFABBA /* Checkerboard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Checkerboard@2x.png"; path = "img/Checkerboard@2x.png"; sourceTree = "<group>"; };
 		C3BB7D361633428900BC9515 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		C3C0DF2419D86B3A00631CAD /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
 		C3CD282917DE9A7E008EED1E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C3D70BAA175EB30800F27173 /* ImageDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageDemo.h; path = src/plots/ImageDemo.h; sourceTree = "<group>"; };
 		C3D70BAB175EB30800F27173 /* ImageDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageDemo.m; path = src/plots/ImageDemo.m; sourceTree = "<group>"; };
@@ -280,6 +281,7 @@
 				4F22FE3712340464006BF615 /* PlotGallery.m */,
 				C3457A5117AD7C72000880F3 /* PiNumberFormatter.h */,
 				C3457A5217AD7C72000880F3 /* PiNumberFormatter.m */,
+				C3C0DF2419D86B3A00631CAD /* CorePlotWarnings.xcconfig */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -525,6 +527,7 @@
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3C0DF2419D86B3A00631CAD /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -539,6 +542,7 @@
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3C0DF2419D86B3A00631CAD /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
 				GCC_C_LANGUAGE_STANDARD = c99;

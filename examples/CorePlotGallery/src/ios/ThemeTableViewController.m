@@ -9,20 +9,30 @@
 #import "CorePlot-CocoaTouch.h"
 #import "ThemeTableViewController.h"
 
+NSString *const kThemeTableViewControllerNoTheme      = @"None";
+NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
+
+@interface ThemeTableViewController()
+
+@property (nonatomic, readwrite, strong) NSMutableArray *themes;
+
+@end
+
 @implementation ThemeTableViewController
 
 @synthesize themePopoverController;
 @synthesize delegate;
+@synthesize themes;
 
 -(void)setupThemes
 {
-    themes = [[NSMutableArray alloc] init];
+    self.themes = [[NSMutableArray alloc] init];
 
-    [themes addObject:kThemeTableViewControllerDefaultTheme];
-    [themes addObject:kThemeTableViewControllerNoTheme];
+    [self.themes addObject:kThemeTableViewControllerDefaultTheme];
+    [self.themes addObject:kThemeTableViewControllerNoTheme];
 
     for ( Class c in [CPTTheme themeClasses] ) {
-        [themes addObject:[c name]];
+        [self.themes addObject:[c name]];
     }
 }
 
@@ -33,7 +43,7 @@
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    if ( self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil] ) {
+    if ( (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) ) {
         [self setupThemes];
     }
 
@@ -55,7 +65,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [themes count];
+    return (NSInteger)self.themes.count;
 }
 
 // Customize the appearance of table view cells.
@@ -69,7 +79,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
 
-    cell.textLabel.text = themes[indexPath.row];
+    cell.textLabel.text = self.themes[(NSUInteger)indexPath.row];
 
     return cell;
 }
@@ -79,7 +89,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [delegate themeSelectedAtIndex:themes[indexPath.row]];
+    [self.delegate themeSelectedAtIndex:self.themes[(NSUInteger)indexPath.row]];
 }
 
 #pragma mark -

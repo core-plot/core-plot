@@ -30,20 +30,12 @@ extern NSString *const kFinancialPlots;
 @class CPTTheme;
 
 @interface PlotItem : NSObject
-{
-    @private
-    CPTGraphHostingView *defaultLayerHostingView;
 
-    NSMutableArray *graphs;
-    NSString *section;
-    NSString *title;
-    CPTNativeImage *cachedImage;
-}
+@property (nonatomic, readwrite, strong) CPTGraphHostingView *defaultLayerHostingView;
 
-@property (nonatomic, strong) CPTGraphHostingView *defaultLayerHostingView;
-@property (nonatomic, strong) NSMutableArray *graphs;
-@property (nonatomic, strong) NSString *section;
-@property (nonatomic, strong) NSString *title;
+@property (nonatomic, readwrite, strong) NSMutableArray *graphs;
+@property (nonatomic, readwrite, strong) NSString *section;
+@property (nonatomic, readwrite, strong) NSString *title;
 
 +(void)registerPlotItem:(id)item;
 

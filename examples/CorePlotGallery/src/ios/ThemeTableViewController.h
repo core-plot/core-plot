@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-#define kThemeTableViewControllerNoTheme      @"None"
-#define kThemeTableViewControllerDefaultTheme @"Default"
+extern NSString *const kThemeTableViewControllerNoTheme;
+extern NSString *const kThemeTableViewControllerDefaultTheme;
 
 @protocol ThemeTableViewControllerDelegate<NSObject>
 
@@ -18,12 +18,6 @@
 @end
 
 @interface ThemeTableViewController : UITableViewController
-{
-    @private
-    UIPopoverController *themePopoverController;
-    id<ThemeTableViewControllerDelegate> delegate;
-    NSMutableArray *themes;
-}
 
 @property (nonatomic, strong) UIPopoverController *themePopoverController;
 @property (nonatomic, strong) id<ThemeTableViewControllerDelegate> delegate;

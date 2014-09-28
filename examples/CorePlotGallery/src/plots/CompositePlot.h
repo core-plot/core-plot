@@ -12,21 +12,6 @@
                                     CPTScatterPlotDataSource,
                                     CPTScatterPlotDelegate,
                                     CPTBarPlotDelegate>
-{
-    @private
-    CPTGraphHostingView *scatterPlotView;
-    CPTGraphHostingView *barChartView;
-    CPTGraphHostingView *pieChartView;
-
-    CPTXYGraph *scatterPlot;
-    CPTXYGraph *barChart;
-    CPTXYGraph *pieChart;
-
-    NSMutableArray *dataForChart;
-    NSMutableArray *dataForPlot;
-
-    NSInteger selectedIndex;
-}
 
 @property (readwrite, strong, nonatomic) NSMutableArray *dataForChart;
 @property (readwrite, strong, nonatomic) NSMutableArray *dataForPlot;

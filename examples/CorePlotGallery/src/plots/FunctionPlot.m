@@ -126,8 +126,8 @@
 
             case 1:
                 titleString = @"y = cos(x)";
-                block       = ^(double x) {
-                    return cos(x);
+                block       = ^(double xVal) {
+                    return cos(xVal);
                 };
                 lineColor = [CPTColor greenColor];
                 break;

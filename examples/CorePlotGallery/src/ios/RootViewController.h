@@ -11,10 +11,6 @@
 @class DetailViewController;
 
 @interface RootViewController : UITableViewController
-{
-    @private
-    DetailViewController *detailViewController;
-}
 
 @property (nonatomic, strong) IBOutlet DetailViewController *detailViewController;
 

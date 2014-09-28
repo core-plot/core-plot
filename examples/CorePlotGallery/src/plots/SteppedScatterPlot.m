@@ -8,7 +8,15 @@
 
 #import "SteppedScatterPlot.h"
 
+@interface SteppedScatterPlot()
+
+@property (nonatomic, readwrite, strong) NSArray *plotData;
+
+@end
+
 @implementation SteppedScatterPlot
+
+@synthesize plotData;
 
 +(void)load
 {
@@ -27,7 +35,7 @@
 
 -(void)generateData
 {
-    if ( plotData == nil ) {
+    if ( self.plotData == nil ) {
         NSMutableArray *contentArray = [NSMutableArray array];
         for ( NSUInteger i = 0; i < 10; i++ ) {
             NSNumber *x = @(1.0 + i * 0.05);
@@ -35,7 +43,7 @@
             [contentArray addObject:@{ @"x": x, @"y": y }
             ];
         }
-        plotData = contentArray;
+        self.plotData = contentArray;
     }
 }
 
@@ -110,13 +118,13 @@
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    return [plotData count];
+    return self.plotData.count;
 }
 
 -(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
-    NSNumber *num = plotData[index][key];
+    NSNumber *num = self.plotData[index][key];
 
     return num;
 }

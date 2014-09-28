@@ -50,8 +50,7 @@
     [pieChart addPlot:piePlot];
 
     // Add some initial data
-    NSMutableArray *contentArray = [NSMutableArray arrayWithObjects:@20.0, @30.0, @60.0, nil];
-    self.dataForChart = contentArray;
+    self.dataForChart = @[@20.0, @30.0, @60.0];
 
 #ifdef PERFORMANCE_TEST
     [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(changePlotRange) userInfo:nil repeats:YES];

@@ -11,7 +11,19 @@ static const double kAlpha     = 0.25; // smoothing constant
 static const NSUInteger kMaxDataPoints = 52;
 static NSString *const kPlotIdentifier = @"Data Source Plot";
 
+@interface RealTimePlot()
+
+@property (nonatomic, readwrite, strong) NSMutableArray *plotData;
+@property (nonatomic, readwrite, assign) NSUInteger currentIndex;
+@property (nonatomic, readwrite, strong) NSTimer *dataTimer;
+
+@end
+
 @implementation RealTimePlot
+
+@synthesize plotData;
+@synthesize currentIndex;
+@synthesize dataTimer;
 
 +(void)load
 {
@@ -33,16 +45,16 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
 
 -(void)killGraph
 {
-    [dataTimer invalidate];
-    dataTimer = nil;
+    [self.dataTimer invalidate];
+    self.dataTimer = nil;
 
     [super killGraph];
 }
 
 -(void)generateData
 {
-    [plotData removeAllObjects];
-    currentIndex = 0;
+    [self.plotData removeAllObjects];
+    self.currentIndex = 0;
 }
 
 -(void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
@@ -123,18 +135,18 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger(0) length:CPTDecimalFromUnsignedInteger(kMaxDataPoints - 2)];
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger(0) length:CPTDecimalFromUnsignedInteger(1)];
 
-    [dataTimer invalidate];
+    [self.dataTimer invalidate];
 
     if ( animated ) {
-        dataTimer = [NSTimer timerWithTimeInterval:1.0 / kFrameRate
-                                            target:self
-                                          selector:@selector(newData:)
-                                          userInfo:nil
-                                           repeats:YES];
-        [[NSRunLoop mainRunLoop] addTimer:dataTimer forMode:NSRunLoopCommonModes];
+        self.dataTimer = [NSTimer timerWithTimeInterval:1.0 / kFrameRate
+                                                 target:self
+                                               selector:@selector(newData:)
+                                               userInfo:nil
+                                                repeats:YES];
+        [[NSRunLoop mainRunLoop] addTimer:self.dataTimer forMode:NSRunLoopCommonModes];
     }
     else {
-        dataTimer = nil;
+        self.dataTimer = nil;
     }
 }
 
@@ -152,13 +164,13 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
     CPTPlot *thePlot   = [theGraph plotWithIdentifier:kPlotIdentifier];
 
     if ( thePlot ) {
-        if ( plotData.count >= kMaxDataPoints ) {
-            [plotData removeObjectAtIndex:0];
+        if ( self.plotData.count >= kMaxDataPoints ) {
+            [self.plotData removeObjectAtIndex:0];
             [thePlot deleteDataInIndexRange:NSMakeRange(0, 1)];
         }
 
         CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)theGraph.defaultPlotSpace;
-        NSUInteger location       = (currentIndex >= kMaxDataPoints ? currentIndex - kMaxDataPoints + 2 : 0);
+        NSUInteger location       = (self.currentIndex >= kMaxDataPoints ? self.currentIndex - kMaxDataPoints + 2 : 0);
 
         CPTPlotRange *oldRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger( (location > 0) ? (location - 1) : 0 )
                                                               length:CPTDecimalFromUnsignedInteger(kMaxDataPoints - 2)];
@@ -171,9 +183,9 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
                   toPlotRange:newRange
                      duration:CPTFloat(1.0 / kFrameRate)];
 
-        currentIndex++;
-        [plotData addObject:@( (1.0 - kAlpha) * [[plotData lastObject] doubleValue] + kAlpha * rand() / (double)RAND_MAX )];
-        [thePlot insertDataAtIndex:plotData.count - 1 numberOfRecords:1];
+        self.currentIndex++;
+        [self.plotData addObject:@( (1.0 - kAlpha) * [[self.plotData lastObject] doubleValue] + kAlpha * rand() / (double)RAND_MAX )];
+        [thePlot insertDataAtIndex:self.plotData.count - 1 numberOfRecords:1];
     }
 }
 
@@ -182,7 +194,7 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    return [plotData count];
+    return self.plotData.count;
 }
 
 -(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
@@ -191,11 +203,11 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
 
     switch ( fieldEnum ) {
         case CPTScatterPlotFieldX:
-            num = @(index + currentIndex - plotData.count);
+            num = @(index + self.currentIndex - self.plotData.count);
             break;
 
         case CPTScatterPlotFieldY:
-            num = plotData[index];
+            num = self.plotData[index];
             break;
 
         default:

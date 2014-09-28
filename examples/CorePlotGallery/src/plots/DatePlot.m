@@ -8,7 +8,15 @@
 
 #import "DatePlot.h"
 
+@interface DatePlot()
+
+@property (nonatomic, readwrite, strong) NSArray *plotData;
+
+@end
+
 @implementation DatePlot
+
+@synthesize plotData;
 
 +(void)load
 {
@@ -27,7 +35,7 @@
 
 -(void)generateData
 {
-    if ( !plotData ) {
+    if ( !self.plotData ) {
         const NSTimeInterval oneDay = 24 * 60 * 60;
 
         // Add some data
@@ -42,7 +50,7 @@
                 @(CPTScatterPlotFieldY): y }
             ];
 
-            plotData = newData;
+            self.plotData = newData;
         }
     }
 }
@@ -89,7 +97,7 @@
     // Axes
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
-    x.majorIntervalLength         = CPTDecimalFromFloat(oneDay);
+    x.majorIntervalLength         = CPTDecimalFromDouble(oneDay);
     x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(2.0);
     x.minorTicksPerInterval       = 0;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -102,7 +110,7 @@
     CPTXYAxis *y = axisSet.yAxis;
     y.majorIntervalLength         = CPTDecimalFromDouble(0.5);
     y.minorTicksPerInterval       = 5;
-    y.orthogonalCoordinateDecimal = CPTDecimalFromFloat(oneDay);
+    y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(oneDay);
 
     // Create a plot that uses the data source method
     CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] init];
@@ -122,12 +130,12 @@
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    return [plotData count];
+    return self.plotData.count;
 }
 
 -(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    return plotData[index][@(fieldEnum)];
+    return self.plotData[index][@(fieldEnum)];
 }
 
 @end
