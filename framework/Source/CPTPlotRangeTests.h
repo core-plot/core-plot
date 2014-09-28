@@ -4,6 +4,6 @@
 
 @interface CPTPlotRangeTests : CPTTestCase
 
-@property (strong, readwrite) CPTMutablePlotRange *plotRange;
+@property (nonatomic, readwrite, strong) CPTMutablePlotRange *plotRange;
 
 @end
