@@ -1,6 +1,6 @@
-#import "CPScatterPlotPlugIn.h"
+#import "CPTScatterPlotPlugIn.h"
 
-@implementation CPScatterPlotPlugIn
+@implementation CPTScatterPlotPlugIn
 
 /*
  * NOTE: It seems that QC plugins don't inherit dynamic input ports which is

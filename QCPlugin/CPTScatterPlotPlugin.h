@@ -1,7 +1,7 @@
 #import "CorePlotQCPlugIn.h"
 #import <Cocoa/Cocoa.h>
 
-@interface CPScatterPlotPlugIn : CorePlotQCPlugIn {
+@interface CPTScatterPlotPlugIn : CorePlotQCPlugIn {
 }
 
 @end

@@ -1,6 +1,6 @@
-#import "CPPieChartPlugin.h"
+#import "CPTPieChartPlugin.h"
 
-@implementation CPPieChartPlugIn
+@implementation CPTPieChartPlugIn
 
 /*
  * NOTE: It seems that QC plugins don't inherit dynamic input ports which is

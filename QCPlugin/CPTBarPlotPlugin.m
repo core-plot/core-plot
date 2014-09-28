@@ -1,6 +1,6 @@
-#import "CPBarPlotPlugIn.h"
+#import "CPTBarPlotPlugIn.h"
 
-@implementation CPBarPlotPlugIn
+@implementation CPTBarPlotPlugIn
 
 /*
  * NOTE: It seems that QC plugins don't inherit dynamic input ports which is
