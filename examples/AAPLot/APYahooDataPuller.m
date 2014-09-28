@@ -183,13 +183,8 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 {
     unsigned int unitFlags = NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitYear;
 
-#ifdef NSCalendarIdentifierGregorian
     NSCalendar *gregorian = [[NSCalendar alloc]
                              initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-#else
-    NSCalendar *gregorian = [[NSCalendar alloc]
-                             initWithCalendarIdentifier:NSGregorianCalendar];
-#endif
 
     NSDateComponents *compsStart = [gregorian components:unitFlags fromDate:targetStartDate];
     NSDateComponents *compsEnd   = [gregorian components:unitFlags fromDate:targetEndDate];
