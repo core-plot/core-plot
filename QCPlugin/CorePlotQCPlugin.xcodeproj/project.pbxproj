@@ -30,7 +30,7 @@
 		A8FC1816102CBADE00CF2266 /* CPScatterPlotPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A8FC1815102CBADE00CF2266 /* CPScatterPlotPlugin.m */; };
 		A8FC1819102CBAEA00CF2266 /* CPBarPlotPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A8FC1818102CBAEA00CF2266 /* CPBarPlotPlugin.m */; };
 		BC21A98B1035BEC100FED2A4 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC21A97F1035BEAF00FED2A4 /* CorePlot.framework */; };
-		BC21A99A1035BF6F00FED2A4 /* CorePlot.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC21A97F1035BEAF00FED2A4 /* CorePlot.framework */; };
+		BC21A99A1035BF6F00FED2A4 /* CorePlot.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC21A97F1035BEAF00FED2A4 /* CorePlot.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -178,7 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				BC21A97F1035BEAF00FED2A4 /* CorePlot.framework */,
-				A8F18CF511FA634B00B2C42F /* UnitTests.octest */,
+				A8F18CF511FA634B00B2C42F /* UnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -212,7 +212,7 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0600;
 			};
 			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "CorePlotQCPlugin" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -241,10 +241,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		A8F18CF511FA634B00B2C42F /* UnitTests.octest */ = {
+		A8F18CF511FA634B00B2C42F /* UnitTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = UnitTests.octest;
+			path = UnitTests.xctest;
 			remoteRef = A8F18CF411FA634B00B2C42F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -327,6 +327,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ADDITIONAL_SDKS = "";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -349,6 +350,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ADDITIONAL_SDKS = "";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -373,7 +375,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SYMROOT = "$(PROJECT_DIR)/../build";
 			};
@@ -387,7 +389,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = "";
 				SYMROOT = "$(PROJECT_DIR)/../build";
 			};

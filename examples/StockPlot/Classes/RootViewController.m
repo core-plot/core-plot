@@ -11,7 +11,7 @@
 
 @interface RootViewController()
 
-@property (nonatomic, retain) APYahooDataPullerGraph *graph;
+@property (nonatomic, strong) APYahooDataPullerGraph *graph;
 
 @end
 
@@ -52,10 +52,8 @@
 {
     // Release anything that can be recreated in viewDidLoad or on demand.
     // e.g. self.myOutlet = nil;
-    [stocks release];
     stocks = nil;
-    [graph release];
-    graph = nil;
+    graph  = nil;
 
     [super viewDidUnload];
 }
@@ -71,13 +69,11 @@
         NSString *message = [NSString stringWithFormat:@"No information available for %@", [aStock symbol]];
         UIAlertView *av   = [[UIAlertView alloc] initWithTitle:@"Alert" message:message delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
         [av show];
-        [av release];
     }
     else {
         if ( nil == graph ) {
             APYahooDataPullerGraph *aGraph = [[APYahooDataPullerGraph alloc] initWithNibName:@"APYahooDataPullerGraph" bundle:nil];
             self.graph = aGraph;
-            [aGraph release];
         }
 
         [self.graph setDataPuller:aStock];
@@ -123,7 +119,6 @@
     if ( [dp endDate] ) {
         endString = [df stringFromDate:[dp endDate]];
     }
-    [df release];
 
     NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
     [nf setRoundingMode:NSNumberFormatterRoundHalfUp];
@@ -141,8 +136,6 @@
         overallHigh = [nf stringFromNumber:[dp overallHigh]];
     }
 
-    [nf release];
-
     [[cell detailTextLabel] setText:[NSString stringWithFormat:@"%@ - %@; Low:%@ High:%@", startString, endString, overallLow, overallHigh]];
 
     UIView *accessory = [cell accessoryView];
@@ -151,7 +144,6 @@
             accessory = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
             [(UIActivityIndicatorView *)accessory setHidesWhenStopped : NO];
             [cell setAccessoryView:accessory];
-            [accessory release];
         }
         [(UIActivityIndicatorView *)accessory startAnimating];
     }
@@ -166,7 +158,6 @@
                 [cell setAccessoryView:accessory];
 //                CGRect frame = accessory.frame;
 //#pragma unused (frame)
-                [accessory release];
             }
         }
         else {
@@ -183,7 +174,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
     if ( cell == nil ) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
 
     NSUInteger row = indexPath.row;
@@ -258,7 +249,6 @@
     [[self stocks] addObject:dp];
     [dp fetchIfNeeded];
     [dp setDelegate:self];
-    [dp release];
     [[self tableView] reloadData]; //TODO: should reload whole thing
 }
 
@@ -269,10 +259,7 @@
             dp.delegate = nil;
         }
     }
-    [stocks release];
     stocks = nil;
-
-    [super dealloc];
 }
 
 /*

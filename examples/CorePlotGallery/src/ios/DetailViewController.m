@@ -12,7 +12,7 @@
 
 @interface DetailViewController()
 
-@property (nonatomic, retain) UIPopoverController *popoverController;
+@property (nonatomic, strong) UIPopoverController *popoverController;
 
 -(CPTTheme *)currentTheme;
 
@@ -57,17 +57,6 @@
     return self;
 }
 
--(void)dealloc
-{
-    [popoverController release];
-    [toolbar release];
-    [detailItem release];
-    [hostingView release];
-    [themeBarButton release];
-
-    [super dealloc];
-}
-
 #pragma mark -
 #pragma mark Managing the detail item
 
@@ -80,9 +69,8 @@
 {
     if ( detailItem != newDetailItem ) {
         [detailItem killGraph];
-        [detailItem release];
 
-        detailItem = [newDetailItem retain];
+        detailItem = newDetailItem;
         [detailItem renderInView:hostingView withTheme:[self currentTheme] animated:YES];
     }
 
@@ -103,7 +91,6 @@
     NSMutableArray *items = [[toolbar items] mutableCopy];
     [items insertObject:barButtonItem atIndex:0];
     [toolbar setItems:items animated:YES];
-    [items release];
     self.popoverController = pc;
 }
 
@@ -115,7 +102,6 @@
 
     [items removeObjectAtIndex:0];
     [toolbar setItems:items animated:YES];
-    [items release];
     self.popoverController = nil;
 }
 
@@ -177,7 +163,6 @@
 {
     // Cancel the popover
     [themePopoverController dismissPopoverAnimated:YES];
-    [themePopoverController release];
     themePopoverController = nil;
 }
 
@@ -214,8 +199,7 @@
     else {
         [self.navigationController popViewControllerAnimated:YES];
         themeTableViewController.delegate = nil;
-        [themeTableViewController release];
-        themeTableViewController = nil;
+        themeTableViewController          = nil;
     }
 
     [detailItem renderInView:hostingView withTheme:[self currentTheme] animated:YES];

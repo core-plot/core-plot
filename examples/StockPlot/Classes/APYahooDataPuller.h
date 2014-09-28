@@ -33,16 +33,16 @@
     NSURLConnection *connection;
 }
 
-@property (nonatomic, assign) id delegate;
+@property (nonatomic, weak) id delegate;
 @property (nonatomic, copy) NSString *symbol;
-@property (nonatomic, retain) NSDate *startDate;
-@property (nonatomic, retain) NSDate *endDate;
+@property (nonatomic, strong) NSDate *startDate;
+@property (nonatomic, strong) NSDate *endDate;
 @property (nonatomic, copy) NSString *targetSymbol;
-@property (nonatomic, retain) NSDate *targetStartDate;
-@property (nonatomic, retain) NSDate *targetEndDate;
-@property (nonatomic, readonly, retain) NSArray *financialData;
-@property (nonatomic, readonly, retain) NSDecimalNumber *overallHigh;
-@property (nonatomic, readonly, retain) NSDecimalNumber *overallLow;
+@property (nonatomic, strong) NSDate *targetStartDate;
+@property (nonatomic, strong) NSDate *targetEndDate;
+@property (nonatomic, readonly, strong) NSArray *financialData;
+@property (nonatomic, readonly, strong) NSDecimalNumber *overallHigh;
+@property (nonatomic, readonly, strong) NSDecimalNumber *overallLow;
 @property (nonatomic, readonly, assign) BOOL loadingData;
 @property (nonatomic, readonly, assign) BOOL staleData;
 

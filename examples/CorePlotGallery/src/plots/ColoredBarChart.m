@@ -24,7 +24,7 @@
         for ( NSUInteger i = 0; i < 8; i++ ) {
             [contentArray addObject:@(10.0 * rand() / (double)RAND_MAX + 5.0)];
         }
-        plotData = [contentArray retain];
+        plotData = contentArray;
     }
 }
 
@@ -92,12 +92,12 @@
     }
 
     // Create a bar line style
-    CPTMutableLineStyle *barLineStyle = [[[CPTMutableLineStyle alloc] init] autorelease];
+    CPTMutableLineStyle *barLineStyle = [[CPTMutableLineStyle alloc] init];
     barLineStyle.lineWidth = 1.0;
     barLineStyle.lineColor = [CPTColor whiteColor];
 
     // Create bar plot
-    CPTBarPlot *barPlot = [[[CPTBarPlot alloc] init] autorelease];
+    CPTBarPlot *barPlot = [[CPTBarPlot alloc] init];
     barPlot.lineStyle         = barLineStyle;
     barPlot.barWidth          = CPTDecimalFromFloat(0.75f); // bar is 75% of the available space
     barPlot.barCornerRadius   = 4.0;
@@ -108,7 +108,7 @@
     [graph addPlot:barPlot];
 
     // Plot space
-    CPTMutablePlotRange *barRange = [[[barPlot plotRangeEnclosingBars] mutableCopy] autorelease];
+    CPTMutablePlotRange *barRange = [[barPlot plotRangeEnclosingBars] mutableCopy];
     [barRange expandRangeByFactor:CPTDecimalFromDouble(1.05)];
 
     CPTXYPlotSpace *barPlotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
@@ -135,14 +135,6 @@
     graph.legend             = theLegend;
     graph.legendAnchor       = CPTRectAnchorBottom;
     graph.legendDisplacement = CGPointMake(0.0, 5.0);
-
-    [graph release];
-}
-
--(void)dealloc
-{
-    [plotData release];
-    [super dealloc];
 }
 
 #pragma mark -

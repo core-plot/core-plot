@@ -34,7 +34,7 @@
 #endif
 
     // Create graph
-    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTSlateTheme]];
 
@@ -127,7 +127,7 @@
     // Label y2 with an equal division labeling policy.
     axisLineStyle.lineColor = [CPTColor orangeColor];
 
-    CPTXYAxis *y2 = [[[CPTXYAxis alloc] init] autorelease];
+    CPTXYAxis *y2 = [[CPTXYAxis alloc] init];
     y2.coordinate                  = CPTCoordinateY;
     y2.plotSpace                   = plotSpace;
     y2.orthogonalCoordinateDecimal = CPTDecimalFromDouble(-10.0);

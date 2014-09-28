@@ -20,12 +20,6 @@ NSString *const outerChartName = @"Outer";
     return self;
 }
 
--(void)dealloc
-{
-    [plotData release];
-    [super dealloc];
-}
-
 -(void)generateData
 {
     if ( plotData == nil ) {
@@ -45,7 +39,7 @@ NSString *const outerChartName = @"Outer";
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
-    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
@@ -94,8 +88,6 @@ NSString *const outerChartName = @"Outer";
                      duration:0.25];
     }
 
-    [piePlot release];
-
     // Add another pie chart
     piePlot                 = [[CPTPieChart alloc] init];
     piePlot.dataSource      = self;
@@ -118,8 +110,6 @@ NSString *const outerChartName = @"Outer";
                animationCurve:CPTAnimationCurveBounceOut
                      delegate:self];
     }
-
-    [piePlot release];
 }
 
 -(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)index
@@ -162,7 +152,7 @@ NSString *const outerChartName = @"Outer";
             whiteText.color = [CPTColor whiteColor];
         });
 
-        newLayer                 = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%.0f", [plotData[index] floatValue]] style:whiteText] autorelease];
+        newLayer                 = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%.0f", [plotData[index] floatValue]] style:whiteText];
         newLayer.fill            = [CPTFill fillWithColor:[CPTColor darkGrayColor]];
         newLayer.cornerRadius    = 5.0;
         newLayer.paddingLeft     = 3.0;

@@ -37,14 +37,6 @@
     return self;
 }
 
--(void)dealloc
-{
-    [dataForChart release];
-    [dataForPlot release];
-
-    [super dealloc];
-}
-
 #pragma mark -
 #pragma mark Plot construction methods
 
@@ -146,10 +138,6 @@
     [barChartView removeFromSuperview];
     [pieChartView removeFromSuperview];
 
-    [scatterPlotView release];
-    [barChartView release];
-    [pieChartView release];
-
     scatterPlotView = nil;
     barChartView    = nil;
     pieChartView    = nil;
@@ -205,10 +193,10 @@
     y.labelExclusionRanges = exclusionRanges;
 
     // Create a blue plot area
-    CPTScatterPlot *boundLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *boundLinePlot = [[CPTScatterPlot alloc] init];
     boundLinePlot.identifier = @"Blue Plot";
 
-    CPTMutableLineStyle *lineStyle = [[boundLinePlot.dataLineStyle mutableCopy] autorelease];
+    CPTMutableLineStyle *lineStyle = [boundLinePlot.dataLineStyle mutableCopy];
     lineStyle.miterLimit        = 1.0;
     lineStyle.lineWidth         = 3.0;
     lineStyle.lineColor         = [CPTColor blueColor];
@@ -235,10 +223,10 @@
     boundLinePlot.plotSymbol = plotSymbol;
 
     // Create a green plot area
-    CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] init];
     dataSourceLinePlot.identifier = @"Green Plot";
 
-    lineStyle             = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+    lineStyle             = [dataSourceLinePlot.dataLineStyle mutableCopy];
     lineStyle.lineWidth   = 3.0;
     lineStyle.lineColor   = [CPTColor greenColor];
     lineStyle.dashPattern = @[@5, @5];
@@ -327,7 +315,6 @@
             newLabel.offset       = x.labelOffset + x.majorTickLength;
             newLabel.rotation     = M_PI_4;
             [customLabels addObject:newLabel];
-            [newLabel release];
         }
 
         x.axisLabels = customLabels;
@@ -388,7 +375,6 @@
     piePlot.borderLineStyle = [CPTLineStyle lineStyle];
     //piePlot.sliceLabelOffset = 5.0;
     [pieChart addPlot:piePlot];
-    [piePlot release];
 
     // Add some initial data
     NSMutableArray *contentArray = [NSMutableArray arrayWithObjects:
@@ -506,13 +492,13 @@
             break;
 
         case 1:
-            newLayer = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", (unsigned long)index]
-                                                     style:[CPTTextStyle textStyle]] autorelease];
+            newLayer = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", (unsigned long)index]
+                                                    style:[CPTTextStyle textStyle]];
             break;
 
         default:
-            newLayer = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", (unsigned long)index]
-                                                     style:whiteText] autorelease];
+            newLayer = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", (unsigned long)index]
+                                                    style:whiteText];
             break;
     }
 

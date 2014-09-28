@@ -32,7 +32,6 @@
 
         if ( symbolTextAnnotation ) {
             [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
-            [symbolTextAnnotation release];
             symbolTextAnnotation = nil;
         }
     }
@@ -50,7 +49,7 @@
             [contentArray addObject:@{ @"x": x, @"y": y }
             ];
         }
-        plotData = [contentArray retain];
+        plotData = contentArray;
     }
 }
 
@@ -62,7 +61,7 @@
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
-    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
@@ -123,10 +122,10 @@
     graph.axisSet.axes = @[x, y];
 
     // Create a plot that uses the data source method
-    CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] init];
     dataSourceLinePlot.identifier = @"Data Source Plot";
 
-    CPTMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+    CPTMutableLineStyle *lineStyle = [dataSourceLinePlot.dataLineStyle mutableCopy];
     lineStyle.lineWidth              = 3.0;
     lineStyle.lineColor              = [CPTColor greenColor];
     dataSourceLinePlot.dataLineStyle = lineStyle;
@@ -137,8 +136,8 @@
     // Auto scale the plot space to fit the plot data
     // Extend the ranges by 30% for neatness
     [plotSpace scaleToFitPlots:@[dataSourceLinePlot]];
-    CPTMutablePlotRange *xRange = [[plotSpace.xRange mutableCopy] autorelease];
-    CPTMutablePlotRange *yRange = [[plotSpace.yRange mutableCopy] autorelease];
+    CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
+    CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
     [xRange expandRangeByFactor:CPTDecimalFromDouble(1.3)];
     [yRange expandRangeByFactor:CPTDecimalFromDouble(1.3)];
     plotSpace.xRange = xRange;
@@ -174,13 +173,6 @@
     graph.legendDisplacement     = CGPointMake(0.0, 12.0);
 }
 
--(void)dealloc
-{
-    [symbolTextAnnotation release];
-    [plotData release];
-    [super dealloc];
-}
-
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
@@ -205,7 +197,7 @@
     // Impose a limit on how far user can scroll in x
     if ( coordinate == CPTCoordinateX ) {
         CPTPlotRange *maxRange            = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromFloat(6.0f)];
-        CPTMutablePlotRange *changedRange = [[newRange mutableCopy] autorelease];
+        CPTMutablePlotRange *changedRange = [newRange mutableCopy];
         [changedRange shiftEndToFitInRange:maxRange];
         [changedRange shiftLocationToFitInRange:maxRange];
         newRange = changedRange;
@@ -223,7 +215,6 @@
 
     if ( symbolTextAnnotation ) {
         [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
-        [symbolTextAnnotation release];
         symbolTextAnnotation = nil;
     }
 
@@ -243,12 +234,12 @@
 
     // Add annotation
     // First make a string for the y value
-    NSNumberFormatter *formatter = [[[NSNumberFormatter alloc] init] autorelease];
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     [formatter setMaximumFractionDigits:2];
     NSString *yString = [formatter stringFromNumber:y];
 
     // Now add the annotation to the plot area
-    CPTTextLayer *textLayer = [[[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle] autorelease];
+    CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle];
     symbolTextAnnotation              = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:graph.defaultPlotSpace anchorPlotPoint:anchorPoint];
     symbolTextAnnotation.contentLayer = textLayer;
     symbolTextAnnotation.displacement = CGPointMake(0.0, 20.0);
@@ -280,7 +271,6 @@
         CPTXYGraph *graph = [self.graphs objectAtIndex:0];
 
         [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
-        [symbolTextAnnotation release];
         symbolTextAnnotation = nil;
     }
 }

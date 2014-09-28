@@ -109,23 +109,21 @@
                                   QCPortAttributeTypeKey: QCPortTypeStructure }
     ];
 
-    CGColorRef lineColor = [self newDefaultColorForPlot:index alpha:1.0];
+    NSColor *lineColor = [self newDefaultColorForPlot:index alpha:1.0];
     [self addInputPortWithType:QCPortTypeColor
                         forKey:[NSString stringWithFormat:@"plotDataLineColor%lu", (unsigned long)index]
                 withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Plot Line Color %lu", (unsigned long)(index + 1)],
                                   QCPortAttributeTypeKey: QCPortTypeColor,
-                                  QCPortAttributeDefaultValueKey: (id)lineColor }
+                                  QCPortAttributeDefaultValueKey: lineColor }
     ];
-    CGColorRelease(lineColor);
 
-    CGColorRef fillColor = [self newDefaultColorForPlot:index alpha:0.25];
+    NSColor *fillColor = [self newDefaultColorForPlot:index alpha:0.25];
     [self addInputPortWithType:QCPortTypeColor
                         forKey:[NSString stringWithFormat:@"plotFillColor%lu", (unsigned long)index]
                 withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Plot Fill Color %lu", (unsigned long)(index + 1)],
                                   QCPortAttributeTypeKey: QCPortTypeColor,
-                                  QCPortAttributeDefaultValueKey: (id)fillColor }
+                                  QCPortAttributeDefaultValueKey: fillColor }
     ];
-    CGColorRelease(fillColor);
 
     [self addInputPortWithType:QCPortTypeNumber
                         forKey:[NSString stringWithFormat:@"plotDataLineWidth%lu", (unsigned long)index]
@@ -167,14 +165,14 @@
     for ( CPTBarPlot *plot in [graph allPlots] ) {
         int index                      = [[graph allPlots] indexOfObject:plot];
         CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
-        lineStyle.lineColor    = [CPTColor colorWithCGColor:(CGColorRef)[self dataLineColor : index]];
+        lineStyle.lineColor    = [CPTColor colorWithCGColor:[self dataLineColor:index].CGColor];
         lineStyle.lineWidth    = [self dataLineWidth:index];
         plot.lineStyle         = lineStyle;
         plot.baseValue         = CPTDecimalFromDouble(self.inputBaseValue);
         plot.barWidth          = CPTDecimalFromDouble(barWidth);
         plot.barOffset         = CPTDecimalFromDouble(self.inputBarOffset);
         plot.barsAreHorizontal = self.inputHorizontalBars;
-        plot.fill              = [CPTFill fillWithColor:[CPTColor colorWithCGColor:(CGColorRef)[self areaFillColor : index]]];
+        plot.fill              = [CPTFill fillWithColor:[CPTColor colorWithCGColor:[self areaFillColor:index].CGColor]];
 
         [plot reloadData];
     }

@@ -31,7 +31,7 @@
 #endif
 
     // Create graph
-    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTSlateTheme]];
 
@@ -65,9 +65,6 @@
     titleAnnotation.contentAnchorPoint = CGPointMake(0.5, 1.0);
     [thePlotArea addAnnotation:titleAnnotation];
 
-    [titleLayer release];
-    [titleAnnotation release];
-
     textStyle.color = [CPTColor darkGrayColor];
 
     // Tiled
@@ -87,9 +84,6 @@
     annotation.contentAnchorPoint = CGPointMake(0.0, 0.0);
     [thePlotArea addAnnotation:annotation];
 
-    [titleLayer release];
-    [annotation release];
-
     // Stretched
     titleLayer = [[CPTTextLayer alloc] initWithText:@"Stretched image"
                                               style:textStyle];
@@ -105,9 +99,6 @@
     annotation.contentLayer       = titleLayer;
     annotation.contentAnchorPoint = CGPointMake(1.0, 0.0);
     [graph.plotAreaFrame.plotArea addAnnotation:annotation];
-
-    [titleLayer release];
-    [annotation release];
 }
 
 @end

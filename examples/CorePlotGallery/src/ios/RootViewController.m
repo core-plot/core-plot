@@ -57,7 +57,7 @@
     UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:cellId];
 
     if ( cell == nil ) {
-        cell               = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId] autorelease];
+        cell               = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
 
@@ -88,8 +88,7 @@
         [self.navigationController pushViewController:detailViewController animated:YES];
         detailViewController.view.frame = self.view.bounds;
         detailViewController.detailItem = plotItem;
-        [detailViewController release];
-        detailViewController = nil;
+        detailViewController            = nil;
     }
 }
 
@@ -106,13 +105,6 @@
     detailViewController = nil;
 
     [super viewDidUnload];
-}
-
--(void)dealloc
-{
-    [detailViewController release];
-    detailViewController = nil;
-    [super dealloc];
 }
 
 @end

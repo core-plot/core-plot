@@ -26,9 +26,9 @@
 @property (assign) NSUInteger inputPixelsWide;
 @property (assign) NSUInteger inputPixelsHigh;
 
-@property (assign) CGColorRef inputPlotAreaColor;
+@property (strong) NSColor *inputPlotAreaColor;
 
-@property (assign) CGColorRef inputAxisColor;
+@property (strong) NSColor *inputAxisColor;
 @property (assign) double inputAxisLineWidth;
 @property (assign) double inputAxisMajorTickWidth;
 @property (assign) double inputAxisMinorTickWidth;
@@ -56,13 +56,13 @@
 -(BOOL)configureAxis;
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot;
--(CGColorRef)newDefaultColorForPlot:(NSUInteger)index alpha:(CGFloat)alpha;
+-(NSColor *)newDefaultColorForPlot:(NSUInteger)index alpha:(CGFloat)alpha;
 
 -(void)freeResources;
 
--(id)dataLineColor:(NSUInteger)index;
+-(NSColor *)dataLineColor:(NSUInteger)index;
 -(CGFloat)dataLineWidth:(NSUInteger)index;
--(id)areaFillColor:(NSUInteger)index;
--(CGImageRef)newAreaFillImage:(NSUInteger)index;
+-(NSColor *)areaFillColor:(NSUInteger)index;
+-(NSImage *)areaFillImage:(NSUInteger)index;
 
 @end

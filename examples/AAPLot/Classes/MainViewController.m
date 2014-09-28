@@ -6,8 +6,8 @@
 
 @interface MainViewController()
 
-@property (nonatomic, retain) CPTXYGraph *graph;
-@property (nonatomic, retain) APYahooDataPuller *datapuller;
+@property (nonatomic, strong) CPTXYGraph *graph;
+@property (nonatomic, strong) APYahooDataPuller *datapuller;
 
 @end
 
@@ -16,17 +16,6 @@
 @synthesize graph;
 @synthesize datapuller;
 @synthesize graphHost;
-
--(void)dealloc
-{
-    [datapuller release];
-    [graph release];
-    [graphHost release];
-    datapuller = nil;
-    graph      = nil;
-    graphHost  = nil;
-    [super dealloc];
-}
 
 -(void)setView:(UIView *)aView
 {
@@ -57,16 +46,15 @@
     CPTXYAxisSet *xyAxisSet        = (id)graph.axisSet;
     CPTXYAxis *xAxis               = xyAxisSet.xAxis;
     CPTMutableLineStyle *lineStyle = [xAxis.axisLineStyle mutableCopy];
-    lineStyle.lineCap   = kCGLineCapButt;
-    xAxis.axisLineStyle = lineStyle;
-    [lineStyle release];
+    lineStyle.lineCap    = kCGLineCapButt;
+    xAxis.axisLineStyle  = lineStyle;
     xAxis.labelingPolicy = CPTAxisLabelingPolicyNone;
 
     CPTXYAxis *yAxis = xyAxisSet.yAxis;
     yAxis.axisLineStyle = nil;
 
     // Line plot with gradient fill
-    CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
+    CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] initWithFrame:graph.bounds];
     dataSourceLinePlot.identifier     = @"Data Source Plot";
     dataSourceLinePlot.dataLineStyle  = nil;
     dataSourceLinePlot.dataSource     = self;
@@ -91,7 +79,7 @@
     CPTMutableLineStyle *whiteLineStyle = [CPTMutableLineStyle lineStyle];
     whiteLineStyle.lineColor = [CPTColor whiteColor];
     whiteLineStyle.lineWidth = 1.0;
-    CPTTradingRangePlot *ohlcPlot = [[[CPTTradingRangePlot alloc] initWithFrame:graph.bounds] autorelease];
+    CPTTradingRangePlot *ohlcPlot = [[CPTTradingRangePlot alloc] initWithFrame:graph.bounds];
     ohlcPlot.identifier = @"OHLC";
     ohlcPlot.lineStyle  = whiteLineStyle;
     CPTMutableTextStyle *whiteTextStyle = [CPTMutableTextStyle textStyle];
@@ -109,7 +97,6 @@
     CPTXYPlotSpace *volumePlotSpace = [[CPTXYPlotSpace alloc] init];
     volumePlotSpace.identifier = @"Volume Plot Space";
     [graph addPlotSpace:volumePlotSpace];
-    [volumePlotSpace release];
 
     // Volume plot
     CPTBarPlot *volumePlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor blackColor] horizontalBars:NO];
@@ -118,7 +105,6 @@
     lineStyle            = [volumePlot.lineStyle mutableCopy];
     lineStyle.lineColor  = [CPTColor whiteColor];
     volumePlot.lineStyle = lineStyle;
-    [lineStyle release];
 
     volumePlot.fill           = nil;
     volumePlot.barWidth       = CPTDecimalFromFloat(1.0f);
@@ -132,7 +118,6 @@
     APYahooDataPuller *dp = [[APYahooDataPuller alloc] initWithTargetSymbol:@"AAPL" targetStartDate:start targetEndDate:end];
     [self setDatapuller:dp];
     [dp setDelegate:self];
-    [dp release];
 
     [super viewDidLoad];
 }
@@ -369,7 +354,6 @@
                                                                               shape:@[@(indexRange.length),
                                                                                       @(numFields)]
                                                                           dataOrder:CPTDataOrderRowsFirst];
-    [data release];
 
     return numericData;
 }
@@ -657,16 +641,15 @@
 
     if ( animationOperation ) {
         [[CPTAnimation sharedInstance] removeAnimationOperation:animationOperation];
-        [animationOperation release];
     }
 
-    animationOperation = [[CPTAnimation animate:volumePlotSpace
-                                       property:@"yRange"
-                                  fromPlotRange:[CPTPlotRange plotRangeWithLocation:[volumeLowDisplayLocation decimalValue]
-                                                                             length:CPTDecimalMultiply( [volumeLengthDisplayLocation decimalValue], CPTDecimalFromInteger(10) )]
-                                    toPlotRange:[CPTPlotRange plotRangeWithLocation:[volumeLowDisplayLocation decimalValue]
-                                                                             length:[volumeLengthDisplayLocation decimalValue]]
-                                       duration:2.5] retain];
+    animationOperation = [CPTAnimation animate:volumePlotSpace
+                                      property:@"yRange"
+                                 fromPlotRange:[CPTPlotRange plotRangeWithLocation:[volumeLowDisplayLocation decimalValue]
+                                                                            length:CPTDecimalMultiply( [volumeLengthDisplayLocation decimalValue], CPTDecimalFromInteger(10) )]
+                                   toPlotRange:[CPTPlotRange plotRangeWithLocation:[volumeLowDisplayLocation decimalValue]
+                                                                            length:[volumeLengthDisplayLocation decimalValue]]
+                                      duration:2.5];
 
     axisSet.xAxis.orthogonalCoordinateDecimal = [low decimalValue];
     axisSet.yAxis.majorIntervalLength         = CPTDecimalFromDouble(50.0);
@@ -687,8 +670,6 @@
 -(void)setDatapuller:(APYahooDataPuller *)aDatapuller
 {
     if ( datapuller != aDatapuller ) {
-        [aDatapuller retain];
-        [datapuller release];
         datapuller = aDatapuller;
     }
 }

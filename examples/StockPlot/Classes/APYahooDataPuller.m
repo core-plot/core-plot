@@ -10,12 +10,12 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 
 @interface APYahooDataPuller()
 
-@property (nonatomic, retain) NSMutableData *receivedData;
-@property (nonatomic, retain) NSURLConnection *connection;
+@property (nonatomic, strong) NSMutableData *receivedData;
+@property (nonatomic, strong) NSURLConnection *connection;
 @property (nonatomic, readwrite, assign) BOOL loadingData;
-@property (nonatomic, readwrite, retain) NSDecimalNumber *overallHigh;
-@property (nonatomic, readwrite, retain) NSDecimalNumber *overallLow;
-@property (nonatomic, readwrite, retain) NSArray *financialData;
+@property (nonatomic, readwrite, strong) NSDecimalNumber *overallHigh;
+@property (nonatomic, readwrite, strong) NSDecimalNumber *overallLow;
+@property (nonatomic, readwrite, strong) NSArray *financialData;
 
 -(NSString *)URL;
 -(void)notifyFinancesChanged;
@@ -85,9 +85,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
             mutableFinancialData[i] = financialLine;
         }
 
-        [financialData release];
         financialData = [[NSArray alloc] initWithArray:mutableFinancialData];
-        [mutableFinancialData release];
         if ( 0 < [financialData count] ) {
             [self notifyFinancesChanged];
         }
@@ -191,18 +189,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 
 -(void)dealloc
 {
-    [symbol release];
-    [startDate release];
-    [endDate release];
-    [financialData release];
-
-    symbol        = nil;
-    startDate     = nil;
-    endDate       = nil;
-    financialData = nil;
-
     delegate = nil;
-    [super dealloc];
 }
 
 // http://www.goldb.org/ystockquote.html
@@ -216,9 +203,8 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     NSDateComponents *compsStart = [gregorian components:unitFlags fromDate:targetStartDate];
     NSDateComponents *compsEnd   = [gregorian components:unitFlags fromDate:targetEndDate];
 
-    [gregorian release];
-
     NSString *url = [NSString stringWithFormat:@"http://ichart.yahoo.com/table.csv?s=%@&", [self targetSymbol]];
+
     url = [url stringByAppendingFormat:@"a=%ld&", (long)[compsStart month] - 1];
     url = [url stringByAppendingFormat:@"b=%ld&", (long)[compsStart day]];
     url = [url stringByAppendingFormat:@"c=%ld&", (long)[compsStart year]];
@@ -326,7 +312,6 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 
     NSString *csv = [[NSString alloc] initWithData:self.receivedData encoding:NSUTF8StringEncoding];
     [self populateWithString:csv];
-    [csv release];
 
     self.receivedData = nil;
     [self writeToFile:[self pathForSymbol:self.symbol] atomically:YES];

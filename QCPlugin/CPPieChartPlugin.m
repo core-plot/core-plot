@@ -105,21 +105,17 @@
         };
     }
     else if ( [key isEqualToString:@"inputBorderColor"] ) {
-        CGColorRef grayColor = CGColorCreateGenericGray(0.0, 1.0);
         NSDictionary *result = @{
             QCPortAttributeNameKey: @"Border Color",
-            QCPortAttributeDefaultValueKey: (id)grayColor
+            QCPortAttributeDefaultValueKey: [NSColor colorWithSRGBRed:0.0 green:0.0 blue:0.0 alpha:1.0]
         };
-        CGColorRelease(grayColor);
         return result;
     }
     else if ( [key isEqualToString:@"inputLabelColor"] ) {
-        CGColorRef grayColor = CGColorCreateGenericGray(1.0, 1.0);
         NSDictionary *result = @{
             QCPortAttributeNameKey: @"Label Color",
-            QCPortAttributeDefaultValueKey: (id)grayColor
+            QCPortAttributeDefaultValueKey: [NSColor colorWithSRGBRed:1.0 green:1.0 blue:1.0 alpha:1.0]
         };
-        CGColorRelease(grayColor);
         return result;
     }
     else {
@@ -144,17 +140,15 @@
 
         // TODO: add support for used defined fill colors.  As of now we use a single color
         // multiplied against the 'default' pie chart colors
-        CGColorRef grayColor = CGColorCreateGenericGray(1.0, 1.0);
         [self addInputPortWithType:QCPortTypeColor
                             forKey:[NSString stringWithFormat:@"plotFillColor%lu", (unsigned long)index]
                     withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Primary Fill Color %lu", (unsigned long)(index + 1)],
                                       QCPortAttributeTypeKey: QCPortTypeColor,
-                                      QCPortAttributeDefaultValueKey: (id)grayColor }
+                                      QCPortAttributeDefaultValueKey: [NSColor colorWithSRGBRed:1.0 green:1.0 blue:1.0 alpha:1.0] }
         ];
-        CGColorRelease(grayColor);
 
         // Add the new plot to the graph
-        CPTPieChart *pieChart = [[[CPTPieChart alloc] init] autorelease];
+        CPTPieChart *pieChart = [[CPTPieChart alloc] init];
         pieChart.identifier = [NSString stringWithFormat:@"Pie Chart %lu", (unsigned long)(index + 1)];
         pieChart.dataSource = self;
 
@@ -198,7 +192,7 @@
         if ( self.inputBorderWidth > 0.0 ) {
             CPTMutableLineStyle *borderLineStyle = [CPTMutableLineStyle lineStyle];
             borderLineStyle.lineWidth = self.inputBorderWidth;
-            borderLineStyle.lineColor = [CPTColor colorWithCGColor:self.inputBorderColor];
+            borderLineStyle.lineColor = [CPTColor colorWithCGColor:self.inputBorderColor.CGColor];
             borderLineStyle.lineCap   = kCGLineCapSquare;
             borderLineStyle.lineJoin  = kCGLineJoinBevel;
             pieChart.borderLineStyle  = borderLineStyle;
@@ -244,7 +238,7 @@
 -(CPTFill *)sliceFillForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index
 {
     CGColorRef plotFillColor  = [[CPTPieChart defaultPieSliceColorForIndex:index] cgColor];
-    CGColorRef inputFillColor = (CGColorRef)[self areaFillColor : 0];
+    CGColorRef inputFillColor = [self areaFillColor:0].CGColor;
 
     const CGFloat *plotColorComponents  = CGColorGetComponents(plotFillColor);
     const CGFloat *inputColorComponents = CGColorGetComponents(inputFillColor);
@@ -258,7 +252,7 @@
 
     CGColorRelease(fillColor);
 
-    return [[[CPTFill alloc] initWithColor:fillCPColor] autorelease];
+    return [[CPTFill alloc] initWithColor:fillCPColor];
 }
 
 -(CPTTextLayer *)sliceLabelForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index
@@ -274,11 +268,11 @@
 
     NSString *label = dict[[NSString stringWithFormat:@"%lu", (unsigned long)index]];
 
-    CPTTextLayer *layer = [[[CPTTextLayer alloc] initWithText:label] autorelease];
+    CPTTextLayer *layer = [[CPTTextLayer alloc] initWithText:label];
     [layer sizeToFit];
 
     CPTMutableTextStyle *style = [CPTMutableTextStyle textStyle];
-    style.color     = [CPTColor colorWithCGColor:self.inputLabelColor];
+    style.color     = [CPTColor colorWithCGColor:self.inputLabelColor.CGColor];
     layer.textStyle = style;
 
     return layer;

@@ -9,7 +9,7 @@
 @property (assign) double inputStartAngle;
 @property (assign) NSUInteger inputSliceDirection;
 @property (assign) double inputBorderWidth;
-@property (assign) CGColorRef inputBorderColor;
-@property (assign) CGColorRef inputLabelColor;
+@property (strong) NSColor *inputBorderColor;
+@property (strong) NSColor *inputLabelColor;
 
 @end

@@ -34,7 +34,6 @@ NSString *const kSecond = @"Second Derivative";
 
         if ( symbolTextAnnotation ) {
             [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
-            [symbolTextAnnotation release];
             symbolTextAnnotation = nil;
         }
     }
@@ -54,7 +53,7 @@ NSString *const kSecond = @"Second Derivative";
             ];
         }
 
-        plotData = [contentArray retain];
+        plotData = contentArray;
     }
 
     if ( plotData1 == nil ) {
@@ -78,7 +77,7 @@ NSString *const kSecond = @"Second Derivative";
             ];
         }
 
-        plotData1 = [contentArray retain];
+        plotData1 = contentArray;
     }
 
     if ( plotData2 == nil ) {
@@ -102,7 +101,7 @@ NSString *const kSecond = @"Second Derivative";
             ];
         }
 
-        plotData2 = [contentArray retain];
+        plotData2 = contentArray;
     }
 }
 
@@ -114,7 +113,7 @@ NSString *const kSecond = @"Second Derivative";
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
-    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
@@ -190,13 +189,13 @@ NSString *const kSecond = @"Second Derivative";
     graph.axisSet.axes = @[x, y];
 
     // Create a plot that uses the data source method
-    CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] init];
     dataSourceLinePlot.identifier = kData;
 
     // Make the data source line use curved interpolation
     dataSourceLinePlot.interpolation = CPTScatterPlotInterpolationCurved;
 
-    CPTMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+    CPTMutableLineStyle *lineStyle = [dataSourceLinePlot.dataLineStyle mutableCopy];
     lineStyle.lineWidth              = 3.0;
     lineStyle.lineColor              = [CPTColor greenColor];
     dataSourceLinePlot.dataLineStyle = lineStyle;
@@ -205,7 +204,7 @@ NSString *const kSecond = @"Second Derivative";
     [graph addPlot:dataSourceLinePlot];
 
     // First derivative
-    CPTScatterPlot *firstPlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *firstPlot = [[CPTScatterPlot alloc] init];
     firstPlot.identifier    = kFirst;
     lineStyle.lineWidth     = 2.0;
     lineStyle.lineColor     = [CPTColor redColor];
@@ -215,7 +214,7 @@ NSString *const kSecond = @"Second Derivative";
 //    [graph addPlot:firstPlot];
 
     // Second derivative
-    CPTScatterPlot *secondPlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *secondPlot = [[CPTScatterPlot alloc] init];
     secondPlot.identifier    = kSecond;
     lineStyle.lineColor      = [CPTColor blueColor];
     secondPlot.dataLineStyle = lineStyle;
@@ -225,8 +224,8 @@ NSString *const kSecond = @"Second Derivative";
 
     // Auto scale the plot space to fit the plot data
     [plotSpace scaleToFitPlots:[graph allPlots]];
-    CPTMutablePlotRange *xRange = [[plotSpace.xRange mutableCopy] autorelease];
-    CPTMutablePlotRange *yRange = [[plotSpace.yRange mutableCopy] autorelease];
+    CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
+    CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
 
     // Expand the ranges to put some space around the plot
     [xRange expandRangeByFactor:CPTDecimalFromDouble(1.2)];
@@ -269,13 +268,6 @@ NSString *const kSecond = @"Second Derivative";
     graph.legend.swatchSize      = CGSizeMake(25.0, 25.0);
     graph.legendAnchor           = CPTRectAnchorBottom;
     graph.legendDisplacement     = CGPointMake(0.0, 12.0);
-}
-
--(void)dealloc
-{
-    [symbolTextAnnotation release];
-    [plotData release];
-    [super dealloc];
 }
 
 #pragma mark -
@@ -324,7 +316,7 @@ NSString *const kSecond = @"Second Derivative";
 {
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)space.graph.axisSet;
 
-    CPTMutablePlotRange *changedRange = [[newRange mutableCopy] autorelease];
+    CPTMutablePlotRange *changedRange = [newRange mutableCopy];
 
     switch ( coordinate ) {
         case CPTCoordinateX:
@@ -354,7 +346,6 @@ NSString *const kSecond = @"Second Derivative";
 
     if ( symbolTextAnnotation ) {
         [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
-        [symbolTextAnnotation release];
         symbolTextAnnotation = nil;
     }
 
@@ -374,12 +365,12 @@ NSString *const kSecond = @"Second Derivative";
 
     // Add annotation
     // First make a string for the y value
-    NSNumberFormatter *formatter = [[[NSNumberFormatter alloc] init] autorelease];
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     [formatter setMaximumFractionDigits:2];
     NSString *yString = [formatter stringFromNumber:y];
 
     // Now add the annotation to the plot area
-    CPTTextLayer *textLayer = [[[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle] autorelease];
+    CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle];
     CPTImage *background    = [CPTImage imageNamed:@"BlueBackground"];
     background.edgeInsets   = CPTEdgeInsetsMake(8.0, 8.0, 8.0, 8.0);
     textLayer.fill          = [CPTFill fillWithImage:background];
@@ -420,7 +411,6 @@ NSString *const kSecond = @"Second Derivative";
         CPTXYGraph *graph = [self.graphs objectAtIndex:0];
 
         [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
-        [symbolTextAnnotation release];
         symbolTextAnnotation = nil;
     }
 }

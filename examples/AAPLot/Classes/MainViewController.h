@@ -14,6 +14,6 @@
     CPTXYGraph *graph;
 }
 
-@property (nonatomic, retain) IBOutlet CPTGraphHostingView *graphHost;
+@property (nonatomic, strong) IBOutlet CPTGraphHostingView *graphHost;
 
 @end

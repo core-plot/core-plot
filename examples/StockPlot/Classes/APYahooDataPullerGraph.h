@@ -18,7 +18,7 @@
     CPTXYGraph *graph;
 }
 
-@property (nonatomic, retain) IBOutlet CPTGraphHostingView *graphHost;
-@property (nonatomic, retain) APYahooDataPuller *dataPuller;
+@property (nonatomic, strong) IBOutlet CPTGraphHostingView *graphHost;
+@property (nonatomic, strong) APYahooDataPuller *dataPuller;
 
 @end

@@ -16,7 +16,7 @@
     APYahooDataPullerGraph *graph;
 }
 
-@property (nonatomic, readonly) NSArray *symbols;
+@property (nonatomic, readonly, strong) NSArray *symbols;
 
 -(void)addSymbol:(NSString *)aSymbol;
 

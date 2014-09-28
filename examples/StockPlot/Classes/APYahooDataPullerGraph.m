@@ -21,10 +21,10 @@
         graph.paddingLeft   = 50.0;
         graph.paddingRight  = 50.0;
 
-        CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
+        CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] initWithFrame:graph.bounds];
         dataSourceLinePlot.identifier = @"Data Source Plot";
 
-        CPTMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+        CPTMutableLineStyle *lineStyle = [dataSourceLinePlot.dataLineStyle mutableCopy];
         lineStyle.lineWidth              = 1.0;
         lineStyle.lineColor              = [CPTColor redColor];
         dataSourceLinePlot.dataLineStyle = lineStyle;
@@ -156,8 +156,6 @@
     //NSLog(@"in -setDataPuller:, old value of dataPuller: %@, changed to: %@", dataPuller, aDataPuller);
 
     if ( dataPuller != aDataPuller ) {
-        [aDataPuller retain];
-        [dataPuller release];
         dataPuller = aDataPuller;
         [dataPuller setDelegate:self];
         [self reloadData];
@@ -169,14 +167,8 @@
     if ( dataPuller.delegate == self ) {
         [dataPuller setDelegate:nil];
     }
-    [dataPuller release];
     dataPuller = nil;
-    [graphHost release];
-    graphHost = nil;
-    [graph release];
-    graph = nil;
-
-    [super dealloc];
+    graph      = nil;
 }
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot

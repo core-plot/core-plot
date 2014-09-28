@@ -42,7 +42,7 @@
                 @(CPTScatterPlotFieldY): y }
             ];
 
-            plotData = [newData retain];
+            plotData = newData;
         }
     }
 }
@@ -64,8 +64,6 @@
     NSCalendar *gregorian = [[NSCalendar alloc]
                              initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDate *refDate = [gregorian dateFromComponents:dateComponents];
-    [dateComponents release];
-    [gregorian release];
 
     NSTimeInterval oneDay = 24 * 60 * 60;
 
@@ -75,7 +73,7 @@
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
-    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
@@ -94,9 +92,9 @@
     x.majorIntervalLength         = CPTDecimalFromFloat(oneDay);
     x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(2.0);
     x.minorTicksPerInterval       = 0;
-    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateStyle = kCFDateFormatterShortStyle;
-    CPTTimeFormatter *timeFormatter = [[[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter] autorelease];
+    CPTTimeFormatter *timeFormatter = [[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter];
     timeFormatter.referenceDate = refDate;
     x.labelFormatter            = timeFormatter;
     x.labelRotation             = M_PI_4;
@@ -107,22 +105,16 @@
     y.orthogonalCoordinateDecimal = CPTDecimalFromFloat(oneDay);
 
     // Create a plot that uses the data source method
-    CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] init];
     dataSourceLinePlot.identifier = @"Date Plot";
 
-    CPTMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+    CPTMutableLineStyle *lineStyle = [dataSourceLinePlot.dataLineStyle mutableCopy];
     lineStyle.lineWidth              = 3.0;
     lineStyle.lineColor              = [CPTColor greenColor];
     dataSourceLinePlot.dataLineStyle = lineStyle;
 
     dataSourceLinePlot.dataSource = self;
     [graph addPlot:dataSourceLinePlot];
-}
-
--(void)dealloc
-{
-    [plotData release];
-    [super dealloc];
 }
 
 #pragma mark -

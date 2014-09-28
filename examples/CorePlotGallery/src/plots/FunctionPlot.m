@@ -4,7 +4,7 @@
 
 @interface FunctionPlot()
 
-@property (nonatomic, readwrite, retain) NSMutableSet *dataSources;
+@property (nonatomic, readwrite, strong) NSMutableSet *dataSources;
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 -(UIFont *)italicFontForFont:(UIFont *)oldFont;
@@ -41,12 +41,6 @@
     return self;
 }
 
--(void)dealloc
-{
-    [dataSources release];
-    [super dealloc];
-}
-
 -(void)killGraph
 {
     [self.dataSources removeAllObjects];
@@ -62,7 +56,7 @@
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
-    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
@@ -102,8 +96,6 @@
 
     x.title       = @"X Axis";
     x.titleOffset = 30.0;
-
-    [formatter release];
 
     // Label y with an automatic label policy.
     CPTXYAxis *y = axisSet.yAxis;
@@ -147,7 +139,7 @@
                 break;
         }
 
-        CPTScatterPlot *linePlot = [[[CPTScatterPlot alloc] init] autorelease];
+        CPTScatterPlot *linePlot = [[CPTScatterPlot alloc] init];
         linePlot.identifier = [NSString stringWithFormat:@"Function Plot %lu", (unsigned long)(plotNum + 1)];
 
         NSDictionary *textAttributes = x.titleTextStyle.attributes;
@@ -170,9 +162,8 @@
                           range:NSMakeRange(8, 1)];
         }
         linePlot.attributedTitle = title;
-        [title release];
 
-        CPTMutableLineStyle *lineStyle = [[linePlot.dataLineStyle mutableCopy] autorelease];
+        CPTMutableLineStyle *lineStyle = [linePlot.dataLineStyle mutableCopy];
         lineStyle.lineWidth    = 3.0;
         lineStyle.lineColor    = lineColor;
         linePlot.dataLineStyle = lineStyle;

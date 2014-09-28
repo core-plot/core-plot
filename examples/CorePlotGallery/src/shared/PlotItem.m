@@ -40,7 +40,6 @@ NSString *const kFinancialPlots = @"Financial Plots";
         PlotItem *plotItem = [[itemClass alloc] init];
         if ( plotItem ) {
             [[PlotGallery sharedPlotGallery] addPlotItem:plotItem];
-            [plotItem release];
         }
     }
 }
@@ -80,11 +79,9 @@ NSString *const kFinancialPlots = @"Financial Plots";
         [defaultLayerHostingView removeFromSuperview];
 
         defaultLayerHostingView.hostedGraph = nil;
-        [defaultLayerHostingView release];
-        defaultLayerHostingView = nil;
+        defaultLayerHostingView             = nil;
     }
 
-    [cachedImage release];
     cachedImage = nil;
 
     [graphs removeAllObjects];
@@ -93,10 +90,6 @@ NSString *const kFinancialPlots = @"Financial Plots";
 -(void)dealloc
 {
     [self killGraph];
-    [title release];
-    [section release];
-
-    [super dealloc];
 }
 
 // override to generate data for the plot if needed
@@ -187,10 +180,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
         CGContextSetAllowsAntialiasing(context, false);
 
         cachedImage = UIGraphicsGetImageFromCurrentImageContext();
-        [cachedImage retain];
         UIGraphicsEndImageContext();
-
-        [imageView release];
     }
 
     return cachedImage;
@@ -233,9 +223,6 @@ NSString *const kFinancialPlots = @"Financial Plots";
 
         cachedImage = [[NSImage alloc] initWithSize:NSSizeFromCGSize(boundsSize)];
         [cachedImage addRepresentation:layerImage];
-        [layerImage release];
-
-        [imageView release];
     }
 
     return cachedImage;

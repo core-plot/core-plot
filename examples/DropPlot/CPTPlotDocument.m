@@ -17,14 +17,6 @@
     return self;
 }
 
--(void)dealloc
-{
-    [graph release];
-    [dataPoints release];
-    [zoomAnnotation release];
-    [super dealloc];
-}
-
 -(NSString *)windowNibName
 {
     return @"CPTPlotDocument";
@@ -81,10 +73,10 @@
     y.axisConstraints       = [CPTConstraints constraintWithLowerOffset:0.0];
 
     // Create the main plot for the delimited data
-    CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
+    CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] initWithFrame:graph.bounds];
     dataSourceLinePlot.identifier = @"Data Source Plot";
 
-    CPTMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+    CPTMutableLineStyle *lineStyle = [dataSourceLinePlot.dataLineStyle mutableCopy];
     lineStyle.lineWidth              = 1.0;
     lineStyle.lineColor              = [CPTColor whiteColor];
     dataSourceLinePlot.dataLineStyle = lineStyle;
@@ -175,8 +167,6 @@
 
         minimumValueForXAxis = floor(minimumValueForXAxis / majorIntervalLengthForX) * majorIntervalLengthForX;
         minimumValueForYAxis = floor(minimumValueForYAxis / majorIntervalLengthForY) * majorIntervalLengthForY;
-
-        [fileContents release];
     }
 
     if ( outError != NULL ) {
@@ -341,7 +331,7 @@
         if ( CGRectContainsPoint(plotArea.bounds, dragStartInPlotArea) ) {
             // create the zoom rectangle
             // first a bordered layer to draw the zoomrect
-            CPTBorderedLayer *zoomRectangleLayer = [[[CPTBorderedLayer alloc] initWithFrame:CGRectNull] autorelease];
+            CPTBorderedLayer *zoomRectangleLayer = [[CPTBorderedLayer alloc] initWithFrame:CGRectNull];
 
             CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
             lineStyle.lineColor                = [CPTColor darkGrayColor];
@@ -388,7 +378,6 @@
 
 // and we're done with the drag
         [graph.plotAreaFrame.plotArea removeAnnotation:zoomAnnotation];
-        [zoomAnnotation release];
         zoomAnnotation = nil;
 
         dragStart = CGPointZero;
@@ -402,7 +391,6 @@
 {
     if ( zoomAnnotation ) {
         [graph.plotAreaFrame.plotArea removeAnnotation:zoomAnnotation];
-        [zoomAnnotation release];
         zoomAnnotation = nil;
 
         dragStart = CGPointZero;

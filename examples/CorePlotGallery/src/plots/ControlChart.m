@@ -37,7 +37,7 @@ static const NSUInteger numberOfPoints = 11;
             [contentArray addObject:@(y)];
         }
 
-        plotData = [contentArray retain];
+        plotData = contentArray;
 
         meanValue = sum / numberOfPoints;
 
@@ -59,7 +59,7 @@ static const NSUInteger numberOfPoints = 11;
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
-    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTPlainWhiteTheme]];
 
@@ -85,7 +85,7 @@ static const NSUInteger numberOfPoints = 11;
     redLineStyle.lineWidth = 10.0;
     redLineStyle.lineColor = [[CPTColor redColor] colorWithAlphaComponent:0.5];
 
-    NSNumberFormatter *labelFormatter = [[[NSNumberFormatter alloc] init] autorelease];
+    NSNumberFormatter *labelFormatter = [[NSNumberFormatter alloc] init];
     labelFormatter.maximumFractionDigits = 0;
 
     // Axes
@@ -111,7 +111,7 @@ static const NSUInteger numberOfPoints = 11;
     y.titleOffset = 30.0;
 
     // Center line
-    CPTScatterPlot *centerLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *centerLinePlot = [[CPTScatterPlot alloc] init];
     centerLinePlot.identifier = kCenterLine;
 
     CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
@@ -123,7 +123,7 @@ static const NSUInteger numberOfPoints = 11;
     [graph addPlot:centerLinePlot];
 
     // Control lines
-    CPTScatterPlot *controlLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *controlLinePlot = [[CPTScatterPlot alloc] init];
     controlLinePlot.identifier = kControlLine;
 
     lineStyle                     = [CPTMutableLineStyle lineStyle];
@@ -136,7 +136,7 @@ static const NSUInteger numberOfPoints = 11;
     [graph addPlot:controlLinePlot];
 
     // Warning lines
-    CPTScatterPlot *warningLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *warningLinePlot = [[CPTScatterPlot alloc] init];
     warningLinePlot.identifier = kWarningLine;
 
     lineStyle                     = [CPTMutableLineStyle lineStyle];
@@ -149,7 +149,7 @@ static const NSUInteger numberOfPoints = 11;
     [graph addPlot:warningLinePlot];
 
     // Data line
-    CPTScatterPlot *linePlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *linePlot = [[CPTScatterPlot alloc] init];
     linePlot.identifier = kDataLine;
 
     lineStyle              = [CPTMutableLineStyle lineStyle];
@@ -173,8 +173,8 @@ static const NSUInteger numberOfPoints = 11;
     [plotSpace scaleToFitPlots:@[linePlot]];
 
     // Adjust visible ranges so plot symbols along the edges are not clipped
-    CPTMutablePlotRange *xRange = [[plotSpace.xRange mutableCopy] autorelease];
-    CPTMutablePlotRange *yRange = [[plotSpace.yRange mutableCopy] autorelease];
+    CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
+    CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
 
     x.orthogonalCoordinateDecimal = yRange.location;
     y.orthogonalCoordinateDecimal = xRange.location;
@@ -199,12 +199,6 @@ static const NSUInteger numberOfPoints = 11;
     graph.legend.swatchSize      = CGSizeMake(25.0, 25.0);
     graph.legendAnchor           = CPTRectAnchorBottom;
     graph.legendDisplacement     = CGPointMake(0.0, 12.0);
-}
-
--(void)dealloc
-{
-    [plotData release];
-    [super dealloc];
 }
 
 #pragma mark -

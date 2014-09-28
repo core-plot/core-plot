@@ -31,7 +31,7 @@
 #endif
 
     // Create graph
-    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTSlateTheme]];
 
@@ -79,12 +79,10 @@
         axis.axisLineCapMax = lineCap;
 
         [axes addObject:axis];
-        [axis release];
     }
 
     // Add axes to the graph
     graph.axisSet.axes = axes;
-    [axes release];
 }
 
 @end

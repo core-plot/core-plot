@@ -25,7 +25,7 @@
     NSMutableArray *themes;
 }
 
-@property (nonatomic, retain) UIPopoverController *themePopoverController;
-@property (nonatomic, retain) id<ThemeTableViewControllerDelegate> delegate;
+@property (nonatomic, strong) UIPopoverController *themePopoverController;
+@property (nonatomic, strong) id<ThemeTableViewControllerDelegate> delegate;
 
 @end

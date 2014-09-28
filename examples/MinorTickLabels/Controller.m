@@ -3,13 +3,6 @@
 
 @implementation Controller
 
--(void)dealloc
-{
-    [plotData release];
-    [graph release];
-    [super dealloc];
-}
-
 -(void)awakeFromNib
 {
     [super awakeFromNib];
@@ -19,8 +12,7 @@
     // for daylight savings time.
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     NSDate *refDate            = [formatter dateFromString:@"12:00 Oct 29, 2009"];
-    [formatter release];
-    NSTimeInterval oneDay = 24 * 60 * 60;
+    NSTimeInterval oneDay      = 24 * 60 * 60;
 
     // Create graph from theme
     graph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
@@ -41,15 +33,15 @@
     x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(2.0);
     x.minorTicksPerInterval       = 3;
 
-    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateStyle = kCFDateFormatterShortStyle;
-    CPTTimeFormatter *myDateFormatter = [[[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter] autorelease];
+    CPTTimeFormatter *myDateFormatter = [[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter];
     myDateFormatter.referenceDate = refDate;
     x.labelFormatter              = myDateFormatter;
 
-    NSDateFormatter *timeFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
     timeFormatter.timeStyle = kCFDateFormatterShortStyle;
-    CPTTimeFormatter *myTimeFormatter = [[[CPTTimeFormatter alloc] initWithDateFormatter:timeFormatter] autorelease];
+    CPTTimeFormatter *myTimeFormatter = [[CPTTimeFormatter alloc] initWithDateFormatter:timeFormatter];
     myTimeFormatter.referenceDate = refDate;
     x.minorTickLabelFormatter     = myTimeFormatter;
 //	x.minorTickLabelRotation = M_PI_2;
@@ -60,10 +52,10 @@
     y.orthogonalCoordinateDecimal = CPTDecimalFromFloat(0.5 * oneDay);
 
     // Create a plot that uses the data source method
-    CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] init];
     dataSourceLinePlot.identifier = @"Date Plot";
 
-    CPTMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+    CPTMutableLineStyle *lineStyle = [dataSourceLinePlot.dataLineStyle mutableCopy];
     lineStyle.lineWidth              = 3.;
     lineStyle.lineColor              = [CPTColor greenColor];
     dataSourceLinePlot.dataLineStyle = lineStyle;

@@ -32,7 +32,6 @@
 
         if ( symbolTextAnnotation ) {
             [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
-            [symbolTextAnnotation release];
             symbolTextAnnotation = nil;
         }
     }
@@ -68,7 +67,7 @@
 #endif
 
     // Add plot space for bar charts
-    CPTXYPlotSpace *barPlotSpace = [[[CPTXYPlotSpace alloc] init] autorelease];
+    CPTXYPlotSpace *barPlotSpace = [[CPTXYPlotSpace alloc] init];
     [barPlotSpace setScaleType:CPTScaleTypeCategory forCoordinate:CPTCoordinateX];
 #if HORIZONTAL
     barPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-10.0f) length:CPTDecimalFromFloat(120.0f)];
@@ -168,12 +167,12 @@
     graph.axisSet.axes = @[x, y];
 
     // Create a bar line style
-    CPTMutableLineStyle *barLineStyle = [[[CPTMutableLineStyle alloc] init] autorelease];
+    CPTMutableLineStyle *barLineStyle = [[CPTMutableLineStyle alloc] init];
     barLineStyle.lineWidth = 1.0;
     barLineStyle.lineColor = [CPTColor whiteColor];
 
     // Create first bar plot
-    CPTBarPlot *barPlot = [[[CPTBarPlot alloc] init] autorelease];
+    CPTBarPlot *barPlot = [[CPTBarPlot alloc] init];
     barPlot.lineStyle       = barLineStyle;
     barPlot.fill            = [CPTFill fillWithColor:[CPTColor colorWithComponentRed:1.0 green:0.0 blue:0.5 alpha:0.5]];
     barPlot.barBasesVary    = YES;
@@ -236,7 +235,7 @@
 #else
     NSArray *plotPoint = @[@0, @95];
 #endif
-    CPTPlotSpaceAnnotation *legendAnnotation = [[[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:barPlotSpace anchorPlotPoint:plotPoint] autorelease];
+    CPTPlotSpaceAnnotation *legendAnnotation = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:barPlotSpace anchorPlotPoint:plotPoint];
     legendAnnotation.contentLayer = theLegend;
 
 #if HORIZONTAL
@@ -245,8 +244,6 @@
     legendAnnotation.contentAnchorPoint = CGPointMake(0.0, 1.0);
 #endif
     [graph.plotAreaFrame.plotArea addAnnotation:legendAnnotation];
-
-    [graph release];
 }
 
 #pragma mark -
@@ -287,12 +284,12 @@
 
     // Add annotation
     // First make a string for the y value
-    NSNumberFormatter *formatter = [[[NSNumberFormatter alloc] init] autorelease];
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     [formatter setMaximumFractionDigits:2];
     NSString *yString = [formatter stringFromNumber:value];
 
     // Now add the annotation to the plot area
-    CPTTextLayer *textLayer = [[[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle] autorelease];
+    CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle];
     symbolTextAnnotation              = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:plot.plotSpace anchorPlotPoint:anchorPoint];
     symbolTextAnnotation.contentLayer = textLayer;
     symbolTextAnnotation.displacement = CGPointMake(0.0, 0.0);

@@ -25,12 +25,6 @@
     return self;
 }
 
--(void)dealloc
-{
-    [plotData release];
-    [super dealloc];
-}
-
 -(void)generateData
 {
     if ( plotData == nil ) {
@@ -50,7 +44,7 @@
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
-    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
@@ -61,7 +55,7 @@
     graph.axisSet                     = nil;
 
     // Overlay gradient for pie chart
-    CPTGradient *overlayGradient = [[[CPTGradient alloc] init] autorelease];
+    CPTGradient *overlayGradient = [[CPTGradient alloc] init];
     overlayGradient.gradientType = CPTGradientTypeRadial;
     overlayGradient              = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:0.0] atPosition:0.0];
     overlayGradient              = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:0.3] atPosition:0.9];
@@ -83,7 +77,6 @@
 
     piePlot.delegate = self;
     [graph addPlot:piePlot];
-    [piePlot release];
 
     // Add legend
     CPTLegend *theLegend = [CPTLegend legendWithGraph:graph];
@@ -118,8 +111,8 @@
         whiteText.color = [CPTColor whiteColor];
     });
 
-    CPTTextLayer *newLayer = [[[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%1.0f", [plotData[index] floatValue]]
-                                                           style:whiteText] autorelease];
+    CPTTextLayer *newLayer = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%1.0f", [plotData[index] floatValue]]
+                                                          style:whiteText];
     return newLayer;
 }
 
@@ -142,7 +135,6 @@
     }
     NSLog(@"newData: %@", newData);
 
-    [plotData release];
     plotData = newData;
 
     [plot reloadData];
@@ -193,7 +185,7 @@
                       range:NSMakeRange(4, 5)];
     }
 
-    return [title autorelease];
+    return title;
 }
 
 @end

@@ -83,8 +83,6 @@ const CGFloat CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0;
         dlclose(nuHandle);
     }
 #endif
-
-    [super dealloc];
 }
 
 -(void)setFrameSize:(NSSize)newSize
@@ -132,9 +130,8 @@ const CGFloat CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0;
 {
     if ( plotItem != item ) {
         [plotItem killGraph];
-        [plotItem release];
 
-        plotItem = [item retain];
+        plotItem = item;
 
         [plotItem renderInView:hostingView withTheme:[self currentTheme] animated:YES];
     }

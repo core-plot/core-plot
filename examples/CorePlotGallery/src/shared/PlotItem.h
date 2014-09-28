@@ -40,10 +40,10 @@ extern NSString *const kFinancialPlots;
     CPTNativeImage *cachedImage;
 }
 
-@property (nonatomic, retain) CPTGraphHostingView *defaultLayerHostingView;
-@property (nonatomic, retain) NSMutableArray *graphs;
-@property (nonatomic, retain) NSString *section;
-@property (nonatomic, retain) NSString *title;
+@property (nonatomic, strong) CPTGraphHostingView *defaultLayerHostingView;
+@property (nonatomic, strong) NSMutableArray *graphs;
+@property (nonatomic, strong) NSString *section;
+@property (nonatomic, strong) NSString *title;
 
 +(void)registerPlotItem:(id)item;
 

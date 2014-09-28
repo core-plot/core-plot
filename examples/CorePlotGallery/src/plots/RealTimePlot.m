@@ -34,7 +34,6 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
 -(void)killGraph
 {
     [dataTimer invalidate];
-    [dataTimer release];
     dataTimer = nil;
 
     [super killGraph];
@@ -54,7 +53,7 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
-    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
@@ -90,7 +89,6 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
     NSNumberFormatter *labelFormatter = [[NSNumberFormatter alloc] init];
     labelFormatter.numberStyle = NSNumberFormatterNoStyle;
     x.labelFormatter           = labelFormatter;
-    [labelFormatter release];
 
     // Y axis
     CPTXYAxis *y = axisSet.yAxis;
@@ -108,11 +106,11 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
     x.labelRotation = M_PI_4;
 
     // Create the plot
-    CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] init];
     dataSourceLinePlot.identifier     = kPlotIdentifier;
     dataSourceLinePlot.cachePrecision = CPTPlotCachePrecisionDouble;
 
-    CPTMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+    CPTMutableLineStyle *lineStyle = [dataSourceLinePlot.dataLineStyle mutableCopy];
     lineStyle.lineWidth              = 3.0;
     lineStyle.lineColor              = [CPTColor greenColor];
     dataSourceLinePlot.dataLineStyle = lineStyle;
@@ -126,14 +124,13 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger(0) length:CPTDecimalFromUnsignedInteger(1)];
 
     [dataTimer invalidate];
-    [dataTimer release];
 
     if ( animated ) {
-        dataTimer = [[NSTimer timerWithTimeInterval:1.0 / kFrameRate
-                                             target:self
-                                           selector:@selector(newData:)
-                                           userInfo:nil
-                                            repeats:YES] retain];
+        dataTimer = [NSTimer timerWithTimeInterval:1.0 / kFrameRate
+                                            target:self
+                                          selector:@selector(newData:)
+                                          userInfo:nil
+                                           repeats:YES];
         [[NSRunLoop mainRunLoop] addTimer:dataTimer forMode:NSRunLoopCommonModes];
     }
     else {
@@ -143,11 +140,7 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
 
 -(void)dealloc
 {
-    [plotData release];
     [dataTimer invalidate];
-    [dataTimer release];
-
-    [super dealloc];
 }
 
 #pragma mark -

@@ -123,8 +123,6 @@ void drawErrorText(CGContextRef context, CGRect rect)
      */
 
     [self freeResources];
-
-    [super dealloc];
 }
 
 -(void)freeImageResources
@@ -143,7 +141,6 @@ void drawErrorText(CGContextRef context, CGRect rect)
 {
     [self freeImageResources];
     if ( graph ) {
-        [graph release];
         graph = nil;
     }
 }
@@ -252,12 +249,10 @@ void drawErrorText(CGContextRef context, CGRect rect)
     }
 
     if ( [key isEqualToString:@"inputAxisColor"] ) {
-        CGColorRef axisColor = CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0);
         NSDictionary *result = @{
             QCPortAttributeNameKey: @"Axis Color",
-            QCPortAttributeDefaultValueKey: (id)axisColor
+            QCPortAttributeDefaultValueKey: [NSColor colorWithSRGBRed:1.0 green:1.0 blue:1.0 alpha:1.0]
         };
-        CGColorRelease(axisColor);
         return result;
     }
 
@@ -318,12 +313,10 @@ void drawErrorText(CGContextRef context, CGRect rect)
     }
 
     if ( [key isEqualToString:@"inputPlotAreaColor"] ) {
-        CGColorRef plotAreaColor = CGColorCreateGenericRGB(0.0, 0.0, 0.0, 0.4);
-        NSDictionary *result     = @{
+        NSDictionary *result = @{
             QCPortAttributeNameKey: @"Plot Area Color",
-            QCPortAttributeDefaultValueKey: (id)plotAreaColor
+            QCPortAttributeDefaultValueKey: [NSColor colorWithSRGBRed:0.0 green:0.0 blue:0.0 alpha:0.4]
         };
-        CGColorRelease(plotAreaColor);
         return result;
     }
 
@@ -380,37 +373,37 @@ void drawErrorText(CGContextRef context, CGRect rect)
     }
 }
 
--(CGColorRef)newDefaultColorForPlot:(NSUInteger)index alpha:(CGFloat)alpha
+-(NSColor *)newDefaultColorForPlot:(NSUInteger)index alpha:(CGFloat)alpha
 {
-    CGColorRef color;
+    NSColor *color;
 
     switch ( index ) {
         case 0:
-            color = CGColorCreateGenericRGB(1.0, 0.0, 0.0, alpha);
+            color = [NSColor colorWithSRGBRed:1.0 green:0.0 blue:0.0 alpha:alpha];
             break;
 
         case 1:
-            color = CGColorCreateGenericRGB(0.0, 1.0, 0.0, alpha);
+            color = [NSColor colorWithSRGBRed:0.0 green:1.0 blue:0.0 alpha:alpha];
             break;
 
         case 2:
-            color = CGColorCreateGenericRGB(0.0, 0.0, 1.0, alpha);
+            color = [NSColor colorWithSRGBRed:0.0 green:0.0 blue:1.0 alpha:alpha];
             break;
 
         case 3:
-            color = CGColorCreateGenericRGB(1.0, 1.0, 0.0, alpha);
+            color = [NSColor colorWithSRGBRed:1.0 green:1.0 blue:0.0 alpha:alpha];
             break;
 
         case 4:
-            color = CGColorCreateGenericRGB(1.0, 0.0, 1.0, alpha);
+            color = [NSColor colorWithSRGBRed:1.0 green:0.0 blue:1.0 alpha:alpha];
             break;
 
         case 5:
-            color = CGColorCreateGenericRGB(0.0, 1.0, 1.0, alpha);
+            color = [NSColor colorWithSRGBRed:0.0 green:1.0 blue:1.0 alpha:alpha];
             break;
 
         default:
-            color = CGColorCreateGenericRGB(1.0, 0.0, 0.0, alpha);
+            color = [NSColor colorWithSRGBRed:1.0 green:0.0 blue:0.0 alpha:alpha];
             break;
     }
 
@@ -426,7 +419,7 @@ void drawErrorText(CGContextRef context, CGRect rect)
 
 -(BOOL)configureAxis
 {
-    CPTColor *axisColor = [CPTColor colorWithCGColor:self.inputAxisColor];
+    CPTColor *axisColor = [CPTColor colorWithCGColor:self.inputAxisColor.CGColor];
 
     CPTXYAxisSet *set              = (CPTXYAxisSet *)graph.axisSet;
     CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
@@ -469,7 +462,7 @@ void drawErrorText(CGContextRef context, CGRect rect)
         }
         else {
             majorGridLineStyle           = [CPTMutableLineStyle lineStyle];
-            majorGridLineStyle.lineColor = [CPTColor colorWithCGColor:self.inputAxisColor];
+            majorGridLineStyle.lineColor = [CPTColor colorWithCGColor:self.inputAxisColor.CGColor];
             majorGridLineStyle.lineWidth = self.inputMajorGridLineWidth;
         }
 
@@ -484,7 +477,7 @@ void drawErrorText(CGContextRef context, CGRect rect)
         }
         else {
             minorGridLineStyle           = [CPTMutableLineStyle lineStyle];
-            minorGridLineStyle.lineColor = [CPTColor colorWithCGColor:self.inputAxisColor];
+            minorGridLineStyle.lineColor = [CPTColor colorWithCGColor:self.inputAxisColor.CGColor];
             minorGridLineStyle.lineWidth = self.inputMinorGridLineWidth;
         }
 
@@ -516,7 +509,7 @@ void drawErrorText(CGContextRef context, CGRect rect)
     return [self valueForInputKey:key];
 }
 
--(CGImageRef)newAreaFillImage:(NSUInteger)index
+-(NSImage *)areaFillImage:(NSUInteger)index
 {
     NSString *key = [NSString stringWithFormat:@"plotFillImage%lu", (unsigned long)index];
 
@@ -553,9 +546,12 @@ void drawErrorText(CGContextRef context, CGRect rect)
 
     [img unlockBufferRepresentation];
 
-    CGContextRelease(imgContext);
+    NSImage *image = [[NSImage alloc] initWithCGImage:imageRef size:NSZeroSize];
 
-    return imageRef;
+    CGContextRelease(imgContext);
+    CGImageRelease(imageRef);
+
+    return image;
 }
 
 static void _BufferReleaseCallback(const void *address, void *context)
@@ -744,11 +740,11 @@ static void _BufferReleaseCallback(const void *address, void *context)
     [graph layoutIfNeeded];
 
     graph.fill               = nil;
-    graph.plotAreaFrame.fill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:self.inputPlotAreaColor]];
+    graph.plotAreaFrame.fill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:self.inputPlotAreaColor.CGColor]];
     if ( self.inputAxisLineWidth > 0.0 ) {
         CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
         lineStyle.lineWidth                 = self.inputAxisLineWidth;
-        lineStyle.lineColor                 = [CPTColor colorWithCGColor:self.inputAxisColor];
+        lineStyle.lineColor                 = [CPTColor colorWithCGColor:self.inputAxisColor.CGColor];
         graph.plotAreaFrame.borderLineStyle = lineStyle;
     }
     else {

@@ -47,7 +47,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
             ];
         }
 
-        plotData = [newData retain];
+        plotData = newData;
     }
 }
 
@@ -64,7 +64,6 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
-    [graph release];
     graph = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTStocksTheme]];
@@ -87,9 +86,9 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     CPTXYAxis *xAxis        = xyAxisSet.xAxis;
     xAxis.majorIntervalLength   = CPTDecimalFromDouble(oneDay);
     xAxis.minorTicksPerInterval = 0;
-    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateStyle = kCFDateFormatterShortStyle;
-    CPTTimeFormatter *timeFormatter = [[[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter] autorelease];
+    CPTTimeFormatter *timeFormatter = [[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter];
     timeFormatter.referenceDate = refDate;
     xAxis.labelFormatter        = timeFormatter;
 
@@ -99,13 +98,12 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     lineCap.size         = CGSizeMake(12.0, 15.0);
     lineCap.fill         = [CPTFill fillWithColor:xAxis.axisLineStyle.lineColor];
     xAxis.axisLineCapMax = lineCap;
-    [lineCap release];
 
     CPTXYAxis *yAxis = xyAxisSet.yAxis;
     yAxis.orthogonalCoordinateDecimal = CPTDecimalFromDouble(-0.5 * oneDay);
 
     // Line plot with gradient fill
-    CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] initWithFrame:graph.bounds] autorelease];
+    CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] initWithFrame:graph.bounds];
     dataSourceLinePlot.identifier    = @"Data Source Plot";
     dataSourceLinePlot.title         = @"Close Values";
     dataSourceLinePlot.dataLineStyle = nil;
@@ -135,7 +133,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     CPTMutableLineStyle *whiteLineStyle = [CPTMutableLineStyle lineStyle];
     whiteLineStyle.lineColor = [CPTColor whiteColor];
     whiteLineStyle.lineWidth = 2.0;
-    CPTTradingRangePlot *ohlcPlot = [[[CPTTradingRangePlot alloc] initWithFrame:graph.bounds] autorelease];
+    CPTTradingRangePlot *ohlcPlot = [[CPTTradingRangePlot alloc] initWithFrame:graph.bounds];
     ohlcPlot.identifier = @"OHLC";
     ohlcPlot.lineStyle  = whiteLineStyle;
     CPTMutableTextStyle *whiteTextStyle = [CPTMutableTextStyle textStyle];
@@ -169,13 +167,6 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-0.5 * oneDay) length:CPTDecimalFromDouble(oneDay * plotData.count)];
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromInteger(0) length:CPTDecimalFromInteger(4)];
-}
-
--(void)dealloc
-{
-    [graph release];
-    [plotData release];
-    [super dealloc];
 }
 
 #pragma mark -

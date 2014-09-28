@@ -16,7 +16,6 @@
 
 -(void)setupThemes
 {
-    [themes release];
     themes = [[NSMutableArray alloc] init];
 
     [themes addObject:kThemeTableViewControllerDefaultTheme];
@@ -67,7 +66,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
     if ( cell == nil ) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
 
     cell.textLabel.text = themes[indexPath.row];
@@ -95,9 +94,6 @@
 {
     [self.tableView setDataSource:nil];
     [self.tableView setDelegate:nil];
-    [delegate release];
-    [themes release];
-    [super dealloc];
 }
 
 @end

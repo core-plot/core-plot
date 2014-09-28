@@ -49,7 +49,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
             ];
         }
 
-        plotData = [newData retain];
+        plotData = newData;
     }
 }
 
@@ -66,7 +66,6 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
-    [graph release];
     graph = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
@@ -92,8 +91,6 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     instructionsAnnotation.contentAnchorPoint = CGPointMake(0.5, 0.0);
     instructionsAnnotation.displacement       = CGPointMake(0.0, 10.0);
     [graph.plotAreaFrame.plotArea addAnnotation:instructionsAnnotation];
-    [textLayer release];
-    [instructionsAnnotation release];
 
     // Setup fill and bar style
     if ( !areaFill ) {
@@ -105,7 +102,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
         CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
         lineStyle.lineWidth = 1.0;
         lineStyle.lineColor = [CPTColor greenColor];
-        barLineStyle        = [lineStyle retain];
+        barLineStyle        = lineStyle;
     }
 
     // Setup scatter plot space
@@ -120,9 +117,9 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     x.majorIntervalLength         = CPTDecimalFromDouble(oneDay);
     x.orthogonalCoordinateDecimal = CPTDecimalFromInteger(2);
     x.minorTicksPerInterval       = 0;
-    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateStyle = kCFDateFormatterShortStyle;
-    CPTTimeFormatter *timeFormatter = [[[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter] autorelease];
+    CPTTimeFormatter *timeFormatter = [[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter];
     timeFormatter.referenceDate = refDate;
     x.labelFormatter            = timeFormatter;
 
@@ -132,7 +129,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(oneDay);
 
     // Create a plot that uses the data source method
-    CPTRangePlot *rangePlot = [[[CPTRangePlot alloc] init] autorelease];
+    CPTRangePlot *rangePlot = [[CPTRangePlot alloc] init];
     rangePlot.identifier   = @"Range Plot";
     rangePlot.barLineStyle = barLineStyle;
     rangePlot.dataSource   = self;
@@ -157,15 +154,6 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     graph.legend.swatchCornerRadius = 3.0;
     graph.legendAnchor              = CPTRectAnchorBottom;
     graph.legendDisplacement        = CGPointMake(0.0, 12.0);
-}
-
--(void)dealloc
-{
-    [graph release];
-    [plotData release];
-    [areaFill release];
-    [barLineStyle release];
-    [super dealloc];
 }
 
 #pragma mark -
@@ -195,8 +183,6 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
         lineStyle.lineColor = [CPTColor lightGrayColor];
 
         rangePlot.areaBorderLineStyle = lineStyle;
-
-        [lineStyle release];
     }
     else {
         rangePlot.areaBorderLineStyle = nil;

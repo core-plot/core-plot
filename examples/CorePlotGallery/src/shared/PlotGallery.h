@@ -17,7 +17,7 @@
 
 @property (nonatomic, readonly) NSUInteger count;
 @property (nonatomic, readonly) NSUInteger numberOfSections;
-@property (nonatomic, readonly, retain) NSArray *sectionTitles;
+@property (nonatomic, readonly, strong) NSArray *sectionTitles;
 
 +(PlotGallery *)sharedPlotGallery;
 

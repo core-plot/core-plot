@@ -35,7 +35,7 @@
             [contentArray addObject:@{ @"x": x, @"y": y }
             ];
         }
-        plotData = [contentArray retain];
+        plotData = contentArray;
     }
 }
 
@@ -47,17 +47,17 @@
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
-    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTSlateTheme]];
 
     [self setTitleDefaultsForGraph:graph withBounds:bounds];
     [self setPaddingDefaultsForGraph:graph withBounds:bounds];
 
-    CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] init];
     dataSourceLinePlot.cachePrecision = CPTPlotCachePrecisionDouble;
 
-    CPTMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+    CPTMutableLineStyle *lineStyle = [dataSourceLinePlot.dataLineStyle mutableCopy];
     lineStyle.lineWidth              = 1.0;
     lineStyle.lineColor              = [CPTColor greenColor];
     dataSourceLinePlot.dataLineStyle = lineStyle;
@@ -88,19 +88,13 @@
     // Extend the y range by 10% for neatness
     CPTXYPlotSpace *plotSpace = (id)graph.defaultPlotSpace;
     [plotSpace scaleToFitPlots:@[dataSourceLinePlot]];
-    CPTMutablePlotRange *yRange = [[plotSpace.yRange mutableCopy] autorelease];
+    CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
     [yRange expandRangeByFactor:CPTDecimalFromDouble(1.1)];
     plotSpace.yRange = yRange;
 
     // Restrict y range to a global range
     CPTPlotRange *globalYRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(6.0f)];
     plotSpace.globalYRange = globalYRange;
-}
-
--(void)dealloc
-{
-    [plotData release];
-    [super dealloc];
 }
 
 #pragma mark -
