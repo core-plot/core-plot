@@ -12,6 +12,8 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 
 @property (nonatomic, readwrite, strong) IBOutlet CPTGraphHostingView *hostView;
 
+@property (nonatomic, readwrite, strong) CPTXYGraph *graph;
+
 @property (nonatomic, readwrite, strong) NSMutableArray *dataForPlot;
 @property (nonatomic, readwrite) NSUInteger selectedIndex;
 
@@ -22,6 +24,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 @implementation SelectionDemoController
 
 @synthesize hostView;
+@synthesize graph;
 
 @synthesize dataForPlot;
 @synthesize selectedIndex;
@@ -44,32 +47,34 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 -(void)setupGraph
 {
     // Create graph and apply a dark theme
-    graph = [[CPTXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
-    CPTTheme *theme = [CPTTheme themeNamed:kCPTSlateTheme];
-    [graph applyTheme:theme];
-    hostView.hostedGraph = graph;
+    CPTXYGraph *newGraph = [[CPTXYGraph alloc] initWithFrame:NSRectToCGRect(self.hostView.bounds)];
+    CPTTheme *theme      = [CPTTheme themeNamed:kCPTSlateTheme];
+
+    [newGraph applyTheme:theme];
+    self.hostView.hostedGraph = newGraph;
+    self.graph                = newGraph;
 
     // Graph title
-    graph.title = @"This is the Graph Title";
+    newGraph.title = @"This is the Graph Title";
     CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
-    textStyle.color                = [CPTColor grayColor];
-    textStyle.fontName             = @"Helvetica-Bold";
-    textStyle.fontSize             = 18.0;
-    graph.titleTextStyle           = textStyle;
-    graph.titleDisplacement        = CGPointMake(0.0, 10.0);
-    graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
+    textStyle.color                   = [CPTColor grayColor];
+    textStyle.fontName                = @"Helvetica-Bold";
+    textStyle.fontSize                = 18.0;
+    newGraph.titleTextStyle           = textStyle;
+    newGraph.titleDisplacement        = CGPointMake(0.0, 10.0);
+    newGraph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
 
     // Graph padding
-    graph.paddingLeft   = 20.0;
-    graph.paddingTop    = 20.0;
-    graph.paddingRight  = 20.0;
-    graph.paddingBottom = 20.0;
+    newGraph.paddingLeft   = 20.0;
+    newGraph.paddingTop    = 20.0;
+    newGraph.paddingRight  = 20.0;
+    newGraph.paddingBottom = 20.0;
 }
 
 -(void)setupAxes
 {
     // Setup scatter plot space
-    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
 
     plotSpace.allowsUserInteraction = YES;
 #ifdef REMOVE_SELECTION_ON_CLICK
@@ -87,7 +92,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 
     // Axes
     // Label x axis with a fixed interval policy
-    CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
+    CPTXYAxisSet *axisSet = (CPTXYAxisSet *)self.graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
     x.labelingPolicy              = CPTAxisLabelingPolicyAutomatic;
     x.minorTicksPerInterval       = 4;
@@ -123,7 +128,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
     dataSourceLinePlot.dataLineStyle = lineStyle;
 
     dataSourceLinePlot.dataSource = self;
-    [graph addPlot:dataSourceLinePlot];
+    [self.graph addPlot:dataSourceLinePlot];
 
     // Set plot delegate, to know when symbols have been touched
     // We will display an annotation when a symbol is touched
@@ -141,11 +146,11 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
     selectionPlot.dataLineStyle = lineStyle;
 
     selectionPlot.dataSource = self;
-    [graph addPlot:selectionPlot];
+    [self.graph addPlot:selectionPlot];
 
     // Auto scale the plot space to fit the plot data
     // Compress ranges so we can scroll
-    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
     [plotSpace scaleToFitPlots:@[dataSourceLinePlot]];
     CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
     [xRange expandRangeByFactor:CPTDecimalFromDouble(0.75)];
@@ -202,7 +207,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
         num = (self.dataForPlot)[index][key];
     }
     else if ( [(NSString *)plot.identifier isEqualToString : SELECTION_PLOT] ) {
-        CPTXYPlotSpace *thePlotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
+        CPTXYPlotSpace *thePlotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
 
         switch ( fieldEnum ) {
             case CPTScatterPlotFieldX:
@@ -300,7 +305,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 {
     if ( selectedIndex != newIndex ) {
         selectedIndex = newIndex;
-        [[graph plotWithIdentifier:SELECTION_PLOT] reloadData];
+        [[self.graph plotWithIdentifier:SELECTION_PLOT] reloadData];
     }
 }
 

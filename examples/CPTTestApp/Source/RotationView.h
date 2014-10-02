@@ -8,13 +8,7 @@
 
 @protocol CPTRotationDelegate;
 
-@interface RotationView : NSView {
-    id<CPTRotationDelegate> __weak rotationDelegate;
-
-    CATransform3D rotationTransform;
-
-    NSPoint previousLocation;
-}
+@interface RotationView : NSView
 
 @property (nonatomic, readwrite) CATransform3D rotationTransform;
 @property (nonatomic, readwrite, weak) id<CPTRotationDelegate> rotationDelegate;

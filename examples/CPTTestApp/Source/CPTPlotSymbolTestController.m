@@ -3,6 +3,7 @@
 @interface CPTPlotSymbolTestController()
 
 @property (nonatomic, readwrite, strong) IBOutlet CPTGraphHostingView *hostView;
+@property (nonatomic, readwrite, strong) CPTXYGraph *graph;
 
 @end
 
@@ -11,31 +12,33 @@
 @implementation CPTPlotSymbolTestController
 
 @synthesize hostView;
+@synthesize graph;
 
 -(void)awakeFromNib
 {
     [super awakeFromNib];
 
     // Create graph
-    graph                = [[CPTXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
-    hostView.hostedGraph = graph;
+    CPTXYGraph *newGraph = [[CPTXYGraph alloc] initWithFrame:NSRectToCGRect(self.hostView.bounds)];
+    self.hostView.hostedGraph = newGraph;
+    self.graph                = newGraph;
 
     // Remove axes
-    graph.axisSet = nil;
+    newGraph.axisSet = nil;
 
     // Background
     CGColorRef grayColor = CGColorCreateGenericGray(0.7, 1.0);
-    graph.fill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:grayColor]];
+    newGraph.fill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:grayColor]];
     CGColorRelease(grayColor);
 
     // Plot area
-    grayColor                = CGColorCreateGenericGray(0.2, 0.3);
-    graph.plotAreaFrame.fill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:grayColor]];
+    grayColor                   = CGColorCreateGenericGray(0.2, 0.3);
+    newGraph.plotAreaFrame.fill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:grayColor]];
     CGColorRelease(grayColor);
-    graph.plotAreaFrame.masksToBorder = NO;
+    newGraph.plotAreaFrame.masksToBorder = NO;
 
     // Setup plot space
-    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)newGraph.defaultPlotSpace;
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0) length:CPTDecimalFromFloat(11.0)];
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0) length:CPTDecimalFromFloat(14.0)];
 
@@ -46,7 +49,7 @@
 
     // Create a series of plots that uses the data source method
     for ( NSUInteger i = CPTPlotSymbolTypeNone; i <= CPTPlotSymbolTypeCustom; i++ ) {
-        CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] initWithFrame:graph.bounds];
+        CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] initWithFrame:newGraph.bounds];
         dataSourceLinePlot.identifier = [NSString stringWithFormat:@"%lu", (unsigned long)i];
         dataSourceLinePlot.shadow     = lineShadow;
 
@@ -57,7 +60,7 @@
 
         dataSourceLinePlot.dataSource = self;
 
-        [graph addPlot:dataSourceLinePlot];
+        [newGraph addPlot:dataSourceLinePlot];
     }
 }
 
