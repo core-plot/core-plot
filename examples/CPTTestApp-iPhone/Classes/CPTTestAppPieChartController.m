@@ -1,9 +1,18 @@
 #import "CPTTestAppPieChartController.h"
 
+@interface CPTTestAppPieChartController()
+
+@property (nonatomic, readwrite, strong) CPTXYGraph *pieChart;
+
+@end
+
+#pragma mark -
+
 @implementation CPTTestAppPieChartController
 
 @synthesize dataForChart;
 @synthesize timer;
+@synthesize pieChart;
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
@@ -12,11 +21,11 @@
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    CGFloat margin = pieChart.plotAreaFrame.borderLineStyle.lineWidth + 5.0;
+    CGFloat margin = self.pieChart.plotAreaFrame.borderLineStyle.lineWidth + CPTFloat(5.0);
 
-    CPTPieChart *piePlot = (CPTPieChart *)[pieChart plotWithIdentifier:@"Pie Chart 1"];
-    CGRect plotBounds    = pieChart.plotAreaFrame.bounds;
-    CGFloat newRadius    = MIN(plotBounds.size.width, plotBounds.size.height) / 2.0 - margin;
+    CPTPieChart *piePlot = (CPTPieChart *)[self.pieChart plotWithIdentifier:@"Pie Chart 1"];
+    CGRect plotBounds    = self.pieChart.plotAreaFrame.bounds;
+    CGFloat newRadius    = MIN(plotBounds.size.width, plotBounds.size.height) / CPTFloat(2.0) - margin;
 
     CGFloat y = 0.0;
 
@@ -75,36 +84,38 @@
 #endif
 
     // Create pieChart from theme
-    pieChart = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
-    CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
-    [pieChart applyTheme:theme];
+    CPTXYGraph *newGraph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
+    CPTTheme *theme      = [CPTTheme themeNamed:kCPTDarkGradientTheme];
+    [newGraph applyTheme:theme];
+    self.pieChart = newGraph;
+
     CPTGraphHostingView *hostingView = (CPTGraphHostingView *)self.view;
-    hostingView.hostedGraph = pieChart;
+    hostingView.hostedGraph = newGraph;
 
-    pieChart.paddingLeft   = 20.0;
-    pieChart.paddingTop    = 20.0;
-    pieChart.paddingRight  = 20.0;
-    pieChart.paddingBottom = 20.0;
+    newGraph.paddingLeft   = 20.0;
+    newGraph.paddingTop    = 20.0;
+    newGraph.paddingRight  = 20.0;
+    newGraph.paddingBottom = 20.0;
 
-    pieChart.axisSet = nil;
+    newGraph.axisSet = nil;
 
     CPTMutableTextStyle *whiteText = [CPTMutableTextStyle textStyle];
     whiteText.color = [CPTColor whiteColor];
 
-    pieChart.titleTextStyle = whiteText;
-    pieChart.title          = @"Graph Title";
+    newGraph.titleTextStyle = whiteText;
+    newGraph.title          = @"Graph Title";
 
     // Add pie chart
     CPTPieChart *piePlot = [[CPTPieChart alloc] init];
     piePlot.dataSource      = self;
     piePlot.pieRadius       = 131.0;
     piePlot.identifier      = @"Pie Chart 1";
-    piePlot.startAngle      = M_PI_4;
+    piePlot.startAngle      = CPTFloat(M_PI_4);
     piePlot.sliceDirection  = CPTPieDirectionCounterClockwise;
-    piePlot.centerAnchor    = CGPointMake(0.5, 0.38);
+    piePlot.centerAnchor    = CPTPointMake(0.5, 0.38);
     piePlot.borderLineStyle = [CPTLineStyle lineStyle];
     piePlot.delegate        = self;
-    [pieChart addPlot:piePlot];
+    [newGraph addPlot:piePlot];
 
 #ifdef PERFORMANCE_TEST
     [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(changePlotRange) userInfo:nil repeats:YES];
@@ -154,28 +165,23 @@
     CGFloat offset = 0.0;
 
     if ( index == 0 ) {
-        offset = piePlot.pieRadius / 8.0;
+        offset = piePlot.pieRadius / CPTFloat(8.0);
     }
 
     return offset;
 }
-
-/*-(CPTFill *)sliceFillForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index;
- * {
- *  return nil;
- * }*/
 
 #pragma mark -
 #pragma mark Delegate Methods
 
 -(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)index
 {
-    pieChart.title = [NSString stringWithFormat:@"Selected index: %lu", (unsigned long)index];
+    self.pieChart.title = [NSString stringWithFormat:@"Selected index: %lu", (unsigned long)index];
 }
 
 -(void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag
 {
-    CPTPieChart *piePlot             = (CPTPieChart *)[pieChart plotWithIdentifier:@"Pie Chart 1"];
+    CPTPieChart *piePlot             = (CPTPieChart *)[self.pieChart plotWithIdentifier:@"Pie Chart 1"];
     CABasicAnimation *basicAnimation = (CABasicAnimation *)theAnimation;
 
     [piePlot removeAnimationForKey:basicAnimation.keyPath];

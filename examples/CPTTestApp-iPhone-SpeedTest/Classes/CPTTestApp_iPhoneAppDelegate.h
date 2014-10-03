@@ -7,12 +7,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CPTTestApp_iPhoneAppDelegate : NSObject<UIApplicationDelegate, UITabBarControllerDelegate> {
-    UIWindow *window;
-    UITabBarController *tabBarController;
-}
+@interface CPTTestApp_iPhoneAppDelegate : NSObject<UIApplicationDelegate, UITabBarControllerDelegate>
 
-@property (nonatomic, strong) IBOutlet UIWindow *window;
-@property (nonatomic, strong) IBOutlet UITabBarController *tabBarController;
+@property (nonatomic, readwrite, strong) IBOutlet UIWindow *window;
+@property (nonatomic, readwrite, strong) IBOutlet UITabBarController *tabBarController;
 
 @end

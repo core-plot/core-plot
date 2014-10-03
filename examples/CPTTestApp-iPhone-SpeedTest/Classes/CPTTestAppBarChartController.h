@@ -7,8 +7,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CPTTestAppBarChartController : UIViewController<CPTPlotDataSource>
-{
-    CPTXYGraph *barChart;
-}
 
 @end

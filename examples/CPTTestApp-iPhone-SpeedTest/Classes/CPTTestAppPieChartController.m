@@ -1,8 +1,17 @@
 #import "CPTTestAppPieChartController.h"
 
+@interface CPTTestAppPieChartController()
+
+@property (nonatomic, readwrite, strong) CPTXYGraph *pieChart;
+
+@end
+
+#pragma mark -
+
 @implementation CPTTestAppPieChartController
 
 @synthesize dataForChart;
+@synthesize pieChart;
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
@@ -11,10 +20,10 @@
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    CPTPlot *piePlot  = [pieChart plotWithIdentifier:@"Pie Chart 1"];
-    CGRect plotBounds = pieChart.plotAreaFrame.bounds;
+    CPTPlot *piePlot  = [self.pieChart plotWithIdentifier:@"Pie Chart 1"];
+    CGRect plotBounds = self.pieChart.plotAreaFrame.bounds;
 
-    ( (CPTPieChart *)piePlot ).pieRadius = MIN(plotBounds.size.width, plotBounds.size.height) / 2.0 - 10.0;
+    ( (CPTPieChart *)piePlot ).pieRadius = MIN(plotBounds.size.width, plotBounds.size.height) / CPTFloat(2.0) - CPTFloat(10.0);
 }
 
 #pragma mark -
@@ -25,29 +34,31 @@
     [super viewDidLoad];
 
     // Create pieChart from theme
-    pieChart = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
-    CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
-    [pieChart applyTheme:theme];
+    CPTXYGraph *newGraph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
+    CPTTheme *theme      = [CPTTheme themeNamed:kCPTDarkGradientTheme];
+    [newGraph applyTheme:theme];
+    self.pieChart = newGraph;
+
     CPTGraphHostingView *hostingView = (CPTGraphHostingView *)self.view;
-    hostingView.hostedGraph = pieChart;
+    hostingView.hostedGraph = newGraph;
 
-    pieChart.paddingLeft   = 20.0;
-    pieChart.paddingTop    = 20.0;
-    pieChart.paddingRight  = 20.0;
-    pieChart.paddingBottom = 20.0;
+    newGraph.paddingLeft   = 20.0;
+    newGraph.paddingTop    = 20.0;
+    newGraph.paddingRight  = 20.0;
+    newGraph.paddingBottom = 20.0;
 
-    pieChart.plotAreaFrame.masksToBorder = NO;
+    newGraph.plotAreaFrame.masksToBorder = NO;
 
-    pieChart.axisSet = nil;
+    newGraph.axisSet = nil;
 
     // Add pie chart
     CPTPieChart *piePlot = [[CPTPieChart alloc] init];
     piePlot.dataSource     = self;
     piePlot.pieRadius      = 130.0;
     piePlot.identifier     = @"Pie Chart 1";
-    piePlot.startAngle     = M_PI_4;
+    piePlot.startAngle     = CPTFloat(M_PI_4);
     piePlot.sliceDirection = CPTPieDirectionCounterClockwise;
-    [pieChart addPlot:piePlot];
+    [newGraph addPlot:piePlot];
 
     // Add some initial data
     self.dataForChart = @[@20.0, @30.0, @60.0];
@@ -68,12 +79,12 @@
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    return [self.dataForChart count];
+    return self.dataForChart.count;
 }
 
 -(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    if ( index >= [self.dataForChart count] ) {
+    if ( index >= self.dataForChart.count ) {
         return nil;
     }
 
@@ -84,10 +95,5 @@
         return @(index);
     }
 }
-
-/*-(CPTFill *)sliceFillForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index;
- * {
- *  return nil;
- * }*/
 
 @end

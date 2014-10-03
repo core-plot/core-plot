@@ -9,16 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface CPTTestApp_iPadViewController : UIViewController<CPTBarPlotDataSource, CPTPieChartDataSource, CPTBarPlotDelegate>
-{
-    IBOutlet CPTGraphHostingView *scatterPlotView, *barChartView, *pieChartView;
-    CPTXYGraph *graph, *barChart, *pieGraph;
-    CPTPieChart *piePlot;
-    BOOL piePlotIsRotating;
 
-    NSMutableArray *dataForChart, *dataForPlot;
-}
-
-@property (readwrite, strong, nonatomic) NSMutableArray *dataForChart, *dataForPlot;
+@property (nonatomic, readwrite, strong) NSArray *dataForChart;
+@property (nonatomic, readwrite, strong) NSArray *dataForPlot;
 
 // Plot construction methods
 -(void)constructScatterPlot;

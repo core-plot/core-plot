@@ -9,12 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface CPTTestAppScatterPlotController : UIViewController<CPTPlotDataSource, CPTAxisDelegate>
-{
-    CPTXYGraph *graph;
 
-    NSMutableArray *dataForPlot;
-}
-
-@property (readwrite, strong, nonatomic) NSMutableArray *dataForPlot;
+@property (nonatomic, readwrite, strong) NSMutableArray *dataForPlot;
 
 @end
