@@ -105,7 +105,7 @@
     CPTTimeFormatter *timeFormatter = [[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter];
     timeFormatter.referenceDate = refDate;
     x.labelFormatter            = timeFormatter;
-    x.labelRotation             = M_PI_4;
+    x.labelRotation             = CPTFloat(M_PI_4);
 
     CPTXYAxis *y = axisSet.yAxis;
     y.majorIntervalLength         = CPTDecimalFromDouble(0.5);

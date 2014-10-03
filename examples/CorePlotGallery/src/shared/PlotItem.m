@@ -135,7 +135,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
     graph.paddingLeft = boundsPadding;
 
     if ( graph.titleDisplacement.y > 0.0 ) {
-        graph.paddingTop = graph.titleTextStyle.fontSize * 2.0;
+        graph.paddingTop = graph.titleTextStyle.fontSize * CPTFloat(2.0);
     }
     else {
         graph.paddingTop = boundsPadding;

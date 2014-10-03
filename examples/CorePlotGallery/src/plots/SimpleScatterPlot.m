@@ -90,11 +90,11 @@
     // Grid line styles
     CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
     majorGridLineStyle.lineWidth = 0.75;
-    majorGridLineStyle.lineColor = [[CPTColor colorWithGenericGray:0.2] colorWithAlphaComponent:0.75];
+    majorGridLineStyle.lineColor = [[CPTColor colorWithGenericGray:CPTFloat(0.2)] colorWithAlphaComponent:CPTFloat(0.75)];
 
     CPTMutableLineStyle *minorGridLineStyle = [CPTMutableLineStyle lineStyle];
     minorGridLineStyle.lineWidth = 0.25;
-    minorGridLineStyle.lineColor = [[CPTColor whiteColor] colorWithAlphaComponent:0.1];
+    minorGridLineStyle.lineColor = [[CPTColor whiteColor] colorWithAlphaComponent:CPTFloat(0.1)];
 
     CPTMutableLineStyle *redLineStyle = [CPTMutableLineStyle lineStyle];
     redLineStyle.lineWidth = 10.0;

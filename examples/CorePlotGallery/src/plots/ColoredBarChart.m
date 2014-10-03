@@ -50,10 +50,10 @@
 
     [self setTitleDefaultsForGraph:graph withBounds:bounds];
     [self setPaddingDefaultsForGraph:graph withBounds:bounds];
-    graph.plotAreaFrame.paddingLeft   += 60.0;
-    graph.plotAreaFrame.paddingTop    += 25.0;
-    graph.plotAreaFrame.paddingRight  += 20.0;
-    graph.plotAreaFrame.paddingBottom += 20.0;
+    graph.plotAreaFrame.paddingLeft   += CPTFloat(60.0);
+    graph.plotAreaFrame.paddingTop    += CPTFloat(25.0);
+    graph.plotAreaFrame.paddingRight  += CPTFloat(20.0);
+    graph.plotAreaFrame.paddingBottom += CPTFloat(20.0);
     graph.plotAreaFrame.masksToBorder  = NO;
 
     // Create grid line styles
@@ -92,7 +92,7 @@
         y.majorTickLineStyle          = nil;
         y.minorTickLineStyle          = nil;
         y.labelOffset                 = 10.0;
-        y.labelRotation               = M_PI_2;
+        y.labelRotation               = CPTFloat(M_PI_2);
         y.labelingPolicy              = CPTAxisLabelingPolicyAutomatic;
 
         y.title       = @"Y Axis";
@@ -125,7 +125,7 @@
 
     // Add legend
     CPTLegend *theLegend = [CPTLegend legendWithGraph:graph];
-    theLegend.fill            = [CPTFill fillWithColor:[CPTColor colorWithGenericGray:0.15]];
+    theLegend.fill            = [CPTFill fillWithColor:[CPTColor colorWithGenericGray:CPTFloat(0.15)]];
     theLegend.borderLineStyle = barLineStyle;
     theLegend.cornerRadius    = 10.0;
     theLegend.swatchSize      = CGSizeMake(16.0, 16.0);

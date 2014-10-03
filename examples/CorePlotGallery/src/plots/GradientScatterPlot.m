@@ -91,11 +91,11 @@
     // Grid line styles
     CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
     majorGridLineStyle.lineWidth = 0.75;
-    majorGridLineStyle.lineColor = [[CPTColor colorWithGenericGray:0.2] colorWithAlphaComponent:0.75];
+    majorGridLineStyle.lineColor = [[CPTColor colorWithGenericGray:CPTFloat(0.2)] colorWithAlphaComponent:CPTFloat(0.75)];
 
     CPTMutableLineStyle *minorGridLineStyle = [CPTMutableLineStyle lineStyle];
     minorGridLineStyle.lineWidth = 0.25;
-    minorGridLineStyle.lineColor = [[CPTColor whiteColor] colorWithAlphaComponent:0.1];
+    minorGridLineStyle.lineColor = [[CPTColor whiteColor] colorWithAlphaComponent:CPTFloat(0.1)];
 
     // Axes
     // Label x axis with a fixed interval policy
@@ -138,7 +138,7 @@
     [graph addPlot:dataSourceLinePlot];
 
     // Put an area gradient under the plot above
-    CPTColor *areaColor       = [CPTColor colorWithComponentRed:0.3 green:1.0 blue:0.3 alpha:0.8];
+    CPTColor *areaColor       = [CPTColor colorWithComponentRed:CPTFloat(0.3) green:CPTFloat(1.0) blue:CPTFloat(0.3) alpha:CPTFloat(0.8)];
     CPTGradient *areaGradient = [CPTGradient gradientWithBeginningColor:areaColor endingColor:[CPTColor clearColor]];
     areaGradient.angle = -90.0;
     CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
@@ -146,7 +146,7 @@
     dataSourceLinePlot.areaBaseValue = CPTDecimalFromDouble(0.0);
 
     // Add some fill bands
-    CPTColor *band1Color       = [CPTColor colorWithComponentRed:0.3 green:0.3 blue:1.0 alpha:0.8];
+    CPTColor *band1Color       = [CPTColor colorWithComponentRed:CPTFloat(0.3) green:CPTFloat(0.3) blue:CPTFloat(1.0) alpha:CPTFloat(0.8)];
     CPTGradient *band1Gradient = [CPTGradient gradientWithBeginningColor:band1Color endingColor:[CPTColor clearColor]];
     band1Gradient.angle = -90.0;
     CPTFill *band1Fill = [CPTFill fillWithGradient:band1Gradient];
@@ -154,7 +154,7 @@
                                                                                                       length:CPTDecimalFromDouble(0.15)]
                                                                     fill:band1Fill]];
 
-    CPTColor *band2Color       = [CPTColor colorWithComponentRed:1.0 green:0.3 blue:0.3 alpha:0.8];
+    CPTColor *band2Color       = [CPTColor colorWithComponentRed:CPTFloat(1.0) green:CPTFloat(0.3) blue:CPTFloat(0.3) alpha:CPTFloat(0.8)];
     CPTGradient *band2Gradient = [CPTGradient gradientWithBeginningColor:band2Color endingColor:[CPTColor clearColor]];
     band2Gradient.angle = -90.0;
     CPTFill *band2Fill = [CPTFill fillWithGradient:band2Gradient];

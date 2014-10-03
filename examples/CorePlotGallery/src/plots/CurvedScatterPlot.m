@@ -140,10 +140,10 @@ static NSString *const kSecond = @"Second Derivative";
     [self setTitleDefaultsForGraph:graph withBounds:bounds];
     [self setPaddingDefaultsForGraph:graph withBounds:bounds];
 
-    graph.plotAreaFrame.paddingLeft   += 55.0;
-    graph.plotAreaFrame.paddingTop    += 40.0;
-    graph.plotAreaFrame.paddingRight  += 55.0;
-    graph.plotAreaFrame.paddingBottom += 40.0;
+    graph.plotAreaFrame.paddingLeft   += CPTFloat(55.0);
+    graph.plotAreaFrame.paddingTop    += CPTFloat(40.0);
+    graph.plotAreaFrame.paddingRight  += CPTFloat(55.0);
+    graph.plotAreaFrame.paddingBottom += CPTFloat(40.0);
     graph.plotAreaFrame.masksToBorder  = NO;
 
     // Plot area delegate
@@ -157,11 +157,11 @@ static NSString *const kSecond = @"Second Derivative";
     // Grid line styles
     CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
     majorGridLineStyle.lineWidth = 0.75;
-    majorGridLineStyle.lineColor = [[CPTColor colorWithGenericGray:0.2] colorWithAlphaComponent:0.75];
+    majorGridLineStyle.lineColor = [[CPTColor colorWithGenericGray:CPTFloat(0.2)] colorWithAlphaComponent:CPTFloat(0.75)];
 
     CPTMutableLineStyle *minorGridLineStyle = [CPTMutableLineStyle lineStyle];
     minorGridLineStyle.lineWidth = 0.25;
-    minorGridLineStyle.lineColor = [[CPTColor whiteColor] colorWithAlphaComponent:0.1];
+    minorGridLineStyle.lineColor = [[CPTColor whiteColor] colorWithAlphaComponent:CPTFloat(0.1)];
 
     CPTMutableLineStyle *redLineStyle = [CPTMutableLineStyle lineStyle];
     redLineStyle.lineWidth = 10.0;

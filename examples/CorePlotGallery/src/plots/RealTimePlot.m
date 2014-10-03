@@ -81,11 +81,11 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
     // Grid line styles
     CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
     majorGridLineStyle.lineWidth = 0.75;
-    majorGridLineStyle.lineColor = [[CPTColor colorWithGenericGray:0.2] colorWithAlphaComponent:0.75];
+    majorGridLineStyle.lineColor = [[CPTColor colorWithGenericGray:CPTFloat(0.2)] colorWithAlphaComponent:CPTFloat(0.75)];
 
     CPTMutableLineStyle *minorGridLineStyle = [CPTMutableLineStyle lineStyle];
     minorGridLineStyle.lineWidth = 0.25;
-    minorGridLineStyle.lineColor = [[CPTColor whiteColor] colorWithAlphaComponent:0.1];
+    minorGridLineStyle.lineColor = [[CPTColor whiteColor] colorWithAlphaComponent:CPTFloat(0.1)];
 
     // Axes
     // X axis
@@ -115,7 +115,7 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
     y.axisConstraints             = [CPTConstraints constraintWithLowerOffset:0.0];
 
     // Rotate the labels by 45 degrees, just to show it can be done.
-    x.labelRotation = M_PI_4;
+    x.labelRotation = CPTFloat(M_PI_4);
 
     // Create the plot
     CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] init];

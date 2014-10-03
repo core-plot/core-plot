@@ -77,7 +77,7 @@
     whiteTextStyle.color              = [CPTColor whiteColor];
     dataSourceLinePlot.labelTextStyle = whiteTextStyle;
     dataSourceLinePlot.labelOffset    = 5.0;
-    dataSourceLinePlot.labelRotation  = M_PI_4;
+    dataSourceLinePlot.labelRotation  = CPTFloat(M_PI_4);
     dataSourceLinePlot.identifier     = @"Stepped Plot";
     [graph addPlot:dataSourceLinePlot];
 
@@ -85,7 +85,7 @@
     dataSourceLinePlot.interpolation = CPTScatterPlotInterpolationStepped;
 
     // Put an area gradient under the plot above
-    CPTColor *areaColor       = [CPTColor colorWithComponentRed:0.3 green:1.0 blue:0.3 alpha:0.8];
+    CPTColor *areaColor       = [CPTColor colorWithComponentRed:CPTFloat(0.3) green:CPTFloat(1.0) blue:CPTFloat(0.3) alpha:CPTFloat(0.8)];
     CPTGradient *areaGradient = [CPTGradient gradientWithBeginningColor:areaColor endingColor:[CPTColor clearColor]];
     areaGradient.angle = -90.0;
     CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];

@@ -69,9 +69,9 @@
     [self setPaddingDefaultsForGraph:graph withBounds:bounds];
     graph.plotAreaFrame.masksToBorder = NO;
 #if HORIZONTAL
-    graph.plotAreaFrame.paddingBottom += 30.0;
+    graph.plotAreaFrame.paddingBottom += CPTFloat(30.0);
 #else
-    graph.plotAreaFrame.paddingLeft += 30.0;
+    graph.plotAreaFrame.paddingLeft += CPTFloat(30.0);
 #endif
 
     // Add plot space for bar charts
@@ -151,7 +151,7 @@
         y.majorTickLineStyle          = nil;
         y.minorTickLineStyle          = nil;
         y.labelOffset                 = 10.0;
-        y.labelRotation               = M_PI_2;
+        y.labelRotation               = CPTFloat(M_PI_2);
 #if HORIZONTAL
         y.visibleRange   = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-0.5f) length:CPTDecimalFromFloat(10.0f)];
         y.gridLinesRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(100.0f)];
@@ -226,7 +226,7 @@
     // Add legend
     CPTLegend *theLegend = [CPTLegend legendWithGraph:graph];
     theLegend.numberOfRows    = 2;
-    theLegend.fill            = [CPTFill fillWithColor:[CPTColor colorWithGenericGray:0.15]];
+    theLegend.fill            = [CPTFill fillWithColor:[CPTColor colorWithGenericGray:CPTFloat(0.15)]];
     theLegend.borderLineStyle = barLineStyle;
     theLegend.cornerRadius    = 10.0;
     theLegend.swatchSize      = CGSizeMake(20.0, 20.0);

@@ -61,22 +61,22 @@
     // Overlay gradient for pie chart
     CPTGradient *overlayGradient = [[CPTGradient alloc] init];
     overlayGradient.gradientType = CPTGradientTypeRadial;
-    overlayGradient              = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:0.0] atPosition:0.0];
-    overlayGradient              = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:0.3] atPosition:0.9];
-    overlayGradient              = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:0.7] atPosition:1.0];
+    overlayGradient              = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:CPTFloat(0.0)] atPosition:CPTFloat(0.0)];
+    overlayGradient              = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:CPTFloat(0.3)] atPosition:CPTFloat(0.9)];
+    overlayGradient              = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:CPTFloat(0.7)] atPosition:CPTFloat(1.0)];
 
     // Add pie chart
     CPTPieChart *piePlot = [[CPTPieChart alloc] init];
     piePlot.dataSource = self;
-    piePlot.pieRadius  = MIN(0.7 * (layerHostingView.frame.size.height - 2 * graph.paddingLeft) / 2.0,
-                             0.7 * (layerHostingView.frame.size.width - 2 * graph.paddingTop) / 2.0);
+    piePlot.pieRadius  = MIN( CPTFloat(0.7) * (layerHostingView.frame.size.height - CPTFloat(2.0) * graph.paddingLeft) / CPTFloat(2.0),
+                              CPTFloat(0.7) * (layerHostingView.frame.size.width - CPTFloat(2.0) * graph.paddingTop) / CPTFloat(2.0) );
     piePlot.identifier     = self.title;
-    piePlot.startAngle     = M_PI_4;
+    piePlot.startAngle     = CPTFloat(M_PI_4);
     piePlot.sliceDirection = CPTPieDirectionCounterClockwise;
     piePlot.overlayFill    = [CPTFill fillWithGradient:overlayGradient];
 
     piePlot.labelRotationRelativeToRadius = YES;
-    piePlot.labelRotation                 = -M_PI_2;
+    piePlot.labelRotation                 = CPTFloat(-M_PI_2);
     piePlot.labelOffset                   = -50.0;
 
     piePlot.delegate = self;
@@ -102,7 +102,7 @@
     graph.legend = theLegend;
 
     graph.legendAnchor       = CPTRectAnchorRight;
-    graph.legendDisplacement = CGPointMake(-graph.paddingRight - 10.0, 0.0);
+    graph.legendDisplacement = CGPointMake(-graph.paddingRight - CPTFloat(10.0), 0.0);
 }
 
 -(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index

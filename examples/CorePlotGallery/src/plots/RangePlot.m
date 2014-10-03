@@ -109,7 +109,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 
     // Setup fill and bar style
     if ( !self.areaFill ) {
-        CPTColor *transparentGreen = [[CPTColor greenColor] colorWithAlphaComponent:0.2];
+        CPTColor *transparentGreen = [[CPTColor greenColor] colorWithAlphaComponent:CPTFloat(0.2)];
         self.areaFill = [[CPTFill alloc] initWithColor:transparentGreen];
     }
 

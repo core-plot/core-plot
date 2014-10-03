@@ -62,18 +62,18 @@ static NSString *const outerChartName = @"Outer";
     whiteShadow.shadowColor      = [[CPTColor whiteColor] colorWithAlphaComponent:0.25];
 
     // Add pie chart
-    const CGFloat outerRadius = MIN(0.7 * (layerHostingView.frame.size.height - 2 * graph.paddingLeft) / 2.0,
-                                    0.7 * (layerHostingView.frame.size.width - 2 * graph.paddingTop) / 2.0);
-    const CGFloat innerRadius = outerRadius / 2.0;
+    const CGFloat outerRadius = MIN( CPTFloat(0.7) * (layerHostingView.frame.size.height - CPTFloat(2.0) * graph.paddingLeft) / CPTFloat(2.0),
+                                     CPTFloat(0.7) * (layerHostingView.frame.size.width - CPTFloat(2.0) * graph.paddingTop) / CPTFloat(2.0) );
+    const CGFloat innerRadius = outerRadius / CPTFloat(2.0);
 
     CPTPieChart *piePlot = [[CPTPieChart alloc] init];
     piePlot.dataSource      = self;
     piePlot.pieRadius       = outerRadius;
-    piePlot.pieInnerRadius  = innerRadius + 5.0;
+    piePlot.pieInnerRadius  = innerRadius + CPTFloat(5.0);
     piePlot.identifier      = outerChartName;
     piePlot.borderLineStyle = whiteLineStyle;
-    piePlot.startAngle      = animated ? M_PI_2 : M_PI_4;
-    piePlot.endAngle        = animated ? M_PI_2 : 3.0 * M_PI_4;
+    piePlot.startAngle      = CPTFloat(animated ? M_PI_2 : M_PI_4);
+    piePlot.endAngle        = CPTFloat(animated ? M_PI_2 : 3.0 * M_PI_4);
     piePlot.sliceDirection  = CPTPieDirectionCounterClockwise;
     piePlot.shadow          = whiteShadow;
     piePlot.delegate        = self;
@@ -82,23 +82,23 @@ static NSString *const outerChartName = @"Outer";
     if ( animated ) {
         [CPTAnimation animate:piePlot
                      property:@"startAngle"
-                         from:M_PI_2
-                           to:M_PI_4
+                         from:CPTFloat(M_PI_2)
+                           to:CPTFloat(M_PI_4)
                      duration:0.25];
         [CPTAnimation animate:piePlot
                      property:@"endAngle"
-                         from:M_PI_2
-                           to:3.0 * M_PI_4
+                         from:CPTFloat(M_PI_2)
+                           to:CPTFloat(3.0 * M_PI_4)
                      duration:0.25];
     }
 
     // Add another pie chart
     piePlot                 = [[CPTPieChart alloc] init];
     piePlot.dataSource      = self;
-    piePlot.pieRadius       = animated ? 0.0 : (innerRadius - 5.0);
+    piePlot.pieRadius       = CPTFloat( animated ? 0.0 : (innerRadius - 5.0) );
     piePlot.identifier      = innerChartName;
     piePlot.borderLineStyle = whiteLineStyle;
-    piePlot.startAngle      = M_PI_4;
+    piePlot.startAngle      = CPTFloat(M_PI_4);
     piePlot.sliceDirection  = CPTPieDirectionClockwise;
     piePlot.shadow          = whiteShadow;
     piePlot.delegate        = self;
@@ -108,7 +108,7 @@ static NSString *const outerChartName = @"Outer";
         [CPTAnimation animate:piePlot
                      property:@"pieRadius"
                          from:0.0
-                           to:innerRadius - 5.0
+                           to:innerRadius - CPTFloat(5.0)
                      duration:0.5
                     withDelay:0.25
                animationCurve:CPTAnimationCurveBounceOut
