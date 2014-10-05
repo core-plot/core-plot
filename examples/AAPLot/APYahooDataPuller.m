@@ -1,6 +1,26 @@
 #import "APFinancialData.h"
 #import "APYahooDataPuller.h"
 
+@interface APYahooDataPuller()
+
+@property (nonatomic, readwrite, copy) NSString *csvString;
+
+@property (nonatomic, readwrite, strong) NSDecimalNumber *overallHigh;
+@property (nonatomic, readwrite, strong) NSDecimalNumber *overallLow;
+@property (nonatomic, readwrite, strong) NSDecimalNumber *overallVolumeHigh;
+@property (nonatomic, readwrite, strong) NSDecimalNumber *overallVolumeLow;
+@property (nonatomic, readwrite, strong) NSArray *financialData;
+
+@property (nonatomic, readwrite, assign) BOOL loadingData;
+@property (nonatomic, readwrite, strong) NSMutableData *receivedData;
+@property (nonatomic, readwrite, strong) NSURLConnection *connection;
+
+NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks);
+
+@end
+
+#pragma mark -
+
 NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 {
     NSTimeInterval seconds = fabs(60.0 * 60.0 * 24.0 * 7.0 * numberOfWeeks);
@@ -9,16 +29,6 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 }
 
 @interface APYahooDataPuller()
-
-@property (nonatomic, copy) NSString *csvString;
-@property (nonatomic, strong) NSMutableData *receivedData;
-@property (nonatomic, strong) NSURLConnection *connection;
-@property (nonatomic, assign) BOOL loadingData;
-@property (nonatomic, readwrite, strong) NSDecimalNumber *overallHigh;
-@property (nonatomic, readwrite, strong) NSDecimalNumber *overallLow;
-@property (nonatomic, readwrite, strong) NSDecimalNumber *overallVolumeHigh;
-@property (nonatomic, readwrite, strong) NSDecimalNumber *overallVolumeLow;
-@property (nonatomic, readwrite, strong) NSArray *financialData;
 
 -(void)fetch;
 -(NSString *)URL;
@@ -45,6 +55,8 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 @synthesize receivedData;
 @synthesize connection;
 @synthesize loadingData;
+
+@synthesize delegate;
 
 -(id)delegate
 {
@@ -173,8 +185,8 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     NSCalendar *gregorian = [[NSCalendar alloc]
                              initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
 
-    NSDateComponents *compsStart = [gregorian components:unitFlags fromDate:targetStartDate];
-    NSDateComponents *compsEnd   = [gregorian components:unitFlags fromDate:targetEndDate];
+    NSDateComponents *compsStart = [gregorian components:unitFlags fromDate:self.targetStartDate];
+    NSDateComponents *compsEnd   = [gregorian components:unitFlags fromDate:self.targetEndDate];
 
     NSString *url = [NSString stringWithFormat:@"http://ichart.yahoo.com/table.csv?s=%@&", [self targetSymbol]];
 
@@ -194,8 +206,10 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 
 -(void)notifyPulledData
 {
-    if ( delegate && [delegate respondsToSelector:@selector(dataPullerDidFinishFetch:)] ) {
-        [delegate performSelector:@selector(dataPullerDidFinishFetch:) withObject:self];
+    id theDelegate = self.delegate;
+
+    if ( [theDelegate respondsToSelector:@selector(dataPullerDidFinishFetch:)] ) {
+        [theDelegate performSelector:@selector(dataPullerDidFinishFetch:) withObject:self];
     }
 }
 

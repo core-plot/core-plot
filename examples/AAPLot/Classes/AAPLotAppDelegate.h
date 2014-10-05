@@ -10,10 +10,7 @@
 
 @class RootViewController;
 
-@interface AAPLotAppDelegate : NSObject<UIApplicationDelegate> {
-    UIWindow *window;
-    RootViewController *rootViewController;
-}
+@interface AAPLotAppDelegate : NSObject<UIApplicationDelegate>
 
 @property (nonatomic, strong) IBOutlet UIWindow *window;
 @property (nonatomic, strong) IBOutlet RootViewController *rootViewController;

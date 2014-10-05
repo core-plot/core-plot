@@ -11,12 +11,7 @@
 @class MainViewController;
 @class FlipsideViewController;
 
-@interface RootViewController : UIViewController {
-    UIButton *infoButton;
-    MainViewController *mainViewController;
-    FlipsideViewController *flipsideViewController;
-    UINavigationBar *flipsideNavigationBar;
-}
+@interface RootViewController : UIViewController
 
 @property (nonatomic, strong) IBOutlet UIButton *infoButton;
 @property (nonatomic, strong) MainViewController *mainViewController;

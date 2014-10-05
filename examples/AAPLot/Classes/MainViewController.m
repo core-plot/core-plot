@@ -6,8 +6,8 @@
 
 @interface MainViewController()
 
-@property (nonatomic, strong) CPTXYGraph *graph;
-@property (nonatomic, strong) APYahooDataPuller *datapuller;
+@property (nonatomic, readwrite, strong) CPTXYGraph *graph;
+@property (nonatomic, readwrite, strong) APYahooDataPuller *datapuller;
 
 @end
 
@@ -28,22 +28,25 @@
 
 -(void)viewDidLoad
 {
-    graph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
-    CPTTheme *theme = [CPTTheme themeNamed:kCPTStocksTheme];
-    [graph applyTheme:theme];
-    graph.frame                       = self.view.bounds;
-    graph.paddingRight                = 50.0;
-    graph.paddingLeft                 = 50.0;
-    graph.plotAreaFrame.masksToBorder = NO;
-    graph.plotAreaFrame.cornerRadius  = 0.0;
+    CPTXYGraph *newGraph = [[CPTXYGraph alloc] initWithFrame:self.view.bounds];
+    CPTTheme *theme      = [CPTTheme themeNamed:kCPTStocksTheme];
+
+    [newGraph applyTheme:theme];
+    self.graph = newGraph;
+
+    newGraph.paddingRight                = 50.0;
+    newGraph.paddingLeft                 = 50.0;
+    newGraph.plotAreaFrame.masksToBorder = NO;
+    newGraph.plotAreaFrame.cornerRadius  = 0.0;
+
     CPTMutableLineStyle *borderLineStyle = [CPTMutableLineStyle lineStyle];
-    borderLineStyle.lineColor           = [CPTColor whiteColor];
-    borderLineStyle.lineWidth           = 2.0;
-    graph.plotAreaFrame.borderLineStyle = borderLineStyle;
-    self.graphHost.hostedGraph          = graph;
+    borderLineStyle.lineColor              = [CPTColor whiteColor];
+    borderLineStyle.lineWidth              = 2.0;
+    newGraph.plotAreaFrame.borderLineStyle = borderLineStyle;
+    self.graphHost.hostedGraph             = newGraph;
 
     // Axes
-    CPTXYAxisSet *xyAxisSet        = (id)graph.axisSet;
+    CPTXYAxisSet *xyAxisSet        = (CPTXYAxisSet *)newGraph.axisSet;
     CPTXYAxis *xAxis               = xyAxisSet.xAxis;
     CPTMutableLineStyle *lineStyle = [xAxis.axisLineStyle mutableCopy];
     lineStyle.lineCap    = kCGLineCapButt;
@@ -54,21 +57,21 @@
     yAxis.axisLineStyle = nil;
 
     // Line plot with gradient fill
-    CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] initWithFrame:graph.bounds];
+    CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] initWithFrame:newGraph.bounds];
     dataSourceLinePlot.identifier     = @"Data Source Plot";
     dataSourceLinePlot.dataLineStyle  = nil;
     dataSourceLinePlot.dataSource     = self;
     dataSourceLinePlot.cachePrecision = CPTPlotCachePrecisionDouble;
-    [graph addPlot:dataSourceLinePlot];
+    [newGraph addPlot:dataSourceLinePlot];
 
-    CPTColor *areaColor       = [CPTColor colorWithComponentRed:1.0 green:1.0 blue:1.0 alpha:0.6];
+    CPTColor *areaColor       = [CPTColor colorWithComponentRed:CPTFloat(1.0) green:CPTFloat(1.0) blue:CPTFloat(1.0) alpha:CPTFloat(0.6)];
     CPTGradient *areaGradient = [CPTGradient gradientWithBeginningColor:areaColor endingColor:[CPTColor clearColor]];
     areaGradient.angle = -90.0;
     CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill      = areaGradientFill;
     dataSourceLinePlot.areaBaseValue = CPTDecimalFromDouble(200.0);
 
-    areaColor                         = [CPTColor colorWithComponentRed:0.0 green:1.0 blue:0.0 alpha:0.6];
+    areaColor                         = [CPTColor colorWithComponentRed:CPTFloat(0.0) green:CPTFloat(1.0) blue:CPTFloat(0.0) alpha:CPTFloat(0.6)];
     areaGradient                      = [CPTGradient gradientWithBeginningColor:[CPTColor clearColor] endingColor:areaColor];
     areaGradient.angle                = -90.0;
     areaGradientFill                  = [CPTFill fillWithGradient:areaGradient];
@@ -79,7 +82,7 @@
     CPTMutableLineStyle *whiteLineStyle = [CPTMutableLineStyle lineStyle];
     whiteLineStyle.lineColor = [CPTColor whiteColor];
     whiteLineStyle.lineWidth = 1.0;
-    CPTTradingRangePlot *ohlcPlot = [[CPTTradingRangePlot alloc] initWithFrame:graph.bounds];
+    CPTTradingRangePlot *ohlcPlot = [[CPTTradingRangePlot alloc] initWithFrame:newGraph.bounds];
     ohlcPlot.identifier = @"OHLC";
     ohlcPlot.lineStyle  = whiteLineStyle;
     CPTMutableTextStyle *whiteTextStyle = [CPTMutableTextStyle textStyle];
@@ -91,12 +94,12 @@
     ohlcPlot.dataSource     = self;
     ohlcPlot.plotStyle      = CPTTradingRangePlotStyleOHLC;
     ohlcPlot.cachePrecision = CPTPlotCachePrecisionDecimal;
-    [graph addPlot:ohlcPlot];
+    [newGraph addPlot:ohlcPlot];
 
     // Add plot space for bar chart
     CPTXYPlotSpace *volumePlotSpace = [[CPTXYPlotSpace alloc] init];
     volumePlotSpace.identifier = @"Volume Plot Space";
-    [graph addPlotSpace:volumePlotSpace];
+    [newGraph addPlotSpace:volumePlotSpace];
 
     // Volume plot
     CPTBarPlot *volumePlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor blackColor] horizontalBars:NO];
@@ -110,7 +113,7 @@
     volumePlot.barWidth       = CPTDecimalFromFloat(1.0f);
     volumePlot.identifier     = @"Volume Plot";
     volumePlot.cachePrecision = CPTPlotCachePrecisionDouble;
-    [graph addPlot:volumePlot toPlotSpace:volumePlotSpace];
+    [newGraph addPlot:volumePlot toPlotSpace:volumePlotSpace];
 
     // Data puller
     NSDate *start         = [NSDate dateWithTimeIntervalSinceNow:-60.0 * 60.0 * 24.0 * 7.0 * 12.0]; // 12 weeks ago
@@ -124,7 +127,7 @@
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    if ( self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil] ) {
+    if ( (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) ) {
     }
     return self;
 }
@@ -600,8 +603,10 @@
     CPTXYPlotSpace *plotSpace       = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
     CPTXYPlotSpace *volumePlotSpace = (CPTXYPlotSpace *)[self.graph plotSpaceWithIdentifier:@"Volume Plot Space"];
 
-    NSDecimalNumber *high   = [datapuller overallHigh];
-    NSDecimalNumber *low    = [datapuller overallLow];
+    APYahooDataPuller *thePuller = self.datapuller;
+
+    NSDecimalNumber *high   = thePuller.overallHigh;
+    NSDecimalNumber *low    = thePuller.overallLow;
     NSDecimalNumber *length = [high decimalNumberBySubtracting:low];
 
     NSLog(@"high = %@, low = %@, length = %@", high, low, length);
@@ -613,18 +618,18 @@
     NSDecimalNumber *lowDisplayLocation      = [low decimalNumberBySubtracting:lengthDisplacementValue];
     NSDecimalNumber *lengthDisplayLocation   = [length decimalNumberByAdding:lengthDisplacementValue];
 
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromUnsignedInteger(datapuller.financialData.count + 1)];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:[lowDisplayLocation decimalValue] length:[lengthDisplayLocation decimalValue]];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromUnsignedInteger(thePuller.financialData.count + 1)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:lowDisplayLocation.decimalValue length:lengthDisplayLocation.decimalValue];
 
-    CPTScatterPlot *linePlot = (CPTScatterPlot *)[graph plotWithIdentifier:@"Data Source Plot"];
+    CPTScatterPlot *linePlot = (CPTScatterPlot *)[self.graph plotWithIdentifier:@"Data Source Plot"];
     linePlot.areaBaseValue  = [high decimalValue];
     linePlot.areaBaseValue2 = [low decimalValue];
 
     // Axes
-    CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
+    CPTXYAxisSet *axisSet = (CPTXYAxisSet *)self.graph.axisSet;
 
-    NSDecimalNumber *overallVolumeHigh = [datapuller overallVolumeHigh];
-    NSDecimalNumber *overallVolumeLow  = [datapuller overallVolumeLow];
+    NSDecimalNumber *overallVolumeHigh = thePuller.overallVolumeHigh;
+    NSDecimalNumber *overallVolumeLow  = thePuller.overallVolumeLow;
     NSDecimalNumber *volumeLength      = [overallVolumeHigh decimalNumberBySubtracting:overallVolumeLow];
 
     // make the length aka height for y 3 times more so that we get a 1/3 area covered by volume
@@ -636,7 +641,7 @@
     NSDecimalNumber *volumeLowDisplayLocation      = overallVolumeLow;
     NSDecimalNumber *volumeLengthDisplayLocation   = [volumeLength decimalNumberByAdding:volumeLengthDisplacementValue];
 
-    volumePlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromUnsignedInteger(datapuller.financialData.count + 1)];
+    volumePlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromUnsignedInteger(thePuller.financialData.count + 1)];
 //    volumePlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:[volumeLowDisplayLocation decimalValue] length:[volumeLengthDisplayLocation decimalValue]];
 
     if ( animationOperation ) {
@@ -659,19 +664,7 @@
 
     axisSet.yAxis.labelExclusionRanges = exclusionRanges;
 
-    [graph reloadData];
-}
-
--(APYahooDataPuller *)datapuller
-{
-    return datapuller;
-}
-
--(void)setDatapuller:(APYahooDataPuller *)aDatapuller
-{
-    if ( datapuller != aDatapuller ) {
-        datapuller = aDatapuller;
-    }
+    [self.graph reloadData];
 }
 
 @end
