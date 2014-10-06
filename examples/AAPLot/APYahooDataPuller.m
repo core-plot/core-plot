@@ -15,6 +15,11 @@
 @property (nonatomic, readwrite, strong) NSMutableData *receivedData;
 @property (nonatomic, readwrite, strong) NSURLConnection *connection;
 
+-(void)fetch;
+-(NSString *)URL;
+-(void)notifyPulledData;
+-(void)parseCSVAndPopulate;
+
 NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks);
 
 @end
@@ -27,15 +32,6 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 
     return seconds;
 }
-
-@interface APYahooDataPuller()
-
--(void)fetch;
--(NSString *)URL;
--(void)notifyPulledData;
--(void)parseCSVAndPopulate;
-
-@end
 
 @implementation APYahooDataPuller
 
@@ -58,16 +54,11 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 
 @synthesize delegate;
 
--(id)delegate
-{
-    return delegate;
-}
-
 -(void)setDelegate:(id)aDelegate
 {
     if ( delegate != aDelegate ) {
         delegate = aDelegate;
-        if ( [self.financialData count] > 0 ) {
+        if ( self.financialData.count > 0 ) {
             [self notifyPulledData]; //loads cached data onto UI
         }
     }

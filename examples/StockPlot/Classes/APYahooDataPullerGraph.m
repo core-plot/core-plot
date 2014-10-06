@@ -8,20 +8,34 @@
 
 #import "APYahooDataPullerGraph.h"
 
+@interface APYahooDataPullerGraph()
+
+@property (nonatomic, readwrite, strong) CPTXYGraph *graph;
+
+@end
+
+#pragma mark -
+
 @implementation APYahooDataPullerGraph
+
+@synthesize graphHost;
+@synthesize dataPuller;
+@synthesize graph;
 
 -(void)reloadData
 {
-    if ( !graph ) {
-        graph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
-        CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
-        [graph applyTheme:theme];
-        graph.paddingTop    = 30.0;
-        graph.paddingBottom = 30.0;
-        graph.paddingLeft   = 50.0;
-        graph.paddingRight  = 50.0;
+    if ( !self.graph ) {
+        CPTXYGraph *newGraph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
+        CPTTheme *theme      = [CPTTheme themeNamed:kCPTDarkGradientTheme];
+        [newGraph applyTheme:theme];
+        self.graph = newGraph;
 
-        CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] initWithFrame:graph.bounds];
+        newGraph.paddingTop    = 30.0;
+        newGraph.paddingBottom = 30.0;
+        newGraph.paddingLeft   = 50.0;
+        newGraph.paddingRight  = 50.0;
+
+        CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] initWithFrame:newGraph.bounds];
         dataSourceLinePlot.identifier = @"Data Source Plot";
 
         CPTMutableLineStyle *lineStyle = [dataSourceLinePlot.dataLineStyle mutableCopy];
@@ -30,22 +44,23 @@
         dataSourceLinePlot.dataLineStyle = lineStyle;
 
         dataSourceLinePlot.dataSource = self;
-        [graph addPlot:dataSourceLinePlot];
+        [newGraph addPlot:dataSourceLinePlot];
     }
 
-    self.graphHost.hostedGraph = graph;
+    CPTXYGraph *theGraph = self.graph;
+    self.graphHost.hostedGraph = theGraph;
 
-    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)theGraph.defaultPlotSpace;
 
-    NSDecimalNumber *high   = [dataPuller overallHigh];
-    NSDecimalNumber *low    = [dataPuller overallLow];
+    NSDecimalNumber *high   = self.dataPuller.overallHigh;
+    NSDecimalNumber *low    = self.dataPuller.overallLow;
     NSDecimalNumber *length = [high decimalNumberBySubtracting:low];
 
     //NSLog(@"high = %@, low = %@, length = %@", high, low, length);
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromUnsignedInteger([dataPuller.financialData count])];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:[low decimalValue] length:[length decimalValue]];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromUnsignedInteger([self.dataPuller.financialData count])];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:low.decimalValue length:length.decimalValue];
     // Axes
-    CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
+    CPTXYAxisSet *axisSet = (CPTXYAxisSet *)theGraph.axisSet;
 
     CPTXYAxis *x = axisSet.xAxis;
     x.majorIntervalLength         = CPTDecimalFromDouble(10.0);
@@ -59,11 +74,11 @@
     y.minorTicksPerInterval       = 4;
     y.minorTickLineStyle          = nil;
     y.orthogonalCoordinateDecimal = CPTDecimalFromInteger(0);
-    y.alternatingBandFills        = @[[[CPTColor whiteColor] colorWithAlphaComponent:0.1], [NSNull null]];
+    y.alternatingBandFills        = @[[[CPTColor whiteColor] colorWithAlphaComponent:CPTFloat(0.1)], [NSNull null]];
 
-    [graph reloadData];
+    [theGraph reloadData];
 
-    [[self navigationItem] setTitle:[dataPuller symbol]];
+    [[self navigationItem] setTitle:[self.dataPuller symbol]];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -84,12 +99,12 @@
     return YES;
 }
 
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration;
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     //    NSLog(@"willRotateToInterfaceOrientation");
 }
 
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation;
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
     //    NSLog(@"didRotateFromInterfaceOrientation");
 }
@@ -135,21 +150,12 @@
     return num;
 }
 
--(void)dataPullerFinancialDataDidChange:(APYahooDataPuller *)dp;
+-(void)dataPullerFinancialDataDidChange:(APYahooDataPuller *)dp
 {
     [self reloadData];
 }
 
 #pragma mark accessors
-
-@synthesize graphHost;
-
--(APYahooDataPuller *)dataPuller
-{
-    //NSLog(@"in -dataPuller, returned dataPuller = %@", dataPuller);
-
-    return dataPuller;
-}
 
 -(void)setDataPuller:(APYahooDataPuller *)aDataPuller
 {
@@ -167,8 +173,6 @@
     if ( dataPuller.delegate == self ) {
         [dataPuller setDelegate:nil];
     }
-    dataPuller = nil;
-    graph      = nil;
 }
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot

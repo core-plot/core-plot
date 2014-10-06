@@ -10,11 +10,7 @@
 #import "APYahooDataPuller.h"
 #import "APYahooDataPullerGraph.h"
 
-@interface RootViewController : UITableViewController<APYahooDataPullerDelegate> {
-    @private
-    NSMutableArray *stocks;
-    APYahooDataPullerGraph *graph;
-}
+@interface RootViewController : UITableViewController<APYahooDataPullerDelegate>
 
 @property (nonatomic, readonly, strong) NSArray *symbols;
 
