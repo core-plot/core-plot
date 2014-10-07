@@ -30,7 +30,7 @@
     if ( self.plotData == nil ) {
         NSMutableArray *contentArray = [NSMutableArray array];
         for ( NSUInteger i = 0; i < 8; i++ ) {
-            [contentArray addObject:@(10.0 * rand() / (double)RAND_MAX + 5.0)];
+            [contentArray addObject:@(10.0 * arc4random() / (double)UINT32_MAX + 5.0)];
         }
         self.plotData = contentArray;
     }

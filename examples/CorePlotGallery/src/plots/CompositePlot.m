@@ -266,7 +266,7 @@
     NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
     for ( NSUInteger i = 0; i < 60; i++ ) {
         NSNumber *xVal = @(1 + i * 0.05);
-        NSNumber *yVal = @(1.2 * rand() / (double)RAND_MAX + 1.2);
+        NSNumber *yVal = @(1.2 * arc4random() / (double)UINT32_MAX + 1.2);
         [contentArray addObject:@{ @"x": xVal, @"y": yVal }
         ];
     }

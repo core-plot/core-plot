@@ -133,9 +133,9 @@
     NSLog(@"Slice was selected at index %d. Value = %f", (int)index, [self.plotData[index] floatValue]);
 
     NSMutableArray *newData = [[NSMutableArray alloc] init];
-    NSUInteger dataCount    = (NSUInteger)lrint( ceil(10.0 * rand() / (double)RAND_MAX) ) + 1;
+    NSUInteger dataCount    = (NSUInteger)lrint( ceil(10.0 * arc4random() / (double)UINT32_MAX) ) + 1;
     for ( NSUInteger i = 1; i < dataCount; i++ ) {
-        [newData addObject:@(100.0 * rand() / (double)RAND_MAX)];
+        [newData addObject:@(100.0 * arc4random() / (double)UINT32_MAX)];
     }
     NSLog(@"newData: %@", newData);
 

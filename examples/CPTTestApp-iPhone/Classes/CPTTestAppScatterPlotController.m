@@ -133,7 +133,7 @@
     NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
     for ( NSUInteger i = 0; i < 60; i++ ) {
         NSNumber *xVal = @(1.0 + i * 0.05);
-        NSNumber *yVal = @(1.2 * rand() / (double)RAND_MAX + 1.2);
+        NSNumber *yVal = @(1.2 * arc4random() / (double)UINT32_MAX + 1.2);
         [contentArray addObject:@{ @"x": xVal,
                                    @"y": yVal }
         ];
@@ -150,8 +150,8 @@
     // Setup plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
 
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromDouble(3.0 + 2.0 * rand() / RAND_MAX)];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromDouble(3.0 + 2.0 * rand() / RAND_MAX)];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromDouble(3.0 + 2.0 * arc4random() / UINT32_MAX)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromDouble(3.0 + 2.0 * arc4random() / UINT32_MAX)];
 }
 
 #pragma mark -

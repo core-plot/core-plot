@@ -65,7 +65,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 -(id)newObject
 {
     NSNumber *x1 = @(1.0 + ( (NSMutableArray *)self.content ).count * 0.05);
-    NSNumber *y1 = @(1.2 * rand() / (double)RAND_MAX + 1.2);
+    NSNumber *y1 = @(1.2 * arc4random() / (double)UINT32_MAX + 1.2);
 
     return @{
                @"x": x1,
@@ -288,7 +288,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
         NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
         for ( NSUInteger i = 0; i < 60; i++ ) {
             NSNumber *x = @(1.0 + i * 0.05);
-            NSNumber *y = @(1.2 * rand() / (double)RAND_MAX + 1.2);
+            NSNumber *y = @(1.2 * arc4random() / (double)UINT32_MAX + 1.2);
             [contentArray addObject:@{ @"x": x,
                                        @"y": y }
             ];

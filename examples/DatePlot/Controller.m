@@ -75,7 +75,9 @@
     NSMutableArray *newData = [NSMutableArray array];
     for ( NSUInteger i = 0; i < 5; i++ ) {
         NSTimeInterval xVal = oneDay * i;
-        double yVal         = 1.2 * rand() / (double)RAND_MAX + 1.2;
+
+        double yVal = 1.2 * arc4random() / (double)UINT32_MAX + 1.2;
+
         [newData addObject:
          @{ @(CPTScatterPlotFieldX): @(xVal),
             @(CPTScatterPlotFieldY): @(yVal) }

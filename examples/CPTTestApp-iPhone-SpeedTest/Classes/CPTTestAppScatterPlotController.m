@@ -95,8 +95,8 @@
 
     for ( NSUInteger i = 0; i < NUM_POINTS; i++ ) {
         xArray[i]  = i;
-        y1Array[i] = (NUM_POINTS / 3) * (rand() / (double)RAND_MAX);
-        y2Array[i] = (NUM_POINTS / 3) * (rand() / (double)RAND_MAX) + NUM_POINTS / 3;
+        y1Array[i] = (NUM_POINTS / 3) * (arc4random() / (double)UINT32_MAX);
+        y2Array[i] = (NUM_POINTS / 3) * (arc4random() / (double)UINT32_MAX) + NUM_POINTS / 3;
     }
 
     self.xxx  = xData;
@@ -126,7 +126,8 @@
 {
     // Setup plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
-    double ylen               = NUM_POINTS * (rand() / (double)RAND_MAX);
+
+    double ylen = NUM_POINTS * (arc4random() / (double)UINT32_MAX);
 
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(NUM_POINTS)];
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(ylen)];

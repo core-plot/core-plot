@@ -171,7 +171,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 
     for ( NSUInteger i = 0; i < 100; i++ ) {
         NSNumber *x = @(i * 0.05);
-        NSNumber *y = @(10.0 * rand() / (double)RAND_MAX - 5.0);
+        NSNumber *y = @(10.0 * arc4random() / (double)UINT32_MAX - 5.0);
         [contentArray addObject:@{ @"x": x,
                                    @"y": y }
         ];

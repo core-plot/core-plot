@@ -47,11 +47,12 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
         NSMutableArray *newData = [NSMutableArray array];
         for ( NSUInteger i = 0; i < 5; i++ ) {
             NSTimeInterval x = oneDay * (i + 1.0);
-            double y         = 3.0 * rand() / (double)RAND_MAX + 1.2;
-            double rHigh     = rand() / (double)RAND_MAX * 0.5 + 0.25;
-            double rLow      = rand() / (double)RAND_MAX * 0.5 + 0.25;
-            double rLeft     = (rand() / (double)RAND_MAX * 0.125 + 0.125) * oneDay;
-            double rRight    = (rand() / (double)RAND_MAX * 0.125 + 0.125) * oneDay;
+
+            double y      = 3.0 * arc4random() / (double)UINT32_MAX + 1.2;
+            double rHigh  = arc4random() / (double)UINT32_MAX * 0.5 + 0.25;
+            double rLow   = arc4random() / (double)UINT32_MAX * 0.5 + 0.25;
+            double rLeft  = (arc4random() / (double)UINT32_MAX * 0.125 + 0.125) * oneDay;
+            double rRight = (arc4random() / (double)UINT32_MAX * 0.125 + 0.125) * oneDay;
 
             [newData addObject:
              @{ @(CPTRangePlotFieldX): @(x),

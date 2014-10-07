@@ -44,7 +44,7 @@ static const NSUInteger numberOfPoints = 11;
         double sum = 0.0;
 
         for ( NSUInteger i = 0; i < numberOfPoints; i++ ) {
-            double y = 12.0 * rand() / (double)RAND_MAX + 5.0;
+            double y = 12.0 * arc4random() / (double)UINT32_MAX + 5.0;
             sum += y;
             [contentArray addObject:@(y)];
         }

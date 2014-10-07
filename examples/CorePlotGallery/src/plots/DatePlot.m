@@ -42,12 +42,13 @@
         NSMutableArray *newData = [NSMutableArray array];
 
         for ( NSUInteger i = 0; i < 5; i++ ) {
-            NSTimeInterval x = oneDay * i;
-            NSNumber *y      = @(1.2 * rand() / (double)RAND_MAX + 1.2);
+            NSTimeInterval xVal = oneDay * i;
+
+            double yVal = 1.2 * arc4random() / (double)UINT32_MAX + 1.2;
 
             [newData addObject:
-             @{ @(CPTScatterPlotFieldX): @(x),
-                @(CPTScatterPlotFieldY): y }
+             @{ @(CPTScatterPlotFieldX): @(xVal),
+                @(CPTScatterPlotFieldY): @(yVal) }
             ];
 
             self.plotData = newData;

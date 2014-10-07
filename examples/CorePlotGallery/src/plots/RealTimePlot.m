@@ -184,7 +184,7 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
                      duration:CPTFloat(1.0 / kFrameRate)];
 
         self.currentIndex++;
-        [self.plotData addObject:@( (1.0 - kAlpha) * [[self.plotData lastObject] doubleValue] + kAlpha * rand() / (double)RAND_MAX )];
+        [self.plotData addObject:@( (1.0 - kAlpha) * [[self.plotData lastObject] doubleValue] + kAlpha * arc4random() / (double)UINT32_MAX )];
         [thePlot insertDataAtIndex:self.plotData.count - 1 numberOfRecords:1];
     }
 }
