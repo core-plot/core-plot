@@ -78,7 +78,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  **/
 @synthesize interpolation;
 
-@synthesize histogramOptions;
+@synthesize histogramOption;
 
 /** @property CPTLineStyle *dataLineStyle
  *  @brief The line style for the data line.
@@ -960,9 +960,9 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                     case CPTScatterPlotInterpolationHistogram:
                     {
                         CGFloat x = (lastPoint.x + viewPoint.x) / CPTFloat(2.0);
-                        if( CPTScatterPlotHistogramSkipFirstStep != self.histogramOptions )
+                        if( CPTScatterPlotHistogramSkipFirst != self.histogramOption )
                             CGPathAddLineToPoint(dataLinePath, NULL, x, lastPoint.y);
-                        if( CPTScatterPlotHistogramSkipSecondStep != self.histogramOptions )
+                        if( CPTScatterPlotHistogramSkipSecond != self.histogramOption )
                             CGPathAddLineToPoint(dataLinePath, NULL, x, viewPoint.y);
                         CGPathAddLineToPoint(dataLinePath, NULL, viewPoint.x, viewPoint.y);
                     }
@@ -1748,6 +1748,14 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 {
     if ( newInterpolation != interpolation ) {
         interpolation = newInterpolation;
+        [self setNeedsDisplay];
+    }
+}
+
+-(void)setHistogramOption:(CPTScatterPlotHistogramOption)newHistogramOption
+{
+    if ( newHistogramOption != histogramOption ) {
+        histogramOption = newHistogramOption;
         [self setNeedsDisplay];
     }
 }

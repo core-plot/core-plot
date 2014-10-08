@@ -34,10 +34,12 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
     CPTScatterPlotInterpolationCurved     ///< Bezier curve interpolation.
 };
 
-typedef NS_ENUM (NSInteger, CPTScatterPlotHistogramOptions) {
+typedef NS_ENUM (NSInteger, CPTScatterPlotHistogramOption) {
     CPTScatterPlotHistogramNormal,        ///< standard histogram
-    CPTScatterPlotHistogramSkipFirstStep, ///< skip the first step of the histogram
-    CPTScatterPlotHistogramSkipSecondStep ///< skip the second step of the histogram
+    CPTScatterPlotHistogramSkipFirst,     ///< skip the first step of the histogram
+    CPTScatterPlotHistogramSkipSecond,    ///< skip the second step of the histogram
+
+    CPTScatterPlotHistogramOptionCount   ///< the number of histogram options available
 };
 
 #pragma mark -
@@ -229,7 +231,7 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotHistogramOptions) {
 @property (nonatomic, readwrite, strong) NSNumber *areaBaseValue;
 @property (nonatomic, readwrite, strong) NSNumber *areaBaseValue2;
 @property (nonatomic, readwrite, assign) CPTScatterPlotInterpolation interpolation;
-@property (nonatomic, readwrite) CPTScatterPlotHistogramOptions histogramOptions;
+@property (nonatomic, readwrite) CPTScatterPlotHistogramOption histogramOption;
 /// @}
 
 /// @name Area Fill Bands
