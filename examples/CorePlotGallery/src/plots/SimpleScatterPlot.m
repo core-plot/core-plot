@@ -9,6 +9,9 @@
 #import "SimpleScatterPlot.h"
 
 @implementation SimpleScatterPlot
+{
+    CPTScatterPlotHistogramOption _histogramOption;
+}
 
 +(void)load
 {
@@ -20,6 +23,7 @@
     if ( (self = [super init]) ) {
         self.title   = @"Simple Scatter Plot";
         self.section = kLinePlots;
+        _histogramOption = CPTScatterPlotHistogramSkipSecond;
     }
 
     return self;
@@ -130,7 +134,7 @@
     lineStyle.lineColor              = [CPTColor greenColor];
     dataSourceLinePlot.dataLineStyle = lineStyle;
     dataSourceLinePlot.interpolation = CPTScatterPlotInterpolationHistogram;
-    dataSourceLinePlot.histogramOptions = CPTScatterPlotHistogramSkipSecondStep;
+    dataSourceLinePlot.histogramOption = _histogramOption;
 
     dataSourceLinePlot.dataSource = self;
     [graph addPlot:dataSourceLinePlot];
@@ -276,13 +280,33 @@
 
 -(void)plotAreaWasSelected:(CPTPlotArea *)plotArea
 {
-    // Remove the annotation
-    if ( symbolTextAnnotation ) {
-        CPTXYGraph *graph = [self.graphs objectAtIndex:0];
+    CPTXYGraph *graph = [self.graphs objectAtIndex:0];
+    if( graph )
+    {
+        // Remove the annotation
+        if ( symbolTextAnnotation ) {
 
-        [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
-        [symbolTextAnnotation release];
-        symbolTextAnnotation = nil;
+            [graph.plotAreaFrame.plotArea removeAnnotation:symbolTextAnnotation];
+            [symbolTextAnnotation release];
+            symbolTextAnnotation = nil;
+        }
+        else
+        {
+            CPTScatterPlotInterpolation interpolation = CPTScatterPlotInterpolationHistogram;
+
+            // Decrease the histogram display option, and if < 0 display linear graph
+            if( --_histogramOption < 0 )
+            {
+                interpolation = CPTScatterPlotInterpolationLinear;
+
+                // Set the histogram option to the count, as that is guaranteed to be the last available option + 1
+                // (thus the next time the user clicks in the empty plot area the value will be decremented, becoming last option)
+                _histogramOption = CPTScatterPlotHistogramOptionCount;
+            }
+            CPTScatterPlot *dataSourceLinePlot = (CPTScatterPlot *)[graph plotWithIdentifier: @"Data Source Plot"];
+            dataSourceLinePlot.interpolation = interpolation;
+            dataSourceLinePlot.histogramOption = _histogramOption;
+        }
     }
 }
 
