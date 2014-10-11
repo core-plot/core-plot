@@ -105,16 +105,18 @@
         };
     }
     else if ( [key isEqualToString:@"inputBorderColor"] ) {
+        CGColorRef grayColor = CGColorCreateGenericGray(0.0, 1.0);
         NSDictionary *result = @{
             QCPortAttributeNameKey: @"Border Color",
-            QCPortAttributeDefaultValueKey: [NSColor colorWithSRGBRed:0.0 green:0.0 blue:0.0 alpha:1.0]
+            QCPortAttributeDefaultValueKey: CFBridgingRelease(grayColor)
         };
         return result;
     }
     else if ( [key isEqualToString:@"inputLabelColor"] ) {
+        CGColorRef grayColor = CGColorCreateGenericGray(1.0, 1.0);
         NSDictionary *result = @{
             QCPortAttributeNameKey: @"Label Color",
-            QCPortAttributeDefaultValueKey: [NSColor colorWithSRGBRed:1.0 green:1.0 blue:1.0 alpha:1.0]
+            QCPortAttributeDefaultValueKey: CFBridgingRelease(grayColor)
         };
         return result;
     }
@@ -140,11 +142,12 @@
 
         // TODO: add support for used defined fill colors.  As of now we use a single color
         // multiplied against the 'default' pie chart colors
+        CGColorRef grayColor = CGColorCreateGenericGray(1.0, 1.0);
         [self addInputPortWithType:QCPortTypeColor
                             forKey:[NSString stringWithFormat:@"plotFillColor%lu", (unsigned long)index]
                     withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Primary Fill Color %lu", (unsigned long)(index + 1)],
                                       QCPortAttributeTypeKey: QCPortTypeColor,
-                                      QCPortAttributeDefaultValueKey: [NSColor colorWithSRGBRed:1.0 green:1.0 blue:1.0 alpha:1.0] }
+                                      QCPortAttributeDefaultValueKey: CFBridgingRelease(grayColor) }
         ];
 
         // Add the new plot to the graph
@@ -152,7 +155,7 @@
         pieChart.identifier = [NSString stringWithFormat:@"Pie Chart %lu", (unsigned long)(index + 1)];
         pieChart.dataSource = self;
 
-        [graph addPlot:pieChart];
+        [self.graph addPlot:pieChart];
     }
 }
 
@@ -161,26 +164,29 @@
 
 -(void)createGraph
 {
-    if ( !graph ) {
+    if ( !self.graph ) {
         // Create graph from theme
         CPTTheme *theme = [CPTTheme themeNamed:kCPTPlainWhiteTheme];
-        graph         = (CPTXYGraph *)[theme newGraph];
-        graph.axisSet = nil;
+        self.graph = (CPTXYGraph *)[theme newGraph];
+
+        self.graph.axisSet = nil;
     }
 }
 
 -(BOOL)configureAxis
 {
     // We use no axis for the pie chart
-    graph.axisSet                                = nil;
-    graph.plotAreaFrame.plotArea.borderLineStyle = nil;
+    self.graph.axisSet = nil;
+
+    self.graph.plotAreaFrame.plotArea.borderLineStyle = nil;
+
     return YES;
 }
 
 -(BOOL)configurePlots
 {
     // Configure the pie chart
-    for ( CPTPieChart *pieChart in [graph allPlots] ) {
+    for ( CPTPieChart *pieChart in [self.graph allPlots] ) {
         pieChart.plotArea.borderLineStyle = nil;
 
         pieChart.pieRadius      = self.inputPieRadius * MIN(self.inputPixelsWide, self.inputPixelsHigh) / 2.0;
@@ -192,7 +198,7 @@
         if ( self.inputBorderWidth > 0.0 ) {
             CPTMutableLineStyle *borderLineStyle = [CPTMutableLineStyle lineStyle];
             borderLineStyle.lineWidth = self.inputBorderWidth;
-            borderLineStyle.lineColor = [CPTColor colorWithCGColor:self.inputBorderColor.CGColor];
+            borderLineStyle.lineColor = [CPTColor colorWithCGColor:self.inputBorderColor];
             borderLineStyle.lineCap   = kCGLineCapSquare;
             borderLineStyle.lineJoin  = kCGLineJoinBevel;
             pieChart.borderLineStyle  = borderLineStyle;
@@ -212,33 +218,31 @@
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    NSUInteger plotIndex = [[graph allPlots] indexOfObject:plot];
+    NSUInteger plotIndex = [[self.graph allPlots] indexOfObject:plot];
     NSString *key        = [NSString stringWithFormat:@"plotNumbers%lu", (unsigned long)plotIndex];
-
-    if ( ![self valueForInputKey:key] ) {
-        return 0;
-    }
 
     return [[self valueForInputKey:key] count];
 }
 
 -(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    NSUInteger plotIndex = [[graph allPlots] indexOfObject:plot];
+    NSUInteger plotIndex = [[self.graph allPlots] indexOfObject:plot];
     NSString *key        = [NSString stringWithFormat:@"plotNumbers%lu", (unsigned long)plotIndex];
 
-    if ( ![self valueForInputKey:key] ) {
+    NSDictionary *dict = [self valueForInputKey:key];
+
+    if ( dict ) {
+        return [NSDecimalNumber decimalNumberWithString:[dict[[NSString stringWithFormat:@"%lu", (unsigned long)index]] stringValue]];
+    }
+    else {
         return nil;
     }
-
-    NSDictionary *dict = [self valueForInputKey:key];
-    return [NSDecimalNumber decimalNumberWithString:[dict[[NSString stringWithFormat:@"%lu", (unsigned long)index]] stringValue]];
 }
 
 -(CPTFill *)sliceFillForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index
 {
     CGColorRef plotFillColor  = [[CPTPieChart defaultPieSliceColorForIndex:index] cgColor];
-    CGColorRef inputFillColor = [self areaFillColor:0].CGColor;
+    CGColorRef inputFillColor = (CGColorRef)[self areaFillColor : 0];
 
     const CGFloat *plotColorComponents  = CGColorGetComponents(plotFillColor);
     const CGFloat *inputColorComponents = CGColorGetComponents(inputFillColor);
@@ -257,14 +261,14 @@
 
 -(CPTTextLayer *)sliceLabelForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index
 {
-    NSUInteger plotIndex = [[graph allPlots] indexOfObject:pieChart];
+    NSUInteger plotIndex = [[self.graph allPlots] indexOfObject:pieChart];
     NSString *key        = [NSString stringWithFormat:@"plotLabels%lu", (unsigned long)plotIndex];
 
-    if ( ![self valueForInputKey:key] ) {
+    NSDictionary *dict = [self valueForInputKey:key];
+
+    if ( !dict ) {
         return nil;
     }
-
-    NSDictionary *dict = [self valueForInputKey:key];
 
     NSString *label = dict[[NSString stringWithFormat:@"%lu", (unsigned long)index]];
 
@@ -272,7 +276,7 @@
     [layer sizeToFit];
 
     CPTMutableTextStyle *style = [CPTMutableTextStyle textStyle];
-    style.color     = [CPTColor colorWithCGColor:self.inputLabelColor.CGColor];
+    style.color     = [CPTColor colorWithCGColor:self.inputLabelColor];
     layer.textStyle = style;
 
     return layer;

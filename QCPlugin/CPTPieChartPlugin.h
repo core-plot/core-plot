@@ -1,15 +1,14 @@
 #import "CorePlotQCPlugIn.h"
 #import <Cocoa/Cocoa.h>
 
-@interface CPTPieChartPlugIn : CorePlotQCPlugIn<CPTPieChartDataSource> {
-}
+@interface CPTPieChartPlugIn : CorePlotQCPlugIn<CPTPieChartDataSource>
 
-@property (nonatomic, readwrite, assign) double inputPieRadius;
-@property (nonatomic, readwrite, assign) double inputSliceLabelOffset;
-@property (nonatomic, readwrite, assign) double inputStartAngle;
-@property (nonatomic, readwrite, assign) NSUInteger inputSliceDirection;
-@property (nonatomic, readwrite, assign) double inputBorderWidth;
-@property (nonatomic, readwrite, strong) NSColor *inputBorderColor;
-@property (nonatomic, readwrite, strong) NSColor *inputLabelColor;
+@property (readwrite, assign) double inputPieRadius;
+@property (readwrite, assign) double inputSliceLabelOffset;
+@property (readwrite, assign) double inputStartAngle;
+@property (readwrite, assign) NSUInteger inputSliceDirection;
+@property (readwrite, assign) double inputBorderWidth;
+@property (readwrite, assign) CGColorRef inputBorderColor;
+@property (readwrite, assign) CGColorRef inputLabelColor;
 
 @end

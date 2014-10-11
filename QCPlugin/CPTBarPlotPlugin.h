@@ -1,12 +1,11 @@
 #import "CorePlotQCPlugIn.h"
 #import <Cocoa/Cocoa.h>
 
-@interface CPTBarPlotPlugIn : CorePlotQCPlugIn<CPTBarPlotDataSource> {
-}
+@interface CPTBarPlotPlugIn : CorePlotQCPlugIn<CPTBarPlotDataSource>
 
-@property (nonatomic, readwrite, assign) double inputBaseValue;
-@property (nonatomic, readwrite, assign) double inputBarWidth;
-@property (nonatomic, readwrite, assign) double inputBarOffset;
-@property (nonatomic, readwrite, assign) BOOL inputHorizontalBars;
+@property (readwrite, assign) double inputBaseValue;
+@property (readwrite, assign) double inputBarWidth;
+@property (readwrite, assign) double inputBarOffset;
+@property (readwrite, assign) BOOL inputHorizontalBars;
 
 @end
