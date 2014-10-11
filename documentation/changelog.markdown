@@ -22,6 +22,7 @@ To be determined.
 - **Changed**: Enabled automatic reference counting (ARC) in the framework projects.
 - **Changed**: Updated `CPTImage` to automatically handle switching between Retina and non-Retina displays.
 - **Changed**: Changed the behavior of all axis and plot xxxWasSelected delegate methods to require both a down and up event on the same element instead of only the down event.
+- **Changed**: Changed the class prefix for the Quartz Composer plug-ins from "CP" to "CPT".
 - **Changed**: Miscellaneous bug fixes and cleanup.
 - **Removed**: Removed the deprecated plot space methods.
 
