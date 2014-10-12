@@ -225,6 +225,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         plotSymbolMarginForHitDetection = CPTFloat(0.0);
         plotLineMarginForHitDetection   = CPTFloat(4.0);
         interpolation                   = CPTScatterPlotInterpolationLinear;
+        histogramOption                 = CPTScatterPlotHistogramNormal;
         pointingDeviceDownIndex         = NSNotFound;
         pointingDeviceDownOnLine        = NO;
         mutableAreaFillBands            = nil;
@@ -252,6 +253,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         plotLineMarginForHitDetection           = theLayer->plotLineMarginForHitDetection;
         allowSimultaneousSymbolAndPlotSelection = theLayer->allowSimultaneousSymbolAndPlotSelection;
         interpolation                           = theLayer->interpolation;
+        histogramOption                         = theLayer->histogramOption;
         mutableAreaFillBands                    = theLayer->mutableAreaFillBands;
         pointingDeviceDownIndex                 = NSNotFound;
         pointingDeviceDownOnLine                = NO;
@@ -271,6 +273,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     [super encodeWithCoder:coder];
 
     [coder encodeInteger:self.interpolation forKey:@"CPTScatterPlot.interpolation"];
+    [coder encodeInteger:self.histogramOption forKey:@"CPTScatterPlot.histogramOption"];
     [coder encodeObject:self.dataLineStyle forKey:@"CPTScatterPlot.dataLineStyle"];
     [coder encodeObject:self.plotSymbol forKey:@"CPTScatterPlot.plotSymbol"];
     [coder encodeObject:self.areaFill forKey:@"CPTScatterPlot.areaFill"];
@@ -291,6 +294,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 {
     if ( (self = [super initWithCoder:coder]) ) {
         interpolation                           = (CPTScatterPlotInterpolation)[coder decodeIntegerForKey : @"CPTScatterPlot.interpolation"];
+        histogramOption                         = (CPTScatterPlotHistogramOption)[coder decodeIntegerForKey : @"CPTScatterPlot.histogramOption"];
         dataLineStyle                           = [[coder decodeObjectForKey:@"CPTScatterPlot.dataLineStyle"] copy];
         plotSymbol                              = [[coder decodeObjectForKey:@"CPTScatterPlot.plotSymbol"] copy];
         areaFill                                = [[coder decodeObjectForKey:@"CPTScatterPlot.areaFill"] copy];
