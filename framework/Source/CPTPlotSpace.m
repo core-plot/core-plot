@@ -140,7 +140,7 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
         identifier            = [[coder decodeObjectForKey:@"CPTPlotSpace.identifier"] copy];
         delegate              = [coder decodeObjectForKey:@"CPTPlotSpace.delegate"];
         allowsUserInteraction = [coder decodeBoolForKey:@"CPTPlotSpace.allowsUserInteraction"];
-        categoryNames         = [coder decodeObjectForKey:@"CPTPlotSpace.categoryNames"];
+        categoryNames         = [[coder decodeObjectForKey:@"CPTPlotSpace.categoryNames"] mutableCopy];
 
         isDragging = NO;
     }
