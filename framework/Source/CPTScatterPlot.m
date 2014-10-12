@@ -74,10 +74,14 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 /** @property CPTScatterPlotInterpolation interpolation
  *  @brief The interpolation algorithm used for lines between data points.
- *  Default is #CPTScatterPlotInterpolationLinear
+ *  Default is #CPTScatterPlotInterpolationLinear.
  **/
 @synthesize interpolation;
 
+/** @property CPTScatterPlotHistogramOption histogramOption
+ *  @brief The drawing style for a histogram plot line (@ref interpolation = #CPTScatterPlotInterpolationHistogram).
+ *  Default is #CPTScatterPlotHistogramNormal.
+ **/
 @synthesize histogramOption;
 
 /** @property CPTLineStyle *dataLineStyle
@@ -208,6 +212,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  *  - @ref plotLineMarginForHitDetection = @num{4.0}
  *  - @ref allowSimultaneousSymbolAndPlotSelection = NO
  *  - @ref interpolation = #CPTScatterPlotInterpolationLinear
+ *  - @ref histogramOption = #CPTScatterPlotHistogramNormal
  *  - @ref labelField = #CPTScatterPlotFieldY
  *
  *  @param newFrame The frame rectangle.

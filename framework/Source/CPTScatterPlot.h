@@ -34,11 +34,14 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
     CPTScatterPlotInterpolationCurved     ///< Bezier curve interpolation.
 };
 
+/**
+ *  @brief Enumeration of scatter plot histogram style options
+ **/
 typedef NS_ENUM (NSInteger, CPTScatterPlotHistogramOption) {
-    CPTScatterPlotHistogramNormal,     ///< standard histogram
-    CPTScatterPlotHistogramSkipFirst,  ///< skip the first step of the histogram
-    CPTScatterPlotHistogramSkipSecond, ///< skip the second step of the histogram
-    CPTScatterPlotHistogramOptionCount ///< the number of histogram options available
+    CPTScatterPlotHistogramNormal,     ///< Standard histogram.
+    CPTScatterPlotHistogramSkipFirst,  ///< Skip the first step of the histogram.
+    CPTScatterPlotHistogramSkipSecond, ///< Skip the second step of the histogram.
+    CPTScatterPlotHistogramOptionCount ///< The number of histogram options available.
 };
 
 #pragma mark -
