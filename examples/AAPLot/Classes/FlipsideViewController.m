@@ -36,9 +36,4 @@
     // Release anything that's not essential, such as cached data
 }
 
--(void)dealloc
-{
-    [super dealloc];
-}
-
 @end

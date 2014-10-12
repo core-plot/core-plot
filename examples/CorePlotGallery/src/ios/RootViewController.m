@@ -42,12 +42,12 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tv
 {
-    return [[PlotGallery sharedPlotGallery] numberOfSections];
+    return (NSInteger)[[PlotGallery sharedPlotGallery] numberOfSections];
 }
 
 -(NSInteger)tableView:(UITableView *)tv numberOfRowsInSection:(NSInteger)section
 {
-    return [[PlotGallery sharedPlotGallery] numberOfRowsInSection:section];
+    return (NSInteger)[[PlotGallery sharedPlotGallery] numberOfRowsInSection : (NSUInteger)section];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -57,11 +57,11 @@
     UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:cellId];
 
     if ( cell == nil ) {
-        cell               = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId] autorelease];
+        cell               = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
 
-    PlotItem *plotItem = [[PlotGallery sharedPlotGallery] objectInSection:indexPath.section atIndex:indexPath.row];
+    PlotItem *plotItem = [[PlotGallery sharedPlotGallery] objectInSection:(NSUInteger)indexPath.section atIndex:(NSUInteger)indexPath.row];
     cell.imageView.image = [plotItem image];
     cell.textLabel.text  = plotItem.title;
 
@@ -70,7 +70,7 @@
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return [[PlotGallery sharedPlotGallery] sectionTitles][section];
+    return [[PlotGallery sharedPlotGallery] sectionTitles][(NSUInteger)section];
 }
 
 #pragma mark -
@@ -78,18 +78,17 @@
 
 -(void)tableView:(UITableView *)tv didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PlotItem *plotItem = [[PlotGallery sharedPlotGallery] objectInSection:indexPath.section atIndex:indexPath.row];
+    PlotItem *plotItem = [[PlotGallery sharedPlotGallery] objectInSection:(NSUInteger)indexPath.section atIndex:(NSUInteger)indexPath.row];
 
     if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
-        detailViewController.detailItem = plotItem;
+        self.detailViewController.detailItem = plotItem;
     }
     else {
-        detailViewController = [[DetailViewController alloc] initWithNibName:@"DetailView" bundle:nil];
-        [self.navigationController pushViewController:detailViewController animated:YES];
-        detailViewController.view.frame = self.view.bounds;
-        detailViewController.detailItem = plotItem;
-        [detailViewController release];
-        detailViewController = nil;
+        self.detailViewController = [[DetailViewController alloc] initWithNibName:@"DetailView" bundle:nil];
+        [self.navigationController pushViewController:self.detailViewController animated:YES];
+        self.detailViewController.view.frame = self.view.bounds;
+        self.detailViewController.detailItem = plotItem;
+        self.detailViewController            = nil;
     }
 }
 
@@ -103,16 +102,9 @@
 
 -(void)viewDidUnload
 {
-    detailViewController = nil;
+    self.detailViewController = nil;
 
     [super viewDidUnload];
-}
-
--(void)dealloc
-{
-    [detailViewController release];
-    detailViewController = nil;
-    [super dealloc];
 }
 
 @end

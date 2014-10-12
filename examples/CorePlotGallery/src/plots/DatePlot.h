@@ -11,9 +11,5 @@
 @interface DatePlot : PlotItem<CPTPlotSpaceDelegate,
                                CPTPlotDataSource,
                                CPTScatterPlotDelegate>
-{
-    @private
-    NSArray *plotData;
-}
 
 @end

@@ -11,42 +11,60 @@
 #import "dlfcn.h"
 //#define EMBED_NU	1
 
-const CGFloat CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0;
+static const CGFloat CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0;
 
-#define kThemeTableViewControllerNoTheme      @"None"
-#define kThemeTableViewControllerDefaultTheme @"Default"
+static NSString *const kThemeTableViewControllerNoTheme      = @"None";
+static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
+
+@interface PlotGalleryController()
+
+@property (nonatomic, readwrite, strong) IBOutlet NSSplitView *splitView;
+@property (nonatomic, readwrite, strong) IBOutlet NSScrollView *scrollView;
+@property (nonatomic, readwrite, strong) IBOutlet IKImageBrowserView *imageBrowser;
+@property (nonatomic, readwrite, strong) IBOutlet NSPopUpButton *themePopUpButton;
+
+@property (nonatomic, readwrite, strong) IBOutlet PlotView *hostingView;
+
+@end
 
 @implementation PlotGalleryController
 
-@dynamic plotItem;
+@synthesize splitView;
+@synthesize scrollView;
+@synthesize imageBrowser;
+@synthesize themePopUpButton;
+
+@synthesize hostingView;
+
+@synthesize plotItem;
 @synthesize currentThemeName;
 
 -(void)setupThemes
 {
-    [themePopUpButton addItemWithTitle:kThemeTableViewControllerDefaultTheme];
-    [themePopUpButton addItemWithTitle:kThemeTableViewControllerNoTheme];
+    [self.themePopUpButton addItemWithTitle:kThemeTableViewControllerDefaultTheme];
+    [self.themePopUpButton addItemWithTitle:kThemeTableViewControllerNoTheme];
 
     for ( Class c in [CPTTheme themeClasses] ) {
-        [themePopUpButton addItemWithTitle:[c name]];
+        [self.themePopUpButton addItemWithTitle:[c name]];
     }
 
     self.currentThemeName = kThemeTableViewControllerDefaultTheme;
-    [themePopUpButton selectItemWithTitle:kThemeTableViewControllerDefaultTheme];
+    [self.themePopUpButton selectItemWithTitle:kThemeTableViewControllerDefaultTheme];
 }
 
 -(void)awakeFromNib
 {
     [[PlotGallery sharedPlotGallery] sortByTitle];
 
-    [splitView setDelegate:self];
+    [self.splitView setDelegate:self];
 
-    [imageBrowser setDelegate:self];
-    [imageBrowser setDataSource:self];
-    [imageBrowser setCellsStyleMask:IKCellsStyleShadowed | IKCellsStyleTitled]; //| IKCellsStyleSubtitled];
+    [self.imageBrowser setDelegate:self];
+    [self.imageBrowser setDataSource:self];
+    [self.imageBrowser setCellsStyleMask:IKCellsStyleShadowed | IKCellsStyleTitled]; //| IKCellsStyleSubtitled];
 
-    [imageBrowser reloadData];
+    [self.imageBrowser reloadData];
 
-    [hostingView setDelegate:self];
+    [self.hostingView setDelegate:self];
 
     [self setupThemes];
 
@@ -83,14 +101,12 @@ const CGFloat CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0;
         dlclose(nuHandle);
     }
 #endif
-
-    [super dealloc];
 }
 
 -(void)setFrameSize:(NSSize)newSize
 {
-    if ( [plotItem respondsToSelector:@selector(setFrameSize:)] ) {
-        [plotItem setFrameSize:newSize];
+    if ( [self.plotItem respondsToSelector:@selector(setFrameSize:)] ) {
+        [self.plotItem setFrameSize:newSize];
     }
 }
 
@@ -101,14 +117,14 @@ const CGFloat CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0;
 {
     CPTTheme *theme;
 
-    if ( [currentThemeName isEqualToString:kThemeTableViewControllerNoTheme] ) {
+    if ( [self.currentThemeName isEqualToString:kThemeTableViewControllerNoTheme] ) {
         theme = (id)[NSNull null];
     }
-    else if ( [currentThemeName isEqualToString:kThemeTableViewControllerDefaultTheme] ) {
+    else if ( [self.currentThemeName isEqualToString:kThemeTableViewControllerDefaultTheme] ) {
         theme = nil;
     }
     else {
-        theme = [CPTTheme themeNamed:currentThemeName];
+        theme = [CPTTheme themeNamed:self.currentThemeName];
     }
 
     return theme;
@@ -117,26 +133,20 @@ const CGFloat CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0;
 -(IBAction)themeSelectionDidChange:(id)sender
 {
     self.currentThemeName = [sender titleOfSelectedItem];
-    [plotItem renderInView:hostingView withTheme:[self currentTheme] animated:YES];
+    [self.plotItem renderInView:self.hostingView withTheme:[self currentTheme] animated:YES];
 }
 
 #pragma mark -
 #pragma mark PlotItem Property
 
--(PlotItem *)plotItem
-{
-    return plotItem;
-}
-
 -(void)setPlotItem:(PlotItem *)item
 {
     if ( plotItem != item ) {
         [plotItem killGraph];
-        [plotItem release];
 
-        plotItem = [item retain];
+        plotItem = item;
 
-        [plotItem renderInView:hostingView withTheme:[self currentTheme] animated:YES];
+        [plotItem renderInView:self.hostingView withTheme:[self currentTheme] animated:YES];
     }
 }
 

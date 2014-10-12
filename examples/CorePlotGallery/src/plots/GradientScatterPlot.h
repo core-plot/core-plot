@@ -12,11 +12,5 @@
                                           CPTPlotSpaceDelegate,
                                           CPTPlotDataSource,
                                           CPTScatterPlotDelegate>
-{
-    @private
-    CPTPlotSpaceAnnotation *symbolTextAnnotation;
-
-    NSArray *plotData;
-}
 
 @end

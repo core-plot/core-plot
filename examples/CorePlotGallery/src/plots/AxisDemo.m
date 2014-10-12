@@ -34,7 +34,7 @@
 #endif
 
     // Create graph
-    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTSlateTheme]];
 
@@ -97,7 +97,7 @@
     x.title                 = @"X Axis";
     x.titleTextStyle        = axisTitleTextStyle;
     x.titleOffset           = 25.0;
-    x.alternatingBandFills  = @[[[CPTColor redColor] colorWithAlphaComponent:0.1], [[CPTColor greenColor] colorWithAlphaComponent:0.1]];
+    x.alternatingBandFills  = @[[[CPTColor redColor] colorWithAlphaComponent:CPTFloat(0.1)], [[CPTColor greenColor] colorWithAlphaComponent:CPTFloat(0.1)]];
     x.delegate              = self;
 
     // Label y with an automatic labeling policy.
@@ -117,7 +117,7 @@
     y.title                 = @"Y Axis";
     y.titleTextStyle        = axisTitleTextStyle;
     y.titleOffset           = 30.0;
-    y.alternatingBandFills  = @[[[CPTColor blueColor] colorWithAlphaComponent:0.1], [NSNull null]];
+    y.alternatingBandFills  = @[[[CPTColor blueColor] colorWithAlphaComponent:CPTFloat(0.1)], [NSNull null]];
     y.delegate              = self;
 
     CPTFill *bandFill = [CPTFill fillWithColor:[[CPTColor darkGrayColor] colorWithAlphaComponent:0.5]];
@@ -127,7 +127,7 @@
     // Label y2 with an equal division labeling policy.
     axisLineStyle.lineColor = [CPTColor orangeColor];
 
-    CPTXYAxis *y2 = [[[CPTXYAxis alloc] init] autorelease];
+    CPTXYAxis *y2 = [[CPTXYAxis alloc] init];
     y2.coordinate                  = CPTCoordinateY;
     y2.plotSpace                   = plotSpace;
     y2.orthogonalPosition          = @(-10.0);

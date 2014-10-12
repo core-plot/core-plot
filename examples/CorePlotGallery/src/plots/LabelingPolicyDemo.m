@@ -35,7 +35,7 @@ static const CGFloat titleOffset     = 25.0;
 #endif
 
     // Create graph
-    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTSlateTheme]];
 
@@ -83,7 +83,7 @@ static const CGFloat titleOffset     = 25.0;
 
     // Axes
     // CPTAxisLabelingPolicyNone
-    CPTXYAxis *axisNone = [[[CPTXYAxis alloc] init] autorelease];
+    CPTXYAxis *axisNone = [[CPTXYAxis alloc] init];
     axisNone.plotSpace          = graph.defaultPlotSpace;
     axisNone.labelingPolicy     = CPTAxisLabelingPolicyNone;
     axisNone.orthogonalPosition = @1.0;
@@ -98,20 +98,20 @@ static const CGFloat titleOffset     = 25.0;
     axisNone.titleOffset        = titleOffset;
     axisNone.majorTickLocations = majorTickLocations;
     axisNone.minorTickLocations = minorTickLocations;
+
     NSMutableSet *newAxisLabels = [NSMutableSet set];
     for ( NSUInteger i = 0; i <= 5; i++ ) {
         CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"Label %lu", (unsigned long)i]
                                                           textStyle:axisNone.labelTextStyle];
         newLabel.tickLocation = @(i * 20);
-        newLabel.offset       = axisNone.labelOffset + axisNone.majorTickLength / 2.0;
+        newLabel.offset       = axisNone.labelOffset + axisNone.majorTickLength / CPTFloat(2.0);
 
         [newAxisLabels addObject:newLabel];
-        [newLabel release];
     }
     axisNone.axisLabels = newAxisLabels;
 
     // CPTAxisLabelingPolicyLocationsProvided
-    CPTXYAxis *axisLocationsProvided = [[[CPTXYAxis alloc] init] autorelease];
+    CPTXYAxis *axisLocationsProvided = [[CPTXYAxis alloc] init];
     axisLocationsProvided.plotSpace          = graph.defaultPlotSpace;
     axisLocationsProvided.labelingPolicy     = CPTAxisLabelingPolicyLocationsProvided;
     axisLocationsProvided.orthogonalPosition = @2.0;
@@ -128,7 +128,7 @@ static const CGFloat titleOffset     = 25.0;
     axisLocationsProvided.minorTickLocations = minorTickLocations;
 
     // CPTAxisLabelingPolicyFixedInterval
-    CPTXYAxis *axisFixedInterval = [[[CPTXYAxis alloc] init] autorelease];
+    CPTXYAxis *axisFixedInterval = [[CPTXYAxis alloc] init];
     axisFixedInterval.plotSpace             = graph.defaultPlotSpace;
     axisFixedInterval.labelingPolicy        = CPTAxisLabelingPolicyFixedInterval;
     axisFixedInterval.orthogonalPosition    = @3.0;
@@ -145,7 +145,7 @@ static const CGFloat titleOffset     = 25.0;
     axisFixedInterval.titleOffset           = titleOffset;
 
     // CPTAxisLabelingPolicyAutomatic
-    CPTXYAxis *axisAutomatic = [[[CPTXYAxis alloc] init] autorelease];
+    CPTXYAxis *axisAutomatic = [[CPTXYAxis alloc] init];
     axisAutomatic.plotSpace             = graph.defaultPlotSpace;
     axisAutomatic.labelingPolicy        = CPTAxisLabelingPolicyAutomatic;
     axisAutomatic.orthogonalPosition    = @4.0;
@@ -161,7 +161,7 @@ static const CGFloat titleOffset     = 25.0;
     axisAutomatic.titleOffset           = titleOffset;
 
     // CPTAxisLabelingPolicyEqualDivisions
-    CPTXYAxis *axisEqualDivisions = [[[CPTXYAxis alloc] init] autorelease];
+    CPTXYAxis *axisEqualDivisions = [[CPTXYAxis alloc] init];
     axisEqualDivisions.plotSpace                   = graph.defaultPlotSpace;
     axisEqualDivisions.labelingPolicy              = CPTAxisLabelingPolicyEqualDivisions;
     axisEqualDivisions.orthogonalPosition          = @5.0;
@@ -179,9 +179,6 @@ static const CGFloat titleOffset     = 25.0;
 
     // Add axes to the graph
     graph.axisSet.axes = @[axisNone, axisLocationsProvided, axisFixedInterval, axisAutomatic, axisEqualDivisions];
-
-    [majorTickLineStyle release];
-    [minorTickLineStyle release];
 }
 
 @end

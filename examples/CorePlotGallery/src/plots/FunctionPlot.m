@@ -4,7 +4,7 @@
 
 @interface FunctionPlot()
 
-@property (nonatomic, readwrite, retain) NSMutableSet *dataSources;
+@property (nonatomic, readwrite, strong) NSMutableSet *dataSources;
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 -(UIFont *)italicFontForFont:(UIFont *)oldFont;
@@ -41,12 +41,6 @@
     return self;
 }
 
--(void)dealloc
-{
-    [dataSources release];
-    [super dealloc];
-}
-
 -(void)killGraph
 {
     [self.dataSources removeAllObjects];
@@ -62,14 +56,14 @@
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
-    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
     [self setTitleDefaultsForGraph:graph withBounds:bounds];
     [self setPaddingDefaultsForGraph:graph withBounds:bounds];
 
-    graph.plotAreaFrame.paddingLeft += 55.0;
+    graph.plotAreaFrame.paddingLeft += CPTFloat(55.0);
 
     // Setup scatter plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
@@ -80,11 +74,11 @@
     // Grid line styles
     CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
     majorGridLineStyle.lineWidth = 0.75;
-    majorGridLineStyle.lineColor = [[CPTColor colorWithGenericGray:0.2] colorWithAlphaComponent:0.75];
+    majorGridLineStyle.lineColor = [[CPTColor colorWithGenericGray:CPTFloat(0.2)] colorWithAlphaComponent:CPTFloat(0.75)];
 
     CPTMutableLineStyle *minorGridLineStyle = [CPTMutableLineStyle lineStyle];
     minorGridLineStyle.lineWidth = 0.25;
-    minorGridLineStyle.lineColor = [[CPTColor whiteColor] colorWithAlphaComponent:0.1];
+    minorGridLineStyle.lineColor = [[CPTColor whiteColor] colorWithAlphaComponent:CPTFloat(0.1)];
 
     // Axes
     PiNumberFormatter *formatter = [[PiNumberFormatter alloc] init];
@@ -102,8 +96,6 @@
 
     x.title       = @"X Axis";
     x.titleOffset = 30.0;
-
-    [formatter release];
 
     // Label y with an automatic label policy.
     CPTXYAxis *y = axisSet.yAxis;
@@ -134,8 +126,8 @@
 
             case 1:
                 titleString = @"y = cos(x)";
-                block       = ^(double x) {
-                    return cos(x);
+                block       = ^(double xVal) {
+                    return cos(xVal);
                 };
                 lineColor = [CPTColor greenColor];
                 break;
@@ -147,7 +139,7 @@
                 break;
         }
 
-        CPTScatterPlot *linePlot = [[[CPTScatterPlot alloc] init] autorelease];
+        CPTScatterPlot *linePlot = [[CPTScatterPlot alloc] init];
         linePlot.identifier = [NSString stringWithFormat:@"Function Plot %lu", (unsigned long)(plotNum + 1)];
 
         NSDictionary *textAttributes = x.titleTextStyle.attributes;
@@ -170,9 +162,8 @@
                           range:NSMakeRange(8, 1)];
         }
         linePlot.attributedTitle = title;
-        [title release];
 
-        CPTMutableLineStyle *lineStyle = [[linePlot.dataLineStyle mutableCopy] autorelease];
+        CPTMutableLineStyle *lineStyle = [linePlot.dataLineStyle mutableCopy];
         lineStyle.lineWidth    = 3.0;
         lineStyle.lineColor    = lineColor;
         linePlot.dataLineStyle = lineStyle;

@@ -22,9 +22,9 @@
 	<string>1.0</string>
 	<key>QCPlugInClasses</key>
 	<array>
-		<string>CPBarPlotPlugIn</string>
-		<string>CPScatterPlotPlugIn</string>
-		<string>CPPieChartPlugIn</string>
+		<string>CPTBarPlotPlugIn</string>
+		<string>CPTScatterPlotPlugIn</string>
+		<string>CPTPieChartPlugIn</string>
 	</array>
 </dict>
 </plist>

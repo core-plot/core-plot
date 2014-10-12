@@ -1,6 +1,6 @@
-#import "CPScatterPlotPlugIn.h"
+#import "CPTScatterPlotPlugIn.h"
 
-@implementation CPScatterPlotPlugIn
+@implementation CPTScatterPlotPlugIn
 
 /*
  * NOTE: It seems that QC plugins don't inherit dynamic input ports which is
@@ -51,18 +51,16 @@
                         forKey:[NSString stringWithFormat:@"plotDataLineColor%lu", (unsigned long)index]
                 withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Plot Line Color %lu", (unsigned long)(index + 1)],
                                   QCPortAttributeTypeKey: QCPortTypeColor,
-                                  QCPortAttributeDefaultValueKey: (id)lineColor }
+                                  QCPortAttributeDefaultValueKey: CFBridgingRelease(lineColor) }
     ];
-    CGColorRelease(lineColor);
 
     CGColorRef fillColor = [self newDefaultColorForPlot:index alpha:0.25];
     [self addInputPortWithType:QCPortTypeColor
                         forKey:[NSString stringWithFormat:@"plotFillColor%lu", (unsigned long)index]
                 withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Plot Fill Color %lu", (unsigned long)(index + 1)],
                                   QCPortAttributeTypeKey: QCPortTypeColor,
-                                  QCPortAttributeDefaultValueKey: (id)fillColor }
+                                  QCPortAttributeDefaultValueKey: CFBridgingRelease(fillColor) }
     ];
-    CGColorRelease(fillColor);
 
     [self addInputPortWithType:QCPortTypeNumber
                         forKey:[NSString stringWithFormat:@"plotDataLineWidth%lu", (unsigned long)index]
@@ -87,12 +85,11 @@
                         forKey:[NSString stringWithFormat:@"plotDataSymbolColor%lu", (unsigned long)index]
                 withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Data Symbol Color %lu", (unsigned long)(index + 1)],
                                   QCPortAttributeTypeKey: QCPortTypeColor,
-                                  QCPortAttributeDefaultValueKey: (id)symbolColor }
+                                  QCPortAttributeDefaultValueKey: CFBridgingRelease(symbolColor) }
     ];
-    CGColorRelease(symbolColor);
 
     // Add the new plot to the graph
-    CPTScatterPlot *scatterPlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *scatterPlot = [[CPTScatterPlot alloc] init];
     scatterPlot.identifier = [NSString stringWithFormat:@"Data Source Plot %lu", (unsigned long)(index + 1)];
 
     // Line Style
@@ -104,7 +101,7 @@
     scatterPlot.dataLineStyle = lineStyle;
     scatterPlot.areaFill      = [CPTFill fillWithColor:[CPTColor colorWithCGColor:fillColor]];
     scatterPlot.dataSource    = self;
-    [graph addPlot:scatterPlot];
+    [self.graph addPlot:scatterPlot];
 
     CGColorRelease(lineColor);
     CGColorRelease(fillColor);
@@ -113,24 +110,27 @@
 -(void)removePlots:(NSUInteger)count
 {
     // Clean up a deleted plot
+    CPTGraph *theGraph = self.graph;
 
-    for ( int i = numberOfPlots; i > numberOfPlots - count; i-- ) {
-        [self removeInputPortForKey:[NSString stringWithFormat:@"plotXNumbers%i", i - 1]];
-        [self removeInputPortForKey:[NSString stringWithFormat:@"plotYNumbers%i", i - 1]];
-        [self removeInputPortForKey:[NSString stringWithFormat:@"plotDataLineColor%i", i - 1]];
-        [self removeInputPortForKey:[NSString stringWithFormat:@"plotFillColor%i", i - 1]];
-        [self removeInputPortForKey:[NSString stringWithFormat:@"plotDataLineWidth%i", i - 1]];
-        [self removeInputPortForKey:[NSString stringWithFormat:@"plotDataSymbols%i", i - 1]];
-        [self removeInputPortForKey:[NSString stringWithFormat:@"plotDataSymbolColor%i", i - 1]];
+    NSUInteger plotCount = self.numberOfPlots;
 
-        [graph removePlot:[[graph allPlots] lastObject]];
+    for ( NSUInteger i = plotCount; i > plotCount - count; i-- ) {
+        [self removeInputPortForKey:[NSString stringWithFormat:@"plotXNumbers%lu", (unsigned long)(i - 1)]];
+        [self removeInputPortForKey:[NSString stringWithFormat:@"plotYNumbers%lu", (unsigned long)(i - 1)]];
+        [self removeInputPortForKey:[NSString stringWithFormat:@"plotDataLineColor%lu", (unsigned long)(i - 1)]];
+        [self removeInputPortForKey:[NSString stringWithFormat:@"plotFillColor%lu", (unsigned long)(i - 1)]];
+        [self removeInputPortForKey:[NSString stringWithFormat:@"plotDataLineWidth%lu", (unsigned long)(i - 1)]];
+        [self removeInputPortForKey:[NSString stringWithFormat:@"plotDataSymbols%lu", (unsigned long)(i - 1)]];
+        [self removeInputPortForKey:[NSString stringWithFormat:@"plotDataSymbolColor%lu", (unsigned long)(i - 1)]];
+
+        [theGraph removePlot:[[theGraph allPlots] lastObject]];
     }
 }
 
 -(CPTPlotSymbol *)plotSymbol:(NSUInteger)index
 {
     NSString *key    = [NSString stringWithFormat:@"plotDataSymbols%lu", (unsigned long)index];
-    NSUInteger value = [[self valueForInputKey:key] unsignedIntValue];
+    NSUInteger value = [[self valueForInputKey:key] unsignedIntegerValue];
 
     switch ( value ) {
         case 1:
@@ -172,18 +172,19 @@
 {
     NSString *key = [NSString stringWithFormat:@"plotDataSymbolColor%lu", (unsigned long)index];
 
-    return (CGColorRef)[self valueForInputKey : key];
+    return (__bridge CGColorRef)[self valueForInputKey:key];
 }
 
 -(BOOL)configurePlots
 {
     // Adjust the plots configuration using the QC input ports
+    CPTGraph *theGraph = self.graph;
 
-    for ( CPTScatterPlot *plot in [graph allPlots] ) {
-        int index = [[graph allPlots] indexOfObject:plot];
+    for ( CPTScatterPlot *plot in [theGraph allPlots] ) {
+        NSUInteger index = [[theGraph allPlots] indexOfObject:plot];
 
         CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
-        lineStyle.lineColor = [CPTColor colorWithCGColor:(CGColorRef)[self dataLineColor : index]];
+        lineStyle.lineColor = [CPTColor colorWithCGColor:[self dataLineColor:index]];
         lineStyle.lineWidth = [self dataLineWidth:index];
         plot.dataLineStyle  = lineStyle;
 
@@ -192,7 +193,7 @@
         plot.plotSymbol.lineStyle = lineStyle;
         plot.plotSymbol.fill      = [CPTFill fillWithColor:[CPTColor colorWithCGColor:[self dataSymbolColor:index]]];
         plot.plotSymbol.size      = CGSizeMake(10.0, 10.0);
-        plot.areaFill             = [CPTFill fillWithColor:[CPTColor colorWithCGColor:(CGColorRef)[self areaFillColor : index]]];
+        plot.areaFill             = [CPTFill fillWithColor:[CPTColor colorWithCGColor:[self areaFillColor:index]]];
         plot.areaBaseValue        = @( MAX( self.inputYMin, MIN(self.inputYMax, 0.0) ) );
 
         [plot reloadData];
@@ -205,36 +206,40 @@
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    NSUInteger plotIndex = [[graph allPlots] indexOfObject:plot];
+    NSUInteger plotIndex = [[self.graph allPlots] indexOfObject:plot];
     NSString *xKey       = [NSString stringWithFormat:@"plotXNumbers%lu", (unsigned long)plotIndex];
     NSString *yKey       = [NSString stringWithFormat:@"plotYNumbers%lu", (unsigned long)plotIndex];
 
-    if ( ![self valueForInputKey:xKey] || ![self valueForInputKey:yKey] ) {
+    NSDictionary *xVals = [self valueForInputKey:xKey];
+    NSDictionary *yVals = [self valueForInputKey:yKey];
+
+    if ( !xVals || !yVals ) {
         return 0;
     }
-    else if ( [[self valueForInputKey:xKey] count] != [[self valueForInputKey:yKey] count] ) {
+    else if ( xVals.count != yVals.count ) {
         return 0;
     }
 
-    return [[self valueForInputKey:xKey] count];
+    return xVals.count;
 }
 
 -(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    NSUInteger plotIndex = [[graph allPlots] indexOfObject:plot];
+    NSUInteger plotIndex = [[self.graph allPlots] indexOfObject:plot];
     NSString *xKey       = [NSString stringWithFormat:@"plotXNumbers%lu", (unsigned long)plotIndex];
     NSString *yKey       = [NSString stringWithFormat:@"plotYNumbers%lu", (unsigned long)plotIndex];
 
-    if ( ![self valueForInputKey:xKey] || ![self valueForInputKey:yKey] ) {
+    NSDictionary *xVals = [self valueForInputKey:xKey];
+    NSDictionary *yVals = [self valueForInputKey:yKey];
+
+    if ( !xVals || !yVals ) {
         return nil;
     }
-    else if ( [[self valueForInputKey:xKey] count] != [[self valueForInputKey:yKey] count] ) {
+    else if ( xVals.count != yVals.count ) {
         return nil;
     }
 
-    NSString *key = (fieldEnum == CPTScatterPlotFieldX) ? xKey : yKey;
-
-    NSDictionary *dict = [self valueForInputKey:key];
+    NSDictionary *dict = (fieldEnum == CPTScatterPlotFieldX) ? xVals : yVals;
 
     NSString *dictionaryKey = [NSString stringWithFormat:@"%lu", (unsigned long)index];
 

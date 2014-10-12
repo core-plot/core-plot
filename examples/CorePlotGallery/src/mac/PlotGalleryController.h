@@ -15,21 +15,8 @@
 
 @interface PlotGalleryController : NSObject<NSSplitViewDelegate,
                                             PlotViewDelegate>
-{
-    @private
-    IBOutlet NSSplitView *splitView;
-    IBOutlet NSScrollView *scrollView;
-    IBOutlet IKImageBrowserView *imageBrowser;
-    IBOutlet NSPopUpButton *themePopUpButton;
 
-    IBOutlet PlotView *hostingView;
-
-    PlotItem *plotItem;
-
-    NSString *currentThemeName;
-}
-
-@property (nonatomic, retain) PlotItem *plotItem;
+@property (nonatomic, strong) PlotItem *plotItem;
 @property (nonatomic, copy) NSString *currentThemeName;
 
 -(IBAction)themeSelectionDidChange:(id)sender;

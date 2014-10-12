@@ -31,7 +31,7 @@
 #endif
 
     // Create graph
-    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTSlateTheme]];
 
@@ -65,7 +65,8 @@
     // Axes
     NSMutableArray *axes = [[NSMutableArray alloc] init];
 
-    for ( CPTLineCapType lineCapType = CPTLineCapTypeNone; lineCapType < CPTLineCapTypeCustom; ) {
+    CPTLineCapType lineCapType = CPTLineCapTypeNone;
+    while ( lineCapType < CPTLineCapTypeCustom ) {
         CPTXYAxis *axis = [[CPTXYAxis alloc] init];
         axis.plotSpace          = graph.defaultPlotSpace;
         axis.labelingPolicy     = CPTAxisLabelingPolicyNone;
@@ -79,12 +80,10 @@
         axis.axisLineCapMax = lineCap;
 
         [axes addObject:axis];
-        [axis release];
     }
 
     // Add axes to the graph
     graph.axisSet.axes = axes;
-    [axes release];
 }
 
 @end

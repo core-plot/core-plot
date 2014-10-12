@@ -1,6 +1,6 @@
-#import "CPBarPlotPlugIn.h"
+#import "CPTBarPlotPlugIn.h"
 
-@implementation CPBarPlotPlugIn
+@implementation CPTBarPlotPlugIn
 
 /*
  * NOTE: It seems that QC plugins don't inherit dynamic input ports which is
@@ -114,18 +114,16 @@
                         forKey:[NSString stringWithFormat:@"plotDataLineColor%lu", (unsigned long)index]
                 withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Plot Line Color %lu", (unsigned long)(index + 1)],
                                   QCPortAttributeTypeKey: QCPortTypeColor,
-                                  QCPortAttributeDefaultValueKey: (id)lineColor }
+                                  QCPortAttributeDefaultValueKey: CFBridgingRelease(lineColor) }
     ];
-    CGColorRelease(lineColor);
 
     CGColorRef fillColor = [self newDefaultColorForPlot:index alpha:0.25];
     [self addInputPortWithType:QCPortTypeColor
                         forKey:[NSString stringWithFormat:@"plotFillColor%lu", (unsigned long)index]
                 withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Plot Fill Color %lu", (unsigned long)(index + 1)],
                                   QCPortAttributeTypeKey: QCPortTypeColor,
-                                  QCPortAttributeDefaultValueKey: (id)fillColor }
+                                  QCPortAttributeDefaultValueKey: CFBridgingRelease(fillColor) }
     ];
-    CGColorRelease(fillColor);
 
     [self addInputPortWithType:QCPortTypeNumber
                         forKey:[NSString stringWithFormat:@"plotDataLineWidth%lu", (unsigned long)index]
@@ -139,35 +137,40 @@
     CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor greenColor] horizontalBars:NO];
     barPlot.identifier = [NSString stringWithFormat:@"Bar Plot %lu", (unsigned long)(index + 1)];
     barPlot.dataSource = self;
-    [graph addPlot:barPlot];
+    [self.graph addPlot:barPlot];
 }
 
 -(void)removePlots:(NSUInteger)count
 {
     // Clean up a deleted plot
+    CPTGraph *theGraph = self.graph;
 
-    for ( int i = numberOfPlots; i > numberOfPlots - count; i-- ) {
-        [self removeInputPortForKey:[NSString stringWithFormat:@"plotNumbers%i", i - 1]];
-        [self removeInputPortForKey:[NSString stringWithFormat:@"plotDataLineColor%i", i - 1]];
-        [self removeInputPortForKey:[NSString stringWithFormat:@"plotFillColor%i", i - 1]];
-        [self removeInputPortForKey:[NSString stringWithFormat:@"plotDataLineWidth%i", i - 1]];
+    NSUInteger plotCount = self.numberOfPlots;
 
-        [graph removePlot:[[graph allPlots] lastObject]];
+    for ( NSUInteger i = plotCount; i > plotCount - count; i-- ) {
+        [self removeInputPortForKey:[NSString stringWithFormat:@"plotNumbers%lu", (unsigned long)(i - 1)]];
+        [self removeInputPortForKey:[NSString stringWithFormat:@"plotDataLineColor%lu", (unsigned long)(i - 1)]];
+        [self removeInputPortForKey:[NSString stringWithFormat:@"plotFillColor%lu", (unsigned long)(i - 1)]];
+        [self removeInputPortForKey:[NSString stringWithFormat:@"plotDataLineWidth%lu", (unsigned long)(i - 1)]];
+
+        [theGraph removePlot:[[theGraph allPlots] lastObject]];
     }
 }
 
 -(BOOL)configurePlots
 {
+    CPTGraph *theGraph = self.graph;
+
     // The pixel width of a single plot unit (1..2) along the x axis of the plot
-    double count     = (double)[[graph allPlots] count];
-    double unitWidth = graph.plotAreaFrame.bounds.size.width / (self.inputXMax - self.inputXMin);
+    double count     = (double)[[theGraph allPlots] count];
+    double unitWidth = theGraph.plotAreaFrame.bounds.size.width / (self.inputXMax - self.inputXMin);
     double barWidth  = self.inputBarWidth * unitWidth / count;
 
     // Configure scatter plots for active plot inputs
-    for ( CPTBarPlot *plot in [graph allPlots] ) {
-        int index                      = [[graph allPlots] indexOfObject:plot];
+    for ( CPTBarPlot *plot in [theGraph allPlots] ) {
+        NSUInteger index               = [[theGraph allPlots] indexOfObject:plot];
         CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
-        lineStyle.lineColor    = [CPTColor colorWithCGColor:(CGColorRef)[self dataLineColor : index]];
+        lineStyle.lineColor    = [CPTColor colorWithCGColor:[self dataLineColor:index]];
         lineStyle.lineWidth    = [self dataLineWidth:index];
         plot.lineStyle         = lineStyle;
         plot.baseValue         = @(self.inputBaseValue);
@@ -187,33 +190,30 @@
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    NSUInteger plotIndex = [[graph allPlots] indexOfObject:plot];
+    NSUInteger plotIndex = [[self.graph allPlots] indexOfObject:plot];
     NSString *key        = [NSString stringWithFormat:@"plotNumbers%lu", (unsigned long)plotIndex];
-
-    if ( ![self valueForInputKey:key] ) {
-        return 0;
-    }
 
     return [[self valueForInputKey:key] count];
 }
 
--(NSArray *)numbersForPlot:(CPTBarPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange
+-(NSArray *)numbersForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange
 {
-    NSUInteger plotIndex = [[graph allPlots] indexOfObject:plot];
+    NSUInteger plotIndex = [[self.graph allPlots] indexOfObject:plot];
     NSString *key        = [NSString stringWithFormat:@"plotNumbers%lu", (unsigned long)plotIndex];
 
-    if ( ![self valueForInputKey:key] ) {
+    NSDictionary *dict = [self valueForInputKey:key];
+
+    if ( !dict ) {
         return nil;
     }
 
-    NSDictionary *dict    = [self valueForInputKey:key];
     NSUInteger keyCount   = [[dict allKeys] count];
     NSMutableArray *array = [NSMutableArray array];
 
     if ( fieldEnum == CPTBarPlotFieldBarLocation ) {
         // Calculate horizontal position of bar - nth bar index + barWidth*plotIndex + 0.5
         float xpos;
-        float plotCount = [[graph allPlots] count];
+        float plotCount = [[self.graph allPlots] count];
 
         for ( NSUInteger i = 0; i < keyCount; i++ ) {
             xpos = (float)i + (float)plotIndex / (plotCount);

@@ -2,22 +2,11 @@
 #import <Cocoa/Cocoa.h>
 #import <CorePlot/CorePlot.h>
 
-@interface Controller : NSArrayController<CPTPlotDataSource, CPTRotationDelegate, CPTPlotAreaDelegate, CPTPlotSpaceDelegate, CPTBarPlotDelegate> {
-    IBOutlet CPTGraphHostingView *hostView;
-    IBOutlet __unsafe_unretained NSWindow *plotSymbolWindow;
-    IBOutlet __unsafe_unretained NSWindow *axisDemoWindow;
-    IBOutlet __unsafe_unretained NSWindow *selectionDemoWindow;
-    CPTXYGraph *graph;
-    RotationView *overlayRotationView;
-    CPTPlotSpaceAnnotation *symbolTextAnnotation;
-    CGFloat xShift;
-    CGFloat yShift;
-    CGFloat labelRotation;
-}
+@interface Controller : NSArrayController<CPTPlotDataSource, CPTRotationDelegate, CPTPlotAreaDelegate, CPTPlotSpaceDelegate, CPTBarPlotDelegate>
 
-@property (nonatomic) CGFloat xShift;
-@property (nonatomic) CGFloat yShift;
-@property (nonatomic) CGFloat labelRotation;
+@property (nonatomic, readwrite, assign) CGFloat xShift;
+@property (nonatomic, readwrite, assign) CGFloat yShift;
+@property (nonatomic, readwrite, assign) CGFloat labelRotation;
 
 // Data loading
 -(IBAction)reloadDataSourcePlot:(id)sender;

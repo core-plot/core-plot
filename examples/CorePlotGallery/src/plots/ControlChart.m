@@ -1,13 +1,25 @@
 #import "ControlChart.h"
 
-NSString *const kDataLine    = @"Data Line";
-NSString *const kCenterLine  = @"Center Line";
-NSString *const kControlLine = @"Control Line";
-NSString *const kWarningLine = @"Warning Line";
+static NSString *const kDataLine    = @"Data Line";
+static NSString *const kCenterLine  = @"Center Line";
+static NSString *const kControlLine = @"Control Line";
+static NSString *const kWarningLine = @"Warning Line";
 
 static const NSUInteger numberOfPoints = 11;
 
+@interface ControlChart()
+
+@property (nonatomic, readwrite, strong) NSArray *plotData;
+@property (nonatomic, readwrite, assign) double meanValue;
+@property (nonatomic, readwrite, assign) double standardError;
+
+@end
+
 @implementation ControlChart
+
+@synthesize plotData;
+@synthesize meanValue;
+@synthesize standardError;
 
 +(void)load
 {
@@ -26,28 +38,28 @@ static const NSUInteger numberOfPoints = 11;
 
 -(void)generateData
 {
-    if ( plotData == nil ) {
+    if ( self.plotData == nil ) {
         NSMutableArray *contentArray = [NSMutableArray array];
 
         double sum = 0.0;
 
         for ( NSUInteger i = 0; i < numberOfPoints; i++ ) {
-            double y = 12.0 * rand() / (double)RAND_MAX + 5.0;
+            double y = 12.0 * arc4random() / (double)UINT32_MAX + 5.0;
             sum += y;
             [contentArray addObject:@(y)];
         }
 
-        plotData = [contentArray retain];
+        self.plotData = contentArray;
 
-        meanValue = sum / numberOfPoints;
+        self.meanValue = sum / numberOfPoints;
 
         sum = 0.0;
         for ( NSNumber *value in contentArray ) {
-            double error = [value doubleValue] - meanValue;
+            double error = [value doubleValue] - self.meanValue;
             sum += error * error;
         }
         double stdDev = sqrt( ( 1.0 / (numberOfPoints - 1) ) * sum );
-        standardError = stdDev / sqrt(numberOfPoints);
+        self.standardError = stdDev / sqrt(numberOfPoints);
     }
 }
 
@@ -59,7 +71,7 @@ static const NSUInteger numberOfPoints = 11;
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
-    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTPlainWhiteTheme]];
 
@@ -75,17 +87,17 @@ static const NSUInteger numberOfPoints = 11;
     // Grid line styles
     CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
     majorGridLineStyle.lineWidth = 0.75;
-    majorGridLineStyle.lineColor = [[CPTColor colorWithGenericGray:0.2] colorWithAlphaComponent:0.75];
+    majorGridLineStyle.lineColor = [[CPTColor colorWithGenericGray:CPTFloat(0.2)] colorWithAlphaComponent:CPTFloat(0.75)];
 
     CPTMutableLineStyle *minorGridLineStyle = [CPTMutableLineStyle lineStyle];
     minorGridLineStyle.lineWidth = 0.25;
-    minorGridLineStyle.lineColor = [[CPTColor whiteColor] colorWithAlphaComponent:0.1];
+    minorGridLineStyle.lineColor = [[CPTColor whiteColor] colorWithAlphaComponent:CPTFloat(0.1)];
 
     CPTMutableLineStyle *redLineStyle = [CPTMutableLineStyle lineStyle];
     redLineStyle.lineWidth = 10.0;
     redLineStyle.lineColor = [[CPTColor redColor] colorWithAlphaComponent:0.5];
 
-    NSNumberFormatter *labelFormatter = [[[NSNumberFormatter alloc] init] autorelease];
+    NSNumberFormatter *labelFormatter = [[NSNumberFormatter alloc] init];
     labelFormatter.maximumFractionDigits = 0;
 
     // Axes
@@ -111,7 +123,7 @@ static const NSUInteger numberOfPoints = 11;
     y.titleOffset = 30.0;
 
     // Center line
-    CPTScatterPlot *centerLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *centerLinePlot = [[CPTScatterPlot alloc] init];
     centerLinePlot.identifier = kCenterLine;
 
     CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
@@ -123,7 +135,7 @@ static const NSUInteger numberOfPoints = 11;
     [graph addPlot:centerLinePlot];
 
     // Control lines
-    CPTScatterPlot *controlLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *controlLinePlot = [[CPTScatterPlot alloc] init];
     controlLinePlot.identifier = kControlLine;
 
     lineStyle                     = [CPTMutableLineStyle lineStyle];
@@ -136,7 +148,7 @@ static const NSUInteger numberOfPoints = 11;
     [graph addPlot:controlLinePlot];
 
     // Warning lines
-    CPTScatterPlot *warningLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *warningLinePlot = [[CPTScatterPlot alloc] init];
     warningLinePlot.identifier = kWarningLine;
 
     lineStyle                     = [CPTMutableLineStyle lineStyle];
@@ -149,7 +161,7 @@ static const NSUInteger numberOfPoints = 11;
     [graph addPlot:warningLinePlot];
 
     // Data line
-    CPTScatterPlot *linePlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *linePlot = [[CPTScatterPlot alloc] init];
     linePlot.identifier = kDataLine;
 
     lineStyle              = [CPTMutableLineStyle lineStyle];
@@ -173,8 +185,8 @@ static const NSUInteger numberOfPoints = 11;
     [plotSpace scaleToFitPlots:@[linePlot]];
 
     // Adjust visible ranges so plot symbols along the edges are not clipped
-    CPTMutablePlotRange *xRange = [[plotSpace.xRange mutableCopy] autorelease];
-    CPTMutablePlotRange *yRange = [[plotSpace.yRange mutableCopy] autorelease];
+    CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
+    CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
 
     x.orthogonalPosition = yRange.location;
     y.orthogonalPosition = xRange.location;
@@ -201,19 +213,13 @@ static const NSUInteger numberOfPoints = 11;
     graph.legendDisplacement     = CGPointMake(0.0, 12.0);
 }
 
--(void)dealloc
-{
-    [plotData release];
-    [super dealloc];
-}
-
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
     if ( plot.identifier == kDataLine ) {
-        return [plotData count];
+        return self.plotData.count;
     }
     else if ( plot.identifier == kCenterLine ) {
         return 2;
@@ -239,7 +245,7 @@ static const NSUInteger numberOfPoints = 11;
                         break;
 
                     case 1:
-                        number = (double)([plotData count] - 1);
+                        number = (double)(self.plotData.count - 1);
                         break;
 
                     case 2:
@@ -252,16 +258,16 @@ static const NSUInteger numberOfPoints = 11;
 
         case CPTScatterPlotFieldY:
             if ( plot.identifier == kDataLine ) {
-                number = [plotData[index] doubleValue];
+                number = [self.plotData[index] doubleValue];
             }
             else if ( plot.identifier == kCenterLine ) {
-                number = meanValue;
+                number = self.meanValue;
             }
             else if ( plot.identifier == kControlLine ) {
                 switch ( index ) {
                     case 0:
                     case 1:
-                        number = meanValue + 3.0 * standardError;
+                        number = self.meanValue + 3.0 * self.standardError;
                         break;
 
                     case 2:
@@ -270,7 +276,7 @@ static const NSUInteger numberOfPoints = 11;
 
                     case 3:
                     case 4:
-                        number = meanValue - 3.0 * standardError;
+                        number = self.meanValue - 3.0 * self.standardError;
                         break;
                 }
             }
@@ -278,7 +284,7 @@ static const NSUInteger numberOfPoints = 11;
                 switch ( index ) {
                     case 0:
                     case 1:
-                        number = meanValue + 2.0 * standardError;
+                        number = self.meanValue + 2.0 * self.standardError;
                         break;
 
                     case 2:
@@ -287,7 +293,7 @@ static const NSUInteger numberOfPoints = 11;
 
                     case 3:
                     case 4:
-                        number = meanValue - 2.0 * standardError;
+                        number = self.meanValue - 2.0 * self.standardError;
                         break;
                 }
             }

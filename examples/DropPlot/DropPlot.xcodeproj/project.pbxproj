@@ -16,7 +16,7 @@
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		BC00E6450FE1BE4D00DE81E0 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC93AA970FDEFEAC00606226 /* CorePlot.framework */; };
 		BC00E6480FE1BF0A00DE81E0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC00E6470FE1BF0A00DE81E0 /* QuartzCore.framework */; };
-		BC93AACE0FDF339600606226 /* CorePlot.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = BC93AA970FDEFEAC00606226 /* CorePlot.framework */; };
+		BC93AACE0FDF339600606226 /* CorePlot.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = BC93AA970FDEFEAC00606226 /* CorePlot.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		BC93AAF60FDF3F0200606226 /* NSString+ParseCSV.m in Sources */ = {isa = PBXBuildFile; fileRef = BC93AAF50FDF3F0200606226 /* NSString+ParseCSV.m */; };
 		BCFD32AE0FEF08EA00A5B71C /* CorePlotIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BCFD32AD0FEF08EA00A5B71C /* CorePlotIcon.icns */; };
 /* End PBXBuildFile section */
@@ -79,6 +79,7 @@
 		BC93AAF40FDF3F0200606226 /* NSString+ParseCSV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ParseCSV.h"; sourceTree = "<group>"; };
 		BC93AAF50FDF3F0200606226 /* NSString+ParseCSV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ParseCSV.m"; sourceTree = "<group>"; };
 		BCFD32AD0FEF08EA00A5B71C /* CorePlotIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CorePlotIcon.icns; sourceTree = "<group>"; };
+		C3D6210E19DF72E000652CE7 /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +155,7 @@
 			children = (
 				32DBCF750370BD2300C91783 /* DropPlot_Prefix.pch */,
 				2A37F4B0FDCFA73011CA2CEA /* main.m */,
+				C3D6210E19DF72E000652CE7 /* CorePlotWarnings.xcconfig */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -184,7 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				BC93AA970FDEFEAC00606226 /* CorePlot.framework */,
-				07E0DFAC109C4EB500F108D2 /* UnitTests.octest */,
+				07E0DFAC109C4EB500F108D2 /* UnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -218,7 +220,7 @@
 		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0600;
 			};
 			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "DropPlot" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -246,7 +248,7 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		07E0DFAC109C4EB500F108D2 /* UnitTests.octest */ = {
+		07E0DFAC109C4EB500F108D2 /* UnitTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = UnitTests.xctest;
@@ -338,6 +340,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
@@ -357,6 +360,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "";
@@ -373,6 +377,7 @@
 		};
 		C05733CC08A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3D6210E19DF72E000652CE7 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../framework/build/$(CONFIGURATION)\"/**";
@@ -390,6 +395,7 @@
 		};
 		C05733CD08A9546B00998B17 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3D6210E19DF72E000652CE7 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../framework/build/$(CONFIGURATION)\"/**";
 				GCC_C_LANGUAGE_STANDARD = c99;

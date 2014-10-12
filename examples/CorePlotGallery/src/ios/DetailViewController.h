@@ -14,26 +14,12 @@
 @interface DetailViewController : UIViewController<UIPopoverControllerDelegate,
                                                    UISplitViewControllerDelegate,
                                                    ThemeTableViewControllerDelegate>
-{
-    @private
-    UIPopoverController *popoverController;
-    UIToolbar *toolbar;
 
-    PlotItem *detailItem;
-
-    UIView *hostingView;
-    UIBarButtonItem *themeBarButton;
-    UIPopoverController *themePopoverController;
-    ThemeTableViewController *themeTableViewController;
-
-    NSString *currentThemeName;
-}
-
-@property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
-@property (nonatomic, retain) PlotItem *detailItem;
-@property (nonatomic, retain) IBOutlet UIView *hostingView;
-@property (nonatomic, retain) IBOutlet UIBarButtonItem *themeBarButton;
-@property (nonatomic, retain) IBOutlet ThemeTableViewController *themeTableViewController;
+@property (nonatomic, strong) IBOutlet UIToolbar *toolbar;
+@property (nonatomic, strong) PlotItem *detailItem;
+@property (nonatomic, strong) IBOutlet UIView *hostingView;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *themeBarButton;
+@property (nonatomic, strong) IBOutlet ThemeTableViewController *themeTableViewController;
 @property (nonatomic, copy) NSString *currentThemeName;
 
 -(IBAction)showThemes:(id)sender;

@@ -8,7 +8,15 @@
 
 #import "DatePlot.h"
 
+@interface DatePlot()
+
+@property (nonatomic, readwrite, strong) NSArray *plotData;
+
+@end
+
 @implementation DatePlot
+
+@synthesize plotData;
 
 +(void)load
 {
@@ -27,22 +35,23 @@
 
 -(void)generateData
 {
-    if ( !plotData ) {
+    if ( !self.plotData ) {
         const NSTimeInterval oneDay = 24 * 60 * 60;
 
         // Add some data
         NSMutableArray *newData = [NSMutableArray array];
 
         for ( NSUInteger i = 0; i < 5; i++ ) {
-            NSTimeInterval x = oneDay * i;
-            NSNumber *y      = @(1.2 * rand() / (double)RAND_MAX + 1.2);
+            NSTimeInterval xVal = oneDay * i;
+
+            double yVal = 1.2 * arc4random() / (double)UINT32_MAX + 1.2;
 
             [newData addObject:
-             @{ @(CPTScatterPlotFieldX): @(x),
-                @(CPTScatterPlotFieldY): y }
+             @{ @(CPTScatterPlotFieldX): @(xVal),
+                @(CPTScatterPlotFieldY): @(yVal) }
             ];
 
-            plotData = [newData retain];
+            self.plotData = newData;
         }
     }
 }
@@ -61,16 +70,9 @@
     [dateComponents setMinute:0];
     [dateComponents setSecond:0];
 
-#ifdef NSCalendarIdentifierGregorian
     NSCalendar *gregorian = [[NSCalendar alloc]
                              initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-#else
-    NSCalendar *gregorian = [[NSCalendar alloc]
-                             initWithCalendarIdentifier:NSGregorianCalendar];
-#endif
     NSDate *refDate = [gregorian dateFromComponents:dateComponents];
-    [dateComponents release];
-    [gregorian release];
 
     NSTimeInterval oneDay = 24 * 60 * 60;
 
@@ -80,7 +82,7 @@
     CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
 #endif
 
-    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:graph toHostingView:layerHostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
@@ -99,12 +101,12 @@
     x.majorIntervalLength   = @(oneDay);
     x.orthogonalPosition    = @2.0;
     x.minorTicksPerInterval = 0;
-    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateStyle = kCFDateFormatterShortStyle;
-    CPTTimeFormatter *timeFormatter = [[[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter] autorelease];
+    CPTTimeFormatter *timeFormatter = [[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter];
     timeFormatter.referenceDate = refDate;
     x.labelFormatter            = timeFormatter;
-    x.labelRotation             = M_PI_4;
+    x.labelRotation             = CPTFloat(M_PI_4);
 
     CPTXYAxis *y = axisSet.yAxis;
     y.majorIntervalLength   = @0.5;
@@ -112,10 +114,10 @@
     y.orthogonalPosition    = @(oneDay);
 
     // Create a plot that uses the data source method
-    CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] init];
     dataSourceLinePlot.identifier = @"Date Plot";
 
-    CPTMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+    CPTMutableLineStyle *lineStyle = [dataSourceLinePlot.dataLineStyle mutableCopy];
     lineStyle.lineWidth              = 3.0;
     lineStyle.lineColor              = [CPTColor greenColor];
     dataSourceLinePlot.dataLineStyle = lineStyle;
@@ -124,23 +126,17 @@
     [graph addPlot:dataSourceLinePlot];
 }
 
--(void)dealloc
-{
-    [plotData release];
-    [super dealloc];
-}
-
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    return [plotData count];
+    return self.plotData.count;
 }
 
 -(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    return plotData[index][@(fieldEnum)];
+    return self.plotData[index][@(fieldEnum)];
 }
 
 @end

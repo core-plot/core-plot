@@ -12,19 +12,10 @@
 @class DetailViewController;
 
 @interface Plot_GalleryAppDelegate : NSObject<UIApplicationDelegate>
-{
-    @private
-    UIWindow *window;
 
-    UISplitViewController *splitViewController;
-
-    RootViewController *rootViewController;
-    DetailViewController *detailViewController;
-}
-
-@property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet UISplitViewController *splitViewController;
-@property (nonatomic, retain) IBOutlet RootViewController *rootViewController;
-@property (nonatomic, retain) IBOutlet DetailViewController *detailViewController;
+@property (nonatomic, strong) IBOutlet UIWindow *window;
+@property (nonatomic, strong) IBOutlet UISplitViewController *splitViewController;
+@property (nonatomic, strong) IBOutlet RootViewController *rootViewController;
+@property (nonatomic, strong) IBOutlet DetailViewController *detailViewController;
 
 @end

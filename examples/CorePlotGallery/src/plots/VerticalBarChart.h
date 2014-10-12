@@ -11,9 +11,5 @@
 @interface VerticalBarChart : PlotItem<CPTPlotSpaceDelegate,
                                        CPTPlotDataSource,
                                        CPTBarPlotDelegate>
-{
-    @private
-    CPTPlotSpaceAnnotation *symbolTextAnnotation;
-}
 
 @end

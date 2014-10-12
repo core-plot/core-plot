@@ -2,7 +2,7 @@
 
 @implementation NSString(ParseCSV)
 
--(NSArray *)arrayByParsingCSVLine;
+-(NSArray *)arrayByParsingCSVLine
 {
     BOOL isRemoveWhitespace               = YES;
     NSMutableArray *theArray              = [NSMutableArray array];
@@ -11,6 +11,7 @@
     BOOL inField                          = NO;
     NSMutableString *theConcatenatedField = [NSMutableString string];
     unsigned int i;
+
     for ( i = 0; i < [theFields count]; i++ ) {
         NSString *theField = theFields[i];
         switch ( inField ) {
@@ -33,12 +34,12 @@
             case YES:
                 [theConcatenatedField appendString:theField];
                 if ( [theField hasSuffix:@"\""] == YES ) {
-                    NSString *theField = [theConcatenatedField stringByTrimmingCharactersInSet:quotedCharacterSet];
+                    NSString *field = [theConcatenatedField stringByTrimmingCharactersInSet:quotedCharacterSet];
                     if ( isRemoveWhitespace ) {
-                        [theArray addObject:[theField stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+                        [theArray addObject:[field stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
                     }
                     else {
-                        [theArray addObject:theField];
+                        [theArray addObject:field];
                     }
                     [theConcatenatedField setString:@""];
                     inField = NO;

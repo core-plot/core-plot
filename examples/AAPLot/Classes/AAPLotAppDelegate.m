@@ -25,11 +25,4 @@
     [self.window makeKeyAndVisible];
 }
 
--(void)dealloc
-{
-    [rootViewController release];
-    [window release];
-    [super dealloc];
-}
-
 @end

@@ -11,38 +11,18 @@
 
 @end
 
-@interface APYahooDataPuller : NSObject {
-    NSString *symbol;
-    NSDate *startDate;
-    NSDate *endDate;
+@interface APYahooDataPuller : NSObject
 
-    NSDate *targetStartDate;
-    NSDate *targetEndDate;
-    NSString *targetSymbol;
-
-    id delegate;
-    NSDecimalNumber *overallHigh;
-    NSDecimalNumber *overallLow;
-    BOOL loadingData;
-    BOOL staleData;
-
-    @private
-    NSArray *financialData; // consists of dictionaries
-
-    NSMutableData *receivedData;
-    NSURLConnection *connection;
-}
-
-@property (nonatomic, assign) id delegate;
-@property (nonatomic, copy) NSString *symbol;
-@property (nonatomic, retain) NSDate *startDate;
-@property (nonatomic, retain) NSDate *endDate;
-@property (nonatomic, copy) NSString *targetSymbol;
-@property (nonatomic, retain) NSDate *targetStartDate;
-@property (nonatomic, retain) NSDate *targetEndDate;
-@property (nonatomic, readonly, retain) NSArray *financialData;
-@property (nonatomic, readonly, retain) NSDecimalNumber *overallHigh;
-@property (nonatomic, readonly, retain) NSDecimalNumber *overallLow;
+@property (nonatomic, readwrite, weak) id delegate;
+@property (nonatomic, readwrite, copy) NSString *symbol;
+@property (nonatomic, readwrite, strong) NSDate *startDate;
+@property (nonatomic, readwrite, strong) NSDate *endDate;
+@property (nonatomic, readwrite, copy) NSString *targetSymbol;
+@property (nonatomic, readwrite, strong) NSDate *targetStartDate;
+@property (nonatomic, readwrite, strong) NSDate *targetEndDate;
+@property (nonatomic, readonly, strong) NSArray *financialData;
+@property (nonatomic, readonly, strong) NSDecimalNumber *overallHigh;
+@property (nonatomic, readonly, strong) NSDecimalNumber *overallLow;
 @property (nonatomic, readonly, assign) BOOL loadingData;
 @property (nonatomic, readonly, assign) BOOL staleData;
 

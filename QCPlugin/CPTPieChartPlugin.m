@@ -1,6 +1,6 @@
-#import "CPPieChartPlugin.h"
+#import "CPTPieChartPlugin.h"
 
-@implementation CPPieChartPlugIn
+@implementation CPTPieChartPlugIn
 
 /*
  * NOTE: It seems that QC plugins don't inherit dynamic input ports which is
@@ -108,18 +108,16 @@
         CGColorRef grayColor = CGColorCreateGenericGray(0.0, 1.0);
         NSDictionary *result = @{
             QCPortAttributeNameKey: @"Border Color",
-            QCPortAttributeDefaultValueKey: (id)grayColor
+            QCPortAttributeDefaultValueKey: CFBridgingRelease(grayColor)
         };
-        CGColorRelease(grayColor);
         return result;
     }
     else if ( [key isEqualToString:@"inputLabelColor"] ) {
         CGColorRef grayColor = CGColorCreateGenericGray(1.0, 1.0);
         NSDictionary *result = @{
             QCPortAttributeNameKey: @"Label Color",
-            QCPortAttributeDefaultValueKey: (id)grayColor
+            QCPortAttributeDefaultValueKey: CFBridgingRelease(grayColor)
         };
-        CGColorRelease(grayColor);
         return result;
     }
     else {
@@ -149,16 +147,15 @@
                             forKey:[NSString stringWithFormat:@"plotFillColor%lu", (unsigned long)index]
                     withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Primary Fill Color %lu", (unsigned long)(index + 1)],
                                       QCPortAttributeTypeKey: QCPortTypeColor,
-                                      QCPortAttributeDefaultValueKey: (id)grayColor }
+                                      QCPortAttributeDefaultValueKey: CFBridgingRelease(grayColor) }
         ];
-        CGColorRelease(grayColor);
 
         // Add the new plot to the graph
-        CPTPieChart *pieChart = [[[CPTPieChart alloc] init] autorelease];
+        CPTPieChart *pieChart = [[CPTPieChart alloc] init];
         pieChart.identifier = [NSString stringWithFormat:@"Pie Chart %lu", (unsigned long)(index + 1)];
         pieChart.dataSource = self;
 
-        [graph addPlot:pieChart];
+        [self.graph addPlot:pieChart];
     }
 }
 
@@ -167,26 +164,29 @@
 
 -(void)createGraph
 {
-    if ( !graph ) {
+    if ( !self.graph ) {
         // Create graph from theme
         CPTTheme *theme = [CPTTheme themeNamed:kCPTPlainWhiteTheme];
-        graph         = (CPTXYGraph *)[theme newGraph];
-        graph.axisSet = nil;
+        self.graph = (CPTXYGraph *)[theme newGraph];
+
+        self.graph.axisSet = nil;
     }
 }
 
 -(BOOL)configureAxis
 {
     // We use no axis for the pie chart
-    graph.axisSet                                = nil;
-    graph.plotAreaFrame.plotArea.borderLineStyle = nil;
+    self.graph.axisSet = nil;
+
+    self.graph.plotAreaFrame.plotArea.borderLineStyle = nil;
+
     return YES;
 }
 
 -(BOOL)configurePlots
 {
     // Configure the pie chart
-    for ( CPTPieChart *pieChart in [graph allPlots] ) {
+    for ( CPTPieChart *pieChart in [self.graph allPlots] ) {
         pieChart.plotArea.borderLineStyle = nil;
 
         pieChart.pieRadius      = self.inputPieRadius * MIN(self.inputPixelsWide, self.inputPixelsHigh) / 2.0;
@@ -218,27 +218,25 @@
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    NSUInteger plotIndex = [[graph allPlots] indexOfObject:plot];
+    NSUInteger plotIndex = [[self.graph allPlots] indexOfObject:plot];
     NSString *key        = [NSString stringWithFormat:@"plotNumbers%lu", (unsigned long)plotIndex];
-
-    if ( ![self valueForInputKey:key] ) {
-        return 0;
-    }
 
     return [[self valueForInputKey:key] count];
 }
 
 -(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    NSUInteger plotIndex = [[graph allPlots] indexOfObject:plot];
+    NSUInteger plotIndex = [[self.graph allPlots] indexOfObject:plot];
     NSString *key        = [NSString stringWithFormat:@"plotNumbers%lu", (unsigned long)plotIndex];
 
-    if ( ![self valueForInputKey:key] ) {
+    NSDictionary *dict = [self valueForInputKey:key];
+
+    if ( dict ) {
+        return [NSDecimalNumber decimalNumberWithString:[dict[[NSString stringWithFormat:@"%lu", (unsigned long)index]] stringValue]];
+    }
+    else {
         return nil;
     }
-
-    NSDictionary *dict = [self valueForInputKey:key];
-    return [NSDecimalNumber decimalNumberWithString:[dict[[NSString stringWithFormat:@"%lu", (unsigned long)index]] stringValue]];
 }
 
 -(CPTFill *)sliceFillForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index
@@ -258,23 +256,23 @@
 
     CGColorRelease(fillColor);
 
-    return [[[CPTFill alloc] initWithColor:fillCPColor] autorelease];
+    return [[CPTFill alloc] initWithColor:fillCPColor];
 }
 
 -(CPTTextLayer *)sliceLabelForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index
 {
-    NSUInteger plotIndex = [[graph allPlots] indexOfObject:pieChart];
+    NSUInteger plotIndex = [[self.graph allPlots] indexOfObject:pieChart];
     NSString *key        = [NSString stringWithFormat:@"plotLabels%lu", (unsigned long)plotIndex];
-
-    if ( ![self valueForInputKey:key] ) {
-        return nil;
-    }
 
     NSDictionary *dict = [self valueForInputKey:key];
 
+    if ( !dict ) {
+        return nil;
+    }
+
     NSString *label = dict[[NSString stringWithFormat:@"%lu", (unsigned long)index]];
 
-    CPTTextLayer *layer = [[[CPTTextLayer alloc] initWithText:label] autorelease];
+    CPTTextLayer *layer = [[CPTTextLayer alloc] initWithText:label];
     [layer sizeToFit];
 
     CPTMutableTextStyle *style = [CPTMutableTextStyle textStyle];

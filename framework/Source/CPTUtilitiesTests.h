@@ -2,6 +2,6 @@
 
 @interface CPTUtilitiesTests : CPTTestCase
 
-@property (readwrite, assign) CGContextRef context;
+@property (nonatomic, readwrite, assign) CGContextRef context;
 
 @end
