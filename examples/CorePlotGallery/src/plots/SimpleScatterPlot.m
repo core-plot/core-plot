@@ -12,6 +12,7 @@
 
 @property (nonatomic, readwrite, strong) CPTPlotSpaceAnnotation *symbolTextAnnotation;
 @property (nonatomic, readwrite, strong) NSArray *plotData;
+@property (nonatomic, readwrite, assign) CPTScatterPlotHistogramOption histogramOption;
 
 @end
 
@@ -19,6 +20,7 @@
 
 @synthesize symbolTextAnnotation;
 @synthesize plotData;
+@synthesize histogramOption;
 
 +(void)load
 {
@@ -30,6 +32,8 @@
     if ( (self = [super init]) ) {
         self.title   = @"Simple Scatter Plot";
         self.section = kLinePlots;
+
+        self.histogramOption = CPTScatterPlotHistogramSkipSecond;
     }
 
     return self;
@@ -136,9 +140,11 @@
     dataSourceLinePlot.identifier = @"Data Source Plot";
 
     CPTMutableLineStyle *lineStyle = [dataSourceLinePlot.dataLineStyle mutableCopy];
-    lineStyle.lineWidth              = 3.0;
-    lineStyle.lineColor              = [CPTColor greenColor];
-    dataSourceLinePlot.dataLineStyle = lineStyle;
+    lineStyle.lineWidth                = 3.0;
+    lineStyle.lineColor                = [CPTColor greenColor];
+    dataSourceLinePlot.dataLineStyle   = lineStyle;
+    dataSourceLinePlot.interpolation   = CPTScatterPlotInterpolationHistogram;
+    dataSourceLinePlot.histogramOption = self.histogramOption;
 
     dataSourceLinePlot.dataSource = self;
     [graph addPlot:dataSourceLinePlot];
@@ -279,14 +285,31 @@
 
 -(void)plotAreaWasSelected:(CPTPlotArea *)plotArea
 {
-    // Remove the annotation
-    CPTPlotSpaceAnnotation *annotation = self.symbolTextAnnotation;
+    CPTXYGraph *graph = [self.graphs objectAtIndex:0];
 
-    if ( annotation ) {
-        CPTXYGraph *graph = [self.graphs objectAtIndex:0];
+    if ( graph ) {
+        // Remove the annotation
+        CPTPlotSpaceAnnotation *annotation = self.symbolTextAnnotation;
 
-        [graph.plotAreaFrame.plotArea removeAnnotation:annotation];
-        self.symbolTextAnnotation = nil;
+        if ( annotation ) {
+            [graph.plotAreaFrame.plotArea removeAnnotation:annotation];
+            self.symbolTextAnnotation = nil;
+        }
+        else {
+            CPTScatterPlotInterpolation interpolation = CPTScatterPlotInterpolationHistogram;
+
+            // Decrease the histogram display option, and if < 0 display linear graph
+            if ( --self.histogramOption < 0 ) {
+                interpolation = CPTScatterPlotInterpolationLinear;
+
+                // Set the histogram option to the count, as that is guaranteed to be the last available option + 1
+                // (thus the next time the user clicks in the empty plot area the value will be decremented, becoming last option)
+                self.histogramOption = CPTScatterPlotHistogramOptionCount;
+            }
+            CPTScatterPlot *dataSourceLinePlot = (CPTScatterPlot *)[graph plotWithIdentifier:@"Data Source Plot"];
+            dataSourceLinePlot.interpolation   = interpolation;
+            dataSourceLinePlot.histogramOption = self.histogramOption;
+        }
     }
 }
 
