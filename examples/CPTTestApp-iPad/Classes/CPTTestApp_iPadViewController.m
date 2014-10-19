@@ -76,11 +76,6 @@
     [self.piePlot performSelector:@selector(reloadData) withObject:nil afterDelay:0.4];
 }
 
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
-}
-
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     if ( UIInterfaceOrientationIsLandscape(fromInterfaceOrientation) ) {

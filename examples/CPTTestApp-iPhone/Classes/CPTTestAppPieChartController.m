@@ -14,11 +14,6 @@
 @synthesize timer;
 @synthesize pieChart;
 
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    return YES;
-}
-
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     CGFloat margin = self.pieChart.plotAreaFrame.borderLineStyle.lineWidth + CPTFloat(5.0);

@@ -31,11 +31,6 @@
 @synthesize yyy1;
 @synthesize yyy2;
 
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    return YES;
-}
-
 #pragma mark -
 #pragma mark Initialization and teardown
 

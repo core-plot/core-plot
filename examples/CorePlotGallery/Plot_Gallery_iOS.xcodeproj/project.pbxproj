@@ -43,9 +43,8 @@
 		C360E1C913B18ABC007994B6 /* OHLCPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C360E1C813B18ABC007994B6 /* OHLCPlot.m */; };
 		C360E1DA13B18B24007994B6 /* AxisDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C360E1D913B18B24007994B6 /* AxisDemo.m */; };
 		C360E1EE13B18CCC007994B6 /* CandlestickPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C360E1ED13B18CCC007994B6 /* CandlestickPlot.m */; };
+		C36157B919D790E10036ACDA /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C36157B819D790E10036ACDA /* Launch Screen.xib */; };
 		C367249F13E103AC0070F47A /* LineCapDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C367249E13E103AC0070F47A /* LineCapDemo.m */; };
-		C3858771163D8B8B00DBF63D /* UINavigationController+LegacyRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C385876E163D8B8B00DBF63D /* UINavigationController+LegacyRotation.m */; };
-		C3858772163D8B8B00DBF63D /* UIViewController+LegacyRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C3858770163D8B8B00DBF63D /* UIViewController+LegacyRotation.m */; };
 		C39C4E3B13BFE19200CD9194 /* PlotSpaceDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C39C4E3A13BFE19200CD9194 /* PlotSpaceDemo.m */; };
 		C39C4E3E13BFE19E00CD9194 /* LabelingPolicyDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C39C4E3D13BFE19E00CD9194 /* LabelingPolicyDemo.m */; };
 		C3A14C1513AEE7CC00D103EA /* RangePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A14C1413AEE7CC00D103EA /* RangePlot.m */; };
@@ -140,12 +139,9 @@
 		C360E1D913B18B24007994B6 /* AxisDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AxisDemo.m; path = src/plots/AxisDemo.m; sourceTree = "<group>"; };
 		C360E1EC13B18CCC007994B6 /* CandlestickPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CandlestickPlot.h; path = src/plots/CandlestickPlot.h; sourceTree = "<group>"; };
 		C360E1ED13B18CCC007994B6 /* CandlestickPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CandlestickPlot.m; path = src/plots/CandlestickPlot.m; sourceTree = "<group>"; };
+		C36157B819D790E10036ACDA /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "Launch Screen.xib"; path = "src/ios/Launch Screen.xib"; sourceTree = "<group>"; };
 		C367249D13E103AC0070F47A /* LineCapDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LineCapDemo.h; path = src/plots/LineCapDemo.h; sourceTree = "<group>"; };
 		C367249E13E103AC0070F47A /* LineCapDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LineCapDemo.m; path = src/plots/LineCapDemo.m; sourceTree = "<group>"; };
-		C385876D163D8B8B00DBF63D /* UINavigationController+LegacyRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+LegacyRotation.h"; path = "../iOS Rotation Utilities/UINavigationController+LegacyRotation.h"; sourceTree = "<group>"; };
-		C385876E163D8B8B00DBF63D /* UINavigationController+LegacyRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+LegacyRotation.m"; path = "../iOS Rotation Utilities/UINavigationController+LegacyRotation.m"; sourceTree = "<group>"; };
-		C385876F163D8B8B00DBF63D /* UIViewController+LegacyRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+LegacyRotation.h"; path = "../iOS Rotation Utilities/UIViewController+LegacyRotation.h"; sourceTree = "<group>"; };
-		C3858770163D8B8B00DBF63D /* UIViewController+LegacyRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+LegacyRotation.m"; path = "../iOS Rotation Utilities/UIViewController+LegacyRotation.m"; sourceTree = "<group>"; };
 		C39C4E3913BFE19200CD9194 /* PlotSpaceDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlotSpaceDemo.h; path = src/plots/PlotSpaceDemo.h; sourceTree = "<group>"; };
 		C39C4E3A13BFE19200CD9194 /* PlotSpaceDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlotSpaceDemo.m; path = src/plots/PlotSpaceDemo.m; sourceTree = "<group>"; };
 		C39C4E3C13BFE19E00CD9194 /* LabelingPolicyDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LabelingPolicyDemo.h; path = src/plots/LabelingPolicyDemo.h; sourceTree = "<group>"; };
@@ -238,10 +234,7 @@
 				4F22FE77123406DF006BF615 /* ThemeTableViewController.h */,
 				4F22FE78123406DF006BF615 /* ThemeTableViewController.m */,
 				4F22FE79123406DF006BF615 /* ThemeTableViewController.xib */,
-				C385876D163D8B8B00DBF63D /* UINavigationController+LegacyRotation.h */,
-				C385876E163D8B8B00DBF63D /* UINavigationController+LegacyRotation.m */,
-				C385876F163D8B8B00DBF63D /* UIViewController+LegacyRotation.h */,
-				C3858770163D8B8B00DBF63D /* UIViewController+LegacyRotation.m */,
+				C36157B819D790E10036ACDA /* Launch Screen.xib */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
@@ -418,6 +411,7 @@
 				C3440A25191FEDEE003C3804 /* BlueBackground.png in Resources */,
 				4F22FEB612340B6B006BF615 /* Icon.png in Resources */,
 				4F7541B4126B54A500313026 /* MainWindow-iPad.xib in Resources */,
+				C36157B919D790E10036ACDA /* Launch Screen.xib in Resources */,
 				4F7541C0126B564000313026 /* MainWindow.xib in Resources */,
 				4F7541D5126B583D00313026 /* RootViewController.xib in Resources */,
 				4F754279126D0BEE00313026 /* DetailView-iPad.xib in Resources */,
@@ -463,8 +457,6 @@
 				C35597A21437E09300B41DA7 /* ControlChart.m in Sources */,
 				C3A31A5914DF783500734AB7 /* ColoredBarChart.m in Sources */,
 				C3AC1411150EDEF300631001 /* CurvedScatterPlot.m in Sources */,
-				C3858771163D8B8B00DBF63D /* UINavigationController+LegacyRotation.m in Sources */,
-				C3858772163D8B8B00DBF63D /* UIViewController+LegacyRotation.m in Sources */,
 				C31A40BA17ABD6910020C5C6 /* FunctionPlot.m in Sources */,
 				C3D70BAC175EB30800F27173 /* ImageDemo.m in Sources */,
 				C3457A5317AD7C72000880F3 /* PiNumberFormatter.m in Sources */,
@@ -533,7 +525,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -548,7 +540,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;

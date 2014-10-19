@@ -13,11 +13,6 @@
 @synthesize dataForChart;
 @synthesize pieChart;
 
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    return YES;
-}
-
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     CPTPlot *piePlot  = [self.pieChart plotWithIdentifier:@"Pie Chart 1"];

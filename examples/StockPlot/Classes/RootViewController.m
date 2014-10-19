@@ -53,16 +53,6 @@
     }
 }
 
--(void)viewDidUnload
-{
-    // Release anything that can be recreated in viewDidLoad or on demand.
-    // e.g. self.myOutlet = nil;
-    self.stocks = nil;
-    self.graph  = nil;
-
-    [super viewDidUnload];
-}
-
 #pragma mark Table view methods
 
 -(void)inspectStock:(APYahooDataPuller *)aStock
@@ -187,12 +177,6 @@
     [self setupCell:cell forStockAtIndex:row];
 
     return cell;
-}
-
-// Override to allow orientations other than the default portrait orientation.
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
 }
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation

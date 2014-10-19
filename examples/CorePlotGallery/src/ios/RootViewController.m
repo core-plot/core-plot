@@ -32,11 +32,6 @@
     }
 }
 
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
-}
-
 #pragma mark -
 #pragma mark Table view data source
 
@@ -98,13 +93,6 @@
 -(void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-}
-
--(void)viewDidUnload
-{
-    self.detailViewController = nil;
-
-    [super viewDidUnload];
 }
 
 @end
