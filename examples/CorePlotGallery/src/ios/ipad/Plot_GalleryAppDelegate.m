@@ -28,12 +28,7 @@
 {
     [[PlotGallery sharedPlotGallery] sortByTitle];
 
-    if ( [self.window respondsToSelector:@selector(setRootViewController:)] ) {
-        self.window.rootViewController = self.splitViewController;
-    }
-    else {
-        [self.window addSubview:self.splitViewController.view];
-    }
+    self.window.rootViewController = self.splitViewController;
     [self.window makeKeyAndVisible];
 
     return YES;

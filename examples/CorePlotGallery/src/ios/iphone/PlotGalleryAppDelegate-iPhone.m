@@ -18,12 +18,7 @@
 {
     [[PlotGallery sharedPlotGallery] sortByTitle];
 
-    if ( [self.window respondsToSelector:@selector(setRootViewController:)] ) {
-        self.window.rootViewController = self.navigationController;
-    }
-    else {
-        [self.window addSubview:self.navigationController.view];
-    }
+    self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
 
     return YES;
