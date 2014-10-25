@@ -103,11 +103,6 @@
 #pragma mark -
 #pragma mark Rotation support
 
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
-}
-
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     if ( UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad ) {
@@ -124,14 +119,6 @@
     [super viewDidAppear:animated];
 
     self.themeBarButton.title = self.currentThemeName;
-}
-
--(void)viewDidUnload
-{
-    self.popoverController = nil;
-    self.themeBarButton    = nil;
-
-    [super viewDidUnload];
 }
 
 #pragma mark -

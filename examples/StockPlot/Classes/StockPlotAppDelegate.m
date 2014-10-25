@@ -21,12 +21,7 @@
 {
     [[self.navigationController navigationBar] setTintColor:[UIColor blackColor]];
 
-    if ( [self.window respondsToSelector:@selector(setRootViewController:)] ) {
-        self.window.rootViewController = self.navigationController;
-    }
-    else {
-        [self.window addSubview:self.navigationController.view];
-    }
+    self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
 }
 

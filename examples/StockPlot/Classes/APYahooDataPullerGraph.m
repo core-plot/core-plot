@@ -93,12 +93,6 @@
     [self reloadData];
 }
 
-// Override to allow orientations other than the default portrait orientation.
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
-}
-
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     //    NSLog(@"willRotateToInterfaceOrientation");
@@ -115,13 +109,6 @@
     [super didReceiveMemoryWarning];
 
     // Release any cached data, images, etc that aren't in use.
-}
-
--(void)viewDidUnload
-{
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-    [super viewDidUnload];
 }
 
 #pragma mark -

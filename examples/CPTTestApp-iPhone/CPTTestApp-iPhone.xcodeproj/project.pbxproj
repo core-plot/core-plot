@@ -23,6 +23,7 @@
 		C359603819CE34FC005CDFB9 /* iPhoneAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C359603419CE34FB005CDFB9 /* iPhoneAppDelegate.swift */; };
 		C359603919CE34FC005CDFB9 /* PieChartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C359603519CE34FB005CDFB9 /* PieChartController.swift */; };
 		C359603A19CE34FC005CDFB9 /* ScatterPlotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C359603619CE34FB005CDFB9 /* ScatterPlotController.swift */; };
+		C34677B219F3345500429A85 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C34677B119F3345500429A85 /* Launch Screen.xib */; };
 		C3B9F2C317BFD350003D2B6B /* CorePlotIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B9F2C217BFD350003D2B6B /* CorePlotIcon@2x.png */; };
 		C3B9F9D417503CDD001CCC50 /* BlueTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B9F9D317503CDD001CCC50 /* BlueTexture.png */; };
 		C3BB7D611633516500BC9515 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BB7D601633516500BC9515 /* Default-568h@2x.png */; };
@@ -68,6 +69,7 @@
 		C359603519CE34FB005CDFB9 /* PieChartController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChartController.swift; sourceTree = "<group>"; };
 		C359603619CE34FB005CDFB9 /* ScatterPlotController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScatterPlotController.swift; sourceTree = "<group>"; };
 		C359603B19CE352A005CDFB9 /* CPTTestApp-iPhone-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CPTTestApp-iPhone-Bridging-Header.h"; sourceTree = "<group>"; };
+		C34677B119F3345500429A85 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		C3B9F2C217BFD350003D2B6B /* CorePlotIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CorePlotIcon@2x.png"; sourceTree = "<group>"; };
 		C3B9F9D317503CDD001CCC50 /* BlueTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlueTexture.png; sourceTree = "<group>"; };
 		C3BB7D601633516500BC9515 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				28AD73870D9D96C1002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				BC9B84350FB8B7110035D8DA /* ScatterPlot.xib */,
+				C34677B119F3345500429A85 /* Launch Screen.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 				BC9B84360FB8B7110035D8DA /* ScatterPlot.xib in Resources */,
 				BCB3FD660FD85732008875A4 /* CorePlotIcon.png in Resources */,
 				BC74A34110FC418D00E7E90D /* PieChart.xib in Resources */,
+				C34677B219F3345500429A85 /* Launch Screen.xib in Resources */,
 				BC8166CE1100DD00006D898E /* 16-line-chart.png in Resources */,
 				BC8166CF1100DD00006D898E /* 17-bar-chart.png in Resources */,
 				BC8166D21100DD6F006D898E /* 62-contrast.png in Resources */,

@@ -50,11 +50,6 @@ NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
     return self;
 }
 
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
-}
-
 #pragma mark -
 #pragma mark Table view data source
 
