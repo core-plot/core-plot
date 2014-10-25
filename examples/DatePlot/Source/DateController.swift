@@ -1,6 +1,5 @@
 import Foundation
 import Cocoa
-import CorePlot
 
 class DateController : NSObject, CPTPlotDataSource {
     private let oneDay : Double = 24 * 60 * 60;
@@ -90,7 +89,7 @@ class DateController : NSObject, CPTPlotDataSource {
 
     func numberForPlot(plot: CPTPlot!, field: UInt, recordIndex: UInt) -> AnyObject!
     {
-        switch CPTScatterPlotField.fromRaw(Int(field))! {
+        switch CPTScatterPlotField(rawValue: Int(field))! {
         case .X:
             return (oneDay * Double(recordIndex)) as NSNumber
             
