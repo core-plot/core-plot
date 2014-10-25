@@ -131,7 +131,7 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource {
 
     func numberForPlot(plot: CPTPlot!, field: UInt, recordIndex: UInt) -> AnyObject!
     {
-        let plotField = CPTScatterPlotField.fromRaw(Int(field))
+        let plotField = CPTScatterPlotField(rawValue: Int(field))
 
         if let num = self.dataForPlot[Int(recordIndex)][plotField!] {
             let plotID = plot.identifier as String

@@ -60,7 +60,7 @@ class PieChartController : UIViewController, CPTPieChartDataSource {
             return nil
         }
         else {
-            switch CPTPieChartField.fromRaw(Int(field))! {
+            switch CPTPieChartField(rawValue: Int(field))! {
             case .SliceWidth:
                 return (self.dataForChart)[Int(recordIndex)] as NSNumber
 

@@ -50,8 +50,8 @@ class BarChartController : UIViewController, CPTBarPlotDataSource {
         graphTitle.addAttribute(NSForegroundColorAttributeName, value:UIColor.whiteColor(), range:titleRange1)
         graphTitle.addAttribute(NSForegroundColorAttributeName, value:UIColor.grayColor(), range:titleRange2)
         graphTitle.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSRange(location: 0, length: graphTitle.length))
-        graphTitle.addAttribute(NSFontAttributeName, value:line1Font, range:titleRange1)
-        graphTitle.addAttribute(NSFontAttributeName, value:line2Font, range:titleRange2)
+        graphTitle.addAttribute(NSFontAttributeName, value:line1Font!, range:titleRange1)
+        graphTitle.addAttribute(NSFontAttributeName, value:line2Font!, range:titleRange2)
 
         newGraph.attributedTitle = graphTitle
 
@@ -133,7 +133,7 @@ class BarChartController : UIViewController, CPTBarPlotDataSource {
 
     func numberForPlot(plot: CPTPlot!, field: UInt, recordIndex: UInt) -> AnyObject!
     {
-        switch CPTBarPlotField.fromRaw(Int(field))! {
+        switch CPTBarPlotField(rawValue: Int(field))! {
         case .BarLocation:
             return recordIndex as NSNumber
 
