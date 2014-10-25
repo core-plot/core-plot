@@ -246,6 +246,9 @@
                    context:nil];
     }
     else {
+        UIColor *styleColor = style.attributes[NSForegroundColorAttributeName];
+        [styleColor set];
+
         UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
 
 #pragma clang diagnostic push
@@ -257,6 +260,9 @@
 #pragma clang diagnostic pop
     }
 #else
+    UIColor *styleColor = style.attributes[NSForegroundColorAttributeName];
+    [styleColor set];
+
     UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
 
     [self drawInRect:rect
