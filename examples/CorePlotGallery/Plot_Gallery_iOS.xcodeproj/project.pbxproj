@@ -52,9 +52,9 @@
 		C3AC1411150EDEF300631001 /* CurvedScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBCB98914753D6F000C8951 /* CurvedScatterPlot.m */; };
 		C3BA675D175EC22100CFABBA /* Checkerboard.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BA675B175EC22100CFABBA /* Checkerboard.png */; };
 		C3BA675E175EC22100CFABBA /* Checkerboard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BA675C175EC22100CFABBA /* Checkerboard@2x.png */; };
-		C3BB7D371633428900BC9515 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BB7D361633428900BC9515 /* Default-568h@2x.png */; };
 		C3CD282A17DE9A7E008EED1E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CD282917DE9A7E008EED1E /* Accelerate.framework */; };
 		C3D70BAC175EB30800F27173 /* ImageDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D70BAB175EB30800F27173 /* ImageDemo.m */; };
+		C3EF42F919FC753E0060791A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3EF42F819FC753E0060791A /* Images.xcassets */; };
 		C3F34F2A12AB25AE008FBDC3 /* DonutChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F34F2912AB25AE008FBDC3 /* DonutChart.m */; };
 		C3F47B5D17BF94CA0075181F /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F47B5C17BF94CA0075181F /* Icon@2x.png */; };
 /* End PBXBuildFile section */
@@ -152,11 +152,11 @@
 		C3A31A5814DF783500734AB7 /* ColoredBarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ColoredBarChart.m; path = src/plots/ColoredBarChart.m; sourceTree = "<group>"; };
 		C3BA675B175EC22100CFABBA /* Checkerboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Checkerboard.png; path = img/Checkerboard.png; sourceTree = "<group>"; };
 		C3BA675C175EC22100CFABBA /* Checkerboard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Checkerboard@2x.png"; path = "img/Checkerboard@2x.png"; sourceTree = "<group>"; };
-		C3BB7D361633428900BC9515 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C3C0DF2419D86B3A00631CAD /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
 		C3CD282917DE9A7E008EED1E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C3D70BAA175EB30800F27173 /* ImageDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageDemo.h; path = src/plots/ImageDemo.h; sourceTree = "<group>"; };
 		C3D70BAB175EB30800F27173 /* ImageDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageDemo.m; path = src/plots/ImageDemo.m; sourceTree = "<group>"; };
+		C3EF42F819FC753E0060791A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Plot Gallery-iOS/Images.xcassets"; sourceTree = "<group>"; };
 		C3F34F2812AB25AE008FBDC3 /* DonutChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DonutChart.h; path = src/plots/DonutChart.h; sourceTree = "<group>"; };
 		C3F34F2912AB25AE008FBDC3 /* DonutChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DonutChart.m; path = src/plots/DonutChart.m; sourceTree = "<group>"; };
 		C3F47B5C17BF94CA0075181F /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "src/ios/Icon@2x.png"; sourceTree = "<group>"; };
@@ -220,6 +220,7 @@
 		4F22FE3112340417006BF615 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				C3EF42F819FC753E0060791A /* Images.xcassets */,
 				4F7541EE126B59A200313026 /* DetailViewController.h */,
 				4F7541EF126B59A200313026 /* DetailViewController.m */,
 				4F7541D4126B583D00313026 /* RootViewController.xib */,
@@ -227,7 +228,6 @@
 				4F7541F1126B59A200313026 /* RootViewController.m */,
 				4F22FEB512340B6B006BF615 /* Icon.png */,
 				C3F47B5C17BF94CA0075181F /* Icon@2x.png */,
-				C3BB7D361633428900BC9515 /* Default-568h@2x.png */,
 				28A0AAE50D9B0CCF005BE974 /* Plot_Gallery_Prefix.pch */,
 				8D1107310486CEB800E47090 /* Plot_Gallery-Info.plist */,
 				4F22FE6612340671006BF615 /* main.m */,
@@ -412,11 +412,11 @@
 				4F22FEB612340B6B006BF615 /* Icon.png in Resources */,
 				4F7541B4126B54A500313026 /* MainWindow-iPad.xib in Resources */,
 				C36157B919D790E10036ACDA /* Launch Screen.xib in Resources */,
+				C3EF42F919FC753E0060791A /* Images.xcassets in Resources */,
 				4F7541C0126B564000313026 /* MainWindow.xib in Resources */,
 				4F7541D5126B583D00313026 /* RootViewController.xib in Resources */,
 				4F754279126D0BEE00313026 /* DetailView-iPad.xib in Resources */,
 				4F754284126D0C5F00313026 /* DetailView.xib in Resources */,
-				C3BB7D371633428900BC9515 /* Default-568h@2x.png in Resources */,
 				C3BA675D175EC22100CFABBA /* Checkerboard.png in Resources */,
 				C3BA675E175EC22100CFABBA /* Checkerboard@2x.png in Resources */,
 				C3F47B5D17BF94CA0075181F /* Icon@2x.png in Resources */,
@@ -478,6 +478,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -500,6 +502,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
