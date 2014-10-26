@@ -23,12 +23,10 @@
 		BC9B81DA0FB893F70035D8DA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9B81D90FB893F70035D8DA /* QuartzCore.framework */; };
 		BC9B84360FB8B7110035D8DA /* ScatterPlot.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC9B84350FB8B7110035D8DA /* ScatterPlot.xib */; };
 		BC9B843A0FB8B76B0035D8DA /* CPTTestAppScatterPlotController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9B84390FB8B76B0035D8DA /* CPTTestAppScatterPlotController.m */; };
-		BCB3FD660FD85732008875A4 /* CorePlotIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = BCB3FD650FD85732008875A4 /* CorePlotIcon.png */; };
 		C34677B219F3345500429A85 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C34677B119F3345500429A85 /* Launch Screen.xib */; };
-		C3B9F2C317BFD350003D2B6B /* CorePlotIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B9F2C217BFD350003D2B6B /* CorePlotIcon@2x.png */; };
 		C3B9F9D417503CDD001CCC50 /* BlueTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B9F9D317503CDD001CCC50 /* BlueTexture.png */; };
-		C3BB7D611633516500BC9515 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BB7D601633516500BC9515 /* Default-568h@2x.png */; };
 		C3CD283E17DE9C95008EED1E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CD283D17DE9C95008EED1E /* Accelerate.framework */; };
+		C3D3936419FD671100148319 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D3936319FD671100148319 /* Images.xcassets */; };
 		F7AE270A0FFFB61E001F26F0 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC9B83B50FB8A9BC0035D8DA /* libCorePlot-CocoaTouch.a */; };
 /* End PBXBuildFile section */
 
@@ -74,13 +72,11 @@
 		BC9B84350FB8B7110035D8DA /* ScatterPlot.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScatterPlot.xib; sourceTree = "<group>"; };
 		BC9B84380FB8B76B0035D8DA /* CPTTestAppScatterPlotController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTTestAppScatterPlotController.h; sourceTree = "<group>"; };
 		BC9B84390FB8B76B0035D8DA /* CPTTestAppScatterPlotController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTTestAppScatterPlotController.m; sourceTree = "<group>"; };
-		BCB3FD650FD85732008875A4 /* CorePlotIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CorePlotIcon.png; sourceTree = "<group>"; };
 		C34677B119F3345500429A85 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		C36E7CC219DE1C1700EDEACB /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
-		C3B9F2C217BFD350003D2B6B /* CorePlotIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CorePlotIcon@2x.png"; sourceTree = "<group>"; };
 		C3B9F9D317503CDD001CCC50 /* BlueTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlueTexture.png; sourceTree = "<group>"; };
-		C3BB7D601633516500BC9515 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C3CD283D17DE9C95008EED1E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		C3D3936319FD671100148319 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "CPTTestApp-iPhone/Images.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,14 +148,12 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C3D3936319FD671100148319 /* Images.xcassets */,
 				BC8166D11100DD6F006D898E /* 62-contrast.png */,
 				BC8166CC1100DD00006D898E /* 16-line-chart.png */,
 				BC8166CD1100DD00006D898E /* 17-bar-chart.png */,
 				C3B9F9D317503CDD001CCC50 /* BlueTexture.png */,
-				C3BB7D601633516500BC9515 /* Default-568h@2x.png */,
 				BC74A34010FC418D00E7E90D /* PieChart.xib */,
-				BCB3FD650FD85732008875A4 /* CorePlotIcon.png */,
-				C3B9F2C217BFD350003D2B6B /* CorePlotIcon@2x.png */,
 				282CCBFD0DB6C98000C4EA27 /* BarChart.xib */,
 				28AD73870D9D96C1002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
@@ -261,15 +255,13 @@
 				28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */,
 				282CCBFE0DB6C98000C4EA27 /* BarChart.xib in Resources */,
 				BC9B84360FB8B7110035D8DA /* ScatterPlot.xib in Resources */,
-				BCB3FD660FD85732008875A4 /* CorePlotIcon.png in Resources */,
+				C3D3936419FD671100148319 /* Images.xcassets in Resources */,
 				BC74A34110FC418D00E7E90D /* PieChart.xib in Resources */,
 				C34677B219F3345500429A85 /* Launch Screen.xib in Resources */,
 				BC8166CE1100DD00006D898E /* 16-line-chart.png in Resources */,
 				BC8166CF1100DD00006D898E /* 17-bar-chart.png in Resources */,
 				BC8166D21100DD6F006D898E /* 62-contrast.png in Resources */,
-				C3BB7D611633516500BC9515 /* Default-568h@2x.png in Resources */,
 				C3B9F9D417503CDD001CCC50 /* BlueTexture.png in Resources */,
-				C3B9F2C317BFD350003D2B6B /* CorePlotIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +295,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -327,6 +321,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
