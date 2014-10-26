@@ -25,8 +25,8 @@
 		AB8F944A0FDEF5DC00E61485 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB8F94490FDEF56700E61485 /* libCorePlot-CocoaTouch.a */; };
 		AB8F94580FDEFA1500E61485 /* APYahooDataPuller.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8F94570FDEFA1500E61485 /* APYahooDataPuller.m */; };
 		ABA5345E0FEB40CE0046A8DA /* AAPL.plist in Resources */ = {isa = PBXBuildFile; fileRef = ABA5345D0FEB40CE0046A8DA /* AAPL.plist */; };
-		C3BB7D44163343E700BC9515 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BB7D43163343E700BC9515 /* Default-568h@2x.png */; };
 		C3CD283017DE9B9C008EED1E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CD282F17DE9B9C008EED1E /* Accelerate.framework */; };
+		C3D3936C19FD6B1D00148319 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D3936B19FD6B1D00148319 /* Images.xcassets */; };
 		C3F0BA3919EC9F6300F7CB47 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3F0BA3819EC9F6300F7CB47 /* Launch Screen.xib */; };
 /* End PBXBuildFile section */
 
@@ -77,9 +77,9 @@
 		AB8F94560FDEFA1500E61485 /* APYahooDataPuller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APYahooDataPuller.h; sourceTree = "<group>"; };
 		AB8F94570FDEFA1500E61485 /* APYahooDataPuller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APYahooDataPuller.m; sourceTree = "<group>"; };
 		ABA5345D0FEB40CE0046A8DA /* AAPL.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AAPL.plist; sourceTree = "<group>"; };
-		C3BB7D43163343E700BC9515 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C3CA9B5819E1F79B008DF7A3 /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
 		C3CD282F17DE9B9C008EED1E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		C3D3936B19FD6B1D00148319 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = AAPLot/Images.xcassets; sourceTree = "<group>"; };
 		C3F0BA3819EC9F6300F7CB47 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -189,9 +189,9 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C3D3936B19FD6B1D00148319 /* Images.xcassets */,
 				ABA5345D0FEB40CE0046A8DA /* AAPL.plist */,
 				8D1107310486CEB800E47090 /* Info.plist */,
-				C3BB7D43163343E700BC9515 /* Default-568h@2x.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -288,9 +288,9 @@
 			files = (
 				280E754D0DD40C5E005A515E /* FlipsideView.xib in Resources */,
 				280E754E0DD40C5E005A515E /* MainView.xib in Resources */,
+				C3D3936C19FD6B1D00148319 /* Images.xcassets in Resources */,
 				280E754F0DD40C5E005A515E /* MainWindow.xib in Resources */,
 				ABA5345E0FEB40CE0046A8DA /* AAPL.plist in Resources */,
-				C3BB7D44163343E700BC9515 /* Default-568h@2x.png in Resources */,
 				C3F0BA3919EC9F6300F7CB47 /* Launch Screen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -329,6 +329,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -349,6 +351,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
