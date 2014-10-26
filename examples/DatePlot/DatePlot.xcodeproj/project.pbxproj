@@ -15,7 +15,7 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		90AF4F440F36CF1800753D26 /* DatePlot.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90AF4F430F36CF1800753D26 /* DatePlot.xib */; };
 		BC8E737D0FC0B3CF00DF8511 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8E737C0FC0B3CF00DF8511 /* QuartzCore.framework */; };
-		BCB3FD520FD85658008875A4 /* CorePlotIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BCB3FD510FD85658008875A4 /* CorePlotIcon.icns */; };
+		C3D3937419FD6E3500148319 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D3937319FD6E3500148319 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,7 +73,7 @@
 		8D1107320486CEB800E47090 /* DatePlot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DatePlot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90AF4F430F36CF1800753D26 /* DatePlot.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DatePlot.xib; sourceTree = "<group>"; };
 		BC8E737C0FC0B3CF00DF8511 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		BCB3FD510FD85658008875A4 /* CorePlotIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CorePlotIcon.icns; sourceTree = "<group>"; };
+		C3D3937319FD6E3500148319 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = DatePlot/Images.xcassets; sourceTree = "<group>"; };
 		C3D6210B19DF70DB00652CE7 /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -167,7 +167,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BCB3FD510FD85658008875A4 /* CorePlotIcon.icns */,
+				C3D3937319FD6E3500148319 /* Images.xcassets */,
 				90AF4F430F36CF1800753D26 /* DatePlot.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
@@ -264,8 +264,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
+				C3D3937419FD6E3500148319 /* Images.xcassets in Resources */,
 				90AF4F440F36CF1800753D26 /* DatePlot.xib in Resources */,
-				BCB3FD520FD85658008875A4 /* CorePlotIcon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,6 +307,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -328,6 +329,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
