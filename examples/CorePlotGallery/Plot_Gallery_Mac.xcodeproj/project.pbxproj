@@ -44,6 +44,7 @@
 		C3BA6763175EC23000CFABBA /* Checkerboard.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BA6761175EC22F00CFABBA /* Checkerboard.png */; };
 		C3BA6764175EC23000CFABBA /* Checkerboard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BA6762175EC23000CFABBA /* Checkerboard@2x.png */; };
 		C3D70BA6175EB29E00F27173 /* ImageDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D70BA5175EB29E00F27173 /* ImageDemo.m */; };
+		C3EF42FD19FC75810060791A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3EF42FC19FC75810060791A /* Images.xcassets */; };
 		C3F34F1512AB2598008FBDC3 /* DonutChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F34F1412AB2598008FBDC3 /* DonutChart.m */; };
 		C3F97F1917A9DE2000A52FF2 /* FunctionPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F97F1817A9DE2000A52FF2 /* FunctionPlot.m */; };
 /* End PBXBuildFile section */
@@ -153,6 +154,7 @@
 		C3C0DF2719D86B5E00631CAD /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
 		C3D70BA4175EB29E00F27173 /* ImageDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageDemo.h; path = src/plots/ImageDemo.h; sourceTree = "<group>"; };
 		C3D70BA5175EB29E00F27173 /* ImageDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageDemo.m; path = src/plots/ImageDemo.m; sourceTree = "<group>"; };
+		C3EF42FC19FC75810060791A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Plot Gallery-Mac/Images.xcassets"; sourceTree = "<group>"; };
 		C3F34F1312AB2598008FBDC3 /* DonutChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DonutChart.h; path = src/plots/DonutChart.h; sourceTree = "<group>"; };
 		C3F34F1412AB2598008FBDC3 /* DonutChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DonutChart.m; path = src/plots/DonutChart.m; sourceTree = "<group>"; };
 		C3F42A2614D3A75F0044B323 /* CurvedScatterPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurvedScatterPlot.h; path = src/plots/CurvedScatterPlot.h; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C3EF42FC19FC75810060791A /* Images.xcassets */,
 				4F35EBBC12360D89007C3389 /* Icon.icns */,
 				4F22FF7C12342B6E006BF615 /* Plot_Gallery_Mac-Info.plist */,
 				4F22FF5912342A21006BF615 /* MainMenu.xib */,
@@ -417,6 +420,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F22FF5B12342A21006BF615 /* InfoPlist.strings in Resources */,
+				C3EF42FD19FC75810060791A /* Images.xcassets in Resources */,
 				C3440A20191FEDDB003C3804 /* BlueBackground@2x.png in Resources */,
 				C3440A1F191FEDDB003C3804 /* BlueBackground.png in Resources */,
 				4F22FF5C12342A21006BF615 /* MainMenu.xib in Resources */,
@@ -500,6 +504,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -526,6 +531,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";

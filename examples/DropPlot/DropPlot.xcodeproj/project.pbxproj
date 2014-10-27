@@ -18,7 +18,7 @@
 		BC00E6480FE1BF0A00DE81E0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC00E6470FE1BF0A00DE81E0 /* QuartzCore.framework */; };
 		BC93AACE0FDF339600606226 /* CorePlot.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = BC93AA970FDEFEAC00606226 /* CorePlot.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		BC93AAF60FDF3F0200606226 /* NSString+ParseCSV.m in Sources */ = {isa = PBXBuildFile; fileRef = BC93AAF50FDF3F0200606226 /* NSString+ParseCSV.m */; };
-		BCFD32AE0FEF08EA00A5B71C /* CorePlotIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BCFD32AD0FEF08EA00A5B71C /* CorePlotIcon.icns */; };
+		C3D3937819FD705000148319 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D3937719FD705000148319 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,7 +78,7 @@
 		BC93AA7C0FDEFEAC00606226 /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = ../../framework/CorePlot.xcodeproj; sourceTree = SOURCE_ROOT; };
 		BC93AAF40FDF3F0200606226 /* NSString+ParseCSV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ParseCSV.h"; sourceTree = "<group>"; };
 		BC93AAF50FDF3F0200606226 /* NSString+ParseCSV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ParseCSV.m"; sourceTree = "<group>"; };
-		BCFD32AD0FEF08EA00A5B71C /* CorePlotIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CorePlotIcon.icns; sourceTree = "<group>"; };
+		C3D3937719FD705000148319 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = DropPlot/Images.xcassets; sourceTree = "<group>"; };
 		C3D6210E19DF72E000652CE7 /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,7 +163,7 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BCFD32AD0FEF08EA00A5B71C /* CorePlotIcon.icns */,
+				C3D3937719FD705000148319 /* Images.xcassets */,
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
 				8D15AC360486D014006FF6A4 /* Info.plist */,
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
@@ -272,8 +272,8 @@
 				8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */,
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
 				1DDD582C0DA1D0D100B32029 /* CPTPlotDocument.xib in Resources */,
+				C3D3937819FD705000148319 /* Images.xcassets in Resources */,
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
-				BCFD32AE0FEF08EA00A5B71C /* CorePlotIcon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +340,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -360,6 +361,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";

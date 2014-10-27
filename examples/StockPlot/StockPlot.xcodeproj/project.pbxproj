@@ -26,8 +26,8 @@
 		AB6FA5590FEB6235008DB04A /* APYahooDataPullerGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6FA5570FEB6235008DB04A /* APYahooDataPullerGraph.m */; };
 		AB6FA55A0FEB6235008DB04A /* APYahooDataPullerGraph.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB6FA5580FEB6235008DB04A /* APYahooDataPullerGraph.xib */; };
 		C36157E919D79AAC0036ACDA /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C36157E819D79AAC0036ACDA /* Launch Screen.xib */; };
-		C3BB7DA81633537100BC9515 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BB7DA71633537100BC9515 /* Default-568h@2x.png */; };
 		C3CD284817DE9D1F008EED1E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CD284717DE9D1F008EED1E /* Accelerate.framework */; };
+		C3D3937019FD6CBF00148319 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D3936F19FD6CBF00148319 /* Images.xcassets */; };
 		F7AE27940FFFBB84001F26F0 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AE27930FFFBB7A001F26F0 /* libCorePlot-CocoaTouch.a */; };
 /* End PBXBuildFile section */
 
@@ -77,9 +77,9 @@
 		AB6FA60B0FEB6DAA008DB04A /* GOOG.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GOOG.plist; sourceTree = SOURCE_ROOT; };
 		AB6FA60C0FEB6DAA008DB04A /* AAPL.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AAPL.plist; sourceTree = SOURCE_ROOT; };
 		C36157E819D79AAC0036ACDA /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
-		C3BB7DA71633537100BC9515 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C3CA9B5B19E203B2008DF7A3 /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
 		C3CD284717DE9D1F008EED1E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		C3D3936F19FD6CBF00148319 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = StockPlot/Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,8 +153,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C3D3936F19FD6CBF00148319 /* Images.xcassets */,
 				AB0364760FEF4603007B09A9 /* caution.png */,
-				C3BB7DA71633537100BC9515 /* Default-568h@2x.png */,
 				AB6FA6090FEB6DAA008DB04A /* YHOO.plist */,
 				AB6FA60A0FEB6DAA008DB04A /* MSFT.plist */,
 				AB6FA60B0FEB6DAA008DB04A /* GOOG.plist */,
@@ -262,11 +262,11 @@
 				2899E5600DE3E45000AC0155 /* RootViewController.xib in Resources */,
 				AB6FA55A0FEB6235008DB04A /* APYahooDataPullerGraph.xib in Resources */,
 				AB0363AA0FEF3681007B09A9 /* YHOO.plist in Resources */,
+				C3D3937019FD6CBF00148319 /* Images.xcassets in Resources */,
 				AB0363AB0FEF3684007B09A9 /* MSFT.plist in Resources */,
 				AB0363AC0FEF3687007B09A9 /* GOOG.plist in Resources */,
 				AB0363AD0FEF368A007B09A9 /* AAPL.plist in Resources */,
 				AB0364770FEF4603007B09A9 /* caution.png in Resources */,
-				C3BB7DA81633537100BC9515 /* Default-568h@2x.png in Resources */,
 				C36157E919D79AAC0036ACDA /* Launch Screen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,6 +302,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -318,6 +320,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
