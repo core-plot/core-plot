@@ -16,6 +16,7 @@ To be determined.
 - **New**: Added scatter plot area fill bands.
 - **New**: Added new methods to all plots to allow labels, styles, and plot symbols to be updated independent of the plot data.
 - **New**: Added support for stretchable images.
+- **New**: Added support for @3x images.
 - **New**: Added support for using an Objective-C block to calculate plot values in the function datasource class. 
 - **New**: Added support for categorical plot data.
 - **Changed**: Increased the deployment target to iOS 5.0 and Mac OS X 10.7.
