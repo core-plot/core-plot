@@ -48,7 +48,7 @@
     if ( imageScale > 1.0 ) {
         NSMutableString *hiDpiPath = [path mutableCopy];
         NSUInteger replaceCount    = [hiDpiPath replaceOccurrencesOfString:@".png"
-                                                                withString:@"@2x.png"
+                                                                withString:[NSString stringWithFormat:@"@%dx.png", (int)imageScale]
                                                                    options:NSCaseInsensitiveSearch | NSBackwardsSearch | NSAnchoredSearch
                                                                      range:NSMakeRange(hiDpiPath.length - 4, 4)];
         if ( replaceCount == 1 ) {

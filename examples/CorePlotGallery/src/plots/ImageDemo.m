@@ -57,7 +57,7 @@
     CPTPlotArea *thePlotArea = graph.plotAreaFrame.plotArea;
 
     // Note
-    CPTTextLayer *titleLayer = [[CPTTextLayer alloc] initWithText:@"Standard images have a blue tint.\nHi-res (@2x) images have a green tint."
+    CPTTextLayer *titleLayer = [[CPTTextLayer alloc] initWithText:@"Standard images have a blue tint.\nHi-res (@2x) images have a green tint and @3x images have a red tint."
                                                             style:textStyle];
     CPTLayerAnnotation *titleAnnotation = [[CPTLayerAnnotation alloc] initWithAnchorLayer:thePlotArea];
     titleAnnotation.rectAnchor         = CPTRectAnchorTop;
