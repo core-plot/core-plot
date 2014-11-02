@@ -37,6 +37,9 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 
 -(void)recalculateLayout;
 -(void)removeLegendEntriesForPlot:(CPTPlot *)plot;
+
+-(void)legendEntryForInteractionPoint:(CGPoint)interactionPoint row:(NSUInteger *)row col:(NSUInteger *)col;
+
 -(void)legendNeedsRedraw:(NSNotification *)notif;
 -(void)legendNeedsLayout:(NSNotification *)notif;
 -(void)legendNeedsReloadEntries:(NSNotification *)notif;
@@ -1040,6 +1043,74 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 #pragma mark -
 #pragma mark Responder Chain and User interaction
 
+/// @cond
+
+-(void)legendEntryForInteractionPoint:(CGPoint)interactionPoint row:(NSUInteger *)row col:(NSUInteger *)col
+{
+    // Convert the interaction point to the local coordinate system
+    CPTGraph *theGraph = self.graph;
+
+    if ( theGraph ) {
+        interactionPoint = [self convertPoint:interactionPoint fromLayer:theGraph];
+    }
+    else {
+        for ( CPTPlot *plot in self.plots ) {
+            CPTGraph *plotGraph = plot.graph;
+
+            if ( plotGraph ) {
+                interactionPoint = [self convertPoint:interactionPoint fromLayer:plotGraph];
+                break;
+            }
+        }
+    }
+
+    // Update layout if needed
+    [self recalculateLayout];
+
+    // Hit test the legend entries
+    CGFloat rMargin = self.rowMargin;
+    CGFloat cMargin = self.columnMargin;
+
+    CGFloat swatchWidth = self.swatchSize.width + self.titleOffset;
+
+    CGFloat padHorizontal = self.entryPaddingLeft + self.entryPaddingRight;
+    CGFloat padVertical   = self.entryPaddingTop + self.entryPaddingBottom;
+
+    // Rows
+    CGFloat position = CGRectGetMaxY(self.bounds) - self.paddingTop;
+
+    NSUInteger i = 0;
+
+    for ( NSNumber *height in self.rowHeightsThatFit ) {
+        CGFloat rowHeight = height.cgFloatValue + padVertical;
+        if ( (interactionPoint.y <= position) && (interactionPoint.y >= position - rowHeight) ) {
+            *row = i;
+            break;
+        }
+
+        position -= rowHeight + rMargin;
+        i++;
+    }
+
+    // Columns
+    position = self.paddingLeft;
+
+    i = 0;
+
+    for ( NSNumber *width in self.columnWidthsThatFit ) {
+        CGFloat colWidth = width.cgFloatValue + swatchWidth + padHorizontal;
+        if ( (interactionPoint.x >= position) && (interactionPoint.x <= position + colWidth) ) {
+            *col = i;
+            break;
+        }
+
+        position += colWidth + cMargin;
+        i++;
+    }
+}
+
+/// @endcond
+
 /// @name User Interaction
 /// @{
 
@@ -1062,9 +1133,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  **/
 -(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
-    NSArray *myPlots = self.plots;
-
-    if ( self.hidden || (myPlots.count == 0) ) {
+    if ( self.hidden || (self.plots.count == 0) ) {
         return NO;
     }
 
@@ -1073,61 +1142,9 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
          [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchDownAtIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:)] ||
          [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:withEvent:)] ) {
-        // Convert the interaction point to the local coordinate system
-        CPTGraph *theGraph = self.graph;
-        if ( theGraph ) {
-            interactionPoint = [self convertPoint:interactionPoint fromLayer:theGraph];
-        }
-        else {
-            for ( CPTPlot *plot in myPlots ) {
-                CPTGraph *plotGraph = plot.graph;
-
-                if ( plotGraph ) {
-                    interactionPoint = [self convertPoint:interactionPoint fromLayer:plotGraph];
-                    break;
-                }
-            }
-        }
-
-        // Update layout if needed
-        [self recalculateLayout];
-
-        // Hit test the legend entries
-        CGFloat rMargin = self.rowMargin;
-        CGFloat cMargin = self.columnMargin;
-
-        CGFloat swatchWidth = self.swatchSize.width + self.titleOffset;
-
         NSUInteger row = NSNotFound;
         NSUInteger col = NSNotFound;
-
-        // Rows
-        CGFloat position = CGRectGetMaxY(self.bounds) - self.paddingTop;
-        NSUInteger i     = 0;
-        for ( NSNumber *height in self.rowHeightsThatFit ) {
-            CGFloat rowHeight = height.cgFloatValue;
-            if ( (interactionPoint.y <= position) && (interactionPoint.y >= position - rowHeight) ) {
-                row = i;
-                break;
-            }
-
-            position -= rowHeight + rMargin;
-            i++;
-        }
-
-        // Columns
-        position = self.paddingLeft;
-        i        = 0;
-        for ( NSNumber *width in self.columnWidthsThatFit ) {
-            CGFloat colWidth = width.cgFloatValue;
-            if ( (interactionPoint.x >= position) && (interactionPoint.x <= position + colWidth) ) {
-                col = i;
-                break;
-            }
-
-            position += colWidth + swatchWidth + cMargin;
-            i++;
-        }
+        [self legendEntryForInteractionPoint:interactionPoint row:&row col:&col];
 
         // Notify the delegate if we found a hit
         if ( (row != NSNotFound) && (col != NSNotFound) ) {
@@ -1187,9 +1204,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 
     self.pointingDeviceDownEntry = nil;
 
-    NSArray *myPlots = self.plots;
-
-    if ( self.hidden || (myPlots.count == 0) ) {
+    if ( self.hidden || (self.plots.count == 0) ) {
         return NO;
     }
 
@@ -1198,61 +1213,9 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
          [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchUpAtIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:)] ||
          [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:withEvent:)] ) {
-        // Convert the interaction point to the local coordinate system
-        CPTGraph *theGraph = self.graph;
-        if ( theGraph ) {
-            interactionPoint = [self convertPoint:interactionPoint fromLayer:theGraph];
-        }
-        else {
-            for ( CPTPlot *plot in myPlots ) {
-                CPTGraph *plotGraph = plot.graph;
-
-                if ( plotGraph ) {
-                    interactionPoint = [self convertPoint:interactionPoint fromLayer:plotGraph];
-                    break;
-                }
-            }
-        }
-
-        // Update layout if needed
-        [self recalculateLayout];
-
-        // Hit test the legend entries
-        CGFloat rMargin = self.rowMargin;
-        CGFloat cMargin = self.columnMargin;
-
-        CGFloat swatchWidth = self.swatchSize.width + self.titleOffset;
-
         NSUInteger row = NSNotFound;
         NSUInteger col = NSNotFound;
-
-        // Rows
-        CGFloat position = CGRectGetMaxY(self.bounds) - self.paddingTop;
-        NSUInteger i     = 0;
-        for ( NSNumber *height in self.rowHeightsThatFit ) {
-            CGFloat rowHeight = height.cgFloatValue;
-            if ( (interactionPoint.y <= position) && (interactionPoint.y >= position - rowHeight) ) {
-                row = i;
-                break;
-            }
-
-            position -= rowHeight + rMargin;
-            i++;
-        }
-
-        // Columns
-        position = self.paddingLeft;
-        i        = 0;
-        for ( NSNumber *width in self.columnWidthsThatFit ) {
-            CGFloat colWidth = width.cgFloatValue;
-            if ( (interactionPoint.x >= position) && (interactionPoint.x <= position + colWidth) ) {
-                col = i;
-                break;
-            }
-
-            position += colWidth + swatchWidth + cMargin;
-            i++;
-        }
+        [self legendEntryForInteractionPoint:interactionPoint row:&row col:&col];
 
         // Notify the delegate if we found a hit
         if ( (row != NSNotFound) && (col != NSNotFound) ) {
