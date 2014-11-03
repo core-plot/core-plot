@@ -44,6 +44,11 @@
     [newGraph applyTheme:theme];
     self.graph = newGraph;
 
+    newGraph.paddingLeft   = 10.0;
+    newGraph.paddingTop    = 20.0;
+    newGraph.paddingRight  = 10.0;
+    newGraph.paddingBottom = 10.0;
+
     CPTGraphHostingView *hostingView = (CPTGraphHostingView *)self.view;
     hostingView.hostedGraph = newGraph;
 

@@ -3,6 +3,9 @@
 @interface CPTTestAppPieChartController()
 
 @property (nonatomic, readwrite, strong) CPTXYGraph *pieChart;
+@property (nonatomic, readonly, assign) CGFloat pieMargin;
+@property (nonatomic, readonly, assign) CGFloat pieRadius;
+@property (nonatomic, readonly, assign) CGPoint pieCenter;
 
 @end
 
@@ -14,41 +17,61 @@
 @synthesize timer;
 @synthesize pieChart;
 
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+-(CGFloat)pieMargin
 {
-    CGFloat margin = self.pieChart.plotAreaFrame.borderLineStyle.lineWidth + CPTFloat(5.0);
+    return self.pieChart.plotAreaFrame.borderLineStyle.lineWidth + CPTFloat(20.0);
+}
 
-    CPTPieChart *piePlot = (CPTPieChart *)[self.pieChart plotWithIdentifier:@"Pie Chart 1"];
-    CGRect plotBounds    = self.pieChart.plotAreaFrame.bounds;
-    CGFloat newRadius    = MIN(plotBounds.size.width, plotBounds.size.height) / CPTFloat(2.0) - margin;
+-(CGFloat)pieRadius
+{
+    CGRect plotBounds = self.pieChart.plotAreaFrame.bounds;
+
+    return MIN(plotBounds.size.width, plotBounds.size.height) / CPTFloat(2.0) - self.pieMargin;
+}
+
+-(CGPoint)pieCenter
+{
+    CGRect plotBounds = self.pieChart.plotAreaFrame.bounds;
 
     CGFloat y = 0.0;
 
     if ( plotBounds.size.width > plotBounds.size.height ) {
-        y = 0.5;
+        y = 0.45;
     }
     else {
-        y = (newRadius + margin) / plotBounds.size.height;
+        y = (self.pieRadius + self.pieMargin) / plotBounds.size.height;
     }
-    CGPoint newAnchor = CGPointMake(0.5, y);
+
+    return CGPointMake(0.5, y);
+}
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    CPTPieChart *piePlot = (CPTPieChart *)[self.pieChart plotWithIdentifier:@"Pie Chart 1"];
+    CGPoint newAnchor    = self.pieCenter;
 
     // Animate the change
     [CATransaction begin];
     {
-        [CATransaction setAnimationDuration:1.0];
+        [CATransaction setAnimationDuration:0.5];
         [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
 
-        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"pieRadius"];
-        animation.toValue  = @(newRadius);
+        NSString *key = NSStringFromSelector( @selector(pieRadius) );
+
+        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:key];
+
+        animation.toValue  = @(self.pieRadius * 8.0 / 9.0); // leave room for the exploded slice
         animation.fillMode = kCAFillModeForwards;
         animation.delegate = self;
-        [piePlot addAnimation:animation forKey:@"pieRadius"];
+        [piePlot addAnimation:animation forKey:key];
 
-        animation          = [CABasicAnimation animationWithKeyPath:@"centerAnchor"];
+        key       = NSStringFromSelector( @selector(centerAnchor) );
+        animation = [CABasicAnimation animationWithKeyPath:key];
+
         animation.toValue  = [NSValue valueWithBytes:&newAnchor objCType:@encode(CGPoint)];
         animation.fillMode = kCAFillModeForwards;
         animation.delegate = self;
-        [piePlot addAnimation:animation forKey:@"centerAnchor"];
+        [piePlot addAnimation:animation forKey:key];
     }
     [CATransaction commit];
 }
@@ -100,17 +123,21 @@
     newGraph.titleTextStyle = whiteText;
     newGraph.title          = @"Graph Title";
 
+    newGraph.titleDisplacement = CGPointMake(0.0, -5.0);
+
     // Add pie chart
     CPTPieChart *piePlot = [[CPTPieChart alloc] init];
     piePlot.dataSource      = self;
-    piePlot.pieRadius       = 131.0;
+    piePlot.pieRadius       = 1.0;
     piePlot.identifier      = @"Pie Chart 1";
     piePlot.startAngle      = CPTFloat(M_PI_4);
     piePlot.sliceDirection  = CPTPieDirectionCounterClockwise;
-    piePlot.centerAnchor    = CPTPointMake(0.5, 0.38);
     piePlot.borderLineStyle = [CPTLineStyle lineStyle];
     piePlot.delegate        = self;
     [newGraph addPlot:piePlot];
+
+    [newGraph layoutIfNeeded];
+    [self didRotateFromInterfaceOrientation:UIInterfaceOrientationPortrait];
 
 #ifdef PERFORMANCE_TEST
     [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(changePlotRange) userInfo:nil repeats:YES];

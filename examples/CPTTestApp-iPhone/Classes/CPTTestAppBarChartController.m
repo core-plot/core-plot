@@ -61,7 +61,7 @@
     newGraph.paddingBottom = 0.0;
 
     newGraph.plotAreaFrame.paddingLeft   = 70.0;
-    newGraph.plotAreaFrame.paddingTop    = 20.0;
+    newGraph.plotAreaFrame.paddingTop    = 55.0;
     newGraph.plotAreaFrame.paddingRight  = 20.0;
     newGraph.plotAreaFrame.paddingBottom = 80.0;
 
