@@ -139,9 +139,9 @@
     [hostingView addSubview:self.barChartView];
     [hostingView addSubview:self.pieChartView];
 
-    [self renderScatterPlotInLayer:self.scatterPlotView withTheme:theme];
-    [self renderBarPlotInLayer:self.barChartView withTheme:theme];
-    [self renderPieChartInLayer:self.pieChartView withTheme:theme];
+    [self renderScatterPlotInHostingView:self.scatterPlotView withTheme:theme];
+    [self renderBarPlotInHostingView:self.barChartView withTheme:theme];
+    [self renderPieChartInHostingView:self.pieChartView withTheme:theme];
 }
 
 -(void)killGraph
@@ -161,7 +161,7 @@
     [super killGraph];
 }
 
--(void)renderScatterPlotInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme
+-(void)renderScatterPlotInHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme
 {
     // Create graph from theme
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
@@ -171,7 +171,7 @@
 #endif
 
     self.scatterPlot = [[CPTXYGraph alloc] initWithFrame:bounds];
-    [self addGraph:self.scatterPlot toHostingView:layerHostingView];
+    [self addGraph:self.scatterPlot toHostingView:hostingView];
 
     [self applyTheme:theme toGraph:self.scatterPlot withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
@@ -273,12 +273,12 @@
     self.dataForPlot = contentArray;
 }
 
--(void)renderBarPlotInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme
+-(void)renderBarPlotInHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme
 {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    CGRect bounds = layerHostingView.bounds;
+    CGRect bounds = hostingView.bounds;
 #else
-    CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
+    CGRect bounds = NSRectToCGRect(hostingView.bounds);
 #endif
 
     BOOL drawAxis = YES;
@@ -287,7 +287,7 @@
     }
 
     self.barChart = [[CPTXYGraph alloc] initWithFrame:bounds];
-    [self addGraph:self.barChart toHostingView:layerHostingView];
+    [self addGraph:self.barChart toHostingView:hostingView];
     [self applyTheme:theme toGraph:self.barChart withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
     self.barChart.plotAreaFrame.masksToBorder = NO;
@@ -362,16 +362,16 @@
     [self.barChart addPlot:barPlot toPlotSpace:plotSpace];
 }
 
--(void)renderPieChartInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme
+-(void)renderPieChartInHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme
 {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    CGRect bounds = layerHostingView.bounds;
+    CGRect bounds = hostingView.bounds;
 #else
-    CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
+    CGRect bounds = NSRectToCGRect(hostingView.bounds);
 #endif
 
     self.pieChart = [[CPTXYGraph alloc] initWithFrame:bounds];
-    [self addGraph:self.pieChart toHostingView:layerHostingView];
+    [self addGraph:self.pieChart toHostingView:hostingView];
     [self applyTheme:theme toGraph:self.pieChart withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
     self.pieChart.plotAreaFrame.masksToBorder = NO;
@@ -383,8 +383,8 @@
     // Add pie chart
     CPTPieChart *piePlot = [[CPTPieChart alloc] init];
     piePlot.dataSource = self;
-    piePlot.pieRadius  = MIN( CPTFloat(0.7) * (layerHostingView.frame.size.height - CPTFloat(2.0) * self.pieChart.paddingLeft) / CPTFloat(2.0),
-                              CPTFloat(0.7) * (layerHostingView.frame.size.width - CPTFloat(2.0) * self.pieChart.paddingTop) / CPTFloat(2.0) );
+    piePlot.pieRadius  = MIN( CPTFloat(0.7) * (hostingView.frame.size.height - CPTFloat(2.0) * self.pieChart.paddingLeft) / CPTFloat(2.0),
+                              CPTFloat(0.7) * (hostingView.frame.size.width - CPTFloat(2.0) * self.pieChart.paddingTop) / CPTFloat(2.0) );
     piePlot.identifier      = @"Pie Chart 1";
     piePlot.startAngle      = CPTFloat(M_PI_4);
     piePlot.sliceDirection  = CPTPieDirectionCounterClockwise;

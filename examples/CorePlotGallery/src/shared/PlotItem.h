@@ -47,7 +47,7 @@ extern NSString *const kFinancialPlots;
 #endif
 -(CPTNativeImage *)image;
 
--(void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated;
+-(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated;
 
 -(void)setTitleDefaultsForGraph:(CPTGraph *)graph withBounds:(CGRect)bounds;
 -(void)setPaddingDefaultsForGraph:(CPTGraph *)graph withBounds:(CGRect)bounds;
@@ -56,7 +56,7 @@ extern NSString *const kFinancialPlots;
 -(void)applyTheme:(CPTTheme *)theme toGraph:(CPTGraph *)graph withDefault:(CPTTheme *)defaultTheme;
 
 -(void)addGraph:(CPTGraph *)graph;
--(void)addGraph:(CPTGraph *)graph toHostingView:(CPTGraphHostingView *)layerHostingView;
+-(void)addGraph:(CPTGraph *)graph toHostingView:(CPTGraphHostingView *)hostingView;
 -(void)killGraph;
 
 -(void)generateData;

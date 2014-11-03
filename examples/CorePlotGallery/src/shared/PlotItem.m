@@ -55,20 +55,21 @@ NSString *const kFinancialPlots = @"Financial Plots";
 {
     if ( (self = [super init]) ) {
         defaultLayerHostingView = nil;
-        graphs                  = [[NSMutableArray alloc] init];
-        section                 = nil;
-        title                   = nil;
+
+        graphs  = [[NSMutableArray alloc] init];
+        section = nil;
+        title   = nil;
     }
 
     return self;
 }
 
--(void)addGraph:(CPTGraph *)graph toHostingView:(CPTGraphHostingView *)layerHostingView
+-(void)addGraph:(CPTGraph *)graph toHostingView:(CPTGraphHostingView *)hostingView
 {
     [self.graphs addObject:graph];
 
-    if ( layerHostingView ) {
-        layerHostingView.hostedGraph = graph;
+    if ( hostingView ) {
+        hostingView.hostedGraph = graph;
     }
 }
 
@@ -269,12 +270,12 @@ NSString *const kFinancialPlots = @"Financial Plots";
 
     [inView addSubview:hostingView];
     [self generateData];
-    [self renderInLayer:hostingView withTheme:theme animated:animated];
+    [self renderInGraphHostingView:hostingView withTheme:theme animated:animated];
 
     self.defaultLayerHostingView = hostingView;
 }
 
--(void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
 {
     NSLog(@"PlotItem:renderInLayer: Override me");
 }
