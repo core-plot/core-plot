@@ -2,9 +2,6 @@
 //  DetailViewController.h
 //  CorePlotGallery
 //
-//  Created by Jeff Buck on 8/28/10.
-//  Copyright Jeff Buck 2010. All rights reserved.
-//
 
 #import "CorePlot-CocoaTouch.h"
 #import "PlotItem.h"
