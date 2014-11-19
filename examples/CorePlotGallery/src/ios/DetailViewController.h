@@ -3,22 +3,16 @@
 //  CorePlotGallery
 //
 
-#import "CorePlot-CocoaTouch.h"
-#import "PlotItem.h"
-#import "ThemeTableViewController.h"
-#import <UIKit/UIKit.h>
+@class PlotItem;
 
-@interface DetailViewController : UIViewController<UIPopoverControllerDelegate,
-                                                   UISplitViewControllerDelegate,
-                                                   ThemeTableViewControllerDelegate>
+@interface DetailViewController : UIViewController
 
-@property (nonatomic, strong) IBOutlet UIToolbar *toolbar;
 @property (nonatomic, strong) PlotItem *detailItem;
-@property (nonatomic, strong) IBOutlet UIView *hostingView;
-@property (nonatomic, strong) IBOutlet UIBarButtonItem *themeBarButton;
-@property (nonatomic, strong) IBOutlet ThemeTableViewController *themeTableViewController;
 @property (nonatomic, copy) NSString *currentThemeName;
 
--(IBAction)showThemes:(id)sender;
+@property (nonatomic, strong) IBOutlet UIView *hostingView;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *themeBarButton;
+
+-(void)themeSelectedWithName:(NSString *)themeName;
 
 @end
