@@ -305,9 +305,14 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 
 -(void)drawInContext:(CGContextRef)context
 {
-    self.useFastRendering = YES;
-    [self renderAsVectorInContext:context];
-    self.useFastRendering = NO;
+    if ( context ) {
+        self.useFastRendering = YES;
+        [self renderAsVectorInContext:context];
+        self.useFastRendering = NO;
+    }
+    else {
+        NSLog(@"%@: Tried to draw into a NULL context", self);
+    }
 }
 
 /// @endcond
