@@ -69,13 +69,10 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
     [self addGraph:graph toHostingView:hostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
-    [self setTitleDefaultsForGraph:graph withBounds:bounds];
-    [self setPaddingDefaultsForGraph:graph withBounds:bounds];
-
-    graph.plotAreaFrame.paddingTop    = 15.0;
-    graph.plotAreaFrame.paddingRight  = 15.0;
-    graph.plotAreaFrame.paddingBottom = 55.0;
-    graph.plotAreaFrame.paddingLeft   = 55.0;
+    graph.plotAreaFrame.paddingTop    = self.titleSize * CPTFloat(0.5);
+    graph.plotAreaFrame.paddingRight  = self.titleSize * CPTFloat(0.5);
+    graph.plotAreaFrame.paddingBottom = self.titleSize * CPTFloat(2.625);
+    graph.plotAreaFrame.paddingLeft   = self.titleSize * CPTFloat(2.5);
     graph.plotAreaFrame.masksToBorder = NO;
 
     // Grid line styles
@@ -96,8 +93,9 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
     x.majorGridLineStyle          = majorGridLineStyle;
     x.minorGridLineStyle          = minorGridLineStyle;
     x.minorTicksPerInterval       = 9;
+    x.labelOffset                 = self.titleSize * CPTFloat(0.25);
     x.title                       = @"X Axis";
-    x.titleOffset                 = 35.0;
+    x.titleOffset                 = self.titleSize * CPTFloat(1.5);
     NSNumberFormatter *labelFormatter = [[NSNumberFormatter alloc] init];
     labelFormatter.numberStyle = NSNumberFormatterNoStyle;
     x.labelFormatter           = labelFormatter;
@@ -109,9 +107,9 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
     y.majorGridLineStyle          = majorGridLineStyle;
     y.minorGridLineStyle          = minorGridLineStyle;
     y.minorTicksPerInterval       = 3;
-    y.labelOffset                 = 5.0;
+    y.labelOffset                 = self.titleSize * CPTFloat(0.25);
     y.title                       = @"Y Axis";
-    y.titleOffset                 = 30.0;
+    y.titleOffset                 = self.titleSize * CPTFloat(1.25);
     y.axisConstraints             = [CPTConstraints constraintWithLowerOffset:0.0];
 
     // Rotate the labels by 45 degrees, just to show it can be done.

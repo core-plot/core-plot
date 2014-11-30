@@ -49,9 +49,6 @@
     [self addGraph:graph toHostingView:hostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
-    [self setTitleDefaultsForGraph:graph withBounds:bounds];
-    [self setPaddingDefaultsForGraph:graph withBounds:bounds];
-
     graph.plotAreaFrame.masksToBorder = NO;
     graph.axisSet                     = nil;
 
@@ -110,6 +107,7 @@
     dispatch_once(&onceToken, ^{
         whiteText = [[CPTMutableTextStyle alloc] init];
         whiteText.color = [CPTColor whiteColor];
+        whiteText.fontSize = self.titleSize * CPTFloat(0.5);
     });
 
     CPTTextLayer *newLayer = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%1.0f", [self.plotData[index] floatValue]]
@@ -165,7 +163,7 @@
         num = self.plotData[index];
     }
     else {
-        return @(index);
+        num = @(index);
     }
 
     return num;
@@ -175,8 +173,10 @@
 {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     UIColor *sliceColor = [CPTPieChart defaultPieSliceColorForIndex:index].uiColor;
+    UIFont *labelFont   = [UIFont fontWithName:@"Helvetica" size:self.titleSize * CPTFloat(0.5)];
 #else
     NSColor *sliceColor = [CPTPieChart defaultPieSliceColorForIndex:index].nsColor;
+    NSFont *labelFont   = [NSFont fontWithName:@"Helvetica" size:self.titleSize * CPTFloat(0.5)];
 #endif
 
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Pie Slice %lu", (unsigned long)index]];
@@ -184,6 +184,12 @@
         [title addAttribute:NSForegroundColorAttributeName
                       value:sliceColor
                       range:NSMakeRange(4, 5)];
+    }
+
+    if ( &NSFontAttributeName != NULL ) {
+        [title addAttribute:NSFontAttributeName
+                      value:labelFont
+                      range:NSMakeRange(0, title.length)];
     }
 
     return title;

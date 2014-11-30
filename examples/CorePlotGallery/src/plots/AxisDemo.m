@@ -35,17 +35,14 @@
     [self addGraph:graph toHostingView:hostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTSlateTheme]];
 
-    [self setTitleDefaultsForGraph:graph withBounds:bounds];
-    [self setPaddingDefaultsForGraph:graph withBounds:bounds];
-
     graph.fill = [CPTFill fillWithColor:[CPTColor darkGrayColor]];
 
     // Plot area
     graph.plotAreaFrame.fill          = [CPTFill fillWithColor:[CPTColor lightGrayColor]];
-    graph.plotAreaFrame.paddingTop    = 20.0;
-    graph.plotAreaFrame.paddingBottom = 50.0;
-    graph.plotAreaFrame.paddingLeft   = 50.0;
-    graph.plotAreaFrame.paddingRight  = 50.0;
+    graph.plotAreaFrame.paddingTop    = self.titleSize;
+    graph.plotAreaFrame.paddingBottom = self.titleSize * CPTFloat(2.0);
+    graph.plotAreaFrame.paddingLeft   = self.titleSize * CPTFloat(2.0);
+    graph.plotAreaFrame.paddingRight  = self.titleSize * CPTFloat(2.0);
     graph.plotAreaFrame.cornerRadius  = 10.0;
     graph.plotAreaFrame.masksToBorder = NO;
 
@@ -74,7 +71,6 @@
     // Text styles
     CPTMutableTextStyle *axisTitleTextStyle = [CPTMutableTextStyle textStyle];
     axisTitleTextStyle.fontName = @"Helvetica-Bold";
-    axisTitleTextStyle.fontSize = 14.0;
 
     // Axes
     // Label x axis with a fixed interval policy
@@ -93,7 +89,7 @@
     x.minorGridLineStyle          = minorGridLineStyle;
     x.title                       = @"X Axis";
     x.titleTextStyle              = axisTitleTextStyle;
-    x.titleOffset                 = 25.0;
+    x.titleOffset                 = self.titleSize;
     x.alternatingBandFills        = @[[[CPTColor redColor] colorWithAlphaComponent:CPTFloat(0.1)], [[CPTColor greenColor] colorWithAlphaComponent:CPTFloat(0.1)]];
     x.delegate                    = self;
 
@@ -113,7 +109,7 @@
     y.minorGridLineStyle    = minorGridLineStyle;
     y.title                 = @"Y Axis";
     y.titleTextStyle        = axisTitleTextStyle;
-    y.titleOffset           = 30.0;
+    y.titleOffset           = self.titleSize * CPTFloat(1.1);
     y.alternatingBandFills  = @[[[CPTColor blueColor] colorWithAlphaComponent:CPTFloat(0.1)], [NSNull null]];
     y.delegate              = self;
 
@@ -141,7 +137,7 @@
     y2.minorTickLength             = 8.0;
     y2.title                       = @"Y2 Axis";
     y2.titleTextStyle              = axisTitleTextStyle;
-    y2.titleOffset                 = -50.0;
+    y2.titleOffset                 = self.titleSize * CPTFloat(-2.1);
     y2.delegate                    = self;
 
     // Add the y2 axis to the axis set

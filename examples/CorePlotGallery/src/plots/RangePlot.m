@@ -85,16 +85,14 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     [self addGraph:newGraph toHostingView:hostingView];
     [self applyTheme:theme toGraph:newGraph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
-    [self setTitleDefaultsForGraph:newGraph withBounds:bounds];
-    [self setPaddingDefaultsForGraph:newGraph withBounds:bounds];
     newGraph.plotAreaFrame.masksToBorder = NO;
     self.graph                           = newGraph;
 
     // Instructions
     CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
     textStyle.color    = [CPTColor whiteColor];
-    textStyle.fontSize = 14.0;
     textStyle.fontName = @"Helvetica";
+    textStyle.fontSize = self.titleSize * CPTFloat(0.5);
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:@"Touch to Toggle Range Plot Style" style:textStyle];
@@ -166,10 +164,9 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     newGraph.legend.fill               = [CPTFill fillWithColor:[CPTColor darkGrayColor]];
     newGraph.legend.borderLineStyle    = x.axisLineStyle;
     newGraph.legend.cornerRadius       = 5.0;
-    newGraph.legend.swatchSize         = CGSizeMake(25.0, 25.0);
     newGraph.legend.swatchCornerRadius = 3.0;
-    newGraph.legendAnchor              = CPTRectAnchorBottom;
-    newGraph.legendDisplacement        = CGPointMake(0.0, 12.0);
+    newGraph.legendAnchor              = CPTRectAnchorTop;
+    newGraph.legendDisplacement        = CGPointMake( 0.0, self.titleSize * CPTFloat(-2.0) - CPTFloat(12.0) );
 }
 
 #pragma mark -

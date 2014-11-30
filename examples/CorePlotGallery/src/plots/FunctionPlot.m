@@ -60,10 +60,7 @@
     [self addGraph:graph toHostingView:hostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
-    [self setTitleDefaultsForGraph:graph withBounds:bounds];
-    [self setPaddingDefaultsForGraph:graph withBounds:bounds];
-
-    graph.plotAreaFrame.paddingLeft += CPTFloat(55.0);
+    graph.plotAreaFrame.paddingLeft += self.titleSize * CPTFloat(2.25);
 
     // Setup scatter plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
@@ -95,7 +92,7 @@
     x.axisConstraints       = [CPTConstraints constraintWithRelativeOffset:0.5];
 
     x.title       = @"X Axis";
-    x.titleOffset = 30.0;
+    x.titleOffset = self.titleSize * CPTFloat(1.25);
 
     // Label y with an automatic label policy.
     CPTXYAxis *y = axisSet.yAxis;
@@ -108,7 +105,7 @@
     y.axisConstraints             = [CPTConstraints constraintWithLowerOffset:0.0];
 
     y.title       = @"Y Axis";
-    y.titleOffset = 32.0;
+    y.titleOffset = self.titleSize * CPTFloat(1.25);
 
     // Create some function plots
     for ( NSUInteger plotNum = 0; plotNum < 2; plotNum++ ) {
@@ -160,6 +157,15 @@
             [title addAttribute:NSFontAttributeName
                           value:italicFont
                           range:NSMakeRange(8, 1)];
+
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+            UIFont *labelFont = [UIFont fontWithName:@"Helvetica" size:self.titleSize * CPTFloat(0.5)];
+#else
+            NSFont *labelFont = [NSFont fontWithName:@"Helvetica" size:self.titleSize * CPTFloat(0.5)];
+#endif
+            [title addAttribute:NSFontAttributeName
+                          value:labelFont
+                          range:NSMakeRange(0, title.length)];
         }
         linePlot.attributedTitle = title;
 
@@ -196,11 +202,10 @@
     graph.legend.fill            = [CPTFill fillWithColor:[CPTColor darkGrayColor]];
     graph.legend.borderLineStyle = x.axisLineStyle;
     graph.legend.cornerRadius    = 5.0;
-    graph.legend.swatchSize      = CGSizeMake(25.0, 25.0);
     graph.legend.numberOfRows    = 1;
     graph.legend.delegate        = self;
     graph.legendAnchor           = CPTRectAnchorBottom;
-    graph.legendDisplacement     = CGPointMake(0.0, 12.0);
+    graph.legendDisplacement     = CGPointMake( 0.0, self.titleSize * CPTFloat(1.25) );
 }
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE

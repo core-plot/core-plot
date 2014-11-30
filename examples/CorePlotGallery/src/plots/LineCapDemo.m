@@ -35,16 +35,13 @@
     [self addGraph:graph toHostingView:hostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTSlateTheme]];
 
-    [self setTitleDefaultsForGraph:graph withBounds:bounds];
-    [self setPaddingDefaultsForGraph:graph withBounds:bounds];
-
     graph.fill = [CPTFill fillWithColor:[CPTColor darkGrayColor]];
 
     // Plot area
-    graph.plotAreaFrame.paddingTop    = 25.0;
-    graph.plotAreaFrame.paddingBottom = 25.0;
-    graph.plotAreaFrame.paddingLeft   = 25.0;
-    graph.plotAreaFrame.paddingRight  = 25.0;
+    graph.plotAreaFrame.paddingTop    = self.titleSize;
+    graph.plotAreaFrame.paddingBottom = self.titleSize;
+    graph.plotAreaFrame.paddingLeft   = self.titleSize;
+    graph.plotAreaFrame.paddingRight  = self.titleSize;
     graph.plotAreaFrame.masksToBorder = NO;
 
     // Setup plot space

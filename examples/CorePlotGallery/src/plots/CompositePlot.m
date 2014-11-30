@@ -79,66 +79,129 @@
 }
 #endif
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
--(void)renderInView:(UIView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
-#else
--(void)renderInView:(NSView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
-#endif
+-(void)renderInView:(PlotGalleryNativeView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
 {
     [self killGraph];
 
+    CPTGraphHostingView *scatterView = [[CPTGraphHostingView alloc] init];
+    CPTGraphHostingView *barView     = [[CPTGraphHostingView alloc] init];
+    CPTGraphHostingView *pieView     = [[CPTGraphHostingView alloc] init];
+
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    CGRect viewRect = [hostingView bounds];
+    for ( UIView *view in @[scatterView, barView, pieView] ) {
+        view.translatesAutoresizingMaskIntoConstraints = NO;
+        [hostingView addSubview:view];
 
-    self.scatterPlotView = [[CPTGraphHostingView alloc] initWithFrame:CGRectMake( 0.0,
-                                                                                  0.0,
-                                                                                  viewRect.size.width,
-                                                                                  viewRect.size.height * CPTFloat(0.5) )];
+        [hostingView addConstraint:[NSLayoutConstraint constraintWithItem:view
+                                                                attribute:NSLayoutAttributeHeight
+                                                                relatedBy:NSLayoutRelationEqual
+                                                                   toItem:hostingView
+                                                                attribute:NSLayoutAttributeHeight
+                                                               multiplier:0.5
+                                                                 constant:0.0]];
+    }
 
-    self.barChartView = [[CPTGraphHostingView alloc] initWithFrame:CGRectMake( 0.0,
-                                                                               viewRect.size.height * CPTFloat(0.5),
-                                                                               viewRect.size.width * CPTFloat(0.5),
-                                                                               viewRect.size.height * CPTFloat(0.5) )];
+    [hostingView addConstraint:[NSLayoutConstraint constraintWithItem:scatterView
+                                                            attribute:NSLayoutAttributeWidth
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:hostingView
+                                                            attribute:NSLayoutAttributeWidth
+                                                           multiplier:1.0
+                                                             constant:0.0]];
+    [hostingView addConstraint:[NSLayoutConstraint constraintWithItem:barView
+                                                            attribute:NSLayoutAttributeWidth
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:hostingView
+                                                            attribute:NSLayoutAttributeWidth
+                                                           multiplier:0.5
+                                                             constant:0.0]];
+    [hostingView addConstraint:[NSLayoutConstraint constraintWithItem:pieView
+                                                            attribute:NSLayoutAttributeWidth
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:hostingView
+                                                            attribute:NSLayoutAttributeWidth
+                                                           multiplier:0.5
+                                                             constant:0.0]];
 
-    self.pieChartView = [[CPTGraphHostingView alloc] initWithFrame:CGRectMake( viewRect.size.width * CPTFloat(0.5),
-                                                                               viewRect.size.height * CPTFloat(0.5),
-                                                                               viewRect.size.width * CPTFloat(0.5),
-                                                                               viewRect.size.height * CPTFloat(0.5) )];
+    [hostingView addConstraint:[NSLayoutConstraint constraintWithItem:scatterView
+                                                            attribute:NSLayoutAttributeLeft
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:hostingView
+                                                            attribute:NSLayoutAttributeLeading
+                                                           multiplier:1.0
+                                                             constant:0.0]];
+    [hostingView addConstraint:[NSLayoutConstraint constraintWithItem:barView
+                                                            attribute:NSLayoutAttributeLeft
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:hostingView
+                                                            attribute:NSLayoutAttributeLeading
+                                                           multiplier:1.0
+                                                             constant:0.0]];
+    [hostingView addConstraint:[NSLayoutConstraint constraintWithItem:pieView
+                                                            attribute:NSLayoutAttributeRight
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:hostingView
+                                                            attribute:NSLayoutAttributeTrailing
+                                                           multiplier:1.0
+                                                             constant:0.0]];
+
+    [hostingView addConstraint:[NSLayoutConstraint constraintWithItem:scatterView
+                                                            attribute:NSLayoutAttributeBottom
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:hostingView
+                                                            attribute:NSLayoutAttributeBottom
+                                                           multiplier:1.0
+                                                             constant:0.0]];
+    [hostingView addConstraint:[NSLayoutConstraint constraintWithItem:barView
+                                                            attribute:NSLayoutAttributeTop
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:hostingView
+                                                            attribute:NSLayoutAttributeTop
+                                                           multiplier:1.0
+                                                             constant:0.0]];
+    [hostingView addConstraint:[NSLayoutConstraint constraintWithItem:pieView
+                                                            attribute:NSLayoutAttributeTop
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:hostingView
+                                                            attribute:NSLayoutAttributeTop
+                                                           multiplier:1.0
+                                                             constant:0.0]];
+
 #else
     NSRect viewRect = [hostingView bounds];
 
-    self.scatterPlotView = [[CPTGraphHostingView alloc] initWithFrame:NSMakeRect( 0.0,
-                                                                                  0.0,
-                                                                                  viewRect.size.width,
-                                                                                  viewRect.size.height * CPTFloat(0.5) )];
+    scatterView.frame = NSMakeRect( 0.0,
+                                    0.0,
+                                    viewRect.size.width,
+                                    viewRect.size.height * CPTFloat(0.5) );
 
-    self.barChartView = [[CPTGraphHostingView alloc] initWithFrame:NSMakeRect( 0.0,
-                                                                               viewRect.size.height * CPTFloat(0.5),
-                                                                               viewRect.size.width * CPTFloat(0.5),
-                                                                               viewRect.size.height * CPTFloat(0.5) )];
+    barView.frame = NSMakeRect( 0.0,
+                                viewRect.size.height * CPTFloat(0.5),
+                                viewRect.size.width * CPTFloat(0.5),
+                                viewRect.size.height * CPTFloat(0.5) );
 
-    self.pieChartView = [[CPTGraphHostingView alloc] initWithFrame:NSMakeRect( viewRect.size.width * CPTFloat(0.5),
-                                                                               viewRect.size.height * CPTFloat(0.5),
-                                                                               viewRect.size.width * CPTFloat(0.5),
-                                                                               viewRect.size.height * CPTFloat(0.5) )];
+    pieView.frame = NSMakeRect( viewRect.size.width * CPTFloat(0.5),
+                                viewRect.size.height * CPTFloat(0.5),
+                                viewRect.size.width * CPTFloat(0.5),
+                                viewRect.size.height * CPTFloat(0.5) );
 
-    [self.scatterPlotView setAutoresizesSubviews:YES];
-    [self.scatterPlotView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+    for ( NSView *view in @[scatterView, barView, pieView] ) {
+        [view setAutoresizesSubviews:YES];
+        [view setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
 
-    [self.barChartView setAutoresizesSubviews:YES];
-    [self.barChartView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
-
-    [self.pieChartView setAutoresizesSubviews:YES];
-    [self.pieChartView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+        [hostingView addSubview:view];
+    }
 #endif
 
-    [hostingView addSubview:self.scatterPlotView];
-    [hostingView addSubview:self.barChartView];
-    [hostingView addSubview:self.pieChartView];
+    self.scatterPlotView = scatterView;
+    self.barChartView    = barView;
+    self.pieChartView    = pieView;
 
-    [self renderScatterPlotInHostingView:self.scatterPlotView withTheme:theme];
-    [self renderBarPlotInHostingView:self.barChartView withTheme:theme];
-    [self renderPieChartInHostingView:self.pieChartView withTheme:theme];
+    [self renderScatterPlotInHostingView:scatterView withTheme:theme];
+    [self renderBarPlotInHostingView:barView withTheme:theme];
+    [self renderPieChartInHostingView:pieView withTheme:theme];
+
+    [self formatAllGraphs];
 }
 
 -(void)killGraph
@@ -171,11 +234,6 @@
     [self addGraph:self.scatterPlot toHostingView:hostingView];
 
     [self applyTheme:theme toGraph:self.scatterPlot withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
-
-    self.scatterPlot.paddingLeft   = 10.0;
-    self.scatterPlot.paddingTop    = 10.0;
-    self.scatterPlot.paddingRight  = 10.0;
-    self.scatterPlot.paddingBottom = 10.0;
 
     self.scatterPlot.plotAreaFrame.plotArea.delegate = self;
 
@@ -278,75 +336,54 @@
     CGRect bounds = NSRectToCGRect(hostingView.bounds);
 #endif
 
-    BOOL drawAxis = YES;
-    if ( bounds.size.width < 200.0 ) {
-        drawAxis = NO;
-    }
-
     self.barChart = [[CPTXYGraph alloc] initWithFrame:bounds];
     [self addGraph:self.barChart toHostingView:hostingView];
     [self applyTheme:theme toGraph:self.barChart withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
     self.barChart.plotAreaFrame.masksToBorder = NO;
 
-    if ( drawAxis ) {
-        self.barChart.paddingLeft   = 70.0;
-        self.barChart.paddingTop    = 20.0;
-        self.barChart.paddingRight  = 20.0;
-        self.barChart.paddingBottom = 80.0;
-    }
-    else {
-        [self setPaddingDefaultsForGraph:self.barChart withBounds:bounds];
-    }
-
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.barChart.defaultPlotSpace;
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(300.0f)];
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromFloat(17.0f)];
 
-    if ( drawAxis ) {
-        CPTXYAxisSet *axisSet = (CPTXYAxisSet *)self.barChart.axisSet;
-        CPTXYAxis *x          = axisSet.xAxis;
-        x.axisLineStyle               = nil;
-        x.majorTickLineStyle          = nil;
-        x.minorTickLineStyle          = nil;
-        x.majorIntervalLength         = CPTDecimalFromDouble(5.0);
-        x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
-        x.title                       = @"X Axis";
-        x.titleLocation               = CPTDecimalFromFloat(7.5f);
-        x.titleOffset                 = 55.0;
+    CPTXYAxisSet *axisSet = (CPTXYAxisSet *)self.barChart.axisSet;
+    CPTXYAxis *x          = axisSet.xAxis;
+    x.axisLineStyle               = nil;
+    x.majorTickLineStyle          = nil;
+    x.minorTickLineStyle          = nil;
+    x.majorIntervalLength         = CPTDecimalFromDouble(5.0);
+    x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
 
-        // Define some custom labels for the data elements
-        x.labelRotation  = CPTFloat(M_PI_4);
-        x.labelingPolicy = CPTAxisLabelingPolicyNone;
-        NSArray *customTickLocations = @[@1, @5, @10, @15];
-        NSArray *xAxisLabels         = @[@"Label A", @"Label B", @"Label C", @"Label D"];
-        NSUInteger labelLocation     = 0;
-        NSMutableSet *customLabels   = [NSMutableSet setWithCapacity:[xAxisLabels count]];
-        for ( NSNumber *tickLocation in customTickLocations ) {
-            CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:xAxisLabels[labelLocation++] textStyle:x.labelTextStyle];
-            newLabel.tickLocation = [tickLocation decimalValue];
-            newLabel.offset       = x.labelOffset + x.majorTickLength;
-            newLabel.rotation     = CPTFloat(M_PI_4);
-            [customLabels addObject:newLabel];
-        }
-
-        x.axisLabels = customLabels;
-
-        CPTXYAxis *y = axisSet.yAxis;
-        y.axisLineStyle               = nil;
-        y.majorTickLineStyle          = nil;
-        y.minorTickLineStyle          = nil;
-        y.majorIntervalLength         = CPTDecimalFromDouble(50.0);
-        y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
-        y.title                       = @"Y Axis";
-        y.titleOffset                 = 45.0;
-        y.titleLocation               = CPTDecimalFromFloat(150.0f);
+    // Define some custom labels for the data elements
+    x.labelOffset    = 2.0;
+    x.labelRotation  = CPTFloat(M_PI_4);
+    x.labelingPolicy = CPTAxisLabelingPolicyNone;
+    NSArray *customTickLocations = @[@1, @5, @10, @15];
+    NSArray *xAxisLabels         = @[@"Label A", @"Label B", @"Label C", @"Label D"];
+    NSUInteger labelLocation     = 0;
+    NSMutableSet *customLabels   = [NSMutableSet setWithCapacity:[xAxisLabels count]];
+    for ( NSNumber *tickLocation in customTickLocations ) {
+        CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:xAxisLabels[labelLocation++] textStyle:x.labelTextStyle];
+        newLabel.tickLocation = tickLocation.decimalValue;
+        newLabel.offset       = x.labelOffset;
+        newLabel.rotation     = CPTFloat(M_PI_4);
+        [customLabels addObject:newLabel];
     }
+
+    x.axisLabels = customLabels;
+
+    CPTXYAxis *y = axisSet.yAxis;
+    y.axisLineStyle               = nil;
+    y.majorTickLineStyle          = nil;
+    y.minorTickLineStyle          = nil;
+    y.majorIntervalLength         = CPTDecimalFromDouble(50.0);
+    y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
 
     // First bar plot
     CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor redColor] horizontalBars:NO];
-    barPlot.dataSource = self;
-    barPlot.identifier = @"Bar Plot 1";
+    barPlot.dataSource  = self;
+    barPlot.identifier  = @"Bar Plot 1";
+    barPlot.labelOffset = 2.0;
     [self.barChart addPlot:barPlot toPlotSpace:plotSpace];
 
     // Second bar plot
@@ -362,6 +399,8 @@
 -(void)renderPieChartInHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme
 {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+    [hostingView layoutIfNeeded];
+
     CGRect bounds = hostingView.bounds;
 #else
     CGRect bounds = NSRectToCGRect(hostingView.bounds);
@@ -372,8 +411,6 @@
     [self applyTheme:theme toGraph:self.pieChart withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
     self.pieChart.plotAreaFrame.masksToBorder = NO;
-
-    [self setPaddingDefaultsForGraph:self.pieChart withBounds:bounds];
 
     self.pieChart.axisSet = nil;
 
@@ -386,7 +423,6 @@
     piePlot.startAngle      = CPTFloat(M_PI_4);
     piePlot.sliceDirection  = CPTPieDirectionCounterClockwise;
     piePlot.borderLineStyle = [CPTLineStyle lineStyle];
-    //piePlot.sliceLabelOffset = 5.0;
     [self.pieChart addPlot:piePlot];
 
     // Add some initial data
@@ -486,30 +522,42 @@
 
 -(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index
 {
-    static CPTMutableTextStyle *whiteText = nil;
-    static dispatch_once_t onceToken;
-
-    dispatch_once(&onceToken, ^{
-        whiteText = [[CPTMutableTextStyle alloc] init];
-        whiteText.color = [CPTColor whiteColor];
-    });
-
     CPTTextLayer *newLayer = nil;
 
-    switch ( index ) {
-        case 0:
-            newLayer = (id)[NSNull null];
-            break;
+    if ( [plot.identifier isEqual:@"Bar Plot 1"] ) {
+        static CPTMutableTextStyle *whiteText = nil;
+        static dispatch_once_t whiteOnceToken;
 
-        case 1:
-            newLayer = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", (unsigned long)index]
-                                                    style:[CPTTextStyle textStyle]];
-            break;
+        dispatch_once(&whiteOnceToken, ^{
+            whiteText = [[CPTMutableTextStyle alloc] init];
+            whiteText.color = [CPTColor whiteColor];
+            whiteText.fontSize = self.titleSize * CPTFloat(0.5);
+        });
 
-        default:
-            newLayer = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", (unsigned long)index]
-                                                    style:whiteText];
-            break;
+        static CPTMutableTextStyle *redText = nil;
+        static dispatch_once_t blackOnceToken;
+
+        dispatch_once(&blackOnceToken, ^{
+            redText = [[CPTMutableTextStyle alloc] init];
+            redText.color = [CPTColor redColor];
+            redText.fontSize = self.titleSize * CPTFloat(0.5);
+        });
+
+        switch ( index ) {
+            case 0:
+                newLayer = (id)[NSNull null];
+                break;
+
+            case 1:
+                newLayer = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", (unsigned long)index]
+                                                        style:redText];
+                break;
+
+            default:
+                newLayer = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%lu", (unsigned long)index]
+                                                        style:whiteText];
+                break;
+        }
     }
 
     return newLayer;
@@ -536,27 +584,6 @@
 
     return symbol;
 }
-
-#pragma mark -
-#pragma mark UIViewController Methods
-
-#if TARGET_OS_IPHONE
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    if ( UIInterfaceOrientationIsLandscape(fromInterfaceOrientation) ) {
-        // Move the plots into place for portrait
-        self.scatterPlotView.frame = CGRectMake(20.0, 55.0, 728.0, 556.0);
-        self.barChartView.frame    = CGRectMake(20.0, 644.0, 340.0, 340.0);
-        self.pieChartView.frame    = CGRectMake(408.0, 644.0, 340.0, 340.0);
-    }
-    else {
-        // Move the plots into place for landscape
-        self.scatterPlotView.frame = CGRectMake(20.0, 51.0, 628.0, 677.0);
-        self.barChartView.frame    = CGRectMake(684.0, 51.0, 320.0, 320.0);
-        self.pieChartView.frame    = CGRectMake(684.0, 408.0, 320.0, 320.0);
-    }
-}
-#endif
 
 #pragma mark -
 #pragma mark Accessors

@@ -47,9 +47,6 @@ static NSString *const outerChartName = @"Outer";
     [self addGraph:graph toHostingView:hostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
-    [self setTitleDefaultsForGraph:graph withBounds:bounds];
-    [self setPaddingDefaultsForGraph:graph withBounds:bounds];
-
     graph.plotAreaFrame.masksToBorder = NO;
     graph.axisSet                     = nil;
 
@@ -154,6 +151,7 @@ static NSString *const outerChartName = @"Outer";
         dispatch_once(&onceToken, ^{
             whiteText = [[CPTMutableTextStyle alloc] init];
             whiteText.color = [CPTColor whiteColor];
+            whiteText.fontSize = self.titleSize * CPTFloat(0.5);
         });
 
         newLayer                 = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%.0f", [self.plotData[index] floatValue]] style:whiteText];
