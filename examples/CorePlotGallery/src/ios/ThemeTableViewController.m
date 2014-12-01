@@ -2,15 +2,16 @@
 //  ThemeTableViewController.m
 //  CorePlotGallery
 //
-//  Created by Jeff Buck on 8/31/10.
-//  Copyright 2010 Jeff Buck. All rights reserved.
-//
+
+#import "ThemeTableViewController.h"
 
 #import "CorePlot-CocoaTouch.h"
-#import "ThemeTableViewController.h"
 
 NSString *const kThemeTableViewControllerNoTheme      = @"None";
 NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
+
+NSString *const PlotGalleryThemeDidChangeNotification = @"PlotGalleryThemeDidChangeNotification";
+NSString *const PlotGalleryThemeNameKey               = @"PlotGalleryThemeNameKey";
 
 @interface ThemeTableViewController()
 
@@ -18,22 +19,24 @@ NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 
 @end
 
+#pragma mark -
+
 @implementation ThemeTableViewController
 
-@synthesize themePopoverController;
-@synthesize delegate;
 @synthesize themes;
 
 -(void)setupThemes
 {
-    self.themes = [[NSMutableArray alloc] init];
+    NSMutableArray *themeList = [[NSMutableArray alloc] init];
 
-    [self.themes addObject:kThemeTableViewControllerDefaultTheme];
-    [self.themes addObject:kThemeTableViewControllerNoTheme];
+    [themeList addObject:kThemeTableViewControllerDefaultTheme];
+    [themeList addObject:kThemeTableViewControllerNoTheme];
 
-    for ( Class c in [CPTTheme themeClasses] ) {
-        [self.themes addObject:[c name]];
+    for ( Class themeClass in [CPTTheme themeClasses] ) {
+        [themeList addObject:[themeClass name]];
     }
+
+    self.themes = themeList;
 }
 
 -(void)awakeFromNib
@@ -63,7 +66,6 @@ NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
     return (NSInteger)self.themes.count;
 }
 
-// Customize the appearance of table view cells.
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"ThemeCell";
@@ -84,21 +86,15 @@ NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.delegate themeSelectedAtIndex:self.themes[(NSUInteger)indexPath.row]];
-}
+    NSDictionary *themeInfo = @{
+        PlotGalleryThemeNameKey: self.themes[(NSUInteger)indexPath.row]
+    };
 
-#pragma mark -
-#pragma mark Memory management
+    [[NSNotificationCenter defaultCenter] postNotificationName:PlotGalleryThemeDidChangeNotification
+                                                        object:self
+                                                      userInfo:themeInfo];
 
--(void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
--(void)dealloc
-{
-    [self.tableView setDataSource:nil];
-    [self.tableView setDelegate:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

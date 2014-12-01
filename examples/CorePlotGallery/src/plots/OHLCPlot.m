@@ -62,7 +62,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     }
 }
 
--(void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
 {
     // If you make sure your dates are calculated at noon, you shouldn't have to
     // worry about daylight savings. If you use midnight, you will have to adjust
@@ -70,26 +70,23 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     NSDate *refDate = [NSDate dateWithTimeIntervalSinceReferenceDate:oneDay / 2.0];
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    CGRect bounds = layerHostingView.bounds;
+    CGRect bounds = hostingView.bounds;
 #else
-    CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
+    CGRect bounds = NSRectToCGRect(hostingView.bounds);
 #endif
 
     CPTXYGraph *newGraph = [[CPTXYGraph alloc] initWithFrame:bounds];
-    [self addGraph:newGraph toHostingView:layerHostingView];
+    [self addGraph:newGraph toHostingView:hostingView];
     [self applyTheme:theme toGraph:newGraph withDefault:[CPTTheme themeNamed:kCPTStocksTheme]];
-
-    [self setTitleDefaultsForGraph:newGraph withBounds:bounds];
-    [self setPaddingDefaultsForGraph:newGraph withBounds:bounds];
 
     CPTMutableLineStyle *borderLineStyle = [CPTMutableLineStyle lineStyle];
     borderLineStyle.lineColor              = [CPTColor whiteColor];
     borderLineStyle.lineWidth              = 2.0;
     newGraph.plotAreaFrame.borderLineStyle = borderLineStyle;
-    newGraph.plotAreaFrame.paddingTop      = 10.0;
-    newGraph.plotAreaFrame.paddingRight    = 10.0;
-    newGraph.plotAreaFrame.paddingBottom   = 30.0;
-    newGraph.plotAreaFrame.paddingLeft     = 35.0;
+    newGraph.plotAreaFrame.paddingTop      = self.titleSize * CPTFloat(0.5);
+    newGraph.plotAreaFrame.paddingRight    = self.titleSize * CPTFloat(0.5);
+    newGraph.plotAreaFrame.paddingBottom   = self.titleSize * CPTFloat(1.25);
+    newGraph.plotAreaFrame.paddingLeft     = self.titleSize * CPTFloat(1.5);
     newGraph.plotAreaFrame.masksToBorder   = NO;
 
     self.graph = newGraph;
@@ -108,7 +105,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     CPTLineCap *lineCap = [[CPTLineCap alloc] init];
     lineCap.lineStyle    = xAxis.axisLineStyle;
     lineCap.lineCapType  = CPTLineCapTypeOpenArrow;
-    lineCap.size         = CGSizeMake(12.0, 12.0);
+    lineCap.size         = CGSizeMake( self.titleSize * CPTFloat(0.5), self.titleSize * CPTFloat(0.5) );
     xAxis.axisLineCapMax = lineCap;
 
     CPTXYAxis *yAxis = xyAxisSet.yAxis;
@@ -145,7 +142,6 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     ohlcPlot.lineStyle  = whiteLineStyle;
     CPTMutableTextStyle *whiteTextStyle = [CPTMutableTextStyle textStyle];
     whiteTextStyle.color    = [CPTColor whiteColor];
-    whiteTextStyle.fontSize = 12.0;
     ohlcPlot.labelTextStyle = whiteTextStyle;
     ohlcPlot.labelOffset    = 5.0;
     ohlcPlot.stickLength    = 10.0;
@@ -160,10 +156,9 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     newGraph.legend.fill               = newGraph.plotAreaFrame.fill;
     newGraph.legend.borderLineStyle    = newGraph.plotAreaFrame.borderLineStyle;
     newGraph.legend.cornerRadius       = 5.0;
-    newGraph.legend.swatchSize         = CGSizeMake(25.0, 25.0);
     newGraph.legend.swatchCornerRadius = 5.0;
     newGraph.legendAnchor              = CPTRectAnchorBottom;
-    newGraph.legendDisplacement        = CGPointMake(0.0, 12.0);
+    newGraph.legendDisplacement        = CGPointMake( 0.0, self.titleSize * CPTFloat(3.0) );
 
     // Set plot ranges
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)newGraph.defaultPlotSpace;

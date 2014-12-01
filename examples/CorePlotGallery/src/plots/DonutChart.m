@@ -35,20 +35,17 @@ static NSString *const outerChartName = @"Outer";
     }
 }
 
--(void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
 {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    CGRect bounds = layerHostingView.bounds;
+    CGRect bounds = hostingView.bounds;
 #else
-    CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
+    CGRect bounds = NSRectToCGRect(hostingView.bounds);
 #endif
 
     CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
-    [self addGraph:graph toHostingView:layerHostingView];
+    [self addGraph:graph toHostingView:hostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
-
-    [self setTitleDefaultsForGraph:graph withBounds:bounds];
-    [self setPaddingDefaultsForGraph:graph withBounds:bounds];
 
     graph.plotAreaFrame.masksToBorder = NO;
     graph.axisSet                     = nil;
@@ -62,8 +59,8 @@ static NSString *const outerChartName = @"Outer";
     whiteShadow.shadowColor      = [[CPTColor whiteColor] colorWithAlphaComponent:0.25];
 
     // Add pie chart
-    const CGFloat outerRadius = MIN( CPTFloat(0.7) * (layerHostingView.frame.size.height - CPTFloat(2.0) * graph.paddingLeft) / CPTFloat(2.0),
-                                     CPTFloat(0.7) * (layerHostingView.frame.size.width - CPTFloat(2.0) * graph.paddingTop) / CPTFloat(2.0) );
+    const CGFloat outerRadius = MIN( CPTFloat(0.7) * (hostingView.frame.size.height - CPTFloat(2.0) * graph.paddingLeft) / CPTFloat(2.0),
+                                     CPTFloat(0.7) * (hostingView.frame.size.width - CPTFloat(2.0) * graph.paddingTop) / CPTFloat(2.0) );
     const CGFloat innerRadius = outerRadius / CPTFloat(2.0);
 
     CPTPieChart *piePlot = [[CPTPieChart alloc] init];
@@ -154,6 +151,7 @@ static NSString *const outerChartName = @"Outer";
         dispatch_once(&onceToken, ^{
             whiteText = [[CPTMutableTextStyle alloc] init];
             whiteText.color = [CPTColor whiteColor];
+            whiteText.fontSize = self.titleSize * CPTFloat(0.5);
         });
 
         newLayer                 = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%.0f", [self.plotData[index] floatValue]] style:whiteText];

@@ -63,25 +63,22 @@ static const NSUInteger numberOfPoints = 11;
     }
 }
 
--(void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
 {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    CGRect bounds = layerHostingView.bounds;
+    CGRect bounds = hostingView.bounds;
 #else
-    CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
+    CGRect bounds = NSRectToCGRect(hostingView.bounds);
 #endif
 
     CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
-    [self addGraph:graph toHostingView:layerHostingView];
+    [self addGraph:graph toHostingView:hostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTPlainWhiteTheme]];
 
-    [self setTitleDefaultsForGraph:graph withBounds:bounds];
-    [self setPaddingDefaultsForGraph:graph withBounds:bounds];
-
-    graph.plotAreaFrame.paddingTop    = 15.0;
-    graph.plotAreaFrame.paddingRight  = 15.0;
-    graph.plotAreaFrame.paddingBottom = 35.0;
-    graph.plotAreaFrame.paddingLeft   = 35.0;
+    graph.plotAreaFrame.paddingTop    = self.titleSize * CPTFloat(0.5);
+    graph.plotAreaFrame.paddingRight  = self.titleSize * CPTFloat(0.5);
+    graph.plotAreaFrame.paddingBottom = self.titleSize * CPTFloat(1.5);
+    graph.plotAreaFrame.paddingLeft   = self.titleSize * CPTFloat(1.5);
     graph.plotAreaFrame.masksToBorder = NO;
 
     // Grid line styles
@@ -110,7 +107,7 @@ static const NSUInteger numberOfPoints = 11;
     x.labelFormatter     = labelFormatter;
 
     x.title       = @"X Axis";
-    x.titleOffset = 30.0;
+    x.titleOffset = self.titleSize * CPTFloat(1.25);
 
     // Y axis
     CPTXYAxis *y = axisSet.yAxis;
@@ -120,7 +117,7 @@ static const NSUInteger numberOfPoints = 11;
     y.labelFormatter     = labelFormatter;
 
     y.title       = @"Y Axis";
-    y.titleOffset = 30.0;
+    y.titleOffset = self.titleSize * CPTFloat(1.25);
 
     // Center line
     CPTScatterPlot *centerLinePlot = [[CPTScatterPlot alloc] init];
@@ -204,13 +201,13 @@ static const NSUInteger numberOfPoints = 11;
 
     // Add legend
     graph.legend                 = [CPTLegend legendWithPlots:@[linePlot, controlLinePlot, warningLinePlot, centerLinePlot]];
+    graph.legend.fill            = [CPTFill fillWithColor:[CPTColor whiteColor]];
     graph.legend.textStyle       = x.titleTextStyle;
     graph.legend.borderLineStyle = x.axisLineStyle;
     graph.legend.cornerRadius    = 5.0;
     graph.legend.numberOfRows    = 1;
-    graph.legend.swatchSize      = CGSizeMake(25.0, 25.0);
     graph.legendAnchor           = CPTRectAnchorBottom;
-    graph.legendDisplacement     = CGPointMake(0.0, 12.0);
+    graph.legendDisplacement     = CGPointMake( 0.0, self.titleSize * CPTFloat(4.0) );
 }
 
 #pragma mark -

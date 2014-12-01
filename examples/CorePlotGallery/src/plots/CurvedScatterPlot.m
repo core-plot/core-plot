@@ -125,25 +125,22 @@ static NSString *const kSecond = @"Second Derivative";
     }
 }
 
--(void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
 {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    CGRect bounds = layerHostingView.bounds;
+    CGRect bounds = hostingView.bounds;
 #else
-    CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
+    CGRect bounds = NSRectToCGRect(hostingView.bounds);
 #endif
 
     CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
-    [self addGraph:graph toHostingView:layerHostingView];
+    [self addGraph:graph toHostingView:hostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
-    [self setTitleDefaultsForGraph:graph withBounds:bounds];
-    [self setPaddingDefaultsForGraph:graph withBounds:bounds];
-
-    graph.plotAreaFrame.paddingLeft   += CPTFloat(55.0);
-    graph.plotAreaFrame.paddingTop    += CPTFloat(40.0);
-    graph.plotAreaFrame.paddingRight  += CPTFloat(55.0);
-    graph.plotAreaFrame.paddingBottom += CPTFloat(40.0);
+    graph.plotAreaFrame.paddingLeft   += self.titleSize * CPTFloat(2.25);
+    graph.plotAreaFrame.paddingTop    += self.titleSize;
+    graph.plotAreaFrame.paddingRight  += self.titleSize;
+    graph.plotAreaFrame.paddingBottom += self.titleSize;
     graph.plotAreaFrame.masksToBorder  = NO;
 
     // Plot area delegate
@@ -168,7 +165,7 @@ static NSString *const kSecond = @"Second Derivative";
     redLineStyle.lineColor = [[CPTColor redColor] colorWithAlphaComponent:0.5];
 
     CPTLineCap *lineCap = [CPTLineCap sweptArrowPlotLineCap];
-    lineCap.size = CGSizeMake(15.0, 15.0);
+    lineCap.size = CGSizeMake( self.titleSize * CPTFloat(0.625), self.titleSize * CPTFloat(0.625) );
 
     // Axes
     // Label x axis with a fixed interval policy
@@ -185,7 +182,7 @@ static NSString *const kSecond = @"Second Derivative";
     x.axisLineCapMax  = lineCap;
 
     x.title       = @"X Axis";
-    x.titleOffset = 30.0;
+    x.titleOffset = self.titleSize * CPTFloat(1.25);
 
     // Label y with an automatic label policy.
     CPTXYAxis *y = axisSet.yAxis;
@@ -195,7 +192,7 @@ static NSString *const kSecond = @"Second Derivative";
     y.majorGridLineStyle          = majorGridLineStyle;
     y.minorGridLineStyle          = minorGridLineStyle;
     y.axisConstraints             = [CPTConstraints constraintWithLowerOffset:0.0];
-    y.labelOffset                 = 10.0;
+    y.labelOffset                 = self.titleSize * CPTFloat(0.25);
 
     lineCap.lineStyle = y.axisLineStyle;
     lineCap.fill      = [CPTFill fillWithColor:lineCap.lineStyle.lineColor];
@@ -203,7 +200,7 @@ static NSString *const kSecond = @"Second Derivative";
     y.axisLineCapMin  = lineCap;
 
     y.title       = @"Y Axis";
-    y.titleOffset = 32.0;
+    y.titleOffset = self.titleSize * CPTFloat(1.25);
 
     // Set axes
     graph.axisSet.axes = @[x, y];
@@ -275,7 +272,8 @@ static NSString *const kSecond = @"Second Derivative";
 
     // Set plot delegate, to know when symbols have been touched
     // We will display an annotation when a symbol is touched
-    dataSourceLinePlot.delegate                        = self;
+    dataSourceLinePlot.delegate = self;
+
     dataSourceLinePlot.plotSymbolMarginForHitDetection = 5.0;
 
     // Add legend
@@ -285,9 +283,8 @@ static NSString *const kSecond = @"Second Derivative";
     graph.legend.fill            = [CPTFill fillWithColor:[CPTColor darkGrayColor]];
     graph.legend.borderLineStyle = x.axisLineStyle;
     graph.legend.cornerRadius    = 5.0;
-    graph.legend.swatchSize      = CGSizeMake(25.0, 25.0);
     graph.legendAnchor           = CPTRectAnchorBottom;
-    graph.legendDisplacement     = CGPointMake(0.0, 12.0);
+    graph.legendDisplacement     = CGPointMake( 0.0, self.titleSize * CPTFloat(2.0) );
 }
 
 #pragma mark -
@@ -375,7 +372,6 @@ static NSString *const kSecond = @"Second Derivative";
     // Setup a style for the annotation
     CPTMutableTextStyle *hitAnnotationTextStyle = [CPTMutableTextStyle textStyle];
     hitAnnotationTextStyle.color    = [CPTColor whiteColor];
-    hitAnnotationTextStyle.fontSize = 16.0;
     hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
 
     // Determine point of symbol in plot coordinates

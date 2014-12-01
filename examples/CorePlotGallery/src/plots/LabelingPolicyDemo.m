@@ -5,10 +5,6 @@
 
 #import "LabelingPolicyDemo.h"
 
-static const CGFloat majorTickLength = 12.0;
-static const CGFloat minorTickLength = 8.0;
-static const CGFloat titleOffset     = 25.0;
-
 @implementation LabelingPolicyDemo
 
 +(void)load
@@ -26,29 +22,30 @@ static const CGFloat titleOffset     = 25.0;
     return self;
 }
 
--(void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
 {
+    const CGFloat majorTickLength = 12.0;
+    const CGFloat minorTickLength = 8.0;
+    const CGFloat titleOffset     = self.titleSize;
+
 #if TARGET_OS_IPHONE
-    CGRect bounds = layerHostingView.bounds;
+    CGRect bounds = hostingView.bounds;
 #else
-    CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
+    CGRect bounds = NSRectToCGRect(hostingView.bounds);
 #endif
 
     // Create graph
     CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
-    [self addGraph:graph toHostingView:layerHostingView];
+    [self addGraph:graph toHostingView:hostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTSlateTheme]];
-
-    [self setTitleDefaultsForGraph:graph withBounds:bounds];
-    [self setPaddingDefaultsForGraph:graph withBounds:bounds];
 
     graph.fill = [CPTFill fillWithColor:[CPTColor darkGrayColor]];
 
     // Plot area
-    graph.plotAreaFrame.paddingTop    = 25.0;
-    graph.plotAreaFrame.paddingBottom = 25.0;
-    graph.plotAreaFrame.paddingLeft   = 25.0;
-    graph.plotAreaFrame.paddingRight  = 25.0;
+    graph.plotAreaFrame.paddingTop    = self.titleSize;
+    graph.plotAreaFrame.paddingBottom = self.titleSize;
+    graph.plotAreaFrame.paddingLeft   = self.titleSize;
+    graph.plotAreaFrame.paddingRight  = self.titleSize;
     graph.plotAreaFrame.masksToBorder = NO;
 
     // Setup plot space
@@ -71,7 +68,6 @@ static const CGFloat titleOffset     = 25.0;
     // Text styles
     CPTMutableTextStyle *axisTitleTextStyle = [CPTMutableTextStyle textStyle];
     axisTitleTextStyle.fontName = @"Helvetica-Bold";
-    axisTitleTextStyle.fontSize = 14.0;
 
     // Tick locations
     NSSet *majorTickLocations = [NSSet setWithObjects:@0, @30, @50, @85, @100, nil];

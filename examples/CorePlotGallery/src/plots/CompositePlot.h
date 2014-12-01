@@ -2,9 +2,6 @@
 //  CompositePlot.h
 //  CorePlotGallery
 //
-//  Created by Jeff Buck on 9/4/10.
-//  Copyright 2010 Jeff Buck. All rights reserved.
-//
 
 #import "PlotItem.h"
 
@@ -16,8 +13,8 @@
 @property (readwrite, strong, nonatomic) NSMutableArray *dataForChart;
 @property (readwrite, strong, nonatomic) NSMutableArray *dataForPlot;
 
--(void)renderScatterPlotInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme;
--(void)renderBarPlotInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme;
--(void)renderPieChartInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme;
+-(void)renderScatterPlotInHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme;
+-(void)renderBarPlotInHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme;
+-(void)renderPieChartInHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme;
 
 @end

@@ -51,7 +51,6 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 {
     NSMutableDictionary *aFinancialLine = [NSMutableDictionary dictionaryWithDictionary:theFinancialLine];
 
-//    NSArray *keys = [NSArray arrayWithObjects:@"adjClose", @"close", @"high", @"low", @"open", @"volume", nil];
     for ( id key in [aFinancialLine allKeys] ) {
         id something = aFinancialLine[key];
         if ( [something respondsToSelector:@selector(decimalValue)] ) {
