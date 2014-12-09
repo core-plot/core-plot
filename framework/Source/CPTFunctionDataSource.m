@@ -19,7 +19,7 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
 @property (nonatomic, readwrite) NSUInteger cachedCount;
 @property (nonatomic, readwrite, strong) CPTMutablePlotRange *cachedPlotRange;
 
--(instancetype)initForPlot:(CPTPlot *)plot;
+-(instancetype)initForPlot:(CPTPlot *)plot NS_DESIGNATED_INITIALIZER;
 -(void)plotBoundsChanged;
 -(void)plotSpaceChanged;
 
@@ -94,7 +94,6 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
  **/
 -(instancetype)initForPlot:(CPTPlot *)plot withFunction:(CPTDataSourceFunction)function
 {
-    NSParameterAssert([plot isKindOfClass:[CPTScatterPlot class]]);
     NSParameterAssert(function);
 
     if ( (self = [self initForPlot:plot]) ) {
@@ -110,7 +109,6 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
  **/
 -(instancetype)initForPlot:(CPTPlot *)plot withBlock:(CPTDataSourceBlock)block
 {
-    NSParameterAssert([plot isKindOfClass:[CPTScatterPlot class]]);
     NSParameterAssert(block);
 
     if ( (self = [self initForPlot:plot]) ) {

@@ -37,7 +37,8 @@ typedef NS_ENUM (NSInteger, CPTPlotRangeComparisonResult) {
 
 /// @name Initialization
 /// @{
--(instancetype)initWithLocation:(NSDecimal)loc length:(NSDecimal)len;
+-(instancetype)initWithLocation:(NSDecimal)loc length:(NSDecimal)len NS_DESIGNATED_INITIALIZER;
+-(instancetype)initWithCoder:(NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
 /// @}
 
 /// @name Checking Ranges

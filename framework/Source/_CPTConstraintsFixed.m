@@ -123,6 +123,12 @@
     [coder encodeBool:self.isFixedToLower forKey:@"_CPTConstraintsFixed.isFixedToLower"];
 }
 
+/// @endcond
+
+/** @brief Returns an object initialized from data in a given unarchiver.
+ *  @param coder An unarchiver object.
+ *  @return An object initialized from data in a given unarchiver.
+ */
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
@@ -131,7 +137,5 @@
     }
     return self;
 }
-
-/// @endcond
 
 @end

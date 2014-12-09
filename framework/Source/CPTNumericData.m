@@ -270,14 +270,10 @@
                    dataType:(CPTNumericDataType)newDataType
                       shape:(NSArray *)shapeArray
 {
-    if ( (self = [super init]) ) {
-        [self commonInitWithData:newData
-                        dataType:newDataType
-                           shape:shapeArray
-                       dataOrder:CPTDataOrderRowsFirst];
-    }
-
-    return self;
+    return [self initWithData:newData
+                     dataType:newDataType
+                        shape:shapeArray
+                    dataOrder:CPTDataOrderRowsFirst];
 }
 
 /** @brief Initializes a newly allocated CPTNumericData object with the provided data.
@@ -1149,8 +1145,6 @@
 
 -(void)encodeWithCoder:(NSCoder *)encoder
 {
-    //[super encodeWithCoder:encoder];
-
     if ( [encoder allowsKeyedCoding] ) {
         [encoder encodeObject:self.data forKey:@"CPTNumericData.data"];
 
@@ -1177,6 +1171,12 @@
     }
 }
 
+/// @endcond
+
+/** @brief Returns an object initialized from data in a given unarchiver.
+ *  @param decoder An unarchiver object.
+ *  @return An object initialized from data in a given unarchiver.
+ */
 -(instancetype)initWithCoder:(NSCoder *)decoder
 {
     if ( (self = [super init]) ) {
@@ -1211,7 +1211,5 @@
 
     return self;
 }
-
-/// @endcond
 
 @end
