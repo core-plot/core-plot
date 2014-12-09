@@ -9,7 +9,8 @@
 
 /// @name Initialization
 /// @{
--(instancetype)initWithCGColorSpace:(CGColorSpaceRef)colorSpace;
+-(instancetype)initWithCGColorSpace:(CGColorSpaceRef)colorSpace NS_DESIGNATED_INITIALIZER;
+-(instancetype)initWithCoder:(NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
 /// @}
 
 @end

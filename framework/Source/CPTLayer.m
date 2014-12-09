@@ -200,8 +200,10 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 
 /// @}
 
-/// @cond
-
+/** @brief Override to copy or initialize custom fields of the specified layer.
+ *  @param layer The layer from which custom fields should be copied.
+ *  @return A layer instance with any custom instance variables copied from @par{layer}.
+ */
 -(instancetype)initWithLayer:(id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
@@ -221,6 +223,8 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
     }
     return self;
 }
+
+/// @cond
 
 -(void)dealloc
 {
@@ -255,6 +259,12 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
     // innerBorderPath
 }
 
+/// @endcond
+
+/** @brief Returns an object initialized from data in a given unarchiver.
+ *  @param coder An unarchiver object.
+ *  @return An object initialized from data in a given unarchiver.
+ */
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
@@ -273,8 +283,6 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
     }
     return self;
 }
-
-/// @endcond
 
 #pragma mark -
 #pragma mark Animation

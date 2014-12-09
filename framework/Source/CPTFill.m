@@ -109,17 +109,17 @@
         return [self initWithColor:fill];
     }
 
-    fill = [coder decodeObjectForKey:@"_CPTFillGradient.fillGradient"];
-    if ( fill ) {
-        return [self initWithGradient:fill];
+    id gradient = [coder decodeObjectForKey:@"_CPTFillGradient.fillGradient"];
+    if ( gradient ) {
+        return [self initWithGradient:gradient];
     }
 
-    fill = [coder decodeObjectForKey:@"_CPTFillImage.fillImage"];
-    if ( fill ) {
-        return [self initWithImage:fill];
+    id image = [coder decodeObjectForKey:@"_CPTFillImage.fillImage"];
+    if ( image ) {
+        return [self initWithImage:image];
     }
 
-    return self;
+    return nil;
 }
 
 /// @endcond

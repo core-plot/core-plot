@@ -153,18 +153,8 @@
  **/
 -(instancetype)initWithLocation:(NSNumber *)loc length:(NSNumber *)len
 {
-    if ( (self = [super init]) ) {
-        self.inValueUpdate = YES;
-
-        self.locationDecimal = loc.decimalValue;
-        self.locationDouble  = loc.doubleValue;
-
-        self.lengthDecimal = len.decimalValue;
-        self.lengthDouble  = len.doubleValue;
-
-        self.inValueUpdate = NO;
-    }
-    return self;
+    return [self initWithLocationDecimal:loc.decimalValue
+                           lengthDecimal:len.decimalValue];
 }
 
 /** @brief Initializes a newly allocated CPTPlotRange object with the provided location and length.
@@ -403,6 +393,12 @@
     [encoder encodeDecimal:self.lengthDecimal forKey:@"CPTPlotRange.length"];
 }
 
+/// @endcond
+
+/** @brief Returns an object initialized from data in a given unarchiver.
+ *  @param decoder An unarchiver object.
+ *  @return An object initialized from data in a given unarchiver.
+ */
 -(instancetype)initWithCoder:(NSCoder *)decoder
 {
     if ( (self = [super init]) ) {
@@ -412,8 +408,6 @@
 
     return self;
 }
-
-/// @endcond
 
 #pragma mark -
 #pragma mark Checking Containership

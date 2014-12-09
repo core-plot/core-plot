@@ -80,24 +80,26 @@
     }
 }
 
+/// @endcond
+
+/** @brief Returns an object initialized from data in a given unarchiver.
+ *  @param decoder An unarchiver object.
+ *  @return An object initialized from data in a given unarchiver.
+ */
 -(instancetype)initWithCoder:(NSCoder *)decoder
 {
-    CPTPlotRange *newRange;
-    CPTFill *newFill;
-
-    if ( [decoder allowsKeyedCoding] ) {
-        newRange = [decoder decodeObjectForKey:@"CPTLimitBand.range"];
-        newFill  = [decoder decodeObjectForKey:@"CPTLimitBand.fill"];
+    if ( (self = [super init]) ) {
+        if ( [decoder allowsKeyedCoding] ) {
+            range = [decoder decodeObjectForKey:@"CPTLimitBand.range"];
+            fill  = [decoder decodeObjectForKey:@"CPTLimitBand.fill"];
+        }
+        else {
+            range = [decoder decodeObject];
+            fill  = [decoder decodeObject];
+        }
     }
-    else {
-        newRange = [decoder decodeObject];
-        newFill  = [decoder decodeObject];
-    }
-
-    return [self initWithRange:newRange fill:newFill];
+    return self;
 }
-
-/// @endcond
 
 #pragma mark -
 #pragma mark Description

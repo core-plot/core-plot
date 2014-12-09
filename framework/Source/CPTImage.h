@@ -25,8 +25,9 @@
 /// @name Initialization
 /// @{
 -(instancetype)initWithContentsOfFile:(NSString *)path;
--(instancetype)initWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale;
+-(instancetype)initWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale NS_DESIGNATED_INITIALIZER;
 -(instancetype)initWithCGImage:(CGImageRef)anImage;
+-(instancetype)initWithCoder:(NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
 /// @}
 
 /// @name Drawing

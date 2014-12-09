@@ -324,10 +324,11 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 
         pointingDeviceDownEntry = nil;
 
-        self.paddingLeft                = CPTFloat(5.0);
-        self.paddingTop                 = CPTFloat(5.0);
-        self.paddingRight               = CPTFloat(5.0);
-        self.paddingBottom              = CPTFloat(5.0);
+        self.paddingLeft   = CPTFloat(5.0);
+        self.paddingTop    = CPTFloat(5.0);
+        self.paddingRight  = CPTFloat(5.0);
+        self.paddingBottom = CPTFloat(5.0);
+
         self.needsDisplayOnBoundsChange = YES;
     }
     return self;

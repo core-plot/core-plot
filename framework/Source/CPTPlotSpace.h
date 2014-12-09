@@ -177,6 +177,12 @@ extern NSString *const CPTPlotSpaceDisplacementKey;
 -(NSUInteger)indexOfCategory:(NSString *)category forCoordinate:(CPTCoordinate)coordinate;
 /// @}
 
+/// @name Initialization
+/// @{
+-(instancetype)init NS_DESIGNATED_INITIALIZER;
+-(instancetype)initWithCoder:(NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
+/// @}
+
 @end
 
 #pragma mark -

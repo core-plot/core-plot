@@ -124,7 +124,7 @@
         return [self initWithRelativeOffset:offset];
     }
 
-    return self;
+    return nil;
 }
 
 /// @endcond
