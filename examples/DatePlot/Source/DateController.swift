@@ -22,7 +22,7 @@ class DateController : NSObject, CPTPlotDataSource {
         let refDate = NSDateFormatter().dateFromString("12:00 Oct 29, 2009")
 
         // Create graph
-        let newGraph = CPTXYGraph()
+        let newGraph = CPTXYGraph(frame: CGRectZero)
 
         let theme = CPTTheme(named: kCPTDarkGradientTheme)
         newGraph.applyTheme(theme)
@@ -55,7 +55,7 @@ class DateController : NSObject, CPTPlotDataSource {
         y.orthogonalPosition    = oneDay
 
         // Create a plot that uses the data source method
-        let dataSourceLinePlot = CPTScatterPlot()
+        let dataSourceLinePlot = CPTScatterPlot(frame: CGRectZero)
         dataSourceLinePlot.identifier = "Date Plot"
 
         let lineStyle = dataSourceLinePlot.dataLineStyle.mutableCopy() as CPTMutableLineStyle

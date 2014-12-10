@@ -13,7 +13,7 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource {
         super.viewDidAppear(animated)
 
         // Create graph from theme
-        let newGraph = CPTXYGraph()
+        let newGraph = CPTXYGraph(frame: CGRectZero)
         newGraph.applyTheme(CPTTheme(named: kCPTDarkGradientTheme))
 
         let hostingView = self.view as CPTGraphHostingView
@@ -56,7 +56,7 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource {
         y.delegate             = self
 
         // Create a blue plot area
-        let boundLinePlot = CPTScatterPlot()
+        let boundLinePlot = CPTScatterPlot(frame: CGRectZero)
         let blueLineStyle = CPTMutableLineStyle()
         blueLineStyle.miterLimit    = 1.0
         blueLineStyle.lineWidth     = 3.0
@@ -81,7 +81,7 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource {
         boundLinePlot.plotSymbol = plotSymbol
 
         // Create a green plot area
-        let dataSourceLinePlot = CPTScatterPlot()
+        let dataSourceLinePlot = CPTScatterPlot(frame: CGRectZero)
         let greenLineStyle               = CPTMutableLineStyle()
         greenLineStyle.lineWidth         = 3.0
         greenLineStyle.lineColor         = CPTColor.greenColor()

@@ -10,7 +10,7 @@ class BarChartController : UIViewController, CPTBarPlotDataSource {
         super.viewDidAppear(animated)
 
         // Create graph from theme
-        let newGraph = CPTXYGraph()
+        let newGraph = CPTXYGraph(frame: CGRectZero)
         newGraph.applyTheme(CPTTheme(named: kCPTDarkGradientTheme))
 
         let hostingView = self.view as CPTGraphHostingView

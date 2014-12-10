@@ -12,7 +12,7 @@ class PieChartController : UIViewController, CPTPieChartDataSource {
         super.viewDidAppear(animated)
 
         // Create graph from theme
-        let newGraph = CPTXYGraph()
+        let newGraph = CPTXYGraph(frame: CGRectZero)
         newGraph.applyTheme(CPTTheme(named: kCPTDarkGradientTheme))
 
         let hostingView = self.view as CPTGraphHostingView
@@ -33,7 +33,7 @@ class PieChartController : UIViewController, CPTPieChartDataSource {
         newGraph.title          = "Graph Title"
 
         // Add pie chart
-        let piePlot = CPTPieChart()
+        let piePlot = CPTPieChart(frame: CGRectZero)
         piePlot.dataSource      = self
         piePlot.pieRadius       = 131.0
         piePlot.identifier      = "Pie Chart 1"
