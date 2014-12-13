@@ -840,8 +840,8 @@ NSDecimal niceLength(NSDecimal length);
 
 +(BOOL)needsDisplayForKey:(NSString *)aKey
 {
-    static NSSet *keys = nil;
-    static dispatch_once_t onceToken;
+    static NSSet *keys               = nil;
+    static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
         keys = [NSSet setWithArray:@[@"titleOffset",

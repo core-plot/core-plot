@@ -102,7 +102,7 @@
 -(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index
 {
     static CPTMutableTextStyle *whiteText = nil;
-    static dispatch_once_t onceToken;
+    static dispatch_once_t onceToken      = 0;
 
     dispatch_once(&onceToken, ^{
         whiteText = [[CPTMutableTextStyle alloc] init];
