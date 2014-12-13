@@ -176,10 +176,10 @@
 
 -(BOOL)axis:(CPTAxis *)axis shouldUpdateAxisLabelsAtLocations:(NSSet *)locations
 {
-    static CPTTextStyle *positiveStyle = nil;
-    static CPTTextStyle *negativeStyle = nil;
-    static dispatch_once_t positiveOnce;
-    static dispatch_once_t negativeOnce;
+    static CPTTextStyle *positiveStyle  = nil;
+    static CPTTextStyle *negativeStyle  = nil;
+    static dispatch_once_t positiveOnce = 0;
+    static dispatch_once_t negativeOnce = 0;
 
     NSFormatter *formatter = axis.labelFormatter;
     CGFloat labelOffset    = axis.labelOffset;

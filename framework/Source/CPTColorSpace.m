@@ -27,8 +27,8 @@
  **/
 +(instancetype)genericRGBSpace
 {
-    static CPTColorSpace *space = nil;
-    static dispatch_once_t onceToken;
+    static CPTColorSpace *space      = nil;
+    static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
         CGColorSpaceRef cgSpace = NULL;

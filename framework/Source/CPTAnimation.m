@@ -142,7 +142,7 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
  **/
 +(instancetype)sharedInstance
 {
-    static dispatch_once_t once;
+    static dispatch_once_t once = 0;
     static CPTAnimation *shared;
 
     dispatch_once(&once, ^{

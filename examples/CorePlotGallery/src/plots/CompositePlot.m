@@ -526,7 +526,7 @@
 
     if ( [plot.identifier isEqual:@"Bar Plot 1"] ) {
         static CPTMutableTextStyle *whiteText = nil;
-        static dispatch_once_t whiteOnceToken;
+        static dispatch_once_t whiteOnceToken = 0;
 
         dispatch_once(&whiteOnceToken, ^{
             whiteText = [[CPTMutableTextStyle alloc] init];
@@ -534,8 +534,8 @@
             whiteText.fontSize = self.titleSize * CPTFloat(0.5);
         });
 
-        static CPTMutableTextStyle *redText = nil;
-        static dispatch_once_t blackOnceToken;
+        static CPTMutableTextStyle *redText   = nil;
+        static dispatch_once_t blackOnceToken = 0;
 
         dispatch_once(&blackOnceToken, ^{
             redText = [[CPTMutableTextStyle alloc] init];
@@ -565,8 +565,8 @@
 
 -(CPTPlotSymbol *)symbolForScatterPlot:(CPTScatterPlot *)plot recordIndex:(NSUInteger)index
 {
-    static CPTPlotSymbol *redDot = nil;
-    static dispatch_once_t onceToken;
+    static CPTPlotSymbol *redDot     = nil;
+    static dispatch_once_t onceToken = 0;
 
     CPTPlotSymbol *symbol = nil; // Use the default symbol
 
