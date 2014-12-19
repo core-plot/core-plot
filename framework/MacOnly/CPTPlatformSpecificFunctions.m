@@ -22,8 +22,10 @@ void CPTPushCGContext(CGContextRef newContext)
     });
 
     dispatch_sync(contextQueue, ^{
-        if ( newContext ) {
-            [pushedContexts addObject:[NSGraphicsContext currentContext]];
+        NSGraphicsContext *currentContext = [NSGraphicsContext currentContext];
+
+        if ( newContext && currentContext ) {
+            [pushedContexts addObject:currentContext];
             [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:newContext flipped:NO]];
         }
         else {

@@ -1406,6 +1406,27 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
             vDSP_minvD(doubles, 1, &min, (vDSP_Length)numberOfSamples);
             vDSP_maxvD(doubles, 1, &max, (vDSP_Length)numberOfSamples);
 
+            if ( isnan(min) || isnan(max) ) {
+                // vDSP functions may return NAN if any data in the array is NAN
+                min = INFINITY;
+                max = -INFINITY;
+
+                const double *lastSample = doubles + numberOfSamples;
+
+                while ( doubles < lastSample ) {
+                    double value = *doubles++;
+
+                    if ( !isnan(value) ) {
+                        if ( value < min ) {
+                            min = value;
+                        }
+                        if ( value > max ) {
+                            max = value;
+                        }
+                    }
+                }
+            }
+
             if ( max >= min ) {
                 range = [CPTPlotRange plotRangeWithLocation:@(min) length:@(max - min)];
             }
