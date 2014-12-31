@@ -394,7 +394,8 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
             if ( [tweenedValue isKindOfClass:[NSDecimalNumber class]] ) {
                 NSDecimal buffer = [(NSDecimalNumber *)tweenedValue decimalValue];
 
-                IMP setterMethod = [boundObject methodForSelector:boundSetter];
+                typedef void (*SetterType)(id, SEL, NSDecimal);
+                SetterType setterMethod = (SetterType)[boundObject methodForSelector : boundSetter];
                 setterMethod(boundObject, boundSetter, buffer);
             }
             else if ( [tweenedValue isKindOfClass:[NSValue class]] ) {
