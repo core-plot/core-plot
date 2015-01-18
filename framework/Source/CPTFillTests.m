@@ -1,6 +1,7 @@
+#import "CPTFillTests.h"
+
 #import "CPTColor.h"
 #import "CPTFill.h"
-#import "CPTFillTests.h"
 #import "CPTGradient.h"
 #import "CPTImage.h"
 #import "_CPTFillColor.h"

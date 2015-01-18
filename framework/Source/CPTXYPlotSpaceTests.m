@@ -1,8 +1,9 @@
+#import "CPTXYPlotSpaceTests.h"
+
 #import "CPTPlotRange.h"
 #import "CPTUtilities.h"
 #import "CPTXYGraph.h"
 #import "CPTXYPlotSpace.h"
-#import "CPTXYPlotSpaceTests.h"
 
 @interface CPTXYPlotSpace(testingAdditions)
 

@@ -1,5 +1,6 @@
-#import "CPTColorSpace.h"
 #import "CPTColorSpaceTests.h"
+
+#import "CPTColorSpace.h"
 
 @implementation CPTColorSpaceTests
 

@@ -1,5 +1,6 @@
-#import "CPTAxisLabel.h"
 #import "CPTAxisLabelTests.h"
+
+#import "CPTAxisLabel.h"
 #import "CPTBorderedLayer.h"
 #import "CPTMutableTextStyle.h"
 #import "CPTUtilities.h"

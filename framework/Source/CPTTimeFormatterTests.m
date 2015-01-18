@@ -1,5 +1,6 @@
-#import "CPTTimeFormatter.h"
 #import "CPTTimeFormatterTests.h"
+
+#import "CPTTimeFormatter.h"
 
 @implementation CPTTimeFormatterTests
 

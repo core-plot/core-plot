@@ -1,5 +1,6 @@
-#import "CPTImage.h"
 #import "CPTImageTests.h"
+
+#import "CPTImage.h"
 
 @implementation CPTImageTests
 
