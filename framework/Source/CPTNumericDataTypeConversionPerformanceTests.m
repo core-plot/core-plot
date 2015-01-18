@@ -3,8 +3,7 @@
 #import "CPTNumericData+TypeConversion.h"
 #import <mach/mach_time.h>
 
-static const size_t numberOfSamples  = 10000000;
-static const NSUInteger numberOfReps = 5;
+static const size_t numberOfSamples = 10000000;
 
 @implementation CPTNumericDataTypeConversionPerformanceTests
 
@@ -21,28 +20,11 @@ static const NSUInteger numberOfReps = 5;
                                                                    dataType:CPTDataType( CPTFloatingPointDataType, sizeof(float), CFByteOrderGetCurrent() )
                                                                       shape:nil];
 
-    mach_timebase_info_data_t time_base_info;
-    mach_timebase_info(&time_base_info);
+    __block CPTNumericData *doubleNumericData = nil;
 
-    NSUInteger iterations = 0;
-    uint64_t elapsed      = 0;
-
-    CPTNumericData *doubleNumericData = nil;
-
-    for ( NSUInteger i = 0; i < numberOfReps; i++ ) {
-        uint64_t start = mach_absolute_time();
-
+    [self measureBlock: ^{
         doubleNumericData = [floatNumericData dataByConvertingToType:CPTFloatingPointDataType sampleBytes:sizeof(double) byteOrder:CFByteOrderGetCurrent()];
-
-        uint64_t now = mach_absolute_time();
-
-        elapsed += now - start;
-
-        iterations++;
-    }
-
-    double avgTime = 1.0e-6 * (double)(elapsed * time_base_info.numer / time_base_info.denom) / iterations;
-    XCTAssertLessThanOrEqual(avgTime, 100.0, @"Avg. time = %g ms for %lu points.", avgTime, (unsigned long)numberOfSamples);
+    }];
 }
 
 -(void)testDoubleToFloatConversion
@@ -58,28 +40,11 @@ static const NSUInteger numberOfReps = 5;
                                                                     dataType:CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() )
                                                                        shape:nil];
 
-    mach_timebase_info_data_t time_base_info;
-    mach_timebase_info(&time_base_info);
+    __block CPTNumericData *floatNumericData = nil;
 
-    NSUInteger iterations = 0;
-    uint64_t elapsed      = 0;
-
-    CPTNumericData *floatNumericData = nil;
-
-    for ( NSUInteger i = 0; i < numberOfReps; i++ ) {
-        uint64_t start = mach_absolute_time();
-
+    [self measureBlock: ^{
         floatNumericData = [doubleNumericData dataByConvertingToType:CPTFloatingPointDataType sampleBytes:sizeof(float) byteOrder:CFByteOrderGetCurrent()];
-
-        uint64_t now = mach_absolute_time();
-
-        elapsed += now - start;
-
-        iterations++;
-    }
-
-    double avgTime = 1.0e-6 * (double)(elapsed * time_base_info.numer / time_base_info.denom) / iterations;
-    XCTAssertLessThanOrEqual(avgTime, 50.0, @"Avg. time = %g ms for %lu points.", avgTime, (unsigned long)numberOfSamples);
+    }];
 }
 
 -(void)testIntegerToDoubleConversion
@@ -95,27 +60,11 @@ static const NSUInteger numberOfReps = 5;
                                                                      dataType:CPTDataType( CPTIntegerDataType, sizeof(NSInteger), CFByteOrderGetCurrent() )
                                                                         shape:nil];
 
-    mach_timebase_info_data_t time_base_info;
-    mach_timebase_info(&time_base_info);
+    __block CPTNumericData *doubleNumericData = nil;
 
-    NSUInteger iterations = 0;
-    uint64_t elapsed      = 0;
-
-    CPTNumericData *doubleNumericData = nil;
-
-    for ( NSUInteger i = 0; i < numberOfReps; i++ ) {
-        uint64_t start = mach_absolute_time();
-
+    [self measureBlock: ^{
         doubleNumericData = [integerNumericData dataByConvertingToType:CPTFloatingPointDataType sampleBytes:sizeof(double) byteOrder:CFByteOrderGetCurrent()];
-
-        uint64_t now = mach_absolute_time();
-
-        elapsed += now - start;
-        iterations++;
-    }
-
-    double avgTime = 1.0e-6 * (double)(elapsed * time_base_info.numer / time_base_info.denom) / iterations;
-    XCTAssertLessThanOrEqual(avgTime, 75.0, @"Avg. time = %g ms for %lu points.", avgTime, (unsigned long)numberOfSamples);
+    }];
 }
 
 -(void)testDoubleToIntegerConversion
@@ -131,27 +80,11 @@ static const NSUInteger numberOfReps = 5;
                                                                     dataType:CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() )
                                                                        shape:nil];
 
-    mach_timebase_info_data_t time_base_info;
-    mach_timebase_info(&time_base_info);
+    __block CPTNumericData *integerNumericData = nil;
 
-    NSUInteger iterations = 0;
-    uint64_t elapsed      = 0;
-
-    CPTNumericData *integerNumericData = nil;
-
-    for ( NSUInteger i = 0; i < numberOfReps; i++ ) {
-        uint64_t start = mach_absolute_time();
-
+    [self measureBlock: ^{
         integerNumericData = [doubleNumericData dataByConvertingToType:CPTIntegerDataType sampleBytes:sizeof(NSInteger) byteOrder:CFByteOrderGetCurrent()];
-
-        uint64_t now = mach_absolute_time();
-
-        elapsed += now - start;
-        iterations++;
-    }
-
-    double avgTime = 1.0e-6 * (double)(elapsed * time_base_info.numer / time_base_info.denom) / iterations;
-    XCTAssertLessThanOrEqual(avgTime, 75.0, @"Avg. time = %g ms for %lu points.", avgTime, (unsigned long)numberOfSamples);
+    }];
 }
 
 @end
