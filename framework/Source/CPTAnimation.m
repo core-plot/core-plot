@@ -119,7 +119,6 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
 {
     [self cancelTimer];
 
-    dispatch_release(animationQueue);
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
 
     for ( CPTAnimationOperation *animationOperation in animationOperations ) {
@@ -456,7 +455,6 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
 
     if ( theTimer ) {
         dispatch_source_cancel(theTimer);
-        dispatch_release(theTimer);
         self.timer = NULL;
     }
 }
