@@ -28,6 +28,7 @@ build/*
 **.xcuserstate
 **.xccheckout
 **/xcuserdata/*
+**.xcbaseline
 
 # AppCode settings
 **/.idea/*
