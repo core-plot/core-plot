@@ -922,6 +922,19 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 {
     CPTLineStyle *theLineStyle = [self lineStyleForIndex:idx];
 
+    if ( !isnan(openValue) && !isnan(closeValue) ) {
+        if ( openValue < closeValue ) {
+            if( [[self increaseLineStyleForIndex:idx] isKindOfClass:[CPTLineStyle class]] ){
+                theLineStyle = [self increaseLineStyleForIndex:idx];
+            }
+        }
+        else if ( openValue > closeValue ) {
+            if( [[self decreaseLineStyleForIndex:idx] isKindOfClass:[CPTLineStyle class]] ){
+                theLineStyle = [self decreaseLineStyleForIndex:idx];
+            }
+        }
+    }
+
     if ( [theLineStyle isKindOfClass:[CPTLineStyle class]] ) {
         CGFloat theStickLength = self.stickLength;
         CGMutablePathRef path  = CGPathCreateMutable();
