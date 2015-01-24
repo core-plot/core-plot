@@ -137,11 +137,23 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     CPTMutableLineStyle *whiteLineStyle = [CPTMutableLineStyle lineStyle];
     whiteLineStyle.lineColor = [CPTColor whiteColor];
     whiteLineStyle.lineWidth = 2.0;
+
+    CPTMutableLineStyle *redLineStyle = [whiteLineStyle mutableCopy];
+    redLineStyle.lineColor = [CPTColor redColor];
+
+    CPTMutableLineStyle *greenLineStyle = [whiteLineStyle mutableCopy];
+    greenLineStyle.lineColor = [CPTColor greenColor];
+
+    CPTMutableTextStyle *whiteTextStyle = [CPTMutableTextStyle textStyle];
+    whiteTextStyle.color = [CPTColor whiteColor];
+
     CPTTradingRangePlot *ohlcPlot = [[CPTTradingRangePlot alloc] initWithFrame:newGraph.bounds];
     ohlcPlot.identifier = @"OHLC";
-    ohlcPlot.lineStyle  = whiteLineStyle;
-    CPTMutableTextStyle *whiteTextStyle = [CPTMutableTextStyle textStyle];
-    whiteTextStyle.color    = [CPTColor whiteColor];
+
+    ohlcPlot.lineStyle         = whiteLineStyle;
+    ohlcPlot.increaseLineStyle = greenLineStyle;
+    ohlcPlot.decreaseLineStyle = redLineStyle;
+
     ohlcPlot.labelTextStyle = whiteTextStyle;
     ohlcPlot.labelOffset    = 5.0;
     ohlcPlot.stickLength    = 10.0;
