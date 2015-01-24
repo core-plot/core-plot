@@ -97,13 +97,13 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 @synthesize lineStyle;
 
 /** @property CPTLineStyle *increaseLineStyle
- *  @brief The line style used to outline candlestick symbols when close >= open.
+ *  @brief The line style used to outline candlestick symbols or draw OHLC symbols when close >= open.
  *  If @nil, will use @ref lineStyle instead.
  **/
 @synthesize increaseLineStyle;
 
 /** @property CPTLineStyle *decreaseLineStyle
- *  @brief The line style used to outline candlestick symbols when close < open.
+ *  @brief The line style used to outline candlestick symbols or draw OHLC symbols when close < open.
  *  If @nil, will use @ref lineStyle instead.
  **/
 @synthesize decreaseLineStyle;
