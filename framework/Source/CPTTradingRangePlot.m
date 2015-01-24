@@ -924,12 +924,12 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
     if ( !isnan(openValue) && !isnan(closeValue) ) {
         if ( openValue < closeValue ) {
-            if( [[self increaseLineStyleForIndex:idx] isKindOfClass:[CPTLineStyle class]] ){
+            if ( [[self increaseLineStyleForIndex:idx] isKindOfClass:[CPTLineStyle class]] ) {
                 theLineStyle = [self increaseLineStyleForIndex:idx];
             }
         }
         else if ( openValue > closeValue ) {
-            if( [[self decreaseLineStyleForIndex:idx] isKindOfClass:[CPTLineStyle class]] ){
+            if ( [[self decreaseLineStyleForIndex:idx] isKindOfClass:[CPTLineStyle class]] ) {
                 theLineStyle = [self decreaseLineStyleForIndex:idx];
             }
         }
