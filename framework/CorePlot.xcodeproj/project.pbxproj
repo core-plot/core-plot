@@ -173,7 +173,6 @@
 		C30550EE1399BE5400E0151F /* CPTLegendEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = C30550EC1399BE5400E0151F /* CPTLegendEntry.m */; };
 		C318F4AD11EA188700595FF9 /* CPTLimitBand.h in Headers */ = {isa = PBXBuildFile; fileRef = C318F4AB11EA188700595FF9 /* CPTLimitBand.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C318F4AE11EA188700595FF9 /* CPTLimitBand.m in Sources */ = {isa = PBXBuildFile; fileRef = C318F4AC11EA188700595FF9 /* CPTLimitBand.m */; };
-		C3226A4A1A69EEDD00F77249 /* CorePlot_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = C3226A491A69EEDD00F77249 /* CorePlot_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3226A521A69F6DA00F77249 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3226A511A69F6DA00F77249 /* QuartzCore.framework */; };
 		C3226A541A69F6DF00F77249 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3226A531A69F6DF00F77249 /* UIKit.framework */; };
 		C3226A561A69F6F000F77249 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3226A551A69F6F000F77249 /* Accelerate.framework */; };
@@ -577,6 +576,7 @@
 		C3D414791A7D829D00B6F5D6 /* CPTNumericData.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C97EEFA104D80C400B554F9 /* CPTNumericData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3D4147A1A7D82A500B6F5D6 /* CPTNumericData+TypeConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C97EEF7104D80C400B554F9 /* CPTNumericData+TypeConversion.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3D4147B1A7D82AB00B6F5D6 /* CPTMutableNumericData+TypeConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CAFB241229E41F00F5C989 /* CPTMutableNumericData+TypeConversion.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C3D414E01A7D867200B6F5D6 /* CorePlot.h in Headers */ = {isa = PBXBuildFile; fileRef = 070CF7AE0F3CA7AB0001FFF4 /* CorePlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3D68A5B1220B27D00EB4863 /* CPTUtilitiesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7E9630F4B625900F9BCBB /* CPTUtilitiesTests.m */; };
 		C3D68A5C1220B29100EB4863 /* CPTTextStyleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C36468A90FE5533F0064B186 /* CPTTextStyleTests.m */; };
 		C3D68A5E1220B2AC00EB4863 /* CPTXYPlotSpaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C422A630FB1FCD5000CAA43 /* CPTXYPlotSpaceTests.m */; };
@@ -806,7 +806,6 @@
 		C3226A451A69ED0900F77249 /* doxygen touch.config */ = {isa = PBXFileReference; lastKnownFileType = text; name = "doxygen touch.config"; path = "../documentation/doxygen/doxygen touch.config"; sourceTree = "<group>"; };
 		C3226A461A69ED1F00F77249 /* doxygen-cocoa-touch-tags.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "doxygen-cocoa-touch-tags.xml"; path = "../documentation/doxygen/doxygen-cocoa-touch-tags.xml"; sourceTree = "<group>"; };
 		C3226A471A69EE9200F77249 /* CorePlot-CocoaTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorePlot-CocoaTouch.h"; sourceTree = "<group>"; };
-		C3226A491A69EEDD00F77249 /* CorePlot_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorePlot_iOS.h; sourceTree = "<group>"; };
 		C3226A4C1A69F07600F77249 /* CorePlotTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CorePlotTests-Info.plist"; sourceTree = SOURCE_ROOT; };
 		C3226A4D1A69F09A00F77249 /* CorePlot-iOSTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CorePlot-iOSTests-Info.plist"; sourceTree = SOURCE_ROOT; };
 		C3226A4E1A69F0AA00F77249 /* CorePlot-CocoaTouchTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CorePlot-CocoaTouchTests-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -1360,7 +1359,6 @@
 			children = (
 				32DBCF5E0370ADEE00C91783 /* CorePlot_Prefix.pch */,
 				070CF7AE0F3CA7AB0001FFF4 /* CorePlot.h */,
-				C3226A491A69EEDD00F77249 /* CorePlot_iOS.h */,
 				C3226A471A69EE9200F77249 /* CorePlot-CocoaTouch.h */,
 				C31908A41998168C00B61898 /* CorePlot.xcconfig */,
 				C34F570D19D8CE5500446248 /* CorePlotWarnings.xcconfig */,
@@ -1820,7 +1818,6 @@
 				C38A0A611A4620D400D45436 /* CPTLineStyle.h in Headers */,
 				C38A0A631A4620D400D45436 /* CPTPathExtensions.h in Headers */,
 				C38A0A0B1A461D5100D45436 /* _CPTBorderLayer.h in Headers */,
-				C3226A4A1A69EEDD00F77249 /* CorePlot_iOS.h in Headers */,
 				C3D414791A7D829D00B6F5D6 /* CPTNumericData.h in Headers */,
 				C38A0A601A4620D400D45436 /* CPTLineCap.h in Headers */,
 				C38A0A7C1A4620EF00D45436 /* _CPTFillGradient.h in Headers */,
@@ -1865,6 +1862,7 @@
 				C38A0B021A46260B00D45436 /* _CPTSlateTheme.h in Headers */,
 				C3D414781A7D829100B6F5D6 /* CPTMutableNumericData.h in Headers */,
 				C38A0ADB1A4625B100D45436 /* CPTGridLineGroup.h in Headers */,
+				C3D414E01A7D867200B6F5D6 /* CorePlot.h in Headers */,
 				C38A0A621A4620D400D45436 /* CPTMutableLineStyle.h in Headers */,
 				C38A0A141A461E5000D45436 /* CPTAnimation.h in Headers */,
 				C38A09F21A461CEE00D45436 /* CPTExceptions.h in Headers */,
