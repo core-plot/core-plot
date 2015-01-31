@@ -277,8 +277,6 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		29B97316FDCFA39411CA2CEA /* main-cocoatouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "main-cocoatouch.m"; sourceTree = "<group>"; };
-		8D1107310486CEB800E47090 /* Info-CocoaTouch.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-CocoaTouch.plist"; sourceTree = "<group>"; };
 		BC74A2C010FC087800E7E90D /* CPTPieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTPieChart.h; path = Source/CPTPieChart.h; sourceTree = "<group>"; };
 		BC74A2C110FC087800E7E90D /* CPTPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTPieChart.m; path = Source/CPTPieChart.m; sourceTree = "<group>"; };
 		BC79F1D30FD1DC1A00510976 /* CPTGraphHostingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTGraphHostingView.h; sourceTree = "<group>"; };
@@ -623,7 +621,6 @@
 				BC89A7991024AB19009D5261 /* CorePlotProbes.d */,
 				BC9B83C20FB8AC4B0035D8DA /* CorePlot-CocoaTouch.h */,
 				C3D9825016BD406600DE7977 /* CorePlot_Prefix.pch */,
-				29B97316FDCFA39411CA2CEA /* main-cocoatouch.m */,
 				C31908A3199813D400B61898 /* CorePlot.xcconfig */,
 				C34F570C19D8CE4300446248 /* CorePlotWarnings.xcconfig */,
 			);
@@ -634,7 +631,6 @@
 			isa = PBXGroup;
 			children = (
 				071F3CDF10FBAB9D00D0A7B6 /* License.txt */,
-				8D1107310486CEB800E47090 /* Info-CocoaTouch.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1254,10 +1250,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MACH_O_TYPE = staticlib;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "$(PROJECT_DIR)/../build";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1270,10 +1266,10 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MACH_O_TYPE = staticlib;
-				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
+				SYMROOT = "$(PROJECT_DIR)/../build";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

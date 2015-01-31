@@ -5,6 +5,7 @@
 To be determined.
 
 ## Details
+- **New**: Combined the Mac and iOS projects and added an iOS framework target.
 - **New**: Added hand cursors to the Mac hosting view to indicate when user interaction is enabled and when dragging is in progress.
 - **New**: Added two additional initialization methods to `CPTImage`. 
 - **New**: Added a dependency on the Accelerate framework. All iOS clients must now link against this framework.
@@ -20,7 +21,8 @@ To be determined.
 - **New**: Added support for using an Objective-C block to calculate plot values in the function datasource class. 
 - **New**: Added support for categorical plot data.
 - **New**: Added histogram style options to `CPTScatterPlot`.
-- **Changed**: Increased the deployment target to iOS 5.0 and Mac OS X 10.7.
+- **New**: Added iOS unit tests.
+- **Changed**: Increased the deployment target to iOS 6.0 and Mac OS X 10.7.
 - **Changed**: Enabled automatic reference counting (ARC) in the framework projects.
 - **Changed**: Changed the Installation Directory for the Mac framework to "@rpath" and updated the Runpath Search Path in each Mac example app.
 - **Changed**: Changed all public properties and methods that take `NSDecimal` values to take `NSNumber` values instead. Use `NSDecimalNumber` to maintain full decimal precision.

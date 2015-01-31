@@ -806,11 +806,7 @@ CGPoint CPTAlignPointToUserSpace(CGContextRef context, CGPoint point)
     // Ensure that coordinates are at exactly the corner
     // of a device pixel.
     point.x = round( point.x - CPTFloat(0.5) ) + CPTFloat(0.5);
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    point.y = round( point.y - CPTFloat(0.5) ) + CPTFloat(0.5);
-#else
     point.y = ceil(point.y) - CPTFloat(0.5);
-#endif
 
     // Convert the device aligned coordinate back to user space.
     return CGContextConvertPointToUserSpace(context, point);
@@ -860,14 +856,8 @@ CGRect CPTAlignRectToUserSpace(CGContextRef context, CGRect rect)
     rect.size.width = round( oldOrigin.x + rect.size.width - CPTFloat(0.5) ) - rect.origin.x;
     rect.origin.x  += CPTFloat(0.5);
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    rect.origin.y    = round( rect.origin.y - CPTFloat(0.5) );
-    rect.size.height = round( oldOrigin.y + rect.size.height - CPTFloat(0.5) ) - rect.origin.y;
-    rect.origin.y   += CPTFloat(0.5);
-#else
     rect.origin.y    = ceil( CGRectGetMaxY(rect) ) - CPTFloat(0.5);
     rect.size.height = ceil(oldOrigin.y - CPTFloat(0.5) - rect.origin.y);
-#endif
 
     return CGContextConvertRectToUserSpace(context, rect);
 }
@@ -889,11 +879,7 @@ CGPoint CPTAlignIntegralPointToUserSpace(CGContextRef context, CGPoint point)
     point = CGContextConvertPointToDeviceSpace(context, point);
 
     point.x = round(point.x);
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    point.y = round(point.y);
-#else
     point.y = ceil( point.y - CPTFloat(0.5) );
-#endif
 
     return CGContextConvertPointToUserSpace(context, point);
 }
@@ -917,13 +903,8 @@ CGRect CPTAlignIntegralRectToUserSpace(CGContextRef context, CGRect rect)
     rect.origin.x   = round(rect.origin.x);
     rect.size.width = round(oldOrigin.x + rect.size.width) - rect.origin.x;
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    rect.origin.y    = round(rect.origin.y);
-    rect.size.height = round(oldOrigin.y + rect.size.height) - rect.origin.y;
-#else
     rect.origin.y    = ceil( CGRectGetMaxY(rect) - CPTFloat(0.5) );
     rect.size.height = ceil(oldOrigin.y - CPTFloat(0.5) - rect.origin.y);
-#endif
 
     return CGContextConvertRectToUserSpace(context, rect);
 }

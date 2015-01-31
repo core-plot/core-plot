@@ -110,7 +110,7 @@
                                                      dataType:CPTDataType( CPTFloatingPointDataType, sizeof(float), NSHostByteOrder() )
                                                         shape:nil];
 
-    CPTNumericData *nd2 = [NSUnarchiver unarchiveObjectWithData:[NSArchiver archivedDataWithRootObject:nd]];
+    CPTNumericData *nd2 = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:nd]];
 
     XCTAssertTrue([nd.data isEqualToData:nd2.data], @"equal data");
 

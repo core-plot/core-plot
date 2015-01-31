@@ -15,7 +15,11 @@
     const size_t height           = 50;
     const size_t bitsPerComponent = 8;
 
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+#else
     CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
+#endif
 
     self.context = CGBitmapContextCreate(NULL,
                                          width,

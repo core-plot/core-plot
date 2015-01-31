@@ -62,6 +62,8 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 @property (nonatomic, readwrite, assign) NSUInteger cachedDataCount;
 @property (nonatomic, readwrite, assign) BOOL inTitleUpdate;
 
+@property (nonatomic, readonly, assign) NSUInteger numberOfRecords;
+
 -(CPTMutableNumericData *)numericDataForNumbers:(id)numbers;
 -(void)setCachedDataType:(CPTNumericDataType)newDataType;
 -(void)updateContentAnchorForLabel:(CPTPlotSpaceAnnotation *)label;
@@ -238,6 +240,8 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  @brief The index that was selected on the pointing device down event.
  **/
 @synthesize pointingDeviceDownLabelIndex;
+
+@dynamic numberOfRecords;
 
 #pragma mark -
 #pragma mark Init/Dealloc
@@ -514,6 +518,17 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 #pragma mark -
 #pragma mark Data Source
 
+/// @cond
+
+-(NSUInteger)numberOfRecords
+{
+    id<CPTPlotDataSource> theDataSource = self.dataSource;
+
+    return [theDataSource numberOfRecordsForPlot:self];
+}
+
+/// @endcond
+
 /**
  *  @brief Marks the receiver as needing the data source reloaded before the content is next drawn.
  **/
@@ -530,8 +545,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     [self.cachedData removeAllObjects];
     self.cachedDataCount = 0;
 
-    id<CPTPlotDataSource> theDataSource = self.dataSource;
-    [self reloadDataInIndexRange:NSMakeRange(0, [theDataSource numberOfRecordsForPlot:self])];
+    [self reloadDataInIndexRange:NSMakeRange(0, self.numberOfRecords)];
 }
 
 /**
@@ -549,9 +563,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  **/
 -(void)reloadDataInIndexRange:(NSRange)indexRange
 {
-    id<CPTPlotDataSource> theDataSource = (id<CPTPlotDataSource>)self.dataSource;
-
-    NSParameterAssert(NSMaxRange(indexRange) <= [theDataSource numberOfRecordsForPlot:self]);
+    NSParameterAssert(NSMaxRange(indexRange) <= self.numberOfRecords);
 
     self.dataNeedsReloading = NO;
 
