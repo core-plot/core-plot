@@ -1,5 +1,9 @@
 #import "CPTScatterPlotTests.h"
 
+#import "CPTPlotRange.h"
+#import "CPTScatterPlot.h"
+#import "CPTXYPlotSpace.h"
+
 @interface CPTScatterPlot(Testing)
 
 -(void)calculatePointsToDraw:(BOOL *)pointDrawFlags forPlotSpace:(CPTXYPlotSpace *)xyPlotSpace includeVisiblePointsOnly:(BOOL)visibleOnly numberOfPoints:(NSUInteger)dataCount;
