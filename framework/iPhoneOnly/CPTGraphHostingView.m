@@ -159,7 +159,7 @@
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [super touchesMoved: touches withEvent:event];
+    [super touchesMoved:touches withEvent:event];
     CPTGraph *theHostedGraph = self.hostedGraph;
 
     theHostedGraph.frame = self.bounds;
