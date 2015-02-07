@@ -131,6 +131,7 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    [super touchesBegan:touches withEvent:event];
     // Ignore pinch or other multitouch gestures
     if ( [[event allTouches] count] > 1 ) {
         return;
@@ -158,6 +159,7 @@
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    [super touchesMoved:touches withEvent:event];
     CPTGraph *theHostedGraph = self.hostedGraph;
 
     theHostedGraph.frame = self.bounds;
@@ -180,6 +182,7 @@
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    [super touchesEnded:touches withEvent:event];
     CPTGraph *theHostedGraph = self.hostedGraph;
 
     theHostedGraph.frame = self.bounds;
@@ -202,6 +205,7 @@
 
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    [super touchesCancelled:touches withEvent:event];
     BOOL handled = [self.hostedGraph pointingDeviceCancelledEvent:event];
 
     if ( !handled ) {
