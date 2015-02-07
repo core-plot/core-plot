@@ -211,6 +211,8 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
 
 -(void)mouseDown:(NSEvent *)theEvent
 {
+    [super mouseDown:theEvent];
+
     CPTGraph *theGraph = self.hostedGraph;
     BOOL handled       = NO;
 
@@ -227,6 +229,8 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
 
 -(void)mouseDragged:(NSEvent *)theEvent
 {
+    [super mouseDragged:theEvent];
+
     CPTGraph *theGraph = self.hostedGraph;
     BOOL handled       = NO;
 
@@ -243,6 +247,8 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
 
 -(void)mouseUp:(NSEvent *)theEvent
 {
+    [super mouseUp:theEvent];
+
     CPTGraph *theGraph = self.hostedGraph;
     BOOL handled       = NO;
 
@@ -266,6 +272,8 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
 
 -(void)magnifyWithEvent:(NSEvent *)event
 {
+    [super magnifyWithEvent:event];
+
     CPTGraph *theGraph = self.hostedGraph;
     BOOL handled       = NO;
 
@@ -291,6 +299,8 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
 
 -(void)scrollWheel:(NSEvent *)theEvent
 {
+    [super scrollWheel:theEvent];
+
     CPTGraph *theGraph = self.hostedGraph;
     BOOL handled       = NO;
 
