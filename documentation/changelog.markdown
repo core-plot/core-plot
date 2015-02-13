@@ -19,6 +19,7 @@ To be determined.
 - **New**: Added support for @3x images.
 - **New**: Added support for using an Objective-C block to calculate plot values in the function datasource class. 
 - **New**: Added support for categorical plot data.
+- **New**: Added `showBarBorder` property to `CPTTradingRangePlot`.
 - **Changed**: Increased the deployment target to iOS 5.0 and Mac OS X 10.7.
 - **Changed**: Enabled automatic reference counting (ARC) in the framework projects.
 - **Changed**: Updated `CPTImage` to automatically handle switching between Retina and non-Retina displays.
