@@ -22,6 +22,7 @@ To be determined.
 - **New**: Added support for categorical plot data.
 - **New**: Added histogram style options to `CPTScatterPlot`.
 - **New**: Added iOS unit tests.
+- **New**: Added plot space point conversion methods that take an `NSArray` of coordinate values.
 - **Changed**: Increased the deployment target to iOS 6.0 and Mac OS X 10.7.
 - **Changed**: Enabled automatic reference counting (ARC) in the framework projects.
 - **Changed**: Changed the Installation Directory for the Mac framework to "@rpath" and updated the Runpath Search Path in each Mac example app.

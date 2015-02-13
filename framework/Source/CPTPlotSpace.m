@@ -477,6 +477,17 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
 /// @endcond
 
 /** @brief Converts a data point to plot area drawing coordinates.
+ *  @param plotPoint An array of data point coordinates (as NSNumber values).
+ *  @return The drawing coordinates of the data point.
+ **/
+-(CGPoint)plotAreaViewPointForPlotPoint:(NSArray *)plotPoint
+{
+    NSParameterAssert(plotPoint.count == self.numberOfCoordinates);
+
+    return CGPointZero;
+}
+
+/** @brief Converts a data point to plot area drawing coordinates.
  *  @param plotPoint A c-style array of data point coordinates (as NSDecimal structs).
  *  @param count The number of coordinate values in the @par{plotPoint} array.
  *  @return The drawing coordinates of the data point.
@@ -498,6 +509,15 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
     NSParameterAssert(count == self.numberOfCoordinates);
 
     return CGPointZero;
+}
+
+/** @brief Converts a point given in plot area drawing coordinates to the data coordinate space.
+ *  @param point The drawing coordinates of the data point.
+ *  @return An array of data point coordinates (as NSNumber values).
+ **/
+-(NSArray *)plotPointForPlotAreaViewPoint:(CGPoint)point
+{
+    return nil;
 }
 
 /** @brief Converts a point given in plot area drawing coordinates to the data coordinate space.
@@ -527,6 +547,15 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
 -(CGPoint)plotAreaViewPointForEvent:(CPTNativeEvent *)event
 {
     return CGPointZero;
+}
+
+/** @brief Converts the interaction point of an OS event to the data coordinate space.
+ *  @param event The event.
+ *  @return An array of data point coordinates (as NSNumber values).
+ **/
+-(NSArray *)plotPointForEvent:(CPTNativeEvent *)event
+{
+    return nil;
 }
 
 /** @brief Converts the interaction point of an OS event to the data coordinate space.

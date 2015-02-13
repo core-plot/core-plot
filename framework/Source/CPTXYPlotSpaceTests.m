@@ -37,6 +37,36 @@
 #pragma mark -
 #pragma mark View point for plot point (linear)
 
+-(void)testViewPointForPlotPointArrayLinear
+{
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
+
+    plotSpace.xScaleType = CPTScaleTypeLinear;
+    plotSpace.yScaleType = CPTScaleTypeLinear;
+
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@0.0
+                                                    length:@10.0];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@0.0
+                                                    length:@10.0];
+
+    NSArray *plotPoint = @[@5.0, @5.0];
+
+    CGPoint viewPoint = [plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+
+    XCTAssertEqualWithAccuracy(viewPoint.x, CPTFloat(50.0), CPTFloat(0.01), @"");
+    XCTAssertEqualWithAccuracy(viewPoint.y, CPTFloat(25.0), CPTFloat(0.01), @"");
+
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@0.0
+                                                    length:@10.0];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@0.0
+                                                    length:@5.0];
+
+    viewPoint = [plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+
+    XCTAssertEqualWithAccuracy(viewPoint.x, CPTFloat(50.0), CPTFloat(0.01), @"");
+    XCTAssertEqualWithAccuracy(viewPoint.y, CPTFloat(50.0), CPTFloat(0.01), @"");
+}
+
 -(void)testViewPointForPlotPointLinear
 {
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
@@ -103,6 +133,36 @@
 
 #pragma mark -
 #pragma mark View point for plot point (log)
+
+-(void)testViewPointForPlotPointArrayLog
+{
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
+
+    plotSpace.xScaleType = CPTScaleTypeLog;
+    plotSpace.yScaleType = CPTScaleTypeLog;
+
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@1.0
+                                                    length:@9.0];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@1.0
+                                                    length:@9.0];
+
+    NSArray *plotPoint = @[@( sqrt(10.0) ), @( sqrt(10.0) )];
+
+    CGPoint viewPoint = [plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+
+    XCTAssertEqualWithAccuracy(viewPoint.x, CPTFloat(50.0), CPTFloat(0.01), @"");
+    XCTAssertEqualWithAccuracy(viewPoint.y, CPTFloat(25.0), CPTFloat(0.01), @"");
+
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@1.0
+                                                    length:@9.0];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@10.0
+                                                    length:@90.0];
+
+    viewPoint = [plotSpace plotAreaViewPointForPlotPoint:plotPoint];
+
+    XCTAssertEqualWithAccuracy(viewPoint.x, CPTFloat(50.0), CPTFloat(0.01), @"");
+    XCTAssertEqualWithAccuracy(viewPoint.y, -CPTFloat(25.0), CPTFloat(0.01), @"");
+}
 
 -(void)testViewPointForPlotPointLog
 {
@@ -171,6 +231,28 @@
 #pragma mark -
 #pragma mark Plot point for view point (linear)
 
+-(void)testPlotPointArrayForViewPointLinear
+{
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
+
+    plotSpace.xScaleType = CPTScaleTypeLinear;
+    plotSpace.yScaleType = CPTScaleTypeLinear;
+
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@0.0
+                                                    length:@10.0];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@0.0
+                                                    length:@10.0];
+
+    CGPoint viewPoint  = CPTPointMake(50.0, 25.0);
+    NSArray *plotPoint = [plotSpace plotPointForPlotAreaViewPoint:viewPoint];
+    NSString *errMessage;
+
+    errMessage = [NSString stringWithFormat:@"plotPoint[CPTCoordinateX] was %@", plotPoint[CPTCoordinateX]];
+    XCTAssertTrue(CPTDecimalEquals( [plotPoint[CPTCoordinateX] decimalValue], CPTDecimalFromDouble(5.0) ), @"%@", errMessage);
+    errMessage = [NSString stringWithFormat:@"plotPoint[CPTCoordinateY] was %@", plotPoint[CPTCoordinateY]];
+    XCTAssertTrue(CPTDecimalEquals( [plotPoint[CPTCoordinateY] decimalValue], CPTDecimalFromDouble(5.0) ), @"%@", errMessage);
+}
+
 -(void)testPlotPointForViewPointLinear
 {
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
@@ -221,6 +303,30 @@
 
 #pragma mark -
 #pragma mark Plot point for view point (log)
+
+-(void)testPlotPointArrayForViewPointLog
+{
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
+
+    plotSpace.xScaleType = CPTScaleTypeLog;
+    plotSpace.yScaleType = CPTScaleTypeLog;
+
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@1.0
+                                                    length:@9.0];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@1.0
+                                                    length:@9.0];
+
+    CGPoint viewPoint  = CPTPointMake(50.0, 25.0);
+    NSArray *plotPoint = [plotSpace plotPointForPlotAreaViewPoint:viewPoint];
+    NSString *errMessage;
+
+    [plotSpace plotPointForPlotAreaViewPoint:viewPoint];
+
+    errMessage = [NSString stringWithFormat:@"plotPoint[CPTCoordinateX] was %@", plotPoint[CPTCoordinateX]];
+    XCTAssertEqual([plotPoint[CPTCoordinateX] doubleValue], sqrt(10.0), @"%@", errMessage);
+    errMessage = [NSString stringWithFormat:@"plotPoint[CPTCoordinateY] was %@", plotPoint[CPTCoordinateY]];
+    XCTAssertEqual([plotPoint[CPTCoordinateY] doubleValue], sqrt(10.0), @"%@", errMessage);
+}
 
 -(void)testPlotPointForViewPointLog
 {

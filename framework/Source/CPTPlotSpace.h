@@ -194,14 +194,17 @@ extern NSString *const CPTPlotSpaceDisplacementKey;
 
 /// @name Coordinate Space Conversions
 /// @{
+-(CGPoint)plotAreaViewPointForPlotPoint:(NSArray *)plotPoint;
 -(CGPoint)plotAreaViewPointForPlotPoint:(NSDecimal *)plotPoint numberOfCoordinates:(NSUInteger)count;
 -(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(double *)plotPoint numberOfCoordinates:(NSUInteger)count;
 
+-(NSArray *)plotPointForPlotAreaViewPoint:(CGPoint)point;
 -(void)plotPoint:(NSDecimal *)plotPoint numberOfCoordinates:(NSUInteger)count forPlotAreaViewPoint:(CGPoint)point;
 -(void)doublePrecisionPlotPoint:(double *)plotPoint numberOfCoordinates:(NSUInteger)count forPlotAreaViewPoint:(CGPoint)point;
 
 -(CGPoint)plotAreaViewPointForEvent:(CPTNativeEvent *)event;
 
+-(NSArray *)plotPointForEvent:(CPTNativeEvent *)event;
 -(void)plotPoint:(NSDecimal *)plotPoint numberOfCoordinates:(NSUInteger)count forEvent:(CPTNativeEvent *)event;
 -(void)doublePrecisionPlotPoint:(double *)plotPoint numberOfCoordinates:(NSUInteger)count forEvent:(CPTNativeEvent *)event;
 /// @}
