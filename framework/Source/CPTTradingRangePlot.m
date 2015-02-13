@@ -142,6 +142,12 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
  **/
 @synthesize barCornerRadius;
 
+/** @property BOOL showBarBorder
+ *  @brief If @YES, the candlestick body will show a border.
+ *  @ingroup plotAnimationTradingRangePlot
+ **/
+@synthesize showBarBorder;
+
 /** @internal
  *  @property NSUInteger pointingDeviceDownIndex
  *  @brief The index that was selected on the pointing device down event.
@@ -189,6 +195,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
  *  - @ref barWidth = @num{5.0}
  *  - @ref stickLength = @num{3.0}
  *  - @ref barCornerRadius = @num{0.0}
+ *  - @ref showBarBorder = @YES
  *  - @ref labelField = #CPTTradingRangePlotFieldClose
  *
  *  @param newFrame The frame rectangle.
@@ -206,6 +213,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         barWidth          = CPTFloat(5.0);
         stickLength       = CPTFloat(3.0);
         barCornerRadius   = CPTFloat(0.0);
+        showBarBorder     = YES;
 
         pointingDeviceDownIndex = NSNotFound;
 
@@ -232,6 +240,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         barWidth          = theLayer->barWidth;
         stickLength       = theLayer->stickLength;
         barCornerRadius   = theLayer->barCornerRadius;
+        showBarBorder     = theLayer->showBarBorder;
 
         pointingDeviceDownIndex = NSNotFound;
     }
@@ -258,6 +267,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     [coder encodeCGFloat:self.barWidth forKey:@"CPTTradingRangePlot.barWidth"];
     [coder encodeCGFloat:self.stickLength forKey:@"CPTTradingRangePlot.stickLength"];
     [coder encodeCGFloat:self.barCornerRadius forKey:@"CPTTradingRangePlot.barCornerRadius"];
+    [coder encodeBool:self.showBarBorder forKey:@"CPTTradingRangePlot.showBarBorder"];
 
     // No need to archive these properties:
     // pointingDeviceDownIndex
@@ -275,6 +285,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         barWidth          = [coder decodeCGFloatForKey:@"CPTTradingRangePlot.barWidth"];
         stickLength       = [coder decodeCGFloatForKey:@"CPTTradingRangePlot.stickLength"];
         barCornerRadius   = [coder decodeCGFloatForKey:@"CPTTradingRangePlot.barCornerRadius"];
+        showBarBorder     = [coder decodeBoolForKey:@"CPTTradingRangePlot.showBarBorder"];
 
         pointingDeviceDownIndex = NSNotFound;
     }
@@ -838,28 +849,35 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
                 }
             }
 
-            if ( openValue == closeValue ) {
-                // #285 Draw a cross with open/close values marked
-                const CGFloat halfLineWidth = CPTFloat(0.5) * self.lineStyle.lineWidth;
-
-                alignedPoint1.y -= halfLineWidth;
-                alignedPoint2.y += halfLineWidth;
-                alignedPoint3.y += halfLineWidth;
-                alignedPoint4.y += halfLineWidth;
-                alignedPoint5.y -= halfLineWidth;
-            }
-
             CGMutablePathRef path = CGPathCreateMutable();
             CGPathMoveToPoint(path, NULL, alignedPoint1.x, alignedPoint1.y);
             CGPathAddArcToPoint(path, NULL, alignedPoint2.x, alignedPoint2.y, alignedPoint3.x, alignedPoint3.y, radius);
             CGPathAddArcToPoint(path, NULL, alignedPoint4.x, alignedPoint4.y, alignedPoint5.x, alignedPoint5.y, radius);
             CGPathAddLineToPoint(path, NULL, alignedPoint5.x, alignedPoint5.y);
             CGPathCloseSubpath(path);
-
+            
             if ( [currentBarFill isKindOfClass:[CPTFill class]] ) {
                 CGContextBeginPath(context);
                 CGContextAddPath(context, path);
                 [currentBarFill fillPathInContext:context];
+            }
+            
+            if ( openValue == closeValue ) {
+                // #285 Draw a cross with open/close values marked
+                const CGFloat halfLineWidth = CPTFloat(0.5) * self.lineStyle.lineWidth;
+                
+                alignedPoint1.y -= halfLineWidth;
+                alignedPoint2.y += halfLineWidth;
+                alignedPoint3.y += halfLineWidth;
+                alignedPoint4.y += halfLineWidth;
+                alignedPoint5.y -= halfLineWidth;
+            }else if( !self.showBarBorder ){
+                path = CGPathCreateMutable();
+                CGPathMoveToPoint(path, NULL, alignedPoint1.x, 0);
+                CGPathAddArcToPoint(path, NULL, alignedPoint2.x, 0, alignedPoint3.x, 0, radius);
+                CGPathAddArcToPoint(path, NULL, alignedPoint4.x, 0, alignedPoint5.x, 0, radius);
+                CGPathAddLineToPoint(path, NULL, alignedPoint5.x, 0);
+                CGPathCloseSubpath(path);
             }
 
             if ( hasLineStyle ) {
@@ -1094,7 +1112,8 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     dispatch_once(&onceToken, ^{
         keys = [NSSet setWithArray:@[@"barWidth",
                                      @"stickLength",
-                                     @"barCornerRadius"]];
+                                     @"barCornerRadius",
+                                     @"showBarBorder"]];
     });
 
     if ( [keys containsObject:aKey] ) {
@@ -1681,6 +1700,14 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 {
     if ( barCornerRadius != newBarCornerRadius ) {
         barCornerRadius = newBarCornerRadius;
+        [self setNeedsDisplay];
+    }
+}
+
+-(void)setShowBarBorder:(BOOL)newShowBarBorder
+{
+    if ( showBarBorder != newShowBarBorder ) {
+        showBarBorder = newShowBarBorder;
         [self setNeedsDisplay];
     }
 }
