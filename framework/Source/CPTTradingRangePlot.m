@@ -855,23 +855,24 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
             CGPathAddArcToPoint(path, NULL, alignedPoint4.x, alignedPoint4.y, alignedPoint5.x, alignedPoint5.y, radius);
             CGPathAddLineToPoint(path, NULL, alignedPoint5.x, alignedPoint5.y);
             CGPathCloseSubpath(path);
-            
+
             if ( [currentBarFill isKindOfClass:[CPTFill class]] ) {
                 CGContextBeginPath(context);
                 CGContextAddPath(context, path);
                 [currentBarFill fillPathInContext:context];
             }
-            
+
             if ( openValue == closeValue ) {
                 // #285 Draw a cross with open/close values marked
                 const CGFloat halfLineWidth = CPTFloat(0.5) * self.lineStyle.lineWidth;
-                
+
                 alignedPoint1.y -= halfLineWidth;
                 alignedPoint2.y += halfLineWidth;
                 alignedPoint3.y += halfLineWidth;
                 alignedPoint4.y += halfLineWidth;
                 alignedPoint5.y -= halfLineWidth;
-            }else if( !self.showBarBorder ){
+            }
+            else if ( !self.showBarBorder ) {
                 path = CGPathCreateMutable();
                 CGPathMoveToPoint(path, NULL, alignedPoint1.x, 0);
                 CGPathAddArcToPoint(path, NULL, alignedPoint2.x, 0, alignedPoint3.x, 0, radius);
