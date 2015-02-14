@@ -238,6 +238,7 @@ typedef NS_ENUM (NSInteger, CPTTradingRangePlotField) {
 @property (nonatomic, readwrite, assign) CGFloat barWidth;    // In view coordinates
 @property (nonatomic, readwrite, assign) CGFloat stickLength; // In view coordinates
 @property (nonatomic, readwrite, assign) CGFloat barCornerRadius;
+@property (nonatomic, readwrite, assign) BOOL showBarBorder;
 /// @}
 
 /// @name Drawing
