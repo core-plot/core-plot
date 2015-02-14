@@ -1585,6 +1585,7 @@
 /* Begin XCBuildConfiguration section */
 		0730F602109492D900E95162 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C31908A41998168C00B61898 /* CorePlot.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1610,6 +1611,7 @@
 		};
 		0730F603109492D900E95162 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C31908A41998168C00B61898 /* CorePlot.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1634,6 +1636,7 @@
 		};
 		1DEB91AE08733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C31908A41998168C00B61898 /* CorePlot.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1656,6 +1659,7 @@
 		};
 		1DEB91AF08733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C31908A41998168C00B61898 /* CorePlot.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1677,7 +1681,6 @@
 		};
 		1DEB91B208733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C31908A41998168C00B61898 /* CorePlot.xcconfig */;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1709,7 +1712,6 @@
 		};
 		1DEB91B308733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C31908A41998168C00B61898 /* CorePlot.xcconfig */;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_POSTPROCESSING = YES;
