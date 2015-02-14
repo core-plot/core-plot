@@ -733,6 +733,13 @@ typedef struct CGPointError CGPointError;
               alignPoints:(BOOL)alignPoints
 {
     if ( [lineStyle isKindOfClass:[CPTLineStyle class]] && !isnan(viewPoint->x) && !isnan(viewPoint->y) ) {
+        CPTAlignPointFunction alignmentFunction = CPTAlignPointToUserSpace;
+
+        CGFloat lineWidth = lineStyle.lineWidth;
+        if ( ( self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
+            alignmentFunction = CPTAlignIntegralPointToUserSpace;
+        }
+
         CGMutablePathRef path = CGPathCreateMutable();
 
         // centre-high
@@ -740,8 +747,8 @@ typedef struct CGPointError CGPointError;
             CGPoint alignedHighPoint = CPTPointMake(viewPoint->x, viewPoint->y + halfGapSize.height);
             CGPoint alignedLowPoint  = CPTPointMake(viewPoint->x, viewPoint->high);
             if ( alignPoints ) {
-                alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
-                alignedLowPoint  = CPTAlignPointToUserSpace(context, alignedLowPoint);
+                alignedHighPoint = alignmentFunction(context, alignedHighPoint);
+                alignedLowPoint  = alignmentFunction(context, alignedLowPoint);
             }
             CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
             CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
@@ -752,8 +759,8 @@ typedef struct CGPointError CGPointError;
             CGPoint alignedHighPoint = CPTPointMake(viewPoint->x, viewPoint->y - halfGapSize.height);
             CGPoint alignedLowPoint  = CPTPointMake(viewPoint->x, viewPoint->low);
             if ( alignPoints ) {
-                alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
-                alignedLowPoint  = CPTAlignPointToUserSpace(context, alignedLowPoint);
+                alignedHighPoint = alignmentFunction(context, alignedHighPoint);
+                alignedLowPoint  = alignmentFunction(context, alignedLowPoint);
             }
             CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
             CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
@@ -764,8 +771,8 @@ typedef struct CGPointError CGPointError;
             CGPoint alignedHighPoint = CPTPointMake(viewPoint->x - halfBarWidth, viewPoint->high);
             CGPoint alignedLowPoint  = CPTPointMake(viewPoint->x + halfBarWidth, viewPoint->high);
             if ( alignPoints ) {
-                alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
-                alignedLowPoint  = CPTAlignPointToUserSpace(context, alignedLowPoint);
+                alignedHighPoint = alignmentFunction(context, alignedHighPoint);
+                alignedLowPoint  = alignmentFunction(context, alignedLowPoint);
             }
             CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
             CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
@@ -776,8 +783,8 @@ typedef struct CGPointError CGPointError;
             CGPoint alignedHighPoint = CPTPointMake(viewPoint->x - halfBarWidth, viewPoint->low);
             CGPoint alignedLowPoint  = CPTPointMake(viewPoint->x + halfBarWidth, viewPoint->low);
             if ( alignPoints ) {
-                alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
-                alignedLowPoint  = CPTAlignPointToUserSpace(context, alignedLowPoint);
+                alignedHighPoint = alignmentFunction(context, alignedHighPoint);
+                alignedLowPoint  = alignmentFunction(context, alignedLowPoint);
             }
             CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
             CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
@@ -788,8 +795,8 @@ typedef struct CGPointError CGPointError;
             CGPoint alignedHighPoint = CPTPointMake(viewPoint->x - halfGapSize.width, viewPoint->y);
             CGPoint alignedLowPoint  = CPTPointMake(viewPoint->left, viewPoint->y);
             if ( alignPoints ) {
-                alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
-                alignedLowPoint  = CPTAlignPointToUserSpace(context, alignedLowPoint);
+                alignedHighPoint = alignmentFunction(context, alignedHighPoint);
+                alignedLowPoint  = alignmentFunction(context, alignedLowPoint);
             }
             CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
             CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
@@ -800,8 +807,8 @@ typedef struct CGPointError CGPointError;
             CGPoint alignedHighPoint = CPTPointMake(viewPoint->x + halfGapSize.width, viewPoint->y);
             CGPoint alignedLowPoint  = CPTPointMake(viewPoint->right, viewPoint->y);
             if ( alignPoints ) {
-                alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
-                alignedLowPoint  = CPTAlignPointToUserSpace(context, alignedLowPoint);
+                alignedHighPoint = alignmentFunction(context, alignedHighPoint);
+                alignedLowPoint  = alignmentFunction(context, alignedLowPoint);
             }
             CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
             CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
@@ -812,8 +819,8 @@ typedef struct CGPointError CGPointError;
             CGPoint alignedHighPoint = CPTPointMake(viewPoint->left, viewPoint->y - halfBarWidth);
             CGPoint alignedLowPoint  = CPTPointMake(viewPoint->left, viewPoint->y + halfBarWidth);
             if ( alignPoints ) {
-                alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
-                alignedLowPoint  = CPTAlignPointToUserSpace(context, alignedLowPoint);
+                alignedHighPoint = alignmentFunction(context, alignedHighPoint);
+                alignedLowPoint  = alignmentFunction(context, alignedLowPoint);
             }
             CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
             CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
@@ -824,8 +831,8 @@ typedef struct CGPointError CGPointError;
             CGPoint alignedHighPoint = CPTPointMake(viewPoint->right, viewPoint->y - halfBarWidth);
             CGPoint alignedLowPoint  = CPTPointMake(viewPoint->right, viewPoint->y + halfBarWidth);
             if ( alignPoints ) {
-                alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
-                alignedLowPoint  = CPTAlignPointToUserSpace(context, alignedLowPoint);
+                alignedHighPoint = alignmentFunction(context, alignedHighPoint);
+                alignedLowPoint  = alignmentFunction(context, alignedLowPoint);
             }
             CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
             CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);

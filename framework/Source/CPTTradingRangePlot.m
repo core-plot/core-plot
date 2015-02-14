@@ -788,26 +788,25 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         }
     }
 
+    CPTAlignPointFunction alignmentFunction = CPTAlignPointToUserSpace;
+
     BOOL hasLineStyle = [theBorderLineStyle isKindOfClass:[CPTLineStyle class]];
     if ( hasLineStyle ) {
         [theBorderLineStyle setLineStyleInContext:context];
-    }
 
-    BOOL alignToUserSpace = (theBorderLineStyle.lineWidth > 0.0);
+        CGFloat lineWidth = theBorderLineStyle.lineWidth;
+        if ( ( self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
+            alignmentFunction = CPTAlignIntegralPointToUserSpace;
+        }
+    }
 
     // high - low only
     if ( hasLineStyle && !isnan(highValue) && !isnan(lowValue) && ( isnan(openValue) || isnan(closeValue) ) ) {
         CGPoint alignedHighPoint = CPTPointMake(x, highValue);
         CGPoint alignedLowPoint  = CPTPointMake(x, lowValue);
         if ( alignPoints ) {
-            if ( alignToUserSpace ) {
-                alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
-                alignedLowPoint  = CPTAlignPointToUserSpace(context, alignedLowPoint);
-            }
-            else {
-                alignedHighPoint = CPTAlignIntegralPointToUserSpace(context, alignedHighPoint);
-                alignedLowPoint  = CPTAlignIntegralPointToUserSpace(context, alignedLowPoint);
-            }
+            alignedHighPoint = alignmentFunction(context, alignedHighPoint);
+            alignedLowPoint  = alignmentFunction(context, alignedLowPoint);
         }
 
         CGMutablePathRef path = CGPathCreateMutable();
@@ -833,12 +832,12 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
             CGPoint alignedPoint4 = CPTPointMake(x - halfBarWidth, closeValue);
             CGPoint alignedPoint5 = CPTPointMake(x - halfBarWidth, openValue);
             if ( alignPoints ) {
-                if ( alignToUserSpace ) {
-                    alignedPoint1 = CPTAlignPointToUserSpace(context, alignedPoint1);
-                    alignedPoint2 = CPTAlignPointToUserSpace(context, alignedPoint2);
-                    alignedPoint3 = CPTAlignPointToUserSpace(context, alignedPoint3);
-                    alignedPoint4 = CPTAlignPointToUserSpace(context, alignedPoint4);
-                    alignedPoint5 = CPTAlignPointToUserSpace(context, alignedPoint5);
+                if ( hasLineStyle && self.showBarBorder ) {
+                    alignedPoint1 = alignmentFunction(context, alignedPoint1);
+                    alignedPoint2 = alignmentFunction(context, alignedPoint2);
+                    alignedPoint3 = alignmentFunction(context, alignedPoint3);
+                    alignedPoint4 = alignmentFunction(context, alignedPoint4);
+                    alignedPoint5 = alignmentFunction(context, alignedPoint5);
                 }
                 else {
                     alignedPoint1 = CPTAlignIntegralPointToUserSpace(context, alignedPoint1);
@@ -847,6 +846,17 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
                     alignedPoint4 = CPTAlignIntegralPointToUserSpace(context, alignedPoint4);
                     alignedPoint5 = CPTAlignIntegralPointToUserSpace(context, alignedPoint5);
                 }
+            }
+
+            if ( hasLineStyle && (openValue == closeValue) ) {
+                // #285 Draw a cross with open/close values marked
+                const CGFloat halfLineWidth = CPTFloat(0.5) * theBorderLineStyle.lineWidth;
+
+                alignedPoint1.y -= halfLineWidth;
+                alignedPoint2.y += halfLineWidth;
+                alignedPoint3.y += halfLineWidth;
+                alignedPoint4.y += halfLineWidth;
+                alignedPoint5.y -= halfLineWidth;
             }
 
             CGMutablePathRef path = CGPathCreateMutable();
@@ -862,39 +872,19 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
                 [currentBarFill fillPathInContext:context];
             }
 
-            if ( openValue == closeValue ) {
-                // #285 Draw a cross with open/close values marked
-                const CGFloat halfLineWidth = CPTFloat(0.5) * self.lineStyle.lineWidth;
-
-                alignedPoint1.y -= halfLineWidth;
-                alignedPoint2.y += halfLineWidth;
-                alignedPoint3.y += halfLineWidth;
-                alignedPoint4.y += halfLineWidth;
-                alignedPoint5.y -= halfLineWidth;
-            }
-            else if ( !self.showBarBorder ) {
-                path = CGPathCreateMutable();
-                CGPathMoveToPoint(path, NULL, alignedPoint1.x, 0);
-                CGPathAddArcToPoint(path, NULL, alignedPoint2.x, 0, alignedPoint3.x, 0, radius);
-                CGPathAddArcToPoint(path, NULL, alignedPoint4.x, 0, alignedPoint5.x, 0, radius);
-                CGPathAddLineToPoint(path, NULL, alignedPoint5.x, 0);
-                CGPathCloseSubpath(path);
-            }
-
             if ( hasLineStyle ) {
+                if ( !self.showBarBorder ) {
+                    CGPathRelease(path);
+                    path = CGPathCreateMutable();
+                }
+
                 if ( !isnan(lowValue) ) {
                     if ( lowValue < MIN(openValue, closeValue) ) {
                         CGPoint alignedStartPoint = CPTPointMake( x, MIN(openValue, closeValue) );
                         CGPoint alignedLowPoint   = CPTPointMake(x, lowValue);
                         if ( alignPoints ) {
-                            if ( alignToUserSpace ) {
-                                alignedStartPoint = CPTAlignPointToUserSpace(context, alignedStartPoint);
-                                alignedLowPoint   = CPTAlignPointToUserSpace(context, alignedLowPoint);
-                            }
-                            else {
-                                alignedStartPoint = CPTAlignIntegralPointToUserSpace(context, alignedStartPoint);
-                                alignedLowPoint   = CPTAlignIntegralPointToUserSpace(context, alignedLowPoint);
-                            }
+                            alignedStartPoint = alignmentFunction(context, alignedStartPoint);
+                            alignedLowPoint   = alignmentFunction(context, alignedLowPoint);
                         }
 
                         CGPathMoveToPoint(path, NULL, alignedStartPoint.x, alignedStartPoint.y);
@@ -906,14 +896,8 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
                         CGPoint alignedStartPoint = CPTPointMake( x, MAX(openValue, closeValue) );
                         CGPoint alignedHighPoint  = CPTPointMake(x, highValue);
                         if ( alignPoints ) {
-                            if ( alignToUserSpace ) {
-                                alignedStartPoint = CPTAlignPointToUserSpace(context, alignedStartPoint);
-                                alignedHighPoint  = CPTAlignPointToUserSpace(context, alignedHighPoint);
-                            }
-                            else {
-                                alignedStartPoint = CPTAlignIntegralPointToUserSpace(context, alignedStartPoint);
-                                alignedHighPoint  = CPTAlignIntegralPointToUserSpace(context, alignedHighPoint);
-                            }
+                            alignedStartPoint = alignmentFunction(context, alignedStartPoint);
+                            alignedHighPoint  = alignmentFunction(context, alignedHighPoint);
                         }
 
                         CGPathMoveToPoint(path, NULL, alignedStartPoint.x, alignedStartPoint.y);
@@ -943,13 +927,15 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
     if ( !isnan(openValue) && !isnan(closeValue) ) {
         if ( openValue < closeValue ) {
-            if ( [[self increaseLineStyleForIndex:idx] isKindOfClass:[CPTLineStyle class]] ) {
-                theLineStyle = [self increaseLineStyleForIndex:idx];
+            CPTLineStyle *lineStyleForIncrease = [self increaseLineStyleForIndex:idx];
+            if ( [lineStyleForIncrease isKindOfClass:[CPTLineStyle class]] ) {
+                theLineStyle = lineStyleForIncrease;
             }
         }
         else if ( openValue > closeValue ) {
-            if ( [[self decreaseLineStyleForIndex:idx] isKindOfClass:[CPTLineStyle class]] ) {
-                theLineStyle = [self decreaseLineStyleForIndex:idx];
+            CPTLineStyle *lineStyleForDecrease = [self decreaseLineStyleForIndex:idx];
+            if ( [lineStyleForDecrease isKindOfClass:[CPTLineStyle class]] ) {
+                theLineStyle = lineStyleForDecrease;
             }
         }
     }
@@ -958,13 +944,20 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         CGFloat theStickLength = self.stickLength;
         CGMutablePathRef path  = CGPathCreateMutable();
 
+        CPTAlignPointFunction alignmentFunction = CPTAlignPointToUserSpace;
+
+        CGFloat lineWidth = theLineStyle.lineWidth;
+        if ( ( self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
+            alignmentFunction = CPTAlignIntegralPointToUserSpace;
+        }
+
         // high-low
         if ( !isnan(highValue) && !isnan(lowValue) ) {
             CGPoint alignedHighPoint = CPTPointMake(x, highValue);
             CGPoint alignedLowPoint  = CPTPointMake(x, lowValue);
             if ( alignPoints ) {
-                alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
-                alignedLowPoint  = CPTAlignPointToUserSpace(context, alignedLowPoint);
+                alignedHighPoint = alignmentFunction(context, alignedHighPoint);
+                alignedLowPoint  = alignmentFunction(context, alignedLowPoint);
             }
             CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
             CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
@@ -975,8 +968,8 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
             CGPoint alignedOpenStartPoint = CPTPointMake(x, openValue);
             CGPoint alignedOpenEndPoint   = CPTPointMake(x - theStickLength, openValue); // left side
             if ( alignPoints ) {
-                alignedOpenStartPoint = CPTAlignPointToUserSpace(context, alignedOpenStartPoint);
-                alignedOpenEndPoint   = CPTAlignPointToUserSpace(context, alignedOpenEndPoint);
+                alignedOpenStartPoint = alignmentFunction(context, alignedOpenStartPoint);
+                alignedOpenEndPoint   = alignmentFunction(context, alignedOpenEndPoint);
             }
             CGPathMoveToPoint(path, NULL, alignedOpenStartPoint.x, alignedOpenStartPoint.y);
             CGPathAddLineToPoint(path, NULL, alignedOpenEndPoint.x, alignedOpenEndPoint.y);
@@ -987,8 +980,8 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
             CGPoint alignedCloseStartPoint = CPTPointMake(x, closeValue);
             CGPoint alignedCloseEndPoint   = CPTPointMake(x + theStickLength, closeValue); // right side
             if ( alignPoints ) {
-                alignedCloseStartPoint = CPTAlignPointToUserSpace(context, alignedCloseStartPoint);
-                alignedCloseEndPoint   = CPTAlignPointToUserSpace(context, alignedCloseEndPoint);
+                alignedCloseStartPoint = alignmentFunction(context, alignedCloseStartPoint);
+                alignedCloseEndPoint   = alignmentFunction(context, alignedCloseEndPoint);
             }
             CGPathMoveToPoint(path, NULL, alignedCloseStartPoint.x, alignedCloseStartPoint.y);
             CGPathAddLineToPoint(path, NULL, alignedCloseEndPoint.x, alignedCloseEndPoint.y);
