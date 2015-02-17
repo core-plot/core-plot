@@ -15,7 +15,7 @@ class PieChartController : UIViewController, CPTPieChartDataSource {
         let newGraph = CPTXYGraph(frame: CGRectZero)
         newGraph.applyTheme(CPTTheme(named: kCPTDarkGradientTheme))
 
-        let hostingView = self.view as CPTGraphHostingView
+        let hostingView = self.view as! CPTGraphHostingView
         hostingView.hostedGraph = newGraph
 
         // Paddings
@@ -74,7 +74,7 @@ class PieChartController : UIViewController, CPTPieChartDataSource {
     {
         let label = CPTTextLayer(text:"\(recordIndex)")
 
-        let textStyle = label.textStyle.mutableCopy() as CPTMutableTextStyle
+        let textStyle = label.textStyle.mutableCopy() as! CPTMutableTextStyle
         textStyle.color = CPTColor.lightGrayColor()
 
         label.textStyle = textStyle

@@ -16,7 +16,7 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource {
         let newGraph = CPTXYGraph(frame: CGRectZero)
         newGraph.applyTheme(CPTTheme(named: kCPTDarkGradientTheme))
 
-        let hostingView = self.view as CPTGraphHostingView
+        let hostingView = self.view as! CPTGraphHostingView
         hostingView.hostedGraph = newGraph
 
         // Paddings
@@ -26,13 +26,13 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource {
         newGraph.paddingBottom = 10.0
 
         // Plot space
-        let plotSpace = newGraph.defaultPlotSpace as CPTXYPlotSpace
+        let plotSpace = newGraph.defaultPlotSpace as! CPTXYPlotSpace
         plotSpace.allowsUserInteraction = true
         plotSpace.yRange = CPTPlotRange(location:1.0, length:2.0)
         plotSpace.xRange = CPTPlotRange(location:1.0, length:3.0)
 
         // Axes
-        let axisSet = newGraph.axisSet as CPTXYAxisSet
+        let axisSet = newGraph.axisSet as! CPTXYAxisSet
 
         let x = axisSet.xAxis
         x.majorIntervalLength   = 0.5
@@ -134,7 +134,7 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource {
         let plotField = CPTScatterPlotField(rawValue: Int(field))
 
         if let num = self.dataForPlot[Int(recordIndex)][plotField!] {
-            let plotID = plot.identifier as String
+            let plotID = plot.identifier as! String
             if (plotField! == .Y) && (plotID == "Green Plot") {
                 return (num + 1.0) as NSNumber
             }
@@ -154,10 +154,10 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource {
         let formatter   = axis.labelFormatter
         let labelOffset = axis.labelOffset
 
-        let newLabels = NSMutableSet()
+        var newLabels = Set<CPTAxisLabel>()
 
         for tickLocation in locations {
-            var labelTextStyle = axis.labelTextStyle.mutableCopy() as CPTMutableTextStyle
+            var labelTextStyle = axis.labelTextStyle.mutableCopy() as! CPTMutableTextStyle
 
             if tickLocation.doubleValue >= 0.0 {
                 labelTextStyle.color = CPTColor.greenColor()
@@ -170,10 +170,10 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource {
             let newLabelLayer = CPTTextLayer(text: labelString, style: labelTextStyle)
 
             let newLabel = CPTAxisLabel(contentLayer: newLabelLayer)
-            newLabel.tickLocation = tickLocation as NSNumber
+            newLabel.tickLocation = tickLocation as! NSNumber
             newLabel.offset       = labelOffset
             
-            newLabels.addObject(newLabel)
+            newLabels.insert(newLabel)
         }
         
         axis.axisLabels = newLabels

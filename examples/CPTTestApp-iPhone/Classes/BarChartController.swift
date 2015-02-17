@@ -13,7 +13,7 @@ class BarChartController : UIViewController, CPTBarPlotDataSource {
         let newGraph = CPTXYGraph(frame: CGRectZero)
         newGraph.applyTheme(CPTTheme(named: kCPTDarkGradientTheme))
 
-        let hostingView = self.view as CPTGraphHostingView
+        let hostingView = self.view as! CPTGraphHostingView
         hostingView.hostedGraph = barGraph
 
         // Border
@@ -59,11 +59,11 @@ class BarChartController : UIViewController, CPTBarPlotDataSource {
         newGraph.titlePlotAreaFrameAnchor = .Top
 
         // Plot space
-        let plotSpace = newGraph.defaultPlotSpace as CPTXYPlotSpace
+        let plotSpace = newGraph.defaultPlotSpace as! CPTXYPlotSpace
         plotSpace.yRange = CPTPlotRange(location:0.0, length:300.0)
         plotSpace.xRange = CPTPlotRange(location:0.0, length:16.0)
 
-        let axisSet = newGraph.axisSet as CPTXYAxisSet
+        let axisSet = newGraph.axisSet as! CPTXYAxisSet
 
         let x = axisSet.xAxis
         x.axisLineStyle       = nil
@@ -83,13 +83,13 @@ class BarChartController : UIViewController, CPTBarPlotDataSource {
         let xAxisLabels         = ["Label A", "Label B", "Label C", "Label D"]
 
         var labelLocation = 0
-        let customLabels = NSMutableSet(capacity: xAxisLabels.count)
+        var customLabels = Set<CPTAxisLabel>()
         for tickLocation in customTickLocations {
             let newLabel = CPTAxisLabel(text:xAxisLabels[labelLocation++], textStyle:x.labelTextStyle)
             newLabel.tickLocation = tickLocation
             newLabel.offset       = x.labelOffset + x.majorTickLength
             newLabel.rotation     = CGFloat(M_PI_4)
-            customLabels.addObject(newLabel)
+            customLabels.insert(newLabel)
         }
 
         x.axisLabels = customLabels
@@ -138,7 +138,7 @@ class BarChartController : UIViewController, CPTBarPlotDataSource {
             return recordIndex as NSNumber
 
         case .BarTip:
-            let plotID = plot.identifier as String
+            let plotID = plot.identifier as! String
             return (plotID == "Bar Plot 2" ? recordIndex : ((recordIndex + 1) * (recordIndex + 1)) ) as NSNumber
             
         default:

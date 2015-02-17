@@ -32,13 +32,13 @@ class DateController : NSObject, CPTPlotDataSource {
         }
 
         // Setup scatter plot space
-        let plotSpace = newGraph.defaultPlotSpace as CPTXYPlotSpace
+        let plotSpace = newGraph.defaultPlotSpace as! CPTXYPlotSpace
 
         plotSpace.xRange = CPTPlotRange(location:0.0, length:oneDay * 5.0)
         plotSpace.yRange = CPTPlotRange(location:1.0, length:3.0)
 
         // Axes
-        let axisSet = newGraph.axisSet as CPTXYAxisSet
+        let axisSet = newGraph.axisSet as! CPTXYAxisSet
         let x = axisSet.xAxis
         x.majorIntervalLength   = oneDay
         x.orthogonalPosition    = 2.0
@@ -54,11 +54,14 @@ class DateController : NSObject, CPTPlotDataSource {
         y.minorTicksPerInterval = 5
         y.orthogonalPosition    = oneDay
 
+        y.labelingPolicy = .None
+
+
         // Create a plot that uses the data source method
         let dataSourceLinePlot = CPTScatterPlot(frame: CGRectZero)
         dataSourceLinePlot.identifier = "Date Plot"
 
-        let lineStyle = dataSourceLinePlot.dataLineStyle.mutableCopy() as CPTMutableLineStyle
+        let lineStyle = dataSourceLinePlot.dataLineStyle.mutableCopy() as! CPTMutableLineStyle
         lineStyle.lineWidth              = 3.0
         lineStyle.lineColor              = CPTColor.greenColor()
         dataSourceLinePlot.dataLineStyle = lineStyle

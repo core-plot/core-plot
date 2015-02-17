@@ -2742,6 +2742,7 @@
 		};
 		C38A098B1A46185300D45436 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C31908A41998168C00B61898 /* CorePlot.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -2777,6 +2778,7 @@
 		};
 		C38A098C1A46185300D45436 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C31908A41998168C00B61898 /* CorePlot.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -2809,6 +2811,7 @@
 		};
 		C38A098D1A46185300D45436 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C31908A41998168C00B61898 /* CorePlot.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -2861,6 +2864,7 @@
 		};
 		C38A098E1A46185300D45436 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C31908A41998168C00B61898 /* CorePlot.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -2965,6 +2969,7 @@
 		};
 		C38A09CC1A4619A900D45436 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C31908A41998168C00B61898 /* CorePlot.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -2994,6 +2999,7 @@
 		};
 		C38A09CD1A4619A900D45436 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C31908A41998168C00B61898 /* CorePlot.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -3021,6 +3027,7 @@
 		};
 		C38A09CF1A4619A900D45436 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C31908A41998168C00B61898 /* CorePlot.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -3073,6 +3080,7 @@
 		};
 		C38A09D01A4619A900D45436 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C31908A41998168C00B61898 /* CorePlot.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";

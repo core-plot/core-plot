@@ -11,7 +11,7 @@ class iPhoneAppDelegate : NSObject, UIApplicationDelegate, UITabBarControllerDel
     @IBOutlet var window: UIWindow? = nil
     @IBOutlet var tabBarController: UITabBarController? = nil
 
-    func applicationDidFinishLaunching(application: UIApplication?) {
+    func applicationDidFinishLaunching(application: UIApplication) {
         if let myWindow = self.window {
             myWindow.rootViewController = self.tabBarController
             myWindow.makeKeyAndVisible()
