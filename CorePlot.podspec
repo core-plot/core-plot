@@ -24,10 +24,10 @@ Pod::Spec.new do |s|
   s.ios.header_dir = 'ios'
   s.osx.header_dir = 'osx'
   
-  s.source_files = 'framework/Source/*.{h,m}'
-  s.exclude_files = '**/*{TestCase,Tests}.{h,m}'
+  s.source_files = 'framework/Source/*.{h,m}', 'framework/CocoaPods/*.h', 'framework/TestResources/CorePlotProbes.d'
+  s.exclude_files = '**/*{TestCase,Tests}.{h,m}', '**/mainpage.h'
   s.ios.source_files = 'framework/CorePlot-CocoaTouch.h', 'framework/iPhoneOnly/*.{h,m}'
-  s.osx.source_files = 'framework/CorePlot.h', 'framework/MacOnly/*.{h,m}'
+  s.osx.source_files = 'framework/MacOnly/*.{h,m}'
   s.private_header_files = '**/_*.h', '**/CorePlotProbes.h'
 
   s.requires_arc   = true
@@ -36,8 +36,4 @@ Pod::Spec.new do |s|
   s.frameworks     = 'QuartzCore', 'Accelerate'
   s.ios.frameworks = 'UIKit', 'Foundation'
   s.osx.frameworks = 'Cocoa'
-  
-  s.prepare_command = <<-CMD
-    dtrace -h -s framework/TestResources/CorePlotProbes.d -o framework/Source/CorePlotProbes.h
-  CMD
 end

@@ -390,6 +390,7 @@
 		C3978E0F13CE65C600A420D9 /* NSCoderExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSCoderExtensions.m; path = Source/NSCoderExtensions.m; sourceTree = "<group>"; };
 		C3A695DF146A196100AF5653 /* CPTMutablePlotRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTMutablePlotRange.h; path = Source/CPTMutablePlotRange.h; sourceTree = "<group>"; };
 		C3A695E0146A196100AF5653 /* CPTMutablePlotRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTMutablePlotRange.m; path = Source/CPTMutablePlotRange.m; sourceTree = "<group>"; };
+		C3B25EE11AC23A930063CCD8 /* CorePlot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CorePlot.h; sourceTree = "<group>"; };
 		C3C68318166138E200340E39 /* CPTAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTAnimation.h; path = Source/CPTAnimation.h; sourceTree = "<group>"; };
 		C3C68319166138E200340E39 /* CPTAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTAnimation.m; path = Source/CPTAnimation.m; sourceTree = "<group>"; };
 		C3C6831A166138E200340E39 /* CPTAnimationOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTAnimationOperation.h; path = Source/CPTAnimationOperation.h; sourceTree = "<group>"; };
@@ -604,6 +605,7 @@
 				BC9B82520FB89B420035D8DA /* Source */,
 				0789EFB70FB9F97F00C0A613 /* iPhone Specific */,
 				C3566B8610EED12700FB3866 /* Documentation */,
+				C3B25EE01AC23A930063CCD8 /* CocoaPods */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -845,6 +847,14 @@
 				C30550E81399BE2000E0151F /* CPTLegendEntry.m */,
 			);
 			name = Legends;
+			sourceTree = "<group>";
+		};
+		C3B25EE01AC23A930063CCD8 /* CocoaPods */ = {
+			isa = PBXGroup;
+			children = (
+				C3B25EE11AC23A930063CCD8 /* CorePlot.h */,
+			);
+			path = CocoaPods;
 			sourceTree = "<group>";
 		};
 		C3B623A9107EC5460009EF0B /* Layout */ = {

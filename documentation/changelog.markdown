@@ -9,6 +9,7 @@ To be determined.
 - **New**: Added hand cursors to the Mac hosting view to indicate when user interaction is enabled and when dragging is in progress.
 - **New**: Added two additional initialization methods to `CPTImage`. 
 - **New**: Added a dependency on the Accelerate framework. All iOS clients must now link against this framework.
+- **New**: Added a shared header file for apps using Core Plot with CocoaPods.
 - **New**: Added support for pinch zoom gestures on the Mac.
 - **New**: Added support for trackpad and mouse wheel scrolling gestures on the Mac.
 - **New**: Added a scroll wheel event to `<CPTResponder>`.
