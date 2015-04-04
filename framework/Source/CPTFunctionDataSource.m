@@ -98,6 +98,8 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
 
     if ( (self = [self initForPlot:plot]) ) {
         dataSourceFunction = function;
+
+        plot.dataSource = self;
     }
     return self;
 }
@@ -113,6 +115,8 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
 
     if ( (self = [self initForPlot:plot]) ) {
         dataSourceBlock = block;
+
+        plot.dataSource = self;
     }
     return self;
 }
@@ -135,7 +139,6 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
         dataRange          = nil;
 
         plot.cachePrecision = CPTPlotCachePrecisionDouble;
-        plot.dataSource     = self;
 
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(plotBoundsChanged)
@@ -406,11 +409,13 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
         else {
             CPTDataSourceBlock functionBlock = self.dataSourceBlock;
 
-            for ( NSUInteger i = indexRange.location; i < lastIndex; i++ ) {
-                double x = location + ( (double)i / denom ) * length;
+            if ( functionBlock ) {
+                for ( NSUInteger i = indexRange.location; i < lastIndex; i++ ) {
+                    double x = location + ( (double)i / denom ) * length;
 
-                *xBytes++ = x;
-                *yBytes++ = functionBlock(x);
+                    *xBytes++ = x;
+                    *yBytes++ = functionBlock(x);
+                }
             }
         }
 
