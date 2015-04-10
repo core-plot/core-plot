@@ -13,7 +13,7 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
 
 @interface CPTFunctionDataSource()
 
-@property (nonatomic, readwrite, cpt_weak_property) __cpt_weak CPTPlot *dataPlot;
+@property (nonatomic, readwrite) CPTPlot *dataPlot;
 @property (nonatomic, readwrite) double cachedStep;
 @property (nonatomic, readwrite) NSUInteger dataCount;
 @property (nonatomic, readwrite) NSUInteger cachedCount;
@@ -44,7 +44,7 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
  **/
 @synthesize dataSourceBlock;
 
-/** @property __cpt_weak CPTPlot *dataPlot
+/** @property CPTPlot *dataPlot
  *  @brief The plot that will display the function values. Must be an instance of CPTScatterPlot.
  **/
 @synthesize dataPlot;
@@ -162,8 +162,7 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-    CPTPlot *plot = dataPlot;
-    [plot removeObserver:self forKeyPath:@"plotSpace" context:CPTFunctionDataSourceKVOContext];
+    [dataPlot removeObserver:self forKeyPath:@"plotSpace" context:CPTFunctionDataSourceKVOContext];
 }
 
 /// @endcond

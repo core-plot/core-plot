@@ -18,7 +18,7 @@ typedef double (^CPTDataSourceBlock)(double);
 
 @property (nonatomic, readonly) CPTDataSourceFunction dataSourceFunction;
 @property (nonatomic, readonly) CPTDataSourceBlock dataSourceBlock;
-@property (nonatomic, readonly, cpt_weak_property) __cpt_weak CPTPlot *dataPlot;
+@property (nonatomic, readonly) CPTPlot *dataPlot;
 
 @property (nonatomic, readwrite) CGFloat resolution;
 @property (nonatomic, readwrite, strong) CPTPlotRange *dataRange;
