@@ -1221,6 +1221,21 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CorePlot_Prefix.pch;
 				INSTALL_PATH = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				OTHER_CFLAGS = (
+					"-Weverything",
+					"-Wno-unused-parameter",
+					"-Wno-undef",
+					"-Wno-switch-enum",
+					"-Wno-float-equal",
+					"-Wno-padded",
+					"-Wno-dollar-in-identifier-extension",
+					"-Wno-custom-atomic-properties",
+					"-Wno-gnu",
+					"-Wno-assign-enum",
+					"-Wno-pedantic",
+					"-Wno-documentation",
+					"-Wno-cstring-format-directive",
+				);
 				OTHER_CPTLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "CorePlot-CocoaTouch";
 				PUBLIC_HEADERS_FOLDER_PATH = "include/$(PROJECT_NAME)";
@@ -1234,9 +1249,25 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_SYMBOL_SEPARATION = YES;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CorePlot_Prefix.pch;
 				INSTALL_PATH = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				OTHER_CFLAGS = (
+					"-Weverything",
+					"-Wno-unused-parameter",
+					"-Wno-undef",
+					"-Wno-switch-enum",
+					"-Wno-float-equal",
+					"-Wno-padded",
+					"-Wno-dollar-in-identifier-extension",
+					"-Wno-custom-atomic-properties",
+					"-Wno-gnu",
+					"-Wno-assign-enum",
+					"-Wno-pedantic",
+					"-Wno-documentation",
+					"-Wno-cstring-format-directive",
+				);
 				OTHER_CPTLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "CorePlot-CocoaTouch";
 				PUBLIC_HEADERS_FOLDER_PATH = "include/$(PROJECT_NAME)";

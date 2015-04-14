@@ -1646,6 +1646,21 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@loader_path/../Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"-Weverything",
+					"-Wno-unused-parameter",
+					"-Wno-undef",
+					"-Wno-switch-enum",
+					"-Wno-float-equal",
+					"-Wno-padded",
+					"-Wno-dollar-in-identifier-extension",
+					"-Wno-custom-atomic-properties",
+					"-Wno-gnu",
+					"-Wno-assign-enum",
+					"-Wno-pedantic",
+					"-Wno-documentation",
+					"-Wno-cstring-format-directive",
+				);
 				PRODUCT_NAME = CorePlot;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
@@ -1666,6 +1681,21 @@
 				GCC_PREFIX_HEADER = CorePlot_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@loader_path/../Frameworks";
+				OTHER_CFLAGS = (
+					"-Weverything",
+					"-Wno-unused-parameter",
+					"-Wno-undef",
+					"-Wno-switch-enum",
+					"-Wno-float-equal",
+					"-Wno-padded",
+					"-Wno-dollar-in-identifier-extension",
+					"-Wno-custom-atomic-properties",
+					"-Wno-gnu",
+					"-Wno-assign-enum",
+					"-Wno-pedantic",
+					"-Wno-documentation",
+					"-Wno-cstring-format-directive",
+				);
 				PRODUCT_NAME = CorePlot;
 				SKIP_INSTALL = YES;
 				"VALID_ARCHS[sdk=*]" = "i386 x86_64";
