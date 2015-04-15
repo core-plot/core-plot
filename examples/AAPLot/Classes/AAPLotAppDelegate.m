@@ -16,20 +16,8 @@
 
 -(void)applicationDidFinishLaunching:(UIApplication *)application
 {
-    if ( [self.window respondsToSelector:@selector(setRootViewController:)] ) {
-        self.window.rootViewController = self.rootViewController;
-    }
-    else {
-        [self.window addSubview:self.rootViewController.view];
-    }
+    self.window.rootViewController = self.rootViewController;
     [self.window makeKeyAndVisible];
-}
-
--(void)dealloc
-{
-    [rootViewController release];
-    [window release];
-    [super dealloc];
 }
 
 @end

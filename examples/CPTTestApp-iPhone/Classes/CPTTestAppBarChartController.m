@@ -5,14 +5,18 @@
 
 #import "CPTTestAppBarChartController.h"
 
+@interface CPTTestAppBarChartController()
+
+@property (nonatomic, readwrite, strong) CPTXYGraph *barChart;
+
+@end
+
+#pragma mark -
+
 @implementation CPTTestAppBarChartController
 
 @synthesize timer;
-
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    return YES;
-}
+@synthesize barChart;
 
 #pragma mark -
 #pragma mark Initialization and teardown
@@ -37,27 +41,29 @@
 #endif
 
     // Create barChart from theme
-    barChart = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
-    CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
-    [barChart applyTheme:theme];
+    CPTXYGraph *newGraph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
+    CPTTheme *theme      = [CPTTheme themeNamed:kCPTDarkGradientTheme];
+    [newGraph applyTheme:theme];
+    self.barChart = newGraph;
+
     CPTGraphHostingView *hostingView = (CPTGraphHostingView *)self.view;
-    hostingView.hostedGraph = barChart;
+    hostingView.hostedGraph = newGraph;
 
     // Border
-    barChart.plotAreaFrame.borderLineStyle = nil;
-    barChart.plotAreaFrame.cornerRadius    = 0.0;
-    barChart.plotAreaFrame.masksToBorder   = NO;
+    newGraph.plotAreaFrame.borderLineStyle = nil;
+    newGraph.plotAreaFrame.cornerRadius    = 0.0;
+    newGraph.plotAreaFrame.masksToBorder   = NO;
 
     // Paddings
-    barChart.paddingLeft   = 0.0;
-    barChart.paddingRight  = 0.0;
-    barChart.paddingTop    = 0.0;
-    barChart.paddingBottom = 0.0;
+    newGraph.paddingLeft   = 0.0;
+    newGraph.paddingRight  = 0.0;
+    newGraph.paddingTop    = 0.0;
+    newGraph.paddingBottom = 0.0;
 
-    barChart.plotAreaFrame.paddingLeft   = 70.0;
-    barChart.plotAreaFrame.paddingTop    = 20.0;
-    barChart.plotAreaFrame.paddingRight  = 20.0;
-    barChart.plotAreaFrame.paddingBottom = 80.0;
+    newGraph.plotAreaFrame.paddingLeft   = 70.0;
+    newGraph.plotAreaFrame.paddingTop    = 55.0;
+    newGraph.plotAreaFrame.paddingRight  = 20.0;
+    newGraph.plotAreaFrame.paddingBottom = 80.0;
 
     // Graph title
     NSString *lineOne = @"Graph Title";
@@ -79,7 +85,7 @@
         titleFont = [UIFont fontWithName:@"Helvetica" size:12.0];
         [graphTitle addAttribute:NSFontAttributeName value:titleFont range:NSMakeRange(lineOne.length + 1, lineTwo.length)];
 
-        barChart.attributedTitle = graphTitle;
+        newGraph.attributedTitle = graphTitle;
     }
     else {
         CPTMutableTextStyle *titleStyle = [CPTMutableTextStyle textStyle];
@@ -88,19 +94,19 @@
         titleStyle.fontSize      = 16.0;
         titleStyle.textAlignment = CPTTextAlignmentCenter;
 
-        barChart.title          = [NSString stringWithFormat:@"%@\n%@", lineOne, lineTwo];
-        barChart.titleTextStyle = titleStyle;
+        newGraph.title          = [NSString stringWithFormat:@"%@\n%@", lineOne, lineTwo];
+        newGraph.titleTextStyle = titleStyle;
     }
 
-    barChart.titleDisplacement        = CGPointMake(0.0, -20.0);
-    barChart.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
+    newGraph.titleDisplacement        = CGPointMake(0.0, -20.0);
+    newGraph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
 
     // Add plot space for horizontal bar charts
-    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)barChart.defaultPlotSpace;
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(300.0f)];
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(16.0f)];
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)newGraph.defaultPlotSpace;
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(300.0)];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(16.0)];
 
-    CPTXYAxisSet *axisSet = (CPTXYAxisSet *)barChart.axisSet;
+    CPTXYAxisSet *axisSet = (CPTXYAxisSet *)newGraph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
     x.axisLineStyle               = nil;
     x.majorTickLineStyle          = nil;
@@ -112,7 +118,7 @@
     x.titleOffset                 = 55.0;
 
     // Define some custom labels for the data elements
-    x.labelRotation  = M_PI_4;
+    x.labelRotation  = CPTFloat(M_PI_4);
     x.labelingPolicy = CPTAxisLabelingPolicyNone;
     NSArray *customTickLocations = @[@1, @5, @10, @15];
     NSArray *xAxisLabels         = @[@"Label A", @"Label B", @"Label C", @"Label D"];
@@ -122,7 +128,7 @@
         CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:xAxisLabels[labelLocation++] textStyle:x.labelTextStyle];
         newLabel.tickLocation = [tickLocation decimalValue];
         newLabel.offset       = x.labelOffset + x.majorTickLength;
-        newLabel.rotation     = M_PI_4;
+        newLabel.rotation     = CPTFloat(M_PI_4);
         [customLabels addObject:newLabel];
     }
 
@@ -144,7 +150,7 @@
     barPlot.dataSource = self;
     barPlot.barOffset  = CPTDecimalFromFloat(-0.25f);
     barPlot.identifier = @"Bar Plot 1";
-    [barChart addPlot:barPlot toPlotSpace:plotSpace];
+    [newGraph addPlot:barPlot toPlotSpace:plotSpace];
 
     // Second bar plot
     barPlot                 = [CPTBarPlot tubularBarPlotWithColor:[CPTColor blueColor] horizontalBars:NO];
@@ -153,7 +159,7 @@
     barPlot.barOffset       = CPTDecimalFromFloat(0.25f);
     barPlot.barCornerRadius = 2.0;
     barPlot.identifier      = @"Bar Plot 2";
-    [barChart addPlot:barPlot toPlotSpace:plotSpace];
+    [newGraph addPlot:barPlot toPlotSpace:plotSpace];
 }
 
 -(void)didReceiveMemoryWarning

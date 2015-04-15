@@ -97,13 +97,13 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 @synthesize lineStyle;
 
 /** @property CPTLineStyle *increaseLineStyle
- *  @brief The line style used to outline candlestick symbols when close >= open.
+ *  @brief The line style used to outline candlestick symbols or draw OHLC symbols when close >= open.
  *  If @nil, will use @ref lineStyle instead.
  **/
 @synthesize increaseLineStyle;
 
 /** @property CPTLineStyle *decreaseLineStyle
- *  @brief The line style used to outline candlestick symbols when close < open.
+ *  @brief The line style used to outline candlestick symbols or draw OHLC symbols when close < open.
  *  If @nil, will use @ref lineStyle instead.
  **/
 @synthesize decreaseLineStyle;
@@ -141,6 +141,12 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
  *  @ingroup plotAnimationTradingRangePlot
  **/
 @synthesize barCornerRadius;
+
+/** @property BOOL showBarBorder
+ *  @brief If @YES, the candlestick body will show a border.
+ *  @ingroup plotAnimationTradingRangePlot
+ **/
+@synthesize showBarBorder;
 
 /** @internal
  *  @property NSUInteger pointingDeviceDownIndex
@@ -189,6 +195,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
  *  - @ref barWidth = @num{5.0}
  *  - @ref stickLength = @num{3.0}
  *  - @ref barCornerRadius = @num{0.0}
+ *  - @ref showBarBorder = @YES
  *  - @ref labelField = #CPTTradingRangePlotFieldClose
  *
  *  @param newFrame The frame rectangle.
@@ -206,6 +213,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         barWidth          = CPTFloat(5.0);
         stickLength       = CPTFloat(3.0);
         barCornerRadius   = CPTFloat(0.0);
+        showBarBorder     = YES;
 
         pointingDeviceDownIndex = NSNotFound;
 
@@ -232,6 +240,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         barWidth          = theLayer->barWidth;
         stickLength       = theLayer->stickLength;
         barCornerRadius   = theLayer->barCornerRadius;
+        showBarBorder     = theLayer->showBarBorder;
 
         pointingDeviceDownIndex = NSNotFound;
     }
@@ -258,6 +267,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     [coder encodeCGFloat:self.barWidth forKey:@"CPTTradingRangePlot.barWidth"];
     [coder encodeCGFloat:self.stickLength forKey:@"CPTTradingRangePlot.stickLength"];
     [coder encodeCGFloat:self.barCornerRadius forKey:@"CPTTradingRangePlot.barCornerRadius"];
+    [coder encodeBool:self.showBarBorder forKey:@"CPTTradingRangePlot.showBarBorder"];
 
     // No need to archive these properties:
     // pointingDeviceDownIndex
@@ -275,6 +285,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         barWidth          = [coder decodeCGFloatForKey:@"CPTTradingRangePlot.barWidth"];
         stickLength       = [coder decodeCGFloatForKey:@"CPTTradingRangePlot.stickLength"];
         barCornerRadius   = [coder decodeCGFloatForKey:@"CPTTradingRangePlot.barCornerRadius"];
+        showBarBorder     = [coder decodeBoolForKey:@"CPTTradingRangePlot.showBarBorder"];
 
         pointingDeviceDownIndex = NSNotFound;
     }
@@ -777,26 +788,25 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         }
     }
 
+    CPTAlignPointFunction alignmentFunction = CPTAlignPointToUserSpace;
+
     BOOL hasLineStyle = [theBorderLineStyle isKindOfClass:[CPTLineStyle class]];
     if ( hasLineStyle ) {
         [theBorderLineStyle setLineStyleInContext:context];
-    }
 
-    BOOL alignToUserSpace = (theBorderLineStyle.lineWidth > 0.0);
+        CGFloat lineWidth = theBorderLineStyle.lineWidth;
+        if ( ( self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
+            alignmentFunction = CPTAlignIntegralPointToUserSpace;
+        }
+    }
 
     // high - low only
     if ( hasLineStyle && !isnan(highValue) && !isnan(lowValue) && ( isnan(openValue) || isnan(closeValue) ) ) {
         CGPoint alignedHighPoint = CPTPointMake(x, highValue);
         CGPoint alignedLowPoint  = CPTPointMake(x, lowValue);
         if ( alignPoints ) {
-            if ( alignToUserSpace ) {
-                alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
-                alignedLowPoint  = CPTAlignPointToUserSpace(context, alignedLowPoint);
-            }
-            else {
-                alignedHighPoint = CPTAlignIntegralPointToUserSpace(context, alignedHighPoint);
-                alignedLowPoint  = CPTAlignIntegralPointToUserSpace(context, alignedLowPoint);
-            }
+            alignedHighPoint = alignmentFunction(context, alignedHighPoint);
+            alignedLowPoint  = alignmentFunction(context, alignedLowPoint);
         }
 
         CGMutablePathRef path = CGPathCreateMutable();
@@ -822,12 +832,12 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
             CGPoint alignedPoint4 = CPTPointMake(x - halfBarWidth, closeValue);
             CGPoint alignedPoint5 = CPTPointMake(x - halfBarWidth, openValue);
             if ( alignPoints ) {
-                if ( alignToUserSpace ) {
-                    alignedPoint1 = CPTAlignPointToUserSpace(context, alignedPoint1);
-                    alignedPoint2 = CPTAlignPointToUserSpace(context, alignedPoint2);
-                    alignedPoint3 = CPTAlignPointToUserSpace(context, alignedPoint3);
-                    alignedPoint4 = CPTAlignPointToUserSpace(context, alignedPoint4);
-                    alignedPoint5 = CPTAlignPointToUserSpace(context, alignedPoint5);
+                if ( hasLineStyle && self.showBarBorder ) {
+                    alignedPoint1 = alignmentFunction(context, alignedPoint1);
+                    alignedPoint2 = alignmentFunction(context, alignedPoint2);
+                    alignedPoint3 = alignmentFunction(context, alignedPoint3);
+                    alignedPoint4 = alignmentFunction(context, alignedPoint4);
+                    alignedPoint5 = alignmentFunction(context, alignedPoint5);
                 }
                 else {
                     alignedPoint1 = CPTAlignIntegralPointToUserSpace(context, alignedPoint1);
@@ -838,9 +848,9 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
                 }
             }
 
-            if ( openValue == closeValue ) {
+            if ( hasLineStyle && (openValue == closeValue) ) {
                 // #285 Draw a cross with open/close values marked
-                const CGFloat halfLineWidth = CPTFloat(0.5) * self.lineStyle.lineWidth;
+                const CGFloat halfLineWidth = CPTFloat(0.5) * theBorderLineStyle.lineWidth;
 
                 alignedPoint1.y -= halfLineWidth;
                 alignedPoint2.y += halfLineWidth;
@@ -863,19 +873,18 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
             }
 
             if ( hasLineStyle ) {
+                if ( !self.showBarBorder ) {
+                    CGPathRelease(path);
+                    path = CGPathCreateMutable();
+                }
+
                 if ( !isnan(lowValue) ) {
                     if ( lowValue < MIN(openValue, closeValue) ) {
                         CGPoint alignedStartPoint = CPTPointMake( x, MIN(openValue, closeValue) );
                         CGPoint alignedLowPoint   = CPTPointMake(x, lowValue);
                         if ( alignPoints ) {
-                            if ( alignToUserSpace ) {
-                                alignedStartPoint = CPTAlignPointToUserSpace(context, alignedStartPoint);
-                                alignedLowPoint   = CPTAlignPointToUserSpace(context, alignedLowPoint);
-                            }
-                            else {
-                                alignedStartPoint = CPTAlignIntegralPointToUserSpace(context, alignedStartPoint);
-                                alignedLowPoint   = CPTAlignIntegralPointToUserSpace(context, alignedLowPoint);
-                            }
+                            alignedStartPoint = alignmentFunction(context, alignedStartPoint);
+                            alignedLowPoint   = alignmentFunction(context, alignedLowPoint);
                         }
 
                         CGPathMoveToPoint(path, NULL, alignedStartPoint.x, alignedStartPoint.y);
@@ -887,14 +896,8 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
                         CGPoint alignedStartPoint = CPTPointMake( x, MAX(openValue, closeValue) );
                         CGPoint alignedHighPoint  = CPTPointMake(x, highValue);
                         if ( alignPoints ) {
-                            if ( alignToUserSpace ) {
-                                alignedStartPoint = CPTAlignPointToUserSpace(context, alignedStartPoint);
-                                alignedHighPoint  = CPTAlignPointToUserSpace(context, alignedHighPoint);
-                            }
-                            else {
-                                alignedStartPoint = CPTAlignIntegralPointToUserSpace(context, alignedStartPoint);
-                                alignedHighPoint  = CPTAlignIntegralPointToUserSpace(context, alignedHighPoint);
-                            }
+                            alignedStartPoint = alignmentFunction(context, alignedStartPoint);
+                            alignedHighPoint  = alignmentFunction(context, alignedHighPoint);
                         }
 
                         CGPathMoveToPoint(path, NULL, alignedStartPoint.x, alignedStartPoint.y);
@@ -922,17 +925,39 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 {
     CPTLineStyle *theLineStyle = [self lineStyleForIndex:idx];
 
+    if ( !isnan(openValue) && !isnan(closeValue) ) {
+        if ( openValue < closeValue ) {
+            CPTLineStyle *lineStyleForIncrease = [self increaseLineStyleForIndex:idx];
+            if ( [lineStyleForIncrease isKindOfClass:[CPTLineStyle class]] ) {
+                theLineStyle = lineStyleForIncrease;
+            }
+        }
+        else if ( openValue > closeValue ) {
+            CPTLineStyle *lineStyleForDecrease = [self decreaseLineStyleForIndex:idx];
+            if ( [lineStyleForDecrease isKindOfClass:[CPTLineStyle class]] ) {
+                theLineStyle = lineStyleForDecrease;
+            }
+        }
+    }
+
     if ( [theLineStyle isKindOfClass:[CPTLineStyle class]] ) {
         CGFloat theStickLength = self.stickLength;
         CGMutablePathRef path  = CGPathCreateMutable();
+
+        CPTAlignPointFunction alignmentFunction = CPTAlignPointToUserSpace;
+
+        CGFloat lineWidth = theLineStyle.lineWidth;
+        if ( ( self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
+            alignmentFunction = CPTAlignIntegralPointToUserSpace;
+        }
 
         // high-low
         if ( !isnan(highValue) && !isnan(lowValue) ) {
             CGPoint alignedHighPoint = CPTPointMake(x, highValue);
             CGPoint alignedLowPoint  = CPTPointMake(x, lowValue);
             if ( alignPoints ) {
-                alignedHighPoint = CPTAlignPointToUserSpace(context, alignedHighPoint);
-                alignedLowPoint  = CPTAlignPointToUserSpace(context, alignedLowPoint);
+                alignedHighPoint = alignmentFunction(context, alignedHighPoint);
+                alignedLowPoint  = alignmentFunction(context, alignedLowPoint);
             }
             CGPathMoveToPoint(path, NULL, alignedHighPoint.x, alignedHighPoint.y);
             CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
@@ -943,8 +968,8 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
             CGPoint alignedOpenStartPoint = CPTPointMake(x, openValue);
             CGPoint alignedOpenEndPoint   = CPTPointMake(x - theStickLength, openValue); // left side
             if ( alignPoints ) {
-                alignedOpenStartPoint = CPTAlignPointToUserSpace(context, alignedOpenStartPoint);
-                alignedOpenEndPoint   = CPTAlignPointToUserSpace(context, alignedOpenEndPoint);
+                alignedOpenStartPoint = alignmentFunction(context, alignedOpenStartPoint);
+                alignedOpenEndPoint   = alignmentFunction(context, alignedOpenEndPoint);
             }
             CGPathMoveToPoint(path, NULL, alignedOpenStartPoint.x, alignedOpenStartPoint.y);
             CGPathAddLineToPoint(path, NULL, alignedOpenEndPoint.x, alignedOpenEndPoint.y);
@@ -955,8 +980,8 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
             CGPoint alignedCloseStartPoint = CPTPointMake(x, closeValue);
             CGPoint alignedCloseEndPoint   = CPTPointMake(x + theStickLength, closeValue); // right side
             if ( alignPoints ) {
-                alignedCloseStartPoint = CPTAlignPointToUserSpace(context, alignedCloseStartPoint);
-                alignedCloseEndPoint   = CPTAlignPointToUserSpace(context, alignedCloseEndPoint);
+                alignedCloseStartPoint = alignmentFunction(context, alignedCloseStartPoint);
+                alignedCloseEndPoint   = alignmentFunction(context, alignedCloseEndPoint);
             }
             CGPathMoveToPoint(path, NULL, alignedCloseStartPoint.x, alignedCloseStartPoint.y);
             CGPathAddLineToPoint(path, NULL, alignedCloseEndPoint.x, alignedCloseEndPoint.y);
@@ -1075,13 +1100,14 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
 +(BOOL)needsDisplayForKey:(NSString *)aKey
 {
-    static NSSet *keys = nil;
-    static dispatch_once_t onceToken;
+    static NSSet *keys               = nil;
+    static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
         keys = [NSSet setWithArray:@[@"barWidth",
                                      @"stickLength",
-                                     @"barCornerRadius"]];
+                                     @"barCornerRadius",
+                                     @"showBarBorder"]];
     });
 
     if ( [keys containsObject:aKey] ) {
@@ -1668,6 +1694,14 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 {
     if ( barCornerRadius != newBarCornerRadius ) {
         barCornerRadius = newBarCornerRadius;
+        [self setNeedsDisplay];
+    }
+}
+
+-(void)setShowBarBorder:(BOOL)newShowBarBorder
+{
+    if ( showBarBorder != newShowBarBorder ) {
+        showBarBorder = newShowBarBorder;
         [self setNeedsDisplay];
     }
 }

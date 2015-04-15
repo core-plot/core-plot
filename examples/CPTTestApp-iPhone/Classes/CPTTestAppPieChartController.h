@@ -2,15 +2,9 @@
 #import <UIKit/UIKit.h>
 
 @interface CPTTestAppPieChartController : UIViewController<CPTPieChartDataSource, CPTPieChartDelegate>
-{
-    @private
-    CPTXYGraph *pieChart;
-    NSMutableArray *dataForChart;
-    NSTimer *timer;
-}
 
-@property (readwrite, strong, nonatomic) NSMutableArray *dataForChart;
-@property (readwrite, strong, nonatomic) NSTimer *timer;
+@property (nonatomic, readwrite, strong) NSArray *dataForChart;
+@property (nonatomic, readwrite, strong) NSTimer *timer;
 
 -(void)timerFired;
 

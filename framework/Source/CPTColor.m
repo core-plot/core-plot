@@ -32,8 +32,8 @@
  **/
 +(instancetype)clearColor
 {
-    static CPTColor *color = nil;
-    static dispatch_once_t onceToken;
+    static CPTColor *color           = nil;
+    static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
         CGFloat values[4] = { CPTFloat(0.0), CPTFloat(0.0), CPTFloat(0.0), CPTFloat(0.0) };
@@ -54,8 +54,8 @@
  **/
 +(instancetype)whiteColor
 {
-    static CPTColor *color = nil;
-    static dispatch_once_t onceToken;
+    static CPTColor *color           = nil;
+    static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
         color = [self colorWithGenericGray:CPTFloat(1.0)];
@@ -70,8 +70,8 @@
  **/
 +(instancetype)lightGrayColor
 {
-    static CPTColor *color = nil;
-    static dispatch_once_t onceToken;
+    static CPTColor *color           = nil;
+    static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
         color = [self colorWithGenericGray:(CGFloat)(2.0 / 3.0)];
@@ -86,8 +86,8 @@
  **/
 +(instancetype)grayColor
 {
-    static CPTColor *color = nil;
-    static dispatch_once_t onceToken;
+    static CPTColor *color           = nil;
+    static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
         color = [self colorWithGenericGray:CPTFloat(0.5)];
@@ -102,8 +102,8 @@
  **/
 +(instancetype)darkGrayColor
 {
-    static CPTColor *color = nil;
-    static dispatch_once_t onceToken;
+    static CPTColor *color           = nil;
+    static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
         color = [self colorWithGenericGray:(CGFloat)(1.0 / 3.0)];
@@ -118,8 +118,8 @@
  **/
 +(instancetype)blackColor
 {
-    static CPTColor *color = nil;
-    static dispatch_once_t onceToken;
+    static CPTColor *color           = nil;
+    static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
         color = [self colorWithGenericGray:CPTFloat(0.0)];
@@ -134,8 +134,8 @@
  **/
 +(instancetype)redColor
 {
-    static CPTColor *color = nil;
-    static dispatch_once_t onceToken;
+    static CPTColor *color           = nil;
+    static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
         color = [[CPTColor alloc] initWithComponentRed:CPTFloat(1.0)
@@ -153,8 +153,8 @@
  **/
 +(instancetype)greenColor
 {
-    static CPTColor *color = nil;
-    static dispatch_once_t onceToken;
+    static CPTColor *color           = nil;
+    static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
         color = [[CPTColor alloc] initWithComponentRed:CPTFloat(0.0)
@@ -172,8 +172,8 @@
  **/
 +(instancetype)blueColor
 {
-    static CPTColor *color = nil;
-    static dispatch_once_t onceToken;
+    static CPTColor *color           = nil;
+    static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
         color = [[CPTColor alloc] initWithComponentRed:CPTFloat(0.0)
@@ -191,8 +191,8 @@
  **/
 +(instancetype)cyanColor
 {
-    static CPTColor *color = nil;
-    static dispatch_once_t onceToken;
+    static CPTColor *color           = nil;
+    static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
         color = [[CPTColor alloc] initWithComponentRed:CPTFloat(0.0)
@@ -210,8 +210,8 @@
  **/
 +(instancetype)yellowColor
 {
-    static CPTColor *color = nil;
-    static dispatch_once_t onceToken;
+    static CPTColor *color           = nil;
+    static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
         color = [[CPTColor alloc] initWithComponentRed:CPTFloat(1.0) green:CPTFloat(1.0) blue:CPTFloat(0.0) alpha:CPTFloat(1.0)];
@@ -240,8 +240,8 @@
  **/
 +(instancetype)orangeColor
 {
-    static CPTColor *color = nil;
-    static dispatch_once_t onceToken;
+    static CPTColor *color           = nil;
+    static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
         color = [[CPTColor alloc] initWithComponentRed:CPTFloat(1.0) green:CPTFloat(0.5) blue:CPTFloat(0.0) alpha:CPTFloat(1.0)];
@@ -256,8 +256,8 @@
  **/
 +(instancetype)purpleColor
 {
-    static CPTColor *color = nil;
-    static dispatch_once_t onceToken;
+    static CPTColor *color           = nil;
+    static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
         color = [[CPTColor alloc] initWithComponentRed:CPTFloat(0.5) green:CPTFloat(0.0) blue:CPTFloat(0.5) alpha:CPTFloat(1.0)];
@@ -272,8 +272,8 @@
  **/
 +(instancetype)brownColor
 {
-    static CPTColor *color = nil;
-    static dispatch_once_t onceToken;
+    static CPTColor *color           = nil;
+    static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
         color = [[CPTColor alloc] initWithComponentRed:CPTFloat(0.6) green:CPTFloat(0.4) blue:CPTFloat(0.2) alpha:CPTFloat(1.0)];
@@ -412,6 +412,12 @@
     }
 }
 
+/// @endcond
+
+/** @brief Returns an object initialized from data in a given unarchiver.
+ *  @param coder An unarchiver object.
+ *  @return An object initialized from data in a given unarchiver.
+ */
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
@@ -432,8 +438,6 @@
     }
     return self;
 }
-
-/// @endcond
 
 #pragma mark -
 #pragma mark NSCopying Methods

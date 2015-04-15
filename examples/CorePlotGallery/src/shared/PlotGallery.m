@@ -2,13 +2,20 @@
 //  PlotGallery.m
 //  CorePlotGallery
 //
-//  Created by Jeff Buck on 7/31/10.
-//  Copyright 2010 Jeff Buck. All rights reserved.
-//
 
 #import "PlotGallery.h"
 
+@interface PlotGallery()
+
+@property (nonatomic, readwrite, strong) NSMutableArray *plotItems;
+@property (nonatomic, readwrite, strong) NSCountedSet *plotSections;
+
+@end
+
 @implementation PlotGallery
+
+@synthesize plotItems;
+@synthesize plotSections;
 
 static PlotGallery *sharedPlotGallery = nil;
 
@@ -57,51 +64,32 @@ static PlotGallery *sharedPlotGallery = nil;
     return self;
 }
 
--(id)retain
-{
-    return self;
-}
-
--(NSUInteger)retainCount
-{
-    return UINT_MAX;
-}
-
--(oneway void)release
-{
-}
-
--(id)autorelease
-{
-    return self;
-}
-
 -(void)addPlotItem:(PlotItem *)plotItem
 {
-    [plotItems addObject:plotItem];
+    [self.plotItems addObject:plotItem];
 
     NSString *sectionName = plotItem.section;
     if ( sectionName ) {
-        [plotSections addObject:sectionName];
+        [self.plotSections addObject:sectionName];
     }
 }
 
 -(NSUInteger)count
 {
-    return plotItems.count;
+    return self.plotItems.count;
 }
 
 -(NSUInteger)numberOfSections
 {
-    return plotSections.count;
+    return self.plotSections.count;
 }
 
--(NSInteger)numberOfRowsInSection:(NSInteger)section
+-(NSUInteger)numberOfRowsInSection:(NSUInteger)section
 {
-    return [plotSections countForObject:[self sectionTitles][section]];
+    return [self.plotSections countForObject:self.sectionTitles[section]];
 }
 
--(PlotItem *)objectInSection:(NSInteger)section atIndex:(NSUInteger)index
+-(PlotItem *)objectInSection:(NSUInteger)section atIndex:(NSUInteger)index
 {
     NSUInteger offset = 0;
 
@@ -109,17 +97,17 @@ static PlotGallery *sharedPlotGallery = nil;
         offset += [self numberOfRowsInSection:i];
     }
 
-    return plotItems[offset + index];
+    return self.plotItems[offset + index];
 }
 
 -(void)sortByTitle
 {
-    [plotItems sortUsingSelector:@selector(titleCompare:)];
+    [self.plotItems sortUsingSelector:@selector(titleCompare:)];
 }
 
 -(NSArray *)sectionTitles
 {
-    return [[plotSections allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+    return [[self.plotSections allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 
 @end

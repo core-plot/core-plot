@@ -1,14 +1,21 @@
 #import "Controller.h"
 #import <CorePlot/CorePlot.h>
 
+@interface Controller()
+
+@property (nonatomic, readwrite, strong) IBOutlet CPTGraphHostingView *hostView;
+@property (nonatomic, readwrite, strong) CPTXYGraph *graph;
+@property (nonatomic, readwrite, strong) NSArray *plotData;
+
+@end
+
+#pragma mark -
+
 @implementation Controller
 
--(void)dealloc
-{
-    [plotData release];
-    [graph release];
-    [super dealloc];
-}
+@synthesize hostView;
+@synthesize graph;
+@synthesize plotData;
 
 -(void)awakeFromNib
 {
@@ -19,37 +26,39 @@
     // for daylight savings time.
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     NSDate *refDate            = [formatter dateFromString:@"12:00 Oct 29, 2009"];
-    [formatter release];
-    NSTimeInterval oneDay = 24 * 60 * 60;
+    NSTimeInterval oneDay      = 24 * 60 * 60;
 
     // Create graph from theme
-    graph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
-    CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
-    [graph applyTheme:theme];
-    hostView.hostedGraph = graph;
+    CPTXYGraph *newGraph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
+    CPTTheme *theme      = [CPTTheme themeNamed:kCPTDarkGradientTheme];
+    [newGraph applyTheme:theme];
+
+    self.graph = newGraph;
+
+    self.hostView.hostedGraph = newGraph;
 
     // Setup scatter plot space
-    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)newGraph.defaultPlotSpace;
     NSTimeInterval xLow       = 0.0;
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(xLow) length:CPTDecimalFromDouble(oneDay * 3.0)];
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0) length:CPTDecimalFromDouble(3.0)];
 
     // Axes
-    CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
+    CPTXYAxisSet *axisSet = (CPTXYAxisSet *)newGraph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
-    x.majorIntervalLength         = CPTDecimalFromFloat(oneDay);
+    x.majorIntervalLength         = CPTDecimalFromDouble(oneDay);
     x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(2.0);
     x.minorTicksPerInterval       = 3;
 
-    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateStyle = kCFDateFormatterShortStyle;
-    CPTTimeFormatter *myDateFormatter = [[[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter] autorelease];
+    CPTTimeFormatter *myDateFormatter = [[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter];
     myDateFormatter.referenceDate = refDate;
     x.labelFormatter              = myDateFormatter;
 
-    NSDateFormatter *timeFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
     timeFormatter.timeStyle = kCFDateFormatterShortStyle;
-    CPTTimeFormatter *myTimeFormatter = [[[CPTTimeFormatter alloc] initWithDateFormatter:timeFormatter] autorelease];
+    CPTTimeFormatter *myTimeFormatter = [[CPTTimeFormatter alloc] initWithDateFormatter:timeFormatter];
     myTimeFormatter.referenceDate = refDate;
     x.minorTickLabelFormatter     = myTimeFormatter;
 //	x.minorTickLabelRotation = M_PI_2;
@@ -57,31 +66,33 @@
     CPTXYAxis *y = axisSet.yAxis;
     y.majorIntervalLength         = CPTDecimalFromDouble(0.5);
     y.minorTicksPerInterval       = 5;
-    y.orthogonalCoordinateDecimal = CPTDecimalFromFloat(0.5 * oneDay);
+    y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.5 * oneDay);
 
     // Create a plot that uses the data source method
-    CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] init];
     dataSourceLinePlot.identifier = @"Date Plot";
 
-    CPTMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+    CPTMutableLineStyle *lineStyle = [dataSourceLinePlot.dataLineStyle mutableCopy];
     lineStyle.lineWidth              = 3.;
     lineStyle.lineColor              = [CPTColor greenColor];
     dataSourceLinePlot.dataLineStyle = lineStyle;
 
     dataSourceLinePlot.dataSource = self;
-    [graph addPlot:dataSourceLinePlot];
+    [newGraph addPlot:dataSourceLinePlot];
 
     // Add some data
     NSMutableArray *newData = [NSMutableArray array];
     for ( NSUInteger i = 0; i < 7; i++ ) {
-        NSTimeInterval x = oneDay * i * 0.5;
-        NSNumber *y      = @(1.2 * rand() / (double)RAND_MAX + 1.2);
+        NSTimeInterval xVal = oneDay * i * 0.5;
+
+        double yVal = 1.2 * arc4random() / (double)UINT32_MAX + 1.2;
+
         [newData addObject:
-         @{ @(CPTScatterPlotFieldX): @(x),
-            @(CPTScatterPlotFieldY): y }
+         @{ @(CPTScatterPlotFieldX): @(xVal),
+            @(CPTScatterPlotFieldY): @(yVal) }
         ];
     }
-    plotData = newData;
+    self.plotData = newData;
 }
 
 #pragma mark -
@@ -89,12 +100,12 @@
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    return plotData.count;
+    return self.plotData.count;
 }
 
 -(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    return plotData[index][@(fieldEnum)];
+    return self.plotData[index][@(fieldEnum)];
 }
 
 @end

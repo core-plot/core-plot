@@ -27,8 +27,8 @@
  **/
 +(instancetype)genericRGBSpace
 {
-    static CPTColorSpace *space = nil;
-    static dispatch_once_t onceToken;
+    static CPTColorSpace *space      = nil;
+    static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
         CGColorSpaceRef cgSpace = NULL;
@@ -81,6 +81,12 @@
     [coder encodeCGColorSpace:self.cgColorSpace forKey:@"CPTColorSpace.cgColorSpace"];
 }
 
+/// @endcond
+
+/** @brief Returns an object initialized from data in a given unarchiver.
+ *  @param coder An unarchiver object.
+ *  @return An object initialized from data in a given unarchiver.
+ */
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
@@ -88,7 +94,5 @@
     }
     return self;
 }
-
-/// @endcond
 
 @end

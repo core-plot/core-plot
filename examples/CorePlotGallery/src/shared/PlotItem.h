@@ -2,9 +2,6 @@
 //  PlotItem.h
 //  CorePlotGallery
 //
-//  Created by Jeff Buck on 8/31/10.
-//  Copyright 2010 Jeff Buck. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 
@@ -13,11 +10,13 @@
 #import <UIKit/UIKit.h>
 
 typedef CGRect CGNSRect;
+typedef UIView PlotGalleryNativeView;
 
 #else
 
 #import <CorePlot/CorePlot.h>
 typedef NSRect CGNSRect;
+typedef NSView PlotGalleryNativeView;
 #endif
 
 extern NSString *const kDemoPlots;
@@ -30,41 +29,33 @@ extern NSString *const kFinancialPlots;
 @class CPTTheme;
 
 @interface PlotItem : NSObject
-{
-    @private
-    CPTGraphHostingView *defaultLayerHostingView;
 
-    NSMutableArray *graphs;
-    NSString *section;
-    NSString *title;
-    CPTNativeImage *cachedImage;
-}
+@property (nonatomic, readwrite, strong) CPTGraphHostingView *defaultLayerHostingView;
 
-@property (nonatomic, retain) CPTGraphHostingView *defaultLayerHostingView;
-@property (nonatomic, retain) NSMutableArray *graphs;
-@property (nonatomic, retain) NSString *section;
-@property (nonatomic, retain) NSString *title;
+@property (nonatomic, readwrite, strong) NSMutableArray *graphs;
+@property (nonatomic, readwrite, strong) NSString *section;
+@property (nonatomic, readwrite, strong) NSString *title;
+
+@property (nonatomic, readonly) CGFloat titleSize;
 
 +(void)registerPlotItem:(id)item;
 
+-(void)renderInView:(PlotGalleryNativeView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated;
+-(CPTNativeImage *)image;
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
--(void)renderInView:(UIView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated;
 #else
--(void)renderInView:(NSView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated;
 -(void)setFrameSize:(NSSize)size;
 #endif
--(CPTNativeImage *)image;
 
--(void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated;
+-(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated;
 
--(void)setTitleDefaultsForGraph:(CPTGraph *)graph withBounds:(CGRect)bounds;
--(void)setPaddingDefaultsForGraph:(CPTGraph *)graph withBounds:(CGRect)bounds;
+-(void)formatAllGraphs;
 
 -(void)reloadData;
 -(void)applyTheme:(CPTTheme *)theme toGraph:(CPTGraph *)graph withDefault:(CPTTheme *)defaultTheme;
 
 -(void)addGraph:(CPTGraph *)graph;
--(void)addGraph:(CPTGraph *)graph toHostingView:(CPTGraphHostingView *)layerHostingView;
+-(void)addGraph:(CPTGraph *)graph toHostingView:(CPTGraphHostingView *)hostingView;
 -(void)killGraph;
 
 -(void)generateData;

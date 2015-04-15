@@ -45,21 +45,21 @@
     axis.labelingPolicy     = CPTAxisLabelingPolicyAutomatic;
 }
 
--(void)applyThemeToBackground:(CPTXYGraph *)graph
+-(void)applyThemeToBackground:(CPTGraph *)graph
 {
-    CPTColor *endColor         = [CPTColor colorWithGenericGray:0.1];
+    CPTColor *endColor         = [CPTColor colorWithGenericGray:CPTFloat(0.1)];
     CPTGradient *graphGradient = [CPTGradient gradientWithBeginningColor:endColor endingColor:endColor];
 
-    graphGradient       = [graphGradient addColorStop:[CPTColor colorWithGenericGray:0.2] atPosition:0.3];
-    graphGradient       = [graphGradient addColorStop:[CPTColor colorWithGenericGray:0.3] atPosition:0.5];
-    graphGradient       = [graphGradient addColorStop:[CPTColor colorWithGenericGray:0.2] atPosition:0.6];
+    graphGradient       = [graphGradient addColorStop:[CPTColor colorWithGenericGray:CPTFloat(0.2)] atPosition:CPTFloat(0.3)];
+    graphGradient       = [graphGradient addColorStop:[CPTColor colorWithGenericGray:CPTFloat(0.3)] atPosition:CPTFloat(0.5)];
+    graphGradient       = [graphGradient addColorStop:[CPTColor colorWithGenericGray:CPTFloat(0.2)] atPosition:CPTFloat(0.6)];
     graphGradient.angle = 90.0;
     graph.fill          = [CPTFill fillWithGradient:graphGradient];
 }
 
 -(void)applyThemeToPlotArea:(CPTPlotAreaFrame *)plotAreaFrame
 {
-    CPTGradient *gradient = [CPTGradient gradientWithBeginningColor:[CPTColor colorWithGenericGray:0.1] endingColor:[CPTColor colorWithGenericGray:0.3]];
+    CPTGradient *gradient = [CPTGradient gradientWithBeginningColor:[CPTColor colorWithGenericGray:CPTFloat(0.1)] endingColor:[CPTColor colorWithGenericGray:CPTFloat(0.3)]];
 
     gradient.angle     = 90.0;
     plotAreaFrame.fill = [CPTFill fillWithGradient:gradient];
@@ -70,7 +70,7 @@
     plotAreaFrame.paddingBottom = 30;
 }
 
--(void)applyThemeToAxisSet:(CPTXYAxisSet *)axisSet
+-(void)applyThemeToAxisSet:(CPTAxisSet *)axisSet
 {
     CPTMutableLineStyle *majorLineStyle = [CPTMutableLineStyle lineStyle];
 
@@ -84,7 +84,7 @@
     minorLineStyle.lineWidth = 1.0;
 
     CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
-    majorGridLineStyle.lineWidth = 0.1;
+    majorGridLineStyle.lineWidth = CPTFloat(0.1);
     majorGridLineStyle.lineColor = [CPTColor lightGrayColor];
 
     CPTMutableLineStyle *minorGridLineStyle = [CPTMutableLineStyle lineStyle];
@@ -95,8 +95,9 @@
     whiteTextStyle.color    = [CPTColor whiteColor];
     whiteTextStyle.fontSize = 14.0;
 
-    [self applyThemeToAxis:axisSet.xAxis usingMajorLineStyle:majorLineStyle minorLineStyle:minorLineStyle majorGridLineStyle:majorGridLineStyle textStyle:whiteTextStyle];
-    [self applyThemeToAxis:axisSet.yAxis usingMajorLineStyle:majorLineStyle minorLineStyle:minorLineStyle majorGridLineStyle:majorGridLineStyle textStyle:whiteTextStyle];
+    CPTXYAxisSet *xyAxisSet = (CPTXYAxisSet *)axisSet;
+    [self applyThemeToAxis:xyAxisSet.xAxis usingMajorLineStyle:majorLineStyle minorLineStyle:minorLineStyle majorGridLineStyle:majorGridLineStyle textStyle:whiteTextStyle];
+    [self applyThemeToAxis:xyAxisSet.yAxis usingMajorLineStyle:majorLineStyle minorLineStyle:minorLineStyle majorGridLineStyle:majorGridLineStyle textStyle:whiteTextStyle];
 }
 
 @end

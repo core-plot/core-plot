@@ -2,13 +2,18 @@
 //  DatePlot.m
 //  Plot Gallery-Mac
 //
-//  Created by Jeff Buck on 11/14/10.
-//  Copyright 2010 Jeff Buck. All rights reserved.
-//
 
 #import "DatePlot.h"
 
+@interface DatePlot()
+
+@property (nonatomic, readwrite, strong) NSArray *plotData;
+
+@end
+
 @implementation DatePlot
+
+@synthesize plotData;
 
 +(void)load
 {
@@ -27,27 +32,28 @@
 
 -(void)generateData
 {
-    if ( !plotData ) {
+    if ( !self.plotData ) {
         const NSTimeInterval oneDay = 24 * 60 * 60;
 
         // Add some data
         NSMutableArray *newData = [NSMutableArray array];
 
         for ( NSUInteger i = 0; i < 5; i++ ) {
-            NSTimeInterval x = oneDay * i;
-            NSNumber *y      = @(1.2 * rand() / (double)RAND_MAX + 1.2);
+            NSTimeInterval xVal = oneDay * i;
+
+            double yVal = 1.2 * arc4random() / (double)UINT32_MAX + 1.2;
 
             [newData addObject:
-             @{ @(CPTScatterPlotFieldX): @(x),
-                @(CPTScatterPlotFieldY): y }
+             @{ @(CPTScatterPlotFieldX): @(xVal),
+                @(CPTScatterPlotFieldY): @(yVal) }
             ];
 
-            plotData = [newData retain];
+            self.plotData = newData;
         }
     }
 }
 
--(void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
 {
     // If you make sure your dates are calculated at noon, you shouldn't have to
     // worry about daylight savings. If you use midnight, you will have to adjust
@@ -61,31 +67,21 @@
     [dateComponents setMinute:0];
     [dateComponents setSecond:0];
 
-#ifdef NSCalendarIdentifierGregorian
     NSCalendar *gregorian = [[NSCalendar alloc]
                              initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-#else
-    NSCalendar *gregorian = [[NSCalendar alloc]
-                             initWithCalendarIdentifier:NSGregorianCalendar];
-#endif
     NSDate *refDate = [gregorian dateFromComponents:dateComponents];
-    [dateComponents release];
-    [gregorian release];
 
     NSTimeInterval oneDay = 24 * 60 * 60;
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    CGRect bounds = layerHostingView.bounds;
+    CGRect bounds = hostingView.bounds;
 #else
-    CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
+    CGRect bounds = NSRectToCGRect(hostingView.bounds);
 #endif
 
-    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
-    [self addGraph:graph toHostingView:layerHostingView];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
+    [self addGraph:graph toHostingView:hostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
-
-    [self setTitleDefaultsForGraph:graph withBounds:bounds];
-    [self setPaddingDefaultsForGraph:graph withBounds:bounds];
 
     // Setup scatter plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
@@ -96,26 +92,26 @@
     // Axes
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
-    x.majorIntervalLength         = CPTDecimalFromFloat(oneDay);
+    x.majorIntervalLength         = CPTDecimalFromDouble(oneDay);
     x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(2.0);
     x.minorTicksPerInterval       = 0;
-    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateStyle = kCFDateFormatterShortStyle;
-    CPTTimeFormatter *timeFormatter = [[[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter] autorelease];
+    CPTTimeFormatter *timeFormatter = [[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter];
     timeFormatter.referenceDate = refDate;
     x.labelFormatter            = timeFormatter;
-    x.labelRotation             = M_PI_4;
+    x.labelRotation             = CPTFloat(M_PI_4);
 
     CPTXYAxis *y = axisSet.yAxis;
     y.majorIntervalLength         = CPTDecimalFromDouble(0.5);
     y.minorTicksPerInterval       = 5;
-    y.orthogonalCoordinateDecimal = CPTDecimalFromFloat(oneDay);
+    y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(oneDay);
 
     // Create a plot that uses the data source method
-    CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] init];
     dataSourceLinePlot.identifier = @"Date Plot";
 
-    CPTMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+    CPTMutableLineStyle *lineStyle = [dataSourceLinePlot.dataLineStyle mutableCopy];
     lineStyle.lineWidth              = 3.0;
     lineStyle.lineColor              = [CPTColor greenColor];
     dataSourceLinePlot.dataLineStyle = lineStyle;
@@ -124,23 +120,17 @@
     [graph addPlot:dataSourceLinePlot];
 }
 
--(void)dealloc
-{
-    [plotData release];
-    [super dealloc];
-}
-
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    return [plotData count];
+    return self.plotData.count;
 }
 
 -(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    return plotData[index][@(fieldEnum)];
+    return self.plotData[index][@(fieldEnum)];
 }
 
 @end

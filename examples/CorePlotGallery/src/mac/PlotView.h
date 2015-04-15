@@ -2,9 +2,6 @@
 //  PlotView.h
 //  CorePlotGallery
 //
-//  Created by Jeff Buck on 9/6/10.
-//  Copyright 2010 Jeff Buck. All rights reserved.
-//
 
 #import <Cocoa/Cocoa.h>
 
@@ -15,11 +12,6 @@
 @end
 
 @interface PlotView : NSView
-{
-    @private
-    id<PlotViewDelegate> delegate;
-}
-
-@property (nonatomic, retain) id<PlotViewDelegate> delegate;
+@property (nonatomic, weak) id<PlotViewDelegate> delegate;
 
 @end

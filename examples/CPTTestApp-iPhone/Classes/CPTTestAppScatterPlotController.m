@@ -7,14 +7,18 @@
 
 #import "CPTTestAppScatterPlotController.h"
 
+@interface CPTTestAppScatterPlotController()
+
+@property (nonatomic, readwrite, strong) CPTXYGraph *graph;
+
+@end
+
+#pragma mark -
+
 @implementation CPTTestAppScatterPlotController
 
 @synthesize dataForPlot;
-
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    return YES;
-}
+@synthesize graph;
 
 #pragma mark -
 #pragma mark Initialization and teardown
@@ -24,26 +28,28 @@
     [super viewDidLoad];
 
     // Create graph from theme
-    graph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
-    CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
-    [graph applyTheme:theme];
+    CPTXYGraph *newGraph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
+    CPTTheme *theme      = [CPTTheme themeNamed:kCPTDarkGradientTheme];
+    [newGraph applyTheme:theme];
+    self.graph = newGraph;
+
     CPTGraphHostingView *hostingView = (CPTGraphHostingView *)self.view;
     hostingView.collapsesLayers = NO; // Setting to YES reduces GPU memory usage, but can slow drawing/scrolling
-    hostingView.hostedGraph     = graph;
+    hostingView.hostedGraph     = newGraph;
 
-    graph.paddingLeft   = 10.0;
-    graph.paddingTop    = 10.0;
-    graph.paddingRight  = 10.0;
-    graph.paddingBottom = 10.0;
+    newGraph.paddingLeft   = 10.0;
+    newGraph.paddingTop    = 20.0;
+    newGraph.paddingRight  = 10.0;
+    newGraph.paddingBottom = 10.0;
 
     // Setup plot space
-    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)newGraph.defaultPlotSpace;
     plotSpace.allowsUserInteraction = YES;
     plotSpace.xRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0) length:CPTDecimalFromDouble(2.0)];
     plotSpace.yRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.0) length:CPTDecimalFromDouble(3.0)];
 
     // Axes
-    CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
+    CPTXYAxisSet *axisSet = (CPTXYAxisSet *)newGraph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
     x.majorIntervalLength         = CPTDecimalFromDouble(0.5);
     x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(2.0);
@@ -72,7 +78,7 @@
     boundLinePlot.dataLineStyle = lineStyle;
     boundLinePlot.identifier    = @"Blue Plot";
     boundLinePlot.dataSource    = self;
-    [graph addPlot:boundLinePlot];
+    [newGraph addPlot:boundLinePlot];
 
     CPTImage *fillImage = [CPTImage imageNamed:@"BlueTexture"];
     fillImage.tiled = YES;
@@ -100,7 +106,7 @@
     dataSourceLinePlot.dataSource    = self;
 
     // Put an area gradient under the plot above
-    CPTColor *areaColor       = [CPTColor colorWithComponentRed:0.3 green:1.0 blue:0.3 alpha:0.8];
+    CPTColor *areaColor       = [CPTColor colorWithComponentRed:CPTFloat(0.3) green:CPTFloat(1.0) blue:CPTFloat(0.3) alpha:CPTFloat(0.8)];
     CPTGradient *areaGradient = [CPTGradient gradientWithBeginningColor:areaColor endingColor:[CPTColor clearColor]];
     areaGradient.angle = -90.0;
     CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
@@ -109,7 +115,7 @@
 
     // Animate in the new plot, as an example
     dataSourceLinePlot.opacity = 0.0;
-    [graph addPlot:dataSourceLinePlot];
+    [newGraph addPlot:dataSourceLinePlot];
 
     CABasicAnimation *fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
     fadeInAnimation.duration            = 1.0;
@@ -121,10 +127,10 @@
     // Add some initial data
     NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
     for ( NSUInteger i = 0; i < 60; i++ ) {
-        NSNumber *x = @(1.0 + i * 0.05);
-        NSNumber *y = @(1.2 * rand() / (double)RAND_MAX + 1.2);
-        [contentArray addObject:@{ @"x": x,
-                                   @"y": y }
+        NSNumber *xVal = @(1.0 + i * 0.05);
+        NSNumber *yVal = @(1.2 * arc4random() / (double)UINT32_MAX + 1.2);
+        [contentArray addObject:@{ @"x": xVal,
+                                   @"y": yVal }
         ];
     }
     self.dataForPlot = contentArray;
@@ -137,10 +143,10 @@
 -(void)changePlotRange
 {
     // Setup plot space
-    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
 
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(3.0 + 2.0 * rand() / RAND_MAX)];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(3.0 + 2.0 * rand() / RAND_MAX)];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromDouble(3.0 + 2.0 * arc4random() / UINT32_MAX)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromDouble(3.0 + 2.0 * arc4random() / UINT32_MAX)];
 }
 
 #pragma mark -
@@ -148,13 +154,13 @@
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    return [dataForPlot count];
+    return self.dataForPlot.count;
 }
 
 -(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
-    NSNumber *num = dataForPlot[index][key];
+    NSNumber *num = self.dataForPlot[index][key];
 
     // Green plot gets shifted above the blue
     if ( [(NSString *)plot.identifier isEqualToString : @"Green Plot"] ) {
@@ -170,10 +176,10 @@
 
 -(BOOL)axis:(CPTAxis *)axis shouldUpdateAxisLabelsAtLocations:(NSSet *)locations
 {
-    static CPTTextStyle *positiveStyle = nil;
-    static CPTTextStyle *negativeStyle = nil;
-    static dispatch_once_t positiveOnce;
-    static dispatch_once_t negativeOnce;
+    static CPTTextStyle *positiveStyle  = nil;
+    static CPTTextStyle *negativeStyle  = nil;
+    static dispatch_once_t positiveOnce = 0;
+    static dispatch_once_t negativeOnce = 0;
 
     NSFormatter *formatter = axis.labelFormatter;
     CGFloat labelOffset    = axis.labelOffset;

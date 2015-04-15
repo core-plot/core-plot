@@ -4,7 +4,7 @@
 
 @interface CPTLayerTests : CPTTestCase
 
-@property (readwrite, strong) CPTLayer *layer;
-@property (readwrite, strong) NSArray *positions;
+@property (nonatomic, readwrite, strong) CPTLayer *layer;
+@property (nonatomic, readwrite, strong) NSArray *positions;
 
 @end

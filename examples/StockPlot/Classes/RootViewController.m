@@ -11,16 +11,21 @@
 
 @interface RootViewController()
 
-@property (nonatomic, retain) APYahooDataPullerGraph *graph;
+@property (nonatomic, readwrite, strong) APYahooDataPullerGraph *graph;
+@property (nonatomic, readwrite, strong) NSMutableArray *stocks;
 
 @end
 
 @implementation RootViewController
 
+@synthesize graph;
+@synthesize stocks;
+@dynamic symbols;
+
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    stocks = [[NSMutableArray alloc] initWithCapacity:4];
+    self.stocks = [[NSMutableArray alloc] initWithCapacity:4];
     [self addSymbol:@"AAPL"];
     [self addSymbol:@"GOOG"];
     [self addSymbol:@"YHOO"];
@@ -43,21 +48,9 @@
     [super viewWillAppear:animated];
     [[self navigationItem] setTitle:@"Stocks"];
     //the graph will set itself as delegate of the dataPuller when we push it, so we need to reset this.
-    for ( APYahooDataPuller *dp in stocks ) {
+    for ( APYahooDataPuller *dp in self.stocks ) {
         [dp setDelegate:self];
     }
-}
-
--(void)viewDidUnload
-{
-    // Release anything that can be recreated in viewDidLoad or on demand.
-    // e.g. self.myOutlet = nil;
-    [stocks release];
-    stocks = nil;
-    [graph release];
-    graph = nil;
-
-    [super viewDidUnload];
 }
 
 #pragma mark Table view methods
@@ -71,13 +64,11 @@
         NSString *message = [NSString stringWithFormat:@"No information available for %@", [aStock symbol]];
         UIAlertView *av   = [[UIAlertView alloc] initWithTitle:@"Alert" message:message delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
         [av show];
-        [av release];
     }
     else {
-        if ( nil == graph ) {
+        if ( nil == self.graph ) {
             APYahooDataPullerGraph *aGraph = [[APYahooDataPullerGraph alloc] initWithNibName:@"APYahooDataPullerGraph" bundle:nil];
             self.graph = aGraph;
-            [aGraph release];
         }
 
         [self.graph setDataPuller:aStock];
@@ -89,7 +80,7 @@
 // Override to support row selection in the table view.
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    APYahooDataPuller *dp = stocks[indexPath.row];
+    APYahooDataPuller *dp = self.stocks[(NSUInteger)indexPath.row];
 
     [self inspectStock:dp];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -103,12 +94,12 @@
 // Customize the number of rows in the table view.
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [stocks count];
+    return (NSInteger)self.stocks.count;
 }
 
 -(void)setupCell:(UITableViewCell *)cell forStockAtIndex:(NSUInteger)row
 {
-    APYahooDataPuller *dp = stocks[row];
+    APYahooDataPuller *dp = self.stocks[row];
 
     [[cell textLabel] setText:[dp symbol]];
 
@@ -123,7 +114,6 @@
     if ( [dp endDate] ) {
         endString = [df stringFromDate:[dp endDate]];
     }
-    [df release];
 
     NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
     [nf setRoundingMode:NSNumberFormatterRoundHalfUp];
@@ -141,17 +131,14 @@
         overallHigh = [nf stringFromNumber:[dp overallHigh]];
     }
 
-    [nf release];
-
     [[cell detailTextLabel] setText:[NSString stringWithFormat:@"%@ - %@; Low:%@ High:%@", startString, endString, overallLow, overallHigh]];
 
     UIView *accessory = [cell accessoryView];
-    if ( [dp loadingData] ) {
+    if ( dp.loadingData ) {
         if ( ![accessory isMemberOfClass:[UIActivityIndicatorView class]] ) {
             accessory = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
             [(UIActivityIndicatorView *)accessory setHidesWhenStopped : NO];
             [cell setAccessoryView:accessory];
-            [accessory release];
         }
         [(UIActivityIndicatorView *)accessory startAnimating];
     }
@@ -159,14 +146,13 @@
         if ( [accessory isMemberOfClass:[UIActivityIndicatorView class]] ) {
             [(UIActivityIndicatorView *)accessory stopAnimating];
         }
-        if ( [dp staleData] ) {
+        if ( dp.staleData ) {
             if ( ![accessory isMemberOfClass:[UIImageView class]] ) {
                 UIImage *caution = [UIImage imageNamed:@"caution.png"];
                 accessory = [[UIImageView alloc] initWithImage:caution];
                 [cell setAccessoryView:accessory];
 //                CGRect frame = accessory.frame;
 //#pragma unused (frame)
-                [accessory release];
             }
         }
         else {
@@ -183,66 +169,51 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
     if ( cell == nil ) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
 
-    NSUInteger row = indexPath.row;
+    NSUInteger row = (NSUInteger)indexPath.row;
 
     [self setupCell:cell forStockAtIndex:row];
 
     return cell;
 }
 
-// Override to allow orientations other than the default portrait orientation.
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
-    return YES;
-}
-
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation;
-{
-    graph.view.frame = self.view.bounds;
+    self.graph.view.frame = self.view.bounds;
 }
 
 #pragma mark -
 #pragma mark accessors
 
-@synthesize graph;
-
--(NSMutableArray *)stocks
-{
-    //NSLog(@"in -symbols, returned symbols = %@", symbols);
-
-    return stocks;
-}
-
 -(NSArray *)symbols
 {
     //NSLog(@"in -symbols, returned symbols = %@", symbols);
-    NSMutableArray *symbols = [NSMutableArray arrayWithCapacity:[stocks count]];
+    NSMutableArray *symbols = [NSMutableArray arrayWithCapacity:self.stocks.count];
 
-    for ( APYahooDataPuller *dp in stocks ) {
+    for ( APYahooDataPuller *dp in self.stocks ) {
         [symbols addObject:[dp symbol]];
     }
     return [NSArray arrayWithArray:symbols];
 }
 
--(void)dataPuller:(APYahooDataPuller *)dp downloadDidFailWithError:(NSError *)error;
+-(void)dataPuller:(APYahooDataPuller *)dp downloadDidFailWithError:(NSError *)error
 {
     NSLog(@"dataPuller:%@ downloadDidFailWithError:%@", dp, error);
-    NSUInteger idx        = [stocks indexOfObject:dp];
-    NSUInteger section    = 0;
-    NSIndexPath *path     = [NSIndexPath indexPathForRow:idx inSection:section];
+    NSUInteger idx        = [self.stocks indexOfObject:dp];
+    NSInteger section     = 0;
+    NSIndexPath *path     = [NSIndexPath indexPathForRow:(NSInteger)idx inSection:section];
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
     [self setupCell:cell forStockAtIndex:idx];
 }
 
--(void)dataPullerFinancialDataDidChange:(APYahooDataPuller *)dp;
+-(void)dataPullerFinancialDataDidChange:(APYahooDataPuller *)dp
 {
     NSLog(@"dataPullerFinancialDataDidChange:%@", dp);
-    NSUInteger idx        = [stocks indexOfObject:dp];
-    NSUInteger section    = 0;
-    NSIndexPath *path     = [NSIndexPath indexPathForRow:idx inSection:section];
+    NSUInteger idx        = [self.stocks indexOfObject:dp];
+    NSInteger section     = 0;
+    NSIndexPath *path     = [NSIndexPath indexPathForRow:(NSInteger)idx inSection:section];
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
     [self setupCell:cell forStockAtIndex:idx];
 }
@@ -258,7 +229,6 @@
     [[self stocks] addObject:dp];
     [dp fetchIfNeeded];
     [dp setDelegate:self];
-    [dp release];
     [[self tableView] reloadData]; //TODO: should reload whole thing
 }
 
@@ -269,10 +239,7 @@
             dp.delegate = nil;
         }
     }
-    [stocks release];
     stocks = nil;
-
-    [super dealloc];
 }
 
 /*
@@ -327,7 +294,7 @@
  *
  * if (editingStyle == UITableViewCellEditingStyleDelete) {
  * // Delete the row from the data source.
- * [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ * [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
  * }
  * else if (editingStyle == UITableViewCellEditingStyleInsert) {
  * // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.

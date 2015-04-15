@@ -363,6 +363,7 @@
 		C3436C5013F4AC6000739AC2 /* _CPTSlateTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _CPTSlateTheme.h; path = Source/_CPTSlateTheme.h; sourceTree = "<group>"; };
 		C349DCAE151AAFAB00BFD6A7 /* CPTCalendarFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTCalendarFormatter.h; path = Source/CPTCalendarFormatter.h; sourceTree = "<group>"; };
 		C349DCAF151AAFAB00BFD6A7 /* CPTCalendarFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTCalendarFormatter.m; path = Source/CPTCalendarFormatter.m; sourceTree = "<group>"; };
+		C34F570C19D8CE4300446248 /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
 		C3566B8C10EED17400FB3866 /* doxygen touch.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "doxygen touch.config"; path = "../documentation/doxygen/doxygen touch.config"; sourceTree = SOURCE_ROOT; };
 		C3566B8D10EED17400FB3866 /* doxygen-cocoa-touch-tags.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "doxygen-cocoa-touch-tags.xml"; path = "../documentation/doxygen/doxygen-cocoa-touch-tags.xml"; sourceTree = SOURCE_ROOT; };
 		C3566B8E10EED1B000FB3866 /* mainpage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mainpage.h; path = Source/mainpage.h; sourceTree = "<group>"; };
@@ -391,6 +392,7 @@
 		C3978E0F13CE65C600A420D9 /* NSCoderExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSCoderExtensions.m; path = Source/NSCoderExtensions.m; sourceTree = "<group>"; };
 		C3A695DF146A196100AF5653 /* CPTMutablePlotRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTMutablePlotRange.h; path = Source/CPTMutablePlotRange.h; sourceTree = "<group>"; };
 		C3A695E0146A196100AF5653 /* CPTMutablePlotRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTMutablePlotRange.m; path = Source/CPTMutablePlotRange.m; sourceTree = "<group>"; };
+		C3B25EE11AC23A930063CCD8 /* CorePlot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CorePlot.h; sourceTree = "<group>"; };
 		C3C68318166138E200340E39 /* CPTAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTAnimation.h; path = Source/CPTAnimation.h; sourceTree = "<group>"; };
 		C3C68319166138E200340E39 /* CPTAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTAnimation.m; path = Source/CPTAnimation.m; sourceTree = "<group>"; };
 		C3C6831A166138E200340E39 /* CPTAnimationOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTAnimationOperation.h; path = Source/CPTAnimationOperation.h; sourceTree = "<group>"; };
@@ -605,6 +607,7 @@
 				BC9B82520FB89B420035D8DA /* Source */,
 				0789EFB70FB9F97F00C0A613 /* iPhone Specific */,
 				C3566B8610EED12700FB3866 /* Documentation */,
+				C3B25EE01AC23A930063CCD8 /* CocoaPods */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -624,6 +627,7 @@
 				C3D9825016BD406600DE7977 /* CorePlot_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main-cocoatouch.m */,
 				C31908A3199813D400B61898 /* CorePlot.xcconfig */,
+				C34F570C19D8CE4300446248 /* CorePlotWarnings.xcconfig */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -847,6 +851,14 @@
 				C30550E81399BE2000E0151F /* CPTLegendEntry.m */,
 			);
 			name = Legends;
+			sourceTree = "<group>";
+		};
+		C3B25EE01AC23A930063CCD8 /* CocoaPods */ = {
+			isa = PBXGroup;
+			children = (
+				C3B25EE11AC23A930063CCD8 /* CorePlot.h */,
+			);
+			path = CocoaPods;
 			sourceTree = "<group>";
 		};
 		C3B623A9107EC5460009EF0B /* Layout */ = {
@@ -1276,6 +1288,7 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				MACH_O_TYPE = staticlib;
@@ -1292,6 +1305,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEPLOYMENT_POSTPROCESSING = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				MACH_O_TYPE = staticlib;

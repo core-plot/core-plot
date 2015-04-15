@@ -142,7 +142,7 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
  **/
 +(instancetype)sharedInstance
 {
-    static dispatch_once_t once;
+    static dispatch_once_t once = 0;
     static CPTAnimation *shared;
 
     dispatch_once(&once, ^{
@@ -394,7 +394,8 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
             if ( [tweenedValue isKindOfClass:[NSDecimalNumber class]] ) {
                 NSDecimal buffer = [(NSDecimalNumber *)tweenedValue decimalValue];
 
-                IMP setterMethod = [boundObject methodForSelector:boundSetter];
+                typedef void (*SetterType)(id, SEL, NSDecimal);
+                SetterType setterMethod = (SetterType)[boundObject methodForSelector : boundSetter];
                 setterMethod(boundObject, boundSetter, buffer);
             }
             else if ( [tweenedValue isKindOfClass:[NSValue class]] ) {

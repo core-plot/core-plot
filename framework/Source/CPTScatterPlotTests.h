@@ -3,7 +3,7 @@
 
 @interface CPTScatterPlotTests : CPTTestCase
 
-@property (strong) CPTScatterPlot *plot;
-@property (strong) CPTXYPlotSpace *plotSpace;
+@property (nonatomic, readwrite, strong) CPTScatterPlot *plot;
+@property (nonatomic, readwrite, strong) CPTXYPlotSpace *plotSpace;
 
 @end

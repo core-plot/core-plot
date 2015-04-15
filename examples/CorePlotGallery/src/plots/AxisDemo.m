@@ -2,9 +2,6 @@
 //  AxisDemo.m
 //  Plot Gallery-Mac
 //
-//  Created by Jeff Buck on 11/14/10.
-//  Copyright 2010 Jeff Buck. All rights reserved.
-//
 
 #import "AxisDemo.h"
 
@@ -25,30 +22,27 @@
     return self;
 }
 
--(void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
 {
 #if TARGET_OS_IPHONE
-    CGRect bounds = layerHostingView.bounds;
+    CGRect bounds = hostingView.bounds;
 #else
-    CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
+    CGRect bounds = NSRectToCGRect(hostingView.bounds);
 #endif
 
     // Create graph
-    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
-    [self addGraph:graph toHostingView:layerHostingView];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
+    [self addGraph:graph toHostingView:hostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTSlateTheme]];
-
-    [self setTitleDefaultsForGraph:graph withBounds:bounds];
-    [self setPaddingDefaultsForGraph:graph withBounds:bounds];
 
     graph.fill = [CPTFill fillWithColor:[CPTColor darkGrayColor]];
 
     // Plot area
     graph.plotAreaFrame.fill          = [CPTFill fillWithColor:[CPTColor lightGrayColor]];
-    graph.plotAreaFrame.paddingTop    = 20.0;
-    graph.plotAreaFrame.paddingBottom = 50.0;
-    graph.plotAreaFrame.paddingLeft   = 50.0;
-    graph.plotAreaFrame.paddingRight  = 50.0;
+    graph.plotAreaFrame.paddingTop    = self.titleSize;
+    graph.plotAreaFrame.paddingBottom = self.titleSize * CPTFloat(2.0);
+    graph.plotAreaFrame.paddingLeft   = self.titleSize * CPTFloat(2.0);
+    graph.plotAreaFrame.paddingRight  = self.titleSize * CPTFloat(2.0);
     graph.plotAreaFrame.cornerRadius  = 10.0;
     graph.plotAreaFrame.masksToBorder = NO;
 
@@ -77,7 +71,6 @@
     // Text styles
     CPTMutableTextStyle *axisTitleTextStyle = [CPTMutableTextStyle textStyle];
     axisTitleTextStyle.fontName = @"Helvetica-Bold";
-    axisTitleTextStyle.fontSize = 14.0;
 
     // Axes
     // Label x axis with a fixed interval policy
@@ -96,8 +89,8 @@
     x.minorGridLineStyle          = minorGridLineStyle;
     x.title                       = @"X Axis";
     x.titleTextStyle              = axisTitleTextStyle;
-    x.titleOffset                 = 25.0;
-    x.alternatingBandFills        = @[[[CPTColor redColor] colorWithAlphaComponent:0.1], [[CPTColor greenColor] colorWithAlphaComponent:0.1]];
+    x.titleOffset                 = self.titleSize;
+    x.alternatingBandFills        = @[[[CPTColor redColor] colorWithAlphaComponent:CPTFloat(0.1)], [[CPTColor greenColor] colorWithAlphaComponent:CPTFloat(0.1)]];
     x.delegate                    = self;
 
     // Label y with an automatic labeling policy.
@@ -116,8 +109,8 @@
     y.minorGridLineStyle    = minorGridLineStyle;
     y.title                 = @"Y Axis";
     y.titleTextStyle        = axisTitleTextStyle;
-    y.titleOffset           = 30.0;
-    y.alternatingBandFills  = @[[[CPTColor blueColor] colorWithAlphaComponent:0.1], [NSNull null]];
+    y.titleOffset           = self.titleSize * CPTFloat(1.1);
+    y.alternatingBandFills  = @[[[CPTColor blueColor] colorWithAlphaComponent:CPTFloat(0.1)], [NSNull null]];
     y.delegate              = self;
 
     CPTFill *bandFill = [CPTFill fillWithColor:[[CPTColor darkGrayColor] colorWithAlphaComponent:0.5]];
@@ -127,7 +120,7 @@
     // Label y2 with an equal division labeling policy.
     axisLineStyle.lineColor = [CPTColor orangeColor];
 
-    CPTXYAxis *y2 = [[[CPTXYAxis alloc] init] autorelease];
+    CPTXYAxis *y2 = [[CPTXYAxis alloc] init];
     y2.coordinate                  = CPTCoordinateY;
     y2.plotSpace                   = plotSpace;
     y2.orthogonalCoordinateDecimal = CPTDecimalFromDouble(-10.0);
@@ -144,7 +137,7 @@
     y2.minorTickLength             = 8.0;
     y2.title                       = @"Y2 Axis";
     y2.titleTextStyle              = axisTitleTextStyle;
-    y2.titleOffset                 = -50.0;
+    y2.titleOffset                 = self.titleSize * CPTFloat(-2.1);
     y2.delegate                    = self;
 
     // Add the y2 axis to the axis set

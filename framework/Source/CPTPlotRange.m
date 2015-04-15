@@ -278,6 +278,12 @@
     [encoder encodeDecimal:self.length forKey:@"CPTPlotRange.length"];
 }
 
+/// @endcond
+
+/** @brief Returns an object initialized from data in a given unarchiver.
+ *  @param decoder An unarchiver object.
+ *  @return An object initialized from data in a given unarchiver.
+ */
 -(instancetype)initWithCoder:(NSCoder *)decoder
 {
     if ( (self = [super init]) ) {
@@ -287,8 +293,6 @@
 
     return self;
 }
-
-/// @endcond
 
 #pragma mark -
 #pragma mark Checking Containership

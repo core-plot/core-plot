@@ -11,7 +11,19 @@ static const double kAlpha     = 0.25; // smoothing constant
 static const NSUInteger kMaxDataPoints = 52;
 static NSString *const kPlotIdentifier = @"Data Source Plot";
 
+@interface RealTimePlot()
+
+@property (nonatomic, readwrite, strong) NSMutableArray *plotData;
+@property (nonatomic, readwrite, assign) NSUInteger currentIndex;
+@property (nonatomic, readwrite, strong) NSTimer *dataTimer;
+
+@end
+
 @implementation RealTimePlot
+
+@synthesize plotData;
+@synthesize currentIndex;
+@synthesize dataTimer;
 
 +(void)load
 {
@@ -33,48 +45,44 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
 
 -(void)killGraph
 {
-    [dataTimer invalidate];
-    [dataTimer release];
-    dataTimer = nil;
+    [self.dataTimer invalidate];
+    self.dataTimer = nil;
 
     [super killGraph];
 }
 
 -(void)generateData
 {
-    [plotData removeAllObjects];
-    currentIndex = 0;
+    [self.plotData removeAllObjects];
+    self.currentIndex = 0;
 }
 
--(void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
 {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    CGRect bounds = layerHostingView.bounds;
+    CGRect bounds = hostingView.bounds;
 #else
-    CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
+    CGRect bounds = NSRectToCGRect(hostingView.bounds);
 #endif
 
-    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:bounds] autorelease];
-    [self addGraph:graph toHostingView:layerHostingView];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
+    [self addGraph:graph toHostingView:hostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
-    [self setTitleDefaultsForGraph:graph withBounds:bounds];
-    [self setPaddingDefaultsForGraph:graph withBounds:bounds];
-
-    graph.plotAreaFrame.paddingTop    = 15.0;
-    graph.plotAreaFrame.paddingRight  = 15.0;
-    graph.plotAreaFrame.paddingBottom = 55.0;
-    graph.plotAreaFrame.paddingLeft   = 55.0;
+    graph.plotAreaFrame.paddingTop    = self.titleSize * CPTFloat(0.5);
+    graph.plotAreaFrame.paddingRight  = self.titleSize * CPTFloat(0.5);
+    graph.plotAreaFrame.paddingBottom = self.titleSize * CPTFloat(2.625);
+    graph.plotAreaFrame.paddingLeft   = self.titleSize * CPTFloat(2.5);
     graph.plotAreaFrame.masksToBorder = NO;
 
     // Grid line styles
     CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
     majorGridLineStyle.lineWidth = 0.75;
-    majorGridLineStyle.lineColor = [[CPTColor colorWithGenericGray:0.2] colorWithAlphaComponent:0.75];
+    majorGridLineStyle.lineColor = [[CPTColor colorWithGenericGray:CPTFloat(0.2)] colorWithAlphaComponent:CPTFloat(0.75)];
 
     CPTMutableLineStyle *minorGridLineStyle = [CPTMutableLineStyle lineStyle];
     minorGridLineStyle.lineWidth = 0.25;
-    minorGridLineStyle.lineColor = [[CPTColor whiteColor] colorWithAlphaComponent:0.1];
+    minorGridLineStyle.lineColor = [[CPTColor whiteColor] colorWithAlphaComponent:CPTFloat(0.1)];
 
     // Axes
     // X axis
@@ -85,12 +93,12 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
     x.majorGridLineStyle          = majorGridLineStyle;
     x.minorGridLineStyle          = minorGridLineStyle;
     x.minorTicksPerInterval       = 9;
+    x.labelOffset                 = self.titleSize * CPTFloat(0.25);
     x.title                       = @"X Axis";
-    x.titleOffset                 = 35.0;
+    x.titleOffset                 = self.titleSize * CPTFloat(1.5);
     NSNumberFormatter *labelFormatter = [[NSNumberFormatter alloc] init];
     labelFormatter.numberStyle = NSNumberFormatterNoStyle;
     x.labelFormatter           = labelFormatter;
-    [labelFormatter release];
 
     // Y axis
     CPTXYAxis *y = axisSet.yAxis;
@@ -99,20 +107,20 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
     y.majorGridLineStyle          = majorGridLineStyle;
     y.minorGridLineStyle          = minorGridLineStyle;
     y.minorTicksPerInterval       = 3;
-    y.labelOffset                 = 5.0;
+    y.labelOffset                 = self.titleSize * CPTFloat(0.25);
     y.title                       = @"Y Axis";
-    y.titleOffset                 = 30.0;
+    y.titleOffset                 = self.titleSize * CPTFloat(1.25);
     y.axisConstraints             = [CPTConstraints constraintWithLowerOffset:0.0];
 
     // Rotate the labels by 45 degrees, just to show it can be done.
-    x.labelRotation = M_PI_4;
+    x.labelRotation = CPTFloat(M_PI_4);
 
     // Create the plot
-    CPTScatterPlot *dataSourceLinePlot = [[[CPTScatterPlot alloc] init] autorelease];
+    CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] init];
     dataSourceLinePlot.identifier     = kPlotIdentifier;
     dataSourceLinePlot.cachePrecision = CPTPlotCachePrecisionDouble;
 
-    CPTMutableLineStyle *lineStyle = [[dataSourceLinePlot.dataLineStyle mutableCopy] autorelease];
+    CPTMutableLineStyle *lineStyle = [dataSourceLinePlot.dataLineStyle mutableCopy];
     lineStyle.lineWidth              = 3.0;
     lineStyle.lineColor              = [CPTColor greenColor];
     dataSourceLinePlot.dataLineStyle = lineStyle;
@@ -125,29 +133,24 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger(0) length:CPTDecimalFromUnsignedInteger(kMaxDataPoints - 2)];
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger(0) length:CPTDecimalFromUnsignedInteger(1)];
 
-    [dataTimer invalidate];
-    [dataTimer release];
+    [self.dataTimer invalidate];
 
     if ( animated ) {
-        dataTimer = [[NSTimer timerWithTimeInterval:1.0 / kFrameRate
-                                             target:self
-                                           selector:@selector(newData:)
-                                           userInfo:nil
-                                            repeats:YES] retain];
-        [[NSRunLoop mainRunLoop] addTimer:dataTimer forMode:NSRunLoopCommonModes];
+        self.dataTimer = [NSTimer timerWithTimeInterval:1.0 / kFrameRate
+                                                 target:self
+                                               selector:@selector(newData:)
+                                               userInfo:nil
+                                                repeats:YES];
+        [[NSRunLoop mainRunLoop] addTimer:self.dataTimer forMode:NSRunLoopCommonModes];
     }
     else {
-        dataTimer = nil;
+        self.dataTimer = nil;
     }
 }
 
 -(void)dealloc
 {
-    [plotData release];
     [dataTimer invalidate];
-    [dataTimer release];
-
-    [super dealloc];
 }
 
 #pragma mark -
@@ -159,13 +162,13 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
     CPTPlot *thePlot   = [theGraph plotWithIdentifier:kPlotIdentifier];
 
     if ( thePlot ) {
-        if ( plotData.count >= kMaxDataPoints ) {
-            [plotData removeObjectAtIndex:0];
+        if ( self.plotData.count >= kMaxDataPoints ) {
+            [self.plotData removeObjectAtIndex:0];
             [thePlot deleteDataInIndexRange:NSMakeRange(0, 1)];
         }
 
         CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)theGraph.defaultPlotSpace;
-        NSUInteger location       = (currentIndex >= kMaxDataPoints ? currentIndex - kMaxDataPoints + 2 : 0);
+        NSUInteger location       = (self.currentIndex >= kMaxDataPoints ? self.currentIndex - kMaxDataPoints + 2 : 0);
 
         CPTPlotRange *oldRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger( (location > 0) ? (location - 1) : 0 )
                                                               length:CPTDecimalFromUnsignedInteger(kMaxDataPoints - 2)];
@@ -178,9 +181,9 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
                   toPlotRange:newRange
                      duration:CPTFloat(1.0 / kFrameRate)];
 
-        currentIndex++;
-        [plotData addObject:@( (1.0 - kAlpha) * [[plotData lastObject] doubleValue] + kAlpha * rand() / (double)RAND_MAX )];
-        [thePlot insertDataAtIndex:plotData.count - 1 numberOfRecords:1];
+        self.currentIndex++;
+        [self.plotData addObject:@( (1.0 - kAlpha) * [[self.plotData lastObject] doubleValue] + kAlpha * arc4random() / (double)UINT32_MAX )];
+        [thePlot insertDataAtIndex:self.plotData.count - 1 numberOfRecords:1];
     }
 }
 
@@ -189,7 +192,7 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    return [plotData count];
+    return self.plotData.count;
 }
 
 -(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
@@ -198,11 +201,11 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
 
     switch ( fieldEnum ) {
         case CPTScatterPlotFieldX:
-            num = @(index + currentIndex - plotData.count);
+            num = @(index + self.currentIndex - self.plotData.count);
             break;
 
         case CPTScatterPlotFieldY:
-            num = plotData[index];
+            num = self.plotData[index];
             break;
 
         default:

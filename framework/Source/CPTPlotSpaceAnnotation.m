@@ -102,6 +102,12 @@
     [coder encodeConditionalObject:self.plotSpace forKey:@"CPTPlotSpaceAnnotation.plotSpace"];
 }
 
+/// @endcond
+
+/** @brief Returns an object initialized from data in a given unarchiver.
+ *  @param coder An unarchiver object.
+ *  @return An object initialized from data in a given unarchiver.
+ */
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
@@ -110,8 +116,6 @@
     }
     return self;
 }
-
-/// @endcond
 
 #pragma mark -
 #pragma mark Layout

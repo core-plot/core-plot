@@ -440,6 +440,7 @@
 		C34AFE6A11021D010041675A /* CPTPlotSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTPlotSymbol.m; sourceTree = "<group>"; };
 		C34BF5BA10A67633007F0894 /* CPTPlotArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPlotArea.h; sourceTree = "<group>"; };
 		C34BF5BB10A67633007F0894 /* CPTPlotArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTPlotArea.m; sourceTree = "<group>"; };
+		C34F570D19D8CE5500446248 /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
 		C36468A80FE5533F0064B186 /* CPTTextStyleTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTTextStyleTests.h; sourceTree = "<group>"; };
 		C36468A90FE5533F0064B186 /* CPTTextStyleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTTextStyleTests.m; sourceTree = "<group>"; };
 		C365E19A1973193A0096AAE1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -457,6 +458,7 @@
 		C3AFC9CF0FB62969005DFFDC /* CPTImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CPTImage.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C3AFC9D00FB62969005DFFDC /* CPTImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTImage.m; sourceTree = "<group>"; };
 		C3B235631009931400970270 /* doxygen-cocoa-tags.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "doxygen-cocoa-tags.xml"; path = "../documentation/doxygen/doxygen-cocoa-tags.xml"; sourceTree = "<group>"; };
+		C3B25EDF1AC23A7D0063CCD8 /* CorePlot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CorePlot.h; sourceTree = "<group>"; };
 		C3BB7D1416322F7E00BC9515 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C3C032C710B8DEDC003A11B6 /* CPTAxisLabelGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAxisLabelGroup.h; sourceTree = "<group>"; };
 		C3C032C810B8DEDC003A11B6 /* CPTAxisLabelGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTAxisLabelGroup.m; sourceTree = "<group>"; };
@@ -847,6 +849,7 @@
 				07BF0D5F0F2B6FE1002FCEA7 /* Mac Specific */,
 				4C32D37A0F43B3B400EDFE7A /* Test Host */,
 				9021E4920FC5C6DD00443472 /* Documentation */,
+				C3B25EDE1AC23A7D0063CCD8 /* CocoaPods */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
@@ -904,6 +907,7 @@
 				32DBCF5E0370ADEE00C91783 /* CorePlot_Prefix.pch */,
 				070CF7AE0F3CA7AB0001FFF4 /* CorePlot.h */,
 				C31908A41998168C00B61898 /* CorePlot.xcconfig */,
+				C34F570D19D8CE5500446248 /* CorePlotWarnings.xcconfig */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -1100,6 +1104,14 @@
 				07C467B70FE1A96E00299939 /* CPTTextStylePlatformSpecific.m */,
 			);
 			name = "Mac Specific";
+			sourceTree = "<group>";
+		};
+		C3B25EDE1AC23A7D0063CCD8 /* CocoaPods */ = {
+			isa = PBXGroup;
+			children = (
+				C3B25EDF1AC23A7D0063CCD8 /* CorePlot.h */,
+			);
+			path = CocoaPods;
 			sourceTree = "<group>";
 		};
 		C3C032C510B8DE87003A11B6 /* Labels */ = {
@@ -1345,7 +1357,11 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
+<<<<<<< HEAD
 				LastUpgradeCheck = 0600;
+=======
+				LastUpgradeCheck = 0610;
+>>>>>>> core-plot/master
 			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "CorePlot" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1583,6 +1599,7 @@
 /* Begin XCBuildConfiguration section */
 		0730F602109492D900E95162 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C31908A41998168C00B61898 /* CorePlot.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1622,6 +1639,7 @@
 		};
 		0730F603109492D900E95162 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C31908A41998168C00B61898 /* CorePlot.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1660,6 +1678,7 @@
 		};
 		1DEB91AE08733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C31908A41998168C00B61898 /* CorePlot.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1696,6 +1715,7 @@
 		};
 		1DEB91AF08733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C31908A41998168C00B61898 /* CorePlot.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1731,9 +1751,9 @@
 		};
 		1DEB91B208733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C31908A41998168C00B61898 /* CorePlot.xcconfig */;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				LINKER_DISPLAYS_MANGLED_NAMES = NO;
@@ -1762,10 +1782,10 @@
 		};
 		1DEB91B308733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C31908A41998168C00B61898 /* CorePlot.xcconfig */;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_POSTPROCESSING = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				LINKER_DISPLAYS_MANGLED_NAMES = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;

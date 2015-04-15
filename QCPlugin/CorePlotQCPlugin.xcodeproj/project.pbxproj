@@ -26,11 +26,11 @@
 		16BA96310A7EB9AC001E4983 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16BA96300A7EB9AC001E4983 /* Quartz.framework */; };
 		7238D5520DB6988600E9A42D /* Settings.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7238D5500DB6988600E9A42D /* Settings.xib */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
-		A819AA3E11FD450D006D1C2D /* CPPieChartPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A819AA0411FD3F23006D1C2D /* CPPieChartPlugin.m */; };
-		A8FC1816102CBADE00CF2266 /* CPScatterPlotPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A8FC1815102CBADE00CF2266 /* CPScatterPlotPlugin.m */; };
-		A8FC1819102CBAEA00CF2266 /* CPBarPlotPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A8FC1818102CBAEA00CF2266 /* CPBarPlotPlugin.m */; };
+		A819AA3E11FD450D006D1C2D /* CPTPieChartPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A819AA0411FD3F23006D1C2D /* CPTPieChartPlugin.m */; };
+		A8FC1816102CBADE00CF2266 /* CPTScatterPlotPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A8FC1815102CBADE00CF2266 /* CPTScatterPlotPlugin.m */; };
+		A8FC1819102CBAEA00CF2266 /* CPTBarPlotPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A8FC1818102CBAEA00CF2266 /* CPTBarPlotPlugin.m */; };
 		BC21A98B1035BEC100FED2A4 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC21A97F1035BEAF00FED2A4 /* CorePlot.framework */; };
-		BC21A99A1035BF6F00FED2A4 /* CorePlot.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC21A97F1035BEAF00FED2A4 /* CorePlot.framework */; };
+		BC21A99A1035BF6F00FED2A4 /* CorePlot.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC21A97F1035BEAF00FED2A4 /* CorePlot.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,13 +86,14 @@
 		7238D5510DB6988600E9A42D /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Settings.xib; sourceTree = "<group>"; };
 		8D5B49B6048680CD000E48DA /* CorePlotQCPlugin.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CorePlotQCPlugin.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A819AA0311FD3F23006D1C2D /* CPPieChartPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPieChartPlugin.h; sourceTree = "<group>"; };
-		A819AA0411FD3F23006D1C2D /* CPPieChartPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPieChartPlugin.m; sourceTree = "<group>"; };
+		A819AA0311FD3F23006D1C2D /* CPTPieChartPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPieChartPlugin.h; sourceTree = "<group>"; };
+		A819AA0411FD3F23006D1C2D /* CPTPieChartPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTPieChartPlugin.m; sourceTree = "<group>"; };
 		A89BAB3B1027EFBD004B2FE1 /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = ../framework/CorePlot.xcodeproj; sourceTree = SOURCE_ROOT; };
-		A8FC1814102CBADE00CF2266 /* CPScatterPlotPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPScatterPlotPlugin.h; sourceTree = "<group>"; };
-		A8FC1815102CBADE00CF2266 /* CPScatterPlotPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPScatterPlotPlugin.m; sourceTree = "<group>"; };
-		A8FC1817102CBAEA00CF2266 /* CPBarPlotPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPBarPlotPlugin.h; sourceTree = "<group>"; };
-		A8FC1818102CBAEA00CF2266 /* CPBarPlotPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPBarPlotPlugin.m; sourceTree = "<group>"; };
+		A8FC1814102CBADE00CF2266 /* CPTScatterPlotPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTScatterPlotPlugin.h; sourceTree = "<group>"; };
+		A8FC1815102CBADE00CF2266 /* CPTScatterPlotPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTScatterPlotPlugin.m; sourceTree = "<group>"; };
+		A8FC1817102CBAEA00CF2266 /* CPTBarPlotPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTBarPlotPlugin.h; sourceTree = "<group>"; };
+		A8FC1818102CBAEA00CF2266 /* CPTBarPlotPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTBarPlotPlugin.m; sourceTree = "<group>"; };
+		C3C8CFF619E9504C007E0BCB /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../framework/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,12 +149,12 @@
 			children = (
 				16BA95400A7EB2EB001E4983 /* CorePlotQCPlugin.h */,
 				16BA95410A7EB2EB001E4983 /* CorePlotQCPlugin.m */,
-				A8FC1814102CBADE00CF2266 /* CPScatterPlotPlugin.h */,
-				A8FC1815102CBADE00CF2266 /* CPScatterPlotPlugin.m */,
-				A8FC1817102CBAEA00CF2266 /* CPBarPlotPlugin.h */,
-				A8FC1818102CBAEA00CF2266 /* CPBarPlotPlugin.m */,
-				A819AA0311FD3F23006D1C2D /* CPPieChartPlugin.h */,
-				A819AA0411FD3F23006D1C2D /* CPPieChartPlugin.m */,
+				A8FC1814102CBADE00CF2266 /* CPTScatterPlotPlugin.h */,
+				A8FC1815102CBADE00CF2266 /* CPTScatterPlotPlugin.m */,
+				A8FC1817102CBAEA00CF2266 /* CPTBarPlotPlugin.h */,
+				A8FC1818102CBAEA00CF2266 /* CPTBarPlotPlugin.m */,
+				A819AA0311FD3F23006D1C2D /* CPTPieChartPlugin.h */,
+				A819AA0411FD3F23006D1C2D /* CPTPieChartPlugin.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -170,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				16AA5C440A7EEE7300888E31 /* CorePlotQCPlugin_Prefix.pch */,
+				C3C8CFF619E9504C007E0BCB /* CorePlotWarnings.xcconfig */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -178,7 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				BC21A97F1035BEAF00FED2A4 /* CorePlot.framework */,
-				A8F18CF511FA634B00B2C42F /* UnitTests.octest */,
+				A8F18CF511FA634B00B2C42F /* UnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -212,7 +214,7 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0600;
 			};
 			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "CorePlotQCPlugin" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -241,10 +243,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		A8F18CF511FA634B00B2C42F /* UnitTests.octest */ = {
+		A8F18CF511FA634B00B2C42F /* UnitTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = UnitTests.octest;
+			path = UnitTests.xctest;
 			remoteRef = A8F18CF411FA634B00B2C42F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -290,9 +292,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				16BA95420A7EB2EB001E4983 /* CorePlotQCPlugin.m in Sources */,
-				A8FC1816102CBADE00CF2266 /* CPScatterPlotPlugin.m in Sources */,
-				A8FC1819102CBAEA00CF2266 /* CPBarPlotPlugin.m in Sources */,
-				A819AA3E11FD450D006D1C2D /* CPPieChartPlugin.m in Sources */,
+				A8FC1816102CBADE00CF2266 /* CPTScatterPlotPlugin.m in Sources */,
+				A8FC1819102CBAEA00CF2266 /* CPTBarPlotPlugin.m in Sources */,
+				A819AA3E11FD450D006D1C2D /* CPTPieChartPlugin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,6 +329,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ADDITIONAL_SDKS = "";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -349,6 +352,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ADDITIONAL_SDKS = "";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -367,13 +371,12 @@
 		};
 		1DEB913F08733D840010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3C8CFF619E9504C007E0BCB /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SYMROOT = "$(PROJECT_DIR)/../build";
 			};
@@ -381,13 +384,12 @@
 		};
 		1DEB914008733D840010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3C8CFF619E9504C007E0BCB /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = "";
 				SYMROOT = "$(PROJECT_DIR)/../build";
 			};

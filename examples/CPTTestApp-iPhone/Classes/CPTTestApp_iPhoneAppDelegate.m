@@ -13,12 +13,7 @@
 
 -(void)applicationDidFinishLaunching:(UIApplication *)application
 {
-    if ( [self.window respondsToSelector:@selector(setRootViewController:)] ) {
-        self.window.rootViewController = self.tabBarController;
-    }
-    else {
-        [self.window addSubview:self.tabBarController.view];
-    }
+    self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
 }
 

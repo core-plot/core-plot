@@ -13,7 +13,8 @@
 
 /// @name Initialization
 /// @{
--(instancetype)initWithRange:(CPTPlotRange *)newRange fill:(CPTFill *)newFill;
+-(instancetype)initWithRange:(CPTPlotRange *)newRange fill:(CPTFill *)newFill NS_DESIGNATED_INITIALIZER;
+-(instancetype)initWithCoder:(NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
 /// @}
 
 @end

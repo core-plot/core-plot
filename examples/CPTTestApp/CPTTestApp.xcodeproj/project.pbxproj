@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		07032B7111ABB9F300463D20 /* CorePlot.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 07032B6A11ABB9E000463D20 /* CorePlot.framework */; };
+		07032B7111ABB9F300463D20 /* CorePlot.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 07032B6A11ABB9E000463D20 /* CorePlot.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		07032B7211ABB9F700463D20 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07032B6A11ABB9E000463D20 /* CorePlot.framework */; };
 		077382B10F3DC1FB002F10E2 /* Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 077382B00F3DC1FB002F10E2 /* Controller.m */; };
 		07C13BBB0FF9322A00BEE616 /* BlueTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 07C13BBA0FF9322A00BEE616 /* BlueTexture.png */; };
@@ -16,7 +16,6 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		90AF4F440F36CF1800753D26 /* CPTTestApp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90AF4F430F36CF1800753D26 /* CPTTestApp.xib */; };
 		BC8E74240FC0B96000DF8511 /* RotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8E74230FC0B96000DF8511 /* RotationView.m */; };
-		BCB3FD520FD85658008875A4 /* CorePlotIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BCB3FD510FD85658008875A4 /* CorePlotIcon.icns */; };
 		C317AB4F1093CC1E00B25011 /* PlotSymbolDemo.xib in Resources */ = {isa = PBXBuildFile; fileRef = C317AB4E1093CC1E00B25011 /* PlotSymbolDemo.xib */; };
 		C317AB711093E09D00B25011 /* AxisDemo.xib in Resources */ = {isa = PBXBuildFile; fileRef = C317AB701093E09D00B25011 /* AxisDemo.xib */; };
 		C317AB751093E17500B25011 /* AxisDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = C317AB731093E17500B25011 /* AxisDemoController.m */; };
@@ -24,6 +23,7 @@
 		C38017DD124132020052B00D /* SelectionDemo.xib in Resources */ = {isa = PBXBuildFile; fileRef = C38017DC124132020052B00D /* SelectionDemo.xib */; };
 		C38017E1124132610052B00D /* SelectionDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38017E0124132610052B00D /* SelectionDemoController.m */; };
 		C39BB9A4181C154500D95E01 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8E737C0FC0B3CF00DF8511 /* QuartzCore.framework */; };
+		C3D3935C19FD653300148319 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D3935B19FD653300148319 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,7 +83,6 @@
 		BC8E737C0FC0B3CF00DF8511 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BC8E74220FC0B96000DF8511 /* RotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotationView.h; path = Source/RotationView.h; sourceTree = "<group>"; };
 		BC8E74230FC0B96000DF8511 /* RotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RotationView.m; path = Source/RotationView.m; sourceTree = "<group>"; };
-		BCB3FD510FD85658008875A4 /* CorePlotIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CorePlotIcon.icns; sourceTree = "<group>"; };
 		C317AB4E1093CC1E00B25011 /* PlotSymbolDemo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlotSymbolDemo.xib; path = Resources/PlotSymbolDemo.xib; sourceTree = "<group>"; };
 		C317AB701093E09D00B25011 /* AxisDemo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AxisDemo.xib; path = Resources/AxisDemo.xib; sourceTree = "<group>"; };
 		C317AB731093E17500B25011 /* AxisDemoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AxisDemoController.m; path = Source/AxisDemoController.m; sourceTree = "<group>"; };
@@ -93,6 +92,8 @@
 		C38017DC124132020052B00D /* SelectionDemo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SelectionDemo.xib; path = Resources/SelectionDemo.xib; sourceTree = "<group>"; };
 		C38017DF124132610052B00D /* SelectionDemoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectionDemoController.h; path = Source/SelectionDemoController.h; sourceTree = "<group>"; };
 		C38017E0124132610052B00D /* SelectionDemoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectionDemoController.m; path = Source/SelectionDemoController.m; sourceTree = "<group>"; };
+		C3880C3919DCD6A000ED0618 /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
+		C3D3935B19FD653300148319 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = CPTTestApp/Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,7 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				07032B6A11ABB9E000463D20 /* CorePlot.framework */,
-				07032B6C11ABB9E000463D20 /* UnitTests.octest */,
+				07032B6C11ABB9E000463D20 /* UnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -184,6 +185,7 @@
 			children = (
 				32CA4F630368D1EE00C91783 /* CPTTestApp_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
+				C3880C3919DCD6A000ED0618 /* CorePlotWarnings.xcconfig */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -191,7 +193,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BCB3FD510FD85658008875A4 /* CorePlotIcon.icns */,
+				C3D3935B19FD653300148319 /* Images.xcassets */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				07C13BBA0FF9322A00BEE616 /* BlueTexture.png */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
@@ -242,7 +244,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = NO;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0610;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "CPTTestApp" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -277,10 +279,10 @@
 			remoteRef = 07032B6911ABB9E000463D20 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		07032B6C11ABB9E000463D20 /* UnitTests.octest */ = {
+		07032B6C11ABB9E000463D20 /* UnitTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = UnitTests.octest;
+			path = UnitTests.xctest;
 			remoteRef = 07032B6B11ABB9E000463D20 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -292,8 +294,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
+				C3D3935C19FD653300148319 /* Images.xcassets in Resources */,
 				90AF4F440F36CF1800753D26 /* CPTTestApp.xib in Resources */,
-				BCB3FD520FD85658008875A4 /* CorePlotIcon.icns in Resources */,
 				07C13BBB0FF9322A00BEE616 /* BlueTexture.png in Resources */,
 				C317AB4F1093CC1E00B25011 /* PlotSymbolDemo.xib in Resources */,
 				C317AB711093E09D00B25011 /* AxisDemo.xib in Resources */,
@@ -343,6 +345,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -364,6 +367,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -379,6 +383,7 @@
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3880C3919DCD6A000ED0618 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
@@ -396,6 +401,7 @@
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3880C3919DCD6A000ED0618 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				FRAMEWORK_SEARCH_PATHS = "";

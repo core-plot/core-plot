@@ -7,13 +7,8 @@
 #import <UIKit/UIKit.h>
 
 @interface CPTTestAppBarChartController : UIViewController<CPTPlotDataSource>
-{
-    @private
-    CPTXYGraph *barChart;
-    NSTimer *timer;
-}
 
-@property (readwrite, strong, nonatomic) NSTimer *timer;
+@property (nonatomic, readwrite, strong) NSTimer *timer;
 
 -(void)timerFired;
 

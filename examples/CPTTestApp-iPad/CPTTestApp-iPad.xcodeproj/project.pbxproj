@@ -17,7 +17,9 @@
 		28D7ACF80DDB3853001CB0EB /* CPTTestApp_iPadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* CPTTestApp_iPadViewController.m */; };
 		BC65753F11653FC60008F594 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC65753611653F8A0008F594 /* libCorePlot-CocoaTouch.a */; };
 		BC65758F116549890008F594 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC65758E116549890008F594 /* QuartzCore.framework */; };
+		C34677AE19F3341700429A85 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C34677AD19F3341700429A85 /* Launch Screen.xib */; };
 		C3CD283917DE9C59008EED1E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CD283817DE9C59008EED1E /* Accelerate.framework */; };
+		C3D3936019FD670400148319 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D3935F19FD670400148319 /* Images.xcassets */; };
 		C3F47B6E17BF99DE0075181F /* CorePlotIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F47B6C17BF99DE0075181F /* CorePlotIcon.png */; };
 		C3F47B6F17BF99DE0075181F /* CorePlotIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F47B6D17BF99DE0075181F /* CorePlotIcon@2x.png */; };
 /* End PBXBuildFile section */
@@ -55,7 +57,10 @@
 		8D1107310486CEB800E47090 /* CPTTestApp_iPad-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "CPTTestApp_iPad-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		BC65753011653F8A0008F594 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../../framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		BC65758E116549890008F594 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C34677AD19F3341700429A85 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
+		C36E7CC519DE1C1F00EDEACB /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
 		C3CD283817DE9C59008EED1E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		C3D3935F19FD670400148319 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "CPTTestApp-iPad/Images.xcassets"; sourceTree = "<group>"; };
 		C3F47B6C17BF99DE0075181F /* CorePlotIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CorePlotIcon.png; sourceTree = "<group>"; };
 		C3F47B6D17BF99DE0075181F /* CorePlotIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CorePlotIcon@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,6 +122,7 @@
 			children = (
 				32CA4F630368D1EE00C91783 /* CPTTestApp_iPad_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
+				C36E7CC519DE1C1F00EDEACB /* CorePlotWarnings.xcconfig */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -124,8 +130,10 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C3D3935F19FD670400148319 /* Images.xcassets */,
 				2899E5210DE3E06400AC0155 /* CPTTestApp_iPadViewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
+				C34677AD19F3341700429A85 /* Launch Screen.xib */,
 				C3F47B6C17BF99DE0075181F /* CorePlotIcon.png */,
 				C3F47B6D17BF99DE0075181F /* CorePlotIcon@2x.png */,
 				8D1107310486CEB800E47090 /* CPTTestApp_iPad-Info.plist */,
@@ -225,7 +233,9 @@
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				2899E5220DE3E06400AC0155 /* CPTTestApp_iPadViewController.xib in Resources */,
 				C3F47B6E17BF99DE0075181F /* CorePlotIcon.png in Resources */,
+				C3D3936019FD670400148319 /* Images.xcassets in Resources */,
 				C3F47B6F17BF99DE0075181F /* CorePlotIcon@2x.png in Resources */,
+				C34677AE19F3341700429A85 /* Launch Screen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +267,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -273,6 +285,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -286,13 +300,14 @@
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C36E7CC519DE1C1F00EDEACB /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -307,13 +322,14 @@
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C36E7CC519DE1C1F00EDEACB /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
 					"-ObjC",

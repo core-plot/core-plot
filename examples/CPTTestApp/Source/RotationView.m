@@ -7,6 +7,12 @@
 
 static const CGFloat kMouseMovementScaleFactorForRotation = 1.0;
 
+@interface RotationView()
+
+@property (nonatomic, readwrite) NSPoint previousLocation;
+
+@end
+
 @implementation RotationView
 
 #pragma mark -
@@ -14,7 +20,7 @@ static const CGFloat kMouseMovementScaleFactorForRotation = 1.0;
 
 -(id)initWithFrame:(NSRect)frame
 {
-    if ( self = [super initWithFrame:frame] ) {
+    if ( (self = [super initWithFrame:frame]) ) {
         rotationTransform = CATransform3DIdentity;
         // Initialization code here.
     }
@@ -31,29 +37,34 @@ static const CGFloat kMouseMovementScaleFactorForRotation = 1.0;
 
 -(void)mouseDown:(NSEvent *)theEvent
 {
-    previousLocation = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    self.previousLocation = [self convertPoint:[theEvent locationInWindow] fromView:nil];
 }
 
 -(void)mouseDragged:(NSEvent *)theEvent
 {
     NSPoint currentLocation = [self convertPoint:[theEvent locationInWindow] fromView:nil];
 
-    CGFloat displacementInX = kMouseMovementScaleFactorForRotation * (currentLocation.x - previousLocation.x);
-    CGFloat displacementInY = kMouseMovementScaleFactorForRotation * (previousLocation.y - currentLocation.y);
+    CGFloat displacementInX = kMouseMovementScaleFactorForRotation * (currentLocation.x - self.previousLocation.x);
+    CGFloat displacementInY = kMouseMovementScaleFactorForRotation * (self.previousLocation.y - currentLocation.y);
 
     CGFloat totalRotation = sqrt(displacementInX * displacementInX + displacementInY * displacementInY);
 
-    rotationTransform = CATransform3DRotate( rotationTransform, totalRotation * M_PI / 180.0,
-                                             ( (displacementInX / totalRotation) * rotationTransform.m12 + (displacementInY / totalRotation) * rotationTransform.m11 ),
-                                             ( (displacementInX / totalRotation) * rotationTransform.m22 + (displacementInY / totalRotation) * rotationTransform.m21 ),
-                                             ( (displacementInX / totalRotation) * rotationTransform.m32 + (displacementInY / totalRotation) * rotationTransform.m31 ) );
-    [rotationDelegate rotateObjectUsingTransform:rotationTransform];
-    previousLocation = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    CATransform3D oldTransform = self.rotationTransform;
+    CATransform3D newTransform = CATransform3DRotate( oldTransform, totalRotation * M_PI / 180.0,
+                                                      ( (displacementInX / totalRotation) * oldTransform.m12 + (displacementInY / totalRotation) * oldTransform.m11 ),
+                                                      ( (displacementInX / totalRotation) * oldTransform.m22 + (displacementInY / totalRotation) * oldTransform.m21 ),
+                                                      ( (displacementInX / totalRotation) * oldTransform.m32 + (displacementInY / totalRotation) * oldTransform.m31 ) );
+
+    id<CPTRotationDelegate> theDelegate = self.rotationDelegate;
+    [theDelegate rotateObjectUsingTransform:newTransform];
+
+    self.rotationTransform = newTransform;
+    self.previousLocation  = [self convertPoint:[theEvent locationInWindow] fromView:nil];
 }
 
 -(void)mouseUp:(NSEvent *)theEvent
 {
-    previousLocation = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    self.previousLocation = [self convertPoint:[theEvent locationInWindow] fromView:nil];
 }
 
 #pragma mark -
@@ -61,5 +72,7 @@ static const CGFloat kMouseMovementScaleFactorForRotation = 1.0;
 
 @synthesize rotationTransform;
 @synthesize rotationDelegate;
+
+@synthesize previousLocation;
 
 @end

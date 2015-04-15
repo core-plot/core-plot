@@ -3,6 +3,7 @@
 #import "CPTExceptions.h"
 #import "CPTFill.h"
 #import "CPTLegend.h"
+#import "CPTLimitBand.h"
 #import "CPTLineStyle.h"
 #import "CPTMutableNumericData.h"
 #import "CPTPathExtensions.h"
@@ -40,6 +41,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 @property (nonatomic, readwrite, strong) NSArray *plotSymbols;
 @property (nonatomic, readwrite, assign) NSUInteger pointingDeviceDownIndex;
 @property (nonatomic, readwrite, assign) BOOL pointingDeviceDownOnLine;
+@property (nonatomic, readwrite, strong) NSMutableArray *mutableAreaFillBands;
 
 -(void)calculatePointsToDraw:(BOOL *)pointDrawFlags forPlotSpace:(CPTXYPlotSpace *)xyPlotSpace includeVisiblePointsOnly:(BOOL)visibleOnly numberOfPoints:(NSUInteger)dataCount;
 -(void)calculateViewPoints:(CGPoint *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags numberOfPoints:(NSUInteger)dataCount;
@@ -156,6 +158,15 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  **/
 @synthesize pointingDeviceDownOnLine;
 
+/** @property NSArray *areaFillBands
+ *  @brief An array of CPTLimitBand objects.
+ *
+ *  The limit bands are drawn between the plot line and areaBaseValue and on top of the areaFill.
+ **/
+@dynamic areaFillBands;
+
+@synthesize mutableAreaFillBands;
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -210,6 +221,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         interpolation                   = CPTScatterPlotInterpolationLinear;
         pointingDeviceDownIndex         = NSNotFound;
         pointingDeviceDownOnLine        = NO;
+        mutableAreaFillBands            = nil;
         self.labelField                 = CPTScatterPlotFieldY;
     }
     return self;
@@ -234,6 +246,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         plotLineMarginForHitDetection           = theLayer->plotLineMarginForHitDetection;
         allowSimultaneousSymbolAndPlotSelection = theLayer->allowSimultaneousSymbolAndPlotSelection;
         interpolation                           = theLayer->interpolation;
+        mutableAreaFillBands                    = theLayer->mutableAreaFillBands;
         pointingDeviceDownIndex                 = NSNotFound;
         pointingDeviceDownOnLine                = NO;
     }
@@ -256,6 +269,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     [coder encodeObject:self.plotSymbol forKey:@"CPTScatterPlot.plotSymbol"];
     [coder encodeObject:self.areaFill forKey:@"CPTScatterPlot.areaFill"];
     [coder encodeObject:self.areaFill2 forKey:@"CPTScatterPlot.areaFill2"];
+    [coder encodeObject:self.mutableAreaFillBands forKey:@"CPTScatterPlot.mutableAreaFillBands"];
     [coder encodeDecimal:self.areaBaseValue forKey:@"CPTScatterPlot.areaBaseValue"];
     [coder encodeDecimal:self.areaBaseValue2 forKey:@"CPTScatterPlot.areaBaseValue2"];
     [coder encodeCGFloat:self.plotSymbolMarginForHitDetection forKey:@"CPTScatterPlot.plotSymbolMarginForHitDetection"];
@@ -275,6 +289,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         plotSymbol                              = [[coder decodeObjectForKey:@"CPTScatterPlot.plotSymbol"] copy];
         areaFill                                = [[coder decodeObjectForKey:@"CPTScatterPlot.areaFill"] copy];
         areaFill2                               = [[coder decodeObjectForKey:@"CPTScatterPlot.areaFill2"] copy];
+        mutableAreaFillBands                    = [[coder decodeObjectForKey:@"CPTScatterPlot.mutableAreaFillBands"] mutableCopy];
         areaBaseValue                           = [coder decodeDecimalForKey:@"CPTScatterPlot.areaBaseValue"];
         areaBaseValue2                          = [coder decodeDecimalForKey:@"CPTScatterPlot.areaBaseValue2"];
         plotSymbolMarginForHitDetection         = [coder decodeCGFloatForKey:@"CPTScatterPlot.plotSymbolMarginForHitDetection"];
@@ -762,7 +777,9 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     if ( firstDrawnPointIndex != NSNotFound ) {
         NSRange viewIndexRange = NSMakeRange( (NSUInteger)firstDrawnPointIndex, (NSUInteger)(lastDrawnPointIndex - firstDrawnPointIndex + 1) );
 
+        CPTPlotArea *thePlotArea   = self.plotArea;
         CPTLineStyle *theLineStyle = self.dataLineStyle;
+        NSMutableArray *fillBands  = self.mutableAreaFillBands;
 
         // Draw fills
         NSDecimal theAreaBaseValue;
@@ -783,32 +800,66 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                 default:
                     break;
             }
-            if ( theFill && ( !NSDecimalIsNotANumber(&theAreaBaseValue) ) ) {
-                // clear the plot shadow if any--not needed for fills when the plot has a data line
-                if ( theLineStyle ) {
-                    CGContextSaveGState(context);
-                    CGContextSetShadowWithColor(context, CGSizeZero, CPTFloat(0.0), NULL);
-                }
+            if ( !NSDecimalIsNotANumber(&theAreaBaseValue) ) {
+                if ( theFill || ( (i == 0) && fillBands ) ) {
+                    // clear the plot shadow if any--not needed for fills when the plot has a data line
+                    if ( theLineStyle ) {
+                        CGContextSaveGState(context);
+                        CGContextSetShadowWithColor(context, CGSizeZero, CPTFloat(0.0), NULL);
+                    }
 
-                NSNumber *xValue = [xValueData sampleValue:(NSUInteger)firstDrawnPointIndex];
-                NSDecimal plotPoint[2];
-                plotPoint[CPTCoordinateX] = [xValue decimalValue];
-                plotPoint[CPTCoordinateY] = theAreaBaseValue;
-                CGPoint baseLinePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2] fromLayer:self.plotArea];
-                if ( self.alignsPointsToPixels ) {
-                    baseLinePoint = CPTAlignIntegralPointToUserSpace(context, baseLinePoint);
-                }
+                    NSNumber *xValue = [xValueData sampleValue:(NSUInteger)firstDrawnPointIndex];
+                    NSDecimal plotPoint[2];
+                    plotPoint[CPTCoordinateX] = [xValue decimalValue];
+                    plotPoint[CPTCoordinateY] = theAreaBaseValue;
+                    CGPoint baseLinePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2] fromLayer:thePlotArea];
+                    if ( pixelAlign ) {
+                        baseLinePoint = CPTAlignIntegralPointToUserSpace(context, baseLinePoint);
+                    }
 
-                CGPathRef dataLinePath = [self newDataLinePathForViewPoints:viewPoints indexRange:viewIndexRange baselineYValue:baseLinePoint.y];
+                    CGPathRef dataLinePath = [self newDataLinePathForViewPoints:viewPoints indexRange:viewIndexRange baselineYValue:baseLinePoint.y];
 
-                CGContextBeginPath(context);
-                CGContextAddPath(context, dataLinePath);
-                [theFill fillPathInContext:context];
+                    if ( theFill ) {
+                        CGContextBeginPath(context);
+                        CGContextAddPath(context, dataLinePath);
+                        [theFill fillPathInContext:context];
+                    }
 
-                CGPathRelease(dataLinePath);
+                    // Draw fill bands
+                    if ( (i == 0) && fillBands ) {
+                        CGFloat height = CPTFloat( CGBitmapContextGetHeight(context) );
 
-                if ( theLineStyle ) {
-                    CGContextRestoreGState(context);
+                        for ( CPTLimitBand *band in fillBands ) {
+                            CGContextSaveGState(context);
+
+                            CPTPlotRange *bandRange = band.range;
+
+                            plotPoint[CPTCoordinateX] = bandRange.minLimit;
+                            CGPoint minPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2] fromLayer:thePlotArea];
+
+                            plotPoint[CPTCoordinateX] = bandRange.maxLimit;
+                            CGPoint maxPoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2] fromLayer:thePlotArea];
+
+                            if ( pixelAlign ) {
+                                minPoint = CPTAlignIntegralPointToUserSpace(context, minPoint);
+                                maxPoint = CPTAlignIntegralPointToUserSpace(context, maxPoint);
+                            }
+
+                            CGContextClipToRect( context, CGRectMake(minPoint.x, 0.0, maxPoint.x - minPoint.x, height) );
+
+                            CGContextBeginPath(context);
+                            CGContextAddPath(context, dataLinePath);
+                            [band.fill fillPathInContext:context];
+
+                            CGContextRestoreGState(context);
+                        }
+                    }
+
+                    CGPathRelease(dataLinePath);
+
+                    if ( theLineStyle ) {
+                        CGContextRestoreGState(context);
+                    }
                 }
             }
         }
@@ -1212,6 +1263,36 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 }
 
+-(CGPathRef)newDataLinePath
+{
+    [self reloadDataIfNeeded];
+
+    NSUInteger dataCount = self.cachedDataCount;
+    if ( dataCount == 0 ) {
+        return CGPathCreateMutable();
+    }
+
+    // Calculate view points
+    CGPoint *viewPoints  = malloc( dataCount * sizeof(CGPoint) );
+    BOOL *drawPointFlags = malloc( dataCount * sizeof(BOOL) );
+
+    for ( NSUInteger i = 0; i < dataCount; i++ ) {
+        drawPointFlags[i] = YES;
+    }
+
+    [self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags numberOfPoints:dataCount];
+
+    // Create the path
+    CGPathRef dataLinePath = [self newDataLinePathForViewPoints:viewPoints
+                                                     indexRange:NSMakeRange(0, dataCount)
+                                                 baselineYValue:NAN];
+
+    free(viewPoints);
+    free(drawPointFlags);
+
+    return dataLinePath;
+}
+
 /// @endcond
 
 #pragma mark -
@@ -1300,6 +1381,45 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 }
 
 /// @endcond
+
+#pragma mark -
+#pragma mark Area Fill Bands
+
+/** @brief Add an area fill limit band.
+ *
+ *  The band will be drawn on top of the @ref areaFill between the plot line and the @ref areaBaseValue.
+ *
+ *  @param limitBand The new limit band.
+ **/
+-(void)addAreaFillBand:(CPTLimitBand *)limitBand
+{
+    if ( [limitBand isKindOfClass:[CPTLimitBand class]] ) {
+        if ( !self.mutableAreaFillBands ) {
+            self.mutableAreaFillBands = [NSMutableArray array];
+        }
+
+        [self.mutableAreaFillBands addObject:limitBand];
+
+        [self setNeedsDisplay];
+    }
+}
+
+/** @brief Remove an area fill limit band.
+ *  @param limitBand The limit band to be removed.
+ **/
+-(void)removeAreaFillBand:(CPTLimitBand *)limitBand
+{
+    if ( limitBand ) {
+        NSMutableArray *fillBands = self.mutableAreaFillBands;
+
+        [fillBands removeObject:limitBand];
+        if ( fillBands.count == 0 ) {
+            self.mutableAreaFillBands = nil;
+        }
+
+        [self setNeedsDisplay];
+    }
+}
 
 #pragma mark -
 #pragma mark Responder Chain and User interaction
@@ -1656,6 +1776,11 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 }
 
+-(NSArray *)areaFillBands
+{
+    return [self.mutableAreaFillBands copy];
+}
+
 -(void)setAreaBaseValue:(NSDecimal)newAreaBaseValue
 {
     if ( CPTDecimalEquals(areaBaseValue, newAreaBaseValue) ) {
@@ -1664,36 +1789,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     areaBaseValue = newAreaBaseValue;
     [self setNeedsDisplay];
     [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
-}
-
--(CGPathRef)newDataLinePath
-{
-    [self reloadDataIfNeeded];
-
-    NSUInteger dataCount = self.cachedDataCount;
-    if ( dataCount == 0 ) {
-        return CGPathCreateMutable();
-    }
-
-    // Calculate view points
-    CGPoint *viewPoints  = malloc( dataCount * sizeof(CGPoint) );
-    BOOL *drawPointFlags = malloc( dataCount * sizeof(BOOL) );
-
-    for ( NSUInteger i = 0; i < dataCount; i++ ) {
-        drawPointFlags[i] = YES;
-    }
-
-    [self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags numberOfPoints:dataCount];
-
-    // Create the path
-    CGPathRef dataLinePath = [self newDataLinePathForViewPoints:viewPoints
-                                                     indexRange:NSMakeRange(0, dataCount)
-                                                 baselineYValue:NAN];
-
-    free(viewPoints);
-    free(drawPointFlags);
-
-    return dataLinePath;
 }
 
 -(void)setAreaBaseValue2:(NSDecimal)newAreaBaseValue

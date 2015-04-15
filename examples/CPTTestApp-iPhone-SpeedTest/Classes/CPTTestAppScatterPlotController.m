@@ -11,12 +11,25 @@
 #define USE_DOUBLEFASTPATH true
 #define USE_ONEVALUEPATH   false
 
+@interface CPTTestAppScatterPlotController()
+
+@property (nonatomic, readwrite, strong) CPTXYGraph *graph;
+
+@property (nonatomic, readwrite, strong) NSData *xxx;
+@property (nonatomic, readwrite, strong) NSData *yyy1;
+@property (nonatomic, readwrite, strong) NSData *yyy2;
+
+@end
+
+#pragma mark -
+
 @implementation CPTTestAppScatterPlotController
 
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    return YES;
-}
+@synthesize graph;
+
+@synthesize xxx;
+@synthesize yyy1;
+@synthesize yyy2;
 
 #pragma mark -
 #pragma mark Initialization and teardown
@@ -26,20 +39,26 @@
     [super viewDidLoad];
 
     // Create graph from a custom theme
-    graph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
-    CPTTheme *theme = [[TestXYTheme alloc] init];
-    [graph applyTheme:theme];
+    CPTXYGraph *newGraph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
+    CPTTheme *theme      = [[TestXYTheme alloc] init];
+    [newGraph applyTheme:theme];
+    self.graph = newGraph;
+
+    newGraph.paddingLeft   = 10.0;
+    newGraph.paddingTop    = 20.0;
+    newGraph.paddingRight  = 10.0;
+    newGraph.paddingBottom = 10.0;
 
     CPTGraphHostingView *hostingView = (CPTGraphHostingView *)self.view;
-    hostingView.hostedGraph = graph;
+    hostingView.hostedGraph = newGraph;
 
-    graph.plotAreaFrame.masksToBorder = NO;
+    newGraph.plotAreaFrame.masksToBorder = NO;
 
     // Setup plot space
-    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)newGraph.defaultPlotSpace;
     plotSpace.allowsUserInteraction = NO;
-    plotSpace.xRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(NUM_POINTS)];
-    plotSpace.yRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(NUM_POINTS)];
+    plotSpace.xRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(NUM_POINTS)];
+    plotSpace.yRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(NUM_POINTS)];
 
     // Create a blue plot area
     CPTScatterPlot *boundLinePlot = [[CPTScatterPlot alloc] init];
@@ -51,7 +70,7 @@
     boundLinePlot.dataLineStyle = lineStyle;
 
     boundLinePlot.dataSource = self;
-    [graph addPlot:boundLinePlot];
+    [newGraph addPlot:boundLinePlot];
 
     // Create a green plot area
     CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] init];
@@ -63,13 +82,26 @@
     dataSourceLinePlot.dataLineStyle = lineStyle;
 
     dataSourceLinePlot.dataSource = self;
-    [graph addPlot:dataSourceLinePlot];
+    [newGraph addPlot:dataSourceLinePlot];
+
+    // Create plot data
+    NSMutableData *xData  = [[NSMutableData alloc] initWithCapacity:NUM_POINTS * sizeof(double)];
+    NSMutableData *y1Data = [[NSMutableData alloc] initWithCapacity:NUM_POINTS * sizeof(double)];
+    NSMutableData *y2Data = [[NSMutableData alloc] initWithCapacity:NUM_POINTS * sizeof(double)];
+
+    double *xArray  = xData.mutableBytes;
+    double *y1Array = y1Data.mutableBytes;
+    double *y2Array = y2Data.mutableBytes;
 
     for ( NSUInteger i = 0; i < NUM_POINTS; i++ ) {
-        xxx[i]  = i;
-        yyy1[i] = (NUM_POINTS / 3) * (rand() / (double)RAND_MAX);
-        yyy2[i] = (NUM_POINTS / 3) * (rand() / (double)RAND_MAX) + NUM_POINTS / 3;
+        xArray[i]  = i;
+        y1Array[i] = (NUM_POINTS / 3) * (arc4random() / (double)UINT32_MAX);
+        y2Array[i] = (NUM_POINTS / 3) * (arc4random() / (double)UINT32_MAX) + NUM_POINTS / 3;
     }
+
+    self.xxx  = xData;
+    self.yyy1 = y1Data;
+    self.yyy2 = y2Data;
 
 #define PERFORMANCE_TEST1
 #ifdef PERFORMANCE_TEST1
@@ -83,7 +115,7 @@
 
 -(void)reloadPlots
 {
-    NSArray *plots = [graph allPlots];
+    NSArray *plots = [self.graph allPlots];
 
     for ( CPTPlot *plot in plots ) {
         [plot reloadData];
@@ -93,11 +125,12 @@
 -(void)changePlotRange
 {
     // Setup plot space
-    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-    float ylen                = NUM_POINTS * (rand() / (double)RAND_MAX);
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
 
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(NUM_POINTS)];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(ylen)];
+    double ylen = NUM_POINTS * (arc4random() / (double)UINT32_MAX);
+
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(NUM_POINTS)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(ylen)];
 }
 
 #pragma mark -
@@ -106,14 +139,14 @@
 -(double *)valuesForPlotWithIdentifier:(id)identifier field:(NSUInteger)fieldEnum
 {
     if ( fieldEnum == 0 ) {
-        return xxx;
+        return (double *)self.xxx.bytes;
     }
     else {
         if ( [identifier isEqualToString:@"Blue Plot"] ) {
-            return yyy1;
+            return (double *)self.yyy1.bytes;
         }
         else {
-            return yyy2;
+            return (double *)self.yyy2.bytes;
         }
     }
 }
@@ -168,9 +201,7 @@
 
     NSMutableArray *returnArray = [NSMutableArray arrayWithCapacity:indexRange.length];
     for ( NSUInteger i = indexRange.location; i < indexRange.location + indexRange.length; i++ ) {
-        NSNumber *number = [[NSNumber alloc] initWithDouble:values[i]];
-        [returnArray addObject:number];
-        [number release];
+        [returnArray addObject:@(values[i])];
     }
     return returnArray;
 }

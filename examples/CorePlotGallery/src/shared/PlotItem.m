@@ -2,9 +2,6 @@
 //  PlotItem.m
 //  CorePlotGallery
 //
-//  Created by Jeff Buck on 9/4/10.
-//  Copyright 2010 Jeff Buck. All rights reserved.
-//
 
 #import "PlotGallery.h"
 
@@ -22,12 +19,22 @@ NSString *const kLinePlots      = @"Line Plots";
 NSString *const kBarPlots       = @"Bar Plots";
 NSString *const kFinancialPlots = @"Financial Plots";
 
+@interface PlotItem()
+
+@property (nonatomic, readwrite, strong) CPTNativeImage *cachedImage;
+
+@end
+
+#pragma mark -
+
 @implementation PlotItem
 
 @synthesize defaultLayerHostingView;
 @synthesize graphs;
 @synthesize section;
 @synthesize title;
+@synthesize cachedImage;
+@dynamic titleSize;
 
 +(void)registerPlotItem:(id)item
 {
@@ -40,7 +47,6 @@ NSString *const kFinancialPlots = @"Financial Plots";
         PlotItem *plotItem = [[itemClass alloc] init];
         if ( plotItem ) {
             [[PlotGallery sharedPlotGallery] addPlotItem:plotItem];
-            [plotItem release];
         }
     }
 }
@@ -49,20 +55,21 @@ NSString *const kFinancialPlots = @"Financial Plots";
 {
     if ( (self = [super init]) ) {
         defaultLayerHostingView = nil;
-        graphs                  = [[NSMutableArray alloc] init];
-        section                 = nil;
-        title                   = nil;
+
+        graphs  = [[NSMutableArray alloc] init];
+        section = nil;
+        title   = nil;
     }
 
     return self;
 }
 
--(void)addGraph:(CPTGraph *)graph toHostingView:(CPTGraphHostingView *)layerHostingView
+-(void)addGraph:(CPTGraph *)graph toHostingView:(CPTGraphHostingView *)hostingView
 {
-    [graphs addObject:graph];
+    [self.graphs addObject:graph];
 
-    if ( layerHostingView ) {
-        layerHostingView.hostedGraph = graph;
+    if ( hostingView ) {
+        hostingView.hostedGraph = graph;
     }
 }
 
@@ -76,27 +83,22 @@ NSString *const kFinancialPlots = @"Financial Plots";
     [[CPTAnimation sharedInstance] removeAllAnimationOperations];
 
     // Remove the CPTLayerHostingView
-    if ( defaultLayerHostingView ) {
-        [defaultLayerHostingView removeFromSuperview];
+    CPTGraphHostingView *hostingView = self.defaultLayerHostingView;
+    if ( hostingView ) {
+        [hostingView removeFromSuperview];
 
-        defaultLayerHostingView.hostedGraph = nil;
-        [defaultLayerHostingView release];
-        defaultLayerHostingView = nil;
+        hostingView.hostedGraph      = nil;
+        self.defaultLayerHostingView = nil;
     }
 
-    [cachedImage release];
-    cachedImage = nil;
+    self.cachedImage = nil;
 
-    [graphs removeAllObjects];
+    [self.graphs removeAllObjects];
 }
 
 -(void)dealloc
 {
     [self killGraph];
-    [title release];
-    [section release];
-
-    [super dealloc];
 }
 
 // override to generate data for the plot if needed
@@ -115,26 +117,39 @@ NSString *const kFinancialPlots = @"Financial Plots";
     return comparisonResult;
 }
 
--(void)setTitleDefaultsForGraph:(CPTGraph *)graph withBounds:(CGRect)bounds
+-(CGFloat)titleSize
 {
-    graph.title = self.title;
-    CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
-    textStyle.color                = [CPTColor grayColor];
-    textStyle.fontName             = @"Helvetica-Bold";
-    textStyle.fontSize             = round( bounds.size.height / CPTFloat(20.0) );
-    graph.titleTextStyle           = textStyle;
-    graph.titleDisplacement        = CPTPointMake( 0.0, textStyle.fontSize * CPTFloat(1.5) );
-    graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
+    CGFloat size;
+
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+    switch ( UI_USER_INTERFACE_IDIOM() ) {
+        case UIUserInterfaceIdiomPad:
+            size = 24.0;
+            break;
+
+        case UIUserInterfaceIdiomPhone:
+            size = 16.0;
+            break;
+
+        default:
+            size = 12.0;
+            break;
+    }
+#else
+    size = 24.0;
+#endif
+
+    return size;
 }
 
--(void)setPaddingDefaultsForGraph:(CPTGraph *)graph withBounds:(CGRect)bounds
+-(void)setPaddingDefaultsForGraph:(CPTGraph *)graph
 {
-    CGFloat boundsPadding = round( bounds.size.width / CPTFloat(20.0) ); // Ensure that padding falls on an integral pixel
+    CGFloat boundsPadding = self.titleSize;
 
     graph.paddingLeft = boundsPadding;
 
     if ( graph.titleDisplacement.y > 0.0 ) {
-        graph.paddingTop = graph.titleTextStyle.fontSize * 2.0;
+        graph.paddingTop = graph.titleTextStyle.fontSize * CPTFloat(2.0);
     }
     else {
         graph.paddingTop = boundsPadding;
@@ -144,26 +159,101 @@ NSString *const kFinancialPlots = @"Financial Plots";
     graph.paddingBottom = boundsPadding;
 }
 
+-(void)formatAllGraphs
+{
+    CGFloat graphTitleSize = self.titleSize;
+
+    for ( CPTGraph *graph in self.graphs ) {
+        // Title
+        CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
+        textStyle.color    = [CPTColor grayColor];
+        textStyle.fontName = @"Helvetica-Bold";
+        textStyle.fontSize = graphTitleSize;
+
+        graph.title                    = (self.graphs.count == 1 ? self.title : nil);
+        graph.titleTextStyle           = textStyle;
+        graph.titleDisplacement        = CPTPointMake( 0.0, textStyle.fontSize * CPTFloat(1.5) );
+        graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
+
+        // Padding
+        CGFloat boundsPadding = graphTitleSize;
+        graph.paddingLeft = boundsPadding;
+
+        if ( graph.title.length > 0 ) {
+            graph.paddingTop = MAX(graph.titleTextStyle.fontSize * CPTFloat(2.0), boundsPadding);
+        }
+        else {
+            graph.paddingTop = boundsPadding;
+        }
+
+        graph.paddingRight  = boundsPadding;
+        graph.paddingBottom = boundsPadding;
+
+        // Axis labels
+        CGFloat axisTitleSize = graphTitleSize * CPTFloat(0.75);
+        CGFloat labelSize     = graphTitleSize * CPTFloat(0.5);
+
+        for ( CPTAxis *axis in graph.axisSet.axes ) {
+            // Axis title
+            textStyle          = [axis.titleTextStyle mutableCopy];
+            textStyle.fontSize = axisTitleSize;
+
+            axis.titleTextStyle = textStyle;
+
+            // Axis labels
+            textStyle          = [axis.labelTextStyle mutableCopy];
+            textStyle.fontSize = labelSize;
+
+            axis.labelTextStyle = textStyle;
+
+            textStyle          = [axis.minorTickLabelTextStyle mutableCopy];
+            textStyle.fontSize = labelSize;
+
+            axis.minorTickLabelTextStyle = textStyle;
+        }
+
+        // Plot labels
+        for ( CPTPlot *plot in graph.allPlots ) {
+            textStyle          = [plot.labelTextStyle mutableCopy];
+            textStyle.fontSize = labelSize;
+
+            plot.labelTextStyle = textStyle;
+        }
+
+        // Legend
+        CPTLegend *theLegend = graph.legend;
+        textStyle          = [theLegend.textStyle mutableCopy];
+        textStyle.fontSize = labelSize;
+
+        theLegend.textStyle  = textStyle;
+        theLegend.swatchSize = CGSizeMake( labelSize * CPTFloat(1.5), labelSize * CPTFloat(1.5) );
+
+        theLegend.rowMargin    = labelSize * CPTFloat(0.75);
+        theLegend.columnMargin = labelSize * CPTFloat(0.75);
+
+        theLegend.paddingLeft   = labelSize * CPTFloat(0.375);
+        theLegend.paddingTop    = labelSize * CPTFloat(0.375);
+        theLegend.paddingRight  = labelSize * CPTFloat(0.375);
+        theLegend.paddingBottom = labelSize * CPTFloat(0.375);
+    }
+}
+
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 
 -(UIImage *)image
 {
-    if ( cachedImage == nil ) {
+    if ( self.cachedImage == nil ) {
         CGRect imageFrame = CGRectMake(0, 0, 400, 300);
         UIView *imageView = [[UIView alloc] initWithFrame:imageFrame];
         [imageView setOpaque:YES];
         [imageView setUserInteractionEnabled:NO];
 
         [self renderInView:imageView withTheme:nil animated:NO];
+        [imageView layoutIfNeeded];
 
         CGSize boundsSize = imageView.bounds.size;
 
-        if ( UIGraphicsBeginImageContextWithOptions ) {
-            UIGraphicsBeginImageContextWithOptions(boundsSize, YES, 0.0);
-        }
-        else {
-            UIGraphicsBeginImageContext(boundsSize);
-        }
+        UIGraphicsBeginImageContextWithOptions(boundsSize, YES, 0.0);
 
         CGContextRef context = UIGraphicsGetCurrentContext();
 
@@ -186,21 +276,18 @@ NSString *const kFinancialPlots = @"Financial Plots";
 
         CGContextSetAllowsAntialiasing(context, false);
 
-        cachedImage = UIGraphicsGetImageFromCurrentImageContext();
-        [cachedImage retain];
+        self.cachedImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
-
-        [imageView release];
     }
 
-    return cachedImage;
+    return self.cachedImage;
 }
 
 #else // OSX
 
 -(NSImage *)image
 {
-    if ( cachedImage == nil ) {
+    if ( self.cachedImage == nil ) {
         CGRect imageFrame = CGRectMake(0, 0, 400, 300);
 
         NSView *imageView = [[NSView alloc] initWithFrame:NSRectFromCGRect(imageFrame)];
@@ -212,8 +299,8 @@ NSString *const kFinancialPlots = @"Financial Plots";
 
         NSBitmapImageRep *layerImage = [[NSBitmapImageRep alloc]
                                         initWithBitmapDataPlanes:NULL
-                                                      pixelsWide:boundsSize.width
-                                                      pixelsHigh:boundsSize.height
+                                                      pixelsWide:(NSInteger)boundsSize.width
+                                                      pixelsHigh:(NSInteger)boundsSize.height
                                                    bitsPerSample:8
                                                  samplesPerPixel:4
                                                         hasAlpha:YES
@@ -231,14 +318,11 @@ NSString *const kFinancialPlots = @"Financial Plots";
         [imageView.layer renderInContext:context];
         CGContextFlush(context);
 
-        cachedImage = [[NSImage alloc] initWithSize:NSSizeFromCGSize(boundsSize)];
-        [cachedImage addRepresentation:layerImage];
-        [layerImage release];
-
-        [imageView release];
+        self.cachedImage = [[NSImage alloc] initWithSize:NSSizeFromCGSize(boundsSize)];
+        [self.cachedImage addRepresentation:layerImage];
     }
 
-    return cachedImage;
+    return self.cachedImage;
 }
 #endif
 
@@ -259,38 +343,66 @@ NSString *const kFinancialPlots = @"Financial Plots";
 }
 #endif
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
--(void)renderInView:(UIView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
-#else
--(void)renderInView:(NSView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
-#endif
+-(void)renderInView:(PlotGalleryNativeView *)inView withTheme:(CPTTheme *)theme animated:(BOOL)animated
 {
     [self killGraph];
 
-    defaultLayerHostingView = [[CPTGraphHostingView alloc] initWithFrame:hostingView.bounds];
+    CPTGraphHostingView *hostingView = [[CPTGraphHostingView alloc] initWithFrame:inView.bounds];
+
+    [inView addSubview:hostingView];
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    defaultLayerHostingView.collapsesLayers = NO;
-    [defaultLayerHostingView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+    hostingView.translatesAutoresizingMaskIntoConstraints = NO;
+    [inView addConstraint:[NSLayoutConstraint constraintWithItem:hostingView
+                                                       attribute:NSLayoutAttributeLeft
+                                                       relatedBy:NSLayoutRelationEqual
+                                                          toItem:inView
+                                                       attribute:NSLayoutAttributeLeading
+                                                      multiplier:1.0
+                                                        constant:0.0]];
+    [inView addConstraint:[NSLayoutConstraint constraintWithItem:hostingView
+                                                       attribute:NSLayoutAttributeTop
+                                                       relatedBy:NSLayoutRelationEqual
+                                                          toItem:inView
+                                                       attribute:NSLayoutAttributeTop
+                                                      multiplier:1.0
+                                                        constant:0.0]];
+    [inView addConstraint:[NSLayoutConstraint constraintWithItem:hostingView
+                                                       attribute:NSLayoutAttributeRight
+                                                       relatedBy:NSLayoutRelationEqual
+                                                          toItem:inView
+                                                       attribute:NSLayoutAttributeTrailing
+                                                      multiplier:1.0
+                                                        constant:0.0]];
+    [inView addConstraint:[NSLayoutConstraint constraintWithItem:hostingView
+                                                       attribute:NSLayoutAttributeBottom
+                                                       relatedBy:NSLayoutRelationEqual
+                                                          toItem:inView
+                                                       attribute:NSLayoutAttributeBottom
+                                                      multiplier:1.0
+                                                        constant:0.0]];
 #else
-    [defaultLayerHostingView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+    [hostingView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+    [hostingView setAutoresizesSubviews:YES];
 #endif
-    [defaultLayerHostingView setAutoresizesSubviews:YES];
 
-    [hostingView addSubview:defaultLayerHostingView];
     [self generateData];
-    [self renderInLayer:defaultLayerHostingView withTheme:theme animated:animated];
+    [self renderInGraphHostingView:hostingView withTheme:theme animated:animated];
+
+    [self formatAllGraphs];
+
+    self.defaultLayerHostingView = hostingView;
 }
 
--(void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
 {
     NSLog(@"PlotItem:renderInLayer: Override me");
 }
 
 -(void)reloadData
 {
-    for ( CPTGraph *g in graphs ) {
-        [g reloadData];
+    for ( CPTGraph *graph in self.graphs ) {
+        [graph reloadData];
     }
 }
 
@@ -319,13 +431,6 @@ NSString *const kFinancialPlots = @"Financial Plots";
 {
     return self.title;
 }
-
-/*
- * - (NSString*)imageSubtitle
- * {
- *  return graph.title;
- * }
- */
 #endif
 
 @end

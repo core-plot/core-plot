@@ -133,6 +133,12 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
     // isDragging
 }
 
+/// @endcond
+
+/** @brief Returns an object initialized from data in a given unarchiver.
+ *  @param coder An unarchiver object.
+ *  @return An object initialized from data in a given unarchiver.
+ */
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
@@ -140,14 +146,12 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
         identifier            = [[coder decodeObjectForKey:@"CPTPlotSpace.identifier"] copy];
         delegate              = [coder decodeObjectForKey:@"CPTPlotSpace.delegate"];
         allowsUserInteraction = [coder decodeBoolForKey:@"CPTPlotSpace.allowsUserInteraction"];
-        categoryNames         = [coder decodeObjectForKey:@"CPTPlotSpace.categoryNames"];
+        categoryNames         = [[coder decodeObjectForKey:@"CPTPlotSpace.categoryNames"] mutableCopy];
 
         isDragging = NO;
     }
     return self;
 }
-
-/// @endcond
 
 #pragma mark -
 #pragma mark Categorical Data

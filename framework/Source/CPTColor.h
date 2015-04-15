@@ -28,8 +28,9 @@
 
 /// @name Initialization
 /// @{
--(instancetype)initWithCGColor:(CGColorRef)cgColor;
+-(instancetype)initWithCGColor:(CGColorRef)cgColor NS_DESIGNATED_INITIALIZER;
 -(instancetype)initWithComponentRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;
+-(instancetype)initWithCoder:(NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
 
 -(instancetype)colorWithAlphaComponent:(CGFloat)alpha;
 /// @}

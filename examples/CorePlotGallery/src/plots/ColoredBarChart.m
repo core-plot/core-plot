@@ -1,6 +1,14 @@
 #import "ColoredBarChart.h"
 
+@interface ColoredBarChart()
+
+@property (nonatomic, readwrite, strong) NSArray *plotData;
+
+@end
+
 @implementation ColoredBarChart
+
+@synthesize plotData;
 
 +(void)load
 {
@@ -19,33 +27,31 @@
 
 -(void)generateData
 {
-    if ( plotData == nil ) {
+    if ( self.plotData == nil ) {
         NSMutableArray *contentArray = [NSMutableArray array];
         for ( NSUInteger i = 0; i < 8; i++ ) {
-            [contentArray addObject:@(10.0 * rand() / (double)RAND_MAX + 5.0)];
+            [contentArray addObject:@(10.0 * arc4random() / (double)UINT32_MAX + 5.0)];
         }
-        plotData = [contentArray retain];
+        self.plotData = contentArray;
     }
 }
 
--(void)renderInLayer:(CPTGraphHostingView *)layerHostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
 {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    CGRect bounds = layerHostingView.bounds;
+    CGRect bounds = hostingView.bounds;
 #else
-    CGRect bounds = NSRectToCGRect(layerHostingView.bounds);
+    CGRect bounds = NSRectToCGRect(hostingView.bounds);
 #endif
 
     CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:bounds];
-    [self addGraph:graph toHostingView:layerHostingView];
+    [self addGraph:graph toHostingView:hostingView];
     [self applyTheme:theme toGraph:graph withDefault:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 
-    [self setTitleDefaultsForGraph:graph withBounds:bounds];
-    [self setPaddingDefaultsForGraph:graph withBounds:bounds];
-    graph.plotAreaFrame.paddingLeft   += 60.0;
-    graph.plotAreaFrame.paddingTop    += 25.0;
-    graph.plotAreaFrame.paddingRight  += 20.0;
-    graph.plotAreaFrame.paddingBottom += 20.0;
+    graph.plotAreaFrame.paddingLeft   += self.titleSize * CPTFloat(2.5);
+    graph.plotAreaFrame.paddingTop    += self.titleSize * CPTFloat(1.25);
+    graph.plotAreaFrame.paddingRight  += self.titleSize;
+    graph.plotAreaFrame.paddingBottom += self.titleSize;
     graph.plotAreaFrame.masksToBorder  = NO;
 
     // Create grid line styles
@@ -83,21 +89,21 @@
         y.axisLineStyle               = nil;
         y.majorTickLineStyle          = nil;
         y.minorTickLineStyle          = nil;
-        y.labelOffset                 = 10.0;
-        y.labelRotation               = M_PI_2;
+        y.labelOffset                 = self.titleSize * CPTFloat(0.375);
+        y.labelRotation               = CPTFloat(M_PI_2);
         y.labelingPolicy              = CPTAxisLabelingPolicyAutomatic;
 
         y.title       = @"Y Axis";
-        y.titleOffset = 30.0;
+        y.titleOffset = self.titleSize * CPTFloat(1.25);
     }
 
     // Create a bar line style
-    CPTMutableLineStyle *barLineStyle = [[[CPTMutableLineStyle alloc] init] autorelease];
+    CPTMutableLineStyle *barLineStyle = [[CPTMutableLineStyle alloc] init];
     barLineStyle.lineWidth = 1.0;
     barLineStyle.lineColor = [CPTColor whiteColor];
 
     // Create bar plot
-    CPTBarPlot *barPlot = [[[CPTBarPlot alloc] init] autorelease];
+    CPTBarPlot *barPlot = [[CPTBarPlot alloc] init];
     barPlot.lineStyle         = barLineStyle;
     barPlot.barWidth          = CPTDecimalFromFloat(0.75f); // bar is 75% of the available space
     barPlot.barCornerRadius   = 4.0;
@@ -108,7 +114,7 @@
     [graph addPlot:barPlot];
 
     // Plot space
-    CPTMutablePlotRange *barRange = [[[barPlot plotRangeEnclosingBars] mutableCopy] autorelease];
+    CPTMutablePlotRange *barRange = [[barPlot plotRangeEnclosingBars] mutableCopy];
     [barRange expandRangeByFactor:CPTDecimalFromDouble(1.05)];
 
     CPTXYPlotSpace *barPlotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
@@ -117,32 +123,17 @@
 
     // Add legend
     CPTLegend *theLegend = [CPTLegend legendWithGraph:graph];
-    theLegend.fill            = [CPTFill fillWithColor:[CPTColor colorWithGenericGray:0.15]];
+    theLegend.fill            = [CPTFill fillWithColor:[CPTColor colorWithGenericGray:CPTFloat(0.15)]];
     theLegend.borderLineStyle = barLineStyle;
     theLegend.cornerRadius    = 10.0;
-    theLegend.swatchSize      = CGSizeMake(16.0, 16.0);
     CPTMutableTextStyle *whiteTextStyle = [CPTMutableTextStyle textStyle];
-    whiteTextStyle.color    = [CPTColor whiteColor];
-    whiteTextStyle.fontSize = 12.0;
-    theLegend.textStyle     = whiteTextStyle;
-    theLegend.rowMargin     = 10.0;
-    theLegend.numberOfRows  = 1;
-    theLegend.paddingLeft   = 12.0;
-    theLegend.paddingTop    = 12.0;
-    theLegend.paddingRight  = 12.0;
-    theLegend.paddingBottom = 12.0;
+    whiteTextStyle.color   = [CPTColor whiteColor];
+    theLegend.textStyle    = whiteTextStyle;
+    theLegend.numberOfRows = 1;
 
     graph.legend             = theLegend;
-    graph.legendAnchor       = CPTRectAnchorBottom;
-    graph.legendDisplacement = CGPointMake(0.0, 5.0);
-
-    [graph release];
-}
-
--(void)dealloc
-{
-    [plotData release];
-    [super dealloc];
+    graph.legendAnchor       = CPTRectAnchorTop;
+    graph.legendDisplacement = CGPointMake( 0.0, self.titleSize * CPTFloat(-2.625) );
 }
 
 #pragma mark -
@@ -150,7 +141,7 @@
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    return plotData.count;
+    return self.plotData.count;
 }
 
 -(NSArray *)numbersForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange
@@ -166,7 +157,7 @@
             break;
 
         case CPTBarPlotFieldBarTip:
-            nums = [plotData objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:indexRange]];
+            nums = [self.plotData objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:indexRange]];
             break;
 
         default:

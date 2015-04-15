@@ -7,6 +7,7 @@
 #import "CPTGridLineGroup.h"
 #import "CPTLineStyle.h"
 #import "CPTPlotGroup.h"
+#import "CPTUtilities.h"
 
 static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arrange
 
@@ -16,6 +17,8 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 @property (nonatomic, readwrite, assign) CPTGraphLayerType *bottomUpLayerOrder;
 @property (nonatomic, readwrite, assign, getter = isUpdatingLayers) BOOL updatingLayers;
 @property (nonatomic, readwrite) CGPoint touchedPoint;
+@property (nonatomic, readwrite) NSDecimal widthDecimal;
+@property (nonatomic, readwrite) NSDecimal heightDecimal;
 
 -(void)updateLayerOrder;
 -(unsigned)indexForLayerType:(CPTGraphLayerType)layerType;
@@ -109,6 +112,16 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
  **/
 @synthesize fill;
 
+/** @property NSDecimal widthDecimal
+ *  @brief The width of the @ref bounds as an @ref NSDecimal value.
+ **/
+@synthesize widthDecimal;
+
+/** @property NSDecimal heightDecimal
+ *  @brief The height of the @ref bounds as an @ref NSDecimal value.
+ **/
+@synthesize heightDecimal;
+
 // Private properties
 @synthesize bottomUpLayerOrder;
 @synthesize updatingLayers;
@@ -155,6 +168,10 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         CPTPlotGroup *newPlotGroup = [[CPTPlotGroup alloc] initWithFrame:newFrame];
         self.plotGroup = newPlotGroup;
 
+        CGSize boundsSize = self.bounds.size;
+        widthDecimal  = CPTDecimalFromCGFloat(boundsSize.width);
+        heightDecimal = CPTDecimalFromCGFloat(boundsSize.height);
+
         self.needsDisplayOnBoundsChange = YES;
     }
     return self;
@@ -180,6 +197,8 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         topDownLayerOrder  = theLayer->topDownLayerOrder;
         bottomUpLayerOrder = malloc( kCPTNumberOfLayers * sizeof(CPTGraphLayerType) );
         memcpy( bottomUpLayerOrder, theLayer->bottomUpLayerOrder, kCPTNumberOfLayers * sizeof(CPTGraphLayerType) );
+        widthDecimal  = theLayer->widthDecimal;
+        heightDecimal = theLayer->heightDecimal;
     }
     return self;
 }
@@ -213,6 +232,8 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     // bottomUpLayerOrder
     // updatingLayers
     // touchedPoint
+    // widthDecimal
+    // heightDecimal
 }
 
 -(instancetype)initWithCoder:(NSCoder *)coder
@@ -231,6 +252,10 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         [self updateLayerOrder];
 
         touchedPoint = CGPointMake(NAN, NAN);
+
+        CGSize boundsSize = self.bounds.size;
+        widthDecimal  = CPTDecimalFromCGFloat(boundsSize.width);
+        heightDecimal = CPTDecimalFromCGFloat(boundsSize.height);
     }
     return self;
 }
@@ -715,24 +740,27 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         // Inform delegate if a point was hit
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:self];
 
-        if ( CGRectContainsPoint(self.bounds, plotAreaPoint) && CGPointEqualToPoint(plotAreaPoint, lastPoint) ) {
-            if ( [theDelegate respondsToSelector:@selector(plotAreaTouchUp:)] ) {
-                [theDelegate plotAreaTouchUp:self];
-            }
+        if ( CGRectContainsPoint(self.bounds, plotAreaPoint) ) {
+            CGVector offset = CGVectorMake(plotAreaPoint.x - lastPoint.x, plotAreaPoint.y - lastPoint.y);
+            if ( (offset.dx * offset.dx + offset.dy * offset.dy) <= CPTFloat(25.0) ) {
+                if ( [theDelegate respondsToSelector:@selector(plotAreaTouchUp:)] ) {
+                    [theDelegate plotAreaTouchUp:self];
+                }
 
-            if ( [theDelegate respondsToSelector:@selector(plotAreaTouchUp:withEvent:)] ) {
-                [theDelegate plotAreaTouchUp:self withEvent:event];
-            }
+                if ( [theDelegate respondsToSelector:@selector(plotAreaTouchUp:withEvent:)] ) {
+                    [theDelegate plotAreaTouchUp:self withEvent:event];
+                }
 
-            if ( [theDelegate respondsToSelector:@selector(plotAreaWasSelected:)] ) {
-                [theDelegate plotAreaWasSelected:self];
-            }
+                if ( [theDelegate respondsToSelector:@selector(plotAreaWasSelected:)] ) {
+                    [theDelegate plotAreaWasSelected:self];
+                }
 
-            if ( [theDelegate respondsToSelector:@selector(plotAreaWasSelected:withEvent:)] ) {
-                [theDelegate plotAreaWasSelected:self withEvent:event];
-            }
+                if ( [theDelegate respondsToSelector:@selector(plotAreaWasSelected:withEvent:)] ) {
+                    [theDelegate plotAreaWasSelected:self withEvent:event];
+                }
 
-            return NO; // don't block other events in the responder chain
+                return NO; // don't block other events in the responder chain
+            }
         }
     }
 
@@ -870,6 +898,16 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         for ( CPTAxis *axis in self.axisSet.axes ) {
             axis.graph = newGraph;
         }
+    }
+}
+
+-(void)setBounds:(CGRect)newBounds
+{
+    if ( !CGRectEqualToRect(self.bounds, newBounds) ) {
+        [super setBounds:newBounds];
+
+        self.widthDecimal  = CPTDecimalFromCGFloat(newBounds.size.width);
+        self.heightDecimal = CPTDecimalFromCGFloat(newBounds.size.height);
     }
 }
 

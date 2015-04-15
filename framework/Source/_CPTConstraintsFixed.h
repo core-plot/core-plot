@@ -4,8 +4,9 @@
 
 /// @name Initialization
 /// @{
--(instancetype)initWithLowerOffset:(CGFloat)newOffset;
--(instancetype)initWithUpperOffset:(CGFloat)newOffset;
+-(instancetype)initWithLowerOffset:(CGFloat)newOffset NS_DESIGNATED_INITIALIZER;
+-(instancetype)initWithUpperOffset:(CGFloat)newOffset NS_DESIGNATED_INITIALIZER;
+-(instancetype)initWithCoder:(NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
 /// @}
 
 /// @name Comparison
