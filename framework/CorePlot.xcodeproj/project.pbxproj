@@ -1357,11 +1357,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-<<<<<<< HEAD
-				LastUpgradeCheck = 0600;
-=======
 				LastUpgradeCheck = 0610;
->>>>>>> core-plot/master
 			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "CorePlot" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1615,20 +1611,6 @@
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
 				INFOPLIST_FILE = "UnitTests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				OTHER_CFLAGS = (
-					"-Wno-unused-parameter",
-					"-Wno-undef",
-					"-Wno-switch-enum",
-					"-Wno-float-equal",
-					"-Wno-padded",
-					"-Wno-dollar-in-identifier-extension",
-					"-Wno-custom-atomic-properties",
-					"-Wno-gnu",
-					"-Wno-assign-enum",
-					"-Wno-pedantic",
-					"-Wno-documentation",
-					"-Wno-cstring-format-directive",
-				);
 				OTHER_LDFLAGS = (
 					"-framework",
 					Cocoa,
@@ -1653,20 +1635,6 @@
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
 				INFOPLIST_FILE = "UnitTests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				OTHER_CFLAGS = (
-					"-Wno-unused-parameter",
-					"-Wno-undef",
-					"-Wno-switch-enum",
-					"-Wno-float-equal",
-					"-Wno-padded",
-					"-Wno-dollar-in-identifier-extension",
-					"-Wno-custom-atomic-properties",
-					"-Wno-gnu",
-					"-Wno-assign-enum",
-					"-Wno-pedantic",
-					"-Wno-documentation",
-					"-Wno-cstring-format-directive",
-				);
 				OTHER_LDFLAGS = (
 					"-framework",
 					Cocoa,
@@ -1693,20 +1661,6 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@loader_path/../Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = (
-					"-Wno-unused-parameter",
-					"-Wno-undef",
-					"-Wno-switch-enum",
-					"-Wno-float-equal",
-					"-Wno-padded",
-					"-Wno-dollar-in-identifier-extension",
-					"-Wno-custom-atomic-properties",
-					"-Wno-gnu",
-					"-Wno-assign-enum",
-					"-Wno-pedantic",
-					"-Wno-documentation",
-					"-Wno-cstring-format-directive",
-				);
 				PRODUCT_NAME = CorePlot;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
@@ -1728,20 +1682,6 @@
 				GCC_PREFIX_HEADER = CorePlot_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@loader_path/../Frameworks";
-				OTHER_CFLAGS = (
-					"-Wno-unused-parameter",
-					"-Wno-undef",
-					"-Wno-switch-enum",
-					"-Wno-float-equal",
-					"-Wno-padded",
-					"-Wno-dollar-in-identifier-extension",
-					"-Wno-custom-atomic-properties",
-					"-Wno-gnu",
-					"-Wno-assign-enum",
-					"-Wno-pedantic",
-					"-Wno-documentation",
-					"-Wno-cstring-format-directive",
-				);
 				PRODUCT_NAME = CorePlot;
 				SKIP_INSTALL = YES;
 				"VALID_ARCHS[sdk=*]" = "i386 x86_64";

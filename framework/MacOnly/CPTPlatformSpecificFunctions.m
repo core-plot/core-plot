@@ -31,17 +31,9 @@ void CPTPushCGContext(CGContextRef newContext)
         else {
             [pushedContexts addObject:[NSNull null]];
         }
-<<<<<<< HEAD
-        
-        if ([NSGraphicsContext currentContext]) {
-            [pushedContexts addObject:[NSGraphicsContext currentContext]];
-        }
-        
-        [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:newContext flipped:NO]];
-    }
-=======
+
     });
->>>>>>> core-plot/master
+
 }
 
 /**
