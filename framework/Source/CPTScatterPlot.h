@@ -1,7 +1,7 @@
 #import "CPTDefinitions.h"
 #import "CPTPlot.h"
 
-/// @file
+// @file
 
 @class CPTLimitBand;
 @class CPTLineStyle;
