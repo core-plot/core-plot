@@ -144,29 +144,28 @@
         NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:titleString
                                                                                   attributes:textAttributes];
 
-        if ( &NSFontAttributeName != NULL ) {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-            UIFont *italicFont = [self italicFontForFont:textAttributes[NSFontAttributeName]];
+        UIFont *italicFont = [self italicFontForFont:textAttributes[NSFontAttributeName]];
 #else
-            NSFont *italicFont = [self italicFontForFont:textAttributes[NSFontAttributeName]];
+        NSFont *italicFont = [self italicFontForFont:textAttributes[NSFontAttributeName]];
 #endif
 
-            [title addAttribute:NSFontAttributeName
-                          value:italicFont
-                          range:NSMakeRange(0, 1)];
-            [title addAttribute:NSFontAttributeName
-                          value:italicFont
-                          range:NSMakeRange(8, 1)];
+        [title addAttribute:NSFontAttributeName
+                      value:italicFont
+                      range:NSMakeRange(0, 1)];
+        [title addAttribute:NSFontAttributeName
+                      value:italicFont
+                      range:NSMakeRange(8, 1)];
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-            UIFont *labelFont = [UIFont fontWithName:@"Helvetica" size:self.titleSize * CPTFloat(0.5)];
+        UIFont *labelFont = [UIFont fontWithName:@"Helvetica" size:self.titleSize * CPTFloat(0.5)];
 #else
-            NSFont *labelFont = [NSFont fontWithName:@"Helvetica" size:self.titleSize * CPTFloat(0.5)];
+        NSFont *labelFont = [NSFont fontWithName:@"Helvetica" size:self.titleSize * CPTFloat(0.5)];
 #endif
-            [title addAttribute:NSFontAttributeName
-                          value:labelFont
-                          range:NSMakeRange(0, title.length)];
-        }
+        [title addAttribute:NSFontAttributeName
+                      value:labelFont
+                      range:NSMakeRange(0, title.length)];
+
         linePlot.attributedTitle = title;
 
         CPTMutableLineStyle *lineStyle = [linePlot.dataLineStyle mutableCopy];
