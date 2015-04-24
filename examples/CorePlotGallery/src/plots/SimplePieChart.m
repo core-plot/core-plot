@@ -180,17 +180,13 @@
 #endif
 
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Pie Slice %lu", (unsigned long)index]];
-    if ( &NSForegroundColorAttributeName != NULL ) {
-        [title addAttribute:NSForegroundColorAttributeName
-                      value:sliceColor
-                      range:NSMakeRange(4, 5)];
-    }
+    [title addAttribute:NSForegroundColorAttributeName
+                  value:sliceColor
+                  range:NSMakeRange(4, 5)];
 
-    if ( &NSFontAttributeName != NULL ) {
-        [title addAttribute:NSFontAttributeName
-                      value:labelFont
-                      range:NSMakeRange(0, title.length)];
-    }
+    [title addAttribute:NSFontAttributeName
+                  value:labelFont
+                  range:NSMakeRange(0, title.length)];
 
     return title;
 }
