@@ -43,7 +43,7 @@
     CPTMutableTextStyle *newStyle = [CPTMutableTextStyle textStyle];
 
     // Font
-    BOOL hasFontAttributeName = (&NSFontAttributeName != NULL);
+    BOOL hasFontAttributeName = (NSFontAttributeName != nil);
 
     if ( hasFontAttributeName ) {
         UIFont *styleFont = attributes[NSFontAttributeName];
@@ -55,7 +55,7 @@
     }
 
     // Color
-    BOOL hasColorAttributeName = (&NSForegroundColorAttributeName != NULL);
+    BOOL hasColorAttributeName = (NSForegroundColorAttributeName != nil);
 
     if ( hasColorAttributeName ) {
         UIColor *styleColor = attributes[NSForegroundColorAttributeName];
@@ -65,7 +65,7 @@
     }
 
     // Text alignment and line break mode
-    BOOL hasParagraphAttributeName = (&NSParagraphStyleAttributeName != NULL);
+    BOOL hasParagraphAttributeName = (NSParagraphStyleAttributeName != nil);
 
     if ( hasParagraphAttributeName ) {
         NSParagraphStyle *paragraphStyle = attributes[NSParagraphStyleAttributeName];
@@ -88,7 +88,7 @@
     NSMutableDictionary *myAttributes = [NSMutableDictionary dictionary];
 
     // Font
-    BOOL hasFontAttributeName = (&NSFontAttributeName != NULL);
+    BOOL hasFontAttributeName = (NSFontAttributeName != nil);
 
     if ( hasFontAttributeName ) {
         UIFont *styleFont = [UIFont fontWithName:self.fontName size:self.fontSize];
@@ -100,7 +100,7 @@
     }
 
     // Color
-    BOOL hasColorAttributeName = (&NSForegroundColorAttributeName != NULL);
+    BOOL hasColorAttributeName = (NSForegroundColorAttributeName != nil);
 
     if ( hasColorAttributeName ) {
         UIColor *styleColor = self.color.uiColor;
@@ -112,7 +112,7 @@
     }
 
     // Text alignment and line break mode
-    BOOL hasParagraphAttributeName = (&NSParagraphStyleAttributeName != NULL);
+    BOOL hasParagraphAttributeName = (NSParagraphStyleAttributeName != nil);
 
     if ( hasParagraphAttributeName ) {
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
@@ -141,7 +141,7 @@
     CPTMutableTextStyle *newStyle = [CPTMutableTextStyle textStyle];
 
     // Font
-    BOOL hasFontAttributeName = (&NSFontAttributeName != NULL);
+    BOOL hasFontAttributeName = (NSFontAttributeName != nil);
 
     if ( hasFontAttributeName ) {
         UIFont *styleFont = attributes[NSFontAttributeName];
@@ -153,7 +153,7 @@
     }
 
     // Color
-    BOOL hasColorAttributeName = (&NSForegroundColorAttributeName != NULL);
+    BOOL hasColorAttributeName = (NSForegroundColorAttributeName != nil);
 
     if ( hasColorAttributeName ) {
         UIColor *styleColor = attributes[NSForegroundColorAttributeName];
@@ -164,7 +164,7 @@
     }
 
     // Text alignment and line break mode
-    BOOL hasParagraphAttributeName = (&NSParagraphStyleAttributeName != NULL);
+    BOOL hasParagraphAttributeName = (NSParagraphStyleAttributeName != nil);
 
     if ( hasParagraphAttributeName ) {
         NSParagraphStyle *paragraphStyle = attributes[NSParagraphStyleAttributeName];
