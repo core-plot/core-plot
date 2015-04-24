@@ -6,6 +6,10 @@
 #import "CPTPlatformSpecificFunctions.h"
 #import "tgmath.h"
 
+// disable warnings when compiling with deployment target of iOS 6+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wtautological-pointer-compare"
+
 @implementation CPTTextStyle(CPTPlatformSpecificTextStyleExtensions)
 
 /** @property NSDictionary *attributes
@@ -274,5 +278,7 @@
     CGContextRestoreGState(context);
     CPTPopCGContext();
 }
+
+#pragma clang diagnostic pop
 
 @end
