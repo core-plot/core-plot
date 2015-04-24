@@ -44,8 +44,8 @@ class BarChartController : UIViewController, CPTBarPlotDataSource {
 
         let graphTitle = NSMutableAttributedString(string: lineOne + "\n" + lineTwo)
 
-        let titleRange1 = NSRange(location: 0, length: lineOne.utf16Count)
-        let titleRange2 = NSRange(location: lineOne.utf16Count + 1, length: lineTwo.utf16Count)
+        let titleRange1 = NSRange(location: 0, length: count(lineOne.utf16))
+        let titleRange2 = NSRange(location: count(lineOne.utf16) + 1, length: count(lineTwo.utf16))
 
         graphTitle.addAttribute(NSForegroundColorAttributeName, value:UIColor.whiteColor(), range:titleRange1)
         graphTitle.addAttribute(NSForegroundColorAttributeName, value:UIColor.grayColor(), range:titleRange2)
