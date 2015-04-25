@@ -70,7 +70,10 @@
         [detailItem killGraph];
 
         detailItem = newDetailItem;
-        [detailItem renderInView:self.hostingView withTheme:[self currentTheme] animated:YES];
+
+        if ( self.hostingView ) {
+            [detailItem renderInView:self.hostingView withTheme:[self currentTheme] animated:YES];
+        }
     }
 }
 
