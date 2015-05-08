@@ -154,15 +154,15 @@
 {
     NSLog(@"Legend entry for '%@' was selected at index %lu.", plot.identifier, (unsigned long)idx);
 
-    self.offsetIndex = idx;
-
     [CPTAnimation animate:self
                  property:@"sliceOffset"
-                     from:0.0
-                       to:35.0
+                     from:(idx == self.offsetIndex ? NAN : 0.0)
+                       to:(idx == self.offsetIndex ? 0.0 : 35.0)
                  duration:0.5
            animationCurve:CPTAnimationCurveCubicOut
                  delegate:nil];
+
+    self.offsetIndex = idx;
 }
 
 #pragma mark -
@@ -223,6 +223,10 @@
         sliceOffset = newOffset;
 
         [self.graphs[0] reloadData];
+
+        if ( newOffset == 0.0 ) {
+            self.offsetIndex = NSNotFound;
+        }
     }
 }
 

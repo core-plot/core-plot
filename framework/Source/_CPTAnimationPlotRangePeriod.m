@@ -15,6 +15,10 @@
 
 -(BOOL)canStartWithValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
 {
+    if ( !self.startValue ) {
+        [self setStartValueFromObject:boundObject propertyGetter:boundGetter];
+    }
+
     typedef CPTPlotRange *(*GetterType)(id, SEL);
     GetterType getterMethod = (GetterType)[boundObject methodForSelector : boundGetter];
 

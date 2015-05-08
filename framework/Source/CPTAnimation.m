@@ -327,6 +327,10 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
                     started = YES;
                 }
                 if ( !animationOperation.isCanceled ) {
+                    if ( !period.startValue ) {
+                        [period setStartValueFromObject:animationOperation.boundObject propertyGetter:animationOperation.boundGetter];
+                    }
+
                     CGFloat progress = timingFunction(currentTime - startTime, duration);
 
                     NSDictionary *parameters = @{

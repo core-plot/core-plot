@@ -21,8 +21,6 @@ CGPoint currentPointValue(id boundObject, SEL boundGetter)
 
     [invocation invoke];
 
-    [invocation invoke];
-
     CGPoint value;
     [invocation getReturnValue:&value];
 
@@ -41,6 +39,10 @@ CGPoint currentPointValue(id boundObject, SEL boundGetter)
     CGPoint current = currentPointValue(boundObject, boundGetter);
     CGPoint start;
     CGPoint end;
+
+    if ( !self.startValue ) {
+        [self setStartValueFromObject:boundObject propertyGetter:boundGetter];
+    }
 
     [self.startValue getValue:&start];
     [self.endValue getValue:&end];

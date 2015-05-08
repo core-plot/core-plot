@@ -38,6 +38,10 @@ NSDecimal currentDecimalValue(id boundObject, SEL boundGetter)
 
 -(BOOL)canStartWithValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
 {
+    if ( !self.startValue ) {
+        [self setStartValueFromObject:boundObject propertyGetter:boundGetter];
+    }
+
     NSDecimal current = currentDecimalValue(boundObject, boundGetter);
     NSDecimal start   = [(NSDecimalNumber *)self.startValue decimalValue];
     NSDecimal end     = [(NSDecimalNumber *)self.endValue decimalValue];

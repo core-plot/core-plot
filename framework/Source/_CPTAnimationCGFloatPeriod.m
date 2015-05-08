@@ -40,6 +40,10 @@ CGFloat currentFloatValue(id boundObject, SEL boundGetter)
     CGFloat start;
     CGFloat end;
 
+    if ( !self.startValue ) {
+        [self setStartValueFromObject:boundObject propertyGetter:boundGetter];
+    }
+
     [self.startValue getValue:&start];
     [self.endValue getValue:&end];
 
