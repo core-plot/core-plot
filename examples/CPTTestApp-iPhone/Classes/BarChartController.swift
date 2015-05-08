@@ -14,7 +14,7 @@ class BarChartController : UIViewController, CPTBarPlotDataSource {
         newGraph.applyTheme(CPTTheme(named: kCPTDarkGradientTheme))
 
         let hostingView = self.view as! CPTGraphHostingView
-        hostingView.hostedGraph = barGraph
+        hostingView.hostedGraph = newGraph
 
         // Border
         newGraph.plotAreaFrame.borderLineStyle = nil
