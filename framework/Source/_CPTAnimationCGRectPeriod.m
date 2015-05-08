@@ -40,6 +40,10 @@ CGRect currentRectValue(id boundObject, SEL boundGetter)
     CGRect start;
     CGRect end;
 
+    if ( !self.startValue ) {
+        [self setStartValueFromObject:boundObject propertyGetter:boundGetter];
+    }
+
     [self.startValue getValue:&start];
     [self.endValue getValue:&end];
 

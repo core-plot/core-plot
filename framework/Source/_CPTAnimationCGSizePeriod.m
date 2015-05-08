@@ -40,6 +40,10 @@ CGSize currentSizeValue(id boundObject, SEL boundGetter)
     CGSize start;
     CGSize end;
 
+    if ( !self.startValue ) {
+        [self setStartValueFromObject:boundObject propertyGetter:boundGetter];
+    }
+
     [self.startValue getValue:&start];
     [self.endValue getValue:&end];
 
