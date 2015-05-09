@@ -1,10 +1,12 @@
 Follow these steps to create a Core Plot release and post it to GitHub:
 
+# Build Core Plot
+
 1. Ensure the following tools are installed on your development machine:
 
     <ul>
         <li>Xcode 5</li>
-        <li>[Doxygen](http://www.stack.nl/~dimitri/doxygen/download.html#latestsrc), version 1.8.6 or later, installed in <strong>/Applications</strong></li>
+        <li>[Doxygen](http://www.stack.nl/~dimitri/doxygen/download.html#latestsrc), version 1.8.9.1 or later, installed in <strong>/Applications</strong></li>
         <li>[Graphviz](http://www.graphviz.org/Download_macos.php), version 2.34.0 or later</li>
     </ul>
 
@@ -58,6 +60,41 @@ Follow these steps to create a Core Plot release and post it to GitHub:
     
 14. Click **Publish release**.
 
-15. Change to the HTML documentation directory cloned from [core-plot.github.io](https://github.com/core-plot/core-plot.github.io):
+# Update Documentation
+
+1. Change to the HTML documentation directory cloned from [core-plot.github.io](https://github.com/core-plot/core-plot.github.io):
 
     `cd ../documentation/html`
+
+2. Commit any changes from the release build of the documentation.
+
+3. Tag the current documentation revision with the release version:
+
+    `$ git tag release_<version>`
+    
+4. Review the [wiki pages](https://github.com/core-plot/core-plot/wiki) and make any needed updates.
+
+# Update CocoaPods
+
+1. Make a copy of the [podspec](https://github.com/core-plot/core-plot/blob/master/CorePlot.podspec).
+
+2. Update the **version** tag to the current release number.
+
+    `s.version  = '<version>'`
+
+3. Add the git tag name (`release_<version>`) under the **source** tag.
+
+    `s.source   = { :git => 'https://github.com/core-plot/core-plot.git', 
+                    :tag => 'release_<version>'}`
+
+4. Submit the updated podspec to [CocoaPods](https://github.com/CocoaPods/CocoaPods).
+
+# Spread the Word
+
+1. Post release announcements on the following sites:
+
+    <ul>
+        <li>The Core Plot [discussion board](https://groups.google.com/forum/#!forum/coreplot-discuss)</li>
+        <li>[Twitter](https://twitter.com/CorePlot)</li>
+        <li>[App.net](https://alpha.app.net/coreplot)</li>
+    </ul>
