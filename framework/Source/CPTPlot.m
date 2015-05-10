@@ -549,9 +549,11 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  **/
 -(void)reloadDataInIndexRange:(NSRange)indexRange
 {
+#if debug
     id<CPTPlotDataSource> theDataSource = (id<CPTPlotDataSource>)self.dataSource;
 
     NSParameterAssert(NSMaxRange(indexRange) <= [theDataSource numberOfRecordsForPlot:self]);
+#endif
 
     self.dataNeedsReloading = NO;
 
