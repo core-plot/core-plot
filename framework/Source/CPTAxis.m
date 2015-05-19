@@ -1861,6 +1861,8 @@ NSDecimal niceLength(NSDecimal length)
 
         CPTPlotArea *thePlotArea = self.plotArea;
         [thePlotArea setNeedsDisplay];
+    } else {
+        [self.mutableBackgroundLimitBands removeAllObjects];
     }
 }
 
