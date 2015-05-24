@@ -1212,6 +1212,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = UniversalLibrary;
+				SYMROOT = "$(PROJECT_DIR)/../build";
 			};
 			name = Debug;
 		};
@@ -1219,6 +1220,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = UniversalLibrary;
+				SYMROOT = "$(PROJECT_DIR)/../build";
 			};
 			name = Release;
 		};
