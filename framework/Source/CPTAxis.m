@@ -1864,6 +1864,16 @@ NSDecimal niceLength(NSDecimal length)
     }
 }
 
+/** @brief Remove all background limit bands.
+**/
+-(void)removeAllBackgroundLimitBands
+{
+    [self.mutableBackgroundLimitBands removeAllObjects];
+
+    CPTPlotArea *thePlotArea = self.plotArea;
+    [thePlotArea setNeedsDisplay];
+}
+
 #pragma mark -
 #pragma mark Responder Chain and User Interaction
 
