@@ -35,7 +35,9 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
 @synthesize hostedGraph;
 
 /** @property NSRect printRect
- *  @brief The bounding rectangle used when printing this view.
+ *  @brief The bounding rectangle used when printing this view. Default is NSZeroRect.
+ *
+ *  If NSZeroRect (the default), the frame rectangle of the view is used instead.
  **/
 @synthesize printRect;
 
@@ -50,7 +52,7 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
 @synthesize openHandCursor;
 
 /** @property BOOL allowPinchScaling
- *  @brief Whether a pinch will trigger plot space scaling. Default is @YES.
+ *  @brief Whether a pinch gesture will trigger plot space scaling. Default is @YES.
  **/
 @synthesize allowPinchScaling;
 
@@ -156,8 +158,11 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
 
             [graphicsContext saveGraphicsState];
 
-            CGRect destinationRect = NSRectToCGRect(self.printRect);
             CGRect sourceRect      = NSRectToCGRect(self.frame);
+            CGRect destinationRect = NSRectToCGRect(self.printRect);
+            if ( CGRectEqualToRect(destinationRect, CGRectZero) ) {
+                destinationRect = sourceRect;
+            }
 
             // scale the view isotropically so that it fits on the printed page
             CGFloat widthScale  = ( sourceRect.size.width != CPTFloat(0.0) ) ? destinationRect.size.width / sourceRect.size.width : CPTFloat(1.0);

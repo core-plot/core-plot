@@ -81,7 +81,7 @@ RunXcode('CorePlot-CocoaTouch.xcodeproj', 'Documentation')
 
 # Copy Docs
 docDir = join(releaseRootDir, 'Documentation')
-copytree(join(projectRoot, 'documentation'), docDir, ignore=ignore_patterns('*.orig'))
+copytree(join(projectRoot, 'documentation'), docDir, ignore=ignore_patterns('*.orig','*.git'))
 homeDir = environ['HOME']
 docsetsDir = join(homeDir, 'Library/Developer/Shared/Documentation/DocSets')
 copytree(join(docsetsDir, 'com.CorePlot.Framework.docset'), join(docDir, 'com.CorePlot.Framework.docset'))
