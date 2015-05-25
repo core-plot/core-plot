@@ -300,6 +300,7 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
 /// @{
 -(void)addBackgroundLimitBand:(CPTLimitBand *)limitBand;
 -(void)removeBackgroundLimitBand:(CPTLimitBand *)limitBand;
+-(void)removeAllBackgroundLimitBands;
 /// @}
 
 @end
