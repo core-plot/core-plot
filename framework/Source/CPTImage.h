@@ -3,8 +3,8 @@
 
 @interface CPTImage : NSObject<NSCoding, NSCopying>
 
-@property (nonatomic, readwrite, copy) CPTNativeImage *nativeImage;
-@property (nonatomic, readwrite, assign) CGImageRef image;
+@property (nonatomic, readwrite, copy, nullable) CPTNativeImage *nativeImage;
+@property (nonatomic, readwrite, assign, nullable) CGImageRef image;
 @property (nonatomic, readwrite, assign) CGFloat scale;
 @property (nonatomic, readwrite, assign, getter = isTiled) BOOL tiled;
 @property (nonatomic, readwrite, assign) CPTEdgeInsets edgeInsets;
@@ -13,26 +13,26 @@
 
 /// @name Factory Methods
 /// @{
-+(instancetype)imageNamed:(NSString *)name;
++(nonnull instancetype)imageNamed:(nonnull NSString *)name;
 
-+(instancetype)imageWithNativeImage:(CPTNativeImage *)anImage;
-+(instancetype)imageWithContentsOfFile:(NSString *)path;
-+(instancetype)imageWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale;
-+(instancetype)imageWithCGImage:(CGImageRef)anImage;
-+(instancetype)imageForPNGFile:(NSString *)path;
++(nonnull instancetype)imageWithNativeImage:(nullable CPTNativeImage *)anImage;
++(nonnull instancetype)imageWithContentsOfFile:(nonnull NSString *)path;
++(nonnull instancetype)imageWithCGImage:(nullable CGImageRef)anImage scale:(CGFloat)newScale;
++(nonnull instancetype)imageWithCGImage:(nullable CGImageRef)anImage;
++(nonnull instancetype)imageForPNGFile:(nonnull NSString *)path;
 /// @}
 
 /// @name Initialization
 /// @{
--(instancetype)initWithContentsOfFile:(NSString *)path;
--(instancetype)initWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale NS_DESIGNATED_INITIALIZER;
--(instancetype)initWithCGImage:(CGImageRef)anImage;
--(instancetype)initWithCoder:(NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype)initWithContentsOfFile:(nonnull NSString *)path;
+-(nonnull instancetype)initWithCGImage:(nullable CGImageRef)anImage scale:(CGFloat)newScale NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype)initWithCGImage:(nullable CGImageRef)anImage;
+-(nonnull instancetype)initWithCoder:(nonnull NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
 /// @}
 
 /// @name Drawing
 /// @{
--(void)drawInRect:(CGRect)rect inContext:(CGContextRef)context;
+-(void)drawInRect:(CGRect)rect inContext:(nonnull CGContextRef)context;
 /// @}
 
 @end
@@ -46,8 +46,8 @@
 
 /// @name Initialization
 /// @{
--(instancetype)initWithNativeImage:(CPTNativeImage *)anImage;
--(instancetype)initForPNGFile:(NSString *)path;
+-(nonnull instancetype)initWithNativeImage:(nullable CPTNativeImage *)anImage;
+-(nonnull instancetype)initForPNGFile:(nonnull NSString *)path;
 /// @}
 
 @end

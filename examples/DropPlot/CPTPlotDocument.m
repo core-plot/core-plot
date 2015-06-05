@@ -406,12 +406,15 @@
             NSArray *anchorPoint = @[@(start[CPTCoordinateX]),
                                      @(start[CPTCoordinateY])];
 
-// now create the annotation
-            CPTPlotSpaceAnnotation *annotation = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:self.graph.defaultPlotSpace anchorPlotPoint:anchorPoint];
-            annotation.contentLayer = zoomRectangleLayer;
-            self.zoomAnnotation     = annotation;
+            // now create the annotation
+            CPTPlotSpace *defaultSpace = self.graph.defaultPlotSpace;
+            if ( defaultSpace ) {
+                CPTPlotSpaceAnnotation *annotation = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:defaultSpace anchorPlotPoint:anchorPoint];
+                annotation.contentLayer = zoomRectangleLayer;
+                self.zoomAnnotation     = annotation;
 
-            [self.graph.plotAreaFrame.plotArea addAnnotation:annotation];
+                [self.graph.plotAreaFrame.plotArea addAnnotation:annotation];
+            }
         }
     }
 

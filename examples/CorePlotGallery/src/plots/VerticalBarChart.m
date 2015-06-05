@@ -272,13 +272,16 @@ static const BOOL kUseHorizontalBars = NO;
     NSString *yString = [formatter stringFromNumber:value];
 
     // Now add the annotation to the plot area
-    CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle];
-    annotation                = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:plot.plotSpace anchorPlotPoint:anchorPoint];
-    annotation.contentLayer   = textLayer;
-    annotation.displacement   = CGPointMake(0.0, 0.0);
-    self.symbolTextAnnotation = annotation;
+    CPTPlotSpace *space = plot.plotSpace;
+    if ( space ) {
+        CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle];
+        annotation                = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:space anchorPlotPoint:anchorPoint];
+        annotation.contentLayer   = textLayer;
+        annotation.displacement   = CGPointMake(0.0, 0.0);
+        self.symbolTextAnnotation = annotation;
 
-    [graph.plotAreaFrame.plotArea addAnnotation:annotation];
+        [graph.plotAreaFrame.plotArea addAnnotation:annotation];
+    }
 }
 
 #pragma mark -

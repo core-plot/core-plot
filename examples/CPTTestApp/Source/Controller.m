@@ -478,12 +478,15 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     NSString *yString = [formatter stringFromNumber:y];
 
     // Now add the annotation to the plot area
-    CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle];
-    annotation              = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:self.graph.defaultPlotSpace anchorPlotPoint:anchorPoint];
-    annotation.contentLayer = textLayer;
-    annotation.displacement = CGPointMake(0.0, 20.0);
-    [self.graph.plotAreaFrame.plotArea addAnnotation:annotation];
-    self.symbolTextAnnotation = annotation;
+    CPTPlotSpace *defaultSpace = self.graph.defaultPlotSpace;
+    if ( defaultSpace ) {
+        CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle];
+        annotation              = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:defaultSpace anchorPlotPoint:anchorPoint];
+        annotation.contentLayer = textLayer;
+        annotation.displacement = CGPointMake(0.0, 20.0);
+        [self.graph.plotAreaFrame.plotArea addAnnotation:annotation];
+        self.symbolTextAnnotation = annotation;
+    }
 }
 
 #pragma mark -
@@ -518,12 +521,15 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     NSString *yString = [formatter stringFromNumber:y];
 
     // Now add the annotation to the plot area
-    CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle];
-    annotation              = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:self.graph.defaultPlotSpace anchorPlotPoint:anchorPoint];
-    annotation.contentLayer = textLayer;
-    annotation.displacement = CGPointMake(0.0, 0.0);
-    [self.graph.plotAreaFrame.plotArea addAnnotation:annotation];
-    self.symbolTextAnnotation = annotation;
+    CPTPlotSpace *defaultSpace = self.graph.defaultPlotSpace;
+    if ( defaultSpace ) {
+        CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle];
+        annotation              = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:defaultSpace anchorPlotPoint:anchorPoint];
+        annotation.contentLayer = textLayer;
+        annotation.displacement = CGPointMake(0.0, 0.0);
+        [self.graph.plotAreaFrame.plotArea addAnnotation:annotation];
+        self.symbolTextAnnotation = annotation;
+    }
 
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"barWidth"];
     animation.duration            = 0.25;

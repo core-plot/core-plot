@@ -6,7 +6,7 @@
 
 /// @name Hosted graph
 /// @{
-@property (nonatomic, readwrite, strong) CPTGraph *hostedGraph;
+@property (nonatomic, readwrite, strong, nullable) CPTGraph *hostedGraph;
 /// @}
 
 /// @name Printing
@@ -16,8 +16,8 @@
 
 /// @name Cursors
 /// @{
-@property (nonatomic, readwrite, strong) NSCursor *closedHandCursor;
-@property (nonatomic, readwrite, strong) NSCursor *openHandCursor;
+@property (nonatomic, readwrite, strong, nullable) NSCursor *closedHandCursor;
+@property (nonatomic, readwrite, strong, nullable) NSCursor *openHandCursor;
 /// @}
 
 /// @name User Interaction

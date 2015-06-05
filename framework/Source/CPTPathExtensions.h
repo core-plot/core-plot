@@ -4,8 +4,8 @@
 extern "C" {
 #endif
 
-CGPathRef CreateRoundedRectPath(CGRect rect, CGFloat cornerRadius);
-void AddRoundedRectPath(CGContextRef context, CGRect rect, CGFloat cornerRadius);
+__nonnull CGPathRef CreateRoundedRectPath(CGRect rect, CGFloat cornerRadius);
+void AddRoundedRectPath(__nonnull CGContextRef context, CGRect rect, CGFloat cornerRadius);
 
 #if __cplusplus
 }

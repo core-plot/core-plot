@@ -5,7 +5,7 @@
 /// @cond
 @interface _CPTFillImage()
 
-@property (nonatomic, readwrite, copy) CPTImage *fillImage;
+@property (nonatomic, readwrite, copy, nullable) CPTImage *fillImage;
 
 @end
 

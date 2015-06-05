@@ -784,7 +784,10 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         }
         else {
             theBorderLineStyle = [self lineStyleForIndex:idx];
-            currentBarFill     = [CPTFill fillWithColor:theBorderLineStyle.lineColor];
+            CPTColor *lineColor = theBorderLineStyle.lineColor;
+            if ( lineColor ) {
+                currentBarFill = [CPTFill fillWithColor:lineColor];
+            }
         }
     }
 

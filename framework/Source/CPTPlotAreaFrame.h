@@ -6,8 +6,8 @@
 
 @interface CPTPlotAreaFrame : CPTBorderedLayer
 
-@property (nonatomic, readonly) CPTPlotArea *plotArea;
-@property (nonatomic, readwrite, strong) CPTAxisSet *axisSet;
-@property (nonatomic, readwrite, strong) CPTPlotGroup *plotGroup;
+@property (nonatomic, readonly, nullable) CPTPlotArea *plotArea;
+@property (nonatomic, readwrite, strong, nullable) CPTAxisSet *axisSet;
+@property (nonatomic, readwrite, strong, nullable) CPTPlotGroup *plotGroup;
 
 @end

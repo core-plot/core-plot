@@ -35,22 +35,22 @@
 @interface CPTAxis()
 
 @property (nonatomic, readwrite, assign) BOOL needsRelabel;
-@property (nonatomic, readwrite, cpt_weak_property) __cpt_weak CPTGridLines *minorGridLines;
-@property (nonatomic, readwrite, cpt_weak_property) __cpt_weak CPTGridLines *majorGridLines;
-@property (nonatomic, readwrite, cpt_weak_property) __cpt_weak CPTAxisLabel *pointingDeviceDownLabel;
-@property (nonatomic, readwrite, cpt_weak_property) __cpt_weak CPTAxisLabel *pointingDeviceDownTickLabel;
+@property (nonatomic, readwrite, cpt_weak_property, nullable) __cpt_weak CPTGridLines *minorGridLines;
+@property (nonatomic, readwrite, cpt_weak_property, nullable) __cpt_weak CPTGridLines *majorGridLines;
+@property (nonatomic, readwrite, cpt_weak_property, nullable) __cpt_weak CPTAxisLabel *pointingDeviceDownLabel;
+@property (nonatomic, readwrite, cpt_weak_property, nullable) __cpt_weak CPTAxisLabel *pointingDeviceDownTickLabel;
 @property (nonatomic, readwrite, assign) BOOL labelFormatterChanged;
 @property (nonatomic, readwrite, assign) BOOL minorLabelFormatterChanged;
-@property (nonatomic, readwrite, strong) NSMutableArray *mutableBackgroundLimitBands;
+@property (nonatomic, readwrite, strong, nullable) NSMutableArray *mutableBackgroundLimitBands;
 @property (nonatomic, readonly) CGFloat tickOffset;
 @property (nonatomic, readwrite, assign) BOOL inTitleUpdate;
 @property (nonatomic, readwrite, assign) BOOL labelsUpdated;
 
--(void)generateFixedIntervalMajorTickLocations:(NSSet *__autoreleasing *)newMajorLocations minorTickLocations:(NSSet *__autoreleasing *)newMinorLocations;
--(void)autoGenerateMajorTickLocations:(NSSet *__autoreleasing *)newMajorLocations minorTickLocations:(NSSet *__autoreleasing *)newMinorLocations;
--(void)generateEqualMajorTickLocations:(NSSet *__autoreleasing *)newMajorLocations minorTickLocations:(NSSet *__autoreleasing *)newMinorLocations;
--(NSSet *)filteredTickLocations:(NSSet *)allLocations;
--(void)updateAxisLabelsAtLocations:(NSSet *)locations inRange:(CPTPlotRange *)labeledRange useMajorAxisLabels:(BOOL)useMajorAxisLabels;
+-(void)generateFixedIntervalMajorTickLocations:(NSSet *__nonnull __autoreleasing *)newMajorLocations minorTickLocations:(NSSet *__nonnull __autoreleasing *)newMinorLocations;
+-(void)autoGenerateMajorTickLocations:(NSSet *__nonnull __autoreleasing *)newMajorLocations minorTickLocations:(NSSet *__nonnull __autoreleasing *)newMinorLocations;
+-(void)generateEqualMajorTickLocations:(NSSet *__nonnull __autoreleasing *)newMajorLocations minorTickLocations:(NSSet *__nonnull __autoreleasing *)newMinorLocations;
+-(nullable NSSet *)filteredTickLocations:(nullable NSSet *)allLocations;
+-(void)updateAxisLabelsAtLocations:(nullable NSSet *)locations inRange:(nullable CPTPlotRange *)labeledRange useMajorAxisLabels:(BOOL)useMajorAxisLabels;
 -(void)updateCustomTickLabels;
 -(void)updateMajorTickLabelOffsets;
 -(void)updateMinorTickLabelOffsets;

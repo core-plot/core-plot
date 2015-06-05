@@ -1,5 +1,6 @@
 #import "CPTFunctionDataSource.h"
 
+#import "CPTExceptions.h"
 #import "CPTMutablePlotRange.h"
 #import "CPTNumericData.h"
 #import "CPTScatterPlot.h"
@@ -155,7 +156,8 @@ static void *const CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSou
 // function and plot are required; this will fail the assertions in -initForPlot:withFunction:
 -(instancetype)init
 {
-    return [self initForPlot:nil withFunction:NULL];
+    [NSException raise:CPTException format:@"%@ must be initialized with a function or a block.", NSStringFromClass([self class])];
+    return [self initForPlot:[CPTScatterPlot layer] withFunction:sin];
 }
 
 -(void)dealloc

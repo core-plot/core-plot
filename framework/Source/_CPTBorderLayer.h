@@ -4,6 +4,6 @@
 
 @interface CPTBorderLayer : CPTLayer
 
-@property (nonatomic, readwrite, strong) CPTBorderedLayer *maskedLayer;
+@property (nonatomic, readwrite, strong, nullable) CPTBorderedLayer *maskedLayer;
 
 @end

@@ -29,8 +29,8 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 @property (nonatomic, readwrite, getter = isRenderingRecursively) BOOL renderingRecursively;
 @property (nonatomic, readwrite, assign) BOOL useFastRendering;
 
--(void)applyTransform:(CATransform3D)transform toContext:(CGContextRef)context;
--(NSString *)subLayersAtIndex:(NSUInteger)idx;
+-(void)applyTransform:(CATransform3D)transform toContext:(nonnull CGContextRef)context;
+-(nonnull NSString *)subLayersAtIndex:(NSUInteger)idx;
 
 @end
 

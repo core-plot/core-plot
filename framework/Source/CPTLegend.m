@@ -842,7 +842,12 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  **/
 -(CPTPlot *)plotAtIndex:(NSUInteger)idx
 {
-    return (self.plots)[idx];
+    if ( idx < self.plots.count ) {
+        return (self.plots)[idx];
+    }
+    else {
+        return nil;
+    }
 }
 
 /** @brief Gets the plot with the given identifier from the plot array.

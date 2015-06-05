@@ -16,10 +16,10 @@
 /// @cond
 @interface CPTXYAxis()
 
--(void)drawTicksInContext:(CGContextRef)context atLocations:(NSSet *)locations withLength:(CGFloat)length inRange:(CPTPlotRange *)labeledRange isMajor:(BOOL)major;
+-(void)drawTicksInContext:(nonnull CGContextRef)context atLocations:(nullable NSSet *)locations withLength:(CGFloat)length inRange:(nullable CPTPlotRange *)labeledRange isMajor:(BOOL)major;
 
--(void)orthogonalCoordinateViewLowerBound:(CGFloat *)lower upperBound:(CGFloat *)upper;
--(CGPoint)viewPointForOrthogonalCoordinate:(NSNumber *)orthogonalCoord axisCoordinate:(NSNumber *)coordinateValue;
+-(void)orthogonalCoordinateViewLowerBound:(nonnull CGFloat *)lower upperBound:(nonnull CGFloat *)upper;
+-(CGPoint)viewPointForOrthogonalCoordinate:(nullable NSNumber *)orthogonalCoord axisCoordinate:(nullable NSNumber *)coordinateValue;
 
 @end
 

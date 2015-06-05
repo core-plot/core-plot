@@ -16,15 +16,15 @@ static NSString *const CPTAnimationFinishedKey  = @"CPTAnimationFinishedKey";
 @interface CPTAnimation()
 
 @property (nonatomic, readwrite, assign) CGFloat timeOffset;
-@property (nonatomic, readwrite, strong) NSMutableArray *animationOperations;
-@property (nonatomic, readwrite, strong) NSMutableArray *runningAnimationOperations;
+@property (nonatomic, readwrite, strong, nonnull) NSMutableArray *animationOperations;
+@property (nonatomic, readwrite, strong, nonnull) NSMutableArray *runningAnimationOperations;
 @property (nonatomic, readwrite) dispatch_source_t timer;
 @property (nonatomic, readwrite) dispatch_queue_t animationQueue;
 
-+(SEL)setterFromProperty:(NSString *)property;
++(nonnull SEL)setterFromProperty:(nonnull NSString *)property;
 
 -(CPTAnimationTimingFunction)timingFunctionForAnimationCurve:(CPTAnimationCurve)animationCurve;
--(void)updateOnMainThreadWithParameters:(NSDictionary *)parameters;
+-(void)updateOnMainThreadWithParameters:(nonnull NSDictionary *)parameters;
 
 -(void)startTimer;
 -(void)cancelTimer;

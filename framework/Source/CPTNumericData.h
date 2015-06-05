@@ -4,8 +4,8 @@
 
 /// @name Data Buffer
 /// @{
-@property (nonatomic, readonly, copy) NSData *data;
-@property (nonatomic, readonly) const void *bytes;
+@property (nonatomic, readonly, copy, nonnull) NSData *data;
+@property (nonatomic, readonly, nonnull) const void *bytes;
 @property (nonatomic, readonly) NSUInteger length;
 /// @}
 
@@ -19,7 +19,7 @@
 
 /// @name Dimensions
 /// @{
-@property (nonatomic, readonly, copy) NSArray *shape;
+@property (nonatomic, readonly, copy, nonnull) NSArray *shape;
 @property (nonatomic, readonly) NSUInteger numberOfDimensions;
 @property (nonatomic, readonly) NSUInteger numberOfSamples;
 @property (nonatomic, readonly) CPTDataOrder dataOrder;
@@ -27,40 +27,40 @@
 
 /// @name Factory Methods
 /// @{
-+(instancetype)numericDataWithData:(NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray;
-+(instancetype)numericDataWithData:(NSData *)newData dataTypeString:(NSString *)newDataTypeString shape:(NSArray *)shapeArray;
-+(instancetype)numericDataWithArray:(NSArray *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray;
-+(instancetype)numericDataWithArray:(NSArray *)newData dataTypeString:(NSString *)newDataTypeString shape:(NSArray *)shapeArray;
++(nonnull instancetype)numericDataWithData:(nonnull NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(nullable NSArray *)shapeArray;
++(nonnull instancetype)numericDataWithData:(nonnull NSData *)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable NSArray *)shapeArray;
++(nonnull instancetype)numericDataWithArray:(nonnull NSArray *)newData dataType:(CPTNumericDataType)newDataType shape:(nullable NSArray *)shapeArray;
++(nonnull instancetype)numericDataWithArray:(nonnull NSArray *)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable NSArray *)shapeArray;
 
-+(instancetype)numericDataWithData:(NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
-+(instancetype)numericDataWithData:(NSData *)newData dataTypeString:(NSString *)newDataTypeString shape:(NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
-+(instancetype)numericDataWithArray:(NSArray *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
-+(instancetype)numericDataWithArray:(NSArray *)newData dataTypeString:(NSString *)newDataTypeString shape:(NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
++(nonnull instancetype)numericDataWithData:(nonnull NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(nullable NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
++(nonnull instancetype)numericDataWithData:(nonnull NSData *)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
++(nonnull instancetype)numericDataWithArray:(nonnull NSArray *)newData dataType:(CPTNumericDataType)newDataType shape:(nullable NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
++(nonnull instancetype)numericDataWithArray:(nonnull NSArray *)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
 /// @}
 
 /// @name Initialization
 /// @{
--(instancetype)initWithData:(NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray;
--(instancetype)initWithData:(NSData *)newData dataTypeString:(NSString *)newDataTypeString shape:(NSArray *)shapeArray;
--(instancetype)initWithArray:(NSArray *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray;
--(instancetype)initWithArray:(NSArray *)newData dataTypeString:(NSString *)newDataTypeString shape:(NSArray *)shapeArray;
+-(nonnull instancetype)initWithData:(nonnull NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(nullable NSArray *)shapeArray;
+-(nonnull instancetype)initWithData:(nonnull NSData *)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable NSArray *)shapeArray;
+-(nonnull instancetype)initWithArray:(nonnull NSArray *)newData dataType:(CPTNumericDataType)newDataType shape:(nullable NSArray *)shapeArray;
+-(nonnull instancetype)initWithArray:(nonnull NSArray *)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable NSArray *)shapeArray;
 
--(instancetype)initWithData:(NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray dataOrder:(CPTDataOrder)order NS_DESIGNATED_INITIALIZER;
--(instancetype)initWithData:(NSData *)newData dataTypeString:(NSString *)newDataTypeString shape:(NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
--(instancetype)initWithArray:(NSArray *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
--(instancetype)initWithArray:(NSArray *)newData dataTypeString:(NSString *)newDataTypeString shape:(NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
+-(nonnull instancetype)initWithData:(nonnull NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(nullable NSArray *)shapeArray dataOrder:(CPTDataOrder)order NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype)initWithData:(nonnull NSData *)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
+-(nonnull instancetype)initWithArray:(nonnull NSArray *)newData dataType:(CPTNumericDataType)newDataType shape:(nullable NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
+-(nonnull instancetype)initWithArray:(nonnull NSArray *)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
 
--(instancetype)initWithCoder:(NSCoder *)coder NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype)initWithCoder:(nonnull NSCoder *)coder NS_DESIGNATED_INITIALIZER;
 /// @}
 
 /// @name Samples
 /// @{
 -(NSUInteger)sampleIndex:(NSUInteger)idx, ...;
--(void *)samplePointer:(NSUInteger)sample;
--(void *)samplePointerAtIndex:(NSUInteger)idx, ...;
--(NSNumber *)sampleValue:(NSUInteger)sample;
--(NSNumber *)sampleValueAtIndex:(NSUInteger)idx, ...;
--(NSArray *)sampleArray;
+-(nullable void *)samplePointer:(NSUInteger)sample;
+-(nullable void *)samplePointerAtIndex:(NSUInteger)idx, ...;
+-(nullable NSNumber *)sampleValue:(NSUInteger)sample;
+-(nullable NSNumber *)sampleValueAtIndex:(NSUInteger)idx, ...;
+-(nonnull NSArray *)sampleArray;
 /// @}
 
 @end

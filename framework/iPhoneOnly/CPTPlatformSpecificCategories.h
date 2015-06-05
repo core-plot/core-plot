@@ -9,7 +9,7 @@
  **/
 @interface CPTColor(CPTPlatformSpecificColorExtensions)
 
-@property (nonatomic, readonly) UIColor *uiColor;
+@property (nonatomic, readonly, nonnull) UIColor *uiColor;
 
 @end
 
@@ -22,7 +22,7 @@
 
 /// @name Images
 /// @{
--(CPTNativeImage *)imageOfLayer;
+-(nullable CPTNativeImage *)imageOfLayer;
 /// @}
 
 @end
@@ -34,10 +34,10 @@
  **/
 @interface NSNumber(CPTPlatformSpecificNumberExtensions)
 
--(BOOL)isLessThan:(NSNumber *)other;
--(BOOL)isLessThanOrEqualTo:(NSNumber *)other;
--(BOOL)isGreaterThan:(NSNumber *)other;
--(BOOL)isGreaterThanOrEqualTo:(NSNumber *)other;
+-(BOOL)isLessThan:(nonnull NSNumber *)other;
+-(BOOL)isLessThanOrEqualTo:(nonnull NSNumber *)other;
+-(BOOL)isGreaterThan:(nonnull NSNumber *)other;
+-(BOOL)isGreaterThanOrEqualTo:(nonnull NSNumber *)other;
 
 @end
 
@@ -50,7 +50,7 @@
 
 /// @name Drawing
 /// @{
--(void)drawInRect:(CGRect)rect inContext:(CGContextRef)context;
+-(void)drawInRect:(CGRect)rect inContext:(nonnull CGContextRef)context;
 /// @}
 
 @end

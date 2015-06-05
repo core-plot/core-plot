@@ -99,12 +99,16 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 #else
     CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:@"Click to Toggle Range Plot Style" style:textStyle];
 #endif
-    CPTLayerAnnotation *instructionsAnnotation = [[CPTLayerAnnotation alloc] initWithAnchorLayer:newGraph.plotAreaFrame.plotArea];
-    instructionsAnnotation.contentLayer       = textLayer;
-    instructionsAnnotation.rectAnchor         = CPTRectAnchorBottom;
-    instructionsAnnotation.contentAnchorPoint = CGPointMake(0.5, 0.0);
-    instructionsAnnotation.displacement       = CGPointMake(0.0, 10.0);
-    [newGraph.plotAreaFrame.plotArea addAnnotation:instructionsAnnotation];
+
+    CPTLayer *anchorLayer = newGraph.plotAreaFrame.plotArea;
+    if ( anchorLayer ) {
+        CPTLayerAnnotation *instructionsAnnotation = [[CPTLayerAnnotation alloc] initWithAnchorLayer:anchorLayer];
+        instructionsAnnotation.contentLayer       = textLayer;
+        instructionsAnnotation.rectAnchor         = CPTRectAnchorBottom;
+        instructionsAnnotation.contentAnchorPoint = CGPointMake(0.5, 0.0);
+        instructionsAnnotation.displacement       = CGPointMake(0.0, 10.0);
+        [newGraph.plotAreaFrame.plotArea addAnnotation:instructionsAnnotation];
+    }
 
     // Setup fill and bar style
     if ( !self.areaFill ) {

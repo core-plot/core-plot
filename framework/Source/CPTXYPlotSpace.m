@@ -18,21 +18,21 @@
 /// @cond
 @interface CPTXYPlotSpace()
 
--(CGFloat)viewCoordinateForViewLength:(NSDecimal)viewLength linearPlotRange:(CPTPlotRange *)range plotCoordinateValue:(NSDecimal)plotCoord;
--(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPTPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord;
+-(CGFloat)viewCoordinateForViewLength:(NSDecimal)viewLength linearPlotRange:(nullable CPTPlotRange *)range plotCoordinateValue:(NSDecimal)plotCoord;
+-(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(nullable CPTPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord;
 
--(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength logPlotRange:(CPTPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord;
+-(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength logPlotRange:(nullable CPTPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord;
 
--(NSDecimal)plotCoordinateForViewLength:(NSDecimal)viewLength linearPlotRange:(CPTPlotRange *)range boundsLength:(NSDecimal)boundsLength;
--(double)doublePrecisionPlotCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPTPlotRange *)range boundsLength:(CGFloat)boundsLength;
+-(NSDecimal)plotCoordinateForViewLength:(NSDecimal)viewLength linearPlotRange:(nullable CPTPlotRange *)range boundsLength:(NSDecimal)boundsLength;
+-(double)doublePrecisionPlotCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(nullable CPTPlotRange *)range boundsLength:(CGFloat)boundsLength;
 
--(double)doublePrecisionPlotCoordinateForViewLength:(CGFloat)viewLength logPlotRange:(CPTPlotRange *)range boundsLength:(CGFloat)boundsLength;
+-(double)doublePrecisionPlotCoordinateForViewLength:(CGFloat)viewLength logPlotRange:(nullable CPTPlotRange *)range boundsLength:(CGFloat)boundsLength;
 
--(CPTPlotRange *)constrainRange:(CPTPlotRange *)existingRange toGlobalRange:(CPTPlotRange *)globalRange;
+-(CPTPlotRange *)constrainRange:(nonnull CPTPlotRange *)existingRange toGlobalRange:(nullable CPTPlotRange *)globalRange;
 -(void)animateRangeForCoordinate:(CPTCoordinate)coordinate shift:(NSDecimal)shift momentumTime:(CGFloat)momentumTime speed:(CGFloat)speed acceleration:(CGFloat)acceleration;
--(CPTPlotRange *)shiftRange:(CPTPlotRange *)oldRange by:(NSDecimal)shift usingMomentum:(BOOL)momentum inGlobalRange:(CPTPlotRange *)globalRange withDisplacement:(CGFloat *)displacement;
+-(CPTPlotRange *)shiftRange:(nonnull CPTPlotRange *)oldRange by:(NSDecimal)shift usingMomentum:(BOOL)momentum inGlobalRange:(nullable CPTPlotRange *)globalRange withDisplacement:(CGFloat *)displacement;
 
--(CGFloat)viewCoordinateForRange:(CPTPlotRange *)range coordinate:(CPTCoordinate)coordinate direction:(BOOL)direction;
+-(CGFloat)viewCoordinateForRange:(nullable CPTPlotRange *)range coordinate:(CPTCoordinate)coordinate direction:(BOOL)direction;
 
 CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
 
@@ -41,7 +41,7 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
 @property (nonatomic, readwrite) CGPoint lastDisplacement;
 @property (nonatomic, readwrite) NSTimeInterval lastDragTime;
 @property (nonatomic, readwrite) NSTimeInterval lastDeltaTime;
-@property (nonatomic, readwrite, retain) NSMutableArray *animations;
+@property (nonatomic, readwrite, retain, nonnull) NSMutableArray *animations;
 
 @end
 

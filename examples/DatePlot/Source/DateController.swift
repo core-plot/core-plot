@@ -39,32 +39,34 @@ class DateController : NSObject, CPTPlotDataSource {
 
         // Axes
         let axisSet = newGraph.axisSet as! CPTXYAxisSet
-        let x = axisSet.xAxis
-        x.majorIntervalLength   = oneDay
-        x.orthogonalPosition    = 2.0
-        x.minorTicksPerInterval = 0;
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
-        let timeFormatter = CPTTimeFormatter(dateFormatter:dateFormatter)
-        timeFormatter.referenceDate = refDate;
-        x.labelFormatter            = timeFormatter;
+        if let x = axisSet.xAxis {
+            x.majorIntervalLength   = oneDay
+            x.orthogonalPosition    = 2.0
+            x.minorTicksPerInterval = 0;
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
+            let timeFormatter = CPTTimeFormatter(dateFormatter:dateFormatter)
+            timeFormatter.referenceDate = refDate;
+            x.labelFormatter            = timeFormatter;
+        }
 
-        let y = axisSet.yAxis
-        y.majorIntervalLength   = 0.5
-        y.minorTicksPerInterval = 5
-        y.orthogonalPosition    = oneDay
+        if let y = axisSet.yAxis {
+            y.majorIntervalLength   = 0.5
+            y.minorTicksPerInterval = 5
+            y.orthogonalPosition    = oneDay
 
-        y.labelingPolicy = .None
-
+            y.labelingPolicy = .None
+        }
 
         // Create a plot that uses the data source method
         let dataSourceLinePlot = CPTScatterPlot(frame: CGRectZero)
         dataSourceLinePlot.identifier = "Date Plot"
 
-        let lineStyle = dataSourceLinePlot.dataLineStyle.mutableCopy() as! CPTMutableLineStyle
-        lineStyle.lineWidth              = 3.0
-        lineStyle.lineColor              = CPTColor.greenColor()
-        dataSourceLinePlot.dataLineStyle = lineStyle
+        if let lineStyle = dataSourceLinePlot.dataLineStyle?.mutableCopy() as? CPTMutableLineStyle {
+            lineStyle.lineWidth              = 3.0
+            lineStyle.lineColor              = CPTColor.greenColor()
+            dataSourceLinePlot.dataLineStyle = lineStyle
+        }
 
         dataSourceLinePlot.dataSource = self
         newGraph.addPlot(dataSourceLinePlot)
@@ -85,12 +87,12 @@ class DateController : NSObject, CPTPlotDataSource {
 
     // MARK: - Plot Data Source Methods
 
-    func numberOfRecordsForPlot(plot: CPTPlot!) -> UInt
+    func numberOfRecordsForPlot(plot: CPTPlot) -> UInt
     {
         return UInt(self.plotData.count)
     }
 
-    func numberForPlot(plot: CPTPlot!, field: UInt, recordIndex: UInt) -> AnyObject!
+    func numberForPlot(plot: CPTPlot, field: UInt, recordIndex: UInt) -> AnyObject?
     {
         switch CPTScatterPlotField(rawValue: Int(field))! {
         case .X:

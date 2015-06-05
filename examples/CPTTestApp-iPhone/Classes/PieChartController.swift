@@ -49,12 +49,12 @@ class PieChartController : UIViewController, CPTPieChartDataSource {
 
     // MARK: - Plot Data Source Methods
 
-    func numberOfRecordsForPlot(plot: CPTPlot!) -> UInt
+    func numberOfRecordsForPlot(plot: CPTPlot) -> UInt
     {
         return UInt(self.dataForChart.count)
     }
 
-    func numberForPlot(plot: CPTPlot!, field: UInt, recordIndex: UInt) -> AnyObject!
+    func numberForPlot(plot: CPTPlot, field: UInt, recordIndex: UInt) -> AnyObject?
     {
         if Int(recordIndex) > self.dataForChart.count {
             return nil
@@ -70,19 +70,20 @@ class PieChartController : UIViewController, CPTPieChartDataSource {
         }
     }
 
-    func dataLabelForPlot(plot: CPTPlot!, recordIndex: UInt) -> CPTLayer!
+    func dataLabelForPlot(plot: CPTPlot, recordIndex: UInt) -> CPTLayer?
     {
         let label = CPTTextLayer(text:"\(recordIndex)")
 
-        let textStyle = label.textStyle.mutableCopy() as! CPTMutableTextStyle
-        textStyle.color = CPTColor.lightGrayColor()
+        if let textStyle = label.textStyle?.mutableCopy() as? CPTMutableTextStyle {
+            textStyle.color = CPTColor.lightGrayColor()
 
-        label.textStyle = textStyle
+            label.textStyle = textStyle
+        }
 
         return label
     }
 
-    func radialOffsetForPieChart(piePlot: CPTPieChart!, recordIndex: UInt) -> CGFloat
+    func radialOffsetForPieChart(piePlot: CPTPieChart, recordIndex: UInt) -> CGFloat
     {
         var offset: CGFloat = 0.0
 
@@ -94,8 +95,8 @@ class PieChartController : UIViewController, CPTPieChartDataSource {
     }
 
     // MARK: - Delegate Methods
-
-    func pieChart(plot: CPTPlot!, sliceWasSelectedAtRecordIndex recordIndex: UInt)
+    
+    func pieChart(plot: CPTPlot, sliceWasSelectedAtRecordIndex recordIndex: UInt)
     {
         self.pieGraph?.title = "Selected index: \(recordIndex)"
     }

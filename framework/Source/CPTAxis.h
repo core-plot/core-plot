@@ -44,13 +44,13 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
  *  @param axis The axis.
  *  @return @YES if the axis should relabel now.
  **/
--(BOOL)axisShouldRelabel:(CPTAxis *)axis;
+-(BOOL)axisShouldRelabel:(nonnull CPTAxis *)axis;
 
 /** @brief @optional The method is called after the axis is relabeled to allow the delegate to perform any
  *  necessary cleanup or further labeling actions.
  *  @param axis The axis.
  **/
--(void)axisDidRelabel:(CPTAxis *)axis;
+-(void)axisDidRelabel:(nonnull CPTAxis *)axis;
 
 /** @brief @optional This method gives the delegate a chance to create custom labels for each tick.
  *  It can be used with any labeling policy. Returning @NO will cause the axis not
@@ -59,7 +59,7 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
  *  @param locations The locations of the major ticks.
  *  @return @YES if the axis class should proceed with automatic labeling.
  **/
--(BOOL)axis:(CPTAxis *)axis shouldUpdateAxisLabelsAtLocations:(NSSet *)locations;
+-(BOOL)axis:(nonnull CPTAxis *)axis shouldUpdateAxisLabelsAtLocations:(nonnull NSSet *)locations;
 
 /** @brief @optional This method gives the delegate a chance to create custom labels for each minor tick.
  *  It can be used with any labeling policy. Returning @NO will cause the axis not
@@ -68,7 +68,7 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
  *  @param locations The locations of the minor ticks.
  *  @return @YES if the axis class should proceed with automatic labeling.
  **/
--(BOOL)axis:(CPTAxis *)axis shouldUpdateMinorAxisLabelsAtLocations:(NSSet *)locations;
+-(BOOL)axis:(nonnull CPTAxis *)axis shouldUpdateMinorAxisLabelsAtLocations:(nonnull NSSet *)locations;
 
 /// @}
 
@@ -81,7 +81,7 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
  *  @param axis The axis.
  *  @param label The selected axis label.
  **/
--(void)axis:(CPTAxis *)axis labelWasSelected:(CPTAxisLabel *)label;
+-(void)axis:(nonnull CPTAxis *)axis labelWasSelected:(nonnull CPTAxisLabel *)label;
 
 /** @brief @optional Informs the delegate that an axis label
  *  @if MacOnly was both pressed and released. @endif
@@ -90,7 +90,7 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
  *  @param label The selected axis label.
  *  @param event The event that triggered the selection.
  **/
--(void)axis:(CPTAxis *)axis labelWasSelected:(CPTAxisLabel *)label withEvent:(CPTNativeEvent *)event;
+-(void)axis:(nonnull CPTAxis *)axis labelWasSelected:(nonnull CPTAxisLabel *)label withEvent:(nonnull CPTNativeEvent *)event;
 
 /** @brief @optional Informs the delegate that a minor tick axis label
  *  @if MacOnly was both pressed and released. @endif
@@ -98,7 +98,7 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
  *  @param axis The axis.
  *  @param label The selected minor tick axis label.
  **/
--(void)axis:(CPTAxis *)axis minorTickLabelWasSelected:(CPTAxisLabel *)label;
+-(void)axis:(nonnull CPTAxis *)axis minorTickLabelWasSelected:(nonnull CPTAxisLabel *)label;
 
 /** @brief @optional Informs the delegate that a minor tick axis label
  *  @if MacOnly was both pressed and released. @endif
@@ -107,7 +107,7 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
  *  @param label The selected minor tick axis label.
  *  @param event The event that triggered the selection.
  **/
--(void)axis:(CPTAxis *)axis minorTickLabelWasSelected:(CPTAxisLabel *)label withEvent:(CPTNativeEvent *)event;
+-(void)axis:(nonnull CPTAxis *)axis minorTickLabelWasSelected:(nonnull CPTAxisLabel *)label withEvent:(nonnull CPTNativeEvent *)event;
 
 /** @brief @optional Informs the delegate that an axis label
  *  @if MacOnly was pressed. @endif
@@ -115,7 +115,7 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
  *  @param axis The axis.
  *  @param label The selected axis label.
  **/
--(void)axis:(CPTAxis *)axis labelTouchDown:(CPTAxisLabel *)label;
+-(void)axis:(nonnull CPTAxis *)axis labelTouchDown:(nonnull CPTAxisLabel *)label;
 
 /** @brief @optional Informs the delegate that an axis label
  *  @if MacOnly was pressed. @endif
@@ -124,7 +124,7 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
  *  @param label The selected axis label.
  *  @param event The event that triggered the selection.
  **/
--(void)axis:(CPTAxis *)axis labelTouchDown:(CPTAxisLabel *)label withEvent:(CPTNativeEvent *)event;
+-(void)axis:(nonnull CPTAxis *)axis labelTouchDown:(nonnull CPTAxisLabel *)label withEvent:(nonnull CPTNativeEvent *)event;
 
 /** @brief @optional Informs the delegate that an axis label
  *  @if MacOnly was released. @endif
@@ -132,7 +132,7 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
  *  @param axis The axis.
  *  @param label The selected axis label.
  **/
--(void)axis:(CPTAxis *)axis labelTouchUp:(CPTAxisLabel *)label;
+-(void)axis:(nonnull CPTAxis *)axis labelTouchUp:(nonnull CPTAxisLabel *)label;
 
 /** @brief @optional Informs the delegate that an axis label
  *  @if MacOnly was released. @endif
@@ -141,7 +141,7 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
  *  @param label The selected axis label.
  *  @param event The event that triggered the selection.
  **/
--(void)axis:(CPTAxis *)axis labelTouchUp:(CPTAxisLabel *)label withEvent:(CPTNativeEvent *)event;
+-(void)axis:(nonnull CPTAxis *)axis labelTouchUp:(nonnull CPTAxisLabel *)label withEvent:(nonnull CPTNativeEvent *)event;
 
 /** @brief @optional Informs the delegate that a minor tick axis label
  *  @if MacOnly was pressed. @endif
@@ -149,7 +149,7 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
  *  @param axis The axis.
  *  @param label The selected minor tick axis label.
  **/
--(void)axis:(CPTAxis *)axis minorTickTouchDown:(CPTAxisLabel *)label;
+-(void)axis:(nonnull CPTAxis *)axis minorTickTouchDown:(nonnull CPTAxisLabel *)label;
 
 /** @brief @optional Informs the delegate that a minor tick axis label
  *  @if MacOnly was pressed. @endif
@@ -158,7 +158,7 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
  *  @param label The selected minor tick axis label.
  *  @param event The event that triggered the selection.
  **/
--(void)axis:(CPTAxis *)axis minorTickTouchDown:(CPTAxisLabel *)label withEvent:(CPTNativeEvent *)event;
+-(void)axis:(nonnull CPTAxis *)axis minorTickTouchDown:(nonnull CPTAxisLabel *)label withEvent:(nonnull CPTNativeEvent *)event;
 
 /** @brief @optional Informs the delegate that a minor tick axis label
  *  @if MacOnly was released. @endif
@@ -166,7 +166,7 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
  *  @param axis The axis.
  *  @param label The selected minor tick axis label.
  **/
--(void)axis:(CPTAxis *)axis minorTickTouchUp:(CPTAxisLabel *)label;
+-(void)axis:(nonnull CPTAxis *)axis minorTickTouchUp:(nonnull CPTAxisLabel *)label;
 
 /** @brief @optional Informs the delegate that a minor tick axis label
  *  @if MacOnly was released. @endif
@@ -175,7 +175,7 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
  *  @param label The selected minor tick axis label.
  *  @param event The event that triggered the selection.
  **/
--(void)axis:(CPTAxis *)axis minorTickTouchUp:(CPTAxisLabel *)label withEvent:(CPTNativeEvent *)event;
+-(void)axis:(nonnull CPTAxis *)axis minorTickTouchUp:(nonnull CPTAxisLabel *)label withEvent:(nonnull CPTNativeEvent *)event;
 
 /// @}
 
@@ -187,27 +187,27 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
 
 /// @name Axis
 /// @{
-@property (nonatomic, readwrite, copy) CPTLineStyle *axisLineStyle;
+@property (nonatomic, readwrite, copy, nullable) CPTLineStyle *axisLineStyle;
 @property (nonatomic, readwrite, assign) CPTCoordinate coordinate;
-@property (nonatomic, readwrite, strong) NSNumber *labelingOrigin;
+@property (nonatomic, readwrite, strong, nullable) NSNumber *labelingOrigin;
 @property (nonatomic, readwrite, assign) CPTSign tickDirection;
-@property (nonatomic, readwrite, copy) CPTPlotRange *visibleRange;
-@property (nonatomic, readwrite, copy) CPTPlotRange *visibleAxisRange;
-@property (nonatomic, readwrite, copy) CPTLineCap *axisLineCapMin;
-@property (nonatomic, readwrite, copy) CPTLineCap *axisLineCapMax;
+@property (nonatomic, readwrite, copy, nullable) CPTPlotRange *visibleRange;
+@property (nonatomic, readwrite, copy, nullable) CPTPlotRange *visibleAxisRange;
+@property (nonatomic, readwrite, copy, nullable) CPTLineCap *axisLineCapMin;
+@property (nonatomic, readwrite, copy, nullable) CPTLineCap *axisLineCapMax;
 /// @}
 
 /// @name Title
 /// @{
-@property (nonatomic, readwrite, copy) CPTTextStyle *titleTextStyle;
-@property (nonatomic, readwrite, strong) CPTAxisTitle *axisTitle;
+@property (nonatomic, readwrite, copy, nullable) CPTTextStyle *titleTextStyle;
+@property (nonatomic, readwrite, strong, nullable) CPTAxisTitle *axisTitle;
 @property (nonatomic, readwrite, assign) CGFloat titleOffset;
-@property (nonatomic, readwrite, copy) NSString *title;
-@property (nonatomic, readwrite, copy) NSAttributedString *attributedTitle;
+@property (nonatomic, readwrite, copy, nullable) NSString *title;
+@property (nonatomic, readwrite, copy, nullable) NSAttributedString *attributedTitle;
 @property (nonatomic, readwrite, assign) CGFloat titleRotation;
 @property (nonatomic, readwrite, assign) CPTSign titleDirection;
-@property (nonatomic, readwrite, strong) NSNumber *titleLocation;
-@property (nonatomic, readonly) NSNumber *defaultTitleLocation;
+@property (nonatomic, readwrite, strong, nullable) NSNumber *titleLocation;
+@property (nonatomic, readonly, nonnull) NSNumber *defaultTitleLocation;
 /// @}
 
 /// @name Labels
@@ -219,26 +219,26 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
 @property (nonatomic, readwrite, assign) CGFloat minorTickLabelRotation;
 @property (nonatomic, readwrite, assign) CPTAlignment labelAlignment;
 @property (nonatomic, readwrite, assign) CPTAlignment minorTickLabelAlignment;
-@property (nonatomic, readwrite, copy) CPTTextStyle *labelTextStyle;
-@property (nonatomic, readwrite, copy) CPTTextStyle *minorTickLabelTextStyle;
+@property (nonatomic, readwrite, copy, nullable) CPTTextStyle *labelTextStyle;
+@property (nonatomic, readwrite, copy, nullable) CPTTextStyle *minorTickLabelTextStyle;
 @property (nonatomic, readwrite, assign) CPTSign tickLabelDirection;
 @property (nonatomic, readwrite, assign) CPTSign minorTickLabelDirection;
-@property (nonatomic, readwrite, strong) NSFormatter *labelFormatter;
-@property (nonatomic, readwrite, strong) NSFormatter *minorTickLabelFormatter;
-@property (nonatomic, readwrite, strong) NSSet *axisLabels;
-@property (nonatomic, readwrite, strong) NSSet *minorTickAxisLabels;
+@property (nonatomic, readwrite, strong, nullable) NSFormatter *labelFormatter;
+@property (nonatomic, readwrite, strong, nullable) NSFormatter *minorTickLabelFormatter;
+@property (nonatomic, readwrite, strong, nullable) NSSet *axisLabels;
+@property (nonatomic, readwrite, strong, nullable) NSSet *minorTickAxisLabels;
 @property (nonatomic, readonly) BOOL needsRelabel;
-@property (nonatomic, readwrite, strong) NSArray *labelExclusionRanges;
-@property (nonatomic, readwrite, strong) CPTShadow *labelShadow;
-@property (nonatomic, readwrite, strong) CPTShadow *minorTickLabelShadow;
+@property (nonatomic, readwrite, strong, nullable) NSArray *labelExclusionRanges;
+@property (nonatomic, readwrite, strong, nullable) CPTShadow *labelShadow;
+@property (nonatomic, readwrite, strong, nullable) CPTShadow *minorTickLabelShadow;
 /// @}
 
 /// @name Major Ticks
 /// @{
-@property (nonatomic, readwrite, strong) NSNumber *majorIntervalLength;
+@property (nonatomic, readwrite, strong, nullable) NSNumber *majorIntervalLength;
 @property (nonatomic, readwrite, assign) CGFloat majorTickLength;
-@property (nonatomic, readwrite, copy) CPTLineStyle *majorTickLineStyle;
-@property (nonatomic, readwrite, strong) NSSet *majorTickLocations;
+@property (nonatomic, readwrite, copy, nullable) CPTLineStyle *majorTickLineStyle;
+@property (nonatomic, readwrite, strong, nullable) NSSet *majorTickLocations;
 @property (nonatomic, readwrite, assign) NSUInteger preferredNumberOfMajorTicks;
 /// @}
 
@@ -246,35 +246,35 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
 /// @{
 @property (nonatomic, readwrite, assign) NSUInteger minorTicksPerInterval;
 @property (nonatomic, readwrite, assign) CGFloat minorTickLength;
-@property (nonatomic, readwrite, copy) CPTLineStyle *minorTickLineStyle;
-@property (nonatomic, readwrite, strong) NSSet *minorTickLocations;
+@property (nonatomic, readwrite, copy, nullable) CPTLineStyle *minorTickLineStyle;
+@property (nonatomic, readwrite, strong, nullable) NSSet *minorTickLocations;
 /// @}
 
 /// @name Grid Lines
 /// @{
-@property (nonatomic, readwrite, copy) CPTLineStyle *majorGridLineStyle;
-@property (nonatomic, readwrite, copy) CPTLineStyle *minorGridLineStyle;
-@property (nonatomic, readwrite, copy) CPTPlotRange *gridLinesRange;
+@property (nonatomic, readwrite, copy, nullable) CPTLineStyle *majorGridLineStyle;
+@property (nonatomic, readwrite, copy, nullable) CPTLineStyle *minorGridLineStyle;
+@property (nonatomic, readwrite, copy, nullable) CPTPlotRange *gridLinesRange;
 /// @}
 
 /// @name Background Bands
 /// @{
-@property (nonatomic, readwrite, copy) NSArray *alternatingBandFills;
-@property (nonatomic, readonly) NSArray *backgroundLimitBands;
+@property (nonatomic, readwrite, copy, nullable) NSArray *alternatingBandFills;
+@property (nonatomic, readonly, nullable) NSArray *backgroundLimitBands;
 /// @}
 
 /// @name Plot Space
 /// @{
-@property (nonatomic, readwrite, strong) CPTPlotSpace *plotSpace;
+@property (nonatomic, readwrite, strong, nullable) CPTPlotSpace *plotSpace;
 /// @}
 
 /// @name Layers
 /// @{
 @property (nonatomic, readwrite, assign) BOOL separateLayers;
-@property (nonatomic, readwrite, cpt_weak_property) __cpt_weak CPTPlotArea *plotArea;
-@property (nonatomic, readonly) __cpt_weak CPTGridLines *minorGridLines;
-@property (nonatomic, readonly) __cpt_weak CPTGridLines *majorGridLines;
-@property (nonatomic, readonly) CPTAxisSet *axisSet;
+@property (nonatomic, readwrite, cpt_weak_property, nullable) __cpt_weak CPTPlotArea *plotArea;
+@property (nonatomic, readonly, nullable) __cpt_weak CPTGridLines *minorGridLines;
+@property (nonatomic, readonly, nullable) __cpt_weak CPTGridLines *majorGridLines;
+@property (nonatomic, readonly, nullable) CPTAxisSet *axisSet;
 /// @}
 
 /// @name Title
@@ -292,14 +292,14 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
 
 /// @name Ticks
 /// @{
--(NSSet *)filteredMajorTickLocations:(NSSet *)allLocations;
--(NSSet *)filteredMinorTickLocations:(NSSet *)allLocations;
+-(nullable NSSet *)filteredMajorTickLocations:(nullable NSSet *)allLocations;
+-(nullable NSSet *)filteredMinorTickLocations:(nullable NSSet *)allLocations;
 /// @}
 
 /// @name Background Bands
 /// @{
--(void)addBackgroundLimitBand:(CPTLimitBand *)limitBand;
--(void)removeBackgroundLimitBand:(CPTLimitBand *)limitBand;
+-(void)addBackgroundLimitBand:(nullable CPTLimitBand *)limitBand;
+-(void)removeBackgroundLimitBand:(nullable CPTLimitBand *)limitBand;
 -(void)removeAllBackgroundLimitBands;
 /// @}
 
@@ -314,18 +314,18 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
 
 /// @name Coordinate Space Conversions
 /// @{
--(CGPoint)viewPointForCoordinateValue:(NSNumber *)coordinateValue;
+-(CGPoint)viewPointForCoordinateValue:(nullable NSNumber *)coordinateValue;
 /// @}
 
 /// @name Grid Lines
 /// @{
--(void)drawGridLinesInContext:(CGContextRef)context isMajor:(BOOL)major;
+-(void)drawGridLinesInContext:(nonnull CGContextRef)context isMajor:(BOOL)major;
 /// @}
 
 /// @name Background Bands
 /// @{
--(void)drawBackgroundBandsInContext:(CGContextRef)context;
--(void)drawBackgroundLimitsInContext:(CGContextRef)context;
+-(void)drawBackgroundBandsInContext:(nonnull CGContextRef)context;
+-(void)drawBackgroundLimitsInContext:(nonnull CGContextRef)context;
 /// @}
 
 @end

@@ -7,12 +7,12 @@
 
 /// @name Axes
 /// @{
-@property (nonatomic, readwrite, strong) NSArray *axes;
+@property (nonatomic, readwrite, strong, nullable) NSArray *axes;
 /// @}
 
 /// @name Drawing
 /// @{
-@property (nonatomic, readwrite, copy) CPTLineStyle *borderLineStyle;
+@property (nonatomic, readwrite, copy, nullable) CPTLineStyle *borderLineStyle;
 /// @}
 
 /// @name Labels
@@ -22,7 +22,7 @@
 
 /// @name Axes
 /// @{
--(CPTAxis *)axisForCoordinate:(CPTCoordinate)coordinate atIndex:(NSUInteger)idx;
+-(nullable CPTAxis *)axisForCoordinate:(CPTCoordinate)coordinate atIndex:(NSUInteger)idx;
 /// @}
 
 @end

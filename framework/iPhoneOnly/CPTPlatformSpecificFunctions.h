@@ -6,14 +6,14 @@ extern "C" {
 
 /// @name Graphics Context Save Stack
 /// @{
-void CPTPushCGContext(CGContextRef context);
+void CPTPushCGContext(__nonnull CGContextRef context);
 void CPTPopCGContext(void);
 
 /// @}
 
 /// @name Graphics Context
 /// @{
-CGContextRef CPTGetCurrentContext(void);
+__nonnull CGContextRef CPTGetCurrentContext(void);
 
 /// @}
 

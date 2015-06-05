@@ -6,8 +6,8 @@
 
 /// @name Positioning
 /// @{
-@property (nonatomic, readwrite, strong) NSNumber *orthogonalPosition;
-@property (nonatomic, readwrite, strong) CPTConstraints *axisConstraints;
+@property (nonatomic, readwrite, strong, nullable) NSNumber *orthogonalPosition;
+@property (nonatomic, readwrite, strong, nullable) CPTConstraints *axisConstraints;
 /// @}
 
 @end

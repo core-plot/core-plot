@@ -9,6 +9,7 @@ To be determined
 - **New**: Added histogram style options to `CPTScatterPlot`.
 - **New**: Added iOS unit tests.
 - **New**: Added plot space point conversion methods that take an `NSArray` of coordinate values.
+- **New**: Added nullability annotations to all property and method declarations.
 - **Changed**: Increased the deployment target to iOS 8.0 and Mac OS X 10.7.
 - **Changed**: Changed the Installation Directory for the Mac framework to "@rpath" and updated the Runpath Search Path in each Mac example app.
 - **Changed**: Changed all public properties and methods that take `NSDecimal` values to take `NSNumber` values instead. Use `NSDecimalNumber` to maintain full decimal precision.

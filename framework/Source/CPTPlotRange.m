@@ -153,6 +153,9 @@
  **/
 -(instancetype)initWithLocation:(NSNumber *)loc length:(NSNumber *)len
 {
+    NSParameterAssert(loc);
+    NSParameterAssert(len);
+
     return [self initWithLocationDecimal:loc.decimalValue
                            lengthDecimal:len.decimalValue];
 }

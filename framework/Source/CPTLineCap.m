@@ -9,9 +9,9 @@
 /// @cond
 @interface CPTLineCap()
 
-@property (nonatomic, readwrite, assign) CGPathRef cachedLineCapPath;
+@property (nonatomic, readwrite, assign, nullable) CGPathRef cachedLineCapPath;
 
--(CGPathRef)newLineCapPath;
+-(nonnull CGPathRef)newLineCapPath;
 
 @end
 

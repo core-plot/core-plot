@@ -16,7 +16,7 @@
  *  @param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint;
+-(BOOL)pointingDeviceDownEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint;
 
 /**
  *  @brief @required Informs the receiver that the user has
@@ -26,7 +26,7 @@
  *  @param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint;
+-(BOOL)pointingDeviceUpEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint;
 
 /**
  *  @brief @required Informs the receiver that the user has moved
@@ -36,7 +36,7 @@
  *  @param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceDraggedEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint;
+-(BOOL)pointingDeviceDraggedEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint;
 
 /**
  *  @brief @required Informs the receiver that tracking of
@@ -46,7 +46,7 @@
  *  @param event The OS event.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceCancelledEvent:(CPTNativeEvent *)event;
+-(BOOL)pointingDeviceCancelledEvent:(nonnull CPTNativeEvent *)event;
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #else
@@ -58,7 +58,7 @@
  *  @param toPoint The ending coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)scrollWheelEvent:(CPTNativeEvent *)event fromPoint:(CGPoint)fromPoint toPoint:(CGPoint)toPoint;
+-(BOOL)scrollWheelEvent:(nonnull CPTNativeEvent *)event fromPoint:(CGPoint)fromPoint toPoint:(CGPoint)toPoint;
 #endif
 
 /// @}

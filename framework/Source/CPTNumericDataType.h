@@ -38,8 +38,8 @@ extern "C" {
 /// @name Data Type Utilities
 /// @{
 CPTNumericDataType CPTDataType(CPTDataTypeFormat format, size_t sampleBytes, CFByteOrder byteOrder);
-CPTNumericDataType CPTDataTypeWithDataTypeString(NSString *dataTypeString);
-NSString *CPTDataTypeStringFromDataType(CPTNumericDataType dataType);
+CPTNumericDataType CPTDataTypeWithDataTypeString(NSString *__nonnull dataTypeString);
+NSString *__nonnull CPTDataTypeStringFromDataType(CPTNumericDataType dataType);
 BOOL CPTDataTypeIsSupported(CPTNumericDataType format);
 BOOL CPTDataTypeEqualToDataType(CPTNumericDataType dataType1, CPTNumericDataType dataType2);
 

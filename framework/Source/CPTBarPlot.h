@@ -15,11 +15,11 @@
 
 /// @ingroup plotBindingsBarPlot
 /// @{
-extern NSString *const CPTBarPlotBindingBarLocations;
-extern NSString *const CPTBarPlotBindingBarTips;
-extern NSString *const CPTBarPlotBindingBarBases;
-extern NSString *const CPTBarPlotBindingBarFills;
-extern NSString *const CPTBarPlotBindingBarLineStyles;
+extern NSString *__nonnull const CPTBarPlotBindingBarLocations;
+extern NSString *__nonnull const CPTBarPlotBindingBarTips;
+extern NSString *__nonnull const CPTBarPlotBindingBarBases;
+extern NSString *__nonnull const CPTBarPlotBindingBarFills;
+extern NSString *__nonnull const CPTBarPlotBindingBarLineStyles;
 /// @}
 
 /**
@@ -47,7 +47,7 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
  *  @param indexRange The range of the data indexes of interest.
  *  @return An array of bar fills.
  **/
--(NSArray *)barFillsForBarPlot:(CPTBarPlot *)barPlot recordIndexRange:(NSRange)indexRange;
+-(nullable NSArray *)barFillsForBarPlot:(nonnull CPTBarPlot *)barPlot recordIndexRange:(NSRange)indexRange;
 
 /** @brief @optional Gets a bar fill for the given bar plot.
  *  This method will not be called if
@@ -58,14 +58,14 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
  *  @return The bar fill for the bar with the given index. If the data source returns @nil, the default fill is used.
  *  If the data source returns an NSNull object, no fill is drawn.
  **/
--(CPTFill *)barFillForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)idx;
+-(nullable CPTFill *)barFillForBarPlot:(nonnull CPTBarPlot *)barPlot recordIndex:(NSUInteger)idx;
 
 /** @brief @optional Gets an array of bar line styles for the given bar plot.
  *  @param barPlot The bar plot.
  *  @param indexRange The range of the data indexes of interest.
  *  @return An array of line styles.
  **/
--(NSArray *)barLineStylesForBarPlot:(CPTBarPlot *)barPlot recordIndexRange:(NSRange)indexRange;
+-(nullable NSArray *)barLineStylesForBarPlot:(nonnull CPTBarPlot *)barPlot recordIndexRange:(NSRange)indexRange;
 
 /** @brief @optional Gets a bar line style for the given bar plot.
  *  This method will not be called if
@@ -76,7 +76,7 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
  *  @return The bar line style for the bar with the given index. If the data source returns @nil, the default line style is used.
  *  If the data source returns an NSNull object, no line is drawn.
  **/
--(CPTLineStyle *)barLineStyleForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)idx;
+-(nullable CPTLineStyle *)barLineStyleForBarPlot:(nonnull CPTBarPlot *)barPlot recordIndex:(NSUInteger)idx;
 
 /// @}
 
@@ -88,14 +88,14 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
  *  @param idx The data index of interest.
  *  @return The title text for the legend entry for the point with the given index.
  **/
--(NSString *)legendTitleForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)idx;
+-(nullable NSString *)legendTitleForBarPlot:(nonnull CPTBarPlot *)barPlot recordIndex:(NSUInteger)idx;
 
 /** @brief @optional Gets the styled legend title for the given bar plot bar.
  *  @param barPlot The bar plot.
  *  @param idx The data index of interest.
  *  @return The styled title text for the legend entry for the point with the given index.
  **/
--(NSAttributedString *)attributedLegendTitleForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)idx;
+-(nullable NSAttributedString *)attributedLegendTitleForBarPlot:(nonnull CPTBarPlot *)barPlot recordIndex:(NSUInteger)idx;
 
 /// @}
 @end
@@ -121,7 +121,7 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
  *  @if MacOnly clicked bar. @endif
  *  @if iOSOnly touched bar. @endif
  **/
--(void)barPlot:(CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)idx;
+-(void)barPlot:(nonnull CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)idx;
 
 /** @brief @optional Informs the delegate that a bar
  *  @if MacOnly was both pressed and released. @endif
@@ -133,7 +133,7 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
  *  @if iOSOnly touched bar. @endif
  *  @param event The event that triggered the selection.
  **/
--(void)barPlot:(CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
+-(void)barPlot:(nonnull CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)idx withEvent:(nonnull CPTNativeEvent *)event;
 
 /** @brief @optional Informs the delegate that a bar
  *  @if MacOnly was pressed. @endif
@@ -143,7 +143,7 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
  *  @if MacOnly clicked bar. @endif
  *  @if iOSOnly touched bar. @endif
  **/
--(void)barPlot:(CPTBarPlot *)plot barTouchDownAtRecordIndex:(NSUInteger)idx;
+-(void)barPlot:(nonnull CPTBarPlot *)plot barTouchDownAtRecordIndex:(NSUInteger)idx;
 
 /** @brief @optional Informs the delegate that a bar
  *  @if MacOnly was pressed. @endif
@@ -154,7 +154,7 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
  *  @if iOSOnly touched bar. @endif
  *  @param event The event that triggered the selection.
  **/
--(void)barPlot:(CPTBarPlot *)plot barTouchDownAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
+-(void)barPlot:(nonnull CPTBarPlot *)plot barTouchDownAtRecordIndex:(NSUInteger)idx withEvent:(nonnull CPTNativeEvent *)event;
 
 /** @brief @optional Informs the delegate that a bar
  *  @if MacOnly was released. @endif
@@ -164,7 +164,7 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
  *  @if MacOnly clicked bar. @endif
  *  @if iOSOnly touched bar. @endif
  **/
--(void)barPlot:(CPTBarPlot *)plot barTouchUpAtRecordIndex:(NSUInteger)idx;
+-(void)barPlot:(nonnull CPTBarPlot *)plot barTouchUpAtRecordIndex:(NSUInteger)idx;
 
 /** @brief @optional Informs the delegate that a bar
  *  @if MacOnly was released. @endif
@@ -175,7 +175,7 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
  *  @if iOSOnly touched bar. @endif
  *  @param event The event that triggered the selection.
  **/
--(void)barPlot:(CPTBarPlot *)plot barTouchUpAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
+-(void)barPlot:(nonnull CPTBarPlot *)plot barTouchUpAtRecordIndex:(NSUInteger)idx withEvent:(nonnull CPTNativeEvent *)event;
 
 /// @}
 
@@ -188,30 +188,30 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
 /// @name Appearance
 /// @{
 @property (nonatomic, readwrite, assign) BOOL barWidthsAreInViewCoordinates;
-@property (nonatomic, readwrite, strong) NSNumber *barWidth;
-@property (nonatomic, readwrite, strong) NSNumber *barOffset;
+@property (nonatomic, readwrite, strong, nullable) NSNumber *barWidth;
+@property (nonatomic, readwrite, strong, nullable) NSNumber *barOffset;
 @property (nonatomic, readwrite, assign) CGFloat barCornerRadius;
 @property (nonatomic, readwrite, assign) CGFloat barBaseCornerRadius;
 @property (nonatomic, readwrite, assign) BOOL barsAreHorizontal;
-@property (nonatomic, readwrite, strong) NSNumber *baseValue;
+@property (nonatomic, readwrite, strong, nullable) NSNumber *baseValue;
 @property (nonatomic, readwrite, assign) BOOL barBasesVary;
-@property (nonatomic, readwrite, copy) CPTPlotRange *plotRange;
+@property (nonatomic, readwrite, copy, nullable) CPTPlotRange *plotRange;
 /// @}
 
 /// @name Drawing
 /// @{
-@property (nonatomic, readwrite, copy) CPTLineStyle *lineStyle;
-@property (nonatomic, readwrite, copy) CPTFill *fill;
+@property (nonatomic, readwrite, copy, nullable) CPTLineStyle *lineStyle;
+@property (nonatomic, readwrite, copy, nullable) CPTFill *fill;
 /// @}
 
 /// @name Factory Methods
 /// @{
-+(instancetype)tubularBarPlotWithColor:(CPTColor *)color horizontalBars:(BOOL)horizontal;
++(nonnull instancetype)tubularBarPlotWithColor:(nonnull CPTColor *)color horizontalBars:(BOOL)horizontal;
 /// @}
 
 /// @name Data Ranges
 /// @{
--(CPTPlotRange *)plotRangeEnclosingBars;
+-(nullable CPTPlotRange *)plotRangeEnclosingBars;
 /// @}
 
 /// @name Bar Style

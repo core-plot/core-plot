@@ -108,6 +108,8 @@ static NSMutableSet *themes = nil;
  **/
 +(void)registerTheme:(Class)themeClass
 {
+    NSParameterAssert(themeClass);
+
     @synchronized(self)
     {
         if ( !themes ) {

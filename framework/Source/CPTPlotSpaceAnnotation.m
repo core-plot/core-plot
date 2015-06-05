@@ -1,5 +1,6 @@
 #import "CPTPlotSpaceAnnotation.h"
 
+#import "CPTExceptions.h"
 #import "CPTPlotArea.h"
 #import "CPTPlotAreaFrame.h"
 #import "CPTPlotSpace.h"
@@ -8,7 +9,7 @@
 
 @interface CPTPlotSpaceAnnotation()
 
-@property (nonatomic, readwrite) NSDecimal *decimalAnchor;
+@property (nonatomic, readwrite, nonnull) NSDecimal *decimalAnchor;
 @property (nonatomic, readwrite) NSUInteger anchorCount;
 
 -(void)setContentNeedsLayout;
@@ -75,10 +76,11 @@
 
 /// @cond
 
-// plotSpace is required; this will fail the assertion in -initWithPlotSpace:anchorPlotPoint:
+// plotSpace is required
 -(instancetype)init
 {
-    return [self initWithPlotSpace:nil anchorPlotPoint:nil];
+    [NSException raise:CPTException format:@"%@ must be initialized with a plot space.", NSStringFromClass([self class])];
+    return [self initWithPlotSpace:[[CPTPlotSpace alloc] init] anchorPlotPoint:nil];
 }
 
 -(void)dealloc

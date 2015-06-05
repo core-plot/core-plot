@@ -5,7 +5,7 @@
 /// @cond
 @interface _CPTFillGradient()
 
-@property (nonatomic, readwrite, copy) CPTGradient *fillGradient;
+@property (nonatomic, readwrite, copy, nullable) CPTGradient *fillGradient;
 
 @end
 

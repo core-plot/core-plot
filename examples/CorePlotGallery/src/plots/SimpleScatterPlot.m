@@ -249,12 +249,15 @@
     NSString *yString = [formatter stringFromNumber:y];
 
     // Now add the annotation to the plot area
-    CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle];
-    annotation                = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:graph.defaultPlotSpace anchorPlotPoint:anchorPoint];
-    annotation.contentLayer   = textLayer;
-    annotation.displacement   = CGPointMake(0.0, 20.0);
-    self.symbolTextAnnotation = annotation;
-    [graph.plotAreaFrame.plotArea addAnnotation:annotation];
+    CPTPlotSpace *defaultSpace = graph.defaultPlotSpace;
+    if ( defaultSpace ) {
+        CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle];
+        annotation                = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:defaultSpace anchorPlotPoint:anchorPoint];
+        annotation.contentLayer   = textLayer;
+        annotation.displacement   = CGPointMake(0.0, 20.0);
+        self.symbolTextAnnotation = annotation;
+        [graph.plotAreaFrame.plotArea addAnnotation:annotation];
+    }
 }
 
 -(void)scatterPlotDataLineWasSelected:(CPTScatterPlot *)plot

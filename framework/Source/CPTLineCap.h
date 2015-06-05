@@ -26,31 +26,31 @@ typedef NS_ENUM (NSInteger, CPTLineCapType) {
 
 @property (nonatomic, readwrite, assign) CGSize size;
 @property (nonatomic, readwrite, assign) CPTLineCapType lineCapType;
-@property (nonatomic, readwrite, strong) CPTLineStyle *lineStyle;
-@property (nonatomic, readwrite, strong) CPTFill *fill;
-@property (nonatomic, readwrite, assign) CGPathRef customLineCapPath;
+@property (nonatomic, readwrite, strong, nullable) CPTLineStyle *lineStyle;
+@property (nonatomic, readwrite, strong, nullable) CPTFill *fill;
+@property (nonatomic, readwrite, assign, nullable) CGPathRef customLineCapPath;
 @property (nonatomic, readwrite, assign) BOOL usesEvenOddClipRule;
 
 /// @name Factory Methods
 /// @{
-+(instancetype)lineCap;
-+(instancetype)openArrowPlotLineCap;
-+(instancetype)solidArrowPlotLineCap;
-+(instancetype)sweptArrowPlotLineCap;
-+(instancetype)rectanglePlotLineCap;
-+(instancetype)ellipsePlotLineCap;
-+(instancetype)diamondPlotLineCap;
-+(instancetype)pentagonPlotLineCap;
-+(instancetype)hexagonPlotLineCap;
-+(instancetype)barPlotLineCap;
-+(instancetype)crossPlotLineCap;
-+(instancetype)snowPlotLineCap;
-+(instancetype)customLineCapWithPath:(CGPathRef)aPath;
++(nonnull instancetype)lineCap;
++(nonnull instancetype)openArrowPlotLineCap;
++(nonnull instancetype)solidArrowPlotLineCap;
++(nonnull instancetype)sweptArrowPlotLineCap;
++(nonnull instancetype)rectanglePlotLineCap;
++(nonnull instancetype)ellipsePlotLineCap;
++(nonnull instancetype)diamondPlotLineCap;
++(nonnull instancetype)pentagonPlotLineCap;
++(nonnull instancetype)hexagonPlotLineCap;
++(nonnull instancetype)barPlotLineCap;
++(nonnull instancetype)crossPlotLineCap;
++(nonnull instancetype)snowPlotLineCap;
++(nonnull instancetype)customLineCapWithPath:(nullable CGPathRef)aPath;
 /// @}
 
 /// @name Drawing
 /// @{
--(void)renderAsVectorInContext:(CGContextRef)context atPoint:(CGPoint)center inDirection:(CGPoint)direction;
+-(void)renderAsVectorInContext:(nonnull CGContextRef)context atPoint:(CGPoint)center inDirection:(CGPoint)direction;
 /// @}
 
 @end

@@ -7,13 +7,13 @@
 
 /// @name Plot Info
 /// @{
-@property (nonatomic, readwrite, cpt_weak_property) __cpt_weak CPTPlot *plot;
+@property (nonatomic, readwrite, cpt_weak_property, nullable) __cpt_weak CPTPlot *plot;
 @property (nonatomic, readwrite, assign) NSUInteger index;
 /// @}
 
 /// @name Formatting
 /// @{
-@property (nonatomic, readwrite, strong) CPTTextStyle *textStyle;
+@property (nonatomic, readwrite, strong, nullable) CPTTextStyle *textStyle;
 /// @}
 
 /// @name Layout
@@ -25,7 +25,7 @@
 
 /// @name Drawing
 /// @{
--(void)drawTitleInRect:(CGRect)rect inContext:(CGContextRef)context scale:(CGFloat)scale;
+-(void)drawTitleInRect:(CGRect)rect inContext:(nonnull CGContextRef)context scale:(CGFloat)scale;
 /// @}
 
 @end

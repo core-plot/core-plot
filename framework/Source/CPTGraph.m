@@ -32,13 +32,13 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 /// @cond
 @interface CPTGraph()
 
-@property (nonatomic, readwrite, strong) NSMutableArray *plots;
-@property (nonatomic, readwrite, strong) NSMutableArray *plotSpaces;
+@property (nonatomic, readwrite, strong, nonnull) NSMutableArray *plots;
+@property (nonatomic, readwrite, strong, nonnull) NSMutableArray *plotSpaces;
 @property (nonatomic, readwrite, strong) CPTLayerAnnotation *titleAnnotation;
 @property (nonatomic, readwrite, strong) CPTLayerAnnotation *legendAnnotation;
 @property (nonatomic, readwrite, assign) BOOL inTitleUpdate;
 
--(void)plotSpaceMappingDidChange:(NSNotification *)notif;
+-(void)plotSpaceMappingDidChange:(nonnull NSNotification *)notif;
 -(CGPoint)contentAnchorForRectAnchor:(CPTRectAnchor)anchor;
 
 @end
@@ -407,7 +407,12 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
  **/
 -(CPTPlot *)plotAtIndex:(NSUInteger)idx
 {
-    return (self.plots)[idx];
+    if ( idx < self.plots.count ) {
+        return (self.plots)[idx];
+    }
+    else {
+        return nil;
+    }
 }
 
 /** @brief Gets the plot with the given identifier from the plot array.
@@ -572,6 +577,8 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
  **/
 -(void)addPlotSpace:(CPTPlotSpace *)space
 {
+    NSParameterAssert(space);
+
     [self.plotSpaces addObject:space];
     space.graph = self;
 
@@ -841,14 +848,17 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
                     ( (CPTTextLayer *)theTitleAnnotation.contentLayer ).text = title;
                 }
                 else {
-                    CPTLayerAnnotation *newTitleAnnotation = [[CPTLayerAnnotation alloc] initWithAnchorLayer:self.plotAreaFrame];
-                    CPTTextLayer *newTextLayer             = [[CPTTextLayer alloc] initWithText:title style:self.titleTextStyle];
-                    newTitleAnnotation.contentLayer       = newTextLayer;
-                    newTitleAnnotation.displacement       = self.titleDisplacement;
-                    newTitleAnnotation.rectAnchor         = self.titlePlotAreaFrameAnchor;
-                    newTitleAnnotation.contentAnchorPoint = [self contentAnchorForRectAnchor:self.titlePlotAreaFrameAnchor];
-                    [self addAnnotation:newTitleAnnotation];
-                    self.titleAnnotation = newTitleAnnotation;
+                    CPTPlotAreaFrame *frameLayer = self.plotAreaFrame;
+                    if ( frameLayer ) {
+                        CPTLayerAnnotation *newTitleAnnotation = [[CPTLayerAnnotation alloc] initWithAnchorLayer:frameLayer];
+                        CPTTextLayer *newTextLayer             = [[CPTTextLayer alloc] initWithText:title style:self.titleTextStyle];
+                        newTitleAnnotation.contentLayer       = newTextLayer;
+                        newTitleAnnotation.displacement       = self.titleDisplacement;
+                        newTitleAnnotation.rectAnchor         = self.titlePlotAreaFrameAnchor;
+                        newTitleAnnotation.contentAnchorPoint = [self contentAnchorForRectAnchor:self.titlePlotAreaFrameAnchor];
+                        [self addAnnotation:newTitleAnnotation];
+                        self.titleAnnotation = newTitleAnnotation;
+                    }
                 }
             }
             else {
@@ -880,14 +890,17 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
                     ( (CPTTextLayer *)theTitleAnnotation.contentLayer ).attributedText = attributedTitle;
                 }
                 else {
-                    CPTLayerAnnotation *newTitleAnnotation = [[CPTLayerAnnotation alloc] initWithAnchorLayer:self.plotAreaFrame];
-                    CPTTextLayer *newTextLayer             = [[CPTTextLayer alloc] initWithAttributedText:attributedTitle];
-                    newTitleAnnotation.contentLayer       = newTextLayer;
-                    newTitleAnnotation.displacement       = self.titleDisplacement;
-                    newTitleAnnotation.rectAnchor         = self.titlePlotAreaFrameAnchor;
-                    newTitleAnnotation.contentAnchorPoint = [self contentAnchorForRectAnchor:self.titlePlotAreaFrameAnchor];
-                    [self addAnnotation:newTitleAnnotation];
-                    self.titleAnnotation = newTitleAnnotation;
+                    CPTPlotAreaFrame *frameLayer = self.plotAreaFrame;
+                    if ( frameLayer ) {
+                        CPTLayerAnnotation *newTitleAnnotation = [[CPTLayerAnnotation alloc] initWithAnchorLayer:frameLayer];
+                        CPTTextLayer *newTextLayer             = [[CPTTextLayer alloc] initWithAttributedText:attributedTitle];
+                        newTitleAnnotation.contentLayer       = newTextLayer;
+                        newTitleAnnotation.displacement       = self.titleDisplacement;
+                        newTitleAnnotation.rectAnchor         = self.titlePlotAreaFrameAnchor;
+                        newTitleAnnotation.contentAnchorPoint = [self contentAnchorForRectAnchor:self.titlePlotAreaFrameAnchor];
+                        [self addAnnotation:newTitleAnnotation];
+                        self.titleAnnotation = newTitleAnnotation;
+                    }
                 }
             }
             else {

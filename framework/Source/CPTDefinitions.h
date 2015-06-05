@@ -55,6 +55,39 @@
 
 #define cpt_deprecated __attribute__( (deprecated) )
 
+// Nullability
+
+/**
+ *  @def cpt_nullable
+ *  @hideinitializer
+ *  @brief Marks a pointer declaration as nullable.
+ **/
+
+/**
+ *  @def cpt_nonnull
+ *  @hideinitializer
+ *  @brief Marks a pointer declaration as non-null.
+ **/
+
+#if __clang__ && ( ( (__clang_major__ == 6) && (__clang_minor__ >= 1 ) ) || (__clang_major__ > 6 ) )
+// nullable symbols are already defined
+#else
+#define nullable
+#define nonnull
+#define __nullable
+#define __nonnull
+#endif
+
+// Deprecated methods
+
+/**
+ *  @def cpt_deprecated
+ *  @hideinitializer
+ *  @brief Marks a method declaration as deprecated.
+ **/
+
+#define cpt_deprecated __attribute__( (deprecated) )
+
 // Type safety defines
 
 /**

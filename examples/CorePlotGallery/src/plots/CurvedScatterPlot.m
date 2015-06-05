@@ -398,11 +398,14 @@ static NSString *const kSecond = @"Second Derivative";
     textLayer.paddingRight  = 2.0;
     textLayer.paddingBottom = 2.0;
 
-    annotation                    = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:graph.defaultPlotSpace anchorPlotPoint:anchorPoint];
-    annotation.contentLayer       = textLayer;
-    annotation.contentAnchorPoint = CGPointMake(0.5, 0.0);
-    annotation.displacement       = CGPointMake(0.0, 10.0);
-    [graph.plotAreaFrame.plotArea addAnnotation:annotation];
+    CPTPlotSpace *defaultSpace = graph.defaultPlotSpace;
+    if ( defaultSpace ) {
+        annotation                    = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:defaultSpace anchorPlotPoint:anchorPoint];
+        annotation.contentLayer       = textLayer;
+        annotation.contentAnchorPoint = CGPointMake(0.5, 0.0);
+        annotation.displacement       = CGPointMake(0.0, 10.0);
+        [graph.plotAreaFrame.plotArea addAnnotation:annotation];
+    }
 }
 
 -(void)scatterPlotDataLineWasSelected:(CPTScatterPlot *)plot

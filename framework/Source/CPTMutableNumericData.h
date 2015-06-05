@@ -5,12 +5,12 @@
 
 /// @name Data Buffer
 /// @{
-@property (nonatomic, readonly) void *mutableBytes;
+@property (nonatomic, readonly, nonnull) void *mutableBytes;
 /// @}
 
 /// @name Dimensions
 /// @{
-@property (nonatomic, readwrite, copy) NSArray *shape;
+@property (nonatomic, readwrite, copy, nonnull) NSArray *shape;
 /// @}
 
 @end

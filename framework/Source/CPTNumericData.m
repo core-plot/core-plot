@@ -9,12 +9,12 @@
 /// @cond
 @interface CPTNumericData()
 
-@property (nonatomic, readwrite, copy) NSData *data;
+@property (nonatomic, readwrite, copy, nonnull) NSData *data;
 @property (nonatomic, readwrite, assign) CPTNumericDataType dataType;
-@property (nonatomic, readwrite, copy) NSArray *shape;
+@property (nonatomic, readwrite, copy, nonnull) NSArray *shape;
 @property (nonatomic, readwrite, assign) CPTDataOrder dataOrder;
 
--(void)commonInitWithData:(NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
+-(void)commonInitWithData:(nonnull NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(nullable NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
 -(NSUInteger)sampleIndex:(NSUInteger)idx indexList:(va_list)indexList;
 -(NSData *)dataFromArray:(NSArray *)newData dataType:(CPTNumericDataType)newDataType;
 
@@ -282,9 +282,9 @@
  *  @param shapeArray The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
  *  @return The initialized CPTNumericData instance.
  **/
--(id) initWithData:(NSData *)newData
-    dataTypeString:(NSString *)newDataTypeString
-             shape:(NSArray *)shapeArray
+-(instancetype)initWithData:(NSData *)newData
+             dataTypeString:(NSString *)newDataTypeString
+                      shape:(NSArray *)shapeArray
 {
     return [self initWithData:newData
                      dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
@@ -358,10 +358,10 @@
  *  @param order The data order for a multi-dimensional data array (row-major or column-major).
  *  @return The initialized CPTNumericData instance.
  **/
--(id) initWithData:(NSData *)newData
-    dataTypeString:(NSString *)newDataTypeString
-             shape:(NSArray *)shapeArray
-         dataOrder:(CPTDataOrder)order
+-(instancetype)initWithData:(NSData *)newData
+             dataTypeString:(NSString *)newDataTypeString
+                      shape:(NSArray *)shapeArray
+                  dataOrder:(CPTDataOrder)order
 {
     return [self initWithData:newData
                      dataType:CPTDataTypeWithDataTypeString(newDataTypeString)

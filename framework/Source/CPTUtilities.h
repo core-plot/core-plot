@@ -2,6 +2,8 @@
 
 /// @file
 
+#pragma clang assume_nonnull begin
+
 @class CPTLineStyle;
 
 #if __cplusplus
@@ -150,3 +152,5 @@ BOOL CPTEdgeInsetsEqualToEdgeInsets(CPTEdgeInsets insets1, CPTEdgeInsets insets2
 #if __cplusplus
 }
 #endif
+
+#pragma clang assume_nonnull end

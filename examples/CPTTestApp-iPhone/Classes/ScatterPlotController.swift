@@ -34,26 +34,28 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource {
         // Axes
         let axisSet = newGraph.axisSet as! CPTXYAxisSet
 
-        let x = axisSet.xAxis
-        x.majorIntervalLength   = 0.5
-        x.orthogonalPosition    = 2.0
-        x.minorTicksPerInterval = 2
-        x.labelExclusionRanges  = [
-            CPTPlotRange(location: 0.99, length: 0.02),
-            CPTPlotRange(location: 1.99, length: 0.02),
-            CPTPlotRange(location: 2.99, length: 0.02)
-        ]
+        if let x = axisSet.xAxis {
+            x.majorIntervalLength   = 0.5
+            x.orthogonalPosition    = 2.0
+            x.minorTicksPerInterval = 2
+            x.labelExclusionRanges  = [
+                CPTPlotRange(location: 0.99, length: 0.02),
+                CPTPlotRange(location: 1.99, length: 0.02),
+                CPTPlotRange(location: 2.99, length: 0.02)
+            ]
+        }
 
-        let y = axisSet.xAxis
-        y.majorIntervalLength   = 0.5
-        y.minorTicksPerInterval = 5
-        y.orthogonalPosition    = 2.0
-        y.labelExclusionRanges  = [
-            CPTPlotRange(location: 0.99, length: 0.02),
-            CPTPlotRange(location: 1.99, length: 0.02),
-            CPTPlotRange(location: 3.99, length: 0.02)
-        ]
-        y.delegate             = self
+        if let y = axisSet.xAxis {
+            y.majorIntervalLength   = 0.5
+            y.minorTicksPerInterval = 5
+            y.orthogonalPosition    = 2.0
+            y.labelExclusionRanges  = [
+                CPTPlotRange(location: 0.99, length: 0.02),
+                CPTPlotRange(location: 1.99, length: 0.02),
+                CPTPlotRange(location: 3.99, length: 0.02)
+            ]
+            y.delegate = self
+        }
 
         // Create a blue plot area
         let boundLinePlot = CPTScatterPlot(frame: CGRectZero)
@@ -124,12 +126,12 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource {
 
     // MARK: - Plot Data Source Methods
 
-    func numberOfRecordsForPlot(plot: CPTPlot!) -> UInt
+    func numberOfRecordsForPlot(plot: CPTPlot) -> UInt
     {
         return UInt(self.dataForPlot.count)
     }
 
-    func numberForPlot(plot: CPTPlot!, field: UInt, recordIndex: UInt) -> AnyObject!
+    func numberForPlot(plot: CPTPlot, field: UInt, recordIndex: UInt) -> AnyObject?
     {
         let plotField = CPTScatterPlotField(rawValue: Int(field))
 
@@ -151,32 +153,34 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource {
 
     func axis(axis: CPTAxis, shouldUpdateAxisLabelsAtLocations locations: NSSet!) -> Bool
     {
-        let formatter   = axis.labelFormatter
-        let labelOffset = axis.labelOffset
+        if let formatter = axis.labelFormatter {
+            let labelOffset = axis.labelOffset
 
-        var newLabels = Set<CPTAxisLabel>()
+            var newLabels = Set<CPTAxisLabel>()
 
-        for tickLocation in locations {
-            var labelTextStyle = axis.labelTextStyle.mutableCopy() as! CPTMutableTextStyle
+            for tickLocation in locations {
+                if let labelTextStyle = axis.labelTextStyle?.mutableCopy() as? CPTMutableTextStyle {
 
-            if tickLocation.doubleValue >= 0.0 {
-                labelTextStyle.color = CPTColor.greenColor()
+                    if tickLocation.doubleValue >= 0.0 {
+                        labelTextStyle.color = CPTColor.greenColor()
+                    }
+                    else {
+                        labelTextStyle.color = CPTColor.redColor()
+                    }
+
+                    let labelString   = formatter.stringForObjectValue(tickLocation)
+                    let newLabelLayer = CPTTextLayer(text: labelString, style: labelTextStyle)
+
+                    let newLabel = CPTAxisLabel(contentLayer: newLabelLayer)
+                    newLabel.tickLocation = tickLocation as? NSNumber
+                    newLabel.offset       = labelOffset
+                    
+                    newLabels.insert(newLabel)
+                }
+                
+                axis.axisLabels = newLabels
             }
-            else {
-                labelTextStyle.color = CPTColor.redColor()
-            }
-
-            let labelString   = formatter.stringForObjectValue(tickLocation)
-            let newLabelLayer = CPTTextLayer(text: labelString, style: labelTextStyle)
-
-            let newLabel = CPTAxisLabel(contentLayer: newLabelLayer)
-            newLabel.tickLocation = tickLocation as! NSNumber
-            newLabel.offset       = labelOffset
-            
-            newLabels.insert(newLabel)
         }
-        
-        axis.axisLabels = newLabels
         
         return false
     }

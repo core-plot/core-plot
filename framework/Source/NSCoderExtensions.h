@@ -5,30 +5,30 @@
 
 /// @name Encoding Data
 /// @{
--(void)encodeCGFloat:(CGFloat)number forKey:(NSString *)key;
--(void)encodeCPTPoint:(CGPoint)point forKey:(NSString *)key;
--(void)encodeCPTSize:(CGSize)size forKey:(NSString *)key;
--(void)encodeCPTRect:(CGRect)rect forKey:(NSString *)key;
+-(void)encodeCGFloat:(CGFloat)number forKey:(nonnull NSString *)key;
+-(void)encodeCPTPoint:(CGPoint)point forKey:(nonnull NSString *)key;
+-(void)encodeCPTSize:(CGSize)size forKey:(nonnull NSString *)key;
+-(void)encodeCPTRect:(CGRect)rect forKey:(nonnull NSString *)key;
 
--(void)encodeCGColorSpace:(CGColorSpaceRef)colorSpace forKey:(NSString *)key;
--(void)encodeCGPath:(CGPathRef)path forKey:(NSString *)key;
--(void)encodeCGImage:(CGImageRef)image forKey:(NSString *)key;
+-(void)encodeCGColorSpace:(nullable CGColorSpaceRef)colorSpace forKey:(nonnull NSString *)key;
+-(void)encodeCGPath:(nullable CGPathRef)path forKey:(nonnull NSString *)key;
+-(void)encodeCGImage:(nullable CGImageRef)image forKey:(nonnull NSString *)key;
 
--(void)encodeDecimal:(NSDecimal)number forKey:(NSString *)key;
+-(void)encodeDecimal:(NSDecimal)number forKey:(nonnull NSString *)key;
 /// @}
 
 /// @name Decoding Data
 /// @{
--(CGFloat)decodeCGFloatForKey:(NSString *)key;
--(CGPoint)decodeCPTPointForKey:(NSString *)key;
--(CGSize)decodeCPTSizeForKey:(NSString *)key;
--(CGRect)decodeCPTRectForKey:(NSString *)key;
+-(CGFloat)decodeCGFloatForKey:(nonnull NSString *)key;
+-(CGPoint)decodeCPTPointForKey:(nonnull NSString *)key;
+-(CGSize)decodeCPTSizeForKey:(nonnull NSString *)key;
+-(CGRect)decodeCPTRectForKey:(nonnull NSString *)key;
 
--(CGColorSpaceRef)newCGColorSpaceDecodeForKey:(NSString *)key;
--(CGPathRef)newCGPathDecodeForKey:(NSString *)key;
--(CGImageRef)newCGImageDecodeForKey:(NSString *)key;
+-(nullable CGColorSpaceRef)newCGColorSpaceDecodeForKey:(nonnull NSString *)key;
+-(nullable CGPathRef)newCGPathDecodeForKey:(nonnull NSString *)key;
+-(nullable CGImageRef)newCGImageDecodeForKey:(nonnull NSString *)key;
 
--(NSDecimal)decodeDecimalForKey:(NSString *)key;
+-(NSDecimal)decodeDecimalForKey:(nonnull NSString *)key;
 /// @}
 
 @end
