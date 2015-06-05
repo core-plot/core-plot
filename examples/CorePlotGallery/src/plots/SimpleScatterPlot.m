@@ -40,7 +40,7 @@
         CPTPlotSpaceAnnotation *annotation = self.symbolTextAnnotation;
         if ( annotation ) {
             [graph.plotAreaFrame.plotArea removeAnnotation:annotation];
-            annotation = nil;
+            self.symbolTextAnnotation = nil;
         }
     }
 
