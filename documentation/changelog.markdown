@@ -1,3 +1,23 @@
+# Release 2.0 (TBD)
+
+## Release Notes
+
+To be determined
+
+## Details
+- **New**: Combined the Mac and iOS projects and added an iOS framework target.
+- **New**: Added histogram style options to `CPTScatterPlot`.
+- **New**: Added iOS unit tests.
+- **New**: Added plot space point conversion methods that take an `NSArray` of coordinate values.
+- **Changed**: Increased the deployment target to iOS 8.0 and Mac OS X 10.7.
+- **Changed**: Changed the Installation Directory for the Mac framework to "@rpath" and updated the Runpath Search Path in each Mac example app.
+- **Changed**: Changed all public properties and methods that take `NSDecimal` values to take `NSNumber` values instead. Use `NSDecimalNumber` to maintain full decimal precision.
+- **Changed**: Added properties to `CPTPlotRange` and `CPTMutablePlotRange` to read and write all range properties as `NSNumber`, `NSDecimal`, or `double`.
+- **Changed**: Renamed the `CPTXYAxis.orthogonalCoordinateDecimal` property to `CPTXYAxis.orthogonalPosition`.
+- **Changed**: Miscellaneous bug fixes and cleanup.
+
+
+
 # Release 1.6 (May 9, 2015)
 
 ## Release Notes
@@ -5,7 +25,6 @@
 This release adds support for @3x and stretchable images, plot area fill bands, new axis and plot delegate methods, and trackpad and scroll wheel gestures on the Mac. The behavior of all axis and plot xxxWasSelected delegate methods changed to require both a down and up event on the same element instead of only the down event. The deployment target has increased to iOS 5.0 and Mac OS X 10.7 and all iOS clients must now link against the Accelerate framework.
 
 ## Details
-- **New**: Combined the Mac and iOS projects and added an iOS framework target.
 - **New**: Added hand cursors to the Mac hosting view to indicate when user interaction is enabled and when dragging is in progress.
 - **New**: Added two additional initialization methods to `CPTImage`. 
 - **New**: Added a dependency on the Accelerate framework. All iOS clients must now link against this framework.
@@ -21,16 +40,9 @@ This release adds support for @3x and stretchable images, plot area fill bands, 
 - **New**: Added support for @3x images.
 - **New**: Added support for using an Objective-C block to calculate plot values in the function datasource class. 
 - **New**: Added support for categorical plot data.
-- **New**: Added histogram style options to `CPTScatterPlot`.
-- **New**: Added iOS unit tests.
-- **New**: Added plot space point conversion methods that take an `NSArray` of coordinate values.
 - **New**: Added `showBarBorder` property to `CPTTradingRangePlot`.
-- **Changed**: Increased the deployment target to iOS 8.0 and Mac OS X 10.7.
+- **Changed**: Increased the deployment target to iOS 5.0 and Mac OS X 10.7.
 - **Changed**: Enabled automatic reference counting (ARC) in the framework projects.
-- **Changed**: Changed the Installation Directory for the Mac framework to "@rpath" and updated the Runpath Search Path in each Mac example app.
-- **Changed**: Changed all public properties and methods that take `NSDecimal` values to take `NSNumber` values instead. Use `NSDecimalNumber` to maintain full decimal precision.
-- **Changed**: Added properties to `CPTPlotRange` and `CPTMutablePlotRange` to read and write all range properties as `NSNumber`, `NSDecimal`, or `double`.
-- **Changed**: Renamed the `CPTXYAxis.orthogonalCoordinateDecimal` property to `CPTXYAxis.orthogonalPosition`.
 - **Changed**: Updated `CPTImage` to automatically handle switching between Retina and non-Retina displays.
 - **Changed**: Changed the behavior of all axis and plot xxxWasSelected delegate methods to require both a down and up event on the same element instead of only the down event.
 - **Changed**: Changed the class prefix for the Quartz Composer plug-ins from "CP" to "CPT".
