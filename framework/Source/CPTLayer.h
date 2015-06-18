@@ -19,7 +19,7 @@ extern NSString *const CPTLayerBoundsDidChangeNotification;
 
 /// @name Graph
 /// @{
-@property (nonatomic, readwrite, cpt_weak_property) __cpt_weak CPTGraph *graph;
+@property (nonatomic, readwrite, cpt_weak_property) cpt_weak CPTGraph *graph;
 /// @}
 
 /// @name Padding

@@ -64,7 +64,7 @@ typedef NS_ENUM (NSInteger, CPTGraphLayerType) {
 
 /// @name Hosting View
 /// @{
-@property (nonatomic, readwrite, cpt_weak_property) __cpt_weak CPTGraphHostingView *hostingView;
+@property (nonatomic, readwrite, cpt_weak_property) cpt_weak CPTGraphHostingView *hostingView;
 /// @}
 
 /// @name Title

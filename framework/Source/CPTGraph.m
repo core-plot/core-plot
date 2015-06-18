@@ -68,7 +68,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
  **/
 @implementation CPTGraph
 
-/** @property __cpt_weak CPTGraphHostingView *hostingView
+/** @property cpt_weak CPTGraphHostingView *hostingView
  *  @brief The hosting view that contains the graph.
  **/
 @synthesize hostingView;

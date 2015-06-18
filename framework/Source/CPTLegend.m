@@ -33,7 +33,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 @property (nonatomic, readwrite, strong) NSArray *rowHeightsThatFit;
 @property (nonatomic, readwrite, strong) NSArray *columnWidthsThatFit;
 @property (nonatomic, readwrite, assign) BOOL layoutChanged;
-@property (nonatomic, readwrite, cpt_weak_property) __cpt_weak CPTLegendEntry *pointingDeviceDownEntry;
+@property (nonatomic, readwrite, cpt_weak_property) cpt_weak CPTLegendEntry *pointingDeviceDownEntry;
 
 -(void)recalculateLayout;
 -(void)removeLegendEntriesForPlot:(CPTPlot *)plot;
@@ -224,7 +224,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 @synthesize layoutChanged;
 
 /** @internal
- *  @property __cpt_weak CPTLegendEntry *pointingDeviceDownEntry
+ *  @property cpt_weak CPTLegendEntry *pointingDeviceDownEntry
  *  @brief The legend entry that was selected on the pointing device down event.
  **/
 @synthesize pointingDeviceDownEntry;

@@ -20,7 +20,7 @@
 
 /// @name Delegate
 /// @{
-@property (nonatomic, cpt_weak_property) __cpt_weak id<CPTAnimationDelegate> delegate;
+@property (nonatomic, cpt_weak_property) cpt_weak id<CPTAnimationDelegate> delegate;
 /// @}
 
 /// @name Status

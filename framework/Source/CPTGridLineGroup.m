@@ -12,7 +12,7 @@
  **/
 @implementation CPTGridLineGroup
 
-/** @property __cpt_weak CPTPlotArea *plotArea
+/** @property cpt_weak CPTPlotArea *plotArea
  *  @brief The plot area that this grid line group belongs to.
  **/
 @synthesize plotArea;
