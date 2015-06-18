@@ -290,9 +290,26 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 
     //see if we need to write to file
     NSDictionary *dictionaryForSymbol = [self dictionaryForSymbol:self.symbol];
-    if ( ![[self symbol] isEqualToString:dictionaryForSymbol[@"symbol"]] ||
-         ([[self startDate] compare:dictionaryForSymbol[@"startDate"]] != NSOrderedSame) ||
-         ([[self endDate] compare:dictionaryForSymbol[@"endDate"]] != NSOrderedSame) ) {
+
+    BOOL sameSymbol      = NO;
+    NSString *dictSymbol = dictionaryForSymbol[@"symbol"];
+    if ( dictSymbol ) {
+        sameSymbol = [[self symbol] isEqualToString:dictSymbol];
+    }
+
+    BOOL sameStart    = NO;
+    NSDate *dictStart = dictionaryForSymbol[@"startDate"];
+    if ( dictStart ) {
+        sameStart = ([[self startDate] compare:dictStart] != NSOrderedSame);
+    }
+
+    BOOL sameEnd    = NO;
+    NSDate *dictEnd = dictionaryForSymbol[@"endDate"];
+    if ( dictEnd ) {
+        sameEnd = ([[self startDate] compare:dictEnd] != NSOrderedSame);
+    }
+
+    if ( !sameSymbol || !sameStart || !sameEnd ) {
         [self writeToFile:[self pathForSymbol:self.symbol] atomically:YES];
     }
     else {

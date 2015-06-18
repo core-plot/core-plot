@@ -312,10 +312,25 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        hostingView              = [coder decodeObjectForKey:@"CPTGraph.hostingView"];
-        plotAreaFrame            = [coder decodeObjectForKey:@"CPTGraph.plotAreaFrame"];
-        plots                    = [[coder decodeObjectForKey:@"CPTGraph.plots"] mutableCopy];
-        plotSpaces               = [[coder decodeObjectForKey:@"CPTGraph.plotSpaces"] mutableCopy];
+        hostingView   = [coder decodeObjectForKey:@"CPTGraph.hostingView"];
+        plotAreaFrame = [coder decodeObjectForKey:@"CPTGraph.plotAreaFrame"];
+
+        NSArray *plotArray = [coder decodeObjectForKey:@"CPTGraph.plots"];
+        if ( plotArray ) {
+            plots = [plotArray mutableCopy];
+        }
+        else {
+            plots = [[NSMutableArray alloc] init];
+        }
+
+        NSArray *plotSpaceArray = [coder decodeObjectForKey:@"CPTGraph.plotSpaces"];
+        if ( plotSpaceArray ) {
+            plotSpaces = [plotSpaceArray mutableCopy];
+        }
+        else {
+            plotSpaces = [[NSMutableArray alloc] init];
+        }
+
         title                    = [[coder decodeObjectForKey:@"CPTGraph.title"] copy];
         attributedTitle          = [[coder decodeObjectForKey:@"CPTGraph.attributedTitle"] copy];
         titleTextStyle           = [[coder decodeObjectForKey:@"CPTGraph.titleTextStyle"] copy];

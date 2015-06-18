@@ -16,6 +16,8 @@ CGPathRef CreateRoundedRectPath(CGRect rect, CGFloat cornerRadius)
         // CGPathCreateWithRoundedRect() is available in Mac OS X 10.9 and iOS 7 but not marked in the header file
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunreachable-code"
+#pragma clang diagnostic ignored "-Wpointer-bool-conversion"
+
         if ( CGPathCreateWithRoundedRect ) {
             return CGPathCreateWithRoundedRect(rect, cornerRadius, cornerRadius, NULL);
         }

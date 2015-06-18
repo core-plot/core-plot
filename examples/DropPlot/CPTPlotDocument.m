@@ -317,7 +317,11 @@
 
     if ( [pdfSavingDialog runModal] == NSOKButton ) {
         NSData *dataForPDF = [self.graph dataForPDFRepresentationOfLayer];
-        [dataForPDF writeToURL:[pdfSavingDialog URL] atomically:NO];
+
+        NSURL *url = [pdfSavingDialog URL];
+        if ( url ) {
+            [dataForPDF writeToURL:url atomically:NO];
+        }
     }
 }
 
@@ -331,8 +335,12 @@
         NSImage *image            = [self.graph imageOfLayer];
         NSData *tiffData          = [image TIFFRepresentation];
         NSBitmapImageRep *tiffRep = [NSBitmapImageRep imageRepWithData:tiffData];
-        NSData *pngData           = [tiffRep representationUsingType:NSPNGFileType properties:nil];
-        [pngData writeToURL:[pngSavingDialog URL] atomically:NO];
+        NSData *pngData           = [tiffRep representationUsingType:NSPNGFileType properties:[NSDictionary dictionary]];
+
+        NSURL *url = [pngSavingDialog URL];
+        if ( url ) {
+            [pngData writeToURL:url atomically:NO];
+        }
     }
 }
 

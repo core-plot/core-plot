@@ -357,7 +357,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
                                                        attribute:NSLayoutAttributeLeft
                                                        relatedBy:NSLayoutRelationEqual
                                                           toItem:inView
-                                                       attribute:NSLayoutAttributeLeading
+                                                       attribute:NSLayoutAttributeLeft
                                                       multiplier:1.0
                                                         constant:0.0]];
     [inView addConstraint:[NSLayoutConstraint constraintWithItem:hostingView
@@ -371,7 +371,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
                                                        attribute:NSLayoutAttributeRight
                                                        relatedBy:NSLayoutRelationEqual
                                                           toItem:inView
-                                                       attribute:NSLayoutAttributeTrailing
+                                                       attribute:NSLayoutAttributeRight
                                                       multiplier:1.0
                                                         constant:0.0]];
     [inView addConstraint:[NSLayoutConstraint constraintWithItem:hostingView

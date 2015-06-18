@@ -559,7 +559,11 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 
     if ( [pdfSavingDialog runModal] == NSOKButton ) {
         NSData *dataForPDF = [self.graph dataForPDFRepresentationOfLayer];
-        [dataForPDF writeToURL:[pdfSavingDialog URL] atomically:NO];
+
+        NSURL *url = [pdfSavingDialog URL];
+        if ( url ) {
+            [dataForPDF writeToURL:url atomically:NO];
+        }
     }
 }
 
@@ -573,8 +577,12 @@ static NSString *const barPlot2       = @"Bar Plot 2";
         NSImage *image            = [self.graph imageOfLayer];
         NSData *tiffData          = [image TIFFRepresentation];
         NSBitmapImageRep *tiffRep = [NSBitmapImageRep imageRepWithData:tiffData];
-        NSData *pngData           = [tiffRep representationUsingType:NSPNGFileType properties:nil];
-        [pngData writeToURL:[pngSavingDialog URL] atomically:NO];
+        NSData *pngData           = [tiffRep representationUsingType:NSPNGFileType properties:[NSDictionary dictionary]];
+
+        NSURL *url = [pngSavingDialog URL];
+        if ( url ) {
+            [pngData writeToURL:url atomically:NO];
+        }
     }
 }
 
@@ -592,11 +600,14 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 
     self.hostView.printRect = printRect;
 
-    NSPrintOperation *printOperation = [NSPrintOperation printOperationWithView:self.hostView printInfo:printInfo];
-    [printOperation runOperationModalForWindow:self.hostView.window
-                                      delegate:self
-                                didRunSelector:@selector(printOperationDidRun:success:contextInfo:)
-                                   contextInfo:NULL];
+    NSWindow *window = self.hostView.window;
+    if ( window ) {
+        NSPrintOperation *printOperation = [NSPrintOperation printOperationWithView:self.hostView printInfo:printInfo];
+        [printOperation runOperationModalForWindow:window
+                                          delegate:self
+                                    didRunSelector:@selector(printOperationDidRun:success:contextInfo:)
+                                       contextInfo:NULL];
+    }
 }
 
 -(void)printOperationDidRun:(NSPrintOperation *)printOperation success:(BOOL)success contextInfo:(void *)contextInfo
@@ -709,7 +720,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 -(void)rotateObjectUsingTransform:(CATransform3D)rotationTransform
 {
     [CATransaction begin];
-    [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+    [CATransaction setValue:@(YES) forKey:kCATransactionDisableActions];
 
     self.graph.superlayer.sublayerTransform = rotationTransform;
 

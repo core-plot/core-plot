@@ -8,7 +8,8 @@
 
 -(void)testNilShapeGivesSingleDimension
 {
-    CPTMutableNumericData *nd = [[CPTMutableNumericData alloc] initWithData:[NSMutableData dataWithLength:1 * sizeof(float)]
+    NSMutableData *data       = [NSMutableData dataWithLength:1 * sizeof(float)];
+    CPTMutableNumericData *nd = [[CPTMutableNumericData alloc] initWithData:data
                                                              dataTypeString:@"=f4"
                                                                       shape:nil];
     NSUInteger actual   = nd.numberOfDimensions;
@@ -25,7 +26,8 @@
 
     NSUInteger nElems = 2 * 2 * 2;
 
-    CPTMutableNumericData *nd = [[CPTMutableNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems * sizeof(float)]
+    NSMutableData *data       = [NSMutableData dataWithLength:nElems * sizeof(float)];
+    CPTMutableNumericData *nd = [[CPTMutableNumericData alloc] initWithData:data
                                                                    dataType:CPTDataType( CPTFloatingPointDataType, sizeof(float), NSHostByteOrder() )
                                                                       shape:shape];
 
@@ -36,7 +38,8 @@
 {
     NSUInteger nElems = 13;
 
-    CPTMutableNumericData *nd = [[CPTMutableNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems * sizeof(float)]
+    NSMutableData *data       = [NSMutableData dataWithLength:nElems * sizeof(float)];
+    CPTMutableNumericData *nd = [[CPTMutableNumericData alloc] initWithData:data
                                                              dataTypeString:@"=f4"
                                                                       shape:nil];
 
@@ -58,7 +61,9 @@
 
     CPTNumericData *testData = nil;
 
-    XCTAssertThrowsSpecificNamed(testData = [[CPTMutableNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems * sizeof(NSUInteger)]
+    NSMutableData *data = [NSMutableData dataWithLength:nElems * sizeof(NSUInteger)];
+
+    XCTAssertThrowsSpecificNamed(testData = [[CPTMutableNumericData alloc] initWithData:data
                                                                                dataType:CPTDataType( CPTUnsignedIntegerDataType, sizeof(NSUInteger), NSHostByteOrder() )
                                                                                   shape:shape],
                                  NSException,
@@ -68,7 +73,8 @@
 
 -(void)testReturnsDataLength
 {
-    CPTMutableNumericData *nd = [[CPTMutableNumericData alloc] initWithData:[NSMutableData dataWithLength:10 * sizeof(float)]
+    NSMutableData *data       = [NSMutableData dataWithLength:10 * sizeof(float)];
+    CPTMutableNumericData *nd = [[CPTMutableNumericData alloc] initWithData:data
                                                              dataTypeString:@"=f4"
                                                                       shape:nil];
 
@@ -210,9 +216,9 @@
                                                                    dataType:CPTDataType( CPTFloatingPointDataType, sizeof(float), NSHostByteOrder() )
                                                                       shape:nil];
 
-    XCTAssertEqual( ( (float *)[fd mutableBytes] ) + 4, (float *)[fd samplePointer:4], @"%p,%p", samples + 4, (float *)[fd samplePointer:4] );
-    XCTAssertEqual( ( (float *)[fd mutableBytes] ), (float *)[fd samplePointer:0], @"" );
-    XCTAssertEqual( ( (float *)[fd mutableBytes] ) + nElems - 1, (float *)[fd samplePointer:nElems - 1], @"" );
+    XCTAssertEqual( ( (float *)[fd mutableBytes] ) + 4, (float *)[fd mutableSamplePointer:4], @"%p,%p", samples + 4, (float *)[fd mutableSamplePointer:4] );
+    XCTAssertEqual( ( (float *)[fd mutableBytes] ), (float *)[fd mutableSamplePointer:0], @"" );
+    XCTAssertEqual( ( (float *)[fd mutableBytes] ) + nElems - 1, (float *)[fd mutableSamplePointer:nElems - 1], @"" );
     XCTAssertNil([fd samplePointer:nElems], @"too many samples");
 }
 
@@ -237,7 +243,8 @@
 -(void)testMutableCopy
 {
     const NSUInteger nElems = 10;
-    CPTNumericData *nd      = [[CPTNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems * sizeof(float)]
+    NSMutableData *data     = [NSMutableData dataWithLength:nElems * sizeof(float)];
+    CPTNumericData *nd      = [[CPTNumericData alloc] initWithData:data
                                                           dataType:CPTDataType( CPTFloatingPointDataType, sizeof(float), NSHostByteOrder() )
                                                              shape:nil];
 

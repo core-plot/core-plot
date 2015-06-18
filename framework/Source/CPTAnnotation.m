@@ -117,9 +117,9 @@
     if ( newLayer != contentLayer ) {
         [contentLayer removeFromSuperlayer];
         contentLayer = newLayer;
-        if ( contentLayer ) {
+        if ( newLayer ) {
             CPTAnnotationHostLayer *hostLayer = self.annotationHostLayer;
-            [hostLayer addSublayer:contentLayer];
+            [hostLayer addSublayer:newLayer];
         }
     }
 }

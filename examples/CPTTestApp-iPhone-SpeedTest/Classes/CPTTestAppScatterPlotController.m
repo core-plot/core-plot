@@ -136,17 +136,17 @@
 #pragma mark -
 #pragma mark Plot Data
 
--(double *)valuesForPlotWithIdentifier:(id)identifier field:(NSUInteger)fieldEnum
+-(const double *)valuesForPlotWithIdentifier:(id)identifier field:(NSUInteger)fieldEnum
 {
     if ( fieldEnum == 0 ) {
-        return (double *)self.xxx.bytes;
+        return (const double *)self.xxx.bytes;
     }
     else {
         if ( [identifier isEqualToString:@"Blue Plot"] ) {
-            return (double *)self.yyy1.bytes;
+            return (const double *)self.yyy1.bytes;
         }
         else {
-            return (double *)self.yyy2.bytes;
+            return (const double *)self.yyy2.bytes;
         }
     }
 }

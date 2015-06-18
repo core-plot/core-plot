@@ -78,6 +78,15 @@
     return self;
 }
 
+/// @cond
+
+-(instancetype)init
+{
+    return [self initWithText:nil textStyle:nil];
+}
+
+/// @endcond
+
 #pragma mark -
 #pragma mark NSCoding Methods
 

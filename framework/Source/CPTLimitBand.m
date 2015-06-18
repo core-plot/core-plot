@@ -45,6 +45,15 @@
     return self;
 }
 
+/// @cond
+
+-(instancetype)init
+{
+    return [self initWithRange:nil fill:nil];
+}
+
+/// @endcond
+
 #pragma mark -
 #pragma mark NSCopying Methods
 

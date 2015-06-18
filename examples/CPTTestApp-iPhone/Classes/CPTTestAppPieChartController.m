@@ -205,9 +205,12 @@
 {
     CPTPieChart *piePlot             = (CPTPieChart *)[self.pieChart plotWithIdentifier:@"Pie Chart 1"];
     CABasicAnimation *basicAnimation = (CABasicAnimation *)theAnimation;
+    NSString *keyPath                = basicAnimation.keyPath;
 
-    [piePlot removeAnimationForKey:basicAnimation.keyPath];
-    [piePlot setValue:basicAnimation.toValue forKey:basicAnimation.keyPath];
+    if ( keyPath ) {
+        [piePlot removeAnimationForKey:keyPath];
+        [piePlot setValue:basicAnimation.toValue forKey:keyPath];
+    }
     [piePlot repositionAllLabelAnnotations];
 }
 

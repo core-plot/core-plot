@@ -7,9 +7,10 @@
 
 -(void)testNilShapeGivesSingleDimension
 {
-    CPTNumericData *nd = [[CPTNumericData alloc] initWithData:[NSMutableData dataWithLength:1 * sizeof(float)]
-                                               dataTypeString:@"=f4"
-                                                        shape:nil];
+    NSMutableData *data = [NSMutableData dataWithLength:1 * sizeof(float)];
+    CPTNumericData *nd  = [[CPTNumericData alloc] initWithData:data
+                                                dataTypeString:@"=f4"
+                                                         shape:nil];
     NSUInteger actual   = nd.numberOfDimensions;
     NSUInteger expected = 1;
 
@@ -24,9 +25,10 @@
 
     NSUInteger nElems = 2 * 2 * 2;
 
-    CPTNumericData *nd = [[CPTNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems * sizeof(float)]
-                                                     dataType:CPTDataType( CPTFloatingPointDataType, sizeof(float), NSHostByteOrder() )
-                                                        shape:shape];
+    NSMutableData *data = [NSMutableData dataWithLength:nElems * sizeof(float)];
+    CPTNumericData *nd  = [[CPTNumericData alloc] initWithData:data
+                                                      dataType:CPTDataType( CPTFloatingPointDataType, sizeof(float), NSHostByteOrder() )
+                                                         shape:shape];
 
     XCTAssertEqual(nd.numberOfDimensions, nd.shape.count, @"numberOfDimensions == shape.count == 3");
 }
@@ -35,9 +37,10 @@
 {
     NSUInteger nElems = 13;
 
-    CPTNumericData *nd = [[CPTNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems * sizeof(float)]
-                                               dataTypeString:@"=f4"
-                                                        shape:nil];
+    NSMutableData *data = [NSMutableData dataWithLength:nElems * sizeof(float)];
+    CPTNumericData *nd  = [[CPTNumericData alloc] initWithData:data
+                                                dataTypeString:@"=f4"
+                                                         shape:nil];
 
     XCTAssertEqual(nd.numberOfDimensions, (NSUInteger)1, @"numberOfDimensions == 1");
 
@@ -57,7 +60,9 @@
 
     CPTNumericData *testData = nil;
 
-    XCTAssertThrowsSpecificNamed(testData = [[CPTNumericData alloc] initWithData:[NSMutableData dataWithLength:nElems * sizeof(NSUInteger)]
+    NSMutableData *data = [NSMutableData dataWithLength:nElems * sizeof(NSUInteger)];
+
+    XCTAssertThrowsSpecificNamed(testData = [[CPTNumericData alloc] initWithData:data
                                                                         dataType:CPTDataType( CPTUnsignedIntegerDataType, sizeof(NSUInteger), NSHostByteOrder() )
                                                                            shape:shape],
                                  NSException,
@@ -67,9 +72,10 @@
 
 -(void)testReturnsDataLength
 {
-    CPTNumericData *nd = [[CPTNumericData alloc] initWithData:[NSMutableData dataWithLength:10 * sizeof(float)]
-                                               dataTypeString:@"=f4"
-                                                        shape:nil];
+    NSMutableData *data = [NSMutableData dataWithLength:10 * sizeof(float)];
+    CPTNumericData *nd  = [[CPTNumericData alloc] initWithData:data
+                                                dataTypeString:@"=f4"
+                                                         shape:nil];
 
     NSUInteger expected = 10 * sizeof(float);
     NSUInteger actual   = [nd.data length];
@@ -237,9 +243,9 @@
                                                      dataType:CPTDataType( CPTFloatingPointDataType, sizeof(float), NSHostByteOrder() )
                                                         shape:nil];
 
-    XCTAssertEqual( ( (float *)[fd.data bytes] ) + 4, (float *)[fd samplePointer:4], @"%p,%p", samples + 4, (float *)[fd samplePointer:4] );
-    XCTAssertEqual( ( (float *)[fd.data bytes] ), (float *)[fd samplePointer:0], @"" );
-    XCTAssertEqual( ( (float *)[fd.data bytes] ) + nElems - 1, (float *)[fd samplePointer:nElems - 1], @"" );
+    XCTAssertEqual( ( (const float *)[fd.data bytes] ) + 4, (const float *)[fd samplePointer:4], @"%p,%p", samples + 4, (const float *)[fd samplePointer:4] );
+    XCTAssertEqual( ( (const float *)[fd.data bytes] ), (const float *)[fd samplePointer:0], @"" );
+    XCTAssertEqual( ( (const float *)[fd.data bytes] ) + nElems - 1, (const float *)[fd samplePointer:nElems - 1], @"" );
     XCTAssertNil([fd samplePointer:nElems], @"too many samples");
 }
 

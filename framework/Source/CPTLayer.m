@@ -853,7 +853,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
     if ( COREPLOT_LAYER_POSITION_CHANGE_ENABLED() ) {
         CGRect currentFrame = self.frame;
         if ( !CGRectEqualToRect( currentFrame, CGRectIntegral(self.frame) ) ) {
-            COREPLOT_LAYER_POSITION_CHANGE( (char *)class_getName([self class]),
+            COREPLOT_LAYER_POSITION_CHANGE( (const char *)class_getName([self class]),
                                             (int)lrint( ceil(currentFrame.origin.x * 1000.0) ),
                                             (int)lrint( ceil(currentFrame.origin.y * 1000.0) ),
                                             (int)lrint( ceil(currentFrame.size.width * 1000.0) ),
