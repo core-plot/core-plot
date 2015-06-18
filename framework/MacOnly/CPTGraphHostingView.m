@@ -7,15 +7,15 @@
 
 /// @cond
 
-static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOContext;
+static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOContext;
 
 @interface CPTGraphHostingView()
 
 @property (nonatomic, readwrite) NSPoint locationInWindow;
 @property (nonatomic, readwrite) CGPoint scrollOffset;
 
--(void)plotSpaceAdded:(NSNotification *)notification;
--(void)plotSpaceRemoved:(NSNotification *)notification;
+-(void)plotSpaceAdded:(nonnull NSNotification *)notification;
+-(void)plotSpaceRemoved:(nonnull NSNotification *)notification;
 -(void)plotAreaBoundsChanged;
 
 @end
@@ -562,27 +562,27 @@ static void *const CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewK
 
         hostedGraph = newGraph;
 
-        if ( hostedGraph ) {
-            hostedGraph.hostingView = self;
+        if ( newGraph ) {
+            newGraph.hostingView = self;
 
             [self viewDidChangeBackingProperties];
-            [self.layer addSublayer:hostedGraph];
+            [self.layer addSublayer:newGraph];
 
             [[NSNotificationCenter defaultCenter] addObserver:self
                                                      selector:@selector(plotSpaceAdded:)
                                                          name:CPTGraphDidAddPlotSpaceNotification
-                                                       object:hostedGraph];
+                                                       object:newGraph];
             [[NSNotificationCenter defaultCenter] addObserver:self
                                                      selector:@selector(plotSpaceRemoved:)
                                                          name:CPTGraphDidRemovePlotSpaceNotification
-                                                       object:hostedGraph];
+                                                       object:newGraph];
 
-            [hostedGraph addObserver:self
-                          forKeyPath:@"plotAreaFrame"
-                             options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionInitial
-                             context:CPTGraphHostingViewKVOContext];
+            [newGraph addObserver:self
+                       forKeyPath:@"plotAreaFrame"
+                          options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionInitial
+                          context:CPTGraphHostingViewKVOContext];
 
-            for ( CPTPlotSpace *space in hostedGraph.allPlotSpaces ) {
+            for ( CPTPlotSpace *space in newGraph.allPlotSpaces ) {
                 [space addObserver:self
                         forKeyPath:@"isDragging"
                            options:NSKeyValueObservingOptionNew

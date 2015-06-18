@@ -30,4 +30,4 @@ CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES
 CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES
 CLANG_WARN_OBJC_RECEIVER_WEAK = YES
 
-OTHER_CFLAGS = -Weverything -Wno-unused-parameter -Wno-undef -Wno-switch-enum -Wno-float-equal -Wno-padded -Wno-dollar-in-identifier-extension -Wno-custom-atomic-properties -Wno-gnu -Wno-assign-enum -Wno-pedantic -Wno-documentation -Wno-unknown-warning-option -Wno-cstring-format-directive
+OTHER_CFLAGS = -Weverything -Wno-unused-parameter -Wno-undef -Wno-switch-enum -Wno-float-equal -Wno-padded -Wno-dollar-in-identifier-extension -Wno-custom-atomic-properties -Wno-gnu -Wno-assign-enum -Wno-pedantic -Wno-documentation -Wno-unknown-warning-option -Wno-cstring-format-directive -Wno-documentation-unknown-command -Wno-reserved-id-macro -Wno-incompatible-pointer-types-discards-qualifiers

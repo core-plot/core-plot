@@ -159,8 +159,8 @@ extern NSString *__nonnull const CPTPlotSpaceDisplacementKey;
 @property (nonatomic, readwrite, copy, nullable) id<NSCopying, NSCoding, NSObject> identifier;
 @property (nonatomic, readwrite) BOOL allowsUserInteraction;
 @property (nonatomic, readonly) BOOL isDragging;
-@property (nonatomic, readwrite, cpt_weak_property, nullable) __cpt_weak CPTGraph *graph;
-@property (nonatomic, readwrite, cpt_weak_property, nullable) __cpt_weak id<CPTPlotSpaceDelegate> delegate;
+@property (nonatomic, readwrite, cpt_weak_property, nullable) cpt_weak CPTGraph *graph;
+@property (nonatomic, readwrite, cpt_weak_property, nullable) cpt_weak id<CPTPlotSpaceDelegate> delegate;
 
 @property (nonatomic, readonly) NSUInteger numberOfCoordinates;
 

@@ -127,21 +127,21 @@
                                                             attribute:NSLayoutAttributeLeft
                                                             relatedBy:NSLayoutRelationEqual
                                                                toItem:hostingView
-                                                            attribute:NSLayoutAttributeLeading
+                                                            attribute:NSLayoutAttributeLeft
                                                            multiplier:1.0
                                                              constant:0.0]];
     [hostingView addConstraint:[NSLayoutConstraint constraintWithItem:barView
                                                             attribute:NSLayoutAttributeLeft
                                                             relatedBy:NSLayoutRelationEqual
                                                                toItem:hostingView
-                                                            attribute:NSLayoutAttributeLeading
+                                                            attribute:NSLayoutAttributeLeft
                                                            multiplier:1.0
                                                              constant:0.0]];
     [hostingView addConstraint:[NSLayoutConstraint constraintWithItem:pieView
                                                             attribute:NSLayoutAttributeRight
                                                             relatedBy:NSLayoutRelationEqual
                                                                toItem:hostingView
-                                                            attribute:NSLayoutAttributeTrailing
+                                                            attribute:NSLayoutAttributeRight
                                                            multiplier:1.0
                                                              constant:0.0]];
 

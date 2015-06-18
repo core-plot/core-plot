@@ -251,8 +251,14 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        xRange       = [[coder decodeObjectForKey:@"CPTXYPlotSpace.xRange"] copy];
-        yRange       = [[coder decodeObjectForKey:@"CPTXYPlotSpace.yRange"] copy];
+        CPTPlotRange *range = [coder decodeObjectForKey:@"CPTXYPlotSpace.xRange"];
+        if ( range ) {
+            xRange = [range copy];
+        }
+        range = [coder decodeObjectForKey:@"CPTXYPlotSpace.yRange"];
+        if ( range ) {
+            yRange = [range copy];
+        }
         globalXRange = [[coder decodeObjectForKey:@"CPTXYPlotSpace.globalXRange"] copy];
         globalYRange = [[coder decodeObjectForKey:@"CPTXYPlotSpace.globalYRange"] copy];
         xScaleType   = (CPTScaleType)[coder decodeIntegerForKey : @"CPTXYPlotSpace.xScaleType"];

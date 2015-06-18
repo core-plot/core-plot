@@ -31,7 +31,7 @@
  **/
 @synthesize boundSetter;
 
-/** @property __cpt_weak id<CPTAnimationDelegate>delegate
+/** @property cpt_weak id<CPTAnimationDelegate>delegate
  *  @brief The animation delegate.
  **/
 @synthesize delegate;

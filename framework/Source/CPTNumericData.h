@@ -56,8 +56,8 @@
 /// @name Samples
 /// @{
 -(NSUInteger)sampleIndex:(NSUInteger)idx, ...;
--(nullable void *)samplePointer:(NSUInteger)sample;
--(nullable void *)samplePointerAtIndex:(NSUInteger)idx, ...;
+-(nullable const void *)samplePointer:(NSUInteger)sample;
+-(nullable const void *)samplePointerAtIndex:(NSUInteger)idx, ...;
 -(nullable NSNumber *)sampleValue:(NSUInteger)sample;
 -(nullable NSNumber *)sampleValueAtIndex:(NSUInteger)idx, ...;
 -(nonnull NSArray *)sampleArray;

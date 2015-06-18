@@ -648,13 +648,15 @@
         [[CPTAnimation sharedInstance] removeAnimationOperation:animationOperation];
     }
 
-    animationOperation = [CPTAnimation animate:volumePlotSpace
-                                      property:@"yRange"
-                                 fromPlotRange:[CPTPlotRange plotRangeWithLocationDecimal:[volumeLowDisplayLocation decimalValue]
-                                                                            lengthDecimal:CPTDecimalMultiply( [volumeLengthDisplayLocation decimalValue], CPTDecimalFromInteger(10) )]
-                                   toPlotRange:[CPTPlotRange plotRangeWithLocation:volumeLowDisplayLocation
-                                                                            length:volumeLengthDisplayLocation]
-                                      duration:2.5];
+    if ( volumeLowDisplayLocation && volumeLengthDisplayLocation ) {
+        animationOperation = [CPTAnimation animate:volumePlotSpace
+                                          property:@"yRange"
+                                     fromPlotRange:[CPTPlotRange plotRangeWithLocationDecimal:[volumeLowDisplayLocation decimalValue]
+                                                                                lengthDecimal:CPTDecimalMultiply( [volumeLengthDisplayLocation decimalValue], CPTDecimalFromInteger(10) )]
+                                       toPlotRange:[CPTPlotRange plotRangeWithLocation:volumeLowDisplayLocation
+                                                                                length:volumeLengthDisplayLocation]
+                                          duration:2.5];
+    }
 
     axisSet.xAxis.orthogonalPosition    = low;
     axisSet.yAxis.majorIntervalLength   = @50.0;

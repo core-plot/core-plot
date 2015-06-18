@@ -797,10 +797,10 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     if ( (newGridLines != minorGridLineGroup) || self.isUpdatingLayers ) {
         [minorGridLineGroup removeFromSuperlayer];
         minorGridLineGroup = newGridLines;
-        if ( minorGridLineGroup ) {
-            minorGridLineGroup.plotArea = self;
-            minorGridLineGroup.major    = NO;
-            [self insertSublayer:minorGridLineGroup atIndex:[self indexForLayerType:CPTGraphLayerTypeMinorGridLines]];
+        if ( newGridLines ) {
+            newGridLines.plotArea = self;
+            newGridLines.major    = NO;
+            [self insertSublayer:newGridLines atIndex:[self indexForLayerType:CPTGraphLayerTypeMinorGridLines]];
         }
         [self setNeedsLayout];
     }
@@ -811,10 +811,10 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     if ( (newGridLines != majorGridLineGroup) || self.isUpdatingLayers ) {
         [majorGridLineGroup removeFromSuperlayer];
         majorGridLineGroup = newGridLines;
-        if ( majorGridLineGroup ) {
-            majorGridLineGroup.plotArea = self;
-            majorGridLineGroup.major    = YES;
-            [self insertSublayer:majorGridLineGroup atIndex:[self indexForLayerType:CPTGraphLayerTypeMajorGridLines]];
+        if ( newGridLines ) {
+            newGridLines.plotArea = self;
+            newGridLines.major    = YES;
+            [self insertSublayer:newGridLines atIndex:[self indexForLayerType:CPTGraphLayerTypeMajorGridLines]];
         }
         [self setNeedsLayout];
     }
@@ -834,10 +834,10 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         [self updateAxisSetLayersForType:CPTGraphLayerTypeAxisLabels];
         [self updateAxisSetLayersForType:CPTGraphLayerTypeAxisTitles];
 
-        if ( axisSet ) {
+        if ( newAxisSet ) {
             CPTGraph *theGraph = self.graph;
-            [self insertSublayer:axisSet atIndex:[self indexForLayerType:CPTGraphLayerTypeAxisLines]];
-            for ( CPTAxis *axis in axisSet.axes ) {
+            [self insertSublayer:newAxisSet atIndex:[self indexForLayerType:CPTGraphLayerTypeAxisLines]];
+            for ( CPTAxis *axis in newAxisSet.axes ) {
                 axis.plotArea = self;
                 axis.graph    = theGraph;
             }
@@ -851,8 +851,8 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     if ( (newPlotGroup != plotGroup) || self.isUpdatingLayers ) {
         [plotGroup removeFromSuperlayer];
         plotGroup = newPlotGroup;
-        if ( plotGroup ) {
-            [self insertSublayer:plotGroup atIndex:[self indexForLayerType:CPTGraphLayerTypePlots]];
+        if ( newPlotGroup ) {
+            [self insertSublayer:newPlotGroup atIndex:[self indexForLayerType:CPTGraphLayerTypePlots]];
         }
         [self setNeedsLayout];
     }
@@ -863,8 +863,8 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     if ( (newAxisLabelGroup != axisLabelGroup) || self.isUpdatingLayers ) {
         [axisLabelGroup removeFromSuperlayer];
         axisLabelGroup = newAxisLabelGroup;
-        if ( axisLabelGroup ) {
-            [self insertSublayer:axisLabelGroup atIndex:[self indexForLayerType:CPTGraphLayerTypeAxisLabels]];
+        if ( newAxisLabelGroup ) {
+            [self insertSublayer:newAxisLabelGroup atIndex:[self indexForLayerType:CPTGraphLayerTypeAxisLabels]];
         }
         [self setNeedsLayout];
     }
@@ -875,8 +875,8 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     if ( (newAxisTitleGroup != axisTitleGroup) || self.isUpdatingLayers ) {
         [axisTitleGroup removeFromSuperlayer];
         axisTitleGroup = newAxisTitleGroup;
-        if ( axisTitleGroup ) {
-            [self insertSublayer:axisTitleGroup atIndex:[self indexForLayerType:CPTGraphLayerTypeAxisTitles]];
+        if ( newAxisTitleGroup ) {
+            [self insertSublayer:newAxisTitleGroup atIndex:[self indexForLayerType:CPTGraphLayerTypeAxisTitles]];
         }
         [self setNeedsLayout];
     }

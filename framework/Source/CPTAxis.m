@@ -35,10 +35,10 @@
 @interface CPTAxis()
 
 @property (nonatomic, readwrite, assign) BOOL needsRelabel;
-@property (nonatomic, readwrite, cpt_weak_property, nullable) __cpt_weak CPTGridLines *minorGridLines;
-@property (nonatomic, readwrite, cpt_weak_property, nullable) __cpt_weak CPTGridLines *majorGridLines;
-@property (nonatomic, readwrite, cpt_weak_property, nullable) __cpt_weak CPTAxisLabel *pointingDeviceDownLabel;
-@property (nonatomic, readwrite, cpt_weak_property, nullable) __cpt_weak CPTAxisLabel *pointingDeviceDownTickLabel;
+@property (nonatomic, readwrite, cpt_weak_property, nullable) cpt_weak CPTGridLines *minorGridLines;
+@property (nonatomic, readwrite, cpt_weak_property, nullable) cpt_weak CPTGridLines *majorGridLines;
+@property (nonatomic, readwrite, cpt_weak_property, nullable) cpt_weak CPTAxisLabel *pointingDeviceDownLabel;
+@property (nonatomic, readwrite, cpt_weak_property, nullable) cpt_weak CPTAxisLabel *pointingDeviceDownTickLabel;
 @property (nonatomic, readwrite, assign) BOOL labelFormatterChanged;
 @property (nonatomic, readwrite, assign) BOOL minorLabelFormatterChanged;
 @property (nonatomic, readwrite, strong, nullable) NSMutableArray *mutableBackgroundLimitBands;
@@ -432,17 +432,17 @@ NSDecimal niceLength(NSDecimal length);
  **/
 @synthesize separateLayers;
 
-/** @property __cpt_weak CPTPlotArea *plotArea
+/** @property cpt_weak CPTPlotArea *plotArea
  *  @brief The plot area that the axis belongs to.
  **/
 @synthesize plotArea;
 
-/** @property __cpt_weak CPTGridLines *minorGridLines
+/** @property cpt_weak CPTGridLines *minorGridLines
  *  @brief The layer that draws the minor grid lines.
  **/
 @synthesize minorGridLines;
 
-/** @property __cpt_weak CPTGridLines *majorGridLines
+/** @property cpt_weak CPTGridLines *majorGridLines
  *  @brief The layer that draws the major grid lines.
  **/
 @synthesize majorGridLines;
@@ -453,13 +453,13 @@ NSDecimal niceLength(NSDecimal length);
 @dynamic axisSet;
 
 /** @internal
- *  @property __cpt_weak CPTAxisLabel *pointingDeviceDownLabel
+ *  @property cpt_weak CPTAxisLabel *pointingDeviceDownLabel
  *  @brief The label that was selected on the pointing device down event.
  **/
 @synthesize pointingDeviceDownLabel;
 
 /** @internal
- *  @property __cpt_weak CPTAxisLabel *pointingDeviceDownTickLabel
+ *  @property cpt_weak CPTAxisLabel *pointingDeviceDownTickLabel
  *  @brief The tick label that was selected on the pointing device down event.
  **/
 @synthesize pointingDeviceDownTickLabel;
@@ -2381,7 +2381,13 @@ NSDecimal niceLength(NSDecimal length)
 
 -(void)setTitleLocation:(NSNumber *)newLocation
 {
-    if ( ![newLocation isEqualToNumber:titleLocation] ) {
+    BOOL needsUpdate = YES;
+
+    if ( newLocation ) {
+        needsUpdate = ![titleLocation isEqualToNumber:newLocation];
+    }
+
+    if ( needsUpdate ) {
         titleLocation = newLocation;
         [self updateAxisTitle];
     }
@@ -2681,7 +2687,13 @@ NSDecimal niceLength(NSDecimal length)
 
 -(void)setLabelingOrigin:(NSNumber *)newLabelingOrigin
 {
-    if ( ![newLabelingOrigin isEqualToNumber:labelingOrigin] ) {
+    BOOL needsUpdate = YES;
+
+    if ( newLabelingOrigin ) {
+        needsUpdate = ![labelingOrigin isEqualToNumber:newLabelingOrigin];
+    }
+
+    if ( needsUpdate ) {
         labelingOrigin = newLabelingOrigin;
 
         self.needsRelabel = YES;
@@ -2690,7 +2702,13 @@ NSDecimal niceLength(NSDecimal length)
 
 -(void)setMajorIntervalLength:(NSNumber *)newIntervalLength
 {
-    if ( ![newIntervalLength isEqualToNumber:majorIntervalLength] ) {
+    BOOL needsUpdate = YES;
+
+    if ( newIntervalLength ) {
+        needsUpdate = ![majorIntervalLength isEqualToNumber:newIntervalLength];
+    }
+
+    if ( needsUpdate ) {
         majorIntervalLength = newIntervalLength;
 
         self.needsRelabel = YES;

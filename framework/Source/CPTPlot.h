@@ -243,7 +243,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
 
 /// @name Data Source
 /// @{
-@property (nonatomic, readwrite, cpt_weak_property, nullable) __cpt_weak id<CPTPlotDataSource> dataSource;
+@property (nonatomic, readwrite, cpt_weak_property, nullable) cpt_weak id<CPTPlotDataSource> dataSource;
 /// @}
 
 /// @name Identification

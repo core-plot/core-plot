@@ -72,7 +72,12 @@
     NSMutableDictionary *myAttributes = [NSMutableDictionary dictionary];
 
     // Font
-    UIFont *styleFont = [UIFont fontWithName:self.fontName size:self.fontSize];
+    UIFont *styleFont  = nil;
+    NSString *fontName = self.fontName;
+
+    if ( fontName ) {
+        styleFont = [UIFont fontWithName:fontName size:self.fontSize];
+    }
 
     if ( styleFont ) {
         [myAttributes setValue:styleFont
@@ -168,7 +173,12 @@
         textSize.height = ceil(textSize.height);
     }
     else {
-        UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
+        UIFont *theFont    = nil;
+        NSString *fontName = style.fontName;
+
+        if ( fontName ) {
+            theFont = [UIFont fontWithName:fontName size:style.fontSize];
+        }
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -213,7 +223,12 @@
         UIColor *styleColor = style.attributes[NSForegroundColorAttributeName];
         [styleColor set];
 
-        UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
+        UIFont *theFont    = nil;
+        NSString *fontName = style.fontName;
+
+        if ( fontName ) {
+            theFont = [UIFont fontWithName:fontName size:style.fontSize];
+        }
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"

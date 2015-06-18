@@ -112,9 +112,13 @@
  */
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
-    if ( (self = [super initWithCoder:coder]) ) {
+    if ( (self = [super init]) ) {
         anchorPlotPoint = [[coder decodeObjectForKey:@"CPTPlotSpaceAnnotation.anchorPlotPoint"] copy];
-        plotSpace       = [coder decodeObjectForKey:@"CPTPlotSpaceAnnotation.plotSpace"];
+
+        CPTPlotSpace *thePlotSpace = [coder decodeObjectForKey:@"CPTPlotSpaceAnnotation.plotSpace"];
+        if ( thePlotSpace ) {
+            plotSpace = thePlotSpace;
+        }
     }
     return self;
 }

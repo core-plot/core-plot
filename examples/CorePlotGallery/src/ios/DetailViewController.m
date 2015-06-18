@@ -12,7 +12,7 @@
 
 -(CPTTheme *)currentTheme;
 
-@property (nonatomic, readwrite, weak) UIPopoverController *themePopoverController;
+@property (nonatomic, readwrite) UIPopoverController *themePopoverController;
 
 -(void)setupView;
 -(void)themeChanged:(NSNotification *)notification;
@@ -136,7 +136,7 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ( [segue.identifier isEqualToString:@"selectTheme"] ) {
-        self.themePopoverController = segue.destinationViewController;
+        self.themePopoverController = [[UIPopoverController alloc] initWithContentViewController:segue.destinationViewController];
     }
 }
 

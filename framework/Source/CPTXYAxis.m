@@ -748,7 +748,13 @@
 
 -(void)setOrthogonalPosition:(NSNumber *)newPosition
 {
-    if ( ![newPosition isEqualToNumber:orthogonalPosition] ) {
+    BOOL needsUpdate = YES;
+
+    if ( newPosition ) {
+        needsUpdate = ![orthogonalPosition isEqualToNumber:newPosition];
+    }
+
+    if ( needsUpdate ) {
         orthogonalPosition = newPosition;
         [self setNeedsDisplay];
         [self setNeedsLayout];

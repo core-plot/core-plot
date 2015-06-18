@@ -56,7 +56,11 @@ static NSMutableSet *themes = nil;
 -(void)encodeWithCoder:(NSCoder *)coder
 {
     [coder encodeObject:[[self class] name] forKey:@"CPTTheme.name"];
-    [coder encodeObject:NSStringFromClass(self.graphClass) forKey:@"CPTTheme.graphClass"];
+
+    Class theGraphClass = self.graphClass;
+    if ( theGraphClass ) {
+        [coder encodeObject:NSStringFromClass(theGraphClass) forKey:@"CPTTheme.graphClass"];
+    }
 }
 
 -(instancetype)initWithCoder:(NSCoder *)coder
@@ -64,7 +68,10 @@ static NSMutableSet *themes = nil;
     self = [CPTTheme themeNamed:[coder decodeObjectForKey:@"CPTTheme.name"]];
 
     if ( self ) {
-        self.graphClass = NSClassFromString([coder decodeObjectForKey:@"CPTTheme.graphClass"]);
+        NSString *className = [coder decodeObjectForKey:@"CPTTheme.graphClass"];
+        if ( className ) {
+            self.graphClass = NSClassFromString(className);
+        }
     }
     return self;
 }

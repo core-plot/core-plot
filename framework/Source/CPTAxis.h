@@ -271,9 +271,9 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
 /// @name Layers
 /// @{
 @property (nonatomic, readwrite, assign) BOOL separateLayers;
-@property (nonatomic, readwrite, cpt_weak_property, nullable) __cpt_weak CPTPlotArea *plotArea;
-@property (nonatomic, readonly, nullable) __cpt_weak CPTGridLines *minorGridLines;
-@property (nonatomic, readonly, nullable) __cpt_weak CPTGridLines *majorGridLines;
+@property (nonatomic, readwrite, cpt_weak_property, nullable) cpt_weak CPTPlotArea *plotArea;
+@property (nonatomic, readonly, nullable) cpt_weak CPTGridLines *minorGridLines;
+@property (nonatomic, readonly, nullable) cpt_weak CPTGridLines *majorGridLines;
 @property (nonatomic, readonly, nullable) CPTAxisSet *axisSet;
 /// @}
 

@@ -64,6 +64,23 @@
 
 /// @cond
 
+-(instancetype)init
+{
+    CGColorSpaceRef cgSpace = NULL;
+
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+    cgSpace = CGColorSpaceCreateDeviceRGB();
+#else
+    cgSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
+#endif
+
+    self = [self initWithCGColorSpace:cgSpace];
+
+    CGColorSpaceRelease(cgSpace);
+
+    return self;
+}
+
 -(void)dealloc
 {
     CGColorSpaceRelease(cgColorSpace);

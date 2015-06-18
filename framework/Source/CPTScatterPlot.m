@@ -1814,7 +1814,13 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 -(void)setAreaBaseValue:(NSNumber *)newAreaBaseValue
 {
-    if ( ![newAreaBaseValue isEqualToNumber:areaBaseValue] ) {
+    BOOL needsUpdate = YES;
+
+    if ( newAreaBaseValue ) {
+        needsUpdate = ![areaBaseValue isEqualToNumber:newAreaBaseValue];
+    }
+
+    if ( needsUpdate ) {
         areaBaseValue = newAreaBaseValue;
         [self setNeedsDisplay];
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
@@ -1823,7 +1829,13 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 -(void)setAreaBaseValue2:(NSNumber *)newAreaBaseValue
 {
-    if ( ![newAreaBaseValue isEqualToNumber:areaBaseValue2] ) {
+    BOOL needsUpdate = YES;
+
+    if ( newAreaBaseValue ) {
+        needsUpdate = ![areaBaseValue2 isEqualToNumber:newAreaBaseValue];
+    }
+
+    if ( needsUpdate ) {
         areaBaseValue2 = newAreaBaseValue;
         [self setNeedsDisplay];
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];

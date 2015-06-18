@@ -5,7 +5,7 @@
 
 @interface CPTLayerAnnotation : CPTAnnotation
 
-@property (nonatomic, readonly, nullable) __cpt_weak CPTLayer *anchorLayer;
+@property (nonatomic, readonly, nullable) cpt_weak CPTLayer *anchorLayer;
 @property (nonatomic, readwrite, assign) CPTRectAnchor rectAnchor;
 
 -(nonnull instancetype)initWithAnchorLayer:(nonnull CPTLayer *)anchorLayer NS_DESIGNATED_INITIALIZER;

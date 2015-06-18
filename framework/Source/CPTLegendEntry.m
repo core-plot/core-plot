@@ -23,7 +23,7 @@
  **/
 @implementation CPTLegendEntry
 
-/** @property __cpt_weak CPTPlot *plot
+/** @property cpt_weak CPTPlot *plot
  *  @brief The plot associated with this legend entry.
  **/
 @synthesize plot;

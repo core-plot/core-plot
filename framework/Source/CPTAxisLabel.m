@@ -78,6 +78,15 @@
     return self;
 }
 
+/// @cond
+
+-(instancetype)init
+{
+    return [self initWithText:nil textStyle:nil];
+}
+
+/// @endcond
+
 #pragma mark -
 #pragma mark NSCoding Methods
 
@@ -309,7 +318,14 @@
         return YES;
     }
     else if ( [object isKindOfClass:[self class]] ) {
-        return [self.tickLocation isEqualToNumber:( (CPTAxisLabel *)object ).tickLocation];
+        NSNumber *location = ( (CPTAxisLabel *)object ).tickLocation;
+
+        if ( location ) {
+            return [self.tickLocation isEqualToNumber:location];
+        }
+        else {
+            return NO;
+        }
     }
     else {
         return NO;

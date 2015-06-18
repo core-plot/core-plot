@@ -78,7 +78,7 @@ class DateController : NSObject, CPTPlotDataSource {
     {
         var newData = [Double]()
 
-        for i in 0 ..< 5 {
+        for _ in 0 ..< 5 {
             newData.append(1.2 * Double(arc4random()) / Double(UInt32.max) + 1.2)
         }
 

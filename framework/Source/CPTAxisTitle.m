@@ -56,7 +56,15 @@
         if ( ![self.contentLayer isEqual:otherTitle] ) {
             return NO;
         }
-        return [self.tickLocation isEqualToNumber:( (CPTAxisLabel *)object ).tickLocation];
+
+        NSNumber *location = ( (CPTAxisLabel *)object ).tickLocation;
+
+        if ( location ) {
+            return [self.tickLocation isEqualToNumber:location];
+        }
+        else {
+            return NO;
+        }
     }
     else {
         return NO;
