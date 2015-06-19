@@ -55,8 +55,8 @@
 -(void)updateMajorTickLabelOffsets;
 -(void)updateMinorTickLabelOffsets;
 
-NSDecimal niceNum(NSDecimal x);
-NSDecimal niceLength(NSDecimal length);
+NSDecimal CPTNiceNum(NSDecimal x);
+NSDecimal CPTNiceLength(NSDecimal length);
 
 @end
 
@@ -1025,11 +1025,11 @@ NSDecimal niceLength(NSDecimal length);
 
                 NSDecimal majorInterval;
                 if ( numTicks == 2 ) {
-                    majorInterval = niceLength(range.lengthDecimal);
+                    majorInterval = CPTNiceLength(range.lengthDecimal);
                 }
                 else {
                     majorInterval = CPTDecimalDivide( range.lengthDecimal, CPTDecimalFromUnsignedInteger(numTicks - 1) );
-                    majorInterval = niceNum(majorInterval);
+                    majorInterval = CPTNiceNum(majorInterval);
                 }
                 if ( CPTDecimalLessThan(majorInterval, zero) ) {
                     majorInterval = CPTDecimalMultiply( majorInterval, CPTDecimalFromInteger(-1) );
@@ -1098,7 +1098,7 @@ NSDecimal niceLength(NSDecimal length);
                     length = log10(maxLimit / minLimit);
 
                     if ( fabs(length) >= numTicks ) {
-                        interval = CPTDecimalDoubleValue( niceNum( CPTDecimalFromDouble( length / (numTicks - 1) ) ) );
+                        interval = CPTDecimalDoubleValue( CPTNiceNum( CPTDecimalFromDouble( length / (numTicks - 1) ) ) );
                     }
                     else {
                         interval = signbit(length) ? -1.0 : 1.0;
@@ -1226,7 +1226,7 @@ NSDecimal niceLength(NSDecimal length);
  *  @brief Determines a @quote{nice} number (a multiple of @num{2}, @num{5}, or @num{10}) near the given number.
  *  @param x The number to round.
  */
-NSDecimal niceNum(NSDecimal x)
+NSDecimal CPTNiceNum(NSDecimal x)
 {
     NSDecimal zero = CPTDecimalFromInteger(0);
     NSDecimal minusOne;
@@ -1276,7 +1276,7 @@ NSDecimal niceNum(NSDecimal x)
  *  @brief Determines a @quote{nice} range length (a multiple of @num{2}, @num{5}, or @num{10}) less than or equal to the given length.
  *  @param x The length to round.
  */
-NSDecimal niceLength(NSDecimal length)
+NSDecimal CPTNiceLength(NSDecimal length)
 {
     NSDecimal zero = CPTDecimalFromInteger(0);
     NSDecimal minusOne;

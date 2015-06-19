@@ -30,7 +30,7 @@ static NSString *const CPTAnimationFinishedKey  = @"CPTAnimationFinishedKey";
 -(void)cancelTimer;
 -(void)update;
 
-dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, dispatch_block_t block);
+dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, dispatch_block_t block);
 
 @end
 /// @endcond
@@ -448,7 +448,7 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
 
 -(void)startTimer
 {
-    self.timer = CreateDispatchTimer(kCPTAnimationFrameRate, self.animationQueue, ^{
+    self.timer = CPTCreateDispatchTimer(kCPTAnimationFrameRate, self.animationQueue, ^{
         [self update];
     });
 }
@@ -463,7 +463,7 @@ dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, 
     }
 }
 
-dispatch_source_t CreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, dispatch_block_t block)
+dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, dispatch_block_t block)
 {
     dispatch_source_t newTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
 

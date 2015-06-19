@@ -171,7 +171,7 @@
 
         if ( radius > CPTFloat(0.0) ) {
             CGContextBeginPath(context);
-            AddRoundedRectPath(context, layerBounds, radius);
+            CPTAddRoundedRectPath(context, layerBounds, radius);
             [theLineStyle strokePathInContext:context];
         }
         else {
@@ -234,7 +234,7 @@
 
         CGFloat radius = self.cornerRadius + self.borderLineStyle.lineWidth * CPTFloat(0.5);
 
-        path = CreateRoundedRectPath(self.bounds, radius);
+        path = CPTCreateRoundedRectPath(self.bounds, radius);
 
         self.outerBorderPath = path;
         CGPathRelease(path);
@@ -257,7 +257,7 @@
         CGFloat lineWidth = self.borderLineStyle.lineWidth;
         CGRect selfBounds = CGRectInset(self.bounds, lineWidth, lineWidth);
 
-        path = CreateRoundedRectPath( selfBounds, self.cornerRadius - lineWidth * CPTFloat(0.5) );
+        path = CPTCreateRoundedRectPath( selfBounds, self.cornerRadius - lineWidth * CPTFloat(0.5) );
 
         self.innerBorderPath = path;
         CGPathRelease(path);
