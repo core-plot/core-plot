@@ -3,7 +3,7 @@
 #import "CPTUtilities.h"
 #import "NSNumberExtensions.h"
 
-void MyCGPathApplierFunc(void *info, const CGPathElement *element);
+void CPTPathApplierFunc(void *info, const CGPathElement *element);
 
 #pragma mark -
 
@@ -87,7 +87,7 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element);
 
 /// @cond
 
-void MyCGPathApplierFunc(void *info, const CGPathElement *element)
+void CPTPathApplierFunc(void *info, const CGPathElement *element)
 {
     NSMutableDictionary *elementData = [[NSMutableDictionary alloc] init];
 
@@ -127,7 +127,7 @@ void MyCGPathApplierFunc(void *info, const CGPathElement *element)
     NSMutableArray *pathData = [[NSMutableArray alloc] init];
 
     // walk the path and gather data for each element
-    CGPathApply(path, (__bridge void *)(pathData), &MyCGPathApplierFunc);
+    CGPathApply(path, (__bridge void *)(pathData), &CPTPathApplierFunc);
 
     // encode data count
     NSUInteger dataCount = pathData.count;

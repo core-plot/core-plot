@@ -739,7 +739,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
             return path;
         }
 
-        path                 = CreateRoundedRectPath(self.bounds, self.cornerRadius);
+        path                 = CPTCreateRoundedRectPath(self.bounds, self.cornerRadius);
         self.outerBorderPath = path;
         CGPathRelease(path);
 

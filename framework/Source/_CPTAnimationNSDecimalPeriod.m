@@ -5,7 +5,7 @@
 /// @cond
 @interface _CPTAnimationNSDecimalPeriod()
 
-NSDecimal currentDecimalValue(id boundObject, SEL boundGetter);
+NSDecimal CPTCurrentDecimalValue(id boundObject, SEL boundGetter);
 
 @end
 /// @endcond
@@ -14,7 +14,7 @@ NSDecimal currentDecimalValue(id boundObject, SEL boundGetter);
 
 @implementation _CPTAnimationNSDecimalPeriod
 
-NSDecimal currentDecimalValue(id boundObject, SEL boundGetter)
+NSDecimal CPTCurrentDecimalValue(id boundObject, SEL boundGetter)
 {
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[boundObject methodSignatureForSelector:boundGetter]];
 
@@ -31,7 +31,7 @@ NSDecimal currentDecimalValue(id boundObject, SEL boundGetter)
 
 -(void)setStartValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
 {
-    NSDecimal start = currentDecimalValue(boundObject, boundGetter);
+    NSDecimal start = CPTCurrentDecimalValue(boundObject, boundGetter);
 
     self.startValue = [NSDecimalNumber decimalNumberWithDecimal:start];
 }
@@ -42,7 +42,7 @@ NSDecimal currentDecimalValue(id boundObject, SEL boundGetter)
         [self setStartValueFromObject:boundObject propertyGetter:boundGetter];
     }
 
-    NSDecimal current = currentDecimalValue(boundObject, boundGetter);
+    NSDecimal current = CPTCurrentDecimalValue(boundObject, boundGetter);
     NSDecimal start   = [(NSDecimalNumber *)self.startValue decimalValue];
     NSDecimal end     = [(NSDecimalNumber *)self.endValue decimalValue];
 

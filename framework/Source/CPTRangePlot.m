@@ -855,12 +855,12 @@ typedef struct CGPointError CGPointError;
 
         if ( theFill ) {
             CGContextBeginPath(context);
-            AddRoundedRectPath(context, CPTAlignIntegralRectToUserSpace(context, rect), legend.swatchCornerRadius);
+            CPTAddRoundedRectPath(context, CPTAlignIntegralRectToUserSpace(context, rect), legend.swatchCornerRadius);
             [theFill fillPathInContext:context];
 
             CPTLineStyle *lineStyle = self.areaBorderLineStyle;
             if ( lineStyle ) {
-                AddRoundedRectPath(context, CPTAlignIntegralRectToUserSpace(context, rect), legend.swatchCornerRadius);
+                CPTAddRoundedRectPath(context, CPTAlignIntegralRectToUserSpace(context, rect), legend.swatchCornerRadius);
 
                 [lineStyle setLineStyleInContext:context];
                 [lineStyle strokePathInContext:context];

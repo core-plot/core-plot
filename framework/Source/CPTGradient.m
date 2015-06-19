@@ -30,12 +30,12 @@
 @end
 
 // C Functions for color blending
-static void linearEvaluation(void *info, const CGFloat *in, CGFloat *out);
-static void chromaticEvaluation(void *info, const CGFloat *in, CGFloat *out);
-static void inverseChromaticEvaluation(void *info, const CGFloat *in, CGFloat *out);
-static void transformRGB_HSV(CGFloat *components);
-static void transformHSV_RGB(CGFloat *components);
-static void resolveHSV(CGFloat *color1, CGFloat *color2);
+static void CPTLinearEvaluation(void *info, const CGFloat *in, CGFloat *out);
+static void CPTChromaticEvaluation(void *info, const CGFloat *in, CGFloat *out);
+static void CPTInverseChromaticEvaluation(void *info, const CGFloat *in, CGFloat *out);
+static void CPTTransformRGB_HSV(CGFloat *components);
+static void CPTTransformHSV_RGB(CGFloat *components);
+static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
 
 /// @endcond
 
@@ -610,7 +610,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
         color[1] = CPTFloat(1.0);
         color[2] = CPTFloat(0.001);
         color[3] = CPTFloat(1.0);
-        transformHSV_RGB(color);
+        CPTTransformHSV_RGB(color);
 
         CPTGradientElement fadeIn;
         fadeIn.color.red   = color[0];
@@ -623,7 +623,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
         color[1] = CPTFloat(1.0);
         color[2] = CPTFloat(1.0);
         color[3] = CPTFloat(1.0);
-        transformHSV_RGB(color);
+        CPTTransformHSV_RGB(color);
 
         CPTGradientElement band;
         band.color.red   = color[0];
@@ -636,7 +636,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
         color[1] = CPTFloat(1.0);
         color[2] = CPTFloat(0.001);
         color[3] = CPTFloat(1.0);
-        transformHSV_RGB(color);
+        CPTTransformHSV_RGB(color);
 
         CPTGradientElement fadeOut;
         fadeOut.color.red   = color[0];
@@ -789,15 +789,15 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
     switch ( self.blendingMode ) {
         case CPTLinearBlendingMode:
-            linearEvaluation( (__bridge void *)(self), &position, components );
+            CPTLinearEvaluation( (__bridge void *)(self), &position, components );
             break;
 
         case CPTChromaticBlendingMode:
-            chromaticEvaluation( (__bridge void *)(self), &position, components );
+            CPTChromaticEvaluation( (__bridge void *)(self), &position, components );
             break;
 
         case CPTInverseChromaticBlendingMode:
-            inverseChromaticEvaluation( (__bridge void *)(self), &position, components );
+            CPTInverseChromaticEvaluation( (__bridge void *)(self), &position, components );
             break;
     }
 
@@ -1117,15 +1117,15 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
     CGFunctionEvaluateCallback evaluationFunction = NULL;
     switch ( blendingMode ) {
         case CPTLinearBlendingMode:
-            evaluationFunction = &linearEvaluation;
+            evaluationFunction = &CPTLinearEvaluation;
             break;
 
         case CPTChromaticBlendingMode:
-            evaluationFunction = &chromaticEvaluation;
+            evaluationFunction = &CPTChromaticEvaluation;
             break;
 
         case CPTInverseChromaticBlendingMode:
-            evaluationFunction = &inverseChromaticEvaluation;
+            evaluationFunction = &CPTInverseChromaticEvaluation;
             break;
     }
 
@@ -1302,7 +1302,7 @@ static void resolveHSV(CGFloat *color1, CGFloat *color2);
 
 /// @cond
 
-void linearEvaluation(void *info, const CGFloat *in, CGFloat *out)
+void CPTLinearEvaluation(void *info, const CGFloat *in, CGFloat *out)
 {
     CGFloat position      = *in;
     CPTGradient *gradient = (__bridge CPTGradient *)info;
@@ -1368,7 +1368,7 @@ void linearEvaluation(void *info, const CGFloat *in, CGFloat *out)
 //    this we will add to the hue's angle (if we subtract we'll be doing the inverse
 //    chromatic...scroll down more for that). All we need to do is keep adding to the hue
 //    until we wrap around the color wheel and get to color2.
-void chromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
+void CPTChromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
 {
     CGFloat position      = *in;
     CPTGradient *gradient = (__bridge CPTGradient *)info;
@@ -1407,9 +1407,9 @@ void chromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
     c2[2] = color2->color.blue;
     c2[3] = color2->color.alpha;
 
-    transformRGB_HSV(c1);
-    transformRGB_HSV(c2);
-    resolveHSV(c1, c2);
+    CPTTransformRGB_HSV(c1);
+    CPTTransformRGB_HSV(c2);
+    CPTResolveHSV(c1, c2);
 
     if ( c1[0] > c2[0] ) {        // if color1's hue is higher than color2's hue then
         c2[0] += CPTFloat(360.0); // we need to move c2 one revolution around the wheel
@@ -1437,7 +1437,7 @@ void chromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
         out[3] = (c2[3] - c1[3]) * position + c1[3];
     }
 
-    transformHSV_RGB(out);
+    CPTTransformHSV_RGB(out);
 }
 
 //  Inverse Chromatic Evaluation -
@@ -1445,7 +1445,7 @@ void chromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
 //    is strictly decreasing, that is we need to get from color1 to color2 by decreasing
 //    the 'angle' (i.e. 90º -> 180º would be done by subtracting 270º and getting -180º...
 //    which is equivalent to 180º mod 360º
-void inverseChromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
+void CPTInverseChromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
 {
     CGFloat position      = *in;
     CPTGradient *gradient = (__bridge CPTGradient *)info;
@@ -1484,9 +1484,9 @@ void inverseChromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
     c2[2] = color2->color.blue;
     c2[3] = color2->color.alpha;
 
-    transformRGB_HSV(c1);
-    transformRGB_HSV(c2);
-    resolveHSV(c1, c2);
+    CPTTransformRGB_HSV(c1);
+    CPTTransformRGB_HSV(c2);
+    CPTResolveHSV(c1, c2);
 
     if ( c1[0] < c2[0] ) {        //if color1's hue is higher than color2's hue then
         c1[0] += CPTFloat(360.0); //    we need to move c2 one revolution back on the wheel
@@ -1513,10 +1513,10 @@ void inverseChromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
         out[3] = (c2[3] - c1[3]) * position + c1[3];
     }
 
-    transformHSV_RGB(out);
+    CPTTransformHSV_RGB(out);
 }
 
-void transformRGB_HSV(CGFloat *components) //H,S,B -> R,G,B
+void CPTTransformRGB_HSV(CGFloat *components) //H,S,B -> R,G,B
 {
     CGFloat H = NAN, S, V;
     CGFloat R = components[0];
@@ -1549,7 +1549,7 @@ void transformRGB_HSV(CGFloat *components) //H,S,B -> R,G,B
     components[2] = V;
 }
 
-void transformHSV_RGB(CGFloat *components) //H,S,B -> R,G,B
+void CPTTransformHSV_RGB(CGFloat *components) //H,S,B -> R,G,B
 {
     CGFloat R = CPTFloat(0.0), G = CPTFloat(0.0), B = CPTFloat(0.0);
     CGFloat H = fmod( components[0], CPTFloat(360.0) ); //map to [0,360)
@@ -1608,8 +1608,8 @@ void transformHSV_RGB(CGFloat *components) //H,S,B -> R,G,B
     components[2] = B;
 }
 
-void resolveHSV(CGFloat *color1, CGFloat *color2) // H value may be undefined (i.e. grayscale color)
-{                                                 //    we want to fill it with a sensible value
+void CPTResolveHSV(CGFloat *color1, CGFloat *color2) // H value may be undefined (i.e. grayscale color)
+{                                                    //    we want to fill it with a sensible value
     if ( isnan(color1[0]) && isnan(color2[0]) ) {
         color1[0] = color2[0] = 0;
     }
