@@ -348,9 +348,10 @@
 
         CPTGraph *theHostedGraph = self.hostedGraph;
 
+        [self setNeedsDisplay];
+
         if ( collapsesLayers ) {
             [theHostedGraph removeFromSuperlayer];
-            [self setNeedsDisplay];
 
             if ( theHostedGraph ) {
                 [[NSNotificationCenter defaultCenter] addObserver:self
