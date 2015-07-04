@@ -42,8 +42,8 @@
 		C3AC1411150EDEF300631001 /* CurvedScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBCB98914753D6F000C8951 /* CurvedScatterPlot.m */; };
 		C3CD282A17DE9A7E008EED1E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CD282917DE9A7E008EED1E /* Accelerate.framework */; };
 		C3D2FE6919FF1D3E002CD4D6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D2FE6819FF1D3E002CD4D6 /* Images.xcassets */; };
-		C3D4145F1A7D817B00B6F5D6 /* CorePlot_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D414581A7D817000B6F5D6 /* CorePlot_iOS.framework */; };
 		C3D70BAC175EB30800F27173 /* ImageDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D70BAB175EB30800F27173 /* ImageDemo.m */; };
+		C3EB3ACC1B46CC5100906482 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D414541A7D817000B6F5D6 /* CorePlot.framework */; };
 		C3EF42F919FC753E0060791A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3EF42F819FC753E0060791A /* Images.xcassets */; };
 		C3F34F2A12AB25AE008FBDC3 /* DonutChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F34F2912AB25AE008FBDC3 /* DonutChart.m */; };
 /* End PBXBuildFile section */
@@ -177,7 +177,7 @@
 				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
 				4F5EBAC312297F2400D147E7 /* QuartzCore.framework in Frameworks */,
 				C3CD282A17DE9A7E008EED1E /* Accelerate.framework in Frameworks */,
-				C3D4145F1A7D817B00B6F5D6 /* CorePlot_iOS.framework in Frameworks */,
+				C3EB3ACC1B46CC5100906482 /* CorePlot.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,7 +310,7 @@
 			children = (
 				C3D414541A7D817000B6F5D6 /* CorePlot.framework */,
 				C3D414561A7D817000B6F5D6 /* UnitTests.xctest */,
-				C3D414581A7D817000B6F5D6 /* CorePlot_iOS.framework */,
+				C3D414581A7D817000B6F5D6 /* CorePlot.framework */,
 				C3D4145A1A7D817000B6F5D6 /* CorePlot_iOSTests.xctest */,
 				C3D4145C1A7D817000B6F5D6 /* libCorePlot-CocoaTouch.a */,
 				C3D4145E1A7D817000B6F5D6 /* CorePlot-CocoaTouchTests.xctest */,
@@ -392,10 +392,10 @@
 			remoteRef = C3D414551A7D817000B6F5D6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C3D414581A7D817000B6F5D6 /* CorePlot_iOS.framework */ = {
+		C3D414581A7D817000B6F5D6 /* CorePlot.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = CorePlot_iOS.framework;
+			path = CorePlot.framework;
 			remoteRef = C3D414571A7D817000B6F5D6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};

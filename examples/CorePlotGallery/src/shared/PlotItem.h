@@ -5,8 +5,9 @@
 
 #import <Foundation/Foundation.h>
 
+#import <CorePlot/CorePlot.h>
+
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#import <CorePlot_iOS/CorePlot.h>
 #import <UIKit/UIKit.h>
 
 typedef CGRect CGNSRect;
@@ -14,7 +15,6 @@ typedef UIView PlotGalleryNativeView;
 
 #else
 
-#import <CorePlot/CorePlot.h>
 typedef NSRect CGNSRect;
 typedef NSView PlotGalleryNativeView;
 #endif

@@ -215,7 +215,7 @@
 		C36E89BA11EE7F97003DE309 /* CPTPlotRangeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C36E89B911EE7F97003DE309 /* CPTPlotRangeTests.m */; };
 		C370D5971A753F1C00AF4312 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3226A571A69F6FA00F77249 /* CoreGraphics.framework */; };
 		C3791D09191D4C4C001EC514 /* CPTImagePlatformSpecific.m in Sources */ = {isa = PBXBuildFile; fileRef = C3791D07191D4C4C001EC514 /* CPTImagePlatformSpecific.m */; };
-		C38A09831A46185300D45436 /* CorePlot_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C38A09781A46185200D45436 /* CorePlot_iOS.framework */; };
+		C38A09831A46185300D45436 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C38A09781A46185200D45436 /* CorePlot.framework */; };
 		C38A09C51A4619A900D45436 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C38A09BA1A4619A900D45436 /* libCorePlot-CocoaTouch.a */; };
 		C38A09D11A461C1100D45436 /* CPTTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0730F64D109494D100E95162 /* CPTTestCase.m */; };
 		C38A09D21A461C1300D45436 /* CPTTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0730F64D109494D100E95162 /* CPTTestCase.m */; };
@@ -846,8 +846,8 @@
 		C36E89B811EE7F97003DE309 /* CPTPlotRangeTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPlotRangeTests.h; sourceTree = "<group>"; };
 		C36E89B911EE7F97003DE309 /* CPTPlotRangeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTPlotRangeTests.m; sourceTree = "<group>"; };
 		C3791D07191D4C4C001EC514 /* CPTImagePlatformSpecific.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = CPTImagePlatformSpecific.m; path = MacOnly/CPTImagePlatformSpecific.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C38A09781A46185200D45436 /* CorePlot_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CorePlot_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C38A09821A46185300D45436 /* CorePlot_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CorePlot_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C38A09781A46185200D45436 /* CorePlot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CorePlot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C38A09821A46185300D45436 /* UnitTests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UnitTests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C38A09BA1A4619A900D45436 /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libCorePlot-CocoaTouch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C38A09C41A4619A900D45436 /* CorePlot-CocoaTouchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CorePlot-CocoaTouchTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C38A0A531A461F9700D45436 /* CPTTextStylePlatformSpecific.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTTextStylePlatformSpecific.h; path = iPhoneOnly/CPTTextStylePlatformSpecific.h; sourceTree = SOURCE_ROOT; };
@@ -973,7 +973,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C370D5971A753F1C00AF4312 /* CoreGraphics.framework in Frameworks */,
-				C38A09831A46185300D45436 /* CorePlot_iOS.framework in Frameworks */,
+				C38A09831A46185300D45436 /* CorePlot.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1008,8 +1008,8 @@
 			children = (
 				8DC2EF5B0486A6940098B216 /* CorePlot.framework */,
 				0730F600109492D800E95162 /* UnitTests.xctest */,
-				C38A09781A46185200D45436 /* CorePlot_iOS.framework */,
-				C38A09821A46185300D45436 /* CorePlot_iOSTests.xctest */,
+				C38A09781A46185200D45436 /* CorePlot.framework */,
+				C38A09821A46185300D45436 /* UnitTests iOS.xctest */,
 				C38A09BA1A4619A900D45436 /* libCorePlot-CocoaTouch.a */,
 				C38A09C41A4619A900D45436 /* CorePlot-CocoaTouchTests.xctest */,
 			);
@@ -1910,9 +1910,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		0730F5FF109492D800E95162 /* UnitTests */ = {
+		0730F5FF109492D800E95162 /* UnitTests Mac */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0730F604109492D900E95162 /* Build configuration list for PBXNativeTarget "UnitTests" */;
+			buildConfigurationList = 0730F604109492D900E95162 /* Build configuration list for PBXNativeTarget "UnitTests Mac" */;
 			buildPhases = (
 				0730F5FB109492D800E95162 /* Resources */,
 				0730F5FC109492D800E95162 /* Sources */,
@@ -1924,14 +1924,14 @@
 			dependencies = (
 				0730F6221094932900E95162 /* PBXTargetDependency */,
 			);
-			name = UnitTests;
+			name = "UnitTests Mac";
 			productName = UnitTests;
 			productReference = 0730F600109492D800E95162 /* UnitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		8DC2EF4F0486A6940098B216 /* CorePlot */ = {
+		8DC2EF4F0486A6940098B216 /* CorePlot Mac */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "CorePlot" */;
+			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "CorePlot Mac" */;
 			buildPhases = (
 				8DC2EF500486A6940098B216 /* Headers */,
 				8DC2EF520486A6940098B216 /* Resources */,
@@ -1942,15 +1942,15 @@
 			);
 			dependencies = (
 			);
-			name = CorePlot;
+			name = "CorePlot Mac";
 			productInstallPath = "$(HOME)/Library/Frameworks";
 			productName = CorePlot;
 			productReference = 8DC2EF5B0486A6940098B216 /* CorePlot.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		C38A09771A46185200D45436 /* CorePlot_iOS */ = {
+		C38A09771A46185200D45436 /* CorePlot iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C38A098F1A46185300D45436 /* Build configuration list for PBXNativeTarget "CorePlot_iOS" */;
+			buildConfigurationList = C38A098F1A46185300D45436 /* Build configuration list for PBXNativeTarget "CorePlot iOS" */;
 			buildPhases = (
 				C38A09731A46185200D45436 /* Sources */,
 				C38A09741A46185200D45436 /* Frameworks */,
@@ -1961,14 +1961,14 @@
 			);
 			dependencies = (
 			);
-			name = CorePlot_iOS;
+			name = "CorePlot iOS";
 			productName = "CorePlot-iOS";
-			productReference = C38A09781A46185200D45436 /* CorePlot_iOS.framework */;
+			productReference = C38A09781A46185200D45436 /* CorePlot.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		C38A09811A46185300D45436 /* CorePlot_iOSTests */ = {
+		C38A09811A46185300D45436 /* UnitTests iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C38A09901A46185300D45436 /* Build configuration list for PBXNativeTarget "CorePlot_iOSTests" */;
+			buildConfigurationList = C38A09901A46185300D45436 /* Build configuration list for PBXNativeTarget "UnitTests iOS" */;
 			buildPhases = (
 				C38A097E1A46185300D45436 /* Sources */,
 				C38A097F1A46185300D45436 /* Frameworks */,
@@ -1979,9 +1979,9 @@
 			dependencies = (
 				C38A09851A46185300D45436 /* PBXTargetDependency */,
 			);
-			name = CorePlot_iOSTests;
+			name = "UnitTests iOS";
 			productName = "CorePlot-iOSTests";
-			productReference = C38A09821A46185300D45436 /* CorePlot_iOSTests.xctest */;
+			productReference = C38A09821A46185300D45436 /* UnitTests iOS.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		C38A09B91A4619A900D45436 /* CorePlot-CocoaTouch */ = {
@@ -2057,10 +2057,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8DC2EF4F0486A6940098B216 /* CorePlot */,
-				0730F5FF109492D800E95162 /* UnitTests */,
-				C38A09771A46185200D45436 /* CorePlot_iOS */,
-				C38A09811A46185300D45436 /* CorePlot_iOSTests */,
+				8DC2EF4F0486A6940098B216 /* CorePlot Mac */,
+				0730F5FF109492D800E95162 /* UnitTests Mac */,
+				C38A09771A46185200D45436 /* CorePlot iOS */,
+				C38A09811A46185300D45436 /* UnitTests iOS */,
 				C38A09B91A4619A900D45436 /* CorePlot-CocoaTouch */,
 				C38A09C31A4619A900D45436 /* CorePlot-CocoaTouchTests */,
 				9021E49E0FC5C9DC00443472 /* Documentation-Mac */,
@@ -2568,12 +2568,12 @@
 /* Begin PBXTargetDependency section */
 		0730F6221094932900E95162 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8DC2EF4F0486A6940098B216 /* CorePlot */;
+			target = 8DC2EF4F0486A6940098B216 /* CorePlot Mac */;
 			targetProxy = 0730F6211094932900E95162 /* PBXContainerItemProxy */;
 		};
 		C38A09851A46185300D45436 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C38A09771A46185200D45436 /* CorePlot_iOS */;
+			target = C38A09771A46185200D45436 /* CorePlot iOS */;
 			targetProxy = C38A09841A46185300D45436 /* PBXContainerItemProxy */;
 		};
 		C38A09C71A4619A900D45436 /* PBXTargetDependency */ = {
@@ -2779,7 +2779,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CorePlot;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2810,7 +2810,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CorePlot;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3142,7 +3142,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0730F604109492D900E95162 /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
+		0730F604109492D900E95162 /* Build configuration list for PBXNativeTarget "UnitTests Mac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0730F602109492D900E95162 /* Debug */,
@@ -3151,7 +3151,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "CorePlot" */ = {
+		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "CorePlot Mac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB91AE08733DA50010E9CD /* Debug */,
@@ -3178,7 +3178,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C38A098F1A46185300D45436 /* Build configuration list for PBXNativeTarget "CorePlot_iOS" */ = {
+		C38A098F1A46185300D45436 /* Build configuration list for PBXNativeTarget "CorePlot iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C38A098B1A46185300D45436 /* Debug */,
@@ -3187,7 +3187,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C38A09901A46185300D45436 /* Build configuration list for PBXNativeTarget "CorePlot_iOSTests" */ = {
+		C38A09901A46185300D45436 /* Build configuration list for PBXNativeTarget "UnitTests iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C38A098D1A46185300D45436 /* Debug */,

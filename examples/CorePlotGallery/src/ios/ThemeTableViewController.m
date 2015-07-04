@@ -5,7 +5,7 @@
 
 #import "ThemeTableViewController.h"
 
-#import <CorePlot_iOS/CorePlot.h>
+#import <CorePlot/CorePlot.h>
 
 NSString *const kThemeTableViewControllerNoTheme      = @"None";
 NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
