@@ -23,6 +23,8 @@
 		4F7541F3126B59A200313026 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7541EF126B59A200313026 /* DetailViewController.m */; };
 		4F8E1C6012907C1800D2035F /* DatePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E1C5F12907C1800D2035F /* DatePlot.m */; };
 		4F8E1CA0129089D600D2035F /* SteppedScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E1C9F129089D600D2035F /* SteppedScatterPlot.m */; };
+		C317907E1B49EAF100699C5F /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D414581A7D817000B6F5D6 /* CorePlot.framework */; };
+		C317907F1B49EAF100699C5F /* CorePlot.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C3D414581A7D817000B6F5D6 /* CorePlot.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C31A40BA17ABD6910020C5C6 /* FunctionPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C31A40B917ABD6910020C5C6 /* FunctionPlot.m */; };
 		C32960CB1A101AEB0086D047 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C32960CA1A101AEB0086D047 /* AppDelegate.m */; };
 		C3457A5317AD7C72000880F3 /* PiNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3457A5217AD7C72000880F3 /* PiNumberFormatter.m */; };
@@ -49,6 +51,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C317907C1B49EAC900699C5F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3D414471A7D817000B6F5D6 /* CorePlot.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C38A09771A46185200D45436;
+			remoteInfo = "CorePlot iOS";
+		};
+		C31790801B49EAF100699C5F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3D414471A7D817000B6F5D6 /* CorePlot.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C38A09771A46185200D45436;
+			remoteInfo = "CorePlot iOS";
+		};
 		C3D414531A7D817000B6F5D6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C3D414471A7D817000B6F5D6 /* CorePlot.xcodeproj */;
@@ -92,6 +108,20 @@
 			remoteInfo = "CorePlot-CocoaTouchTests";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C31790821B49EAF200699C5F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C317907F1B49EAF100699C5F /* CorePlot.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -174,6 +204,7 @@
 			files = (
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				C317907E1B49EAF100699C5F /* CorePlot.framework in Frameworks */,
 				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
 				4F5EBAC312297F2400D147E7 /* QuartzCore.framework in Frameworks */,
 				C3CD282A17DE9A7E008EED1E /* Accelerate.framework in Frameworks */,
@@ -311,7 +342,7 @@
 				C3D414541A7D817000B6F5D6 /* CorePlot.framework */,
 				C3D414561A7D817000B6F5D6 /* UnitTests.xctest */,
 				C3D414581A7D817000B6F5D6 /* CorePlot.framework */,
-				C3D4145A1A7D817000B6F5D6 /* CorePlot_iOSTests.xctest */,
+				C3D4145A1A7D817000B6F5D6 /* UnitTests iOS.xctest */,
 				C3D4145C1A7D817000B6F5D6 /* libCorePlot-CocoaTouch.a */,
 				C3D4145E1A7D817000B6F5D6 /* CorePlot-CocoaTouchTests.xctest */,
 			);
@@ -328,10 +359,13 @@
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+				C31790821B49EAF200699C5F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C317907D1B49EAC900699C5F /* PBXTargetDependency */,
+				C31790811B49EAF100699C5F /* PBXTargetDependency */,
 			);
 			name = "Plot Gallery-iOS";
 			productName = "Plot Gallery";
@@ -399,10 +433,10 @@
 			remoteRef = C3D414571A7D817000B6F5D6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C3D4145A1A7D817000B6F5D6 /* CorePlot_iOSTests.xctest */ = {
+		C3D4145A1A7D817000B6F5D6 /* UnitTests iOS.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = CorePlot_iOSTests.xctest;
+			path = "UnitTests iOS.xctest";
 			remoteRef = C3D414591A7D817000B6F5D6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -475,6 +509,19 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		C317907D1B49EAC900699C5F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "CorePlot iOS";
+			targetProxy = C317907C1B49EAC900699C5F /* PBXContainerItemProxy */;
+		};
+		C31790811B49EAF100699C5F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "CorePlot iOS";
+			targetProxy = C31790801B49EAF100699C5F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -492,6 +539,7 @@
 				GCC_PREFIX_HEADER = Plot_Gallery_Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework/\"/**";
 				INFOPLIST_FILE = "Plot_Gallery-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -511,13 +559,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Plot_Gallery_Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework/\"/**";
 				INFOPLIST_FILE = "Plot_Gallery-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
