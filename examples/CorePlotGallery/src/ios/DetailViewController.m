@@ -130,31 +130,4 @@
     [self themeSelectedWithName:themeInfo[PlotGalleryThemeNameKey]];
 }
 
-#pragma mark -
-#pragma mark Segues
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ( [segue.identifier isEqualToString:@"selectTheme"] ) {
-        self.themePopoverController = [[UIPopoverController alloc] initWithContentViewController:segue.destinationViewController];
-    }
-}
-
--(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
-{
-    if ( [identifier isEqualToString:@"selectTheme"] ) {
-        UIPopoverController *controller = self.themePopoverController;
-
-        if ( controller ) {
-            [controller dismissPopoverAnimated:YES];
-            return NO;
-        }
-        else {
-            return YES;
-        }
-    }
-
-    return YES;
-}
-
 @end
