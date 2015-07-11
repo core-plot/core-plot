@@ -10,4 +10,6 @@
 @property (readwrite, assign, nonatomic) CPTTextAlignment textAlignment;
 @property (readwrite, assign, nonatomic) NSLineBreakMode lineBreakMode;
 
++ (instancetype)textStyleWithStyle:(CPTTextStyle*)textStyle;
+
 @end
