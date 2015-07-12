@@ -95,7 +95,7 @@
 		AB4913C60FECC2B8008A08AB /* APYahooDataPuller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = APYahooDataPuller.m; path = Classes/APYahooDataPuller.m; sourceTree = SOURCE_ROOT; };
 		AB4913C70FECC2B8008A08AB /* NSDictionary+APFinancialData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+APFinancialData.m"; path = "Classes/NSDictionary+APFinancialData.m"; sourceTree = SOURCE_ROOT; };
 		AB6FA4A30FEB579B008DB04A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		AB6FA4DE0FEB59DB008DB04A /* NSDictionary+APFinancalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+APFinancalData.h"; sourceTree = "<group>"; };
+		AB6FA4DE0FEB59DB008DB04A /* NSDictionary+APFinancialData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+APFinancialData.h"; sourceTree = "<group>"; };
 		AB6FA5560FEB6235008DB04A /* APYahooDataPullerGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = APYahooDataPullerGraph.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		AB6FA5570FEB6235008DB04A /* APYahooDataPullerGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APYahooDataPullerGraph.m; sourceTree = "<group>"; };
 		AB6FA5580FEB6235008DB04A /* APYahooDataPullerGraph.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = APYahooDataPullerGraph.xib; path = Classes/APYahooDataPullerGraph.xib; sourceTree = "<group>"; };
@@ -298,14 +298,14 @@
 		C3D414D81A7D84BF00B6F5D6 /* CorePlot_iOS.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = CorePlot_iOS.framework;
+			path = CorePlot.framework;
 			remoteRef = C3D414D71A7D84BF00B6F5D6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		C3D414DA1A7D84BF00B6F5D6 /* CorePlot_iOSTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = CorePlot_iOSTests.xctest;
+			path = "UnitTests iOS.xctest";
 			remoteRef = C3D414D91A7D84BF00B6F5D6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
