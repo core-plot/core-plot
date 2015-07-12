@@ -18,7 +18,7 @@ static const CGFloat kMouseMovementScaleFactorForRotation = 1.0;
 #pragma mark -
 #pragma mark Initialization and teardown
 
--(id)initWithFrame:(NSRect)frame
+-(instancetype)initWithFrame:(NSRect)frame
 {
     if ( (self = [super initWithFrame:frame]) ) {
         rotationTransform = CATransform3DIdentity;

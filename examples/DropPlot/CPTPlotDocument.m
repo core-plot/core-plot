@@ -42,7 +42,7 @@
 
 //#define USE_NSDECIMAL
 
--(id)init
+-(instancetype)init
 {
     self = [super init];
     if ( self ) {

@@ -26,7 +26,7 @@
 @property (nonatomic, readonly, assign) BOOL loadingData;
 @property (nonatomic, readonly, assign) BOOL staleData;
 
--(id)initWithTargetSymbol:(NSString *)aSymbol targetStartDate:(NSDate *)aStartDate targetEndDate:(NSDate *)anEndDate;
+-(instancetype)initWithTargetSymbol:(NSString *)aSymbol targetStartDate:(NSDate *)aStartDate targetEndDate:(NSDate *)anEndDate;
 -(void)fetchIfNeeded;
 -(void)cancelDownload;
 

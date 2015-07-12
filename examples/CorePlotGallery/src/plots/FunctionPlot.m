@@ -29,7 +29,7 @@
 
 #pragma mark -
 
--(id)init
+-(instancetype)init
 {
     if ( (self = [super init]) ) {
         dataSources = [[NSMutableSet alloc] init];

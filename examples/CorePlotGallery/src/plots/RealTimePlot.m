@@ -30,7 +30,7 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
     [super registerPlotItem:self];
 }
 
--(id)init
+-(instancetype)init
 {
     if ( (self = [super init]) ) {
         plotData  = [[NSMutableArray alloc] initWithCapacity:kMaxDataPoints];
