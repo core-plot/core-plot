@@ -29,7 +29,7 @@
  **/
 @dynamic lineWidth;
 
-/** @property NSArray *dashPattern
+/** @property CPTNumberArray dashPattern
  *  @brief The dash-and-space pattern for the line. Default is @nil.
  **/
 @dynamic dashPattern;

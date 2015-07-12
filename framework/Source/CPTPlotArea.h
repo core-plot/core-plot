@@ -85,7 +85,7 @@
 
 /// @name Layer Ordering
 /// @{
-@property (nonatomic, readwrite, strong, nullable) NSArray *topDownLayerOrder;
+@property (nonatomic, readwrite, strong, nullable) CPTNumberArray topDownLayerOrder;
 /// @}
 
 /// @name Decorations

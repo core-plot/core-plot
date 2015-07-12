@@ -10,7 +10,7 @@
 
 /// @name Dimensions
 /// @{
-@property (nonatomic, readwrite, copy, nonnull) NSArray *shape;
+@property (nonatomic, readwrite, copy, nonnull) CPTNumberArray shape;
 /// @}
 
 /// @name Samples

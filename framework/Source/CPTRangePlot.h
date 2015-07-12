@@ -1,7 +1,7 @@
 #import "CPTDefinitions.h"
+#import "CPTLineStyle.h"
 #import "CPTPlot.h"
 
-@class CPTLineStyle;
 @class CPTFill;
 @class CPTRangePlot;
 
@@ -44,7 +44,7 @@ typedef NS_ENUM (NSInteger, CPTRangePlotField) {
  *  @param indexRange The range of the data indexes of interest.
  *  @return An array of line styles.
  **/
--(nullable NSArray *)barLineStylesForRangePlot:(nonnull CPTRangePlot *)plot recordIndexRange:(NSRange)indexRange;
+-(nullable CPTLineStyleArray)barLineStylesForRangePlot:(nonnull CPTRangePlot *)plot recordIndexRange:(NSRange)indexRange;
 
 /** @brief @optional Gets a bar line style for the given range plot.
  *  This method will not be called if

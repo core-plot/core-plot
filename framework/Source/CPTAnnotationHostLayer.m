@@ -1,12 +1,11 @@
 #import "CPTAnnotationHostLayer.h"
 
-#import "CPTAnnotation.h"
 #import "CPTExceptions.h"
 
 /// @cond
 @interface CPTAnnotationHostLayer()
 
-@property (nonatomic, readwrite, strong, nonnull) NSMutableArray *mutableAnnotations;
+@property (nonatomic, readwrite, strong, nonnull) CPTMutableAnnotationArray mutableAnnotations;
 
 @end
 
@@ -21,7 +20,7 @@
  **/
 @implementation CPTAnnotationHostLayer
 
-/** @property NSArray *annotations
+/** @property CPTAnnotationArray annotations
  *  @brief An array of annotations attached to this layer.
  **/
 @dynamic annotations;
@@ -81,7 +80,7 @@
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        NSArray *annotations = [coder decodeObjectForKey:@"CPTAnnotationHostLayer.mutableAnnotations"];
+        CPTAnnotationArray annotations = [coder decodeObjectForKey:@"CPTAnnotationHostLayer.mutableAnnotations"];
         if ( annotations ) {
             mutableAnnotations = [annotations mutableCopy];
         }
@@ -97,7 +96,7 @@
 #pragma mark -
 #pragma mark Annotations
 
--(NSArray *)annotations
+-(CPTAnnotationArray)annotations
 {
     return [self.mutableAnnotations copy];
 }
@@ -108,7 +107,7 @@
 -(void)addAnnotation:(CPTAnnotation *)annotation
 {
     if ( annotation ) {
-        NSMutableArray *annotationArray = self.mutableAnnotations;
+        CPTMutableAnnotationArray annotationArray = self.mutableAnnotations;
         if ( ![annotationArray containsObject:annotation] ) {
             [annotationArray addObject:annotation];
         }
@@ -139,7 +138,7 @@
  **/
 -(void)removeAllAnnotations
 {
-    NSMutableArray *allAnnotations = self.mutableAnnotations;
+    CPTMutableAnnotationArray allAnnotations = self.mutableAnnotations;
 
     for ( CPTAnnotation *annotation in allAnnotations ) {
         annotation.annotationHostLayer = nil;
@@ -152,12 +151,12 @@
 
 /// @cond
 
--(NSSet *)sublayersExcludedFromAutomaticLayout
+-(CPTSublayerSet)sublayersExcludedFromAutomaticLayout
 {
-    NSMutableArray *annotations = self.mutableAnnotations;
+    CPTMutableAnnotationArray annotations = self.mutableAnnotations;
 
     if ( annotations.count > 0 ) {
-        NSMutableSet *excludedSublayers = [[super sublayersExcludedFromAutomaticLayout] mutableCopy];
+        CPTMutableSublayerSet excludedSublayers = [[super sublayersExcludedFromAutomaticLayout] mutableCopy];
 
         if ( !excludedSublayers ) {
             excludedSublayers = [NSMutableSet set];

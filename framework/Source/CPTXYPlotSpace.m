@@ -16,6 +16,8 @@
 #import <tgmath.h>
 
 /// @cond
+typedef NSMutableArray<CPTAnimationOperation *> *CPTMutableAnimationArray;
+
 @interface CPTXYPlotSpace()
 
 -(CGFloat)viewCoordinateForViewLength:(NSDecimal)viewLength linearPlotRange:(nullable CPTPlotRange *)range plotCoordinateValue:(NSDecimal)plotCoord;
@@ -41,7 +43,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
 @property (nonatomic, readwrite) CGPoint lastDisplacement;
 @property (nonatomic, readwrite) NSTimeInterval lastDragTime;
 @property (nonatomic, readwrite) NSTimeInterval lastDeltaTime;
-@property (nonatomic, readwrite, retain, nonnull) NSMutableArray *animations;
+@property (nonatomic, readwrite, retain, nonnull) CPTMutableAnimationArray animations;
 
 @end
 
@@ -519,7 +521,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
 
 -(void)animateRangeForCoordinate:(CPTCoordinate)coordinate shift:(NSDecimal)shift momentumTime:(CGFloat)momentumTime speed:(CGFloat)speed acceleration:(CGFloat)acceleration
 {
-    NSMutableArray *animationArray = self.animations;
+    CPTMutableAnimationArray animationArray = self.animations;
     CPTAnimationOperation *op;
 
     NSString *property        = nil;
@@ -737,7 +739,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
     }
 }
 
--(void)scaleToFitPlots:(NSArray *)plots
+-(void)scaleToFitPlots:(CPTPlotArray)plots
 {
     if ( plots.count == 0 ) {
         return;
@@ -916,7 +918,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 }
 
 // Plot area view point for plot point
--(CGPoint)plotAreaViewPointForPlotPoint:(NSArray *)plotPoint
+-(CGPoint)plotAreaViewPointForPlotPoint:(CPTNumberArray)plotPoint
 {
     CGPoint viewPoint = [super plotAreaViewPointForPlotPoint:plotPoint];
 
@@ -1065,9 +1067,9 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 }
 
 // Plot point for view point
--(NSArray *)plotPointForPlotAreaViewPoint:(CGPoint)point
+-(CPTNumberArray)plotPointForPlotAreaViewPoint:(CGPoint)point
 {
-    NSMutableArray *plotPoint = [[super plotPointForPlotAreaViewPoint:point] mutableCopy];
+    CPTMutableNumberArray plotPoint = [[super plotPointForPlotAreaViewPoint:point] mutableCopy];
 
     CGSize boundsSize;
     CPTGraph *theGraph    = self.graph;
@@ -1241,7 +1243,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 }
 
 // Plot point for event
--(NSArray *)plotPointForEvent:(CPTNativeEvent *)event
+-(CPTNumberArray)plotPointForEvent:(CPTNativeEvent *)event
 {
     return [self plotPointForPlotAreaViewPoint:[self plotAreaViewPointForEvent:event]];
 }
@@ -1390,7 +1392,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         self.lastDeltaTime    = 0.0;
 
         // Clear any previous animations
-        NSMutableArray *animationArray = self.animations;
+        CPTMutableAnimationArray animationArray = self.animations;
         for ( CPTAnimationOperation *op in animationArray ) {
             [[CPTAnimation sharedInstance] removeAnimationOperation:op];
         }

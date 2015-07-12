@@ -22,7 +22,7 @@
 @dynamic inputXMin, inputXMax, inputYMin, inputYMax;
 @dynamic inputXMajorIntervals, inputYMajorIntervals, inputXMinorIntervals, inputYMinorIntervals;
 
-+(NSDictionary *)attributes
++(NSDictionary<NSString *, NSString *> *)attributes
 {
     return @{
                QCPlugInAttributeNameKey: @"Core Plot Scatter Plot",
@@ -210,8 +210,8 @@
     NSString *xKey       = [NSString stringWithFormat:@"plotXNumbers%lu", (unsigned long)plotIndex];
     NSString *yKey       = [NSString stringWithFormat:@"plotYNumbers%lu", (unsigned long)plotIndex];
 
-    NSDictionary *xVals = [self valueForInputKey:xKey];
-    NSDictionary *yVals = [self valueForInputKey:yKey];
+    CPTDictionary xVals = [self valueForInputKey:xKey];
+    CPTDictionary yVals = [self valueForInputKey:yKey];
 
     if ( !xVals || !yVals ) {
         return 0;
@@ -229,8 +229,8 @@
     NSString *xKey       = [NSString stringWithFormat:@"plotXNumbers%lu", (unsigned long)plotIndex];
     NSString *yKey       = [NSString stringWithFormat:@"plotYNumbers%lu", (unsigned long)plotIndex];
 
-    NSDictionary *xVals = [self valueForInputKey:xKey];
-    NSDictionary *yVals = [self valueForInputKey:yKey];
+    CPTDictionary xVals = [self valueForInputKey:xKey];
+    CPTDictionary yVals = [self valueForInputKey:yKey];
 
     if ( !xVals || !yVals ) {
         return nil;
@@ -239,7 +239,7 @@
         return nil;
     }
 
-    NSDictionary *dict = (fieldEnum == CPTScatterPlotFieldX) ? xVals : yVals;
+    CPTDictionary dict = (fieldEnum == CPTScatterPlotFieldX) ? xVals : yVals;
 
     NSString *dictionaryKey = [NSString stringWithFormat:@"%lu", (unsigned long)index];
 

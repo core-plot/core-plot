@@ -5,7 +5,7 @@
 
 @property (nonatomic, readwrite, strong) IBOutlet CPTGraphHostingView *hostView;
 @property (nonatomic, readwrite, strong) CPTXYGraph *graph;
-@property (nonatomic, readwrite, strong) NSArray *plotData;
+@property (nonatomic, readwrite, strong) NSArray<NSDictionary *> *plotData;
 
 @end
 
@@ -81,7 +81,7 @@
     [newGraph addPlot:dataSourceLinePlot];
 
     // Add some data
-    NSMutableArray *newData = [NSMutableArray array];
+    NSMutableArray<NSDictionary *> *newData = [NSMutableArray array];
     for ( NSUInteger i = 0; i < 7; i++ ) {
         NSTimeInterval xVal = oneDay * i * 0.5;
 

@@ -32,7 +32,7 @@ extern NSString *const kFinancialPlots;
 
 @property (nonatomic, readwrite, strong) CPTGraphHostingView *defaultLayerHostingView;
 
-@property (nonatomic, readwrite, strong) NSMutableArray *graphs;
+@property (nonatomic, readwrite, strong) NSMutableArray<__kindof CPTGraph *> *graphs;
 @property (nonatomic, readwrite, strong) NSString *section;
 @property (nonatomic, readwrite, strong) NSString *title;
 

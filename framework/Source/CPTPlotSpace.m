@@ -1,7 +1,6 @@
 #import "CPTPlotSpace.h"
 
 #import "CPTMutablePlotRange.h"
-#import "CPTPlot.h"
 #import "CPTUtilities.h"
 
 NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSpaceCoordinateMappingDidChangeNotification";
@@ -12,13 +11,15 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
 
 /// @cond
 
+typedef NSMutableOrderedSet<NSString *> *CPTMutableCategorySet;
+
 @interface CPTPlotSpace()
 
-@property (nonatomic, readwrite, strong) NSMutableDictionary *categoryNames;
+@property (nonatomic, readwrite, strong) NSMutableDictionary<NSNumber *, CPTMutableCategorySet> *categoryNames;
 
 @property (nonatomic, readwrite) BOOL isDragging;
 
--(NSMutableOrderedSet *)orderedSetForCoordinate:(CPTCoordinate)coordinate;
+-(CPTMutableCategorySet)orderedSetForCoordinate:(CPTCoordinate)coordinate;
 
 @end
 
@@ -65,7 +66,7 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
 @dynamic numberOfCoordinates;
 
 /** @internal
- *  @property NSMutableDictionary *categoryNames
+ *  @property NSMutableDictionary<NSNumber *, NSString *> *categoryNames
  *  @brief The names of the data categories for each coordinate with a #CPTScaleTypeCategory scale type.
  *  The keys are the CPTCoordinate enumeration values and the values are arrays of strings.
  **/
@@ -161,9 +162,9 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
  *  @param coordinate The axis coordinate.
  *  @return The ordered set of categories for the given coordinate.
  */
--(NSMutableOrderedSet *)orderedSetForCoordinate:(CPTCoordinate)coordinate
+-(CPTMutableCategorySet)orderedSetForCoordinate:(CPTCoordinate)coordinate
 {
-    NSMutableDictionary *names = self.categoryNames;
+    NSMutableDictionary<NSNumber *, CPTMutableCategorySet> *names = self.categoryNames;
 
     if ( !names ) {
         names = [[NSMutableDictionary alloc] init];
@@ -173,7 +174,7 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
 
     NSNumber *cacheKey = @(coordinate);
 
-    NSMutableOrderedSet *categories = names[cacheKey];
+    CPTMutableCategorySet categories = names[cacheKey];
 
     if ( !categories ) {
         categories = [[NSMutableOrderedSet alloc] init];
@@ -196,7 +197,7 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
 {
     NSParameterAssert(category);
 
-    NSMutableOrderedSet *categories = [self orderedSetForCoordinate:coordinate];
+    CPTMutableCategorySet categories = [self orderedSetForCoordinate:coordinate];
 
     [categories addObject:category];
 }
@@ -210,7 +211,7 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
 {
     NSParameterAssert(category);
 
-    NSMutableOrderedSet *categories = [self orderedSetForCoordinate:coordinate];
+    CPTMutableCategorySet categories = [self orderedSetForCoordinate:coordinate];
 
     [categories removeObject:category];
 }
@@ -228,7 +229,7 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
 {
     NSParameterAssert(category);
 
-    NSMutableOrderedSet *categories = [self orderedSetForCoordinate:coordinate];
+    CPTMutableCategorySet categories = [self orderedSetForCoordinate:coordinate];
 
     NSParameterAssert(idx <= categories.count);
 
@@ -240,9 +241,9 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
  *  @param newCategories An array of category names.
  *  @param coordinate The axis coordinate.
  */
--(void)setCategories:(NSArray *)newCategories forCoordinate:(CPTCoordinate)coordinate
+-(void)setCategories:(CPTStringArray)newCategories forCoordinate:(CPTCoordinate)coordinate
 {
-    NSMutableDictionary *names = self.categoryNames;
+    NSMutableDictionary<NSNumber *, CPTMutableCategorySet> *names = self.categoryNames;
 
     if ( !names ) {
         names = [[NSMutableDictionary alloc] init];
@@ -273,9 +274,9 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
  *  @param coordinate The axis coordinate.
  *  @return An array of category names.
  */
--(NSArray *)categoriesForCoordinate:(CPTCoordinate)coordinate
+-(CPTStringArray)categoriesForCoordinate:(CPTCoordinate)coordinate
 {
-    NSMutableOrderedSet *categories = [self orderedSetForCoordinate:coordinate];
+    CPTMutableCategorySet categories = [self orderedSetForCoordinate:coordinate];
 
     return [categories array];
 }
@@ -288,7 +289,7 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
  */
 -(NSString *)categoryForCoordinate:(CPTCoordinate)coordinate atIndex:(NSUInteger)idx
 {
-    NSMutableOrderedSet *categories = [self orderedSetForCoordinate:coordinate];
+    CPTMutableCategorySet categories = [self orderedSetForCoordinate:coordinate];
 
     NSParameterAssert(idx < categories.count);
 
@@ -305,7 +306,7 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
 {
     NSParameterAssert(category);
 
-    NSMutableOrderedSet *categories = [self orderedSetForCoordinate:coordinate];
+    CPTMutableCategorySet categories = [self orderedSetForCoordinate:coordinate];
 
     return [categories indexOfObject:category];
 }
@@ -480,7 +481,7 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
  *  @param plotPoint An array of data point coordinates (as NSNumber values).
  *  @return The drawing coordinates of the data point.
  **/
--(CGPoint)plotAreaViewPointForPlotPoint:(NSArray *)plotPoint
+-(CGPoint)plotAreaViewPointForPlotPoint:(CPTNumberArray)plotPoint
 {
     NSParameterAssert(plotPoint.count == self.numberOfCoordinates);
 
@@ -515,7 +516,7 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
  *  @param point The drawing coordinates of the data point.
  *  @return An array of data point coordinates (as NSNumber values).
  **/
--(NSArray *)plotPointForPlotAreaViewPoint:(CGPoint)point
+-(CPTNumberArray)plotPointForPlotAreaViewPoint:(CGPoint)point
 {
     return nil;
 }
@@ -553,7 +554,7 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
  *  @param event The event.
  *  @return An array of data point coordinates (as NSNumber values).
  **/
--(NSArray *)plotPointForEvent:(CPTNativeEvent *)event
+-(CPTNumberArray)plotPointForEvent:(CPTNativeEvent *)event
 {
     return nil;
 }
@@ -615,7 +616,7 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
 /** @brief Scales the plot ranges so that the plots just fit in the visible space.
  *  @param plots An array of the plots that have to fit in the visible area.
  **/
--(void)scaleToFitPlots:(NSArray *)plots
+-(void)scaleToFitPlots:(CPTPlotArray)plots
 {
 }
 
@@ -623,7 +624,7 @@ NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
  *  @param plots An array of the plots that have to fit in the visible area.
  *  @param coordinate The axis coordinate.
  **/
--(void)scaleToFitPlots:(NSArray *)plots forCoordinate:(CPTCoordinate)coordinate
+-(void)scaleToFitPlots:(CPTPlotArray)plots forCoordinate:(CPTCoordinate)coordinate
 {
     if ( plots.count == 0 ) {
         return;

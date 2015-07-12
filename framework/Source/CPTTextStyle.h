@@ -1,6 +1,18 @@
-#include "CPTTextStylePlatformSpecific.h"
+#import "CPTDefinitions.h"
+#import "CPTTextStylePlatformSpecific.h"
 
 @class CPTColor;
+@class CPTTextStyle;
+
+/**
+ *  @brief An array of text styles.
+ **/
+typedef NSArray<CPTTextStyle *> *CPTTextStyleArray;
+
+/**
+ *  @brief A mutable array of text styles.
+ **/
+typedef NSMutableArray<CPTTextStyle *> *CPTMutableTextStyleArray;
 
 @interface CPTTextStyle : NSObject<NSCoding, NSCopying, NSMutableCopying>
 
@@ -24,11 +36,11 @@
  **/
 @interface CPTTextStyle(CPTPlatformSpecificTextStyleExtensions)
 
-@property (readonly, nonatomic, nonnull) NSDictionary *attributes;
+@property (readonly, nonatomic, nonnull) CPTDictionary attributes;
 
 /// @name Factory Methods
 /// @{
-+(nonnull instancetype)textStyleWithAttributes:(nullable NSDictionary *)attributes;
++(nonnull instancetype)textStyleWithAttributes:(nullable CPTDictionary)attributes;
 /// @}
 
 @end

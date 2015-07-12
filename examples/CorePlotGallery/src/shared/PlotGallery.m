@@ -7,7 +7,7 @@
 
 @interface PlotGallery()
 
-@property (nonatomic, readwrite, strong) NSMutableArray *plotItems;
+@property (nonatomic, readwrite, strong) NSMutableArray<PlotItem *> *plotItems;
 @property (nonatomic, readwrite, strong) NSCountedSet *plotSections;
 
 @end
@@ -105,7 +105,7 @@ static PlotGallery *sharedPlotGallery = nil;
     [self.plotItems sortUsingSelector:@selector(titleCompare:)];
 }
 
--(NSArray *)sectionTitles
+-(CPTStringArray)sectionTitles
 {
     return [[self.plotSections allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }

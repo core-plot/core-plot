@@ -1,3 +1,4 @@
+#import "CPTDefinitions.h"
 #import "CPTNumericDataType.h"
 
 @interface CPTNumericData : NSObject<NSCopying, NSMutableCopying, NSCoding>
@@ -19,7 +20,7 @@
 
 /// @name Dimensions
 /// @{
-@property (nonatomic, readonly, copy, nonnull) NSArray *shape;
+@property (nonatomic, readonly, copy, nonnull) CPTNumberArray shape;
 @property (nonatomic, readonly) NSUInteger numberOfDimensions;
 @property (nonatomic, readonly) NSUInteger numberOfSamples;
 @property (nonatomic, readonly) CPTDataOrder dataOrder;
@@ -27,28 +28,28 @@
 
 /// @name Factory Methods
 /// @{
-+(nonnull instancetype)numericDataWithData:(nonnull NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(nullable NSArray *)shapeArray;
-+(nonnull instancetype)numericDataWithData:(nonnull NSData *)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable NSArray *)shapeArray;
-+(nonnull instancetype)numericDataWithArray:(nonnull NSArray *)newData dataType:(CPTNumericDataType)newDataType shape:(nullable NSArray *)shapeArray;
-+(nonnull instancetype)numericDataWithArray:(nonnull NSArray *)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable NSArray *)shapeArray;
++(nonnull instancetype)numericDataWithData:(nonnull NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(nullable CPTNumberArray)shapeArray;
++(nonnull instancetype)numericDataWithData:(nonnull NSData *)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable CPTNumberArray)shapeArray;
++(nonnull instancetype)numericDataWithArray:(nonnull CPTNumberArray)newData dataType:(CPTNumericDataType)newDataType shape:(nullable CPTNumberArray)shapeArray;
++(nonnull instancetype)numericDataWithArray:(nonnull CPTNumberArray)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable CPTNumberArray)shapeArray;
 
-+(nonnull instancetype)numericDataWithData:(nonnull NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(nullable NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
-+(nonnull instancetype)numericDataWithData:(nonnull NSData *)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
-+(nonnull instancetype)numericDataWithArray:(nonnull NSArray *)newData dataType:(CPTNumericDataType)newDataType shape:(nullable NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
-+(nonnull instancetype)numericDataWithArray:(nonnull NSArray *)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
++(nonnull instancetype)numericDataWithData:(nonnull NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(nullable CPTNumberArray)shapeArray dataOrder:(CPTDataOrder)order;
++(nonnull instancetype)numericDataWithData:(nonnull NSData *)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable CPTNumberArray)shapeArray dataOrder:(CPTDataOrder)order;
++(nonnull instancetype)numericDataWithArray:(nonnull CPTNumberArray)newData dataType:(CPTNumericDataType)newDataType shape:(nullable CPTNumberArray)shapeArray dataOrder:(CPTDataOrder)order;
++(nonnull instancetype)numericDataWithArray:(nonnull CPTNumberArray)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable CPTNumberArray)shapeArray dataOrder:(CPTDataOrder)order;
 /// @}
 
 /// @name Initialization
 /// @{
--(nonnull instancetype)initWithData:(nonnull NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(nullable NSArray *)shapeArray;
--(nonnull instancetype)initWithData:(nonnull NSData *)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable NSArray *)shapeArray;
--(nonnull instancetype)initWithArray:(nonnull NSArray *)newData dataType:(CPTNumericDataType)newDataType shape:(nullable NSArray *)shapeArray;
--(nonnull instancetype)initWithArray:(nonnull NSArray *)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable NSArray *)shapeArray;
+-(nonnull instancetype)initWithData:(nonnull NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(nullable CPTNumberArray)shapeArray;
+-(nonnull instancetype)initWithData:(nonnull NSData *)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable CPTNumberArray)shapeArray;
+-(nonnull instancetype)initWithArray:(nonnull CPTNumberArray)newData dataType:(CPTNumericDataType)newDataType shape:(nullable CPTNumberArray)shapeArray;
+-(nonnull instancetype)initWithArray:(nonnull CPTNumberArray)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable CPTNumberArray)shapeArray;
 
--(nonnull instancetype)initWithData:(nonnull NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(nullable NSArray *)shapeArray dataOrder:(CPTDataOrder)order NS_DESIGNATED_INITIALIZER;
--(nonnull instancetype)initWithData:(nonnull NSData *)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
--(nonnull instancetype)initWithArray:(nonnull NSArray *)newData dataType:(CPTNumericDataType)newDataType shape:(nullable NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
--(nonnull instancetype)initWithArray:(nonnull NSArray *)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable NSArray *)shapeArray dataOrder:(CPTDataOrder)order;
+-(nonnull instancetype)initWithData:(nonnull NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(nullable CPTNumberArray)shapeArray dataOrder:(CPTDataOrder)order NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype)initWithData:(nonnull NSData *)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable CPTNumberArray)shapeArray dataOrder:(CPTDataOrder)order;
+-(nonnull instancetype)initWithArray:(nonnull CPTNumberArray)newData dataType:(CPTNumericDataType)newDataType shape:(nullable CPTNumberArray)shapeArray dataOrder:(CPTDataOrder)order;
+-(nonnull instancetype)initWithArray:(nonnull CPTNumberArray)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable CPTNumberArray)shapeArray dataOrder:(CPTDataOrder)order;
 
 -(nonnull instancetype)initWithCoder:(nonnull NSCoder *)coder NS_DESIGNATED_INITIALIZER;
 /// @}
@@ -60,7 +61,7 @@
 -(nullable const void *)samplePointerAtIndex:(NSUInteger)idx, ...;
 -(nullable NSNumber *)sampleValue:(NSUInteger)sample;
 -(nullable NSNumber *)sampleValueAtIndex:(NSUInteger)idx, ...;
--(nonnull NSArray *)sampleArray;
+-(nonnull CPTNumberArray)sampleArray;
 /// @}
 
 @end

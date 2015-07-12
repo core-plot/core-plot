@@ -3,7 +3,6 @@
 #import "CPTExceptions.h"
 #import "CPTFill.h"
 #import "CPTLegend.h"
-#import "CPTLimitBand.h"
 #import "CPTLineStyle.h"
 #import "CPTMutableNumericData.h"
 #import "CPTPathExtensions.h"
@@ -11,7 +10,6 @@
 #import "CPTPlotRange.h"
 #import "CPTPlotSpace.h"
 #import "CPTPlotSpaceAnnotation.h"
-#import "CPTPlotSymbol.h"
 #import "CPTUtilities.h"
 #import "CPTXYPlotSpace.h"
 #import "NSCoderExtensions.h"
@@ -36,12 +34,12 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 /// @cond
 @interface CPTScatterPlot()
 
-@property (nonatomic, readwrite, copy) NSArray *xValues;
-@property (nonatomic, readwrite, copy) NSArray *yValues;
-@property (nonatomic, readwrite, strong) NSArray *plotSymbols;
+@property (nonatomic, readwrite, copy) CPTNumberArray xValues;
+@property (nonatomic, readwrite, copy) CPTNumberArray yValues;
+@property (nonatomic, readwrite, strong) CPTPlotSymbolArray plotSymbols;
 @property (nonatomic, readwrite, assign) NSUInteger pointingDeviceDownIndex;
 @property (nonatomic, readwrite, assign) BOOL pointingDeviceDownOnLine;
-@property (nonatomic, readwrite, strong) NSMutableArray *mutableAreaFillBands;
+@property (nonatomic, readwrite, strong) CPTMutableLimitBandArray mutableAreaFillBands;
 
 -(void)calculatePointsToDraw:(BOOL *)pointDrawFlags forPlotSpace:(CPTXYPlotSpace *)xyPlotSpace includeVisiblePointsOnly:(BOOL)visibleOnly numberOfPoints:(NSUInteger)dataCount;
 -(void)calculateViewPoints:(CGPoint *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags numberOfPoints:(NSUInteger)dataCount;
@@ -168,7 +166,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  **/
 @synthesize pointingDeviceDownOnLine;
 
-/** @property NSArray *areaFillBands
+/** @property CPTLimitBandArray areaFillBands
  *  @brief An array of CPTLimitBand objects.
  *
  *  The limit bands are drawn between the plot line and areaBaseValue and on top of the areaFill.
@@ -376,9 +374,9 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     else if ( [theDataSource respondsToSelector:@selector(symbolForScatterPlot:recordIndex:)] ) {
         needsLegendUpdate = YES;
 
-        id nilObject          = [CPTPlot nilData];
-        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
-        NSUInteger maxIndex   = NSMaxRange(indexRange);
+        id nilObject                    = [CPTPlot nilData];
+        CPTMutablePlotSymbolArray array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
+        NSUInteger maxIndex             = NSMaxRange(indexRange);
 
         for ( NSUInteger idx = indexRange.location; idx < maxIndex; idx++ ) {
             CPTPlotSymbol *symbol = [theDataSource symbolForScatterPlot:self recordIndex:idx];
@@ -779,9 +777,9 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     if ( firstDrawnPointIndex != NSNotFound ) {
         NSRange viewIndexRange = NSMakeRange( (NSUInteger)firstDrawnPointIndex, (NSUInteger)(lastDrawnPointIndex - firstDrawnPointIndex + 1) );
 
-        CPTPlotArea *thePlotArea   = self.plotArea;
-        CPTLineStyle *theLineStyle = self.dataLineStyle;
-        NSMutableArray *fillBands  = self.mutableAreaFillBands;
+        CPTPlotArea *thePlotArea           = self.plotArea;
+        CPTLineStyle *theLineStyle         = self.dataLineStyle;
+        CPTMutableLimitBandArray fillBands = self.mutableAreaFillBands;
 
         // Draw fills
         NSDecimal theAreaBaseValue;
@@ -1300,7 +1298,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 +(BOOL)needsDisplayForKey:(NSString *)aKey
 {
-    static NSSet *keys = nil;
+    static NSSet<NSString *> *keys = nil;
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^{
@@ -1328,14 +1326,14 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     return 2;
 }
 
--(NSArray *)fieldIdentifiers
+-(CPTNumberArray)fieldIdentifiers
 {
     return @[@(CPTScatterPlotFieldX), @(CPTScatterPlotFieldY)];
 }
 
--(NSArray *)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
+-(CPTNumberArray)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
 {
-    NSArray *result = nil;
+    CPTNumberArray result = nil;
 
     switch ( coord ) {
         case CPTCoordinateX:
@@ -1433,7 +1431,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 -(void)removeAreaFillBand:(CPTLimitBand *)limitBand
 {
     if ( limitBand ) {
-        NSMutableArray *fillBands = self.mutableAreaFillBands;
+        CPTMutableLimitBandArray fillBands = self.mutableAreaFillBands;
 
         [fillBands removeObject:limitBand];
         if ( fillBands.count == 0 ) {
@@ -1807,7 +1805,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 }
 
--(NSArray *)areaFillBands
+-(CPTLimitBandArray)areaFillBands
 {
     return [self.mutableAreaFillBands copy];
 }
@@ -1842,33 +1840,33 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 }
 
--(void)setXValues:(NSArray *)newValues
+-(void)setXValues:(CPTNumberArray)newValues
 {
     [self cacheNumbers:newValues forField:CPTScatterPlotFieldX];
 }
 
--(NSArray *)xValues
+-(CPTNumberArray)xValues
 {
     return [[self cachedNumbersForField:CPTScatterPlotFieldX] sampleArray];
 }
 
--(void)setYValues:(NSArray *)newValues
+-(void)setYValues:(CPTNumberArray)newValues
 {
     [self cacheNumbers:newValues forField:CPTScatterPlotFieldY];
 }
 
--(NSArray *)yValues
+-(CPTNumberArray)yValues
 {
     return [[self cachedNumbersForField:CPTScatterPlotFieldY] sampleArray];
 }
 
--(void)setPlotSymbols:(NSArray *)newSymbols
+-(void)setPlotSymbols:(CPTPlotSymbolArray)newSymbols
 {
     [self cacheArray:newSymbols forKey:CPTScatterPlotBindingPlotSymbols];
     [self setNeedsDisplay];
 }
 
--(NSArray *)plotSymbols
+-(CPTPlotSymbolArray)plotSymbols
 {
     return [self cachedArrayForKey:CPTScatterPlotBindingPlotSymbols];
 }

@@ -10,7 +10,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 @interface OHLCPlot()
 
 @property (nonatomic, readwrite, strong) CPTGraph *graph;
-@property (nonatomic, readwrite, strong) NSArray *plotData;
+@property (nonatomic, readwrite, strong) NSArray<NSDictionary *> *plotData;
 
 @end
 
@@ -40,7 +40,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 -(void)generateData
 {
     if ( !self.plotData ) {
-        NSMutableArray *newData = [NSMutableArray array];
+        NSMutableArray<NSDictionary *> *newData = [NSMutableArray array];
         for ( NSUInteger i = 0; i < 8; i++ ) {
             NSTimeInterval x = oneDay * i;
 

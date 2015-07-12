@@ -24,6 +24,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
  **/
 
 /// @cond
+
 @interface CPTLayer()
 
 @property (nonatomic, readwrite, getter = isRenderingRecursively) BOOL renderingRecursively;
@@ -121,7 +122,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
  **/
 @dynamic sublayerMaskingPath;
 
-/** @property NSSet *sublayersExcludedFromAutomaticLayout
+/** @property CPTSublayerSet sublayersExcludedFromAutomaticLayout
  *  @brief A set of sublayers that should be excluded from the automatic sublayer layout.
  **/
 @dynamic sublayersExcludedFromAutomaticLayout;
@@ -365,7 +366,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
         self.renderingRecursively = NO;
 
         // render sublayers
-        NSArray *sublayersCopy = [self.sublayers copy];
+        CPTSublayerArray sublayersCopy = [self.sublayers copy];
         for ( CALayer *currentSublayer in sublayersCopy ) {
             CGContextSaveGState(context);
 
@@ -611,8 +612,9 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
  **/
 -(void)layoutSublayers
 {
-    CGRect selfBounds    = self.bounds;
-    NSArray *mySublayers = self.sublayers;
+    CGRect selfBounds = self.bounds;
+
+    CPTSublayerArray mySublayers = self.sublayers;
 
     if ( mySublayers.count > 0 ) {
         CGFloat leftPadding, topPadding, rightPadding, bottomPadding;
@@ -631,8 +633,8 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
         subLayerFrame.origin = CGPointMake( round(leftPadding), round(bottomPadding) );
         subLayerFrame.size   = subLayerSize;
 
-        NSSet *excludedSublayers = [self sublayersExcludedFromAutomaticLayout];
-        Class layerClass         = [CPTLayer class];
+        CPTSublayerSet excludedSublayers = [self sublayersExcludedFromAutomaticLayout];
+        Class layerClass                 = [CPTLayer class];
         for ( CALayer *subLayer in mySublayers ) {
             if ( [subLayer isKindOfClass:layerClass] && ![excludedSublayers containsObject:subLayer] ) {
                 subLayer.frame = subLayerFrame;
@@ -643,7 +645,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 
 /// @}
 
--(NSSet *)sublayersExcludedFromAutomaticLayout
+-(CPTSublayerSet)sublayersExcludedFromAutomaticLayout
 {
     return nil;
 }
@@ -667,7 +669,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 
 /// @cond
 
--(void)setSublayers:(NSArray *)sublayers
+-(void)setSublayers:(CPTSublayerArray)sublayers
 {
     [super setSublayers:sublayers];
 

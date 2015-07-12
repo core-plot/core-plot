@@ -1,7 +1,7 @@
-#import <Foundation/Foundation.h>
+#import "CorePlot-CocoaTouch.h"
 
 @interface NSDictionary(APFinancialData)
 
-+(id)dictionaryWithCSVLine:(NSString *)csvLine;
++(CPTDictionary)dictionaryWithCSVLine:(NSString *)csvLine;
 
 @end

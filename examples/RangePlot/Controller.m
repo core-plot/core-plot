@@ -5,7 +5,7 @@
 
 @property (nonatomic, readwrite, strong) IBOutlet CPTGraphHostingView *hostView;
 @property (nonatomic, readwrite, strong) CPTXYGraph *graph;
-@property (nonatomic, readwrite, strong) NSArray *plotData;
+@property (nonatomic, readwrite, strong) NSArray<NSDictionary *> *plotData;
 @property (nonatomic, readwrite, strong) CPTFill *areaFill;
 @property (nonatomic, readwrite, strong) CPTLineStyle *barLineStyle;
 
@@ -99,7 +99,7 @@
     self.areaFill = [[CPTFill alloc] initWithColor:transparentGreen];
 
     // Add some data
-    NSMutableArray *newData = [NSMutableArray array];
+    NSMutableArray<NSDictionary *> *newData = [NSMutableArray array];
     for ( NSUInteger i = 0; i < 5; i++ ) {
         NSTimeInterval xVal = oneDay * (i + 1.0);
 

@@ -8,7 +8,7 @@
 @interface GradientScatterPlot()
 
 @property (nonatomic, readwrite, strong) CPTPlotSpaceAnnotation *symbolTextAnnotation;
-@property (nonatomic, readwrite, strong) NSArray *plotData;
+@property (nonatomic, readwrite, strong) NSArray<NSDictionary *> *plotData;
 
 @end
 
@@ -50,7 +50,7 @@
 -(void)generateData
 {
     if ( self.plotData == nil ) {
-        NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
+        NSMutableArray<NSDictionary *> *contentArray = [NSMutableArray arrayWithCapacity:100];
         for ( NSUInteger i = 0; i < 10; i++ ) {
             NSNumber *x = @(1.0 + i * 0.05);
             NSNumber *y = @(1.2 * arc4random() / (double)UINT32_MAX + 0.5);
@@ -244,12 +244,12 @@
     hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
 
     // Determine point of symbol in plot coordinates
-    NSDictionary *dataPoint = self.plotData[index];
+    NSDictionary<NSString *, NSNumber *> *dataPoint = self.plotData[index];
 
     NSNumber *x = dataPoint[@"x"];
     NSNumber *y = dataPoint[@"y"];
 
-    NSArray *anchorPoint = @[x, y];
+    CPTNumberArray anchorPoint = @[x, y];
 
     // Add annotation
     // First make a string for the y value

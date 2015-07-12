@@ -14,7 +14,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 
 @property (nonatomic, readwrite, strong) CPTXYGraph *graph;
 
-@property (nonatomic, readwrite, strong) NSMutableArray *dataForPlot;
+@property (nonatomic, readwrite, strong) NSMutableArray<NSDictionary *> *dataForPlot;
 @property (nonatomic, readwrite) NSUInteger selectedIndex;
 
 @end
@@ -167,7 +167,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 
 -(void)initializeData
 {
-    NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
+    NSMutableArray<NSDictionary *> *contentArray = [NSMutableArray arrayWithCapacity:100];
 
     for ( NSUInteger i = 0; i < 100; i++ ) {
         NSNumber *x = @(i * 0.05);

@@ -60,7 +60,7 @@
     lineCap.fill      = [CPTFill fillWithColor:[CPTColor blueColor]];
 
     // Axes
-    NSMutableArray *axes = [[NSMutableArray alloc] init];
+    CPTMutableAxisArray axes = [[NSMutableArray alloc] init];
 
     CPTLineCapType lineCapType = CPTLineCapTypeNone;
     while ( lineCapType < CPTLineCapTypeCustom ) {

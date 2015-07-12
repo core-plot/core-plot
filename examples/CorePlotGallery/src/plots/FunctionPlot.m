@@ -4,7 +4,7 @@
 
 @interface FunctionPlot()
 
-@property (nonatomic, readwrite, strong) NSMutableSet *dataSources;
+@property (nonatomic, readwrite, strong) NSMutableSet<CPTFunctionDataSource *> *dataSources;
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 -(UIFont *)italicFontForFont:(UIFont *)oldFont;
@@ -139,7 +139,7 @@
         CPTScatterPlot *linePlot = [[CPTScatterPlot alloc] init];
         linePlot.identifier = [NSString stringWithFormat:@"Function Plot %lu", (unsigned long)(plotNum + 1)];
 
-        NSDictionary *textAttributes = x.titleTextStyle.attributes;
+        CPTDictionary textAttributes = x.titleTextStyle.attributes;
 
         NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:titleString
                                                                                   attributes:textAttributes];
@@ -212,7 +212,7 @@
 {
     NSString *italicName = nil;
 
-    NSArray *fontNames = [UIFont fontNamesForFamilyName:oldFont.familyName];
+    CPTStringArray fontNames = [UIFont fontNamesForFamilyName:oldFont.familyName];
 
     for ( NSString *fontName in fontNames ) {
         NSString *upperCaseFontName = [fontName uppercaseString];

@@ -1,11 +1,11 @@
 #import "CPTBorderedLayer.h"
+#import "CPTPlot.h"
 
 /// @file
 
 @class CPTFill;
 @class CPTLegend;
 @class CPTLineStyle;
-@class CPTPlot;
 @class CPTTextStyle;
 
 /// @name Legend
@@ -190,10 +190,10 @@ extern NSString *__nonnull const CPTLegendNeedsReloadEntriesForPlotNotification;
 @property (nonatomic, readwrite, assign) NSUInteger numberOfColumns;
 @property (nonatomic, readwrite, assign) BOOL equalRows;
 @property (nonatomic, readwrite, assign) BOOL equalColumns;
-@property (nonatomic, readwrite, copy, nullable) NSArray *rowHeights;
-@property (nonatomic, readonly, nullable) NSArray *rowHeightsThatFit;
-@property (nonatomic, readwrite, copy, nullable) NSArray *columnWidths;
-@property (nonatomic, readonly, nullable) NSArray *columnWidthsThatFit;
+@property (nonatomic, readwrite, copy, nullable) CPTNumberArray rowHeights;
+@property (nonatomic, readonly, nullable) CPTNumberArray rowHeightsThatFit;
+@property (nonatomic, readwrite, copy, nullable) CPTNumberArray columnWidths;
+@property (nonatomic, readonly, nullable) CPTNumberArray columnWidthsThatFit;
 @property (nonatomic, readwrite, assign) CGFloat columnMargin;
 @property (nonatomic, readwrite, assign) CGFloat rowMargin;
 @property (nonatomic, readwrite, assign) CGFloat titleOffset;
@@ -201,19 +201,19 @@ extern NSString *__nonnull const CPTLegendNeedsReloadEntriesForPlotNotification;
 
 /// @name Factory Methods
 /// @{
-+(nonnull instancetype)legendWithPlots:(nullable NSArray *)newPlots;
-+(nonnull instancetype)legendWithGraph:(nullable CPTGraph *)graph;
++(nonnull instancetype)legendWithPlots:(nullable CPTPlotArray)newPlots;
++(nonnull instancetype)legendWithGraph:(nullable __kindof CPTGraph *)graph;
 /// @}
 
 /// @name Initialization
 /// @{
--(nonnull instancetype)initWithPlots:(nullable NSArray *)newPlots;
--(nonnull instancetype)initWithGraph:(nullable CPTGraph *)graph;
+-(nonnull instancetype)initWithPlots:(nullable CPTPlotArray)newPlots;
+-(nonnull instancetype)initWithGraph:(nullable __kindof CPTGraph *)graph;
 /// @}
 
 /// @name Plots
 /// @{
--(nonnull NSArray *)allPlots;
+-(nonnull CPTPlotArray)allPlots;
 -(nullable CPTPlot *)plotAtIndex:(NSUInteger)idx;
 -(nullable CPTPlot *)plotWithIdentifier:(nullable id<NSCopying>)identifier;
 

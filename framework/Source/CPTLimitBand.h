@@ -1,5 +1,18 @@
-@class CPTPlotRange;
+/// @file
+
 @class CPTFill;
+@class CPTLimitBand;
+@class CPTPlotRange;
+
+/**
+ *  @brief An array of limit bands.
+ **/
+typedef NSArray<CPTLimitBand *> *CPTLimitBandArray;
+
+/**
+ *  @brief A mutable array of limit bands.
+ **/
+typedef NSMutableArray<CPTLimitBand *> *CPTMutableLimitBandArray;
 
 @interface CPTLimitBand : NSObject<NSCoding, NSCopying>
 

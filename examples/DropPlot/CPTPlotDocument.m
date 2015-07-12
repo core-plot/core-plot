@@ -12,7 +12,7 @@
 @property (nonatomic, readwrite, assign) double maximumValueForYAxis;
 @property (nonatomic, readwrite, assign) double majorIntervalLengthForX;
 @property (nonatomic, readwrite, assign) double majorIntervalLengthForY;
-@property (nonatomic, readwrite, strong) NSArray *dataPoints;
+@property (nonatomic, readwrite, strong) NSArray<NSDictionary *> *dataPoints;
 
 @property (nonatomic, readwrite, strong) CPTPlotSpaceAnnotation *zoomAnnotation;
 @property (nonatomic, readwrite, assign) CGPoint dragStart;
@@ -151,7 +151,7 @@
         double minY = MAXFLOAT;
         double maxY = -MAXFLOAT;
 
-        NSMutableArray *newData = [[NSMutableArray alloc] init];
+        NSMutableArray<NSDictionary *> *newData = [[NSMutableArray alloc] init];
 
         NSString *fileContents = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
 
@@ -163,13 +163,13 @@
         // Read headers from the first line of the file
         [fileContents getParagraphStart:&lineStart end:&lineEnd contentsEnd:&contentsEnd forRange:NSMakeRange(lineEnd, 0)];
 //		currentRange = NSMakeRange(lineStart, contentsEnd - lineStart);
-//		NSArray *columnHeaders = [[fileContents substringWithRange:currentRange] arrayByParsingCSVLine];
+//		CPTStringArray columnHeaders = [[fileContents substringWithRange:currentRange] arrayByParsingCSVLine];
 //		NSLog([columnHeaders objectAtIndex:0]);
 
         while ( lineEnd < length ) {
             [fileContents getParagraphStart:&lineStart end:&lineEnd contentsEnd:&contentsEnd forRange:NSMakeRange(lineEnd, 0)];
             currentRange = NSMakeRange(lineStart, contentsEnd - lineStart);
-            NSArray *columnValues = [[fileContents substringWithRange:currentRange] arrayByParsingCSVLine];
+            CPTStringArray columnValues = [[fileContents substringWithRange:currentRange] arrayByParsingCSVLine];
 
             double xValue = [columnValues[0] doubleValue];
             double yValue = [columnValues[1] doubleValue];
@@ -270,7 +270,7 @@
     double maxY = -MAXFLOAT;
 
     // get the ful range min and max values
-    for ( NSDictionary *xyValues in self.dataPoints ) {
+    for ( NSDictionary<NSString *, NSNumber *> *xyValues in self.dataPoints ) {
         double xVal = [xyValues[@"x"] doubleValue];
 
         minX = fmin(xVal, minX);
@@ -411,8 +411,8 @@
 
             double start[2];
             [self.graph.defaultPlotSpace doublePrecisionPlotPoint:start numberOfCoordinates:2 forPlotAreaViewPoint:dragStartInPlotArea];
-            NSArray *anchorPoint = @[@(start[CPTCoordinateX]),
-                                     @(start[CPTCoordinateY])];
+            CPTNumberArray anchorPoint = @[@(start[CPTCoordinateX]),
+                                           @(start[CPTCoordinateY])];
 
             // now create the annotation
             CPTPlotSpace *defaultSpace = self.graph.defaultPlotSpace;

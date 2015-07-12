@@ -1,4 +1,5 @@
 #import "CPTDefinitions.h"
+#import "CPTPlot.h"
 #import "CPTResponder.h"
 
 @class CPTLayer;
@@ -152,6 +153,16 @@ extern NSString *__nonnull const CPTPlotSpaceDisplacementKey;
 
 @end
 
+/**
+ *  @brief An array of plot spaces.
+ **/
+typedef NSArray<__kindof CPTPlotSpace *> *CPTPlotSpaceArray;
+
+/**
+ *  @brief A mutable array of plot spaces.
+ **/
+typedef NSMutableArray<__kindof CPTPlotSpace *> *CPTMutablePlotSpaceArray;
+
 #pragma mark -
 
 @interface CPTPlotSpace : NSObject<CPTResponder, NSCoding>
@@ -169,10 +180,10 @@ extern NSString *__nonnull const CPTPlotSpaceDisplacementKey;
 -(void)addCategory:(nonnull NSString *)category forCoordinate:(CPTCoordinate)coordinate;
 -(void)removeCategory:(nonnull NSString *)category forCoordinate:(CPTCoordinate)coordinate;
 -(void)insertCategory:(nonnull NSString *)category forCoordinate:(CPTCoordinate)coordinate atIndex:(NSUInteger)idx;
--(void)setCategories:(nullable NSArray *)newCategories forCoordinate:(CPTCoordinate)coordinate;
+-(void)setCategories:(nullable CPTStringArray)newCategories forCoordinate:(CPTCoordinate)coordinate;
 -(void)removeAllCategories;
 
--(nonnull NSArray *)categoriesForCoordinate:(CPTCoordinate)coordinate;
+-(nonnull CPTStringArray)categoriesForCoordinate:(CPTCoordinate)coordinate;
 -(nullable NSString *)categoryForCoordinate:(CPTCoordinate)coordinate atIndex:(NSUInteger)idx;
 -(NSUInteger)indexOfCategory:(nonnull NSString *)category forCoordinate:(CPTCoordinate)coordinate;
 /// @}
@@ -194,17 +205,17 @@ extern NSString *__nonnull const CPTPlotSpaceDisplacementKey;
 
 /// @name Coordinate Space Conversions
 /// @{
--(CGPoint)plotAreaViewPointForPlotPoint:(nonnull NSArray *)plotPoint;
+-(CGPoint)plotAreaViewPointForPlotPoint:(nonnull CPTNumberArray)plotPoint;
 -(CGPoint)plotAreaViewPointForPlotPoint:(nonnull NSDecimal *)plotPoint numberOfCoordinates:(NSUInteger)count;
 -(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(nonnull double *)plotPoint numberOfCoordinates:(NSUInteger)count;
 
--(nullable NSArray *)plotPointForPlotAreaViewPoint:(CGPoint)point;
+-(nullable CPTNumberArray)plotPointForPlotAreaViewPoint:(CGPoint)point;
 -(void)plotPoint:(nonnull NSDecimal *)plotPoint numberOfCoordinates:(NSUInteger)count forPlotAreaViewPoint:(CGPoint)point;
 -(void)doublePrecisionPlotPoint:(nonnull double *)plotPoint numberOfCoordinates:(NSUInteger)count forPlotAreaViewPoint:(CGPoint)point;
 
 -(CGPoint)plotAreaViewPointForEvent:(nonnull CPTNativeEvent *)event;
 
--(nullable NSArray *)plotPointForEvent:(nonnull CPTNativeEvent *)event;
+-(nullable CPTNumberArray)plotPointForEvent:(nonnull CPTNativeEvent *)event;
 -(void)plotPoint:(nonnull NSDecimal *)plotPoint numberOfCoordinates:(NSUInteger)count forEvent:(nonnull CPTNativeEvent *)event;
 -(void)doublePrecisionPlotPoint:(nonnull double *)plotPoint numberOfCoordinates:(NSUInteger)count forEvent:(nonnull CPTNativeEvent *)event;
 /// @}
@@ -223,8 +234,8 @@ extern NSString *__nonnull const CPTPlotSpaceDisplacementKey;
 
 /// @name Adjusting Ranges
 /// @{
--(void)scaleToFitPlots:(nullable NSArray *)plots;
--(void)scaleToFitPlots:(nullable NSArray *)plots forCoordinate:(CPTCoordinate)coordinate;
+-(void)scaleToFitPlots:(nullable CPTPlotArray)plots;
+-(void)scaleToFitPlots:(nullable CPTPlotArray)plots forCoordinate:(CPTCoordinate)coordinate;
 -(void)scaleBy:(CGFloat)interactionScale aboutPoint:(CGPoint)interactionPoint;
 /// @}
 

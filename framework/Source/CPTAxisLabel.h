@@ -1,7 +1,20 @@
 #import "CPTDefinitions.h"
 
+/// @file
+
+@class CPTAxisLabel;
 @class CPTLayer;
 @class CPTTextStyle;
+
+/**
+ *  @brief A set of CPTAxisLabel objects.
+ **/
+typedef NSSet<CPTAxisLabel *> *CPTAxisLabelSet;
+
+/**
+ *  @brief A mutable set of CPTAxisLabel objects.
+ **/
+typedef NSMutableSet<CPTAxisLabel *> *CPTMutableAxisLabelSet;
 
 @interface CPTAxisLabel : NSObject<NSCoding>
 

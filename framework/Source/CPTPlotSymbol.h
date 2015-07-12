@@ -2,6 +2,7 @@
 
 @class CPTLineStyle;
 @class CPTFill;
+@class CPTPlotSymbol;
 @class CPTShadow;
 
 /**
@@ -22,6 +23,16 @@ typedef NS_ENUM (NSInteger, CPTPlotSymbolType) {
     CPTPlotSymbolTypeSnow,      ///< Snowflake symbol.
     CPTPlotSymbolTypeCustom     ///< Custom symbol.
 };
+
+/**
+ *  @brief An array of plot symbols.
+ **/
+typedef NSArray<CPTPlotSymbol *> *CPTPlotSymbolArray;
+
+/**
+ *  @brief A mutable array of plot symbols.
+ **/
+typedef NSMutableArray<CPTPlotSymbol *> *CPTMutablePlotSymbolArray;
 
 @interface CPTPlotSymbol : NSObject<NSCoding, NSCopying>
 

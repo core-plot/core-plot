@@ -2,6 +2,8 @@
 
 /// @file
 
+@class CPTPlotRange;
+
 /**
  *  @brief Enumeration of possible results of a plot range comparison.
  **/
@@ -10,6 +12,16 @@ typedef NS_ENUM (NSInteger, CPTPlotRangeComparisonResult) {
     CPTPlotRangeComparisonResultNumberInRange,    ///< Number is in the range.
     CPTPlotRangeComparisonResultNumberAboveRange  ///< Number is above the range.
 };
+
+/**
+ *  @brief An array of plot ranges.
+ **/
+typedef NSArray<CPTPlotRange *> *CPTPlotRangeArray;
+
+/**
+ *  @brief A mutable array of plot ranges.
+ **/
+typedef NSMutableArray<CPTPlotRange *> *CPTMutablePlotRangeArray;
 
 @interface CPTPlotRange : NSObject<NSCoding, NSCopying, NSMutableCopying>
 

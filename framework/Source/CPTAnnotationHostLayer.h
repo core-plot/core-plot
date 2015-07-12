@@ -1,10 +1,9 @@
+#import "CPTAnnotation.h"
 #import "CPTLayer.h"
-
-@class CPTAnnotation;
 
 @interface CPTAnnotationHostLayer : CPTLayer
 
-@property (nonatomic, readonly, nonnull) NSArray *annotations;
+@property (nonatomic, readonly, nonnull) CPTAnnotationArray annotations;
 
 /// @name Annotations
 /// @{

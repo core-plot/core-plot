@@ -6,12 +6,12 @@
 
 @interface CPTDataSourceTestCase : CPTTestCase<CPTPlotDataSource>
 
-@property (nonatomic, readwrite, copy) NSArray *xData;
-@property (nonatomic, readwrite, copy) NSArray *yData;
+@property (nonatomic, readwrite, copy) CPTNumberArray xData;
+@property (nonatomic, readwrite, copy) CPTNumberArray yData;
 @property (nonatomic, readwrite, assign) NSUInteger nRecords;
 @property (nonatomic, readonly, strong) CPTPlotRange *xRange;
 @property (nonatomic, readonly, strong) CPTPlotRange *yRange;
-@property (nonatomic, readwrite, strong) NSMutableArray *plots;
+@property (nonatomic, readwrite, strong) CPTMutablePlotArray plots;
 
 -(void)buildData;
 

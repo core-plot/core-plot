@@ -1,19 +1,20 @@
+#import "CPTAxisLabel.h"
 #import "CPTDefinitions.h"
+#import "CPTFill.h"
 #import "CPTLayer.h"
+#import "CPTLimitBand.h"
+#import "CPTPlotRange.h"
 #import "CPTTextStyle.h"
 
 /// @file
 
 @class CPTAxis;
-@class CPTAxisLabel;
 @class CPTAxisSet;
 @class CPTAxisTitle;
 @class CPTGridLines;
-@class CPTLimitBand;
 @class CPTLineCap;
 @class CPTLineStyle;
 @class CPTPlotSpace;
-@class CPTPlotRange;
 @class CPTPlotArea;
 @class CPTShadow;
 
@@ -27,6 +28,16 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
     CPTAxisLabelingPolicyAutomatic,         ///< Automatic labeling policy.
     CPTAxisLabelingPolicyEqualDivisions     ///< Divide the plot range into equal parts.
 };
+
+/**
+ *  @brief An array of axes.
+ **/
+typedef NSArray<__kindof CPTAxis *> *CPTAxisArray;
+
+/**
+ *  @brief A mutable array of axes.
+ **/
+typedef NSMutableArray<__kindof CPTAxis *> *CPTMutableAxisArray;
 
 #pragma mark -
 
@@ -59,7 +70,7 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
  *  @param locations The locations of the major ticks.
  *  @return @YES if the axis class should proceed with automatic labeling.
  **/
--(BOOL)axis:(nonnull CPTAxis *)axis shouldUpdateAxisLabelsAtLocations:(nonnull NSSet *)locations;
+-(BOOL)axis:(nonnull CPTAxis *)axis shouldUpdateAxisLabelsAtLocations:(nonnull CPTNumberSet)locations;
 
 /** @brief @optional This method gives the delegate a chance to create custom labels for each minor tick.
  *  It can be used with any labeling policy. Returning @NO will cause the axis not
@@ -68,7 +79,7 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
  *  @param locations The locations of the minor ticks.
  *  @return @YES if the axis class should proceed with automatic labeling.
  **/
--(BOOL)axis:(nonnull CPTAxis *)axis shouldUpdateMinorAxisLabelsAtLocations:(nonnull NSSet *)locations;
+-(BOOL)axis:(nonnull CPTAxis *)axis shouldUpdateMinorAxisLabelsAtLocations:(nonnull CPTNumberSet)locations;
 
 /// @}
 
@@ -225,10 +236,10 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
 @property (nonatomic, readwrite, assign) CPTSign minorTickLabelDirection;
 @property (nonatomic, readwrite, strong, nullable) NSFormatter *labelFormatter;
 @property (nonatomic, readwrite, strong, nullable) NSFormatter *minorTickLabelFormatter;
-@property (nonatomic, readwrite, strong, nullable) NSSet *axisLabels;
-@property (nonatomic, readwrite, strong, nullable) NSSet *minorTickAxisLabels;
+@property (nonatomic, readwrite, strong, nullable) CPTAxisLabelSet axisLabels;
+@property (nonatomic, readwrite, strong, nullable) CPTAxisLabelSet minorTickAxisLabels;
 @property (nonatomic, readonly) BOOL needsRelabel;
-@property (nonatomic, readwrite, strong, nullable) NSArray *labelExclusionRanges;
+@property (nonatomic, readwrite, strong, nullable) CPTPlotRangeArray labelExclusionRanges;
 @property (nonatomic, readwrite, strong, nullable) CPTShadow *labelShadow;
 @property (nonatomic, readwrite, strong, nullable) CPTShadow *minorTickLabelShadow;
 /// @}
@@ -238,7 +249,7 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
 @property (nonatomic, readwrite, strong, nullable) NSNumber *majorIntervalLength;
 @property (nonatomic, readwrite, assign) CGFloat majorTickLength;
 @property (nonatomic, readwrite, copy, nullable) CPTLineStyle *majorTickLineStyle;
-@property (nonatomic, readwrite, strong, nullable) NSSet *majorTickLocations;
+@property (nonatomic, readwrite, strong, nullable) CPTNumberSet majorTickLocations;
 @property (nonatomic, readwrite, assign) NSUInteger preferredNumberOfMajorTicks;
 /// @}
 
@@ -247,7 +258,7 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
 @property (nonatomic, readwrite, assign) NSUInteger minorTicksPerInterval;
 @property (nonatomic, readwrite, assign) CGFloat minorTickLength;
 @property (nonatomic, readwrite, copy, nullable) CPTLineStyle *minorTickLineStyle;
-@property (nonatomic, readwrite, strong, nullable) NSSet *minorTickLocations;
+@property (nonatomic, readwrite, strong, nullable) CPTNumberSet minorTickLocations;
 /// @}
 
 /// @name Grid Lines
@@ -259,8 +270,8 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
 
 /// @name Background Bands
 /// @{
-@property (nonatomic, readwrite, copy, nullable) NSArray *alternatingBandFills;
-@property (nonatomic, readonly, nullable) NSArray *backgroundLimitBands;
+@property (nonatomic, readwrite, copy, nullable) CPTFillArray alternatingBandFills;
+@property (nonatomic, readonly, nullable) CPTLimitBandArray backgroundLimitBands;
 /// @}
 
 /// @name Plot Space
@@ -292,8 +303,8 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
 
 /// @name Ticks
 /// @{
--(nullable NSSet *)filteredMajorTickLocations:(nullable NSSet *)allLocations;
--(nullable NSSet *)filteredMinorTickLocations:(nullable NSSet *)allLocations;
+-(nullable CPTNumberSet)filteredMajorTickLocations:(nullable CPTNumberSet)allLocations;
+-(nullable CPTNumberSet)filteredMinorTickLocations:(nullable CPTNumberSet)allLocations;
 /// @}
 
 /// @name Background Bands

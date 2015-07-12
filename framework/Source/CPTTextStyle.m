@@ -1,7 +1,6 @@
 #import "CPTTextStyle.h"
 
 #import "CPTColor.h"
-#import "CPTDefinitions.h"
 #import "CPTMutableTextStyle.h"
 #import "NSCoderExtensions.h"
 

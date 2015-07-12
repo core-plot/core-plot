@@ -8,7 +8,7 @@
  **/
 
 // Registered themes
-static NSMutableSet *themes = nil;
+static NSMutableSet<Class> *themes = nil;
 
 /** @brief Creates a CPTGraph instance formatted with a predefined style.
  *
@@ -84,7 +84,7 @@ static NSMutableSet *themes = nil;
 /** @brief List of the available theme classes, sorted by name.
  *  @return An NSArray containing all available theme classes, sorted by name.
  **/
-+(NSArray *)themeClasses
++(NSArray<Class> *)themeClasses
 {
     NSSortDescriptor *nameSort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)];
 

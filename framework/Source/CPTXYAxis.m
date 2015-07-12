@@ -16,7 +16,7 @@
 /// @cond
 @interface CPTXYAxis()
 
--(void)drawTicksInContext:(nonnull CGContextRef)context atLocations:(nullable NSSet *)locations withLength:(CGFloat)length inRange:(nullable CPTPlotRange *)labeledRange isMajor:(BOOL)major;
+-(void)drawTicksInContext:(nonnull CGContextRef)context atLocations:(nullable CPTNumberSet)locations withLength:(CGFloat)length inRange:(nullable CPTPlotRange *)labeledRange isMajor:(BOOL)major;
 
 -(void)orthogonalCoordinateViewLowerBound:(nonnull CGFloat *)lower upperBound:(nonnull CGFloat *)upper;
 -(CGPoint)viewPointForOrthogonalCoordinate:(nullable NSNumber *)orthogonalCoord axisCoordinate:(nullable NSNumber *)coordinateValue;
@@ -210,7 +210,7 @@
 
 /// @cond
 
--(void)drawTicksInContext:(CGContextRef)context atLocations:(NSSet *)locations withLength:(CGFloat)length inRange:(CPTPlotRange *)labeledRange isMajor:(BOOL)major
+-(void)drawTicksInContext:(CGContextRef)context atLocations:(CPTNumberSet)locations withLength:(CGFloat)length inRange:(CPTPlotRange *)labeledRange isMajor:(BOOL)major
 {
     CPTLineStyle *lineStyle = (major ? self.majorTickLineStyle : self.minorTickLineStyle);
 
@@ -390,7 +390,7 @@
         [self relabel];
 
         CPTPlotSpace *thePlotSpace           = self.plotSpace;
-        NSSet *locations                     = (major ? self.majorTickLocations : self.minorTickLocations);
+        CPTNumberSet locations               = (major ? self.majorTickLocations : self.minorTickLocations);
         CPTCoordinate selfCoordinate         = self.coordinate;
         CPTCoordinate orthogonalCoordinate   = CPTOrthogonalCoordinate(selfCoordinate);
         CPTMutablePlotRange *orthogonalRange = [[thePlotSpace plotRangeForCoordinate:orthogonalCoordinate] mutableCopy];
@@ -480,11 +480,11 @@
 
 -(void)drawBackgroundBandsInContext:(CGContextRef)context
 {
-    NSArray *bandArray   = self.alternatingBandFills;
-    NSUInteger bandCount = bandArray.count;
+    CPTFillArray bandArray = self.alternatingBandFills;
+    NSUInteger bandCount   = bandArray.count;
 
     if ( bandCount > 0 ) {
-        NSArray *locations = [self.majorTickLocations allObjects];
+        CPTNumberArray locations = [self.majorTickLocations allObjects];
 
         if ( locations.count > 0 ) {
             CPTPlotSpace *thePlotSpace = self.plotSpace;
@@ -603,7 +603,7 @@
 
 -(void)drawBackgroundLimitsInContext:(CGContextRef)context
 {
-    NSArray *limitArray = self.backgroundLimitBands;
+    CPTLimitBandArray limitArray = self.backgroundLimitBands;
 
     if ( limitArray.count > 0 ) {
         CPTPlotSpace *thePlotSpace = self.plotSpace;

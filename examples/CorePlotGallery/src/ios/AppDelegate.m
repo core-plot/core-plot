@@ -18,7 +18,7 @@
 
 @synthesize window;
 
--(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+-(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(CPTDictionary)launchOptions
 {
     [[PlotGallery sharedPlotGallery] sortByTitle];
 

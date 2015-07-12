@@ -19,7 +19,7 @@ extern NSString *__nonnull const kCPTStocksTheme;       ///< A graph theme with 
 /// @name Theme Management
 /// @{
 +(void)registerTheme:(nonnull Class)themeClass;
-+(nullable NSArray *)themeClasses;
++(nullable NSArray<Class> *)themeClasses;
 +(nullable instancetype)themeNamed:(nullable NSString *)theme;
 +(nonnull NSString *)name;
 /// @}

@@ -1,7 +1,20 @@
 #import "CPTDefinitions.h"
 
+/// @file
+
+@class CPTLegendEntry;
 @class CPTPlot;
 @class CPTTextStyle;
+
+/**
+ *  @brief An array of CPTLegendEntry objects.
+ **/
+typedef NSArray<CPTLegendEntry *> *CPTLegendEntryArray;
+
+/**
+ *  @brief A mutable array of CPTLegendEntry objects.
+ **/
+typedef NSMutableArray<CPTLegendEntry *> *CPTMutableLegendEntryArray;
 
 @interface CPTLegendEntry : NSObject<NSCoding>
 

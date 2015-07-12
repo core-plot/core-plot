@@ -7,11 +7,9 @@
 #import "CPTLayerAnnotation.h"
 #import "CPTLegend.h"
 #import "CPTMutableTextStyle.h"
-#import "CPTPlot.h"
 #import "CPTPlotArea.h"
 #import "CPTPlotAreaFrame.h"
 #import "CPTPlotGroup.h"
-#import "CPTPlotSpace.h"
 #import "CPTTextLayer.h"
 #import "CPTTheme.h"
 #import "NSCoderExtensions.h"
@@ -32,8 +30,8 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 /// @cond
 @interface CPTGraph()
 
-@property (nonatomic, readwrite, strong, nonnull) NSMutableArray *plots;
-@property (nonatomic, readwrite, strong, nonnull) NSMutableArray *plotSpaces;
+@property (nonatomic, readwrite, strong, nonnull) CPTMutablePlotArray plots;
+@property (nonatomic, readwrite, strong, nonnull) CPTMutablePlotSpaceArray plotSpaces;
 @property (nonatomic, readwrite, strong) CPTLayerAnnotation *titleAnnotation;
 @property (nonatomic, readwrite, strong) CPTLayerAnnotation *legendAnnotation;
 @property (nonatomic, readwrite, assign) BOOL inTitleUpdate;
@@ -85,12 +83,12 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 
 /// @cond
 
-/** @property NSMutableArray *plots
+/** @property CPTMutablePlotArray plots
  *  @brief An array of all plots associated with the graph.
  **/
 @synthesize plots;
 
-/** @property NSMutableArray *plotSpaces
+/** @property CPTMutablePlotSpaceArray plotSpaces
  *  @brief An array of all plot spaces associated with the graph.
  **/
 @synthesize plotSpaces;
@@ -102,7 +100,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
  **/
 @dynamic defaultPlotSpace;
 
-/** @property NSArray *topDownLayerOrder
+/** @property CPTNumberArray topDownLayerOrder
  *  @brief An array of graph layers to be drawn in an order other than the default.
  *  @see CPTPlotArea @link CPTPlotArea::topDownLayerOrder topDownLayerOrder @endlink property.
  **/
@@ -315,7 +313,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
         hostingView   = [coder decodeObjectForKey:@"CPTGraph.hostingView"];
         plotAreaFrame = [coder decodeObjectForKey:@"CPTGraph.plotAreaFrame"];
 
-        NSArray *plotArray = [coder decodeObjectForKey:@"CPTGraph.plots"];
+        CPTPlotArray plotArray = [coder decodeObjectForKey:@"CPTGraph.plots"];
         if ( plotArray ) {
             plots = [plotArray mutableCopy];
         }
@@ -323,7 +321,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
             plots = [[NSMutableArray alloc] init];
         }
 
-        NSArray *plotSpaceArray = [coder decodeObjectForKey:@"CPTGraph.plotSpaces"];
+        CPTPlotSpaceArray plotSpaceArray = [coder decodeObjectForKey:@"CPTGraph.plotSpaces"];
         if ( plotSpaceArray ) {
             plotSpaces = [plotSpaceArray mutableCopy];
         }
@@ -370,7 +368,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 
 +(BOOL)needsDisplayForKey:(NSString *)aKey
 {
-    static NSSet *keys               = nil;
+    static NSSet<NSString *> *keys   = nil;
     static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
@@ -411,7 +409,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 /** @brief All plots associated with the graph.
  *  @return An array of all plots associated with the graph.
  **/
--(NSArray *)allPlots
+-(CPTPlotArray)allPlots
 {
     return [NSArray arrayWithArray:self.plots];
 }
@@ -535,7 +533,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 /** @brief All plot spaces associated with the graph.
  *  @return An array of all plot spaces associated with the graph.
  **/
--(NSArray *)allPlotSpaces
+-(CPTPlotSpaceArray)allPlotSpaces
 {
     return [NSArray arrayWithArray:self.plotSpaces];
 }
@@ -836,12 +834,12 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
     }
 }
 
--(NSArray *)topDownLayerOrder
+-(CPTNumberArray)topDownLayerOrder
 {
     return self.plotAreaFrame.plotArea.topDownLayerOrder;
 }
 
--(void)setTopDownLayerOrder:(NSArray *)newArray
+-(void)setTopDownLayerOrder:(CPTNumberArray)newArray
 {
     self.plotAreaFrame.plotArea.topDownLayerOrder = newArray;
 }

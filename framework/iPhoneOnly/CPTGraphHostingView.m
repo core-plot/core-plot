@@ -129,7 +129,7 @@
 
 /// @cond
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     BOOL handled = NO;
 
@@ -156,7 +156,7 @@
     }
 }
 
--(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+-(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     CPTGraph *theHostedGraph = self.hostedGraph;
 
@@ -178,7 +178,7 @@
     }
 }
 
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+-(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     CPTGraph *theHostedGraph = self.hostedGraph;
 
@@ -200,7 +200,7 @@
     }
 }
 
--(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+-(void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     BOOL handled = [self.hostedGraph pointingDeviceCancelledEvent:event];
 

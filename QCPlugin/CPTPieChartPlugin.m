@@ -25,7 +25,7 @@
  */
 @dynamic inputPieRadius, inputSliceLabelOffset, inputStartAngle, inputSliceDirection;
 
-+(NSDictionary *)attributes
++(NSDictionary<NSString *, NSString *> *)attributes
 {
     return @{
                QCPlugInAttributeNameKey: @"Core Plot Pie Chart",
@@ -60,14 +60,14 @@
     return nil;
 }
 
-+(NSArray *)sortedPropertyPortKeys
++(CPTStringArray)sortedPropertyPortKeys
 {
-    NSArray *pieChartPropertyPortKeys = @[@"inputPieRadius", @"inputSliceLabelOffset", @"inputStartAngle", @"inputSliceDirection", @"inputBorderColor", @"inputBorderWidth"];
+    CPTStringArray pieChartPropertyPortKeys = @[@"inputPieRadius", @"inputSliceLabelOffset", @"inputStartAngle", @"inputSliceDirection", @"inputBorderColor", @"inputBorderWidth"];
 
     return [[super sortedPropertyPortKeys] arrayByAddingObjectsFromArray:pieChartPropertyPortKeys];
 }
 
-+(NSDictionary *)attributesForPropertyPortWithKey:(NSString *)key
++(CPTDictionary)attributesForPropertyPortWithKey:(NSString *)key
 {
     // A few additional ports for the pie chart type ...
     if ( [key isEqualToString:@"inputPieRadius"] ) {
@@ -106,7 +106,7 @@
     }
     else if ( [key isEqualToString:@"inputBorderColor"] ) {
         CGColorRef grayColor = CGColorCreateGenericGray(0.0, 1.0);
-        NSDictionary *result = @{
+        CPTDictionary result = @{
             QCPortAttributeNameKey: @"Border Color",
             QCPortAttributeDefaultValueKey: CFBridgingRelease(grayColor)
         };
@@ -114,7 +114,7 @@
     }
     else if ( [key isEqualToString:@"inputLabelColor"] ) {
         CGColorRef grayColor = CGColorCreateGenericGray(1.0, 1.0);
-        NSDictionary *result = @{
+        CPTDictionary result = @{
             QCPortAttributeNameKey: @"Label Color",
             QCPortAttributeDefaultValueKey: CFBridgingRelease(grayColor)
         };
@@ -229,7 +229,7 @@
     NSUInteger plotIndex = [[self.graph allPlots] indexOfObject:plot];
     NSString *key        = [NSString stringWithFormat:@"plotNumbers%lu", (unsigned long)plotIndex];
 
-    NSDictionary *dict = [self valueForInputKey:key];
+    CPTDictionary dict = [self valueForInputKey:key];
 
     if ( dict ) {
         return [NSDecimalNumber decimalNumberWithString:[dict[[NSString stringWithFormat:@"%lu", (unsigned long)index]] stringValue]];
@@ -264,7 +264,7 @@
     NSUInteger plotIndex = [[self.graph allPlots] indexOfObject:pieChart];
     NSString *key        = [NSString stringWithFormat:@"plotLabels%lu", (unsigned long)plotIndex];
 
-    NSDictionary *dict = [self valueForInputKey:key];
+    CPTDictionary dict = [self valueForInputKey:key];
 
     if ( !dict ) {
         return nil;

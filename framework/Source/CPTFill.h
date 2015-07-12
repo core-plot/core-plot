@@ -1,6 +1,19 @@
+/// @file
+
 @class CPTGradient;
 @class CPTImage;
 @class CPTColor;
+@class CPTFill;
+
+/**
+ *  @brief An array of fills.
+ **/
+typedef NSArray<CPTFill *> *CPTFillArray;
+
+/**
+ *  @brief A mutable array of fills.
+ **/
+typedef NSMutableArray<CPTFill *> *CPTMutableFillArray;
 
 @interface CPTFill : NSObject<NSCopying, NSCoding>
 

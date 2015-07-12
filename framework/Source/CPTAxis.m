@@ -1,17 +1,14 @@
 #import "CPTAxis.h"
 
-#import "CPTAxisLabel.h"
 #import "CPTAxisLabelGroup.h"
 #import "CPTAxisSet.h"
 #import "CPTAxisTitle.h"
 #import "CPTColor.h"
 #import "CPTExceptions.h"
-#import "CPTFill.h"
 #import "CPTGradient.h"
 #import "CPTGridLineGroup.h"
 #import "CPTGridLines.h"
 #import "CPTImage.h"
-#import "CPTLimitBand.h"
 #import "CPTLineCap.h"
 #import "CPTLineStyle.h"
 #import "CPTMutablePlotRange.h"
@@ -41,16 +38,16 @@
 @property (nonatomic, readwrite, cpt_weak_property, nullable) cpt_weak CPTAxisLabel *pointingDeviceDownTickLabel;
 @property (nonatomic, readwrite, assign) BOOL labelFormatterChanged;
 @property (nonatomic, readwrite, assign) BOOL minorLabelFormatterChanged;
-@property (nonatomic, readwrite, strong, nullable) NSMutableArray *mutableBackgroundLimitBands;
+@property (nonatomic, readwrite, strong, nullable) CPTMutableLimitBandArray mutableBackgroundLimitBands;
 @property (nonatomic, readonly) CGFloat tickOffset;
 @property (nonatomic, readwrite, assign) BOOL inTitleUpdate;
 @property (nonatomic, readwrite, assign) BOOL labelsUpdated;
 
--(void)generateFixedIntervalMajorTickLocations:(NSSet *__nonnull __autoreleasing *)newMajorLocations minorTickLocations:(NSSet *__nonnull __autoreleasing *)newMinorLocations;
--(void)autoGenerateMajorTickLocations:(NSSet *__nonnull __autoreleasing *)newMajorLocations minorTickLocations:(NSSet *__nonnull __autoreleasing *)newMinorLocations;
--(void)generateEqualMajorTickLocations:(NSSet *__nonnull __autoreleasing *)newMajorLocations minorTickLocations:(NSSet *__nonnull __autoreleasing *)newMinorLocations;
--(nullable NSSet *)filteredTickLocations:(nullable NSSet *)allLocations;
--(void)updateAxisLabelsAtLocations:(nullable NSSet *)locations inRange:(nullable CPTPlotRange *)labeledRange useMajorAxisLabels:(BOOL)useMajorAxisLabels;
+-(void)generateFixedIntervalMajorTickLocations:(CPTNumberSet __nonnull __autoreleasing *)newMajorLocations minorTickLocations:(CPTNumberSet __nonnull __autoreleasing *)newMinorLocations;
+-(void)autoGenerateMajorTickLocations:(CPTNumberSet __nonnull __autoreleasing *)newMajorLocations minorTickLocations:(CPTNumberSet __nonnull __autoreleasing *)newMinorLocations;
+-(void)generateEqualMajorTickLocations:(CPTNumberSet __nonnull __autoreleasing *)newMajorLocations minorTickLocations:(CPTNumberSet __nonnull __autoreleasing *)newMinorLocations;
+-(nullable CPTNumberSet)filteredTickLocations:(nullable CPTNumberSet)allLocations;
+-(void)updateAxisLabelsAtLocations:(nullable CPTNumberSet)locations inRange:(nullable CPTPlotRange *)labeledRange useMajorAxisLabels:(BOOL)useMajorAxisLabels;
 -(void)updateCustomTickLabels;
 -(void)updateMajorTickLabelOffsets;
 -(void)updateMinorTickLabelOffsets;
@@ -296,12 +293,12 @@ NSDecimal CPTNiceLength(NSDecimal length);
 @synthesize minorLabelFormatterChanged;
 @dynamic tickOffset;
 
-/** @property NSSet *axisLabels
+/** @property CPTAxisLabelSet axisLabels
  *  @brief The set of axis labels.
  **/
 @synthesize axisLabels;
 
-/** @property NSSet *minorTickAxisLabels
+/** @property CPTAxisLabelSet minorTickAxisLabels
  *  @brief The set of minor tick axis labels.
  **/
 @synthesize minorTickAxisLabels;
@@ -311,7 +308,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
  **/
 @synthesize needsRelabel;
 
-/** @property NSArray *labelExclusionRanges
+/** @property CPTPlotRangeArray labelExclusionRanges
  *  @brief An array of CPTPlotRange objects. Any tick marks and labels falling inside any of the ranges in the array will not be drawn.
  **/
 @synthesize labelExclusionRanges;
@@ -344,7 +341,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
  **/
 @synthesize majorTickLength;
 
-/** @property NSSet *majorTickLocations
+/** @property CPTNumberSet majorTickLocations
  *  @brief A set of axis coordinates for all major tick marks.
  **/
 @synthesize majorTickLocations;
@@ -375,7 +372,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
  **/
 @synthesize minorTickLength;
 
-/** @property NSSet *minorTickLocations
+/** @property CPTNumberSet minorTickLocations
  *  @brief A set of axis coordinates for all minor tick marks.
  **/
 @synthesize minorTickLocations;
@@ -404,7 +401,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
 
 // Background Bands
 
-/** @property NSArray *alternatingBandFills
+/** @property CPTFillArray alternatingBandFills
  *  @brief An array of two or more fills to be drawn between successive major tick marks.
  *
  *  When initializing the fills, provide an NSArray containing any combination of CPTFill,
@@ -413,7 +410,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
  **/
 @synthesize alternatingBandFills;
 
-/** @property NSArray *backgroundLimitBands
+/** @property CPTLimitBandArray backgroundLimitBands
  *  @brief An array of CPTLimitBand objects.
  *
  *  The limit bands are drawn on top of the alternating band fills.
@@ -840,7 +837,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
 
 +(BOOL)needsDisplayForKey:(NSString *)aKey
 {
-    static NSSet *keys               = nil;
+    static NSSet<NSString *> *keys   = nil;
     static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
@@ -873,10 +870,10 @@ NSDecimal CPTNiceLength(NSDecimal length);
  *  @param newMajorLocations A new NSSet containing the major tick locations.
  *  @param newMinorLocations A new NSSet containing the minor tick locations.
  */
--(void)generateFixedIntervalMajorTickLocations:(NSSet *__autoreleasing *)newMajorLocations minorTickLocations:(NSSet *__autoreleasing *)newMinorLocations
+-(void)generateFixedIntervalMajorTickLocations:(CPTNumberSet __autoreleasing *)newMajorLocations minorTickLocations:(CPTNumberSet __autoreleasing *)newMinorLocations
 {
-    NSMutableSet *majorLocations = [NSMutableSet set];
-    NSMutableSet *minorLocations = [NSMutableSet set];
+    CPTMutableNumberSet majorLocations = [NSMutableSet set];
+    CPTMutableNumberSet minorLocations = [NSMutableSet set];
 
     NSDecimal zero          = CPTDecimalFromInteger(0);
     NSDecimal majorInterval = self.majorIntervalLength.decimalValue;
@@ -953,11 +950,11 @@ NSDecimal CPTNiceLength(NSDecimal length);
  *  @param newMajorLocations A new NSSet containing the major tick locations.
  *  @param newMinorLocations A new NSSet containing the minor tick locations.
  */
--(void)autoGenerateMajorTickLocations:(NSSet *__autoreleasing *)newMajorLocations minorTickLocations:(NSSet *__autoreleasing *)newMinorLocations
+-(void)autoGenerateMajorTickLocations:(CPTNumberSet __autoreleasing *)newMajorLocations minorTickLocations:(CPTNumberSet __autoreleasing *)newMinorLocations
 {
     // Create sets for locations
-    NSMutableSet *majorLocations = [NSMutableSet set];
-    NSMutableSet *minorLocations = [NSMutableSet set];
+    CPTMutableNumberSet majorLocations = [NSMutableSet set];
+    CPTMutableNumberSet minorLocations = [NSMutableSet set];
 
     // Get plot range
     CPTMutablePlotRange *range    = [[self.plotSpace plotRangeForCoordinate:self.coordinate] mutableCopy];
@@ -1155,10 +1152,10 @@ NSDecimal CPTNiceLength(NSDecimal length);
  *  @param newMajorLocations A new NSSet containing the major tick locations.
  *  @param newMinorLocations A new NSSet containing the minor tick locations.
  */
--(void)generateEqualMajorTickLocations:(NSSet *__autoreleasing *)newMajorLocations minorTickLocations:(NSSet *__autoreleasing *)newMinorLocations
+-(void)generateEqualMajorTickLocations:(CPTNumberSet __autoreleasing *)newMajorLocations minorTickLocations:(CPTNumberSet __autoreleasing *)newMinorLocations
 {
-    NSMutableSet *majorLocations = [NSMutableSet set];
-    NSMutableSet *minorLocations = [NSMutableSet set];
+    CPTMutableNumberSet majorLocations = [NSMutableSet set];
+    CPTMutableNumberSet minorLocations = [NSMutableSet set];
 
     CPTMutablePlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] mutableCopy];
 
@@ -1314,12 +1311,12 @@ NSDecimal CPTNiceLength(NSDecimal length)
  *  @param allLocations A set of tick locations.
  *  @return The filtered set of tick locations.
  */
--(NSSet *)filteredTickLocations:(NSSet *)allLocations
+-(CPTNumberSet)filteredTickLocations:(CPTNumberSet)allLocations
 {
-    NSArray *exclusionRanges = self.labelExclusionRanges;
+    CPTPlotRangeArray exclusionRanges = self.labelExclusionRanges;
 
     if ( exclusionRanges ) {
-        NSMutableSet *filteredLocations = [allLocations mutableCopy];
+        CPTMutableNumberSet filteredLocations = [allLocations mutableCopy];
         for ( CPTPlotRange *range in exclusionRanges ) {
             for ( NSNumber *location in allLocations ) {
                 if ( [range containsNumber:location] ) {
@@ -1340,7 +1337,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
  *  @param allLocations A set of major tick locations.
  *  @return The filtered set.
  **/
--(NSSet *)filteredMajorTickLocations:(NSSet *)allLocations
+-(CPTNumberSet)filteredMajorTickLocations:(CPTNumberSet)allLocations
 {
     return [self filteredTickLocations:allLocations];
 }
@@ -1349,7 +1346,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
  *  @param allLocations A set of minor tick locations.
  *  @return The filtered set.
  **/
--(NSSet *)filteredMinorTickLocations:(NSSet *)allLocations
+-(CPTNumberSet)filteredMinorTickLocations:(CPTNumberSet)allLocations
 {
     return [self filteredTickLocations:allLocations];
 }
@@ -1385,7 +1382,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
  *  @param labeledRange A plot range used to filter the generated labels. If @nil, no filtering is done.
  *  @param useMajorAxisLabels If @YES, label the major ticks, otherwise label the minor ticks.
  **/
--(void)updateAxisLabelsAtLocations:(NSSet *)locations inRange:(CPTPlotRange *)labeledRange useMajorAxisLabels:(BOOL)useMajorAxisLabels
+-(void)updateAxisLabelsAtLocations:(CPTNumberSet)locations inRange:(CPTPlotRange *)labeledRange useMajorAxisLabels:(BOOL)useMajorAxisLabels
 {
     CPTAlignment theLabelAlignment;
     CPTSign theLabelDirection;
@@ -1441,7 +1438,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
         return;
     }
 
-    NSDictionary *textAttributes = [theLabelTextStyle attributes];
+    CPTDictionary textAttributes = [theLabelTextStyle attributes];
     BOOL hasAttributedFormatter  = ([theLabelFormatter attributedStringForObjectValue:[NSDecimalNumber zero]
                                                                 withDefaultAttributes:textAttributes] != nil);
 
@@ -1462,7 +1459,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
     CPTPlotArea *thePlotArea = self.plotArea;
     [thePlotArea setAxisSetLayersForType:CPTGraphLayerTypeAxisLabels];
 
-    NSMutableSet *oldAxisLabels;
+    CPTMutableAxisLabelSet oldAxisLabels;
     if ( useMajorAxisLabels ) {
         oldAxisLabels = [self.axisLabels mutableCopy];
     }
@@ -1470,10 +1467,10 @@ NSDecimal CPTNiceLength(NSDecimal length)
         oldAxisLabels = [self.minorTickAxisLabels mutableCopy];
     }
 
-    NSMutableSet *newAxisLabels       = [[NSMutableSet alloc] initWithCapacity:locations.count];
-    CPTAxisLabel *blankLabel          = [[CPTAxisLabel alloc] initWithText:nil textStyle:nil];
-    CPTAxisLabelGroup *axisLabelGroup = thePlotArea.axisLabelGroup;
-    CPTLayer *lastLayer               = nil;
+    CPTMutableAxisLabelSet newAxisLabels = [[NSMutableSet alloc] initWithCapacity:locations.count];
+    CPTAxisLabel *blankLabel             = [[CPTAxisLabel alloc] initWithText:nil textStyle:nil];
+    CPTAxisLabelGroup *axisLabelGroup    = thePlotArea.axisLabelGroup;
+    CPTLayer *lastLayer                  = nil;
 
     for ( NSDecimalNumber *tickLocation in locations ) {
         if ( labeledRange && ![labeledRange containsNumber:tickLocation] ) {
@@ -1580,8 +1577,8 @@ NSDecimal CPTNiceLength(NSDecimal length)
         return;
     }
 
-    NSSet *newMajorLocations = nil;
-    NSSet *newMinorLocations = nil;
+    CPTNumberSet newMajorLocations = nil;
+    CPTNumberSet newMinorLocations = nil;
 
     switch ( self.labelingPolicy ) {
         case CPTAxisLabelingPolicyNone:
@@ -2121,7 +2118,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
 
 /// @cond
 
--(void)setAxisLabels:(NSSet *)newLabels
+-(void)setAxisLabels:(CPTAxisLabelSet)newLabels
 {
     if ( newLabels != axisLabels ) {
         if ( self.labelsUpdated ) {
@@ -2161,7 +2158,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
     }
 }
 
--(void)setMinorTickAxisLabels:(NSSet *)newLabels
+-(void)setMinorTickAxisLabels:(CPTAxisLabelSet)newLabels
 {
     if ( newLabels != minorTickAxisLabels ) {
         if ( self.labelsUpdated ) {
@@ -2403,7 +2400,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
     }
 }
 
--(void)setLabelExclusionRanges:(NSArray *)ranges
+-(void)setLabelExclusionRanges:(CPTPlotRangeArray)ranges
 {
     if ( ranges != labelExclusionRanges ) {
         labelExclusionRanges = ranges;
@@ -2433,7 +2430,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
     }
 }
 
--(void)setMajorTickLocations:(NSSet *)newLocations
+-(void)setMajorTickLocations:(CPTNumberSet)newLocations
 {
     if ( newLocations != majorTickLocations ) {
         majorTickLocations = newLocations;
@@ -2450,7 +2447,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
     }
 }
 
--(void)setMinorTickLocations:(NSSet *)newLocations
+-(void)setMinorTickLocations:(CPTNumberSet)newLocations
 {
     if ( newLocations != minorTickLocations ) {
         minorTickLocations = newLocations;
@@ -2978,7 +2975,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
     }
 }
 
--(void)setAlternatingBandFills:(NSArray *)newFills
+-(void)setAlternatingBandFills:(CPTFillArray)newFills
 {
     if ( newFills != alternatingBandFills ) {
         Class nullClass = [NSNull class];
@@ -3000,9 +2997,9 @@ NSDecimal CPTNiceLength(NSDecimal length)
             Class gradientClass = [CPTGradient class];
             Class imageClass    = [CPTImage class];
 
-            NSMutableArray *fillArray = [newFills mutableCopy];
-            NSUInteger i              = 0;
-            CPTFill *newFill          = nil;
+            CPTMutableFillArray fillArray = [newFills mutableCopy];
+            NSUInteger i                  = 0;
+            CPTFill *newFill              = nil;
 
             for ( id obj in newFills ) {
                 if ( [obj isKindOfClass:nullClass] || [obj isKindOfClass:fillClass] ) {
@@ -3038,7 +3035,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
     }
 }
 
--(NSArray *)backgroundLimitBands
+-(CPTLimitBandArray)backgroundLimitBands
 {
     return [self.mutableBackgroundLimitBands copy];
 }

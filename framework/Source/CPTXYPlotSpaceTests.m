@@ -49,7 +49,7 @@
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@0.0
                                                     length:@10.0];
 
-    NSArray *plotPoint = @[@5.0, @5.0];
+    CPTNumberArray plotPoint = @[@5.0, @5.0];
 
     CGPoint viewPoint = [plotSpace plotAreaViewPointForPlotPoint:plotPoint];
 
@@ -146,7 +146,7 @@
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@1.0
                                                     length:@9.0];
 
-    NSArray *plotPoint = @[@( sqrt(10.0) ), @( sqrt(10.0) )];
+    CPTNumberArray plotPoint = @[@( sqrt(10.0) ), @( sqrt(10.0) )];
 
     CGPoint viewPoint = [plotSpace plotAreaViewPointForPlotPoint:plotPoint];
 
@@ -243,8 +243,8 @@
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@0.0
                                                     length:@10.0];
 
-    CGPoint viewPoint  = CPTPointMake(50.0, 25.0);
-    NSArray *plotPoint = [plotSpace plotPointForPlotAreaViewPoint:viewPoint];
+    CGPoint viewPoint        = CPTPointMake(50.0, 25.0);
+    CPTNumberArray plotPoint = [plotSpace plotPointForPlotAreaViewPoint:viewPoint];
     NSString *errMessage;
 
     errMessage = [NSString stringWithFormat:@"plotPoint[CPTCoordinateX] was %@", plotPoint[CPTCoordinateX]];
@@ -316,8 +316,8 @@
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@1.0
                                                     length:@9.0];
 
-    CGPoint viewPoint  = CPTPointMake(50.0, 25.0);
-    NSArray *plotPoint = [plotSpace plotPointForPlotAreaViewPoint:viewPoint];
+    CGPoint viewPoint        = CPTPointMake(50.0, 25.0);
+    CPTNumberArray plotPoint = [plotSpace plotPointForPlotAreaViewPoint:viewPoint];
     NSString *errMessage;
 
     [plotSpace plotPointForPlotAreaViewPoint:viewPoint];

@@ -125,7 +125,7 @@
 
 -(void)themeChanged:(NSNotification *)notification
 {
-    NSDictionary *themeInfo = notification.userInfo;
+    NSDictionary<NSString *, NSString *> *themeInfo = notification.userInfo;
 
     [self themeSelectedWithName:themeInfo[PlotGalleryThemeNameKey]];
 }

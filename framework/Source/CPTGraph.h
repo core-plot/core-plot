@@ -1,15 +1,15 @@
 // Abstract class
 #import "CPTBorderedLayer.h"
 #import "CPTDefinitions.h"
+#import "CPTPlot.h"
+#import "CPTPlotSpace.h"
 
 /// @file
 
 @class CPTAxisSet;
 @class CPTGraphHostingView;
 @class CPTLegend;
-@class CPTPlot;
 @class CPTPlotAreaFrame;
-@class CPTPlotSpace;
 @class CPTTheme;
 @class CPTTextStyle;
 @class CPTLayerAnnotation;
@@ -81,7 +81,7 @@ typedef NS_ENUM (NSInteger, CPTGraphLayerType) {
 @property (nonatomic, readwrite, strong, nullable) CPTAxisSet *axisSet;
 @property (nonatomic, readwrite, strong, nullable) CPTPlotAreaFrame *plotAreaFrame;
 @property (nonatomic, readonly, nullable) CPTPlotSpace *defaultPlotSpace;
-@property (nonatomic, readwrite, strong, nullable) NSArray *topDownLayerOrder;
+@property (nonatomic, readwrite, strong, nullable) CPTNumberArray topDownLayerOrder;
 /// @}
 
 /// @name Legend
@@ -99,7 +99,7 @@ typedef NS_ENUM (NSInteger, CPTGraphLayerType) {
 
 /// @name Retrieving Plots
 /// @{
--(nonnull NSArray *)allPlots;
+-(nonnull CPTPlotArray)allPlots;
 -(nullable CPTPlot *)plotAtIndex:(NSUInteger)idx;
 -(nullable CPTPlot *)plotWithIdentifier:(nullable id<NSCopying>)identifier;
 /// @}
@@ -116,7 +116,7 @@ typedef NS_ENUM (NSInteger, CPTGraphLayerType) {
 
 /// @name Retrieving Plot Spaces
 /// @{
--(nonnull NSArray *)allPlotSpaces;
+-(nonnull CPTPlotSpaceArray)allPlotSpaces;
 -(nullable CPTPlotSpace *)plotSpaceAtIndex:(NSUInteger)idx;
 -(nullable CPTPlotSpace *)plotSpaceWithIdentifier:(nullable id<NSCopying>)identifier;
 /// @}

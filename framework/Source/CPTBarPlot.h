@@ -1,12 +1,12 @@
 #import "CPTDefinitions.h"
+#import "CPTFill.h"
+#import "CPTLineStyle.h"
 #import "CPTPlot.h"
 
 /// @file
 
-@class CPTLineStyle;
 @class CPTMutableNumericData;
 @class CPTNumericData;
-@class CPTFill;
 @class CPTPlotRange;
 @class CPTColor;
 @class CPTBarPlot;
@@ -47,7 +47,7 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
  *  @param indexRange The range of the data indexes of interest.
  *  @return An array of bar fills.
  **/
--(nullable NSArray *)barFillsForBarPlot:(nonnull CPTBarPlot *)barPlot recordIndexRange:(NSRange)indexRange;
+-(nullable CPTFillArray)barFillsForBarPlot:(nonnull CPTBarPlot *)barPlot recordIndexRange:(NSRange)indexRange;
 
 /** @brief @optional Gets a bar fill for the given bar plot.
  *  This method will not be called if
@@ -65,7 +65,7 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
  *  @param indexRange The range of the data indexes of interest.
  *  @return An array of line styles.
  **/
--(nullable NSArray *)barLineStylesForBarPlot:(nonnull CPTBarPlot *)barPlot recordIndexRange:(NSRange)indexRange;
+-(nullable CPTLineStyleArray)barLineStylesForBarPlot:(nonnull CPTBarPlot *)barPlot recordIndexRange:(NSRange)indexRange;
 
 /** @brief @optional Gets a bar line style for the given bar plot.
  *  This method will not be called if

@@ -226,7 +226,7 @@ static const double precision           = 1.0e-6;
                                                              dataType:theDataType
                                                                 shape:nil];
 
-    NSArray *doubleArray = [doubleData sampleArray];
+    CPTNumberArray doubleArray = [doubleData sampleArray];
     XCTAssertEqual(doubleArray.count, numberOfSamples, @"doubleArray size");
 
     CPTNumericData *roundTripData = [[CPTNumericData alloc] initWithArray:doubleArray
@@ -254,7 +254,7 @@ static const double precision           = 1.0e-6;
                                                           dataType:theDataType
                                                              shape:nil];
 
-    NSArray *integerArray = [intData sampleArray];
+    CPTNumberArray integerArray = [intData sampleArray];
     XCTAssertEqual(integerArray.count, numberOfSamples, @"integerArray size");
 
     CPTNumericData *roundTripData = [[CPTNumericData alloc] initWithArray:integerArray
@@ -282,7 +282,7 @@ static const double precision           = 1.0e-6;
                                                               dataType:theDataType
                                                                  shape:nil];
 
-    NSArray *decimalArray = [decimalData sampleArray];
+    CPTNumberArray decimalArray = [decimalData sampleArray];
     XCTAssertEqual(decimalArray.count, numberOfSamples, @"doubleArray size");
 
     CPTNumericData *roundTripData = [[CPTNumericData alloc] initWithArray:decimalArray

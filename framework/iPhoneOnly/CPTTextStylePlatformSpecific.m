@@ -8,7 +8,7 @@
 
 @implementation CPTTextStyle(CPTPlatformSpecificTextStyleExtensions)
 
-/** @property NSDictionary *attributes
+/** @property CPTDictionary attributes
  *  @brief A dictionary of standard text attributes suitable for formatting an NSAttributedString.
  *
  *  The dictionary will contain values for the following keys that represent the receiver's text style:
@@ -34,7 +34,7 @@
  *  @param attributes A dictionary of standard text attributes.
  *  @return A new CPTTextStyle instance.
  **/
-+(instancetype)textStyleWithAttributes:(NSDictionary *)attributes
++(instancetype)textStyleWithAttributes:(CPTDictionary)attributes
 {
     CPTMutableTextStyle *newStyle = [CPTMutableTextStyle textStyle];
 
@@ -67,9 +67,9 @@
 
 /// @cond
 
--(NSDictionary *)attributes
+-(CPTDictionary)attributes
 {
-    NSMutableDictionary *myAttributes = [NSMutableDictionary dictionary];
+    CPTMutableDictionary myAttributes = [NSMutableDictionary dictionary];
 
     // Font
     UIFont *styleFont  = nil;
@@ -113,7 +113,7 @@
 
 /// @cond
 
-+(instancetype)textStyleWithAttributes:(NSDictionary *)attributes
++(instancetype)textStyleWithAttributes:(CPTDictionary)attributes
 {
     CPTMutableTextStyle *newStyle = [CPTMutableTextStyle textStyle];
 

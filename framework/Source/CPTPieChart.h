@@ -1,10 +1,10 @@
 #import "CPTDefinitions.h"
+#import "CPTFill.h"
 #import "CPTPlot.h"
 
 /// @file
 
 @class CPTColor;
-@class CPTFill;
 @class CPTPieChart;
 @class CPTTextLayer;
 @class CPTLineStyle;
@@ -49,7 +49,7 @@ typedef NS_ENUM (NSInteger, CPTPieDirection) {
  *  @param indexRange The range of the data indexes of interest.
  *  @return An array of pie slice fills.
  **/
--(nullable NSArray *)sliceFillsForPieChart:(nonnull CPTPieChart *)pieChart recordIndexRange:(NSRange)indexRange;
+-(nullable CPTFillArray)sliceFillsForPieChart:(nonnull CPTPieChart *)pieChart recordIndexRange:(NSRange)indexRange;
 
 /** @brief @optional Gets a fill for the given pie chart slice.
  *  This method will not be called if
@@ -72,7 +72,7 @@ typedef NS_ENUM (NSInteger, CPTPieDirection) {
  *  @param indexRange The range of the data indexes of interest.
  *  @return An array of radial offsets.
  **/
--(nullable NSArray *)radialOffsetsForPieChart:(nonnull CPTPieChart *)pieChart recordIndexRange:(NSRange)indexRange;
+-(nullable CPTNumberArray)radialOffsetsForPieChart:(nonnull CPTPieChart *)pieChart recordIndexRange:(NSRange)indexRange;
 
 /** @brief @optional Offsets the slice radially from the center point. Can be used to @quote{explode} the chart.
  *  This method will not be called if
