@@ -26,7 +26,7 @@ static const NSUInteger numberOfPoints = 11;
     [super registerPlotItem:self];
 }
 
--(id)init
+-(instancetype)init
 {
     if ( (self = [super init]) ) {
         self.title   = @"Control Chart";

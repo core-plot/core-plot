@@ -32,7 +32,7 @@ static NSString *const kSecond = @"Second Derivative";
     [super registerPlotItem:self];
 }
 
--(id)init
+-(instancetype)init
 {
     if ( (self = [super init]) ) {
         self.title   = @"Curved Scatter Plot";

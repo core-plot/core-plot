@@ -28,7 +28,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     [super registerPlotItem:self];
 }
 
--(id)init
+-(instancetype)init
 {
     if ( (self = [super init]) ) {
         graph    = nil;
