@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-@interface NSDictionary(APFinancalData)
+@interface NSDictionary(APFinancialData)
 
 +(id)dictionaryWithCSVLine:(NSString *)csvLine;
 

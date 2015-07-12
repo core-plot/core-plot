@@ -4,37 +4,37 @@
 <dict>
 	<key>endDate</key>
 	<date>2009-06-19T06:53:47Z</date>
-	<key>financalData</key>
+	<key>financialData</key>
 	<array>
 		<dict>
 			<key>adjClose</key>
-			<real>414.06000000000006</real>
+			<real>414.0600000000001</real>
 			<key>close</key>
-			<real>414.06000000000006</real>
+			<real>414.0600000000001</real>
 			<key>date</key>
 			<date>2009-06-18T04:00:00Z</date>
 			<key>high</key>
-			<real>418.68999999999994</real>
+			<real>418.6899999999999</real>
 			<key>low</key>
 			<real>413</real>
 			<key>open</key>
-			<real>415.68000000000001</real>
+			<real>415.68</real>
 			<key>volume</key>
 			<real>3085200</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>415.16000000000003</real>
+			<real>415.16</real>
 			<key>close</key>
-			<real>415.16000000000003</real>
+			<real>415.16</real>
 			<key>date</key>
 			<date>2009-06-17T04:00:00Z</date>
 			<key>high</key>
-			<real>419.71999999999997</real>
+			<real>419.72</real>
 			<key>low</key>
-			<real>411.56000000000006</real>
+			<real>411.5600000000001</real>
 			<key>open</key>
-			<real>416.18999999999994</real>
+			<real>416.1899999999999</real>
 			<key>volume</key>
 			<real>3490100</real>
 		</dict>
@@ -46,19 +46,19 @@
 			<key>date</key>
 			<date>2009-06-16T04:00:00Z</date>
 			<key>high</key>
-			<real>421.08999999999997</real>
+			<real>421.09</real>
 			<key>low</key>
-			<real>415.41999999999996</real>
+			<real>415.42</real>
 			<key>open</key>
-			<real>419.31000000000006</real>
+			<real>419.3100000000001</real>
 			<key>volume</key>
 			<real>3049700</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>416.76999999999998</real>
+			<real>416.77</real>
 			<key>close</key>
-			<real>416.76999999999998</real>
+			<real>416.77</real>
 			<key>date</key>
 			<date>2009-06-15T04:00:00Z</date>
 			<key>high</key>
@@ -72,17 +72,17 @@
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>424.83999999999997</real>
+			<real>424.84</real>
 			<key>close</key>
-			<real>424.83999999999997</real>
+			<real>424.84</real>
 			<key>date</key>
 			<date>2009-06-12T04:00:00Z</date>
 			<key>high</key>
-			<real>427.69999999999999</real>
+			<real>427.7</real>
 			<key>low</key>
-			<real>421.21000000000004</real>
+			<real>421.21</real>
 			<key>open</key>
-			<real>426.86000000000001</real>
+			<real>426.86</real>
 			<key>volume</key>
 			<real>2918400</real>
 		</dict>
@@ -94,27 +94,27 @@
 			<key>date</key>
 			<date>2009-06-11T04:00:00Z</date>
 			<key>high</key>
-			<real>433.73000000000002</real>
+			<real>433.73</real>
 			<key>low</key>
 			<real>428.37</real>
 			<key>open</key>
-			<real>431.76999999999998</real>
+			<real>431.77</real>
 			<key>volume</key>
 			<real>2865200</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>432.60000000000002</real>
+			<real>432.6</real>
 			<key>close</key>
-			<real>432.60000000000002</real>
+			<real>432.6</real>
 			<key>date</key>
 			<date>2009-06-10T04:00:00Z</date>
 			<key>high</key>
-			<real>437.88999999999999</real>
+			<real>437.89</real>
 			<key>low</key>
-			<real>426.66999999999996</real>
+			<real>426.67</real>
 			<key>open</key>
-			<real>436.23000000000002</real>
+			<real>436.23</real>
 			<key>volume</key>
 			<real>3358900</real>
 		</dict>
@@ -128,21 +128,21 @@
 			<key>high</key>
 			<real>440.5</real>
 			<key>low</key>
-			<real>431.76000000000005</real>
+			<real>431.76</real>
 			<key>open</key>
-			<real>438.58000000000004</real>
+			<real>438.58</real>
 			<key>volume</key>
 			<real>3254900</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>438.76999999999998</real>
+			<real>438.77</real>
 			<key>close</key>
-			<real>438.76999999999998</real>
+			<real>438.77</real>
 			<key>date</key>
 			<date>2009-06-08T04:00:00Z</date>
 			<key>high</key>
-			<real>440.91999999999996</real>
+			<real>440.92</real>
 			<key>low</key>
 			<real>434.12</real>
 			<key>open</key>
@@ -152,45 +152,45 @@
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>444.31999999999999</real>
+			<real>444.32</real>
 			<key>close</key>
-			<real>444.31999999999999</real>
+			<real>444.32</real>
 			<key>date</key>
 			<date>2009-06-05T04:00:00Z</date>
 			<key>high</key>
-			<real>447.33999999999997</real>
+			<real>447.34</real>
 			<key>low</key>
-			<real>439.46000000000004</real>
+			<real>439.46</real>
 			<key>open</key>
-			<real>445.06999999999999</real>
+			<real>445.07</real>
 			<key>volume</key>
 			<real>3680800</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>440.28000000000003</real>
+			<real>440.28</real>
 			<key>close</key>
-			<real>440.28000000000003</real>
+			<real>440.28</real>
 			<key>date</key>
 			<date>2009-06-04T04:00:00Z</date>
 			<key>high</key>
-			<real>441.23999999999995</real>
+			<real>441.24</real>
 			<key>low</key>
 			<real>434.5</real>
 			<key>open</key>
-			<real>435.30000000000001</real>
+			<real>435.3</real>
 			<key>volume</key>
 			<real>3638100</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>431.64999999999998</real>
+			<real>431.65</real>
 			<key>close</key>
-			<real>431.64999999999998</real>
+			<real>431.65</real>
 			<key>date</key>
 			<date>2009-06-03T04:00:00Z</date>
 			<key>high</key>
-			<real>432.46000000000004</real>
+			<real>432.46</real>
 			<key>low</key>
 			<real>424</real>
 			<key>open</key>
@@ -200,15 +200,15 @@
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>428.39999999999998</real>
+			<real>428.4</real>
 			<key>close</key>
-			<real>428.39999999999998</real>
+			<real>428.4</real>
 			<key>date</key>
 			<date>2009-06-02T04:00:00Z</date>
 			<key>high</key>
-			<real>429.96000000000004</real>
+			<real>429.96</real>
 			<key>low</key>
-			<real>423.39999999999998</real>
+			<real>423.4</real>
 			<key>open</key>
 			<real>426.25</real>
 			<key>volume</key>
@@ -216,49 +216,49 @@
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>426.56000000000006</real>
+			<real>426.5600000000001</real>
 			<key>close</key>
-			<real>426.56000000000006</real>
+			<real>426.5600000000001</real>
 			<key>date</key>
 			<date>2009-06-01T04:00:00Z</date>
 			<key>high</key>
-			<real>429.60000000000002</real>
+			<real>429.6</real>
 			<key>low</key>
-			<real>418.53000000000003</real>
+			<real>418.53</real>
 			<key>open</key>
-			<real>418.73000000000002</real>
+			<real>418.73</real>
 			<key>volume</key>
 			<real>3322400</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>417.23000000000002</real>
+			<real>417.23</real>
 			<key>close</key>
-			<real>417.23000000000002</real>
+			<real>417.23</real>
 			<key>date</key>
 			<date>2009-05-29T04:00:00Z</date>
 			<key>high</key>
-			<real>417.23000000000002</real>
+			<real>417.23</real>
 			<key>low</key>
-			<real>410.69999999999999</real>
+			<real>410.7</real>
 			<key>open</key>
-			<real>412.11000000000001</real>
+			<real>412.11</real>
 			<key>volume</key>
 			<real>2648200</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>410.39999999999998</real>
+			<real>410.4</real>
 			<key>close</key>
-			<real>410.39999999999998</real>
+			<real>410.4</real>
 			<key>date</key>
 			<date>2009-05-28T04:00:00Z</date>
 			<key>high</key>
 			<real>411.62</real>
 			<key>low</key>
-			<real>404.61000000000001</real>
+			<real>404.61</real>
 			<key>open</key>
-			<real>408.68000000000001</real>
+			<real>408.68</real>
 			<key>volume</key>
 			<real>2668800</real>
 		</dict>
@@ -270,19 +270,19 @@
 			<key>date</key>
 			<date>2009-05-27T04:00:00Z</date>
 			<key>high</key>
-			<real>411.86000000000001</real>
+			<real>411.86</real>
 			<key>low</key>
 			<real>404.81</real>
 			<key>open</key>
-			<real>405.63999999999999</real>
+			<real>405.64</real>
 			<key>volume</key>
 			<real>3034300</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>404.36000000000001</real>
+			<real>404.36</real>
 			<key>close</key>
-			<real>404.36000000000001</real>
+			<real>404.36</real>
 			<key>date</key>
 			<date>2009-05-26T04:00:00Z</date>
 			<key>high</key>
@@ -290,7 +290,7 @@
 			<key>low</key>
 			<real>390</real>
 			<key>open</key>
-			<real>391.94999999999999</real>
+			<real>391.95</real>
 			<key>volume</key>
 			<real>3104500</real>
 		</dict>
@@ -302,11 +302,11 @@
 			<key>date</key>
 			<date>2009-05-22T04:00:00Z</date>
 			<key>high</key>
-			<real>398.64999999999998</real>
+			<real>398.65</real>
 			<key>low</key>
 			<real>392</real>
 			<key>open</key>
-			<real>396.65999999999997</real>
+			<real>396.66</real>
 			<key>volume</key>
 			<real>1718600</real>
 		</dict>
@@ -318,27 +318,27 @@
 			<key>date</key>
 			<date>2009-05-21T04:00:00Z</date>
 			<key>high</key>
-			<real>402.84000000000003</real>
+			<real>402.84</real>
 			<key>low</key>
-			<real>393.84000000000003</real>
+			<real>393.84</real>
 			<key>open</key>
-			<real>396.30000000000001</real>
+			<real>396.3</real>
 			<key>volume</key>
 			<real>2719800</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>397.18000000000001</real>
+			<real>397.18</real>
 			<key>close</key>
-			<real>397.18000000000001</real>
+			<real>397.18</real>
 			<key>date</key>
 			<date>2009-05-20T04:00:00Z</date>
 			<key>high</key>
-			<real>405.66999999999996</real>
+			<real>405.67</real>
 			<key>low</key>
 			<real>395</real>
 			<key>open</key>
-			<real>402.09000000000003</real>
+			<real>402.09</real>
 			<key>volume</key>
 			<real>2284000</real>
 		</dict>
@@ -350,27 +350,27 @@
 			<key>date</key>
 			<date>2009-05-19T04:00:00Z</date>
 			<key>high</key>
-			<real>401.63999999999999</real>
+			<real>401.64</real>
 			<key>low</key>
 			<real>393</real>
 			<key>open</key>
-			<real>396.10000000000002</real>
+			<real>396.1</real>
 			<key>volume</key>
 			<real>2837500</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>396.84000000000003</real>
+			<real>396.84</real>
 			<key>close</key>
-			<real>396.84000000000003</real>
+			<real>396.84</real>
 			<key>date</key>
 			<date>2009-05-18T04:00:00Z</date>
 			<key>high</key>
 			<real>397.31</real>
 			<key>low</key>
-			<real>385.39999999999998</real>
+			<real>385.4</real>
 			<key>open</key>
-			<real>394.73000000000002</real>
+			<real>394.73</real>
 			<key>volume</key>
 			<real>3351700</real>
 		</dict>
@@ -382,11 +382,11 @@
 			<key>date</key>
 			<date>2009-05-15T04:00:00Z</date>
 			<key>high</key>
-			<real>394.11000000000001</real>
+			<real>394.11</real>
 			<key>low</key>
-			<real>389.09000000000003</real>
+			<real>389.09</real>
 			<key>open</key>
-			<real>391.10000000000002</real>
+			<real>391.1</real>
 			<key>volume</key>
 			<real>3008700</real>
 		</dict>
@@ -398,67 +398,67 @@
 			<key>date</key>
 			<date>2009-05-14T04:00:00Z</date>
 			<key>high</key>
-			<real>392.20999999999998</real>
+			<real>392.21</real>
 			<key>low</key>
 			<real>384.69</real>
 			<key>open</key>
-			<real>388.80000000000001</real>
+			<real>388.8</real>
 			<key>volume</key>
 			<real>2937000</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>389.54000000000002</real>
+			<real>389.54</real>
 			<key>close</key>
-			<real>389.54000000000002</real>
+			<real>389.54</real>
 			<key>date</key>
 			<date>2009-05-13T04:00:00Z</date>
 			<key>high</key>
-			<real>396.38999999999999</real>
+			<real>396.39</real>
 			<key>low</key>
-			<real>388.35000000000002</real>
+			<real>388.35</real>
 			<key>open</key>
-			<real>394.09000000000003</real>
+			<real>394.09</real>
 			<key>volume</key>
 			<real>2842800</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>399.00999999999999</real>
+			<real>399.01</real>
 			<key>close</key>
-			<real>399.00999999999999</real>
+			<real>399.01</real>
 			<key>date</key>
 			<date>2009-05-12T04:00:00Z</date>
 			<key>high</key>
-			<real>410.98999999999995</real>
+			<real>410.99</real>
 			<key>low</key>
-			<real>395.11000000000001</real>
+			<real>395.11</real>
 			<key>open</key>
-			<real>410.01000000000005</real>
+			<real>410.01</real>
 			<key>volume</key>
 			<real>3790800</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>407.98000000000002</real>
+			<real>407.98</real>
 			<key>close</key>
-			<real>407.98000000000002</real>
+			<real>407.98</real>
 			<key>date</key>
 			<date>2009-05-11T04:00:00Z</date>
 			<key>high</key>
 			<real>412</real>
 			<key>low</key>
-			<real>401.19999999999999</real>
+			<real>401.2</real>
 			<key>open</key>
-			<real>402.80000000000001</real>
+			<real>402.8</real>
 			<key>volume</key>
 			<real>2559300</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>407.33000000000004</real>
+			<real>407.33</real>
 			<key>close</key>
-			<real>407.33000000000004</real>
+			<real>407.33</real>
 			<key>date</key>
 			<date>2009-05-08T04:00:00Z</date>
 			<key>high</key>
@@ -466,47 +466,47 @@
 			<key>low</key>
 			<real>395</real>
 			<key>open</key>
-			<real>402.85000000000002</real>
+			<real>402.85</real>
 			<key>volume</key>
 			<real>3865100</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>396.61000000000001</real>
+			<real>396.61</real>
 			<key>close</key>
-			<real>396.61000000000001</real>
+			<real>396.61</real>
 			<key>date</key>
 			<date>2009-05-07T04:00:00Z</date>
 			<key>high</key>
-			<real>404.99000000000001</real>
+			<real>404.99</real>
 			<key>low</key>
 			<real>392.5</real>
 			<key>open</key>
-			<real>404.10000000000002</real>
+			<real>404.1</real>
 			<key>volume</key>
 			<real>2999800</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>403.46999999999997</real>
+			<real>403.47</real>
 			<key>close</key>
-			<real>403.46999999999997</real>
+			<real>403.47</real>
 			<key>date</key>
 			<date>2009-05-06T04:00:00Z</date>
 			<key>high</key>
-			<real>408.28000000000003</real>
+			<real>408.28</real>
 			<key>low</key>
 			<real>401</real>
 			<key>open</key>
-			<real>406.79000000000002</real>
+			<real>406.79</real>
 			<key>volume</key>
 			<real>2632900</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>402.99000000000001</real>
+			<real>402.99</real>
 			<key>close</key>
-			<real>402.99000000000001</real>
+			<real>402.99</real>
 			<key>date</key>
 			<date>2009-05-05T04:00:00Z</date>
 			<key>high</key>
@@ -514,23 +514,23 @@
 			<key>low</key>
 			<real>397.25</real>
 			<key>open</key>
-			<real>399.98000000000002</real>
+			<real>399.98</real>
 			<key>volume</key>
 			<real>2400800</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>401.98000000000002</real>
+			<real>401.98</real>
 			<key>close</key>
-			<real>401.98000000000002</real>
+			<real>401.98</real>
 			<key>date</key>
 			<date>2009-05-04T04:00:00Z</date>
 			<key>high</key>
-			<real>402.39999999999998</real>
+			<real>402.4</real>
 			<key>low</key>
-			<real>394.79000000000002</real>
+			<real>394.79</real>
 			<key>open</key>
-			<real>398.16999999999996</real>
+			<real>398.17</real>
 			<key>volume</key>
 			<real>3203000</real>
 		</dict>
@@ -542,57 +542,57 @@
 			<key>date</key>
 			<date>2009-05-01T04:00:00Z</date>
 			<key>high</key>
-			<real>397.59000000000003</real>
+			<real>397.59</real>
 			<key>low</key>
-			<real>391.55000000000001</real>
+			<real>391.55</real>
 			<key>open</key>
-			<real>395.03000000000003</real>
+			<real>395.03</real>
 			<key>volume</key>
 			<real>2427700</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>395.96999999999997</real>
+			<real>395.97</real>
 			<key>close</key>
-			<real>395.96999999999997</real>
+			<real>395.97</real>
 			<key>date</key>
 			<date>2009-04-30T04:00:00Z</date>
 			<key>high</key>
 			<real>403.75</real>
 			<key>low</key>
-			<real>394.80000000000001</real>
+			<real>394.8</real>
 			<key>open</key>
-			<real>395.75999999999999</real>
+			<real>395.76</real>
 			<key>volume</key>
 			<real>4355700</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>391.46999999999997</real>
+			<real>391.47</real>
 			<key>close</key>
-			<real>391.46999999999997</real>
+			<real>391.47</real>
 			<key>date</key>
 			<date>2009-04-29T04:00:00Z</date>
 			<key>high</key>
-			<real>394.96999999999997</real>
+			<real>394.97</real>
 			<key>low</key>
-			<real>385.83000000000004</real>
+			<real>385.83</real>
 			<key>open</key>
-			<real>385.96999999999997</real>
+			<real>385.97</real>
 			<key>volume</key>
 			<real>3610000</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>383.70999999999998</real>
+			<real>383.71</real>
 			<key>close</key>
-			<real>383.70999999999998</real>
+			<real>383.71</real>
 			<key>date</key>
 			<date>2009-04-28T04:00:00Z</date>
 			<key>high</key>
-			<real>389.05000000000001</real>
+			<real>389.05</real>
 			<key>low</key>
-			<real>381.54000000000002</real>
+			<real>381.54</real>
 			<key>open</key>
 			<real>383.75</real>
 			<key>volume</key>
@@ -600,33 +600,33 @@
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>385.94999999999999</real>
+			<real>385.95</real>
 			<key>close</key>
-			<real>385.94999999999999</real>
+			<real>385.95</real>
 			<key>date</key>
 			<date>2009-04-27T04:00:00Z</date>
 			<key>high</key>
-			<real>389.49000000000001</real>
+			<real>389.49</real>
 			<key>low</key>
 			<real>382.75</real>
 			<key>open</key>
-			<real>384.34000000000003</real>
+			<real>384.34</real>
 			<key>volume</key>
 			<real>2290600</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>389.49000000000001</real>
+			<real>389.49</real>
 			<key>close</key>
-			<real>389.49000000000001</real>
+			<real>389.49</real>
 			<key>date</key>
 			<date>2009-04-24T04:00:00Z</date>
 			<key>high</key>
-			<real>393.18000000000001</real>
+			<real>393.18</real>
 			<key>low</key>
 			<real>380.5</real>
 			<key>open</key>
-			<real>386.05000000000001</real>
+			<real>386.05</real>
 			<key>volume</key>
 			<real>3385400</real>
 		</dict>
@@ -640,23 +640,23 @@
 			<key>high</key>
 			<real>389.75</real>
 			<key>low</key>
-			<real>381.11000000000001</real>
+			<real>381.11</real>
 			<key>open</key>
-			<real>387.50999999999999</real>
+			<real>387.51</real>
 			<key>volume</key>
 			<real>2609000</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>383.86000000000001</real>
+			<real>383.86</real>
 			<key>close</key>
-			<real>383.86000000000001</real>
+			<real>383.86</real>
 			<key>date</key>
 			<date>2009-04-22T04:00:00Z</date>
 			<key>high</key>
 			<real>390</real>
 			<key>low</key>
-			<real>379.00999999999999</real>
+			<real>379.01</real>
 			<key>open</key>
 			<real>381.75</real>
 			<key>volume</key>
@@ -664,63 +664,63 @@
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>381.46999999999997</real>
+			<real>381.47</real>
 			<key>close</key>
-			<real>381.46999999999997</real>
+			<real>381.47</real>
 			<key>date</key>
 			<date>2009-04-21T04:00:00Z</date>
 			<key>high</key>
-			<real>384.30000000000001</real>
+			<real>384.3</real>
 			<key>low</key>
-			<real>376.10000000000002</real>
+			<real>376.1</real>
 			<key>open</key>
-			<real>376.16999999999996</real>
+			<real>376.17</real>
 			<key>volume</key>
 			<real>3695400</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>379.30000000000001</real>
+			<real>379.3</real>
 			<key>close</key>
-			<real>379.30000000000001</real>
+			<real>379.3</real>
 			<key>date</key>
 			<date>2009-04-20T04:00:00Z</date>
 			<key>high</key>
-			<real>390.64999999999998</real>
+			<real>390.65</real>
 			<key>low</key>
-			<real>375.88999999999999</real>
+			<real>375.89</real>
 			<key>open</key>
-			<real>386.14999999999998</real>
+			<real>386.15</real>
 			<key>volume</key>
 			<real>4428900</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>392.24000000000001</real>
+			<real>392.24</real>
 			<key>close</key>
-			<real>392.24000000000001</real>
+			<real>392.24</real>
 			<key>date</key>
 			<date>2009-04-17T04:00:00Z</date>
 			<key>high</key>
-			<real>399.81999999999999</real>
+			<real>399.82</real>
 			<key>low</key>
 			<real>384.81</real>
 			<key>open</key>
-			<real>386.01999999999998</real>
+			<real>386.02</real>
 			<key>volume</key>
 			<real>10730800</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>388.74000000000001</real>
+			<real>388.74</real>
 			<key>close</key>
-			<real>388.74000000000001</real>
+			<real>388.74</real>
 			<key>date</key>
 			<date>2009-04-16T04:00:00Z</date>
 			<key>high</key>
-			<real>392.89999999999998</real>
+			<real>392.9</real>
 			<key>low</key>
-			<real>381.01999999999998</real>
+			<real>381.02</real>
 			<key>open</key>
 			<real>381.5</real>
 			<key>volume</key>
@@ -736,23 +736,23 @@
 			<key>high</key>
 			<real>381.06</real>
 			<key>low</key>
-			<real>364.15999999999997</real>
+			<real>364.16</real>
 			<key>open</key>
-			<real>367.10000000000002</real>
+			<real>367.1</real>
 			<key>volume</key>
 			<real>4930700</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>368.90999999999997</real>
+			<real>368.91</real>
 			<key>close</key>
-			<real>368.90999999999997</real>
+			<real>368.91</real>
 			<key>date</key>
 			<date>2009-04-14T04:00:00Z</date>
 			<key>high</key>
-			<real>376.99000000000001</real>
+			<real>376.99</real>
 			<key>low</key>
-			<real>365.60000000000002</real>
+			<real>365.6</real>
 			<key>open</key>
 			<real>376.94</real>
 			<key>volume</key>
@@ -760,17 +760,17 @@
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>378.11000000000001</real>
+			<real>378.11</real>
 			<key>close</key>
-			<real>378.11000000000001</real>
+			<real>378.11</real>
 			<key>date</key>
 			<date>2009-04-13T04:00:00Z</date>
 			<key>high</key>
-			<real>379.10000000000002</real>
+			<real>379.1</real>
 			<key>low</key>
-			<real>370.30000000000001</real>
+			<real>370.3</real>
 			<key>open</key>
-			<real>371.33000000000004</real>
+			<real>371.33</real>
 			<key>volume</key>
 			<real>3050100</real>
 		</dict>
@@ -782,7 +782,7 @@
 			<key>date</key>
 			<date>2009-04-09T04:00:00Z</date>
 			<key>high</key>
-			<real>374.35000000000002</real>
+			<real>374.35</real>
 			<key>low</key>
 			<real>366.25</real>
 			<key>open</key>
@@ -800,7 +800,7 @@
 			<key>high</key>
 			<real>365</real>
 			<key>low</key>
-			<real>356.20999999999998</real>
+			<real>356.21</real>
 			<key>open</key>
 			<real>363.5</real>
 			<key>volume</key>
@@ -808,9 +808,9 @@
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>358.64999999999998</real>
+			<real>358.65</real>
 			<key>close</key>
-			<real>358.64999999999998</real>
+			<real>358.65</real>
 			<key>date</key>
 			<date>2009-04-07T04:00:00Z</date>
 			<key>high</key>
@@ -818,21 +818,21 @@
 			<key>low</key>
 			<real>355.31</real>
 			<key>open</key>
-			<real>362.60000000000002</real>
+			<real>362.6</real>
 			<key>volume</key>
 			<real>3680100</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>368.24000000000001</real>
+			<real>368.24</real>
 			<key>close</key>
-			<real>368.24000000000001</real>
+			<real>368.24</real>
 			<key>date</key>
 			<date>2009-04-06T04:00:00Z</date>
 			<key>high</key>
-			<real>369.81999999999999</real>
+			<real>369.82</real>
 			<key>low</key>
-			<real>361.39999999999998</real>
+			<real>361.4</real>
 			<key>open</key>
 			<real>367</real>
 			<key>volume</key>
@@ -840,13 +840,13 @@
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>369.78000000000003</real>
+			<real>369.78</real>
 			<key>close</key>
-			<real>369.78000000000003</real>
+			<real>369.78</real>
 			<key>date</key>
 			<date>2009-04-03T04:00:00Z</date>
 			<key>high</key>
-			<real>371.71999999999997</real>
+			<real>371.72</real>
 			<key>low</key>
 			<real>358</real>
 			<key>open</key>
@@ -862,9 +862,9 @@
 			<key>date</key>
 			<date>2009-04-02T04:00:00Z</date>
 			<key>high</key>
-			<real>369.75999999999999</real>
+			<real>369.76</real>
 			<key>low</key>
-			<real>360.31999999999999</real>
+			<real>360.32</real>
 			<key>open</key>
 			<real>363.31</real>
 			<key>volume</key>
@@ -872,17 +872,17 @@
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>354.09000000000003</real>
+			<real>354.09</real>
 			<key>close</key>
-			<real>354.09000000000003</real>
+			<real>354.09</real>
 			<key>date</key>
 			<date>2009-04-01T04:00:00Z</date>
 			<key>high</key>
-			<real>355.24000000000001</real>
+			<real>355.24</real>
 			<key>low</key>
-			<real>340.61000000000001</real>
+			<real>340.61</real>
 			<key>open</key>
-			<real>343.78000000000003</real>
+			<real>343.78</real>
 			<key>volume</key>
 			<real>3301200</real>
 		</dict>
@@ -894,11 +894,11 @@
 			<key>date</key>
 			<date>2009-03-31T04:00:00Z</date>
 			<key>high</key>
-			<real>353.50999999999999</real>
+			<real>353.51</real>
 			<key>low</key>
-			<real>346.18000000000001</real>
+			<real>346.18</real>
 			<key>open</key>
-			<real>348.93000000000001</real>
+			<real>348.93</real>
 			<key>volume</key>
 			<real>3655300</real>
 		</dict>
@@ -912,23 +912,23 @@
 			<key>high</key>
 			<real>343.81</real>
 			<key>low</key>
-			<real>336.05000000000001</real>
+			<real>336.05</real>
 			<key>open</key>
-			<real>342.55000000000001</real>
+			<real>342.55</real>
 			<key>volume</key>
 			<real>3094100</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>347.69999999999999</real>
+			<real>347.7</real>
 			<key>close</key>
-			<real>347.69999999999999</real>
+			<real>347.7</real>
 			<key>date</key>
 			<date>2009-03-27T04:00:00Z</date>
 			<key>high</key>
 			<real>352</real>
 			<key>low</key>
-			<real>345.46999999999997</real>
+			<real>345.47</real>
 			<key>open</key>
 			<real>350</real>
 			<key>volume</key>
@@ -936,13 +936,13 @@
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>353.29000000000002</real>
+			<real>353.29</real>
 			<key>close</key>
-			<real>353.29000000000002</real>
+			<real>353.29</real>
 			<key>date</key>
 			<date>2009-03-26T04:00:00Z</date>
 			<key>high</key>
-			<real>359.15999999999997</real>
+			<real>359.16</real>
 			<key>low</key>
 			<real>348.5</real>
 			<key>open</key>
@@ -952,29 +952,29 @@
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>344.06999999999999</real>
+			<real>344.07</real>
 			<key>close</key>
-			<real>344.06999999999999</real>
+			<real>344.07</real>
 			<key>date</key>
 			<date>2009-03-25T04:00:00Z</date>
 			<key>high</key>
-			<real>351.34000000000003</real>
+			<real>351.34</real>
 			<key>low</key>
 			<real>336.25</real>
 			<key>open</key>
-			<real>350.39999999999998</real>
+			<real>350.4</real>
 			<key>volume</key>
 			<real>4336300</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>347.16999999999996</real>
+			<real>347.17</real>
 			<key>close</key>
-			<real>347.16999999999996</real>
+			<real>347.17</real>
 			<key>date</key>
 			<date>2009-03-24T04:00:00Z</date>
 			<key>high</key>
-			<real>353.84000000000003</real>
+			<real>353.84</real>
 			<key>low</key>
 			<real>344</real>
 			<key>open</key>
@@ -984,15 +984,15 @@
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>348.60000000000002</real>
+			<real>348.6</real>
 			<key>close</key>
-			<real>348.60000000000002</real>
+			<real>348.6</real>
 			<key>date</key>
 			<date>2009-03-23T04:00:00Z</date>
 			<key>high</key>
-			<real>349.44999999999999</real>
+			<real>349.45</real>
 			<key>low</key>
-			<real>333.03000000000003</real>
+			<real>333.03</real>
 			<key>open</key>
 			<real>333.56</real>
 			<key>volume</key>
@@ -1000,17 +1000,17 @@
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>330.15999999999997</real>
+			<real>330.16</real>
 			<key>close</key>
-			<real>330.15999999999997</real>
+			<real>330.16</real>
 			<key>date</key>
 			<date>2009-03-20T04:00:00Z</date>
 			<key>high</key>
-			<real>332.99000000000001</real>
+			<real>332.99</real>
 			<key>low</key>
-			<real>326.34000000000003</real>
+			<real>326.34</real>
 			<key>open</key>
-			<real>330.30000000000001</real>
+			<real>330.3</real>
 			<key>volume</key>
 			<real>4737900</real>
 		</dict>
@@ -1026,21 +1026,21 @@
 			<key>low</key>
 			<real>327.38</real>
 			<key>open</key>
-			<real>331.68000000000001</real>
+			<real>331.68</real>
 			<key>volume</key>
 			<real>4111200</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>333.10000000000002</real>
+			<real>333.1</real>
 			<key>close</key>
-			<real>333.10000000000002</real>
+			<real>333.1</real>
 			<key>date</key>
 			<date>2009-03-18T04:00:00Z</date>
 			<key>high</key>
 			<real>340</real>
 			<key>low</key>
-			<real>328.05000000000001</real>
+			<real>328.05</real>
 			<key>open</key>
 			<real>334.81</real>
 			<key>volume</key>
@@ -1048,17 +1048,17 @@
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>335.34000000000003</real>
+			<real>335.34</real>
 			<key>close</key>
-			<real>335.34000000000003</real>
+			<real>335.34</real>
 			<key>date</key>
 			<date>2009-03-17T04:00:00Z</date>
 			<key>high</key>
-			<real>335.34000000000003</real>
+			<real>335.34</real>
 			<key>low</key>
-			<real>319.09000000000003</real>
+			<real>319.09</real>
 			<key>open</key>
-			<real>320.18000000000001</real>
+			<real>320.18</real>
 			<key>volume</key>
 			<real>4712500</real>
 		</dict>
@@ -1070,35 +1070,35 @@
 			<key>date</key>
 			<date>2009-03-16T04:00:00Z</date>
 			<key>high</key>
-			<real>329.73000000000002</real>
+			<real>329.73</real>
 			<key>low</key>
-			<real>318.59000000000003</real>
+			<real>318.59</real>
 			<key>open</key>
-			<real>325.99000000000001</real>
+			<real>325.99</real>
 			<key>volume</key>
 			<real>4946800</real>
 		</dict>
 		<dict>
 			<key>adjClose</key>
-			<real>324.41999999999996</real>
+			<real>324.42</real>
 			<key>close</key>
-			<real>324.41999999999996</real>
+			<real>324.42</real>
 			<key>date</key>
 			<date>2009-03-13T04:00:00Z</date>
 			<key>high</key>
-			<real>327.45999999999998</real>
+			<real>327.46</real>
 			<key>low</key>
-			<real>319.03000000000003</real>
+			<real>319.03</real>
 			<key>open</key>
-			<real>326.10000000000002</real>
+			<real>326.1</real>
 			<key>volume</key>
 			<real>3906400</real>
 		</dict>
 	</array>
 	<key>overallHigh</key>
-	<real>447.33999999999997</real>
+	<real>447.34</real>
 	<key>overallLow</key>
-	<real>318.59000000000003</real>
+	<real>318.59</real>
 	<key>startDate</key>
 	<date>2009-03-13T06:53:47Z</date>
 	<key>symbol</key>
