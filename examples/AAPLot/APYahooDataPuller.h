@@ -28,6 +28,6 @@ typedef NSArray<CPTDictionary> *CPTFinancialDataArray;
 @property (nonatomic, readonly, strong) NSDecimalNumber *overallVolumeLow;
 @property (nonatomic, readonly, assign) BOOL loadingData;
 
--(id)initWithTargetSymbol:(NSString *)aSymbol targetStartDate:(NSDate *)aStartDate targetEndDate:(NSDate *)anEndDate;
+-(instancetype)initWithTargetSymbol:(NSString *)aSymbol targetStartDate:(NSDate *)aStartDate targetEndDate:(NSDate *)anEndDate;
 
 @end

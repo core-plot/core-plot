@@ -51,7 +51,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
     }
 }
 
--(id)init
+-(instancetype)init
 {
     if ( (self = [super init]) ) {
         defaultLayerHostingView = nil;

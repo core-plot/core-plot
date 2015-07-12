@@ -41,7 +41,7 @@ static PlotGallery *sharedPlotGallery = nil;
     return sharedPlotGallery;
 }
 
--(id)init
+-(instancetype)init
 {
     Class thisClass = [self class];
 

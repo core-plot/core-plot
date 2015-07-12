@@ -113,7 +113,7 @@ void drawErrorText(CGContextRef context, CGRect rect)
     return kQCPlugInTimeModeNone;
 }
 
--(id)init
+-(instancetype)init
 {
     if ( (self = [super init]) ) {
         /*
