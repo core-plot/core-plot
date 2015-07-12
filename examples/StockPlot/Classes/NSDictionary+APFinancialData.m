@@ -23,7 +23,7 @@
 
 @end
 
-@implementation  NSDictionary(APFinancalData)
+@implementation NSDictionary(APFinancialData)
 
 +(id)dictionaryWithCSVLine:(NSString *)csvLine
 {
