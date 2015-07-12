@@ -1,5 +1,5 @@
 #import "APYahooDataPuller.h"
-#import "NSDictionary+APFinancalData.h"
+#import "NSDictionary+APFinancialData.h"
 
 @interface APYahooDataPuller()
 

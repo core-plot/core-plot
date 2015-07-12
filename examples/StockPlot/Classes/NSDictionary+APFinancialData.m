@@ -1,4 +1,4 @@
-#import "NSDictionary+APFinancalData.h"
+#import "NSDictionary+APFinancialData.h"
 
 @interface NSDateFormatter(yahooCSVDateFormatter)
 
