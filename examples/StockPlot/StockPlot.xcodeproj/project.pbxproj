@@ -21,7 +21,7 @@
 		AB0363AD0FEF368A007B09A9 /* AAPL.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB6FA60C0FEB6DAA008DB04A /* AAPL.plist */; };
 		AB0364770FEF4603007B09A9 /* caution.png in Resources */ = {isa = PBXBuildFile; fileRef = AB0364760FEF4603007B09A9 /* caution.png */; };
 		AB4913C80FECC2B8008A08AB /* APYahooDataPuller.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4913C60FECC2B8008A08AB /* APYahooDataPuller.m */; };
-		AB4913C90FECC2B8008A08AB /* NSDictionary+APFinancalData.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4913C70FECC2B8008A08AB /* NSDictionary+APFinancalData.m */; };
+		AB4913C90FECC2B8008A08AB /* NSDictionary+APFinancialData.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4913C70FECC2B8008A08AB /* NSDictionary+APFinancialData.m */; };
 		AB6FA4A40FEB579B008DB04A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6FA4A30FEB579B008DB04A /* QuartzCore.framework */; };
 		AB6FA5590FEB6235008DB04A /* APYahooDataPullerGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6FA5570FEB6235008DB04A /* APYahooDataPullerGraph.m */; };
 		AB6FA55A0FEB6235008DB04A /* APYahooDataPullerGraph.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB6FA5580FEB6235008DB04A /* APYahooDataPullerGraph.xib */; };
@@ -66,9 +66,9 @@
 		AB0364760FEF4603007B09A9 /* caution.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = caution.png; sourceTree = SOURCE_ROOT; };
 		AB4913C50FECC2B8008A08AB /* APYahooDataPuller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APYahooDataPuller.h; path = Classes/APYahooDataPuller.h; sourceTree = SOURCE_ROOT; };
 		AB4913C60FECC2B8008A08AB /* APYahooDataPuller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = APYahooDataPuller.m; path = Classes/APYahooDataPuller.m; sourceTree = SOURCE_ROOT; };
-		AB4913C70FECC2B8008A08AB /* NSDictionary+APFinancalData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+APFinancalData.m"; path = "Classes/NSDictionary+APFinancalData.m"; sourceTree = SOURCE_ROOT; };
+		AB4913C70FECC2B8008A08AB /* NSDictionary+APFinancialData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+APFinancialData.m"; path = "Classes/NSDictionary+APFinancialData.m"; sourceTree = SOURCE_ROOT; };
 		AB6FA4A30FEB579B008DB04A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		AB6FA4DE0FEB59DB008DB04A /* NSDictionary+APFinancalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+APFinancalData.h"; sourceTree = "<group>"; };
+		AB6FA4DE0FEB59DB008DB04A /* NSDictionary+APFinancialData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+APFinancialData.h"; sourceTree = "<group>"; };
 		AB6FA5560FEB6235008DB04A /* APYahooDataPullerGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APYahooDataPullerGraph.h; sourceTree = "<group>"; };
 		AB6FA5570FEB6235008DB04A /* APYahooDataPullerGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APYahooDataPullerGraph.m; sourceTree = "<group>"; };
 		AB6FA5580FEB6235008DB04A /* APYahooDataPullerGraph.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = APYahooDataPullerGraph.xib; path = Classes/APYahooDataPullerGraph.xib; sourceTree = "<group>"; };
@@ -104,8 +104,8 @@
 			children = (
 				AB4913C50FECC2B8008A08AB /* APYahooDataPuller.h */,
 				AB4913C60FECC2B8008A08AB /* APYahooDataPuller.m */,
-				AB6FA4DE0FEB59DB008DB04A /* NSDictionary+APFinancalData.h */,
-				AB4913C70FECC2B8008A08AB /* NSDictionary+APFinancalData.m */,
+				AB6FA4DE0FEB59DB008DB04A /* NSDictionary+APFinancialData.h */,
+				AB4913C70FECC2B8008A08AB /* NSDictionary+APFinancialData.m */,
 				28C286DF0D94DF7D0034E888 /* RootViewController.h */,
 				28C286E00D94DF7D0034E888 /* RootViewController.m */,
 				1D3623240D0F684500981E51 /* StockPlotAppDelegate.h */,
@@ -288,7 +288,7 @@
 				28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */,
 				AB6FA5590FEB6235008DB04A /* APYahooDataPullerGraph.m in Sources */,
 				AB4913C80FECC2B8008A08AB /* APYahooDataPuller.m in Sources */,
-				AB4913C90FECC2B8008A08AB /* NSDictionary+APFinancalData.m in Sources */,
+				AB4913C90FECC2B8008A08AB /* NSDictionary+APFinancialData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
