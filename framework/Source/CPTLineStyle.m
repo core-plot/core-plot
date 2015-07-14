@@ -108,6 +108,30 @@
     return [[self alloc] init];
 }
 
+/** @brief Creates and returns a new line style instance initialized from an existing line style.
+ *
+ *  The line style will be initialized with values from the given @par{lineStyle}.
+ *
+ *  @param lineStyle An existing CPTLineStyle.
+ *  @return A new line style instance.
+ **/
++(instancetype)lineStyleWithStyle:(CPTLineStyle *)lineStyle
+{
+    CPTLineStyle *newLineStyle = [[self alloc] init];
+
+    newLineStyle.lineCap      = lineStyle.lineCap;
+    newLineStyle.lineJoin     = lineStyle.lineJoin;
+    newLineStyle.miterLimit   = lineStyle.miterLimit;
+    newLineStyle.lineWidth    = lineStyle.lineWidth;
+    newLineStyle.dashPattern  = [lineStyle.dashPattern copy];
+    newLineStyle.patternPhase = lineStyle.patternPhase;
+    newLineStyle.lineColor    = lineStyle.lineColor;
+    newLineStyle.lineFill     = lineStyle.lineFill;
+    newLineStyle.lineGradient = lineStyle.lineGradient;
+
+    return newLineStyle;
+}
+
 /// @name Initialization
 /// @{
 
@@ -328,7 +352,7 @@
     styleCopy.lineJoin     = self.lineJoin;
     styleCopy.miterLimit   = self.miterLimit;
     styleCopy.lineWidth    = self.lineWidth;
-    styleCopy.dashPattern  = self.dashPattern;
+    styleCopy.dashPattern  = [self.dashPattern copy];
     styleCopy.patternPhase = self.patternPhase;
     styleCopy.lineColor    = self.lineColor;
     styleCopy.lineFill     = self.lineFill;
@@ -352,7 +376,7 @@
     styleCopy.lineJoin     = self.lineJoin;
     styleCopy.miterLimit   = self.miterLimit;
     styleCopy.lineWidth    = self.lineWidth;
-    styleCopy.dashPattern  = self.dashPattern;
+    styleCopy.dashPattern  = [self.dashPattern copy];
     styleCopy.patternPhase = self.patternPhase;
     styleCopy.lineColor    = self.lineColor;
     styleCopy.lineFill     = self.lineFill;
