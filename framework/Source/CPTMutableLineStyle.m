@@ -58,29 +58,4 @@
  **/
 @dynamic lineGradient;
 
-/** @brief Creates and returns a new CPTMutableLineStyle instance initialized from an existing CPTLineStyle.
- *
- *  The line style will be initalized with values from the given lineStyle, useful to create
- *  a mutable copy from an immutable instance.
- *
- *  @param lineStyle An existing CPTLineStyle.
- *  @return A new CPTMutableLineStyle instance.
- **/
-+(instancetype)lineStyleWithStyle:(CPTLineStyle *)lineStyle
-{
-    CPTMutableLineStyle *newStyle = [[CPTMutableLineStyle alloc] init];
-
-    newStyle.dashPattern  = [NSArray arrayWithArray:lineStyle.dashPattern];
-    newStyle.lineCap      = lineStyle.lineCap;
-    newStyle.lineColor    = lineStyle.lineColor;
-    newStyle.lineFill     = lineStyle.lineFill;
-    newStyle.lineGradient = lineStyle.lineGradient;
-    newStyle.lineJoin     = lineStyle.lineJoin;
-    newStyle.lineWidth    = lineStyle.lineWidth;
-    newStyle.miterLimit   = lineStyle.miterLimit;
-    newStyle.patternPhase = lineStyle.patternPhase;
-
-    return newStyle;
-}
-
 @end

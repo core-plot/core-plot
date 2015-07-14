@@ -63,6 +63,26 @@
     return [[self alloc] init];
 }
 
+/** @brief Creates and returns a new text style instance initialized from an existing text style.
+ *
+ *  The text style will be initalized with values from the given @par{textStyle}.
+ *
+ *  @param textStyle An existing CPTTextStyle.
+ *  @return A new text style instance.
+ **/
++(instancetype)textStyleWithStyle:(CPTTextStyle *)textStyle
+{
+    CPTTextStyle *newTextStyle = [[self alloc] init];
+
+    newTextStyle.color         = textStyle.color;
+    newTextStyle.fontName      = textStyle.fontName;
+    newTextStyle.fontSize      = textStyle.fontSize;
+    newTextStyle.textAlignment = textStyle.textAlignment;
+    newTextStyle.lineBreakMode = textStyle.lineBreakMode;
+
+    return newTextStyle;
+}
+
 #pragma mark -
 #pragma mark Init/Dealloc
 
@@ -136,6 +156,7 @@
     newCopy.fontSize      = self.fontSize;
     newCopy.textAlignment = self.textAlignment;
     newCopy.lineBreakMode = self.lineBreakMode;
+
     return newCopy;
 }
 
@@ -155,6 +176,7 @@
     newCopy.fontSize      = self.fontSize;
     newCopy.textAlignment = self.textAlignment;
     newCopy.lineBreakMode = self.lineBreakMode;
+
     return newCopy;
 }
 

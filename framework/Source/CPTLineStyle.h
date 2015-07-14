@@ -18,6 +18,7 @@
 /// @name Factory Methods
 /// @{
 +(instancetype)lineStyle;
++(instancetype)lineStyleWithStyle:(CPTLineStyle *)lineStyle;
 /// @}
 
 /// @name Drawing
