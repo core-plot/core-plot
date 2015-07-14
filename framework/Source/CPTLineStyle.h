@@ -18,6 +18,7 @@
 /// @name Factory Methods
 /// @{
 +(nonnull instancetype)lineStyle;
++(nonnull instancetype)lineStyleWithStyle:(nullable CPTLineStyle *)lineStyle;
 /// @}
 
 /// @name Drawing
