@@ -32,4 +32,24 @@
  **/
 @dynamic lineBreakMode;
 
+/** @brief Creates and returns a new CPTMutableTextStyle instance initialized from an existing CPTTextStyle.
+ *
+ *  The text style will be initalized with values from the given textStyle, useful to create
+ *  a mutable copy from an immutable instance.
+ *
+ *  @param textStyle An existing CPTTextStyle.
+ *  @return A new CPTMutableTextStyle instance.
+ **/
++ (instancetype)textStyleWithStyle:(CPTTextStyle*)textStyle
+{
+    CPTMutableTextStyle *newTextStyle = [[CPTMutableTextStyle alloc] init];
+    newTextStyle.color = textStyle.color;
+    newTextStyle.fontName = textStyle.fontName;
+    newTextStyle.fontSize = textStyle.fontSize;
+    newTextStyle.textAlignment = textStyle.textAlignment;
+    newTextStyle.lineBreakMode = textStyle.lineBreakMode;
+
+    return newTextStyle;
+}
+
 @end
