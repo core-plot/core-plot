@@ -14,6 +14,6 @@
 @property (nonatomic, readwrite, strong) CPTFill *lineFill;
 @property (nonatomic, readwrite, strong) CPTGradient *lineGradient;
 
-+ (instancetype)lineStyleWithStyle:(CPTLineStyle*)lineStyle;
++(instancetype)lineStyleWithStyle:(CPTLineStyle *)lineStyle;
 
 @end

@@ -40,12 +40,13 @@
  *  @param textStyle An existing CPTTextStyle.
  *  @return A new CPTMutableTextStyle instance.
  **/
-+ (instancetype)textStyleWithStyle:(CPTTextStyle*)textStyle
++(instancetype)textStyleWithStyle:(CPTTextStyle *)textStyle
 {
     CPTMutableTextStyle *newTextStyle = [[CPTMutableTextStyle alloc] init];
-    newTextStyle.color = textStyle.color;
-    newTextStyle.fontName = textStyle.fontName;
-    newTextStyle.fontSize = textStyle.fontSize;
+
+    newTextStyle.color         = textStyle.color;
+    newTextStyle.fontName      = textStyle.fontName;
+    newTextStyle.fontSize      = textStyle.fontSize;
     newTextStyle.textAlignment = textStyle.textAlignment;
     newTextStyle.lineBreakMode = textStyle.lineBreakMode;
 

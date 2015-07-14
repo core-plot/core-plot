@@ -66,19 +66,20 @@
  *  @param lineStyle An existing CPTLineStyle.
  *  @return A new CPTMutableLineStyle instance.
  **/
-+ (instancetype)lineStyleWithStyle:(CPTLineStyle*)lineStyle
++(instancetype)lineStyleWithStyle:(CPTLineStyle *)lineStyle
 {
     CPTMutableLineStyle *newStyle = [[CPTMutableLineStyle alloc] init];
-    newStyle.dashPattern = [NSArray arrayWithArray:lineStyle.dashPattern];
-    newStyle.lineCap = lineStyle.lineCap;
-    newStyle.lineColor = lineStyle.lineColor;
-    newStyle.lineFill = lineStyle.lineFill;
+
+    newStyle.dashPattern  = [NSArray arrayWithArray:lineStyle.dashPattern];
+    newStyle.lineCap      = lineStyle.lineCap;
+    newStyle.lineColor    = lineStyle.lineColor;
+    newStyle.lineFill     = lineStyle.lineFill;
     newStyle.lineGradient = lineStyle.lineGradient;
-    newStyle.lineJoin = lineStyle.lineJoin;
-    newStyle.lineWidth = lineStyle.lineWidth;
-    newStyle.miterLimit = lineStyle.miterLimit;
+    newStyle.lineJoin     = lineStyle.lineJoin;
+    newStyle.lineWidth    = lineStyle.lineWidth;
+    newStyle.miterLimit   = lineStyle.miterLimit;
     newStyle.patternPhase = lineStyle.patternPhase;
-    
+
     return newStyle;
 }
 
