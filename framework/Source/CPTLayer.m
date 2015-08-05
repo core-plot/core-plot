@@ -2,6 +2,7 @@
 
 #import "CPTGraph.h"
 #import "CPTPathExtensions.h"
+#import "CPTPlatformSpecificCategories.h"
 #import "CPTPlatformSpecificFunctions.h"
 #import "CPTShadow.h"
 #import "CPTUtilities.h"
@@ -1065,6 +1066,18 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
     }
 
     return result;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark Debugging
+
+/// @cond
+
+-(id)debugQuickLookObject
+{
+    return [self imageOfLayer];
 }
 
 /// @endcond

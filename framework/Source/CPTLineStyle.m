@@ -4,6 +4,8 @@
 #import "CPTFill.h"
 #import "CPTGradient.h"
 #import "CPTMutableLineStyle.h"
+#import "CPTPlatformSpecificFunctions.h"
+#import "CPTUtilities.h"
 #import "NSCoderExtensions.h"
 #import "NSNumberExtensions.h"
 
@@ -383,6 +385,25 @@
     styleCopy.lineGradient = self.lineGradient;
 
     return styleCopy;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark Debugging
+
+/// @cond
+
+-(id)debugQuickLookObject
+{
+    const CGRect rect = CGRectMake(0.0, 0.0, 100.0, 100.0);
+
+    return CPTQuickLookImage(rect, ^(CGContextRef context, CGFloat scale, CGRect bounds) {
+        const CGRect alignedRect = CPTAlignBorderedRectToUserSpace(context, bounds, self);
+
+        [self setLineStyleInContext:context];
+        [self strokeRect:alignedRect inContext:context];
+    });
 }
 
 /// @endcond

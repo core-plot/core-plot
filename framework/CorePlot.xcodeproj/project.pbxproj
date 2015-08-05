@@ -551,6 +551,8 @@
 		C3A695E5146A19BC00AF5653 /* CPTMutablePlotRange.h in Headers */ = {isa = PBXBuildFile; fileRef = C3A695E3146A19BC00AF5653 /* CPTMutablePlotRange.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3A695E6146A19BC00AF5653 /* CPTMutablePlotRange.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A695E4146A19BC00AF5653 /* CPTMutablePlotRange.m */; };
 		C3AFC9D10FB62969005DFFDC /* CPTImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C3AFC9CF0FB62969005DFFDC /* CPTImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C3BB93191B729BD200004527 /* CPTDebugQuickLook.h in Headers */ = {isa = PBXBuildFile; fileRef = C3BB93181B729BD200004527 /* CPTDebugQuickLook.h */; };
+		C3BB931A1B729BD200004527 /* CPTDebugQuickLook.h in Headers */ = {isa = PBXBuildFile; fileRef = C3BB93181B729BD200004527 /* CPTDebugQuickLook.h */; };
 		C3BFFD1112274CB500DE22AC /* CPTNumericDataTypeConversionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF08104D80D400B554F9 /* CPTNumericDataTypeConversionTests.m */; };
 		C3C1C0801790D3B400E8B1B7 /* CPTLayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C1C07F1790D3B400E8B1B7 /* CPTLayerTests.m */; };
 		C3C9CB0E165DB4D500739006 /* CPTAnimationOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = C3C9CB0C165DB4D500739006 /* CPTAnimationOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -874,6 +876,7 @@
 		C3B235631009931400970270 /* doxygen-cocoa-tags.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "doxygen-cocoa-tags.xml"; path = "../documentation/doxygen/doxygen-cocoa-tags.xml"; sourceTree = "<group>"; };
 		C3B25EDF1AC23A7D0063CCD8 /* CorePlot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CorePlot.h; sourceTree = "<group>"; };
 		C3BB7D1416322F7E00BC9515 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		C3BB93181B729BD200004527 /* CPTDebugQuickLook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTDebugQuickLook.h; sourceTree = "<group>"; };
 		C3C032C710B8DEDC003A11B6 /* CPTAxisLabelGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAxisLabelGroup.h; sourceTree = "<group>"; };
 		C3C032C810B8DEDC003A11B6 /* CPTAxisLabelGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CPTAxisLabelGroup.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C3C1C07E1790D3B400E8B1B7 /* CPTLayerTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTLayerTests.h; sourceTree = "<group>"; };
@@ -1276,6 +1279,7 @@
 				C3A695E4146A19BC00AF5653 /* CPTMutablePlotRange.m */,
 				C3F97F1C17A9E07B00A52FF2 /* CPTFunctionDataSource.h */,
 				C3F97F1D17A9E07B00A52FF2 /* CPTFunctionDataSource.m */,
+				C3BB93181B729BD200004527 /* CPTDebugQuickLook.h */,
 				076A775F0FBF0BFE003F6D97 /* Tests */,
 			);
 			name = "Types and Functions";
@@ -1749,6 +1753,7 @@
 				070622320FDF1B250066A6C4 /* CPTPathExtensions.h in Headers */,
 				0706223C0FDF215C0066A6C4 /* CPTBorderedLayer.h in Headers */,
 				07C4679B0FE1A24C00299939 /* CPTMutableTextStyle.h in Headers */,
+				C3BB93191B729BD200004527 /* CPTDebugQuickLook.h in Headers */,
 				07C467B80FE1A96E00299939 /* CPTTextStylePlatformSpecific.h in Headers */,
 				0772C9270FE2F71600EC4C16 /* CPTTheme.h in Headers */,
 				0772C92F0FE2F89000EC4C16 /* _CPTDarkGradientTheme.h in Headers */,
@@ -1897,6 +1902,7 @@
 				C38A0B241A46264500D45436 /* CPTPlatformSpecificFunctions.h in Headers */,
 				C38A0A3B1A461EDA00D45436 /* CPTAnnotationHostLayer.h in Headers */,
 				C38A0AF31A4625E800D45436 /* CPTAxisLabel.h in Headers */,
+				C3BB931A1B729BD200004527 /* CPTDebugQuickLook.h in Headers */,
 				C38A0A2F1A461EB100D45436 /* _CPTAnimationTimingFunctions.h in Headers */,
 				C38A0A4D1A461F1D00D45436 /* CPTMutableTextStyle.h in Headers */,
 				C38A0AA81A46240300D45436 /* CPTXYGraph.h in Headers */,

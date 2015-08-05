@@ -657,4 +657,18 @@ typedef NSMutableOrderedSet<NSString *> *CPTMutableCategorySet;
 {
 }
 
+#pragma mark -
+#pragma mark Debugging
+
+/// @cond
+
+-(id)debugQuickLookObject
+{
+    return [NSString stringWithFormat:@"Identifier: %@\nallowsUserInteraction: %@",
+            self.identifier,
+            self.allowsUserInteraction ? @"YES":@"NO"];
+}
+
+/// @endcond
+
 @end

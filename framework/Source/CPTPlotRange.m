@@ -601,4 +601,21 @@
 
 /// @endcond
 
+#pragma mark -
+#pragma mark Debugging
+
+/// @cond
+
+-(id)debugQuickLookObject
+{
+    NSDecimal myLocation = self.locationDecimal;
+    NSDecimal myLength   = self.lengthDecimal;
+
+    return [NSString stringWithFormat:@"Location: %@\nLength:   %@",
+            NSDecimalString(&myLocation, [NSLocale currentLocale]),
+            NSDecimalString(&myLength, [NSLocale currentLocale])];
+}
+
+/// @endcond
+
 @end

@@ -275,3 +275,8 @@ typedef NSDictionary<NSString *, id> *CPTDictionary;
  *  @brief A mutable array of strings.
  **/
 typedef NSMutableDictionary<NSString *, id> *CPTMutableDictionary;
+
+/**
+ *  @brief Render a Quick Look image into the given context.
+ **/
+typedef void (^CPTQuickLookImageBlock)(__nonnull CGContextRef context, CGFloat scale, CGRect bounds);

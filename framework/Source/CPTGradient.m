@@ -2,6 +2,7 @@
 
 #import "CPTColor.h"
 #import "CPTColorSpace.h"
+#import "CPTPlatformSpecificFunctions.h"
 #import "CPTUtilities.h"
 #import "NSCoderExtensions.h"
 #import <tgmath.h>
@@ -1619,6 +1620,31 @@ void CPTResolveHSV(CGFloat *color1, CGFloat *color2) // H value may be undefined
     else if ( isnan(color2[0]) ) {
         color2[0] = color1[0];
     }
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark Debugging
+
+/// @cond
+
+-(id)debugQuickLookObject
+{
+    const CGRect rect = CGRectMake(0.0, 0.0, 100.0, 100.0);
+
+    return CPTQuickLookImage(rect, ^(CGContextRef context, CGFloat scale, CGRect bounds) {
+        switch ( self.gradientType ) {
+            case CPTGradientTypeAxial:
+                CGContextAddRect(context, bounds);
+                break;
+
+            case CPTGradientTypeRadial:
+                CGContextAddEllipseInRect(context, bounds);
+                break;
+        }
+        [self fillPathInContext:context];
+    });
 }
 
 /// @endcond

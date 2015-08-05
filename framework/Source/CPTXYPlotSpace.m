@@ -4,6 +4,7 @@
 #import "CPTAnimationOperation.h"
 #import "CPTAnimationPeriod.h"
 #import "CPTAxisSet.h"
+#import "CPTDebugQuickLook.h"
 #import "CPTExceptions.h"
 #import "CPTGraph.h"
 #import "CPTGraphHostingView.h"
@@ -1734,6 +1735,81 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 -(void)animationDidFinish:(CPTAnimationOperation *)operation
 {
     [self.animations removeObjectIdenticalTo:operation];
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark Debugging
+
+/// @cond
+
+-(id)debugQuickLookObject
+{
+    // Plot space
+    NSString *plotAreaDesc = [super debugQuickLookObject];
+
+    // X-range
+    NSString *xScaleTypeDesc = nil;
+
+    switch ( self.xScaleType ) {
+        case CPTScaleTypeLinear:
+            xScaleTypeDesc = @"CPTScaleTypeLinear";
+            break;
+
+        case CPTScaleTypeLog:
+            xScaleTypeDesc = @"CPTScaleTypeLog";
+            break;
+
+        case CPTScaleTypeAngular:
+            xScaleTypeDesc = @"CPTScaleTypeAngular";
+            break;
+
+        case CPTScaleTypeDateTime:
+            xScaleTypeDesc = @"CPTScaleTypeDateTime";
+            break;
+
+        case CPTScaleTypeCategory:
+            xScaleTypeDesc = @"CPTScaleTypeCategory";
+            break;
+    }
+
+    NSString *xRangeDesc = [NSString stringWithFormat:@"xRange:\n%@\nglobalXRange:\n%@\nxScaleType: %@",
+                            [self.xRange debugQuickLookObject],
+                            [self.globalXRange debugQuickLookObject],
+                            xScaleTypeDesc];
+
+    // Y-range
+    NSString *yScaleTypeDesc = nil;
+
+    switch ( self.yScaleType ) {
+        case CPTScaleTypeLinear:
+            yScaleTypeDesc = @"CPTScaleTypeLinear";
+            break;
+
+        case CPTScaleTypeLog:
+            yScaleTypeDesc = @"CPTScaleTypeLog";
+            break;
+
+        case CPTScaleTypeAngular:
+            yScaleTypeDesc = @"CPTScaleTypeAngular";
+            break;
+
+        case CPTScaleTypeDateTime:
+            yScaleTypeDesc = @"CPTScaleTypeDateTime";
+            break;
+
+        case CPTScaleTypeCategory:
+            yScaleTypeDesc = @"CPTScaleTypeCategory";
+            break;
+    }
+
+    NSString *yRangeDesc = [NSString stringWithFormat:@"yRange:\n%@\nglobalYRange:\n%@\nyScaleType: %@",
+                            [self.yRange debugQuickLookObject],
+                            [self.globalYRange debugQuickLookObject],
+                            yScaleTypeDesc];
+
+    return [NSString stringWithFormat:@"%@\n\nX:\n%@\n\nY:\n%@", plotAreaDesc, xRangeDesc, yRangeDesc];
 }
 
 /// @endcond

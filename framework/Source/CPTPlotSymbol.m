@@ -3,6 +3,7 @@
 #import "CPTDefinitions.h"
 #import "CPTFill.h"
 #import "CPTLineStyle.h"
+#import "CPTPlatformSpecificFunctions.h"
 #import "CPTShadow.h"
 #import "NSCoderExtensions.h"
 #import <tgmath.h>
@@ -15,6 +16,7 @@
 @property (nonatomic, readwrite, assign) CGFloat cachedScale;
 
 -(CGPathRef)newSymbolPath;
+-(CGSize)layerSizeForScale:(CGFloat)scale;
 
 @end
 
@@ -457,33 +459,13 @@
  **/
 -(void)renderInContext:(CGContextRef)context atPoint:(CGPoint)center scale:(CGFloat)scale alignToPixels:(BOOL)alignToPixels
 {
-    const CGFloat symbolMargin = CPTFloat(2.0);
-
     CGPoint symbolAnchor = self.anchorPoint;
-    CGSize symbolSize    = self.size;
-    CGSize shadowOffset  = CGSizeZero;
-    CGFloat shadowRadius = CPTFloat(0.0);
-    CPTShadow *myShadow  = self.shadow;
-
-    if ( myShadow ) {
-        shadowOffset = myShadow.shadowOffset;
-        shadowRadius = myShadow.shadowBlurRadius;
-    }
 
     CGLayerRef theCachedLayer = self.cachedLayer;
     CGFloat theCachedScale    = self.cachedScale;
 
     if ( !theCachedLayer || (theCachedScale != scale) ) {
-        CGSize layerSize  = symbolSize;
-        CGFloat lineWidth = self.lineStyle.lineWidth;
-
-        layerSize.width += (ABS(shadowOffset.width) + shadowRadius) * CPTFloat(2.0) + lineWidth;
-        layerSize.width *= scale;
-        layerSize.width += symbolMargin;
-
-        layerSize.height += (ABS(shadowOffset.height) + shadowRadius) * CPTFloat(2.0) + lineWidth;
-        layerSize.height *= scale;
-        layerSize.height += symbolMargin;
+        CGSize layerSize = [self layerSizeForScale:scale];
 
         self.anchorPoint = CPTPointMake(0.5, 0.5);
 
@@ -508,6 +490,8 @@
             layerSize.height /= scale;
         }
 
+        CGSize symbolSize = self.size;
+
         CGPoint origin = CPTPointMake( center.x - layerSize.width * CPTFloat(0.5) - symbolSize.width * ( symbolAnchor.x - CPTFloat(0.5) ),
                                        center.y - layerSize.height * CPTFloat(0.5) - symbolSize.height * ( symbolAnchor.y - CPTFloat(0.5) ) );
 
@@ -524,6 +508,33 @@
 
         CGContextDrawLayerInRect(context, CPTRectMake(origin.x, origin.y, layerSize.width, layerSize.height), theCachedLayer);
     }
+}
+
+-(CGSize)layerSizeForScale:(CGFloat)scale
+{
+    const CGFloat symbolMargin = CPTFloat(2.0);
+
+    CGSize shadowOffset  = CGSizeZero;
+    CGFloat shadowRadius = CPTFloat(0.0);
+    CPTShadow *myShadow  = self.shadow;
+
+    if ( myShadow ) {
+        shadowOffset = myShadow.shadowOffset;
+        shadowRadius = myShadow.shadowBlurRadius;
+    }
+
+    CGSize layerSize  = self.size;
+    CGFloat lineWidth = self.lineStyle.lineWidth;
+
+    layerSize.width += (ABS(shadowOffset.width) + shadowRadius) * CPTFloat(2.0) + lineWidth;
+    layerSize.width *= scale;
+    layerSize.width += symbolMargin;
+
+    layerSize.height += (ABS(shadowOffset.height) + shadowRadius) * CPTFloat(2.0) + lineWidth;
+    layerSize.height *= scale;
+    layerSize.height += symbolMargin;
+
+    return layerSize;
 }
 
 /** @brief Draws the plot symbol into the given graphics context centered at the provided point.
@@ -756,6 +767,32 @@
     }
 
     return symbolPath;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark Debugging
+
+/// @cond
+
+-(id)debugQuickLookObject
+{
+    const CGFloat screenScale = 1.0;
+
+    CGSize layerSize = [self layerSizeForScale:screenScale];
+
+    CGRect rect = CGRectMake(0.0, 0.0, layerSize.width, layerSize.height);
+
+    return CPTQuickLookImage(rect, ^(CGContextRef context, CGFloat scale, CGRect bounds) {
+        CGPoint symbolAnchor = self.anchorPoint;
+
+        self.anchorPoint = CPTPointMake(0.5, 0.5);
+
+        [self renderAsVectorInContext:context atPoint:CGPointMake( CGRectGetMidX(bounds), CGRectGetMidY(bounds) ) scale:scale];
+
+        self.anchorPoint = symbolAnchor;
+    });
 }
 
 /// @endcond
