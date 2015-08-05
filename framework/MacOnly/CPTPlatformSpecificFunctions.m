@@ -111,3 +111,36 @@ CPTRGBAColor CPTRGBAColorFromNSColor(NSColor *nsColor)
 
     return rgbColor;
 }
+
+#pragma mark -
+#pragma mark Debugging
+
+CPTNativeImage * __nonnull CPTQuickLookImage(CGRect rect, __nonnull CPTQuickLookImageBlock renderBlock)
+{
+    NSBitmapImageRep *layerImage = [[NSBitmapImageRep alloc]
+                                    initWithBitmapDataPlanes:NULL
+                                                  pixelsWide:(NSInteger)rect.size.width
+                                                  pixelsHigh:(NSInteger)rect.size.height
+                                               bitsPerSample:8
+                                             samplesPerPixel:4
+                                                    hasAlpha:YES
+                                                    isPlanar:NO
+                                              colorSpaceName:NSCalibratedRGBColorSpace
+                                                 bytesPerRow:(NSInteger)rect.size.width * 4
+                                                bitsPerPixel:32];
+
+    NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:layerImage];
+
+    CGContextRef context = (CGContextRef)[bitmapContext graphicsPort];
+
+    CGContextClearRect(context, rect);
+
+    renderBlock(context, 1.0, rect);
+
+    CGContextFlush(context);
+
+    NSImage *image = [[NSImage alloc] initWithSize:NSSizeFromCGSize(rect.size)];
+    [image addRepresentation:layerImage];
+
+    return image;
+}

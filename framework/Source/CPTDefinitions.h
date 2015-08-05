@@ -235,3 +235,5 @@ typedef struct _CPTEdgeInsets {
 CPTEdgeInsets;
 
 extern const CPTEdgeInsets CPTEdgeInsetsZero; ///< Defines a set of stretchable image edge insets where all of the values are zero (@num{0}).
+
+typedef void (^CPTQuickLookImageBlock)(__nonnull CGContextRef context, CGFloat scale, CGRect bounds); ///< Render a Quick Look image into the given context.

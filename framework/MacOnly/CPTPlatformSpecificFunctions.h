@@ -1,4 +1,5 @@
 #import "CPTDefinitions.h"
+#import "CPTPlatformSpecificDefines.h"
 
 /// @file
 
@@ -23,6 +24,12 @@ __nonnull CGContextRef CPTGetCurrentContext(void);
 /// @{
 __nonnull CGColorRef CPTCreateCGColorFromNSColor(NSColor *__nonnull nsColor);
 CPTRGBAColor CPTRGBAColorFromNSColor(NSColor *__nonnull nsColor);
+
+/// @}
+
+/// @name Debugging
+/// @{
+CPTNativeImage *__nonnull CPTQuickLookImage(CGRect rect, __nonnull CPTQuickLookImageBlock renderBlock);
 
 /// @}
 
