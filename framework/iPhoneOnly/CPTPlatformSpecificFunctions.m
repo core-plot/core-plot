@@ -31,7 +31,7 @@ CPTNativeImage * __nonnull CPTQuickLookImage(CGRect rect, __nonnull CPTQuickLook
     CGContextTranslateCTM(context, 0, rect.size.height);
     CGContextScaleCTM(context, 1.0, -1.0);
 
-    CGContextSetRGBFillColor(context, 0xf6 / 255.0, 0xf5 / 255.0, 0xf6 / 255.0, 1.0);
+    CGContextSetRGBFillColor(context, CPTFloat(0xf6 / 255.0), CPTFloat(0xf5 / 255.0), CPTFloat(0xf6 / 255.0), 1.0);
     CGContextFillRect(context, rect);
 
     renderBlock(context, 1.0, rect);
