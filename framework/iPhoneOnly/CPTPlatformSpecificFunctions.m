@@ -15,11 +15,6 @@ void CPTPopCGContext(void)
     UIGraphicsPopContext();
 }
 
-CGContextRef CPTGetCurrentContext(void)
-{
-    return UIGraphicsGetCurrentContext();
-}
-
 #pragma mark -
 #pragma mark Debugging
 
