@@ -14,12 +14,6 @@ void CPTPopCGContext(void);
 
 /// @}
 
-/// @name Graphics Context
-/// @{
-__nonnull CGContextRef CPTGetCurrentContext(void);
-
-/// @}
-
 /// @name Color Conversion
 /// @{
 __nonnull CGColorRef CPTCreateCGColorFromNSColor(NSColor *__nonnull nsColor);
