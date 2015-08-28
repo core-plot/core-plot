@@ -148,6 +148,12 @@ CPTEdgeInsets CPTEdgeInsetsMake(CGFloat top, CGFloat left, CGFloat bottom, CGFlo
 BOOL CPTEdgeInsetsEqualToEdgeInsets(CPTEdgeInsets insets1, CPTEdgeInsets insets2);
 
 /// @}
+    
+/// @name Log Modulus Definition
+/// @{
+double CPTLogModulus(double value);
+    
+/// @}
 
 #if __cplusplus
 }

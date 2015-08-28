@@ -904,6 +904,51 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
     return pow(10.0, coordinate);
 }
 
+// Log-modulus
+-(CGFloat)viewCoordinateForViewLength:(NSDecimal)viewLength logModulusPlotRange:(CPTPlotRange *)range plotCoordinateValue:(NSDecimal)plotCoord
+{
+    if ( !range ) {
+        return CPTFloat(0.0);
+    }
+    
+    NSDecimal factor = CPTDecimalDivide(CPTDecimalSubtract(plotCoord, range.locationDecimal), range.lengthDecimal);
+    if ( NSDecimalIsNotANumber(&factor) ) {
+        factor = CPTDecimalFromInteger(0);
+    }
+    
+    NSDecimal viewCoordinate = CPTDecimalMultiply(viewLength, factor);
+    
+    return CPTDecimalCGFloatValue(viewCoordinate);
+}
+
+-(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength logModulusPlotRange:(CPTPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord
+{
+    if ( !range || (range.lengthDouble == 0.0) ) {
+        return CPTFloat(0.0);
+    }
+    
+    double logLoc   = CPTLogModulus(range.locationDouble);
+    double logCoord = CPTLogModulus(plotCoord);
+    double logEnd   = CPTLogModulus(range.endDouble);
+    
+    return viewLength * (CGFloat)( (logCoord - logLoc) / (logEnd - logLoc) );
+}
+
+
+-(double)doublePrecisionPlotCoordinateForViewLength:(CGFloat)viewLength logModulusPlotRange:(CPTPlotRange *)range boundsLength:(CGFloat)boundsLength
+{
+    if ( boundsLength == 0.0 ) {
+        return 0.0;
+    }
+
+    double logLoc = CPTLogModulus(range.locationDouble);
+    double logEnd = CPTLogModulus(range.endDouble);
+    double coordinate = viewLength * (logEnd - logLoc) / boundsLength + logLoc;
+    
+    return pow(10.0, coordinate);
+
+}
+
 /// @endcond
 
 #pragma mark -
@@ -944,6 +989,12 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         }
         break;
 
+        case CPTScaleTypeLogModulus:
+        {
+            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logModulusPlotRange:self.xRange doublePrecisionPlotCoordinateValue:[plotPoint[CPTCoordinateX] doubleValue]];
+        }
+        break;
+
         default:
             [NSException raise:CPTException format:@"Scale type not supported in CPTXYPlotSpace"];
     }
@@ -960,6 +1011,12 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         }
         break;
 
+        case CPTScaleTypeLogModulus:
+        {
+            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logModulusPlotRange:self.yRange doublePrecisionPlotCoordinateValue:[plotPoint[CPTCoordinateY] doubleValue]];
+        }
+        break;
+            
         default:
             [NSException raise:CPTException format:@"Scale type not supported in CPTXYPlotSpace"];
     }
@@ -995,6 +1052,13 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         }
         break;
 
+        case CPTScaleTypeLogModulus:
+        {
+            double x = CPTDecimalDoubleValue(plotPoint[CPTCoordinateX]);
+            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logModulusPlotRange:self.xRange doublePrecisionPlotCoordinateValue:x];
+        }
+            break;
+            
         default:
             [NSException raise:CPTException format:@"Scale type not supported in CPTXYPlotSpace"];
     }
@@ -1011,6 +1075,13 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
             viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logPlotRange:self.yRange doublePrecisionPlotCoordinateValue:y];
         }
         break;
+
+        case CPTScaleTypeLogModulus:
+        {
+            double y = CPTDecimalDoubleValue(plotPoint[CPTCoordinateY]);
+            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logModulusPlotRange:self.yRange doublePrecisionPlotCoordinateValue:y];
+        }
+            break;
 
         default:
             [NSException raise:CPTException format:@"Scale type not supported in CPTXYPlotSpace"];
@@ -1044,6 +1115,10 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
             viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logPlotRange:self.xRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateX]];
             break;
 
+        case CPTScaleTypeLogModulus:
+            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logModulusPlotRange:self.xRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateX]];
+            break;
+
         default:
             [NSException raise:CPTException format:@"Scale type not supported in CPTXYPlotSpace"];
     }
@@ -1056,6 +1131,10 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 
         case CPTScaleTypeLog:
             viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logPlotRange:self.yRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY]];
+            break;
+
+        case CPTScaleTypeLogModulus:
+            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logModulusPlotRange:self.yRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY]];
             break;
 
         default:
@@ -1097,6 +1176,10 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
             plotPoint[CPTCoordinateX] = @([self doublePrecisionPlotCoordinateForViewLength:point.x logPlotRange:self.xRange boundsLength:boundsSize.width]);
             break;
 
+        case CPTScaleTypeLogModulus:
+            plotPoint[CPTCoordinateX] = @([self doublePrecisionPlotCoordinateForViewLength:point.x logModulusPlotRange:self.xRange boundsLength:boundsSize.width]);
+            break;
+
         default:
             [NSException raise:CPTException format:@"Scale type not supported in CPTXYPlotSpace"];
     }
@@ -1111,6 +1194,10 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 
         case CPTScaleTypeLog:
             plotPoint[CPTCoordinateY] = @([self doublePrecisionPlotCoordinateForViewLength:point.y logPlotRange:self.yRange boundsLength:boundsSize.height]);
+            break;
+            
+        case CPTScaleTypeLogModulus:
+            plotPoint[CPTCoordinateY] = @([self doublePrecisionPlotCoordinateForViewLength:point.y logModulusPlotRange:self.yRange boundsLength:boundsSize.height]);
             break;
 
         default:
@@ -1147,6 +1234,10 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         case CPTScaleTypeLog:
             plotPoint[CPTCoordinateX] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.x logPlotRange:self.xRange boundsLength:boundsSize.width]);
             break;
+            
+        case CPTScaleTypeLogModulus:
+            plotPoint[CPTCoordinateX] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.x logModulusPlotRange:self.xRange boundsLength:boundsSize.width]);
+            break;
 
         default:
             [NSException raise:CPTException format:@"Scale type not supported in CPTXYPlotSpace"];
@@ -1160,6 +1251,10 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 
         case CPTScaleTypeLog:
             plotPoint[CPTCoordinateY] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.y logPlotRange:self.yRange boundsLength:boundsSize.height]);
+            break;
+
+        case CPTScaleTypeLogModulus:
+            plotPoint[CPTCoordinateY] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.y logModulusPlotRange:self.yRange boundsLength:boundsSize.height]);
             break;
 
         default:
@@ -1194,6 +1289,10 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
             plotPoint[CPTCoordinateX] = [self doublePrecisionPlotCoordinateForViewLength:point.x logPlotRange:self.xRange boundsLength:boundsSize.width];
             break;
 
+        case CPTScaleTypeLogModulus:
+            plotPoint[CPTCoordinateX] = [self doublePrecisionPlotCoordinateForViewLength:point.x logModulusPlotRange:self.xRange boundsLength:boundsSize.width];
+            break;
+
         default:
             [NSException raise:CPTException format:@"Scale type not supported in CPTXYPlotSpace"];
     }
@@ -1206,6 +1305,10 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 
         case CPTScaleTypeLog:
             plotPoint[CPTCoordinateY] = [self doublePrecisionPlotCoordinateForViewLength:point.y logPlotRange:self.yRange boundsLength:boundsSize.height];
+            break;
+
+        case CPTScaleTypeLogModulus:
+            plotPoint[CPTCoordinateY] = [self doublePrecisionPlotCoordinateForViewLength:point.y logModulusPlotRange:self.yRange boundsLength:boundsSize.height];
             break;
 
         default:
@@ -1758,6 +1861,9 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         case CPTScaleTypeLog:
             xScaleTypeDesc = @"CPTScaleTypeLog";
             break;
+            
+        case CPTScaleTypeLogModulus:
+            xScaleTypeDesc = @"CPTScaleTypeLogModulus";
 
         case CPTScaleTypeAngular:
             xScaleTypeDesc = @"CPTScaleTypeAngular";
@@ -1788,6 +1894,9 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         case CPTScaleTypeLog:
             yScaleTypeDesc = @"CPTScaleTypeLog";
             break;
+
+        case CPTScaleTypeLogModulus:
+            yScaleTypeDesc = @"CPTScaleTypeLogModulus";
 
         case CPTScaleTypeAngular:
             yScaleTypeDesc = @"CPTScaleTypeAngular";

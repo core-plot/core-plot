@@ -983,6 +983,10 @@ NSDecimal CPTNiceLength(NSDecimal length);
             }
             break;
 
+        case CPTScaleTypeLogModulus:
+            // supported scale type
+            break;
+
         default:
             // unsupported scale type--bail out
             valid = NO;
@@ -1138,6 +1142,61 @@ NSDecimal CPTNiceLength(NSDecimal length);
                 }
             }
             break;
+
+            case CPTScaleTypeLogModulus:
+            {
+                double minLimit = range.minLimitDouble;
+                double maxLimit = range.maxLimitDouble;
+                
+                // Determine interval value
+                if ( numTicks == 0 ) {
+                    numTicks = 5;
+                }
+                
+                double interval;
+                
+                length = CPTLogModulus(maxLimit / minLimit);
+                
+                if ( fabs(length) >= numTicks ) {
+                    interval = CPTDecimalDoubleValue( CPTNiceNum( CPTDecimalFromDouble( length / (numTicks - 1) ) ) );
+                }
+                else {
+                    interval = signbit(length) ? -1.0 : 1.0;
+                }
+                double intervalStep = pow( 10.0, fabs(interval) );
+                
+                // Determine minor interval
+                double minorInterval = intervalStep * 0.9 * pow( 10.0, floor( CPTLogModulus(minLimit) ) ) / minorTicks;
+                
+                // Determine the initial and final major indexes for the actual visible range
+                NSInteger initialIndex = (NSInteger)lrint( floor( CPTLogModulus( minLimit / fabs(interval) ) ) ); // can be negative
+                NSInteger finalIndex   = (NSInteger)lrint( ceil( CPTLogModulus( maxLimit / fabs(interval) ) ) );  // can be negative
+                
+                // Iterate through the indexes with visible ticks and build the locations sets
+                for ( NSInteger i = initialIndex; i <= finalIndex; i++ ) {
+                    double pointLocation = pow(10.0, i * interval);
+                    for ( NSUInteger j = 1; j < minorTicks; j++ ) {
+                        double minorPointLocation = pointLocation + minorInterval * j;
+                        if ( minorPointLocation < minLimit ) {
+                            continue;
+                        }
+                        if ( minorPointLocation > maxLimit ) {
+                            continue;
+                        }
+                        [minorLocations addObject:@(minorPointLocation)];
+                    }
+                    minorInterval *= intervalStep;
+                    
+                    if ( pointLocation < minLimit ) {
+                        continue;
+                    }
+                    if ( pointLocation > maxLimit ) {
+                        continue;
+                    }
+                    [majorLocations addObject:@(pointLocation)];
+                }
+            }
+                break;
 
             default:
                 break;

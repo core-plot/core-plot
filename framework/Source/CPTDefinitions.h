@@ -163,7 +163,8 @@ typedef NS_ENUM (NSInteger, CPTScaleType) {
     CPTScaleTypeLog,      ///< Logarithmic axis scale
     CPTScaleTypeAngular,  ///< Angular axis scale (not implemented)
     CPTScaleTypeDateTime, ///< Date/time axis scale (not implemented)
-    CPTScaleTypeCategory  ///< Category axis scale
+    CPTScaleTypeCategory, ///< Category axis scale
+    CPTScaleTypeLogModulus ///< Log-modulus axis scale
 };
 
 /**

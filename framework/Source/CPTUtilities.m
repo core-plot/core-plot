@@ -1004,3 +1004,12 @@ BOOL CPTEdgeInsetsEqualToEdgeInsets(CPTEdgeInsets insets1, CPTEdgeInsets insets2
            (insets1.bottom == insets2.bottom) &&
            (insets1.right == insets2.right);
 }
+
+#pragma mark -
+#pragma mark Log Modulus Definition
+
+double CPTLogModulus(double value)
+{
+    double sign = (value < 0) ? -1.0 : +1.0;
+    return sign * log10(fabs(value) + 1);
+}
