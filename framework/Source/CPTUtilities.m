@@ -1011,5 +1011,6 @@ BOOL CPTEdgeInsetsEqualToEdgeInsets(CPTEdgeInsets insets1, CPTEdgeInsets insets2
 double CPTLogModulus(double value)
 {
     double sign = (value < 0) ? -1.0 : +1.0;
+
     return sign * log10(fabs(value) + 1);
 }
