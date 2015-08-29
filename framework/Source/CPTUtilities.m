@@ -985,6 +985,13 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 #pragma mark -
 #pragma mark Edge Inset Utilities
 
+/** @brief Returns a CPTEdgeInsets struct with the given insets.
+ *  @param top The top inset.
+ *  @param left The left inset.
+ *  @param bottom The bottom inset.
+ *  @param right The right inset.
+ *  @return A CPTEdgeInsets struct with the given insets.
+ **/
 CPTEdgeInsets CPTEdgeInsetsMake(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right)
 {
     CPTEdgeInsets insets;
@@ -997,6 +1004,11 @@ CPTEdgeInsets CPTEdgeInsetsMake(CGFloat top, CGFloat left, CGFloat bottom, CGFlo
     return insets;
 }
 
+/** @brief Compares two CPTEdgeInsets structstructs.
+ *  @param insets1 The first inset.
+ *  @param insets2 The second inset.
+ *  @return @YES if the two CPTEdgeInsets structs are equal.
+ **/
 BOOL CPTEdgeInsetsEqualToEdgeInsets(CPTEdgeInsets insets1, CPTEdgeInsets insets2)
 {
     return (insets1.top == insets2.top) &&
