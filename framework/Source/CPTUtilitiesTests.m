@@ -578,4 +578,26 @@
     XCTAssertEqual(alignedRect.size.height, CPTFloat(0.0), @"round height (19.6364, 16.00001, 20.2727, 0.0)");
 }
 
+-(void)testLogModulus
+{
+    XCTAssertEqual(CPTLogModulus(0.0), 0.0, @"CPTLogModulus(0.0)");
+
+    XCTAssertEqual(CPTLogModulus(10.0), log10(11.0), @"CPTLogModulus(10.0)");
+    XCTAssertEqual(CPTLogModulus(-10.0), -log10(11.0), @"CPTLogModulus(-10.0)");
+
+    XCTAssertEqual(CPTLogModulus(100.0), log10(101.0), @"CPTLogModulus(100.0)");
+    XCTAssertEqual(CPTLogModulus(-100.0), -log10(101.0), @"CPTLogModulus(-100.0)");
+}
+
+-(void)testInverseLogModulus
+{
+    XCTAssertEqual(CPTInverseLogModulus(0.0), 0.0, @"CPTInverseLogModulus(0.0)");
+
+    XCTAssertEqualWithAccuracy(CPTInverseLogModulus( log10(11.0) ), 10.0, 1.0e-7, @"CPTInverseLogModulus(log10(11.0))");
+    XCTAssertEqualWithAccuracy(CPTInverseLogModulus( -log10(11.0) ), -10.0, 1.0e-7, @"CPTInverseLogModulus(-log10(11.0))");
+
+    XCTAssertEqualWithAccuracy(CPTInverseLogModulus( log10(101.0) ), 100.0, 1.0e-7, @"CPTInverseLogModulus(log10(101.0))");
+    XCTAssertEqualWithAccuracy(CPTInverseLogModulus( -log10(101.0) ), -100.0, 1.0e-7, @"CPTInverseLogModulus(-log10(101.0))");
+}
+
 @end
