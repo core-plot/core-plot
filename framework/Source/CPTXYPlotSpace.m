@@ -24,10 +24,14 @@
 
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength logPlotRange:(nullable CPTPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord;
 
+-(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength logModulusPlotRange:(nullable CPTPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord;
+
 -(NSDecimal)plotCoordinateForViewLength:(NSDecimal)viewLength linearPlotRange:(nullable CPTPlotRange *)range boundsLength:(NSDecimal)boundsLength;
 -(double)doublePrecisionPlotCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(nullable CPTPlotRange *)range boundsLength:(CGFloat)boundsLength;
 
 -(double)doublePrecisionPlotCoordinateForViewLength:(CGFloat)viewLength logPlotRange:(nullable CPTPlotRange *)range boundsLength:(CGFloat)boundsLength;
+
+-(double)doublePrecisionPlotCoordinateForViewLength:(CGFloat)viewLength logModulusPlotRange:(nullable CPTPlotRange *)range boundsLength:(CGFloat)boundsLength;
 
 -(CPTPlotRange *)constrainRange:(nonnull CPTPlotRange *)existingRange toGlobalRange:(nullable CPTPlotRange *)globalRange;
 -(void)animateRangeForCoordinate:(CPTCoordinate)coordinate shift:(NSDecimal)shift momentumTime:(CGFloat)momentumTime speed:(CGFloat)speed acceleration:(CGFloat)acceleration;
@@ -904,26 +908,10 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
     return pow(10.0, coordinate);
 }
 
-// Log-modulus
--(CGFloat)viewCoordinateForViewLength:(NSDecimal)viewLength logModulusPlotRange:(CPTPlotRange *)range plotCoordinateValue:(NSDecimal)plotCoord
-{
-    if ( !range ) {
-        return CPTFloat(0.0);
-    }
-
-    NSDecimal factor = CPTDecimalDivide(CPTDecimalSubtract(plotCoord, range.locationDecimal), range.lengthDecimal);
-    if ( NSDecimalIsNotANumber(&factor) ) {
-        factor = CPTDecimalFromInteger(0);
-    }
-
-    NSDecimal viewCoordinate = CPTDecimalMultiply(viewLength, factor);
-
-    return CPTDecimalCGFloatValue(viewCoordinate);
-}
-
+// Log-modulus (only one version since there are no transcendental functions for NSDecimal)
 -(CGFloat)viewCoordinateForViewLength:(CGFloat)viewLength logModulusPlotRange:(CPTPlotRange *)range doublePrecisionPlotCoordinateValue:(double)plotCoord
 {
-    if ( !range || (range.lengthDouble == 0.0) ) {
+    if ( !range ) {
         return CPTFloat(0.0);
     }
 
@@ -944,7 +932,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
     double logEnd     = CPTLogModulus(range.endDouble);
     double coordinate = viewLength * (logEnd - logLoc) / boundsLength + logLoc;
 
-    return pow(10.0, coordinate);
+    return CPTInverseLogModulus(coordinate);
 }
 
 /// @endcond

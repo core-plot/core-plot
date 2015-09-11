@@ -152,6 +152,7 @@ BOOL CPTEdgeInsetsEqualToEdgeInsets(CPTEdgeInsets insets1, CPTEdgeInsets insets2
 /// @name Log Modulus Definition
 /// @{
 double CPTLogModulus(double value);
+double CPTInverseLogModulus(double value);
 
 /// @}
 

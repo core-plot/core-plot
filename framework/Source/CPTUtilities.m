@@ -1018,11 +1018,37 @@ BOOL CPTEdgeInsetsEqualToEdgeInsets(CPTEdgeInsets insets1, CPTEdgeInsets insets2
 }
 
 #pragma mark -
-#pragma mark Log Modulus Definition
+#pragma mark Log Modulus
 
+/** @brief Computes the log modulus of the given value.
+ *  @param value The value.
+ *  @return The log modulus of the given value.
+ *  @see <a href="http://blogs.sas.com/content/iml/2014/07/14/log-transformation-of-pos-neg.html">A log transformation of positive and negative values</a> for more information about the log-modulus transformation.
+ **/
 double CPTLogModulus(double value)
 {
-    double sign = (value < 0) ? -1.0 : +1.0;
+    if ( value != 0.0 ) {
+        double sign = (signbit(value) ? -1.0 : +1.0);
 
-    return sign * log10(fabs(value) + 1);
+        return sign * log10(fabs(value) + 1.0);
+    }
+    else {
+        return 0.0;
+    }
+}
+
+/** @brief Computes the inverse log modulus of the given value.
+ *  @param value The value.
+ *  @return The inverse log modulus of the given value.
+ **/
+double CPTInverseLogModulus(double value)
+{
+    if ( value != 0.0 ) {
+        double sign = (signbit(value) ? -1.0 : +1.0);
+
+        return sign * (pow( 10.0, fabs(value) ) - 1.0);
+    }
+    else {
+        return 0.0;
+    }
 }

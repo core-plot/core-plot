@@ -1093,20 +1093,9 @@ NSDecimal CPTNiceLength(NSDecimal length);
 
                 if ( (minLimit > 0.0) && (maxLimit > 0.0) ) {
                     // Determine interval value
-                    if ( numTicks == 0 ) {
-                        numTicks = 5;
-                    }
-
-                    double interval;
-
                     length = log10(maxLimit / minLimit);
 
-                    if ( fabs(length) >= numTicks ) {
-                        interval = CPTDecimalDoubleValue( CPTNiceNum( CPTDecimalFromDouble( length / (numTicks - 1) ) ) );
-                    }
-                    else {
-                        interval = signbit(length) ? -1.0 : 1.0;
-                    }
+                    double interval     = signbit(length) ? -1.0 : 1.0;
                     double intervalStep = pow( 10.0, fabs(interval) );
 
                     // Determine minor interval
@@ -1149,51 +1138,96 @@ NSDecimal CPTNiceLength(NSDecimal length);
                 double maxLimit = range.maxLimitDouble;
 
                 // Determine interval value
-                if ( numTicks == 0 ) {
-                    numTicks = 5;
-                }
+                double modMinLimit = CPTLogModulus(minLimit);
+                double modMaxLimit = CPTLogModulus(maxLimit);
 
-                double interval;
+                double multiplier = pow( 10.0, floor( log10(length) ) );
+                multiplier = (multiplier < 1.0) ? multiplier : 1.0;
 
-                length = CPTLogModulus(maxLimit / minLimit);
-
-                if ( fabs(length) >= numTicks ) {
-                    interval = CPTDecimalDoubleValue( CPTNiceNum( CPTDecimalFromDouble( length / (numTicks - 1) ) ) );
-                }
-                else {
-                    interval = signbit(length) ? -1.0 : 1.0;
-                }
-                double intervalStep = pow( 10.0, fabs(interval) );
-
-                // Determine minor interval
-                double minorInterval = intervalStep * 0.9 * pow( 10.0, floor( CPTLogModulus(minLimit) ) ) / minorTicks;
+                double intervalStep = 10.0;
 
                 // Determine the initial and final major indexes for the actual visible range
-                NSInteger initialIndex = (NSInteger)lrint( floor( CPTLogModulus( minLimit / fabs(interval) ) ) ); // can be negative
-                NSInteger finalIndex   = (NSInteger)lrint( ceil( CPTLogModulus( maxLimit / fabs(interval) ) ) );  // can be negative
+                NSInteger initialIndex = (NSInteger)lrint( floor(modMinLimit / multiplier) ); // can be negative
+                NSInteger finalIndex   = (NSInteger)lrint( ceil(modMaxLimit / multiplier) );  // can be negative
 
-                // Iterate through the indexes with visible ticks and build the locations sets
-                for ( NSInteger i = initialIndex; i <= finalIndex; i++ ) {
-                    double pointLocation = pow(10.0, i * interval);
-                    for ( NSUInteger j = 1; j < minorTicks; j++ ) {
-                        double minorPointLocation = pointLocation + minorInterval * j;
-                        if ( minorPointLocation < minLimit ) {
+                if ( initialIndex < 0 ) {
+                    // Determine minor interval
+                    double minorInterval = intervalStep * 0.9 * multiplier / minorTicks;
+
+                    for ( NSInteger i = MIN(0, finalIndex); i >= initialIndex; i-- ) {
+                        double pointLocation;
+                        double sign = -multiplier;
+
+                        if ( multiplier < 1.0 ) {
+                            pointLocation = sign * pow(10.0, fabs( (double)i ) - 1.0);
+                        }
+                        else {
+                            pointLocation = sign * pow( 10.0, fabs( (double)i ) );
+                        }
+
+                        for ( NSUInteger j = 1; j < minorTicks; j++ ) {
+                            double minorPointLocation = pointLocation + sign * minorInterval * j;
+                            if ( minorPointLocation < minLimit ) {
+                                continue;
+                            }
+                            if ( minorPointLocation > maxLimit ) {
+                                continue;
+                            }
+                            [minorLocations addObject:@(minorPointLocation)];
+                        }
+                        minorInterval *= intervalStep;
+
+                        if ( i == 0 ) {
+                            pointLocation = 0.0;
+                        }
+                        if ( pointLocation < minLimit ) {
                             continue;
                         }
-                        if ( minorPointLocation > maxLimit ) {
+                        if ( pointLocation > maxLimit ) {
                             continue;
                         }
-                        [minorLocations addObject:@(minorPointLocation)];
+                        [majorLocations addObject:@(pointLocation)];
                     }
-                    minorInterval *= intervalStep;
+                }
 
-                    if ( pointLocation < minLimit ) {
-                        continue;
+                if ( finalIndex >= 0 ) {
+                    // Determine minor interval
+                    double minorInterval = intervalStep * 0.9 * multiplier / minorTicks;
+
+                    for ( NSInteger i = MAX(0, initialIndex); i <= finalIndex; i++ ) {
+                        double pointLocation;
+                        double sign = multiplier;
+
+                        if ( multiplier < 1.0 ) {
+                            pointLocation = sign * pow(10.0, fabs( (double)i ) - 1.0);
+                        }
+                        else {
+                            pointLocation = sign * pow( 10.0, fabs( (double)i ) );
+                        }
+
+                        for ( NSUInteger j = 1; j < minorTicks; j++ ) {
+                            double minorPointLocation = pointLocation + sign * minorInterval * j;
+                            if ( minorPointLocation < minLimit ) {
+                                continue;
+                            }
+                            if ( minorPointLocation > maxLimit ) {
+                                continue;
+                            }
+                            [minorLocations addObject:@(minorPointLocation)];
+                        }
+                        minorInterval *= intervalStep;
+
+                        if ( i == 0 ) {
+                            pointLocation = 0.0;
+                        }
+                        if ( pointLocation < minLimit ) {
+                            continue;
+                        }
+                        if ( pointLocation > maxLimit ) {
+                            continue;
+                        }
+                        [majorLocations addObject:@(pointLocation)];
                     }
-                    if ( pointLocation > maxLimit ) {
-                        continue;
-                    }
-                    [majorLocations addObject:@(pointLocation)];
                 }
             }
             break;

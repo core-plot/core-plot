@@ -723,7 +723,7 @@
                 double loc = axisRange.locationDouble;
                 double end = axisRange.endDouble;
 
-                location = @( pow(10.0, ( CPTLogModulus(loc) + CPTLogModulus(end) ) / 2.0) );
+                location = @( CPTInverseLogModulus( ( CPTLogModulus(loc) + CPTLogModulus(end) ) / 2.0 ) );
             }
             break;
 
