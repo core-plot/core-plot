@@ -66,3 +66,4 @@
 #import "CPTXYAxisSet.h"
 #import "CPTXYGraph.h"
 #import "CPTXYPlotSpace.h"
+#import "CPTStretchableImageFill.h"
