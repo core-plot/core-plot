@@ -1850,6 +1850,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 
         case CPTScaleTypeLogModulus:
             xScaleTypeDesc = @"CPTScaleTypeLogModulus";
+            break;
 
         case CPTScaleTypeAngular:
             xScaleTypeDesc = @"CPTScaleTypeAngular";
@@ -1883,6 +1884,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 
         case CPTScaleTypeLogModulus:
             yScaleTypeDesc = @"CPTScaleTypeLogModulus";
+            break;
 
         case CPTScaleTypeAngular:
             yScaleTypeDesc = @"CPTScaleTypeAngular";
