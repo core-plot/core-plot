@@ -67,7 +67,7 @@
     // Plot Spaces
     CPTXYPlotSpace *linearPlotSpace = [[CPTXYPlotSpace alloc] init];
     linearPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@100.0];
-    linearPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@4.5 length:@(-4.0)];
+    linearPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@6.5 length:@(-6.0)];
 
     CPTXYPlotSpace *negativeLinearPlotSpace = [[CPTXYPlotSpace alloc] init];
     negativeLinearPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@100.0 length:@(-100.0)];
@@ -83,11 +83,23 @@
     negativeLogPlotSpace.xRange     = [CPTPlotRange plotRangeWithLocation:@100.0 length:@(-99.9)];
     negativeLogPlotSpace.yRange     = linearPlotSpace.yRange;
 
+    CPTXYPlotSpace *logModulusPlotSpace = [[CPTXYPlotSpace alloc] init];
+    logModulusPlotSpace.xScaleType = CPTScaleTypeLogModulus;
+    logModulusPlotSpace.xRange     = [CPTPlotRange plotRangeWithLocation:@(-100.0) length:@1100.0];
+    logModulusPlotSpace.yRange     = linearPlotSpace.yRange;
+
+    CPTXYPlotSpace *negativeLogModulusPlotSpace = [[CPTXYPlotSpace alloc] init];
+    negativeLogModulusPlotSpace.xScaleType = CPTScaleTypeLogModulus;
+    negativeLogModulusPlotSpace.xRange     = [CPTPlotRange plotRangeWithLocation:@0.1 length:@(-0.2)];
+    negativeLogModulusPlotSpace.yRange     = linearPlotSpace.yRange;
+
     [graph removePlotSpace:graph.defaultPlotSpace];
     [graph addPlotSpace:linearPlotSpace];
     [graph addPlotSpace:negativeLinearPlotSpace];
     [graph addPlotSpace:logPlotSpace];
     [graph addPlotSpace:negativeLogPlotSpace];
+    [graph addPlotSpace:logModulusPlotSpace];
+    [graph addPlotSpace:negativeLogModulusPlotSpace];
 
     // Axes
     // Linear axis--positive direction
@@ -111,7 +123,7 @@
     negativeLinearAxis.plotSpace             = negativeLinearPlotSpace;
     negativeLinearAxis.labelingPolicy        = CPTAxisLabelingPolicyAutomatic;
     negativeLinearAxis.orthogonalPosition    = @2.0;
-    negativeLinearAxis.minorTicksPerInterval = 9;
+    negativeLinearAxis.minorTicksPerInterval = 4;
     negativeLinearAxis.tickDirection         = CPTSignNone;
     negativeLinearAxis.axisLineStyle         = axisLineStyle;
     negativeLinearAxis.majorTickLength       = majorTickLength;
@@ -127,7 +139,7 @@
     logAxis.plotSpace             = logPlotSpace;
     logAxis.labelingPolicy        = CPTAxisLabelingPolicyAutomatic;
     logAxis.orthogonalPosition    = @3.0;
-    logAxis.minorTicksPerInterval = 9;
+    logAxis.minorTicksPerInterval = 8;
     logAxis.tickDirection         = CPTSignNone;
     logAxis.axisLineStyle         = axisLineStyle;
     logAxis.majorTickLength       = majorTickLength;
@@ -143,7 +155,7 @@
     negativeLogAxis.plotSpace             = negativeLogPlotSpace;
     negativeLogAxis.labelingPolicy        = CPTAxisLabelingPolicyAutomatic;
     negativeLogAxis.orthogonalPosition    = @4.0;
-    negativeLogAxis.minorTicksPerInterval = 9;
+    negativeLogAxis.minorTicksPerInterval = 4;
     negativeLogAxis.tickDirection         = CPTSignNone;
     negativeLogAxis.axisLineStyle         = axisLineStyle;
     negativeLogAxis.majorTickLength       = majorTickLength;
@@ -154,8 +166,40 @@
     negativeLogAxis.titleTextStyle        = axisTitleTextStyle;
     negativeLogAxis.titleOffset           = titleOffset;
 
+    // Log modulus axis--positive direction
+    CPTXYAxis *logModulusAxis = [[CPTXYAxis alloc] init];
+    logModulusAxis.plotSpace             = logModulusPlotSpace;
+    logModulusAxis.labelingPolicy        = CPTAxisLabelingPolicyAutomatic;
+    logModulusAxis.orthogonalPosition    = @5.0;
+    logModulusAxis.minorTicksPerInterval = 8;
+    logModulusAxis.tickDirection         = CPTSignNone;
+    logModulusAxis.axisLineStyle         = axisLineStyle;
+    logModulusAxis.majorTickLength       = majorTickLength;
+    logModulusAxis.majorTickLineStyle    = majorTickLineStyle;
+    logModulusAxis.minorTickLength       = minorTickLength;
+    logModulusAxis.minorTickLineStyle    = minorTickLineStyle;
+    logModulusAxis.title                 = @"Log Modulus Plot Space—Positive Length";
+    logModulusAxis.titleTextStyle        = axisTitleTextStyle;
+    logModulusAxis.titleOffset           = titleOffset;
+
+    // Log modulus axis--negative direction
+    CPTXYAxis *negativeLogModulusAxis = [[CPTXYAxis alloc] init];
+    negativeLogModulusAxis.plotSpace             = negativeLogModulusPlotSpace;
+    negativeLogModulusAxis.labelingPolicy        = CPTAxisLabelingPolicyAutomatic;
+    negativeLogModulusAxis.orthogonalPosition    = @6.0;
+    negativeLogModulusAxis.minorTicksPerInterval = 4;
+    negativeLogModulusAxis.tickDirection         = CPTSignNone;
+    negativeLogModulusAxis.axisLineStyle         = axisLineStyle;
+    negativeLogModulusAxis.majorTickLength       = majorTickLength;
+    negativeLogModulusAxis.majorTickLineStyle    = majorTickLineStyle;
+    negativeLogModulusAxis.minorTickLength       = minorTickLength;
+    negativeLogModulusAxis.minorTickLineStyle    = minorTickLineStyle;
+    negativeLogModulusAxis.title                 = @"Log Modulus Plot Space—Negative Length";
+    negativeLogModulusAxis.titleTextStyle        = axisTitleTextStyle;
+    negativeLogModulusAxis.titleOffset           = titleOffset;
+
     // Add axes to the graph
-    graph.axisSet.axes = @[linearAxis, negativeLinearAxis, logAxis, negativeLogAxis];
+    graph.axisSet.axes = @[linearAxis, negativeLinearAxis, logAxis, negativeLogAxis, logModulusAxis, negativeLogModulusAxis];
 }
 
 @end
