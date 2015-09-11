@@ -718,6 +718,15 @@
             }
             break;
 
+            case CPTScaleTypeLogModulus:
+            {
+                double loc = axisRange.locationDouble;
+                double end = axisRange.endDouble;
+
+                location = @( CPTInverseLogModulus( ( CPTLogModulus(loc) + CPTLogModulus(end) ) / 2.0 ) );
+            }
+            break;
+
             default:
                 location = axisRange.midPoint;
                 break;

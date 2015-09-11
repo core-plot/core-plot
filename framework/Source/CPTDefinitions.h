@@ -159,11 +159,12 @@ typedef NS_ENUM (NSInteger, CPTErrorBarType) {
  *  @brief Enumeration of axis scale types
  **/
 typedef NS_ENUM (NSInteger, CPTScaleType) {
-    CPTScaleTypeLinear,   ///< Linear axis scale
-    CPTScaleTypeLog,      ///< Logarithmic axis scale
-    CPTScaleTypeAngular,  ///< Angular axis scale (not implemented)
-    CPTScaleTypeDateTime, ///< Date/time axis scale (not implemented)
-    CPTScaleTypeCategory  ///< Category axis scale
+    CPTScaleTypeLinear,    ///< Linear axis scale
+    CPTScaleTypeLog,       ///< Logarithmic axis scale
+    CPTScaleTypeAngular,   ///< Angular axis scale (not implemented)
+    CPTScaleTypeDateTime,  ///< Date/time axis scale (not implemented)
+    CPTScaleTypeCategory,  ///< Category axis scale
+    CPTScaleTypeLogModulus ///< Log-modulus axis scale
 };
 
 /**

@@ -941,6 +941,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         switch ( [thePlotSpace scaleTypeForCoordinate:coordinate] ) {
             case CPTScaleTypeLinear:
             case CPTScaleTypeLog:
+            case CPTScaleTypeLogModulus:
             {
                 CPTMutableNumericData *mutableNumbers = [self numericDataForNumbers:numbers];
 
@@ -1035,6 +1036,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         switch ( [thePlotSpace scaleTypeForCoordinate:coordinate] ) {
             case CPTScaleTypeLinear:
             case CPTScaleTypeLog:
+            case CPTScaleTypeLogModulus:
             {
                 mutableNumbers = [self numericDataForNumbers:numbers];
 
