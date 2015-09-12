@@ -63,13 +63,19 @@ mkdir(iosDir)
 
 # Build Mac Framework
 chdir('framework')
-RunXcode('CorePlot.xcodeproj', 'CorePlot')
+RunXcode('CorePlot.xcodeproj', 'CorePlot Mac')
 macProductsDir = join(projectRoot, 'build/Release')
 macFramework = join(macProductsDir, 'CorePlot.framework')
 copytree(macFramework, join(macosDir, 'CorePlot.framework'), symlinks=True)
 
+# Build iOS Framework
+RunXcode('CorePlot.xcodeproj', 'CorePlot iOS')
+iOSProductsDir = join(projectRoot, 'build/Release')
+iOSFramework = join(iOSProductsDir, 'CorePlot.framework')
+copytree(iOSFramework, join(iosDir, 'CorePlot.framework'), symlinks=True)
+
 # Build iOS Static Library
-RunXcode('CorePlot-CocoaTouch.xcodeproj', 'Universal Library')
+RunXcode('CorePlot.xcodeproj', 'Universal Library')
 iOSLibFile = join(join(projectRoot, 'build/Release-universal'), 'libCorePlot-CocoaTouch.a')
 copy(iOSLibFile, iosDir)
 iOSHeaderFile = join(join(projectRoot, 'build/Release-universal'), 'CorePlotHeaders')
