@@ -24,12 +24,15 @@ void CPTPushCGContext(CGContextRef newContext)
     dispatch_sync(contextQueue, ^{
         NSGraphicsContext *currentContext = [NSGraphicsContext currentContext];
 
-        if ( newContext && currentContext ) {
+        if ( currentContext ) {
             [pushedContexts addObject:currentContext];
-            [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:newContext flipped:NO]];
         }
         else {
             [pushedContexts addObject:(NSGraphicsContext *)[NSNull null]];
+        }
+
+        if ( newContext ) {
+            [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:newContext flipped:NO]];
         }
     });
 }
@@ -53,6 +56,10 @@ void CPTPopCGContext(void)
             if ( [lastContext isKindOfClass:[NSGraphicsContext class]] ) {
                 [NSGraphicsContext setCurrentContext:lastContext];
             }
+            else {
+                [NSGraphicsContext setCurrentContext:nil];
+            }
+
             [pushedContexts removeLastObject];
         }
     });
