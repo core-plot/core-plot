@@ -124,8 +124,8 @@
 			children = (
 				076184C10F3CAD5900A89A76 /* CorePlot.framework */,
 				07E0DF80109C4E9500F108D2 /* UnitTests.xctest */,
-				C3B345B81B46195100844218 /* CorePlot_iOS.framework */,
-				C3B345BA1B46195100844218 /* CorePlot_iOSTests.xctest */,
+				C3B345B81B46195100844218 /* CorePlot.framework */,
+				C3B345BA1B46195100844218 /* UnitTests iOS.xctest */,
 				C3B345BC1B46195100844218 /* libCorePlot-CocoaTouch.a */,
 				C3B345BE1B46195100844218 /* CorePlot-CocoaTouchTests.xctest */,
 			);
@@ -288,17 +288,17 @@
 			remoteRef = 07E0DF7F109C4E9500F108D2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C3B345B81B46195100844218 /* CorePlot_iOS.framework */ = {
+		C3B345B81B46195100844218 /* CorePlot.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = CorePlot_iOS.framework;
+			path = CorePlot.framework;
 			remoteRef = C3B345B71B46195100844218 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C3B345BA1B46195100844218 /* CorePlot_iOSTests.xctest */ = {
+		C3B345BA1B46195100844218 /* UnitTests iOS.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = CorePlot_iOSTests.xctest;
+			path = "UnitTests iOS.xctest";
 			remoteRef = C3B345B91B46195100844218 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -365,6 +365,7 @@
 /* Begin XCBuildConfiguration section */
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C37FFB5D19E1ECF0003F34C5 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -388,6 +389,7 @@
 		};
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C37FFB5D19E1ECF0003F34C5 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -408,7 +410,6 @@
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C37FFB5D19E1ECF0003F34C5 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
@@ -426,7 +427,6 @@
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C37FFB5D19E1ECF0003F34C5 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = "";

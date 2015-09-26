@@ -213,8 +213,8 @@
 			children = (
 				C3D414D41A7D84BF00B6F5D6 /* CorePlot.framework */,
 				C3D414D61A7D84BF00B6F5D6 /* UnitTests.xctest */,
-				C3D414D81A7D84BF00B6F5D6 /* CorePlot_iOS.framework */,
-				C3D414DA1A7D84BF00B6F5D6 /* CorePlot_iOSTests.xctest */,
+				C3D414D81A7D84BF00B6F5D6 /* CorePlot.framework */,
+				C3D414DA1A7D84BF00B6F5D6 /* UnitTests iOS.xctest */,
 				C3D414DC1A7D84BF00B6F5D6 /* libCorePlot-CocoaTouch.a */,
 				C3D414DE1A7D84BF00B6F5D6 /* CorePlot-CocoaTouchTests.xctest */,
 			);
@@ -295,14 +295,14 @@
 			remoteRef = C3D414D51A7D84BF00B6F5D6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C3D414D81A7D84BF00B6F5D6 /* CorePlot_iOS.framework */ = {
+		C3D414D81A7D84BF00B6F5D6 /* CorePlot.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = CorePlot.framework;
 			remoteRef = C3D414D71A7D84BF00B6F5D6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C3D414DA1A7D84BF00B6F5D6 /* CorePlot_iOSTests.xctest */ = {
+		C3D414DA1A7D84BF00B6F5D6 /* UnitTests iOS.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = "UnitTests iOS.xctest";
@@ -364,6 +364,7 @@
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3CA9B5B19E203B2008DF7A3 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -385,6 +386,7 @@
 		};
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3CA9B5B19E203B2008DF7A3 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -404,7 +406,6 @@
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3CA9B5B19E203B2008DF7A3 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ENABLE_TESTABILITY = YES;
@@ -426,7 +427,6 @@
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3CA9B5B19E203B2008DF7A3 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
