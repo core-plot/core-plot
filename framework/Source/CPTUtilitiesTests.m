@@ -21,20 +21,22 @@
     CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
 #endif
 
-    self.context = CGBitmapContextCreate(NULL,
-                                         width,
-                                         height,
-                                         bitsPerComponent,
-                                         width * bitsPerComponent * 4,
-                                         colorSpace,
-                                         (CGBitmapInfo)kCGImageAlphaNoneSkipLast);
+    CGContextRef testContext = CGBitmapContextCreate(NULL,
+                                                     width,
+                                                     height,
+                                                     bitsPerComponent,
+                                                     width * bitsPerComponent * 4,
+                                                     colorSpace,
+                                                     (CGBitmapInfo)kCGImageAlphaNoneSkipLast);
 
+    self.context = testContext;
+
+    CGContextRelease(testContext);
     CGColorSpaceRelease(colorSpace);
 }
 
 -(void)tearDown
 {
-    CGContextRelease(self.context);
     self.context = NULL;
 }
 
@@ -598,6 +600,23 @@
 
     XCTAssertEqualWithAccuracy(CPTInverseLogModulus( log10(101.0) ), 100.0, 1.0e-7, @"CPTInverseLogModulus(log10(101.0))");
     XCTAssertEqualWithAccuracy(CPTInverseLogModulus( -log10(101.0) ), -100.0, 1.0e-7, @"CPTInverseLogModulus(-log10(101.0))");
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark Accessors
+
+/// @cond
+
+-(void)setContext:(CGContextRef)newContext
+{
+    if ( context != newContext ) {
+        CGContextRetain(newContext);
+        CGContextRelease(context);
+
+        context = newContext;
+    }
 }
 
 @end
