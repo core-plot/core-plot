@@ -302,7 +302,8 @@
         CGPathRef path = CGContextCopyPath(context);
         CGContextBeginPath(context);
 
-        for ( CGFloat width = startWidth; width > CPTFloat(0.0); width -= step ) {
+        CGFloat width = startWidth;
+        while ( width > CPTFloat(0.0) ) {
             CGContextSetLineWidth(context, width);
 
             CGColorRef gradientColor = [gradient newColorAtPosition:CPTFloat(1.0) - width / startWidth];
@@ -311,6 +312,8 @@
 
             CGContextAddPath(context, path);
             CGContextStrokePath(context);
+
+            width -= step;
         }
 
         CGPathRelease(path);
