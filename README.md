@@ -4,7 +4,7 @@ Core Plot is a 2D plotting framework for Mac OS X and iOS. It is highly customiz
 
 # Getting Started
 
-See the [High Level Design Overview](https://github.com/core-plot/core-plot/wiki/High-Level-Design-Overview) wiki for an overview of Core Plot's architecture and the [Using Core Plot in an Application](http://code.google.com/p/core-plot/wiki/UsingCorePlotInApplications) wiki for information on how to use Core Plot in your own application.
+See the [High Level Design Overview](https://github.com/core-plot/core-plot/wiki/High-Level-Design-Overview) wiki for an overview of Core Plot's architecture and the [Using Core Plot in an Application](https://github.com/core-plot/core-plot/wiki/Using-Core-Plot-in-an-Application) wiki for information on how to use Core Plot in your own application.
 
 # Documentation
 
