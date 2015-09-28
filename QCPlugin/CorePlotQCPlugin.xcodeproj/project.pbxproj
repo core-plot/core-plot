@@ -121,7 +121,7 @@
 		A8FC1815102CBADE00CF2266 /* CPTScatterPlotPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTScatterPlotPlugin.m; sourceTree = "<group>"; };
 		A8FC1817102CBAEA00CF2266 /* CPTBarPlotPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTBarPlotPlugin.h; sourceTree = "<group>"; };
 		A8FC1818102CBAEA00CF2266 /* CPTBarPlotPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTBarPlotPlugin.m; sourceTree = "<group>"; };
-		C3C8CFF619E9504C007E0BCB /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../framework/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
+		C3C8CFF619E9504C007E0BCB /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../framework/xcconfig/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
