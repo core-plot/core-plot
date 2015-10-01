@@ -82,6 +82,8 @@
 		07B69B7112B62E9600F4C16C /* CPTMutableLineStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 07B69B6F12B62E9600F4C16C /* CPTMutableLineStyle.h */; settings = {ATTRIBUTES = (); }; };
 		07B69B7212B62E9600F4C16C /* CPTMutableLineStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B69B7012B62E9600F4C16C /* CPTMutableLineStyle.m */; };
 		07FCF2D4115B54DE00E46606 /* _CPTSlateTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FCF2D2115B54DE00E46606 /* _CPTSlateTheme.m */; };
+		179AEF741BA2B94400DC0004 /* CPTStretchableImageFill.h in Headers */ = {isa = PBXBuildFile; fileRef = 179AEF721BA2B94400DC0004 /* CPTStretchableImageFill.h */; };
+		179AEF751BA2B94400DC0004 /* CPTStretchableImageFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 179AEF731BA2B94400DC0004 /* CPTStretchableImageFill.m */; };
 		BC4FAF29100D7DF300811DD3 /* NSDecimalNumberExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9B82B10FB89E610035D8DA /* NSDecimalNumberExtensions.h */; settings = {ATTRIBUTES = (); }; };
 		BC74A2C210FC087800E7E90D /* CPTPieChart.h in Headers */ = {isa = PBXBuildFile; fileRef = BC74A2C010FC087800E7E90D /* CPTPieChart.h */; settings = {ATTRIBUTES = (); }; };
 		BC74A2C310FC087800E7E90D /* CPTPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74A2C110FC087800E7E90D /* CPTPieChart.m */; };
@@ -274,6 +276,8 @@
 		07B69B6F12B62E9600F4C16C /* CPTMutableLineStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTMutableLineStyle.h; path = Source/CPTMutableLineStyle.h; sourceTree = "<group>"; };
 		07B69B7012B62E9600F4C16C /* CPTMutableLineStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTMutableLineStyle.m; path = Source/CPTMutableLineStyle.m; sourceTree = "<group>"; };
 		07FCF2D2115B54DE00E46606 /* _CPTSlateTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _CPTSlateTheme.m; path = Source/_CPTSlateTheme.m; sourceTree = "<group>"; };
+		179AEF721BA2B94400DC0004 /* CPTStretchableImageFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTStretchableImageFill.h; sourceTree = "<group>"; };
+		179AEF731BA2B94400DC0004 /* CPTStretchableImageFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTStretchableImageFill.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -569,6 +573,8 @@
 		0789EFB70FB9F97F00C0A613 /* iPhone Specific */ = {
 			isa = PBXGroup;
 			children = (
+				179AEF721BA2B94400DC0004 /* CPTStretchableImageFill.h */,
+				179AEF731BA2B94400DC0004 /* CPTStretchableImageFill.m */,
 				0789EFBA0FB9F97F00C0A613 /* CPTPlatformSpecificDefines.h */,
 				0789EFBB0FB9F97F00C0A613 /* CPTPlatformSpecificDefines.m */,
 				0789EFB80FB9F97F00C0A613 /* CPTPlatformSpecificCategories.h */,
@@ -1008,6 +1014,7 @@
 				C35A65B311025F8A00FE24BB /* CPTGridLines.h in Headers */,
 				C30C85AB1047428100181766 /* CPTPlotGroup.h in Headers */,
 				C3978E1013CE65C600A420D9 /* NSCoderExtensions.h in Headers */,
+				179AEF741BA2B94400DC0004 /* CPTStretchableImageFill.h in Headers */,
 				BC4FAF29100D7DF300811DD3 /* NSDecimalNumberExtensions.h in Headers */,
 				C3B623D3107EC97A0009EF0B /* NSNumberExtensions.h in Headers */,
 				C3C68320166138E200340E39 /* CPTAnimation.h in Headers */,
@@ -1138,6 +1145,7 @@
 				070CB8370FC9DEA800F3152B /* CPTColorSpace.m in Sources */,
 				070CB8440FC9DED400F3152B /* CPTAxis.m in Sources */,
 				070CB8480FC9DED400F3152B /* CPTAxisSet.m in Sources */,
+				179AEF751BA2B94400DC0004 /* CPTStretchableImageFill.m in Sources */,
 				070CB85E0FC9DF4700F3152B /* CPTTextLayer.m in Sources */,
 				BC79F1D60FD1DC1A00510976 /* CPTGraphHostingView.m in Sources */,
 				074D7BC60FD6B65F006011BC /* CPTXYPlotSpace.m in Sources */,
