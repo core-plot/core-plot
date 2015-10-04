@@ -1,18 +1,23 @@
-# Release 2.0 (TBD)
+# Release 2.0 (October 4, 2015)
 
 ## Release Notes
 
-To be determined
+This release contains changes that will break apps built against earlier Core Plot
+versions. For a cleaner public API and ease of use from Swift, all public properties and methods that take `NSDecimal` values have been changed to take `NSNumber` values instead. See the [Release 2.0 API Changes](https://github.com/core-plot/core-plot/wiki/Core-Plot-API-Changes-Between-Versions-1.x-and-2.x) wiki page for a detailed list of the API changes.
+
+The Mac and iOS projects have been combined into one project file. The `CorePlot-CocoaTouch.xcodeproj` project file is deprecated and will be removed in a future release. There is now an iOS framework target in addition to the static library in the `CorePlot.xcodeproj` project file.
+
+The deployment target has increased to iOS 6.0 for the static library and iOS 8.0 for the framework. The Mac deployment target remains OS X 10.7.
 
 ## Details
-- **New**: Combined the Mac and iOS projects and added an iOS framework target.
+- **New**: Combined the Mac and iOS projects and added an iOS framework target. The `CorePlot-CocoaTouch.xcodeproj` project file is deprecated.
 - **New**: Added histogram style options to `CPTScatterPlot`.
 - **New**: Added iOS unit tests.
 - **New**: Added plot space point conversion methods that take an `NSArray` of coordinate values.
 - **New**: Added nullability annotations to all property and method declarations.
 - **New**: Added type annotations to all arrays, sets, and dictionaries.
 - **New**: Added the log-modulus scale type.
-- **Changed**: Increased the deployment target to iOS 8.0 and Mac OS X 10.7.
+- **Changed**: Increased the deployment target to iOS 6.0 and Mac OS X 10.7. The iOS framework requires iOS 8 or higher.
 - **Changed**: Changed the Installation Directory for the Mac framework to "@rpath" and updated the Runpath Search Path in each Mac example app.
 - **Changed**: Changed all public properties and methods that take `NSDecimal` values to take `NSNumber` values instead. Use `NSDecimalNumber` to maintain full decimal precision.
 - **Changed**: Added properties to `CPTPlotRange` and `CPTMutablePlotRange` to read and write all range properties as `NSNumber`, `NSDecimal`, or `double`.
