@@ -2662,12 +2662,14 @@
 		1DEB91B208733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				SYMROOT = "$(PROJECT_DIR)/../build";
 			};
 			name = Debug;
 		};
 		1DEB91B308733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				SYMROOT = "$(PROJECT_DIR)/../build";
 			};
 			name = Release;
 		};
