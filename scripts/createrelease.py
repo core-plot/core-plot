@@ -69,8 +69,8 @@ macFramework = join(macProductsDir, 'CorePlot.framework')
 copytree(macFramework, join(macosDir, 'CorePlot.framework'), symlinks=True)
 
 # Build iOS Framework
-RunXcode('CorePlot.xcodeproj', 'CorePlot iOS')
-iOSProductsDir = join(projectRoot, 'build/Release')
+RunXcode('CorePlot.xcodeproj', 'Universal iOS Framework')
+iOSProductsDir = join(projectRoot, 'build/Release-iphoneuniversal')
 iOSFramework = join(iOSProductsDir, 'CorePlot.framework')
 copytree(iOSFramework, join(iosDir, 'CorePlot.framework'), symlinks=True)
 
