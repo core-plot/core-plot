@@ -259,6 +259,15 @@
         <base>NSMutableCopying-p</base>
     </compound>
     <compound kind="class" objc="yes">
+        <name>NSMutableDictionary</name>
+        <filename>https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/Foundation/Classes/NSMutableDictionary_Class/Reference/Reference.html</filename>
+        <base>NSObject</base>
+        <base>NSCoding-p</base>
+        <base>NSCopying-p</base>
+        <base>NSFastEnumeration-p</base>
+        <base>NSMutableCopying-p</base>
+    </compound>
+    <compound kind="class" objc="yes">
         <name>NSEvent</name>
         <filename>https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ApplicationKit/Classes/NSEvent_Class/Reference/Reference.html</filename>
         <base>NSObject</base>
@@ -505,6 +514,15 @@
     <compound kind="class" objc="yes">
         <name>NSSet</name>
         <filename>https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/Foundation/Classes/NSSet_Class/Reference/Reference.html</filename>
+        <base>NSObject</base>
+        <base>NSCoding-p</base>
+        <base>NSCopying-p</base>
+        <base>NSFastEnumeration-p</base>
+        <base>NSMutableCopying-p</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSMutableSet</name>
+        <filename>https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/Foundation/Classes/NSMutableSet_Class/Reference/Reference.html</filename>
         <base>NSObject</base>
         <base>NSCoding-p</base>
         <base>NSCopying-p</base>

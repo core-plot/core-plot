@@ -52,8 +52,8 @@
 
     // Setup plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromDouble(-10.0)];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.5) length:CPTDecimalFromDouble(10.0)];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@(-10.0)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@0.5 length:@10.0];
 
     // Line styles
     CPTMutableLineStyle *axisLineStyle = [CPTMutableLineStyle lineStyle];
@@ -76,22 +76,22 @@
     // Label x axis with a fixed interval policy
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
-    x.separateLayers              = NO;
-    x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.5);
-    x.majorIntervalLength         = CPTDecimalFromDouble(0.5);
-    x.minorTicksPerInterval       = 4;
-    x.tickDirection               = CPTSignNone;
-    x.axisLineStyle               = axisLineStyle;
-    x.majorTickLength             = 12.0;
-    x.majorTickLineStyle          = axisLineStyle;
-    x.majorGridLineStyle          = majorGridLineStyle;
-    x.minorTickLength             = 8.0;
-    x.minorGridLineStyle          = minorGridLineStyle;
-    x.title                       = @"X Axis";
-    x.titleTextStyle              = axisTitleTextStyle;
-    x.titleOffset                 = self.titleSize;
-    x.alternatingBandFills        = @[[[CPTColor redColor] colorWithAlphaComponent:CPTFloat(0.1)], [[CPTColor greenColor] colorWithAlphaComponent:CPTFloat(0.1)]];
-    x.delegate                    = self;
+    x.separateLayers        = NO;
+    x.orthogonalPosition    = @0.5;
+    x.majorIntervalLength   = @0.5;
+    x.minorTicksPerInterval = 4;
+    x.tickDirection         = CPTSignNone;
+    x.axisLineStyle         = axisLineStyle;
+    x.majorTickLength       = 12.0;
+    x.majorTickLineStyle    = axisLineStyle;
+    x.majorGridLineStyle    = majorGridLineStyle;
+    x.minorTickLength       = 8.0;
+    x.minorGridLineStyle    = minorGridLineStyle;
+    x.title                 = @"X Axis";
+    x.titleTextStyle        = axisTitleTextStyle;
+    x.titleOffset           = self.titleSize;
+    x.alternatingBandFills  = @[[[CPTColor redColor] colorWithAlphaComponent:CPTFloat(0.1)], [[CPTColor greenColor] colorWithAlphaComponent:CPTFloat(0.1)]];
+    x.delegate              = self;
 
     // Label y with an automatic labeling policy.
     axisLineStyle.lineColor = [CPTColor greenColor];
@@ -114,8 +114,8 @@
     y.delegate              = self;
 
     CPTFill *bandFill = [CPTFill fillWithColor:[[CPTColor darkGrayColor] colorWithAlphaComponent:0.5]];
-    [y addBackgroundLimitBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(7.0) length:CPTDecimalFromDouble(1.5)] fill:bandFill]];
-    [y addBackgroundLimitBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.5) length:CPTDecimalFromDouble(3.0)] fill:bandFill]];
+    [y addBackgroundLimitBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:@7.0 length:@1.5] fill:bandFill]];
+    [y addBackgroundLimitBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:@1.5 length:@3.0] fill:bandFill]];
 
     // Label y2 with an equal division labeling policy.
     axisLineStyle.lineColor = [CPTColor orangeColor];
@@ -123,7 +123,7 @@
     CPTXYAxis *y2 = [[CPTXYAxis alloc] init];
     y2.coordinate                  = CPTCoordinateY;
     y2.plotSpace                   = plotSpace;
-    y2.orthogonalCoordinateDecimal = CPTDecimalFromDouble(-10.0);
+    y2.orthogonalPosition          = @(-10.0);
     y2.labelingPolicy              = CPTAxisLabelingPolicyEqualDivisions;
     y2.separateLayers              = NO;
     y2.preferredNumberOfMajorTicks = 6;
@@ -148,9 +148,7 @@
 
 -(void)axis:(CPTAxis *)axis labelWasSelected:(CPTAxisLabel *)label
 {
-    NSDecimal labelLocation = label.tickLocation;
-
-    NSLog( @"%@ label was selected at location %@", axis.title, NSDecimalString(&labelLocation, nil) );
+    NSLog(@"%@ label was selected at location %@", axis.title, label.tickLocation);
 }
 
 @end

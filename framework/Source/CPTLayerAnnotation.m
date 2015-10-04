@@ -2,12 +2,13 @@
 
 #import "CPTAnnotationHostLayer.h"
 #import "CPTConstraints.h"
+#import "CPTExceptions.h"
 
 /// @cond
 @interface CPTLayerAnnotation()
 
-@property (nonatomic, readwrite, strong) CPTConstraints *xConstraints;
-@property (nonatomic, readwrite, strong) CPTConstraints *yConstraints;
+@property (nonatomic, readwrite, strong, nullable) CPTConstraints *xConstraints;
+@property (nonatomic, readwrite, strong, nullable) CPTConstraints *yConstraints;
 
 -(void)setConstraints;
 
@@ -75,10 +76,11 @@
 
 /// @cond
 
-// anchorLayer is required; this will fail the assertion in -initWithAnchorLayer:
+// anchorLayer is required
 -(instancetype)init
 {
-    return [self initWithAnchorLayer:nil];
+    [NSException raise:CPTException format:@"%@ must be initialized with an anchor layer.", NSStringFromClass([self class])];
+    return [self initWithAnchorLayer:[CPTLayer layer]];
 }
 
 -(void)dealloc

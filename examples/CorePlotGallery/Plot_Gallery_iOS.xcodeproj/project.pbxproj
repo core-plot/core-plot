@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,11 +19,12 @@
 		4F22FE4A123404C2006BF615 /* VerticalBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FE45123404C2006BF615 /* VerticalBarChart.m */; };
 		4F22FE6712340671006BF615 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FE6612340671006BF615 /* main.m */; };
 		4F22FE7B123406DF006BF615 /* ThemeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FE78123406DF006BF615 /* ThemeTableViewController.m */; };
-		4F4892581290FAD100EDB93F /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F4892451290F96500EDB93F /* libCorePlot-CocoaTouch.a */; };
 		4F5EBAC312297F2400D147E7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F5EBAC212297F2400D147E7 /* QuartzCore.framework */; };
 		4F7541F3126B59A200313026 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7541EF126B59A200313026 /* DetailViewController.m */; };
 		4F8E1C6012907C1800D2035F /* DatePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E1C5F12907C1800D2035F /* DatePlot.m */; };
 		4F8E1CA0129089D600D2035F /* SteppedScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E1C9F129089D600D2035F /* SteppedScatterPlot.m */; };
+		C317907E1B49EAF100699C5F /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D414581A7D817000B6F5D6 /* CorePlot.framework */; };
+		C317907F1B49EAF100699C5F /* CorePlot.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C3D414581A7D817000B6F5D6 /* CorePlot.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C31A40BA17ABD6910020C5C6 /* FunctionPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C31A40B917ABD6910020C5C6 /* FunctionPlot.m */; };
 		C32960CB1A101AEB0086D047 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C32960CA1A101AEB0086D047 /* AppDelegate.m */; };
 		C3457A5317AD7C72000880F3 /* PiNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3457A5217AD7C72000880F3 /* PiNumberFormatter.m */; };
@@ -44,26 +45,83 @@
 		C3CD282A17DE9A7E008EED1E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CD282917DE9A7E008EED1E /* Accelerate.framework */; };
 		C3D2FE6919FF1D3E002CD4D6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D2FE6819FF1D3E002CD4D6 /* Images.xcassets */; };
 		C3D70BAC175EB30800F27173 /* ImageDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D70BAB175EB30800F27173 /* ImageDemo.m */; };
+		C3EB3ACC1B46CC5100906482 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D414541A7D817000B6F5D6 /* CorePlot.framework */; };
 		C3EF42F919FC753E0060791A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3EF42F819FC753E0060791A /* Images.xcassets */; };
 		C3F34F2A12AB25AE008FBDC3 /* DonutChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F34F2912AB25AE008FBDC3 /* DonutChart.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		4F4892441290F96500EDB93F /* PBXContainerItemProxy */ = {
+		C317907C1B49EAC900699C5F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 4F07461A1236B1CB0039593F /* CorePlot-CocoaTouch.xcodeproj */;
+			containerPortal = C3D414471A7D817000B6F5D6 /* CorePlot.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C38A09771A46185200D45436;
+			remoteInfo = "CorePlot iOS";
+		};
+		C31790801B49EAF100699C5F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3D414471A7D817000B6F5D6 /* CorePlot.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C38A09771A46185200D45436;
+			remoteInfo = "CorePlot iOS";
+		};
+		C3D414531A7D817000B6F5D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3D414471A7D817000B6F5D6 /* CorePlot.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = BC9B83470FB8A0A40035D8DA;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = CorePlot;
+		};
+		C3D414551A7D817000B6F5D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3D414471A7D817000B6F5D6 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0730F600109492D800E95162;
+			remoteInfo = UnitTests;
+		};
+		C3D414571A7D817000B6F5D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3D414471A7D817000B6F5D6 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C38A09781A46185200D45436;
+			remoteInfo = CorePlot_iOS;
+		};
+		C3D414591A7D817000B6F5D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3D414471A7D817000B6F5D6 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C38A09821A46185300D45436;
+			remoteInfo = CorePlot_iOSTests;
+		};
+		C3D4145B1A7D817000B6F5D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3D414471A7D817000B6F5D6 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C38A09BA1A4619A900D45436;
 			remoteInfo = "CorePlot-CocoaTouch";
 		};
-		4F4892561290FAB500EDB93F /* PBXContainerItemProxy */ = {
+		C3D4145D1A7D817000B6F5D6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 4F07461A1236B1CB0039593F /* CorePlot-CocoaTouch.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = BC9B83460FB8A0A40035D8DA;
-			remoteInfo = "CorePlot-CocoaTouch";
+			containerPortal = C3D414471A7D817000B6F5D6 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C38A09C41A4619A900D45436;
+			remoteInfo = "CorePlot-CocoaTouchTests";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C31790821B49EAF200699C5F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C317907F1B49EAF100699C5F /* CorePlot.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -73,10 +131,9 @@
 		28A0AAE50D9B0CCF005BE974 /* Plot_Gallery_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plot_Gallery_Prefix.pch; sourceTree = "<group>"; };
 		4CBCB98814753D6F000C8951 /* CurvedScatterPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurvedScatterPlot.h; path = src/plots/CurvedScatterPlot.h; sourceTree = "<group>"; };
 		4CBCB98914753D6F000C8951 /* CurvedScatterPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 2; name = CurvedScatterPlot.m; path = src/plots/CurvedScatterPlot.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		4F07461A1236B1CB0039593F /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../../framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		4F22FE3612340464006BF615 /* PlotGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlotGallery.h; path = src/shared/PlotGallery.h; sourceTree = "<group>"; };
 		4F22FE3712340464006BF615 /* PlotGallery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlotGallery.m; path = src/shared/PlotGallery.m; sourceTree = "<group>"; };
-		4F22FE3812340464006BF615 /* PlotItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlotItem.h; path = src/shared/PlotItem.h; sourceTree = "<group>"; };
+		4F22FE3812340464006BF615 /* PlotItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PlotItem.h; path = src/shared/PlotItem.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		4F22FE3912340464006BF615 /* PlotItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlotItem.m; path = src/shared/PlotItem.m; sourceTree = "<group>"; };
 		4F22FE3C123404C2006BF615 /* CompositePlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = CompositePlot.h; path = src/plots/CompositePlot.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		4F22FE3D123404C2006BF615 /* CompositePlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = CompositePlot.m; path = src/plots/CompositePlot.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -90,7 +147,7 @@
 		4F22FE45123404C2006BF615 /* VerticalBarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VerticalBarChart.m; path = src/plots/VerticalBarChart.m; sourceTree = "<group>"; };
 		4F22FE6612340671006BF615 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = src/ios/main.m; sourceTree = "<group>"; };
 		4F22FE77123406DF006BF615 /* ThemeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThemeTableViewController.h; path = src/ios/ThemeTableViewController.h; sourceTree = "<group>"; };
-		4F22FE78123406DF006BF615 /* ThemeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ThemeTableViewController.m; path = src/ios/ThemeTableViewController.m; sourceTree = "<group>"; };
+		4F22FE78123406DF006BF615 /* ThemeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = ThemeTableViewController.m; path = src/ios/ThemeTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4F5EBAC212297F2400D147E7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4F7541EE126B59A200313026 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = src/ios/DetailViewController.h; sourceTree = "<group>"; };
 		4F7541EF126B59A200313026 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = DetailViewController.m; path = src/ios/DetailViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -129,9 +186,10 @@
 		C3A14C1413AEE7CC00D103EA /* RangePlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RangePlot.m; path = src/plots/RangePlot.m; sourceTree = "<group>"; };
 		C3A31A5714DF783500734AB7 /* ColoredBarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColoredBarChart.h; path = src/plots/ColoredBarChart.h; sourceTree = "<group>"; };
 		C3A31A5814DF783500734AB7 /* ColoredBarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = ColoredBarChart.m; path = src/plots/ColoredBarChart.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C3C0DF2419D86B3A00631CAD /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
+		C3C0DF2419D86B3A00631CAD /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/xcconfig/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
 		C3CD282917DE9A7E008EED1E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C3D2FE6819FF1D3E002CD4D6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = img/Images.xcassets; sourceTree = "<group>"; };
+		C3D414471A7D817000B6F5D6 /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = ../../framework/CorePlot.xcodeproj; sourceTree = "<group>"; };
 		C3D70BAA175EB30800F27173 /* ImageDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageDemo.h; path = src/plots/ImageDemo.h; sourceTree = "<group>"; };
 		C3D70BAB175EB30800F27173 /* ImageDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = ImageDemo.m; path = src/plots/ImageDemo.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C3EF42F819FC753E0060791A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Plot Gallery-iOS/Images.xcassets"; sourceTree = "<group>"; };
@@ -144,12 +202,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F4892581290FAD100EDB93F /* libCorePlot-CocoaTouch.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				C317907E1B49EAF100699C5F /* CorePlot.framework in Frameworks */,
 				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
 				4F5EBAC312297F2400D147E7 /* QuartzCore.framework in Frameworks */,
 				C3CD282A17DE9A7E008EED1E /* Accelerate.framework in Frameworks */,
+				C3EB3ACC1B46CC5100906482 /* CorePlot.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,7 +226,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				4F07461A1236B1CB0039593F /* CorePlot-CocoaTouch.xcodeproj */,
+				C3D414471A7D817000B6F5D6 /* CorePlot.xcodeproj */,
 				4F22FE351234043F006BF615 /* Shared */,
 				4F22FE3112340417006BF615 /* iOS */,
 				4F5EBAFA1229818000D147E7 /* Plots */,
@@ -228,14 +287,6 @@
 			name = Shared;
 			sourceTree = "<group>";
 		};
-		4F48923F1290F96500EDB93F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				4F4892451290F96500EDB93F /* libCorePlot-CocoaTouch.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		4F5EBAFA1229818000D147E7 /* Plots */ = {
 			isa = PBXGroup;
 			children = (
@@ -285,6 +336,19 @@
 			name = Plots;
 			sourceTree = "<group>";
 		};
+		C3D414481A7D817000B6F5D6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C3D414541A7D817000B6F5D6 /* CorePlot.framework */,
+				C3D414561A7D817000B6F5D6 /* UnitTests.xctest */,
+				C3D414581A7D817000B6F5D6 /* CorePlot.framework */,
+				C3D4145A1A7D817000B6F5D6 /* UnitTests iOS.xctest */,
+				C3D4145C1A7D817000B6F5D6 /* libCorePlot-CocoaTouch.a */,
+				C3D4145E1A7D817000B6F5D6 /* CorePlot-CocoaTouchTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -295,11 +359,13 @@
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+				C31790821B49EAF200699C5F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				4F4892571290FAB500EDB93F /* PBXTargetDependency */,
+				C317907D1B49EAC900699C5F /* PBXTargetDependency */,
+				C31790811B49EAF100699C5F /* PBXTargetDependency */,
 			);
 			name = "Plot Gallery-iOS";
 			productName = "Plot Gallery";
@@ -320,7 +386,7 @@
 				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Plot_Gallery_iOS" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -334,8 +400,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 4F48923F1290F96500EDB93F /* Products */;
-					ProjectRef = 4F07461A1236B1CB0039593F /* CorePlot-CocoaTouch.xcodeproj */;
+					ProductGroup = C3D414481A7D817000B6F5D6 /* Products */;
+					ProjectRef = C3D414471A7D817000B6F5D6 /* CorePlot.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -346,11 +412,46 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		4F4892451290F96500EDB93F /* libCorePlot-CocoaTouch.a */ = {
+		C3D414541A7D817000B6F5D6 /* CorePlot.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CorePlot.framework;
+			remoteRef = C3D414531A7D817000B6F5D6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C3D414561A7D817000B6F5D6 /* UnitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = UnitTests.xctest;
+			remoteRef = C3D414551A7D817000B6F5D6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C3D414581A7D817000B6F5D6 /* CorePlot.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CorePlot.framework;
+			remoteRef = C3D414571A7D817000B6F5D6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C3D4145A1A7D817000B6F5D6 /* UnitTests iOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "UnitTests iOS.xctest";
+			remoteRef = C3D414591A7D817000B6F5D6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C3D4145C1A7D817000B6F5D6 /* libCorePlot-CocoaTouch.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = "libCorePlot-CocoaTouch.a";
-			remoteRef = 4F4892441290F96500EDB93F /* PBXContainerItemProxy */;
+			remoteRef = C3D4145B1A7D817000B6F5D6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C3D4145E1A7D817000B6F5D6 /* CorePlot-CocoaTouchTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "CorePlot-CocoaTouchTests.xctest";
+			remoteRef = C3D4145D1A7D817000B6F5D6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -409,16 +510,22 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4F4892571290FAB500EDB93F /* PBXTargetDependency */ = {
+		C317907D1B49EAC900699C5F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "CorePlot-CocoaTouch";
-			targetProxy = 4F4892561290FAB500EDB93F /* PBXContainerItemProxy */;
+			name = "CorePlot iOS";
+			targetProxy = C317907C1B49EAC900699C5F /* PBXContainerItemProxy */;
+		};
+		C31790811B49EAF100699C5F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "CorePlot iOS";
+			targetProxy = C31790801B49EAF100699C5F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3C0DF2419D86B3A00631CAD /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -433,6 +540,7 @@
 				GCC_PREFIX_HEADER = Plot_Gallery_Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework/\"/**";
 				INFOPLIST_FILE = "Plot_Gallery-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -447,18 +555,20 @@
 		};
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3C0DF2419D86B3A00631CAD /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Plot_Gallery_Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework/\"/**";
 				INFOPLIST_FILE = "Plot_Gallery-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -474,7 +584,6 @@
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3C0DF2419D86B3A00631CAD /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_TESTABILITY = YES;
@@ -490,7 +599,6 @@
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3C0DF2419D86B3A00631CAD /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;

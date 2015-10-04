@@ -5,7 +5,7 @@ static NSString *const outerChartName = @"Outer";
 
 @interface DonutChart()
 
-@property (nonatomic, readwrite, strong) NSArray *plotData;
+@property (nonatomic, readwrite, strong) CPTNumberArray plotData;
 
 @end
 

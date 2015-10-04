@@ -1,5 +1,6 @@
-#import "CPTPlotSpace.h"
 #import "CPTPlotSpaceTests.h"
+
+#import "CPTPlotSpace.h"
 #import "CPTXYGraph.h"
 
 @implementation CPTPlotSpaceTests

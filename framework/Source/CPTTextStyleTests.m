@@ -1,7 +1,8 @@
+#import "CPTTextStyleTests.h"
+
 #import "CPTColor.h"
 #import "CPTDefinitions.h"
 #import "CPTTextStyle.h"
-#import "CPTTextStyleTests.h"
 
 @implementation CPTTextStyleTests
 

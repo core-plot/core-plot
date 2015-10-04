@@ -14,9 +14,9 @@ static NSString *const kSecond = @"Second Derivative";
 
 @property (nonatomic, readwrite, strong) CPTPlotSpaceAnnotation *symbolTextAnnotation;
 
-@property (nonatomic, readwrite, strong) NSArray *plotData;
-@property (nonatomic, readwrite, strong) NSArray *plotData1;
-@property (nonatomic, readwrite, strong) NSArray *plotData2;
+@property (nonatomic, readwrite, strong) NSArray<NSDictionary<NSString *, NSNumber *> *> *plotData;
+@property (nonatomic, readwrite, strong) NSArray<NSDictionary<NSString *, NSNumber *> *> *plotData1;
+@property (nonatomic, readwrite, strong) NSArray<NSDictionary<NSString *, NSNumber *> *> *plotData2;
 
 @end
 
@@ -60,12 +60,14 @@ static NSString *const kSecond = @"Second Derivative";
 -(void)generateData
 {
     if ( self.plotData == nil ) {
-        NSMutableArray *contentArray = [NSMutableArray array];
+        NSMutableArray<NSDictionary<NSString *, NSNumber *> *> *contentArray = [NSMutableArray array];
 
         for ( NSUInteger i = 0; i < 11; i++ ) {
             NSNumber *x = @(1.0 + i * 0.05);
             NSNumber *y = @(1.2 * arc4random() / (double)UINT32_MAX + 0.5);
-            [contentArray addObject:@{ @"x": x, @"y": y }
+            [contentArray addObject:
+             @{ @"x": x,
+                @"y": y }
             ];
         }
 
@@ -73,25 +75,26 @@ static NSString *const kSecond = @"Second Derivative";
     }
 
     if ( self.plotData1 == nil ) {
-        NSMutableArray *contentArray = [NSMutableArray array];
+        NSMutableArray<NSDictionary<NSString *, NSNumber *> *> *contentArray = [NSMutableArray array];
 
-        NSArray *dataArray = self.plotData;
+        NSArray<NSDictionary<NSString *, NSNumber *> *> *dataArray = self.plotData;
 
         for ( NSUInteger i = 1; i < dataArray.count; i++ ) {
-            NSDictionary *point1 = dataArray[i - 1];
-            NSDictionary *point2 = dataArray[i];
+            NSDictionary<NSString *, NSNumber *> *point1 = dataArray[i - 1];
+            NSDictionary<NSString *, NSNumber *> *point2 = dataArray[i];
 
-            double x1   = [(NSNumber *)point1[@"x"] doubleValue];
-            double x2   = [(NSNumber *)point2[@"x"] doubleValue];
+            double x1   = [point1[@"x"] doubleValue];
+            double x2   = [point2[@"x"] doubleValue];
             double dx   = x2 - x1;
             double xLoc = (x1 + x2) * 0.5;
 
-            double y1 = [(NSNumber *)point1[@"y"] doubleValue];
-            double y2 = [(NSNumber *)point2[@"y"] doubleValue];
+            double y1 = [point1[@"y"] doubleValue];
+            double y2 = [point2[@"y"] doubleValue];
             double dy = y2 - y1;
 
-            [contentArray addObject:@{ @"x": @(xLoc),
-                                       @"y": @( (dy / dx) / 20.0 ) }
+            [contentArray addObject:
+             @{ @"x": @(xLoc),
+                @"y": @( (dy / dx) / 20.0 ) }
             ];
         }
 
@@ -99,25 +102,26 @@ static NSString *const kSecond = @"Second Derivative";
     }
 
     if ( self.plotData2 == nil ) {
-        NSMutableArray *contentArray = [NSMutableArray array];
+        NSMutableArray<NSDictionary<NSString *, NSNumber *> *> *contentArray = [NSMutableArray array];
 
-        NSArray *dataArray = self.plotData1;
+        NSArray<NSDictionary<NSString *, NSNumber *> *> *dataArray = self.plotData1;
 
         for ( NSUInteger i = 1; i < dataArray.count; i++ ) {
-            NSDictionary *point1 = dataArray[i - 1];
-            NSDictionary *point2 = dataArray[i];
+            NSDictionary<NSString *, NSNumber *> *point1 = dataArray[i - 1];
+            NSDictionary<NSString *, NSNumber *> *point2 = dataArray[i];
 
-            double x1   = [(NSNumber *)point1[@"x"] doubleValue];
-            double x2   = [(NSNumber *)point2[@"x"] doubleValue];
+            double x1   = [point1[@"x"] doubleValue];
+            double x2   = [point2[@"x"] doubleValue];
             double dx   = x2 - x1;
             double xLoc = (x1 + x2) * 0.5;
 
-            double y1 = [(NSNumber *)point1[@"y"] doubleValue];
-            double y2 = [(NSNumber *)point2[@"y"] doubleValue];
+            double y1 = [point1[@"y"] doubleValue];
+            double y2 = [point2[@"y"] doubleValue];
             double dy = y2 - y1;
 
-            [contentArray addObject:@{ @"x": @(xLoc),
-                                       @"y": @( (dy / dx) / 20.0 ) }
+            [contentArray addObject:
+             @{ @"x": @(xLoc),
+                @"y": @( (dy / dx) / 20.0 ) }
             ];
         }
 
@@ -171,7 +175,7 @@ static NSString *const kSecond = @"Second Derivative";
     // Label x axis with a fixed interval policy
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
-    x.majorIntervalLength   = CPTDecimalFromDouble(0.1);
+    x.majorIntervalLength   = @0.1;
     x.minorTicksPerInterval = 4;
     x.majorGridLineStyle    = majorGridLineStyle;
     x.minorGridLineStyle    = minorGridLineStyle;
@@ -245,19 +249,19 @@ static NSString *const kSecond = @"Second Derivative";
     CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
 
     // Expand the ranges to put some space around the plot
-    [xRange expandRangeByFactor:CPTDecimalFromDouble(1.2)];
-    [yRange expandRangeByFactor:CPTDecimalFromDouble(1.2)];
+    [xRange expandRangeByFactor:@1.2];
+    [yRange expandRangeByFactor:@1.2];
     plotSpace.xRange = xRange;
     plotSpace.yRange = yRange;
 
-    [xRange expandRangeByFactor:CPTDecimalFromDouble(1.025)];
+    [xRange expandRangeByFactor:@1.025];
     xRange.location = plotSpace.xRange.location;
-    [yRange expandRangeByFactor:CPTDecimalFromDouble(1.05)];
+    [yRange expandRangeByFactor:@1.05];
     x.visibleAxisRange = xRange;
     y.visibleAxisRange = yRange;
 
-    [xRange expandRangeByFactor:CPTDecimalFromDouble(3.0)];
-    [yRange expandRangeByFactor:CPTDecimalFromDouble(3.0)];
+    [xRange expandRangeByFactor:@3.0];
+    [yRange expandRangeByFactor:@3.0];
     plotSpace.globalXRange = xRange;
     plotSpace.globalYRange = yRange;
 
@@ -338,13 +342,13 @@ static NSString *const kSecond = @"Second Derivative";
 
     switch ( coordinate ) {
         case CPTCoordinateX:
-            [changedRange expandRangeByFactor:CPTDecimalFromDouble(1.025)];
+            [changedRange expandRangeByFactor:@1.025];
             changedRange.location          = newRange.location;
             axisSet.xAxis.visibleAxisRange = changedRange;
             break;
 
         case CPTCoordinateY:
-            [changedRange expandRangeByFactor:CPTDecimalFromDouble(1.05)];
+            [changedRange expandRangeByFactor:@1.05];
             axisSet.yAxis.visibleAxisRange = changedRange;
             break;
 
@@ -375,12 +379,12 @@ static NSString *const kSecond = @"Second Derivative";
     hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
 
     // Determine point of symbol in plot coordinates
-    NSDictionary *dataPoint = self.plotData[index];
+    NSDictionary<NSString *, NSNumber *> *dataPoint = self.plotData[index];
 
     NSNumber *x = dataPoint[@"x"];
     NSNumber *y = dataPoint[@"y"];
 
-    NSArray *anchorPoint = @[x, y];
+    CPTNumberArray anchorPoint = @[x, y];
 
     // Add annotation
     // First make a string for the y value
@@ -398,11 +402,14 @@ static NSString *const kSecond = @"Second Derivative";
     textLayer.paddingRight  = 2.0;
     textLayer.paddingBottom = 2.0;
 
-    annotation                    = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:graph.defaultPlotSpace anchorPlotPoint:anchorPoint];
-    annotation.contentLayer       = textLayer;
-    annotation.contentAnchorPoint = CGPointMake(0.5, 0.0);
-    annotation.displacement       = CGPointMake(0.0, 10.0);
-    [graph.plotAreaFrame.plotArea addAnnotation:annotation];
+    CPTPlotSpace *defaultSpace = graph.defaultPlotSpace;
+    if ( defaultSpace ) {
+        annotation                    = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:defaultSpace anchorPlotPoint:anchorPoint];
+        annotation.contentLayer       = textLayer;
+        annotation.contentAnchorPoint = CGPointMake(0.5, 0.0);
+        annotation.displacement       = CGPointMake(0.0, 10.0);
+        [graph.plotAreaFrame.plotArea addAnnotation:annotation];
+    }
 }
 
 -(void)scatterPlotDataLineWasSelected:(CPTScatterPlot *)plot

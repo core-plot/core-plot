@@ -8,7 +8,7 @@
 @interface GradientScatterPlot()
 
 @property (nonatomic, readwrite, strong) CPTPlotSpaceAnnotation *symbolTextAnnotation;
-@property (nonatomic, readwrite, strong) NSArray *plotData;
+@property (nonatomic, readwrite, strong) NSArray<NSDictionary *> *plotData;
 
 @end
 
@@ -50,7 +50,7 @@
 -(void)generateData
 {
     if ( self.plotData == nil ) {
-        NSMutableArray *contentArray = [NSMutableArray arrayWithCapacity:100];
+        NSMutableArray<NSDictionary *> *contentArray = [NSMutableArray arrayWithCapacity:100];
         for ( NSUInteger i = 0; i < 10; i++ ) {
             NSNumber *x = @(1.0 + i * 0.05);
             NSNumber *y = @(1.2 * arc4random() / (double)UINT32_MAX + 0.5);
@@ -95,20 +95,20 @@
     // Label x axis with a fixed interval policy
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
-    x.majorIntervalLength         = CPTDecimalFromDouble(0.5);
-    x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(1.0);
-    x.minorTicksPerInterval       = 2;
-    x.majorGridLineStyle          = majorGridLineStyle;
-    x.minorGridLineStyle          = minorGridLineStyle;
+    x.majorIntervalLength   = @0.5;
+    x.orthogonalPosition    = @1.0;
+    x.minorTicksPerInterval = 2;
+    x.majorGridLineStyle    = majorGridLineStyle;
+    x.minorGridLineStyle    = minorGridLineStyle;
 
     x.title         = @"X Axis";
     x.titleOffset   = 30.0;
-    x.titleLocation = CPTDecimalFromDouble(1.25);
+    x.titleLocation = @1.25;
 
     // Label y with an automatic label policy.
     CPTXYAxis *y = axisSet.yAxis;
     y.labelingPolicy              = CPTAxisLabelingPolicyAutomatic;
-    y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(1.0);
+    y.orthogonalPosition          = @1.0;
     y.minorTicksPerInterval       = 2;
     y.preferredNumberOfMajorTicks = 8;
     y.majorGridLineStyle          = majorGridLineStyle;
@@ -117,7 +117,7 @@
 
     y.title         = @"Y Axis";
     y.titleOffset   = 30.0;
-    y.titleLocation = CPTDecimalFromDouble(1.0);
+    y.titleLocation = @1.0;
 
     // Create a plot that uses the data source method
     CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] init];
@@ -137,23 +137,23 @@
     areaGradient.angle = -90.0;
     CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill      = areaGradientFill;
-    dataSourceLinePlot.areaBaseValue = CPTDecimalFromDouble(0.0);
+    dataSourceLinePlot.areaBaseValue = @0.0;
 
     // Add some fill bands
     CPTColor *band1Color       = [CPTColor colorWithComponentRed:CPTFloat(0.3) green:CPTFloat(0.3) blue:CPTFloat(1.0) alpha:CPTFloat(0.8)];
     CPTGradient *band1Gradient = [CPTGradient gradientWithBeginningColor:band1Color endingColor:[CPTColor clearColor]];
     band1Gradient.angle = -90.0;
     CPTFill *band1Fill = [CPTFill fillWithGradient:band1Gradient];
-    [dataSourceLinePlot addAreaFillBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.05)
-                                                                                                      length:CPTDecimalFromDouble(0.15)]
+    [dataSourceLinePlot addAreaFillBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:@1.05
+                                                                                                      length:@0.15]
                                                                     fill:band1Fill]];
 
     CPTColor *band2Color       = [CPTColor colorWithComponentRed:CPTFloat(1.0) green:CPTFloat(0.3) blue:CPTFloat(0.3) alpha:CPTFloat(0.8)];
     CPTGradient *band2Gradient = [CPTGradient gradientWithBeginningColor:band2Color endingColor:[CPTColor clearColor]];
     band2Gradient.angle = -90.0;
     CPTFill *band2Fill = [CPTFill fillWithGradient:band2Gradient];
-    [dataSourceLinePlot addAreaFillBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(1.3)
-                                                                                                      length:CPTDecimalFromDouble(0.1)]
+    [dataSourceLinePlot addAreaFillBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:@1.3
+                                                                                                      length:@0.1]
                                                                     fill:band2Fill]];
 
     // Auto scale the plot space to fit the plot data
@@ -161,14 +161,12 @@
     [plotSpace scaleToFitPlots:@[dataSourceLinePlot]];
     CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
     CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
-    [xRange expandRangeByFactor:CPTDecimalFromDouble(1.3)];
-    [yRange expandRangeByFactor:CPTDecimalFromDouble(1.3)];
     plotSpace.xRange = xRange;
     plotSpace.yRange = yRange;
 
     // Restrict y range to a global range
-    CPTPlotRange *globalYRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f)
-                                                              length:CPTDecimalFromFloat(2.0f)];
+    CPTPlotRange *globalYRange = [CPTPlotRange plotRangeWithLocation:@0.0
+                                                              length:@2.0];
     plotSpace.globalYRange = globalYRange;
 
     // Add plot symbols
@@ -216,7 +214,7 @@
 {
     // Impose a limit on how far user can scroll in x
     if ( coordinate == CPTCoordinateX ) {
-        CPTPlotRange *maxRange            = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromFloat(6.0f)];
+        CPTPlotRange *maxRange            = [CPTPlotRange plotRangeWithLocation:@(-1.0) length:@6.0];
         CPTMutablePlotRange *changedRange = [newRange mutableCopy];
         [changedRange shiftEndToFitInRange:maxRange];
         [changedRange shiftLocationToFitInRange:maxRange];
@@ -246,12 +244,12 @@
     hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
 
     // Determine point of symbol in plot coordinates
-    NSDictionary *dataPoint = self.plotData[index];
+    NSDictionary<NSString *, NSNumber *> *dataPoint = self.plotData[index];
 
     NSNumber *x = dataPoint[@"x"];
     NSNumber *y = dataPoint[@"y"];
 
-    NSArray *anchorPoint = @[x, y];
+    CPTNumberArray anchorPoint = @[x, y];
 
     // Add annotation
     // First make a string for the y value
@@ -260,12 +258,15 @@
     NSString *yString = [formatter stringFromNumber:y];
 
     // Now add the annotation to the plot area
-    CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle];
-    annotation                = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:graph.defaultPlotSpace anchorPlotPoint:anchorPoint];
-    annotation.contentLayer   = textLayer;
-    annotation.displacement   = CGPointMake(0.0, 20.0);
-    self.symbolTextAnnotation = annotation;
-    [graph.plotAreaFrame.plotArea addAnnotation:annotation];
+    CPTPlotSpace *defaultSpace = graph.defaultPlotSpace;
+    if ( defaultSpace ) {
+        CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle];
+        annotation                = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:defaultSpace anchorPlotPoint:anchorPoint];
+        annotation.contentLayer   = textLayer;
+        annotation.displacement   = CGPointMake(0.0, 20.0);
+        self.symbolTextAnnotation = annotation;
+        [graph.plotAreaFrame.plotArea addAnnotation:annotation];
+    }
 }
 
 #pragma mark -

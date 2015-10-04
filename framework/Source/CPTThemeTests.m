@@ -1,7 +1,8 @@
+#import "CPTThemeTests.h"
+
 #import "CPTDerivedXYGraph.h"
 #import "CPTExceptions.h"
 #import "CPTTheme.h"
-#import "CPTThemeTests.h"
 #import "_CPTDarkGradientTheme.h"
 #import "_CPTPlainBlackTheme.h"
 #import "_CPTPlainWhiteTheme.h"

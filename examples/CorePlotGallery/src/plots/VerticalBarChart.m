@@ -76,12 +76,12 @@ static const BOOL kUseHorizontalBars = NO;
     CPTXYPlotSpace *barPlotSpace = [[CPTXYPlotSpace alloc] init];
     [barPlotSpace setScaleType:CPTScaleTypeCategory forCoordinate:CPTCoordinateX];
     if ( kUseHorizontalBars ) {
-        barPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-10.0f) length:CPTDecimalFromFloat(120.0f)];
-        barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromFloat(11.0f)];
+        barPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@(-10.0) length:@120.0];
+        barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@(-1.0) length:@11.0];
     }
     else {
-        barPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromFloat(11.0f)];
-        barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-10.0f) length:CPTDecimalFromFloat(120.0f)];
+        barPlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@(-1.0) length:@11.0];
+        barPlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@(-10.0) length:@120.0];
     }
     [graph addPlotSpace:barPlotSpace];
 
@@ -98,38 +98,39 @@ static const BOOL kUseHorizontalBars = NO;
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
     {
-        x.majorIntervalLength         = ( kUseHorizontalBars ? CPTDecimalFromInteger(10) : CPTDecimalFromInteger(1) );
-        x.minorTicksPerInterval       = (kUseHorizontalBars ? 9 : 0);
-        x.orthogonalCoordinateDecimal = ( kUseHorizontalBars ? CPTDecimalFromDouble(-0.5) : CPTDecimalFromInteger(0) );
+        x.majorIntervalLength   = (kUseHorizontalBars ? @10.0 : @1.0);
+        x.minorTicksPerInterval = (kUseHorizontalBars ? 9 : 0);
+        x.orthogonalPosition    = (kUseHorizontalBars ? @(-0.5) : @0.0);
 
         x.majorGridLineStyle = majorGridLineStyle;
         x.minorGridLineStyle = minorGridLineStyle;
         x.axisLineStyle      = nil;
         x.majorTickLineStyle = nil;
         x.minorTickLineStyle = nil;
-        x.labelOffset        = self.titleSize * CPTFloat(0.5);
+
+        x.labelOffset = self.titleSize * CPTFloat(0.5);
         if ( kUseHorizontalBars ) {
-            x.visibleRange   = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(100.0f)];
-            x.gridLinesRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-0.5f) length:CPTDecimalFromFloat(10.0f)];
+            x.visibleRange   = [CPTPlotRange plotRangeWithLocation:@0.0 length:@100.0];
+            x.gridLinesRange = [CPTPlotRange plotRangeWithLocation:@(-0.5) length:@10.0];
         }
         else {
-            x.visibleRange   = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-0.5f) length:CPTDecimalFromFloat(10.0f)];
-            x.gridLinesRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(100.0f)];
+            x.visibleRange   = [CPTPlotRange plotRangeWithLocation:@(-0.5) length:@10.0];
+            x.gridLinesRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@100.0];
         }
 
         x.title       = @"X Axis";
         x.titleOffset = self.titleSize * CPTFloat(1.5);
 
-        x.titleLocation = ( kUseHorizontalBars ? CPTDecimalFromInteger(55) : CPTDecimalFromInteger(5) );
+        x.titleLocation = (kUseHorizontalBars ? @55.0 : @5.0);
 
         x.plotSpace = barPlotSpace;
     }
 
     CPTXYAxis *y = axisSet.yAxis;
     {
-        y.majorIntervalLength         = ( kUseHorizontalBars ? CPTDecimalFromInteger(1) : CPTDecimalFromInteger(10) );
-        y.minorTicksPerInterval       = (kUseHorizontalBars ? 0 : 9);
-        y.orthogonalCoordinateDecimal = ( kUseHorizontalBars ? CPTDecimalFromInteger(0) : CPTDecimalFromDouble(-0.5) );
+        y.majorIntervalLength   = (kUseHorizontalBars ? @1.0 : @10.0);
+        y.minorTicksPerInterval = (kUseHorizontalBars ? 0 : 9);
+        y.orthogonalPosition    = ( kUseHorizontalBars ? @0.0 : @(-0.5) );
 
         y.preferredNumberOfMajorTicks = 8;
         y.majorGridLineStyle          = majorGridLineStyle;
@@ -139,37 +140,38 @@ static const BOOL kUseHorizontalBars = NO;
         y.minorTickLineStyle          = nil;
         y.labelOffset                 = self.titleSize * CPTFloat(0.5);
         y.labelRotation               = CPTFloat(M_PI_2);
+
         if ( kUseHorizontalBars ) {
-            y.visibleRange   = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-0.5f) length:CPTDecimalFromFloat(10.0f)];
-            y.gridLinesRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(100.0f)];
+            y.visibleRange   = [CPTPlotRange plotRangeWithLocation:@(-0.5) length:@10.0];
+            y.gridLinesRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@100.0];
         }
         else {
-            y.visibleRange   = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(100.0f)];
-            y.gridLinesRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-0.5f) length:CPTDecimalFromFloat(10.0f)];
+            y.visibleRange   = [CPTPlotRange plotRangeWithLocation:@0.0 length:@100.0];
+            y.gridLinesRange = [CPTPlotRange plotRangeWithLocation:@(-0.5) length:@10.0];
         }
 
         y.title       = @"Y Axis";
         y.titleOffset = self.titleSize * CPTFloat(1.5);
 
-        y.titleLocation = ( kUseHorizontalBars ? CPTDecimalFromInteger(5) : CPTDecimalFromInteger(55) );
+        y.titleLocation = (kUseHorizontalBars ? @5.0 : @55.0);
 
         y.plotSpace = barPlotSpace;
     }
 
-    // Set axes
+// Set axes
     graph.axisSet.axes = @[x, y];
 
-    // Create a bar line style
+// Create a bar line style
     CPTMutableLineStyle *barLineStyle = [[CPTMutableLineStyle alloc] init];
     barLineStyle.lineWidth = 1.0;
     barLineStyle.lineColor = [CPTColor whiteColor];
 
-    // Create first bar plot
+// Create first bar plot
     CPTBarPlot *barPlot = [[CPTBarPlot alloc] init];
     barPlot.lineStyle       = barLineStyle;
     barPlot.fill            = [CPTFill fillWithColor:[CPTColor colorWithComponentRed:1.0 green:0.0 blue:0.5 alpha:0.5]];
     barPlot.barBasesVary    = YES;
-    barPlot.barWidth        = CPTDecimalFromFloat(0.5f); // bar is 50% of the available space
+    barPlot.barWidth        = @0.5; // bar is 50% of the available space
     barPlot.barCornerRadius = 10.0;
 
     barPlot.barsAreHorizontal = kUseHorizontalBars;
@@ -189,11 +191,10 @@ static const BOOL kUseHorizontalBars = NO;
     // Create second bar plot
     CPTBarPlot *barPlot2 = [CPTBarPlot tubularBarPlotWithColor:[CPTColor blueColor] horizontalBars:NO];
 
-    barPlot2.lineStyle    = barLineStyle;
-    barPlot2.fill         = [CPTFill fillWithColor:[CPTColor colorWithComponentRed:0.0 green:1.0 blue:0.5 alpha:0.5]];
-    barPlot2.barBasesVary = YES;
-
-    barPlot2.barWidth        = CPTDecimalFromFloat(1.0f); // bar is full (100%) width
+    barPlot2.lineStyle       = barLineStyle;
+    barPlot2.fill            = [CPTFill fillWithColor:[CPTColor colorWithComponentRed:0.0 green:1.0 blue:0.5 alpha:0.5]];
+    barPlot2.barBasesVary    = YES;
+    barPlot2.barWidth        = @1.0; // bar is full (100%) width
     barPlot2.barCornerRadius = 2.0;
 
     barPlot2.barsAreHorizontal = kUseHorizontalBars;
@@ -204,7 +205,7 @@ static const BOOL kUseHorizontalBars = NO;
 
     [graph addPlot:barPlot2 toPlotSpace:barPlotSpace];
 
-    // Add legend using an annotation
+    // Add legend
     CPTLegend *theLegend = [CPTLegend legendWithGraph:graph];
     theLegend.numberOfRows    = 2;
     theLegend.fill            = [CPTFill fillWithColor:[CPTColor colorWithGenericGray:CPTFloat(0.15)]];
@@ -220,7 +221,7 @@ static const BOOL kUseHorizontalBars = NO;
     theLegend.paddingRight  = textSize * CPTFloat(0.375);
     theLegend.paddingBottom = textSize * CPTFloat(0.375);
 
-    NSArray *plotPoint = (kUseHorizontalBars ? @[@95, @0] : @[@0, @95]);
+    CPTNumberArray plotPoint = (kUseHorizontalBars ? @[@95, @0] : @[@0, @95]);
 
     CPTPlotSpaceAnnotation *legendAnnotation = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:barPlotSpace anchorPlotPoint:plotPoint];
     legendAnnotation.contentLayer = theLegend;
@@ -262,7 +263,7 @@ static const BOOL kUseHorizontalBars = NO;
     NSNumber *x = @(index);
     NSNumber *y = @2;
 
-    NSArray *anchorPoint = (kUseHorizontalBars ? @[y, x] : @[x, y]);
+    CPTNumberArray anchorPoint = (kUseHorizontalBars ? @[y, x] : @[x, y]);
 
     // Add annotation
     // First make a string for the y value
@@ -271,13 +272,16 @@ static const BOOL kUseHorizontalBars = NO;
     NSString *yString = [formatter stringFromNumber:value];
 
     // Now add the annotation to the plot area
-    CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle];
-    annotation                = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:plot.plotSpace anchorPlotPoint:anchorPoint];
-    annotation.contentLayer   = textLayer;
-    annotation.displacement   = CGPointMake(0.0, 0.0);
-    self.symbolTextAnnotation = annotation;
+    CPTPlotSpace *space = plot.plotSpace;
+    if ( space ) {
+        CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle];
+        annotation                = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:space anchorPlotPoint:anchorPoint];
+        annotation.contentLayer   = textLayer;
+        annotation.displacement   = CGPointMake(0.0, 0.0);
+        self.symbolTextAnnotation = annotation;
 
-    [graph.plotAreaFrame.plotArea addAnnotation:annotation];
+        [graph.plotAreaFrame.plotArea addAnnotation:annotation];
+    }
 }
 
 #pragma mark -
@@ -293,11 +297,11 @@ static const BOOL kUseHorizontalBars = NO;
     id num = nil;
 
     if ( fieldEnum == CPTBarPlotFieldBarLocation ) {
-        // location
+// location
         num = [NSString stringWithFormat:@"Cat %lu", (unsigned long)index];
     }
     else if ( fieldEnum == CPTBarPlotFieldBarTip ) {
-        // length
+// length
         if ( [plot.identifier isEqual:@"Bar Plot 2"] ) {
             num = @(index);
         }
@@ -306,7 +310,7 @@ static const BOOL kUseHorizontalBars = NO;
         }
     }
     else {
-        // base
+// base
         if ( [plot.identifier isEqual:@"Bar Plot 2"] ) {
             num = @0;
         }

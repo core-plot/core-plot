@@ -9,7 +9,7 @@ static const NSUInteger numberOfPoints = 11;
 
 @interface ControlChart()
 
-@property (nonatomic, readwrite, strong) NSArray *plotData;
+@property (nonatomic, readwrite, strong) CPTNumberArray plotData;
 @property (nonatomic, readwrite, assign) double meanValue;
 @property (nonatomic, readwrite, assign) double standardError;
 
@@ -39,7 +39,7 @@ static const NSUInteger numberOfPoints = 11;
 -(void)generateData
 {
     if ( self.plotData == nil ) {
-        NSMutableArray *contentArray = [NSMutableArray array];
+        CPTMutableNumberArray contentArray = [NSMutableArray array];
 
         double sum = 0.0;
 
@@ -185,8 +185,8 @@ static const NSUInteger numberOfPoints = 11;
     CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
     CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
 
-    x.orthogonalCoordinateDecimal = yRange.location;
-    y.orthogonalCoordinateDecimal = xRange.location;
+    x.orthogonalPosition = yRange.location;
+    y.orthogonalPosition = xRange.location;
 
     x.visibleRange = xRange;
     y.visibleRange = yRange;
@@ -194,8 +194,8 @@ static const NSUInteger numberOfPoints = 11;
     x.gridLinesRange = yRange;
     y.gridLinesRange = xRange;
 
-    [xRange expandRangeByFactor:CPTDecimalFromDouble(1.05)];
-    [yRange expandRangeByFactor:CPTDecimalFromDouble(1.05)];
+    [xRange expandRangeByFactor:@1.05];
+    [yRange expandRangeByFactor:@1.05];
     plotSpace.xRange = xRange;
     plotSpace.yRange = yRange;
 

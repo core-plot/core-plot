@@ -91,11 +91,14 @@
     titleLayer.paddingTop    = self.titleSize * CPTFloat(4.0);
     titleLayer.paddingBottom = self.titleSize * CPTFloat(0.25);
 
-    annotation                    = [[CPTLayerAnnotation alloc] initWithAnchorLayer:graph.plotAreaFrame.plotArea];
-    annotation.rectAnchor         = CPTRectAnchorBottomRight;
-    annotation.contentLayer       = titleLayer;
-    annotation.contentAnchorPoint = CGPointMake(1.0, 0.0);
-    [graph.plotAreaFrame.plotArea addAnnotation:annotation];
+    CPTLayer *anchorLayer = graph.plotAreaFrame.plotArea;
+    if ( anchorLayer ) {
+        annotation                    = [[CPTLayerAnnotation alloc] initWithAnchorLayer:anchorLayer];
+        annotation.rectAnchor         = CPTRectAnchorBottomRight;
+        annotation.contentLayer       = titleLayer;
+        annotation.contentAnchorPoint = CGPointMake(1.0, 0.0);
+        [graph.plotAreaFrame.plotArea addAnnotation:annotation];
+    }
 }
 
 @end

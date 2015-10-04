@@ -33,7 +33,7 @@
  **/
 @synthesize alignment;
 
-/** @property NSDecimal tickLocation
+/** @property NSNumber *tickLocation
  *  @brief The data coordinate of the tick location.
  **/
 @synthesize tickLocation;
@@ -69,7 +69,7 @@
             offset       = CPTFloat(20.0);
             rotation     = CPTFloat(0.0);
             alignment    = CPTAlignmentCenter;
-            tickLocation = CPTDecimalFromInteger(0);
+            tickLocation = @0.0;
         }
     }
     else {
@@ -98,7 +98,7 @@
     [coder encodeCGFloat:self.offset forKey:@"CPTAxisLabel.offset"];
     [coder encodeCGFloat:self.rotation forKey:@"CPTAxisLabel.rotation"];
     [coder encodeInteger:self.alignment forKey:@"CPTAxisLabel.alignment"];
-    [coder encodeDecimal:self.tickLocation forKey:@"CPTAxisLabel.tickLocation"];
+    [coder encodeObject:self.tickLocation forKey:@"CPTAxisLabel.tickLocation"];
 }
 
 /// @endcond
@@ -114,7 +114,7 @@
         offset       = [coder decodeCGFloatForKey:@"CPTAxisLabel.offset"];
         rotation     = [coder decodeCGFloatForKey:@"CPTAxisLabel.rotation"];
         alignment    = (CPTAlignment)[coder decodeIntegerForKey : @"CPTAxisLabel.alignment"];
-        tickLocation = [coder decodeDecimalForKey:@"CPTAxisLabel.tickLocation"];
+        tickLocation = [coder decodeObjectForKey:@"CPTAxisLabel.tickLocation"];
     }
     return self;
 }
@@ -318,7 +318,14 @@
         return YES;
     }
     else if ( [object isKindOfClass:[self class]] ) {
-        return CPTDecimalEquals(self.tickLocation, ( (CPTAxisLabel *)object ).tickLocation);
+        NSNumber *location = ( (CPTAxisLabel *)object ).tickLocation;
+
+        if ( location ) {
+            return [self.tickLocation isEqualToNumber:location];
+        }
+        else {
+            return NO;
+        }
     }
     else {
         return NO;
@@ -334,7 +341,7 @@
     NSUInteger hashValue = 0;
 
     // Equal objects must hash the same.
-    double tickLocationAsDouble = CPTDecimalDoubleValue(self.tickLocation);
+    double tickLocationAsDouble = self.tickLocation.doubleValue;
 
     if ( !isnan(tickLocationAsDouble) ) {
         hashValue = (NSUInteger)lrint( fmod(ABS(tickLocationAsDouble), (double)NSUIntegerMax) );

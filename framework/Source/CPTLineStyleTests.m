@@ -1,5 +1,6 @@
-#import "CPTLineStyle.h"
 #import "CPTLineStyleTests.h"
+
+#import "CPTLineStyle.h"
 
 @implementation CPTLineStyleTests
 

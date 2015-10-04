@@ -2,13 +2,13 @@
 
 @interface CPTTimeFormatter : NSNumberFormatter
 
-@property (nonatomic, readwrite, strong) NSDateFormatter *dateFormatter;
-@property (nonatomic, readwrite, copy) NSDate *referenceDate;
+@property (nonatomic, readwrite, strong, nullable) NSDateFormatter *dateFormatter;
+@property (nonatomic, readwrite, copy, nullable) NSDate *referenceDate;
 
 /// @name Initialization
 /// @{
--(instancetype)initWithDateFormatter:(NSDateFormatter *)aDateFormatter NS_DESIGNATED_INITIALIZER;
--(instancetype)initWithCoder:(NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype)initWithDateFormatter:(nullable NSDateFormatter *)aDateFormatter NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype)initWithCoder:(nonnull NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
 /// @}
 
 @end

@@ -1,14 +1,14 @@
 @interface CPTCalendarFormatter : NSNumberFormatter
 
-@property (nonatomic, readwrite, strong) NSDateFormatter *dateFormatter;
-@property (nonatomic, readwrite, copy) NSDate *referenceDate;
-@property (nonatomic, readwrite, copy) NSCalendar *referenceCalendar;
+@property (nonatomic, readwrite, strong, nullable) NSDateFormatter *dateFormatter;
+@property (nonatomic, readwrite, copy, nullable) NSDate *referenceDate;
+@property (nonatomic, readwrite, copy, nullable) NSCalendar *referenceCalendar;
 @property (nonatomic, readwrite, assign) NSCalendarUnit referenceCalendarUnit;
 
 /// @name Initialization
 /// @{
--(instancetype)initWithDateFormatter:(NSDateFormatter *)aDateFormatter NS_DESIGNATED_INITIALIZER;
--(instancetype)initWithCoder:(NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype)initWithDateFormatter:(nullable NSDateFormatter *)aDateFormatter NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype)initWithCoder:(nonnull NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
 /// @}
 
 @end

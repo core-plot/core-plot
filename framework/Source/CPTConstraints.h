@@ -2,16 +2,16 @@
 
 /// @name Factory Methods
 /// @{
-+(instancetype)constraintWithLowerOffset:(CGFloat)newOffset;
-+(instancetype)constraintWithUpperOffset:(CGFloat)newOffset;
-+(instancetype)constraintWithRelativeOffset:(CGFloat)newOffset;
++(nonnull instancetype)constraintWithLowerOffset:(CGFloat)newOffset;
++(nonnull instancetype)constraintWithUpperOffset:(CGFloat)newOffset;
++(nonnull instancetype)constraintWithRelativeOffset:(CGFloat)newOffset;
 /// @}
 
 /// @name Initialization
 /// @{
--(instancetype)initWithLowerOffset:(CGFloat)newOffset;
--(instancetype)initWithUpperOffset:(CGFloat)newOffset;
--(instancetype)initWithRelativeOffset:(CGFloat)newOffset;
+-(nonnull instancetype)initWithLowerOffset:(CGFloat)newOffset;
+-(nonnull instancetype)initWithUpperOffset:(CGFloat)newOffset;
+-(nonnull instancetype)initWithRelativeOffset:(CGFloat)newOffset;
 /// @}
 
 @end
@@ -23,7 +23,7 @@
 
 /// @name Comparison
 /// @{
--(BOOL)isEqualToConstraint:(CPTConstraints *)otherConstraint;
+-(BOOL)isEqualToConstraint:(nullable CPTConstraints *)otherConstraint;
 /// @}
 
 /// @name Position

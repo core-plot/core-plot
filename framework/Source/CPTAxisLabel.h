@@ -1,21 +1,34 @@
 #import "CPTDefinitions.h"
 
+/// @file
+
+@class CPTAxisLabel;
 @class CPTLayer;
 @class CPTTextStyle;
 
+/**
+ *  @brief A set of CPTAxisLabel objects.
+ **/
+typedef NSSet<CPTAxisLabel *> *CPTAxisLabelSet;
+
+/**
+ *  @brief A mutable set of CPTAxisLabel objects.
+ **/
+typedef NSMutableSet<CPTAxisLabel *> *CPTMutableAxisLabelSet;
+
 @interface CPTAxisLabel : NSObject<NSCoding>
 
-@property (nonatomic, readwrite, strong) CPTLayer *contentLayer;
+@property (nonatomic, readwrite, strong, nullable) CPTLayer *contentLayer;
 @property (nonatomic, readwrite, assign) CGFloat offset;
 @property (nonatomic, readwrite, assign) CGFloat rotation;
 @property (nonatomic, readwrite, assign) CPTAlignment alignment;
-@property (nonatomic, readwrite) NSDecimal tickLocation;
+@property (nonatomic, readwrite, strong, nullable) NSNumber *tickLocation;
 
 /// @name Initialization
 /// @{
--(instancetype)initWithText:(NSString *)newText textStyle:(CPTTextStyle *)style;
--(instancetype)initWithContentLayer:(CPTLayer *)layer NS_DESIGNATED_INITIALIZER;
--(instancetype)initWithCoder:(NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype)initWithText:(nullable NSString *)newText textStyle:(nullable CPTTextStyle *)style;
+-(nonnull instancetype)initWithContentLayer:(nonnull CPTLayer *)layer NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype)initWithCoder:(nonnull NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
 /// @}
 
 /// @name Layout

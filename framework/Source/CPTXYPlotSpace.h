@@ -6,10 +6,10 @@
 
 @interface CPTXYPlotSpace : CPTPlotSpace<CPTAnimationDelegate>
 
-@property (nonatomic, readwrite, copy) CPTPlotRange *xRange;
-@property (nonatomic, readwrite, copy) CPTPlotRange *yRange;
-@property (nonatomic, readwrite, copy) CPTPlotRange *globalXRange;
-@property (nonatomic, readwrite, copy) CPTPlotRange *globalYRange;
+@property (nonatomic, readwrite, copy, nonnull) CPTPlotRange *xRange;
+@property (nonatomic, readwrite, copy, nonnull) CPTPlotRange *yRange;
+@property (nonatomic, readwrite, copy, nullable) CPTPlotRange *globalXRange;
+@property (nonatomic, readwrite, copy, nullable) CPTPlotRange *globalYRange;
 @property (nonatomic, readwrite, assign) CPTScaleType xScaleType;
 @property (nonatomic, readwrite, assign) CPTScaleType yScaleType;
 

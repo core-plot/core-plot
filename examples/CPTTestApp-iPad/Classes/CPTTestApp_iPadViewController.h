@@ -10,8 +10,8 @@
 
 @interface CPTTestApp_iPadViewController : UIViewController<CPTBarPlotDataSource, CPTPieChartDataSource, CPTBarPlotDelegate>
 
-@property (nonatomic, readwrite, strong) NSArray *dataForChart;
-@property (nonatomic, readwrite, strong) NSArray *dataForPlot;
+@property (nonatomic, readwrite, strong) CPTNumberArray dataForChart;
+@property (nonatomic, readwrite, strong) NSArray<NSDictionary *> *dataForPlot;
 
 // Plot construction methods
 -(void)constructScatterPlot;

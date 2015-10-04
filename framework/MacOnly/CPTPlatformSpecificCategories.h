@@ -11,7 +11,7 @@
 
 /// @name Images
 /// @{
--(CPTNativeImage *)imageOfLayer;
+-(nonnull CPTNativeImage *)imageOfLayer;
 /// @}
 
 @end
@@ -23,7 +23,7 @@
  **/
 @interface CPTColor(CPTPlatformSpecificColorExtensions)
 
-@property (nonatomic, readonly) NSColor *nsColor;
+@property (nonatomic, readonly, nonnull) NSColor *nsColor;
 
 @end
 
@@ -36,7 +36,7 @@
 
 /// @name Drawing
 /// @{
--(void)drawInRect:(CGRect)rect inContext:(CGContextRef)context;
+-(void)drawInRect:(CGRect)rect inContext:(nonnull CGContextRef)context;
 /// @}
 
 @end

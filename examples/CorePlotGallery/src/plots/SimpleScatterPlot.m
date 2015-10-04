@@ -8,7 +8,8 @@
 @interface SimpleScatterPlot()
 
 @property (nonatomic, readwrite, strong) CPTPlotSpaceAnnotation *symbolTextAnnotation;
-@property (nonatomic, readwrite, strong) NSArray *plotData;
+@property (nonatomic, readwrite, strong) NSArray<NSDictionary *> *plotData;
+@property (nonatomic, readwrite, assign) CPTScatterPlotHistogramOption histogramOption;
 
 @end
 
@@ -16,6 +17,7 @@
 
 @synthesize symbolTextAnnotation;
 @synthesize plotData;
+@synthesize histogramOption;
 
 +(void)load
 {
@@ -27,6 +29,8 @@
     if ( (self = [super init]) ) {
         self.title   = @"Simple Scatter Plot";
         self.section = kLinePlots;
+
+        self.histogramOption = CPTScatterPlotHistogramSkipSecond;
     }
 
     return self;
@@ -50,7 +54,7 @@
 -(void)generateData
 {
     if ( self.plotData == nil ) {
-        NSMutableArray *contentArray = [NSMutableArray array];
+        NSMutableArray<NSDictionary *> *contentArray = [NSMutableArray array];
         for ( NSUInteger i = 0; i < 10; i++ ) {
             NSNumber *x = @(1.0 + i * 0.05);
             NSNumber *y = @(1.2 * arc4random() / (double)UINT32_MAX + 0.5);
@@ -98,20 +102,20 @@
     // Label x axis with a fixed interval policy
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
-    x.majorIntervalLength         = CPTDecimalFromDouble(0.5);
-    x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(1.0);
-    x.minorTicksPerInterval       = 2;
-    x.majorGridLineStyle          = majorGridLineStyle;
-    x.minorGridLineStyle          = minorGridLineStyle;
+    x.majorIntervalLength   = @0.5;
+    x.orthogonalPosition    = @1.0;
+    x.minorTicksPerInterval = 2;
+    x.majorGridLineStyle    = majorGridLineStyle;
+    x.minorGridLineStyle    = minorGridLineStyle;
 
     x.title         = @"X Axis";
     x.titleOffset   = 30.0;
-    x.titleLocation = CPTDecimalFromDouble(1.25);
+    x.titleLocation = @1.25;
 
     // Label y with an automatic label policy.
     CPTXYAxis *y = axisSet.yAxis;
     y.labelingPolicy              = CPTAxisLabelingPolicyAutomatic;
-    y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(1.0);
+    y.orthogonalPosition          = @1.0;
     y.minorTicksPerInterval       = 2;
     y.preferredNumberOfMajorTicks = 8;
     y.majorGridLineStyle          = majorGridLineStyle;
@@ -120,7 +124,7 @@
 
     y.title         = @"Y Axis";
     y.titleOffset   = 30.0;
-    y.titleLocation = CPTDecimalFromDouble(1.0);
+    y.titleLocation = @1.0;
 
     // Set axes
     graph.axisSet.axes = @[x, y];
@@ -130,9 +134,10 @@
     dataSourceLinePlot.identifier = @"Data Source Plot";
 
     CPTMutableLineStyle *lineStyle = [dataSourceLinePlot.dataLineStyle mutableCopy];
-    lineStyle.lineWidth              = 3.0;
-    lineStyle.lineColor              = [CPTColor greenColor];
-    dataSourceLinePlot.dataLineStyle = lineStyle;
+    lineStyle.lineWidth                = 3.0;
+    lineStyle.lineColor                = [CPTColor greenColor];
+    dataSourceLinePlot.dataLineStyle   = lineStyle;
+    dataSourceLinePlot.histogramOption = self.histogramOption;
 
     dataSourceLinePlot.dataSource = self;
     [graph addPlot:dataSourceLinePlot];
@@ -142,14 +147,14 @@
     [plotSpace scaleToFitPlots:@[dataSourceLinePlot]];
     CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
     CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
-    [xRange expandRangeByFactor:CPTDecimalFromDouble(1.3)];
-    [yRange expandRangeByFactor:CPTDecimalFromDouble(1.3)];
+    [xRange expandRangeByFactor:@1.3];
+    [yRange expandRangeByFactor:@1.3];
     plotSpace.xRange = xRange;
     plotSpace.yRange = yRange;
 
     // Restrict y range to a global range
-    CPTPlotRange *globalYRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f)
-                                                              length:CPTDecimalFromFloat(2.0f)];
+    CPTPlotRange *globalYRange = [CPTPlotRange plotRangeWithLocation:@0.0
+                                                              length:@2.0];
     plotSpace.globalYRange = globalYRange;
 
     // Add plot symbols
@@ -199,7 +204,7 @@
 {
     // Impose a limit on how far user can scroll in x
     if ( coordinate == CPTCoordinateX ) {
-        CPTPlotRange *maxRange            = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1.0f) length:CPTDecimalFromFloat(6.0f)];
+        CPTPlotRange *maxRange            = [CPTPlotRange plotRangeWithLocation:@(-1.0) length:@6.0];
         CPTMutablePlotRange *changedRange = [newRange mutableCopy];
         [changedRange shiftEndToFitInRange:maxRange];
         [changedRange shiftLocationToFitInRange:maxRange];
@@ -230,12 +235,12 @@
     hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
 
     // Determine point of symbol in plot coordinates
-    NSDictionary *dataPoint = self.plotData[index];
+    NSDictionary<NSString *, NSNumber *> *dataPoint = self.plotData[index];
 
     NSNumber *x = dataPoint[@"x"];
     NSNumber *y = dataPoint[@"y"];
 
-    NSArray *anchorPoint = @[x, y];
+    CPTNumberArray anchorPoint = @[x, y];
 
     // Add annotation
     // First make a string for the y value
@@ -244,12 +249,15 @@
     NSString *yString = [formatter stringFromNumber:y];
 
     // Now add the annotation to the plot area
-    CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle];
-    annotation                = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:graph.defaultPlotSpace anchorPlotPoint:anchorPoint];
-    annotation.contentLayer   = textLayer;
-    annotation.displacement   = CGPointMake(0.0, 20.0);
-    self.symbolTextAnnotation = annotation;
-    [graph.plotAreaFrame.plotArea addAnnotation:annotation];
+    CPTPlotSpace *defaultSpace = graph.defaultPlotSpace;
+    if ( defaultSpace ) {
+        CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle];
+        annotation                = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:defaultSpace anchorPlotPoint:anchorPoint];
+        annotation.contentLayer   = textLayer;
+        annotation.displacement   = CGPointMake(0.0, 20.0);
+        self.symbolTextAnnotation = annotation;
+        [graph.plotAreaFrame.plotArea addAnnotation:annotation];
+    }
 }
 
 -(void)scatterPlotDataLineWasSelected:(CPTScatterPlot *)plot
@@ -272,14 +280,31 @@
 
 -(void)plotAreaWasSelected:(CPTPlotArea *)plotArea
 {
-    // Remove the annotation
-    CPTPlotSpaceAnnotation *annotation = self.symbolTextAnnotation;
+    CPTXYGraph *graph = [self.graphs objectAtIndex:0];
 
-    if ( annotation ) {
-        CPTXYGraph *graph = [self.graphs objectAtIndex:0];
+    if ( graph ) {
+        // Remove the annotation
+        CPTPlotSpaceAnnotation *annotation = self.symbolTextAnnotation;
 
-        [graph.plotAreaFrame.plotArea removeAnnotation:annotation];
-        self.symbolTextAnnotation = nil;
+        if ( annotation ) {
+            [graph.plotAreaFrame.plotArea removeAnnotation:annotation];
+            self.symbolTextAnnotation = nil;
+        }
+        else {
+            CPTScatterPlotInterpolation interpolation = CPTScatterPlotInterpolationHistogram;
+
+            // Decrease the histogram display option, and if < 0 display linear graph
+            if ( --self.histogramOption < 0 ) {
+                interpolation = CPTScatterPlotInterpolationLinear;
+
+                // Set the histogram option to the count, as that is guaranteed to be the last available option + 1
+                // (thus the next time the user clicks in the empty plot area the value will be decremented, becoming last option)
+                self.histogramOption = CPTScatterPlotHistogramOptionCount;
+            }
+            CPTScatterPlot *dataSourceLinePlot = (CPTScatterPlot *)[graph plotWithIdentifier:@"Data Source Plot"];
+            dataSourceLinePlot.interpolation   = interpolation;
+            dataSourceLinePlot.histogramOption = self.histogramOption;
+        }
     }
 }
 

@@ -56,7 +56,15 @@
         if ( ![self.contentLayer isEqual:otherTitle] ) {
             return NO;
         }
-        return CPTDecimalEquals(self.tickLocation, ( (CPTAxisLabel *)object ).tickLocation);
+
+        NSNumber *location = ( (CPTAxisLabel *)object ).tickLocation;
+
+        if ( location ) {
+            return [self.tickLocation isEqualToNumber:location];
+        }
+        else {
+            return NO;
+        }
     }
     else {
         return NO;
@@ -72,7 +80,7 @@
     NSUInteger hashValue = 0;
 
     // Equal objects must hash the same.
-    double tickLocationAsDouble = CPTDecimalDoubleValue(self.tickLocation);
+    double tickLocationAsDouble = self.tickLocation.doubleValue;
 
     if ( !isnan(tickLocationAsDouble) ) {
         hashValue = (NSUInteger)lrint( fmod(ABS(tickLocationAsDouble), (double)NSUIntegerMax) );

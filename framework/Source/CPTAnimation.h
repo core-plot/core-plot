@@ -52,27 +52,27 @@ typedef NS_ENUM (NSInteger, CPTAnimationCurve) {
 /** @brief @optional Informs the delegate that an animation operation started animating.
  *  @param operation The animation operation.
  **/
--(void)animationDidStart:(CPTAnimationOperation *)operation;
+-(void)animationDidStart:(nonnull CPTAnimationOperation *)operation;
 
 /** @brief @optional Informs the delegate that an animation operation stopped after reaching its full duration.
  *  @param operation The animation operation.
  **/
--(void)animationDidFinish:(CPTAnimationOperation *)operation;
+-(void)animationDidFinish:(nonnull CPTAnimationOperation *)operation;
 
 /** @brief @optional Informs the delegate that an animation operation was stopped before reaching its full duration.
  *  @param operation The animation operation.
  **/
--(void)animationCancelled:(CPTAnimationOperation *)operation;
+-(void)animationCancelled:(nonnull CPTAnimationOperation *)operation;
 
 /** @brief @optional Informs the delegate that the animated property is about to update.
  *  @param operation The animation operation.
  **/
--(void)animationWillUpdate:(CPTAnimationOperation *)operation;
+-(void)animationWillUpdate:(nonnull CPTAnimationOperation *)operation;
 
 /** @brief @optional Informs the delegate that the animated property has been updated.
  *  @param operation The animation operation.
  **/
--(void)animationDidUpdate:(CPTAnimationOperation *)operation;
+-(void)animationDidUpdate:(nonnull CPTAnimationOperation *)operation;
 
 /// @}
 
@@ -94,24 +94,24 @@ typedef NS_ENUM (NSInteger, CPTAnimationCurve) {
 
 /// @name Animation Controller Instance
 /// @{
-+(instancetype)sharedInstance;
++(nonnull instancetype)sharedInstance;
 /// @}
 
 /// @name Property Animation
 /// @{
-+(CPTAnimationOperation *)animate:(id)object property:(NSString *)property period:(CPTAnimationPeriod *)period animationCurve:(CPTAnimationCurve)animationCurve delegate:(id<CPTAnimationDelegate>)delegate;
++(nonnull CPTAnimationOperation *)animate:(nullable id)object property:(nonnull NSString *)property period:(nullable CPTAnimationPeriod *)period animationCurve:(CPTAnimationCurve)animationCurve delegate:(nullable id<CPTAnimationDelegate>)delegate;
 /// @}
 
 /// @name Animation Management
 /// @{
--(CPTAnimationOperation *)addAnimationOperation:(CPTAnimationOperation *)animationOperation;
--(void)removeAnimationOperation:(CPTAnimationOperation *)animationOperation;
+-(nonnull CPTAnimationOperation *)addAnimationOperation:(nonnull CPTAnimationOperation *)animationOperation;
+-(void)removeAnimationOperation:(nullable CPTAnimationOperation *)animationOperation;
 -(void)removeAllAnimationOperations;
 /// @}
 
 /// @name Retrieving Animation Operations
 /// @{
--(CPTAnimationOperation *)operationWithIdentifier:(id<NSCopying, NSObject>)identifier;
+-(nullable CPTAnimationOperation *)operationWithIdentifier:(nullable id<NSCopying, NSObject>)identifier;
 /// @}
 
 @end

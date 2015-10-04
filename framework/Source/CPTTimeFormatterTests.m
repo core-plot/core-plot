@@ -1,5 +1,6 @@
-#import "CPTTimeFormatter.h"
 #import "CPTTimeFormatterTests.h"
+
+#import "CPTTimeFormatter.h"
 
 @implementation CPTTimeFormatterTests
 
@@ -8,8 +9,9 @@
 
 -(void)testKeyedArchivingRoundTrip
 {
-    NSDate *refDate                = [NSDate dateWithNaturalLanguageString:@"12:00 Oct 29, 2009"];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+
+    NSDate *refDate = [dateFormatter dateFromString:@"12:00 Oct 29, 2009"];
 
     dateFormatter.dateStyle = NSDateFormatterShortStyle;
 

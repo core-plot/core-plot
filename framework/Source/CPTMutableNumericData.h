@@ -5,18 +5,18 @@
 
 /// @name Data Buffer
 /// @{
-@property (nonatomic, readonly) void *mutableBytes;
+@property (nonatomic, readonly, nonnull) void *mutableBytes;
 /// @}
 
 /// @name Dimensions
 /// @{
-@property (nonatomic, readwrite, copy) NSArray *shape;
+@property (nonatomic, readwrite, copy, nonnull) CPTNumberArray shape;
 /// @}
 
 /// @name Samples
 /// @{
--(void *)mutableSamplePointer:(NSUInteger)sample;
--(void *)mutableSamplePointerAtIndex:(NSUInteger)idx, ...;
+-(nullable void *)mutableSamplePointer:(NSUInteger)sample;
+-(nullable void *)mutableSamplePointerAtIndex:(NSUInteger)idx, ...;
 /// @}
 
 @end

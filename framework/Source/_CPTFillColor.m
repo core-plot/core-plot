@@ -5,7 +5,7 @@
 /// @cond
 @interface _CPTFillColor()
 
-@property (nonatomic, readwrite, copy) CPTColor *fillColor;
+@property (nonatomic, readwrite, copy, nullable) CPTColor *fillColor;
 
 @end
 

@@ -2,17 +2,18 @@
 
 @implementation NSString(ParseCSV)
 
--(NSArray *)arrayByParsingCSVLine
+-(CPTStringArray)arrayByParsingCSVLine
 {
-    BOOL isRemoveWhitespace               = YES;
-    NSMutableArray *theArray              = [NSMutableArray array];
-    NSArray *theFields                    = [self componentsSeparatedByString:@","];
-    NSCharacterSet *quotedCharacterSet    = [NSCharacterSet characterSetWithCharactersInString:@"\""];
-    BOOL inField                          = NO;
-    NSMutableString *theConcatenatedField = [NSMutableString string];
-    unsigned int i;
+    BOOL isRemoveWhitespace = YES;
 
-    for ( i = 0; i < [theFields count]; i++ ) {
+    CPTMutableStringArray theArray        = [NSMutableArray array];
+    CPTStringArray theFields              = [self componentsSeparatedByString:@","];
+    NSCharacterSet *quotedCharacterSet    = [NSCharacterSet characterSetWithCharactersInString:@"\""];
+    NSMutableString *theConcatenatedField = [NSMutableString string];
+
+    BOOL inField = NO;
+
+    for ( NSUInteger i = 0; i < [theFields count]; i++ ) {
         NSString *theField = theFields[i];
         switch ( inField ) {
             case NO:

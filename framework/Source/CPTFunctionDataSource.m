@@ -1,5 +1,6 @@
 #import "CPTFunctionDataSource.h"
 
+#import "CPTExceptions.h"
 #import "CPTMutablePlotRange.h"
 #import "CPTNumericData.h"
 #import "CPTScatterPlot.h"
@@ -155,7 +156,8 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
 // function and plot are required; this will fail the assertions in -initForPlot:withFunction:
 -(instancetype)init
 {
-    return [self initForPlot:nil withFunction:NULL];
+    [NSException raise:CPTException format:@"%@ must be initialized with a function or a block.", NSStringFromClass([self class])];
+    return [self initForPlot:[CPTScatterPlot layer] withFunction:sin];
 }
 
 -(void)dealloc
@@ -272,8 +274,8 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
                 NSUInteger numPoints = (NSUInteger)lrint( ( ceil( (cachedRange.minLimitDouble - minLimit) / step ) ) );
 
                 NSDecimal offset = CPTDecimalFromDouble(step * numPoints);
-                cachedRange.location = CPTDecimalSubtract(cachedRange.location, offset);
-                cachedRange.length   = CPTDecimalAdd(cachedRange.length, offset);
+                cachedRange.locationDecimal = CPTDecimalSubtract(cachedRange.locationDecimal, offset);
+                cachedRange.lengthDecimal   = CPTDecimalAdd(cachedRange.lengthDecimal, offset);
 
                 self.dataCount += numPoints;
 
@@ -285,7 +287,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
                 NSUInteger numPoints = (NSUInteger)lrint( ceil( (maxLimit - cachedRange.maxLimitDouble) / step ) );
 
                 NSDecimal offset = CPTDecimalFromDouble(step * numPoints);
-                cachedRange.length = CPTDecimalAdd(cachedRange.length, offset);
+                cachedRange.lengthDecimal = CPTDecimalAdd(cachedRange.lengthDecimal, offset);
 
                 self.dataCount += numPoints;
 
@@ -298,8 +300,8 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
                 NSUInteger numPoints = (NSUInteger)lrint( ceil( (cachedRange.maxLimitDouble - maxLimit) / step ) );
 
                 NSDecimal offset = CPTDecimalFromDouble(step * numPoints);
-                cachedRange.location = CPTDecimalSubtract(cachedRange.location, offset);
-                cachedRange.length   = CPTDecimalAdd(cachedRange.length, offset);
+                cachedRange.locationDecimal = CPTDecimalSubtract(cachedRange.locationDecimal, offset);
+                cachedRange.lengthDecimal   = CPTDecimalAdd(cachedRange.lengthDecimal, offset);
 
                 self.dataCount += numPoints;
 
@@ -311,7 +313,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
                 NSUInteger numPoints = (NSUInteger)lrint( ceil( (minLimit - cachedRange.minLimitDouble) / step ) );
 
                 NSDecimal offset = CPTDecimalFromDouble(step * numPoints);
-                cachedRange.length = CPTDecimalAdd(cachedRange.length, offset);
+                cachedRange.lengthDecimal = CPTDecimalAdd(cachedRange.lengthDecimal, offset);
 
                 self.dataCount += numPoints;
 
@@ -328,7 +330,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
 
 /// @cond
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *, CPTPlotSpace *> *)change context:(void *)context
 {
     if ( (context == CPTFunctionDataSourceKVOContext) && [keyPath isEqualToString:@"plotSpace"] && [object isEqual:self.dataPlot] ) {
         CPTPlotSpace *oldSpace = change[NSKeyValueChangeOldKey];

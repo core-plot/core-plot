@@ -69,14 +69,14 @@
     areaGradient.angle = -90.0;
     CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill      = areaGradientFill;
-    dataSourceLinePlot.areaBaseValue = CPTDecimalFromDouble(200.0);
+    dataSourceLinePlot.areaBaseValue = @200.0;
 
     areaColor                         = [CPTColor colorWithComponentRed:CPTFloat(0.0) green:CPTFloat(1.0) blue:CPTFloat(0.0) alpha:CPTFloat(0.6)];
     areaGradient                      = [CPTGradient gradientWithBeginningColor:[CPTColor clearColor] endingColor:areaColor];
     areaGradient.angle                = -90.0;
     areaGradientFill                  = [CPTFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill2      = areaGradientFill;
-    dataSourceLinePlot.areaBaseValue2 = CPTDecimalFromDouble(400.0);
+    dataSourceLinePlot.areaBaseValue2 = @400.0;
 
     // OHLC plot
     CPTMutableLineStyle *whiteLineStyle = [CPTMutableLineStyle lineStyle];
@@ -110,7 +110,7 @@
     volumePlot.lineStyle = lineStyle;
 
     volumePlot.fill           = nil;
-    volumePlot.barWidth       = CPTDecimalFromFloat(1.0f);
+    volumePlot.barWidth       = @1.0;
     volumePlot.identifier     = @"Volume Plot";
     volumePlot.cachePrecision = CPTPlotCachePrecisionDouble;
     [newGraph addPlot:volumePlot toPlotSpace:volumePlotSpace];
@@ -144,7 +144,7 @@
 
 -(CPTNumericData *)dataForPlot:(CPTPlot *)plot recordIndexRange:(NSRange)indexRange
 {
-    NSArray *financialData              = self.datapuller.financialData;
+    CPTFinancialDataArray financialData = self.datapuller.financialData;
     const NSUInteger financialDataCount = financialData.count;
 
     const BOOL useDoubles = plot.doublePrecisionCache;
@@ -164,7 +164,7 @@
             double *nextValue = data.mutableBytes;
 
             for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                NSDictionary *fData = (NSDictionary *)financialData[financialDataCount - i - 1];
+                CPTDictionary fData = financialData[financialDataCount - i - 1];
                 NSNumber *value;
 
                 for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
@@ -189,7 +189,7 @@
             NSDecimal *nextValue = data.mutableBytes;
 
             for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                NSDictionary *fData = (NSDictionary *)financialData[financialDataCount - i - 1];
+                CPTDictionary fData = financialData[financialDataCount - i - 1];
                 NSNumber *value;
 
                 for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
@@ -216,7 +216,7 @@
             double *nextValue = data.mutableBytes;
 
             for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                NSDictionary *fData = (NSDictionary *)financialData[financialDataCount - i - 1];
+                CPTDictionary fData = financialData[financialDataCount - i - 1];
                 NSNumber *value;
 
                 for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
@@ -241,7 +241,7 @@
             NSDecimal *nextValue = data.mutableBytes;
 
             for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                NSDictionary *fData = (NSDictionary *)financialData[financialDataCount - i - 1];
+                CPTDictionary fData = financialData[financialDataCount - i - 1];
                 NSNumber *value;
 
                 for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
@@ -268,7 +268,7 @@
             double *nextValue = data.mutableBytes;
 
             for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                NSDictionary *fData = (NSDictionary *)financialData[financialDataCount - i - 1];
+                CPTDictionary fData = financialData[financialDataCount - i - 1];
                 NSNumber *value;
 
                 for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
@@ -311,7 +311,7 @@
             NSDecimal *nextValue = data.mutableBytes;
 
             for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                NSDictionary *fData = (NSDictionary *)financialData[financialDataCount - i - 1];
+                CPTDictionary fData = financialData[financialDataCount - i - 1];
                 NSNumber *value;
 
                 for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
@@ -365,7 +365,7 @@
 
 -(CPTNumericData *)dataForPlot:(CPTPlot *)plot recordIndexRange:(NSRange)indexRange
 {
-    NSArray *financialData              = self.datapuller.financialData;
+    CPTFinancialDataArray financialData = self.datapuller.financialData;
     const NSUInteger financialDataCount = financialData.count;
 
     const BOOL useDoubles = plot.doublePrecisionCache;
@@ -386,7 +386,7 @@
 
             for ( int fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
                 for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                    NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:financialDataCount - i - 1];
+                    CPTDictionary fData = (CPTDictionary)[financialData objectAtIndex : financialDataCount - i - 1];
                     NSNumber *value;
 
                     switch ( fieldEnum ) {
@@ -411,7 +411,7 @@
 
             for ( int fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
                 for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                    NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:financialDataCount - i - 1];
+                    CPTDictionary fData = (CPTDictionary)[financialData objectAtIndex : financialDataCount - i - 1];
                     NSNumber *value;
 
                     switch ( fieldEnum ) {
@@ -438,7 +438,7 @@
 
             for ( int fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
                 for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                    NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:financialDataCount - i - 1];
+                    CPTDictionary fData = (CPTDictionary)[financialData objectAtIndex : financialDataCount - i - 1];
                     NSNumber *value;
 
                     switch ( fieldEnum ) {
@@ -463,7 +463,7 @@
 
             for ( int fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
                 for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                    NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:financialDataCount - i - 1];
+                    CPTDictionary fData = (CPTDictionary)[financialData objectAtIndex : financialDataCount - i - 1];
                     NSNumber *value;
 
                     switch ( fieldEnum ) {
@@ -490,7 +490,7 @@
 
             for ( int fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
                 for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                    NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:financialDataCount - i - 1];
+                    CPTDictionary fData = (CPTDictionary)[financialData objectAtIndex : financialDataCount - i - 1];
                     NSNumber *value;
 
                     switch ( fieldEnum ) {
@@ -533,7 +533,7 @@
 
             for ( int fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
                 for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                    NSDictionary *fData = (NSDictionary *)[financialData objectAtIndex:financialDataCount - i - 1];
+                    CPTDictionary fData = (CPTDictionary)[financialData objectAtIndex : financialDataCount - i - 1];
                     NSNumber *value;
 
                     switch ( fieldEnum ) {
@@ -618,12 +618,12 @@
     NSDecimalNumber *lowDisplayLocation      = [low decimalNumberBySubtracting:lengthDisplacementValue];
     NSDecimalNumber *lengthDisplayLocation   = [length decimalNumberByAdding:lengthDisplacementValue];
 
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromUnsignedInteger(thePuller.financialData.count + 1)];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:lowDisplayLocation.decimalValue length:lengthDisplayLocation.decimalValue];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@(thePuller.financialData.count + 1)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:lowDisplayLocation length:lengthDisplayLocation];
 
     CPTScatterPlot *linePlot = (CPTScatterPlot *)[self.graph plotWithIdentifier:@"Data Source Plot"];
-    linePlot.areaBaseValue  = [high decimalValue];
-    linePlot.areaBaseValue2 = [low decimalValue];
+    linePlot.areaBaseValue  = high;
+    linePlot.areaBaseValue2 = low;
 
     // Axes
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)self.graph.axisSet;
@@ -641,26 +641,28 @@
     NSDecimalNumber *volumeLowDisplayLocation      = overallVolumeLow;
     NSDecimalNumber *volumeLengthDisplayLocation   = [volumeLength decimalNumberByAdding:volumeLengthDisplacementValue];
 
-    volumePlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0.0) length:CPTDecimalFromUnsignedInteger(thePuller.financialData.count + 1)];
-//    volumePlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:[volumeLowDisplayLocation decimalValue] length:[volumeLengthDisplayLocation decimalValue]];
+    volumePlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@(thePuller.financialData.count + 1)];
+//    volumePlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:volumeLowDisplayLocation length:volumeLengthDisplayLocation];
 
     if ( animationOperation ) {
         [[CPTAnimation sharedInstance] removeAnimationOperation:animationOperation];
     }
 
-    animationOperation = [CPTAnimation animate:volumePlotSpace
-                                      property:@"yRange"
-                                 fromPlotRange:[CPTPlotRange plotRangeWithLocation:[volumeLowDisplayLocation decimalValue]
-                                                                            length:CPTDecimalMultiply( [volumeLengthDisplayLocation decimalValue], CPTDecimalFromInteger(10) )]
-                                   toPlotRange:[CPTPlotRange plotRangeWithLocation:[volumeLowDisplayLocation decimalValue]
-                                                                            length:[volumeLengthDisplayLocation decimalValue]]
-                                      duration:2.5];
+    if ( volumeLowDisplayLocation && volumeLengthDisplayLocation ) {
+        animationOperation = [CPTAnimation animate:volumePlotSpace
+                                          property:@"yRange"
+                                     fromPlotRange:[CPTPlotRange plotRangeWithLocationDecimal:[volumeLowDisplayLocation decimalValue]
+                                                                                lengthDecimal:CPTDecimalMultiply( [volumeLengthDisplayLocation decimalValue], CPTDecimalFromInteger(10) )]
+                                       toPlotRange:[CPTPlotRange plotRangeWithLocation:volumeLowDisplayLocation
+                                                                                length:volumeLengthDisplayLocation]
+                                          duration:2.5];
+    }
 
-    axisSet.xAxis.orthogonalCoordinateDecimal = [low decimalValue];
-    axisSet.yAxis.majorIntervalLength         = CPTDecimalFromDouble(50.0);
-    axisSet.yAxis.minorTicksPerInterval       = 4;
-    axisSet.yAxis.orthogonalCoordinateDecimal = CPTDecimalFromDouble(1.0);
-    NSArray *exclusionRanges = @[[CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:[low decimalValue]]];
+    axisSet.xAxis.orthogonalPosition    = low;
+    axisSet.yAxis.majorIntervalLength   = @50.0;
+    axisSet.yAxis.minorTicksPerInterval = 4;
+    axisSet.yAxis.orthogonalPosition    = @1.0;
+    CPTPlotRangeArray exclusionRanges = @[[CPTPlotRange plotRangeWithLocation:@0.0 length:low]];
 
     axisSet.yAxis.labelExclusionRanges = exclusionRanges;
 

@@ -1,4 +1,5 @@
 #import "CPTDefinitions.h"
+#import "CPTPlatformSpecificDefines.h"
 
 /// @file
 
@@ -8,21 +9,21 @@ extern "C" {
 
 /// @name Graphics Context Save Stack
 /// @{
-void CPTPushCGContext(CGContextRef context);
+void CPTPushCGContext(__nonnull CGContextRef context);
 void CPTPopCGContext(void);
-
-/// @}
-
-/// @name Graphics Context
-/// @{
-CGContextRef CPTGetCurrentContext(void);
 
 /// @}
 
 /// @name Color Conversion
 /// @{
-CGColorRef CPTCreateCGColorFromNSColor(NSColor *nsColor);
-CPTRGBAColor CPTRGBAColorFromNSColor(NSColor *nsColor);
+__nonnull CGColorRef CPTCreateCGColorFromNSColor(NSColor *__nonnull nsColor);
+CPTRGBAColor CPTRGBAColorFromNSColor(NSColor *__nonnull nsColor);
+
+/// @}
+
+/// @name Debugging
+/// @{
+CPTNativeImage *__nonnull CPTQuickLookImage(CGRect rect, __nonnull CPTQuickLookImageBlock renderBlock);
 
 /// @}
 

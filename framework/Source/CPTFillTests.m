@@ -1,6 +1,7 @@
+#import "CPTFillTests.h"
+
 #import "CPTColor.h"
 #import "CPTFill.h"
-#import "CPTFillTests.h"
 #import "CPTGradient.h"
 #import "CPTImage.h"
 #import "_CPTFillColor.h"
@@ -59,10 +60,15 @@
     const size_t width  = 100;
     const size_t height = 100;
 
-    size_t bytesPerRow         = (4 * width + 15) & ~15ul;
+    size_t bytesPerRow = (4 * width + 15) & ~15ul;
+
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+#else
     CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
-    CGContextRef context       = CGBitmapContextCreate(NULL, width, height, 8, bytesPerRow, colorSpace, (CGBitmapInfo)kCGImageAlphaNoneSkipLast);
-    CGImageRef cgImage         = CGBitmapContextCreateImage(context);
+#endif
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, 8, bytesPerRow, colorSpace, (CGBitmapInfo)kCGImageAlphaNoneSkipLast);
+    CGImageRef cgImage   = CGBitmapContextCreateImage(context);
 
     CPTImage *image = [CPTImage imageWithCGImage:cgImage];
 

@@ -1,19 +1,32 @@
 #import "CPTDefinitions.h"
 
+/// @file
+
+@class CPTLegendEntry;
 @class CPTPlot;
 @class CPTTextStyle;
+
+/**
+ *  @brief An array of CPTLegendEntry objects.
+ **/
+typedef NSArray<CPTLegendEntry *> *CPTLegendEntryArray;
+
+/**
+ *  @brief A mutable array of CPTLegendEntry objects.
+ **/
+typedef NSMutableArray<CPTLegendEntry *> *CPTMutableLegendEntryArray;
 
 @interface CPTLegendEntry : NSObject<NSCoding>
 
 /// @name Plot Info
 /// @{
-@property (nonatomic, readwrite, cpt_weak_property) cpt_weak CPTPlot *plot;
+@property (nonatomic, readwrite, cpt_weak_property, nullable) cpt_weak CPTPlot *plot;
 @property (nonatomic, readwrite, assign) NSUInteger index;
 /// @}
 
 /// @name Formatting
 /// @{
-@property (nonatomic, readwrite, strong) CPTTextStyle *textStyle;
+@property (nonatomic, readwrite, strong, nullable) CPTTextStyle *textStyle;
 /// @}
 
 /// @name Layout
@@ -25,7 +38,7 @@
 
 /// @name Drawing
 /// @{
--(void)drawTitleInRect:(CGRect)rect inContext:(CGContextRef)context scale:(CGFloat)scale;
+-(void)drawTitleInRect:(CGRect)rect inContext:(nonnull CGContextRef)context scale:(CGFloat)scale;
 /// @}
 
 @end

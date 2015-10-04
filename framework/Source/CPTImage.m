@@ -818,4 +818,16 @@ CPTImageSlices;
     self.lastDrawnScale = contextScale;
 }
 
+#pragma mark -
+#pragma mark Debugging
+
+/// @cond
+
+-(id)debugQuickLookObject
+{
+    return self.nativeImage;
+}
+
+/// @endcond
+
 @end

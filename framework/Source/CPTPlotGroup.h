@@ -6,9 +6,9 @@
 
 /// @name Adding and Removing Plots
 /// @{
--(void)addPlot:(CPTPlot *)plot;
--(void)removePlot:(CPTPlot *)plot;
--(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)idx;
+-(void)addPlot:(nonnull CPTPlot *)plot;
+-(void)removePlot:(nullable CPTPlot *)plot;
+-(void)insertPlot:(nonnull CPTPlot *)plot atIndex:(NSUInteger)idx;
 /// @}
 
 @end

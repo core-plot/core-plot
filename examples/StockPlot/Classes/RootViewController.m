@@ -12,7 +12,7 @@
 @interface RootViewController()
 
 @property (nonatomic, readwrite, strong) APYahooDataPullerGraph *graph;
-@property (nonatomic, readwrite, strong) NSMutableArray *stocks;
+@property (nonatomic, readwrite, strong) NSMutableArray<APYahooDataPuller *> *stocks;
 
 @end
 
@@ -187,10 +187,10 @@
 #pragma mark -
 #pragma mark accessors
 
--(NSArray *)symbols
+-(CPTStringArray)symbols
 {
     //NSLog(@"in -symbols, returned symbols = %@", symbols);
-    NSMutableArray *symbols = [NSMutableArray arrayWithCapacity:self.stocks.count];
+    CPTMutableStringArray symbols = [NSMutableArray arrayWithCapacity:self.stocks.count];
 
     for ( APYahooDataPuller *dp in self.stocks ) {
         [symbols addObject:[dp symbol]];

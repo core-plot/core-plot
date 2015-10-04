@@ -2,6 +2,7 @@
 
 #import "CPTColorSpace.h"
 #import "CPTDefinitions.h"
+#import "CPTPlatformSpecificCategories.h"
 #import "NSCoderExtensions.h"
 
 /** @brief An immutable color.
@@ -511,6 +512,23 @@
     }
 
     return (NSUInteger)theHash;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark Debugging
+
+/// @cond
+
+-(id)debugQuickLookObject
+{
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+    return self.uiColor;
+
+#else
+    return self.nsColor;
+#endif
 }
 
 /// @endcond

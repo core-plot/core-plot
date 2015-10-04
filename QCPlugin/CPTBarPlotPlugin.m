@@ -27,7 +27,7 @@
  */
 @dynamic inputBaseValue, inputBarOffset, inputBarWidth, inputHorizontalBars;
 
-+(NSDictionary *)attributes
++(NSDictionary<NSString *, NSString *> *)attributes
 {
     return @{
                QCPlugInAttributeNameKey: @"Core Plot Bar Chart",
@@ -35,7 +35,7 @@
     };
 }
 
-+(NSDictionary *)attributesForPropertyPortWithKey:(NSString *)key
++(CPTDictionary)attributesForPropertyPortWithKey:(NSString *)key
 {
     // A few additional ports for the bar plot chart type ...
 
@@ -173,9 +173,9 @@
         lineStyle.lineColor    = [CPTColor colorWithCGColor:[self dataLineColor:index]];
         lineStyle.lineWidth    = [self dataLineWidth:index];
         plot.lineStyle         = lineStyle;
-        plot.baseValue         = CPTDecimalFromDouble(self.inputBaseValue);
-        plot.barWidth          = CPTDecimalFromDouble(barWidth);
-        plot.barOffset         = CPTDecimalFromDouble(self.inputBarOffset);
+        plot.baseValue         = @(self.inputBaseValue);
+        plot.barWidth          = @(barWidth);
+        plot.barOffset         = @(self.inputBarOffset);
         plot.barsAreHorizontal = self.inputHorizontalBars;
         plot.fill              = [CPTFill fillWithColor:[CPTColor colorWithCGColor:(CGColorRef)[self areaFillColor : index]]];
 
@@ -201,14 +201,14 @@
     NSUInteger plotIndex = [[self.graph allPlots] indexOfObject:plot];
     NSString *key        = [NSString stringWithFormat:@"plotNumbers%lu", (unsigned long)plotIndex];
 
-    NSDictionary *dict = [self valueForInputKey:key];
+    CPTDictionary dict = [self valueForInputKey:key];
 
     if ( !dict ) {
         return nil;
     }
 
-    NSUInteger keyCount   = [[dict allKeys] count];
-    NSMutableArray *array = [NSMutableArray array];
+    NSUInteger keyCount         = [[dict allKeys] count];
+    CPTMutableNumberArray array = [NSMutableArray array];
 
     if ( fieldEnum == CPTBarPlotFieldBarLocation ) {
         // Calculate horizontal position of bar - nth bar index + barWidth*plotIndex + 0.5

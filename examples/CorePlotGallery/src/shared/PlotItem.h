@@ -5,8 +5,9 @@
 
 #import <Foundation/Foundation.h>
 
+#import <CorePlot/CorePlot.h>
+
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-#import "CorePlot-CocoaTouch.h"
 #import <UIKit/UIKit.h>
 
 typedef CGRect CGNSRect;
@@ -14,7 +15,6 @@ typedef UIView PlotGalleryNativeView;
 
 #else
 
-#import <CorePlot/CorePlot.h>
 typedef NSRect CGNSRect;
 typedef NSView PlotGalleryNativeView;
 #endif
@@ -32,7 +32,7 @@ extern NSString *const kFinancialPlots;
 
 @property (nonatomic, readwrite, strong) CPTGraphHostingView *defaultLayerHostingView;
 
-@property (nonatomic, readwrite, strong) NSMutableArray *graphs;
+@property (nonatomic, readwrite, strong) NSMutableArray<__kindof CPTGraph *> *graphs;
 @property (nonatomic, readwrite, strong) NSString *section;
 @property (nonatomic, readwrite, strong) NSString *title;
 

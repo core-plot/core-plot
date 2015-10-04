@@ -44,19 +44,19 @@ NSString *const kCPTDarkGradientTheme = @"Dark Gradients";
 
 -(void)applyThemeToAxis:(CPTXYAxis *)axis usingMajorLineStyle:(CPTLineStyle *)majorLineStyle minorLineStyle:(CPTLineStyle *)minorLineStyle textStyle:(CPTMutableTextStyle *)textStyle minorTickTextStyle:(CPTMutableTextStyle *)minorTickTextStyle
 {
-    axis.labelingPolicy              = CPTAxisLabelingPolicyFixedInterval;
-    axis.majorIntervalLength         = CPTDecimalFromDouble(0.5);
-    axis.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
-    axis.tickDirection               = CPTSignNone;
-    axis.minorTicksPerInterval       = 4;
-    axis.majorTickLineStyle          = majorLineStyle;
-    axis.minorTickLineStyle          = minorLineStyle;
-    axis.axisLineStyle               = majorLineStyle;
-    axis.majorTickLength             = CPTFloat(7.0);
-    axis.minorTickLength             = CPTFloat(5.0);
-    axis.labelTextStyle              = textStyle;
-    axis.minorTickLabelTextStyle     = minorTickTextStyle;
-    axis.titleTextStyle              = textStyle;
+    axis.labelingPolicy          = CPTAxisLabelingPolicyFixedInterval;
+    axis.majorIntervalLength     = @0.5;
+    axis.orthogonalPosition      = @0.0;
+    axis.tickDirection           = CPTSignNone;
+    axis.minorTicksPerInterval   = 4;
+    axis.majorTickLineStyle      = majorLineStyle;
+    axis.minorTickLineStyle      = minorLineStyle;
+    axis.axisLineStyle           = majorLineStyle;
+    axis.majorTickLength         = CPTFloat(7.0);
+    axis.minorTickLength         = CPTFloat(5.0);
+    axis.labelTextStyle          = textStyle;
+    axis.minorTickLabelTextStyle = minorTickTextStyle;
+    axis.titleTextStyle          = textStyle;
 }
 
 -(void)applyThemeToBackground:(CPTGraph *)graph

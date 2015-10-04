@@ -3,18 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		076185040F3CB17800A89A76 /* CorePlot.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 076184C10F3CAD5900A89A76 /* CorePlot.framework */; };
+		076185040F3CB17800A89A76 /* CorePlot.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 076184C10F3CAD5900A89A76 /* CorePlot.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		0761850B0F3CB1E800A89A76 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 076184C10F3CAD5900A89A76 /* CorePlot.framework */; };
-		077382B10F3DC1FB002F10E2 /* Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 077382B00F3DC1FB002F10E2 /* Controller.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
-		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		90AF4F440F36CF1800753D26 /* DatePlot.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90AF4F430F36CF1800753D26 /* DatePlot.xib */; };
 		BC8E737D0FC0B3CF00DF8511 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8E737C0FC0B3CF00DF8511 /* QuartzCore.framework */; };
+		C33E19A8198330CA00182AF2 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33E19A7198330CA00182AF2 /* main.swift */; };
+		C3A14440197DE35F0048F1FF /* DateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A1443F197DE35F0048F1FF /* DateController.swift */; };
 		C3D3937419FD6E3500148319 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D3937319FD6E3500148319 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +40,34 @@
 			remoteGlobalIDString = 0730F600109492D800E95162;
 			remoteInfo = UnitTests;
 		};
+		C3F04DB71B44CCFD0002322A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C38A09781A46185200D45436;
+			remoteInfo = CorePlot_iOS;
+		};
+		C3F04DB91B44CCFD0002322A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C38A09821A46185300D45436;
+			remoteInfo = CorePlot_iOSTests;
+		};
+		C3F04DBB1B44CCFD0002322A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C38A09BA1A4619A900D45436;
+			remoteInfo = "CorePlot-CocoaTouch";
+		};
+		C3F04DBD1B44CCFD0002322A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C38A09C41A4619A900D45436;
+			remoteInfo = "CorePlot-CocoaTouchTests";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -60,21 +88,20 @@
 		071BCBD61079EBE00045E43D /* CorePlot.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CorePlot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = ../../framework/CorePlot.xcodeproj; sourceTree = SOURCE_ROOT; };
 		0761854B0F3CB3CB00A89A76 /* CorePlot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CorePlot.framework; path = ../../../../framework/build/Debug/CorePlot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		077382AF0F3DC1FB002F10E2 /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Controller.h; sourceTree = "<group>"; };
-		077382B00F3DC1FB002F10E2 /* Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Controller.m; sourceTree = "<group>"; };
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
-		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Source/main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		32CA4F630368D1EE00C91783 /* DatePlot_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePlot_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* DatePlot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DatePlot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90AF4F430F36CF1800753D26 /* DatePlot.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DatePlot.xib; sourceTree = "<group>"; };
 		BC8E737C0FC0B3CF00DF8511 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C33E19A7198330CA00182AF2 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = main.swift; path = Source/main.swift; sourceTree = "<group>"; };
+		C3A1443E197DE35F0048F1FF /* DatePlot-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DatePlot-Bridging-Header.h"; sourceTree = "<group>"; };
+		C3A1443F197DE35F0048F1FF /* DateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateController.swift; path = Source/DateController.swift; sourceTree = "<group>"; };
+		C3C3CBBF19EA07F600A0296A /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/xcconfig/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
 		C3D3937319FD6E3500148319 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = DatePlot/Images.xcassets; sourceTree = "<group>"; };
-		C3D6210B19DF70DB00652CE7 /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +123,10 @@
 			children = (
 				076184C10F3CAD5900A89A76 /* CorePlot.framework */,
 				07E0DF80109C4E9500F108D2 /* UnitTests.xctest */,
+				C3F04DB81B44CCFD0002322A /* CorePlot.framework */,
+				C3F04DBA1B44CCFD0002322A /* UnitTests iOS.xctest */,
+				C3F04DBC1B44CCFD0002322A /* libCorePlot-CocoaTouch.a */,
+				C3F04DBE1B44CCFD0002322A /* CorePlot-CocoaTouchTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -103,8 +134,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				077382AF0F3DC1FB002F10E2 /* Controller.h */,
-				077382B00F3DC1FB002F10E2 /* Controller.m */,
+				C3A1443E197DE35F0048F1FF /* DatePlot-Bridging-Header.h */,
+				C3A1443F197DE35F0048F1FF /* DateController.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -143,7 +174,7 @@
 			children = (
 				076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */,
 				080E96DDFE201D6D7F000001 /* Classes */,
-				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				C33E19A219832EEA00182AF2 /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -153,16 +184,6 @@
 			sourceTree = "<group>";
 			tabWidth = 4;
 			usesTabs = 0;
-		};
-		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
-			isa = PBXGroup;
-			children = (
-				32CA4F630368D1EE00C91783 /* DatePlot_Prefix.pch */,
-				29B97316FDCFA39411CA2CEA /* main.m */,
-				C3D6210B19DF70DB00652CE7 /* CorePlotWarnings.xcconfig */,
-			);
-			name = "Other Sources";
-			sourceTree = "<group>";
 		};
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
@@ -182,6 +203,15 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C33E19A219832EEA00182AF2 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				C33E19A7198330CA00182AF2 /* main.swift */,
+				C3C3CBBF19EA07F600A0296A /* CorePlotWarnings.xcconfig */,
+			);
+			name = "Other Sources";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,10 +244,11 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = NO;
-				LastUpgradeCheck = 0500;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "DatePlot" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -256,6 +287,34 @@
 			remoteRef = 07E0DF7F109C4E9500F108D2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		C3F04DB81B44CCFD0002322A /* CorePlot.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CorePlot.framework;
+			remoteRef = C3F04DB71B44CCFD0002322A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C3F04DBA1B44CCFD0002322A /* UnitTests iOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "UnitTests iOS.xctest";
+			remoteRef = C3F04DB91B44CCFD0002322A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C3F04DBC1B44CCFD0002322A /* libCorePlot-CocoaTouch.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libCorePlot-CocoaTouch.a";
+			remoteRef = C3F04DBB1B44CCFD0002322A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C3F04DBE1B44CCFD0002322A /* CorePlot-CocoaTouchTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "CorePlot-CocoaTouchTests.xctest";
+			remoteRef = C3F04DBD1B44CCFD0002322A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -276,8 +335,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D11072D0486CEB800E47090 /* main.m in Sources */,
-				077382B10F3DC1FB002F10E2 /* Controller.m in Sources */,
+				C33E19A8198330CA00182AF2 /* main.swift in Sources */,
+				C3A14440197DE35F0048F1FF /* DateController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,9 +364,11 @@
 /* Begin XCBuildConfiguration section */
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3C3CBBF19EA07F600A0296A /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -320,16 +381,21 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.CorePlot.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = DatePlot;
+				SWIFT_OBJC_BRIDGING_HEADER = "DatePlot-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3C3CBBF19EA07F600A0296A /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -339,21 +405,24 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.CorePlot.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = DatePlot;
+				SWIFT_OBJC_BRIDGING_HEADER = "DatePlot-Bridging-Header.h";
 			};
 			name = Release;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3D6210B19DF70DB00652CE7 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SYMROOT = "$(SRCROOT)/../../build";
@@ -362,13 +431,12 @@
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3D6210B19DF70DB00652CE7 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				SDKROOT = macosx;
 				SYMROOT = "$(SRCROOT)/../../build";
 			};

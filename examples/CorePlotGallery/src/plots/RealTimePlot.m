@@ -13,7 +13,7 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
 
 @interface RealTimePlot()
 
-@property (nonatomic, readwrite, strong) NSMutableArray *plotData;
+@property (nonatomic, readwrite, strong) CPTMutableNumberArray plotData;
 @property (nonatomic, readwrite, assign) NSUInteger currentIndex;
 @property (nonatomic, readwrite, strong) NSTimer *dataTimer;
 
@@ -88,29 +88,30 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
     // X axis
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
-    x.labelingPolicy              = CPTAxisLabelingPolicyAutomatic;
-    x.orthogonalCoordinateDecimal = CPTDecimalFromUnsignedInteger(0);
-    x.majorGridLineStyle          = majorGridLineStyle;
-    x.minorGridLineStyle          = minorGridLineStyle;
-    x.minorTicksPerInterval       = 9;
-    x.labelOffset                 = self.titleSize * CPTFloat(0.25);
-    x.title                       = @"X Axis";
-    x.titleOffset                 = self.titleSize * CPTFloat(1.5);
+    x.labelingPolicy        = CPTAxisLabelingPolicyAutomatic;
+    x.orthogonalPosition    = @0.0;
+    x.majorGridLineStyle    = majorGridLineStyle;
+    x.minorGridLineStyle    = minorGridLineStyle;
+    x.minorTicksPerInterval = 9;
+    x.labelOffset           = self.titleSize * CPTFloat(0.25);
+    x.title                 = @"X Axis";
+    x.titleOffset           = self.titleSize * CPTFloat(1.5);
+
     NSNumberFormatter *labelFormatter = [[NSNumberFormatter alloc] init];
     labelFormatter.numberStyle = NSNumberFormatterNoStyle;
     x.labelFormatter           = labelFormatter;
 
     // Y axis
     CPTXYAxis *y = axisSet.yAxis;
-    y.labelingPolicy              = CPTAxisLabelingPolicyAutomatic;
-    y.orthogonalCoordinateDecimal = CPTDecimalFromUnsignedInteger(0);
-    y.majorGridLineStyle          = majorGridLineStyle;
-    y.minorGridLineStyle          = minorGridLineStyle;
-    y.minorTicksPerInterval       = 3;
-    y.labelOffset                 = self.titleSize * CPTFloat(0.25);
-    y.title                       = @"Y Axis";
-    y.titleOffset                 = self.titleSize * CPTFloat(1.25);
-    y.axisConstraints             = [CPTConstraints constraintWithLowerOffset:0.0];
+    y.labelingPolicy        = CPTAxisLabelingPolicyAutomatic;
+    y.orthogonalPosition    = @0.0;
+    y.majorGridLineStyle    = majorGridLineStyle;
+    y.minorGridLineStyle    = minorGridLineStyle;
+    y.minorTicksPerInterval = 3;
+    y.labelOffset           = self.titleSize * CPTFloat(0.25);
+    y.title                 = @"Y Axis";
+    y.titleOffset           = self.titleSize * CPTFloat(1.25);
+    y.axisConstraints       = [CPTConstraints constraintWithLowerOffset:0.0];
 
     // Rotate the labels by 45 degrees, just to show it can be done.
     x.labelRotation = CPTFloat(M_PI_4);
@@ -130,8 +131,8 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
 
     // Plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger(0) length:CPTDecimalFromUnsignedInteger(kMaxDataPoints - 2)];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger(0) length:CPTDecimalFromUnsignedInteger(1)];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@(kMaxDataPoints - 2)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@1.0];
 
     [self.dataTimer invalidate];
 
@@ -170,10 +171,10 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
         CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)theGraph.defaultPlotSpace;
         NSUInteger location       = (self.currentIndex >= kMaxDataPoints ? self.currentIndex - kMaxDataPoints + 2 : 0);
 
-        CPTPlotRange *oldRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger( (location > 0) ? (location - 1) : 0 )
-                                                              length:CPTDecimalFromUnsignedInteger(kMaxDataPoints - 2)];
-        CPTPlotRange *newRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromUnsignedInteger(location)
-                                                              length:CPTDecimalFromUnsignedInteger(kMaxDataPoints - 2)];
+        CPTPlotRange *oldRange = [CPTPlotRange plotRangeWithLocation:@( (location > 0) ? (location - 1) : 0 )
+                                                              length:@(kMaxDataPoints - 2)];
+        CPTPlotRange *newRange = [CPTPlotRange plotRangeWithLocation:@(location)
+                                                              length:@(kMaxDataPoints - 2)];
 
         [CPTAnimation animate:plotSpace
                      property:@"xRange"

@@ -2,6 +2,8 @@
 
 /// @file
 
+@class CPTPlotRange;
+
 /**
  *  @brief Enumeration of possible results of a plot range comparison.
  **/
@@ -11,20 +13,36 @@ typedef NS_ENUM (NSInteger, CPTPlotRangeComparisonResult) {
     CPTPlotRangeComparisonResultNumberAboveRange  ///< Number is above the range.
 };
 
+/**
+ *  @brief An array of plot ranges.
+ **/
+typedef NSArray<CPTPlotRange *> *CPTPlotRangeArray;
+
+/**
+ *  @brief A mutable array of plot ranges.
+ **/
+typedef NSMutableArray<CPTPlotRange *> *CPTMutablePlotRangeArray;
+
 @interface CPTPlotRange : NSObject<NSCoding, NSCopying, NSMutableCopying>
 
 /// @name Range Limits
 /// @{
-@property (nonatomic, readonly) NSDecimal location;
-@property (nonatomic, readonly) NSDecimal length;
-@property (nonatomic, readonly) NSDecimal end;
+@property (nonatomic, readonly, strong, nonnull) NSNumber *location;
+@property (nonatomic, readonly, strong, nonnull) NSNumber *length;
+@property (nonatomic, readonly, strong, nonnull) NSNumber *end;
+@property (nonatomic, readonly) NSDecimal locationDecimal;
+@property (nonatomic, readonly) NSDecimal lengthDecimal;
+@property (nonatomic, readonly) NSDecimal endDecimal;
 @property (nonatomic, readonly) double locationDouble;
 @property (nonatomic, readonly) double lengthDouble;
 @property (nonatomic, readonly) double endDouble;
 
-@property (nonatomic, readonly) NSDecimal minLimit;
-@property (nonatomic, readonly) NSDecimal midPoint;
-@property (nonatomic, readonly) NSDecimal maxLimit;
+@property (nonatomic, readonly, strong, nonnull) NSNumber *minLimit;
+@property (nonatomic, readonly, strong, nonnull) NSNumber *midPoint;
+@property (nonatomic, readonly, strong, nonnull) NSNumber *maxLimit;
+@property (nonatomic, readonly) NSDecimal minLimitDecimal;
+@property (nonatomic, readonly) NSDecimal midPointDecimal;
+@property (nonatomic, readonly) NSDecimal maxLimitDecimal;
 @property (nonatomic, readonly) double minLimitDouble;
 @property (nonatomic, readonly) double midPointDouble;
 @property (nonatomic, readonly) double maxLimitDouble;
@@ -32,28 +50,30 @@ typedef NS_ENUM (NSInteger, CPTPlotRangeComparisonResult) {
 
 /// @name Factory Methods
 /// @{
-+(instancetype)plotRangeWithLocation:(NSDecimal)loc length:(NSDecimal)len;
++(nonnull instancetype)plotRangeWithLocation:(nonnull NSNumber *)loc length:(nonnull NSNumber *)len;
++(nonnull instancetype)plotRangeWithLocationDecimal:(NSDecimal)loc lengthDecimal:(NSDecimal)len;
 /// @}
 
 /// @name Initialization
 /// @{
--(instancetype)initWithLocation:(NSDecimal)loc length:(NSDecimal)len NS_DESIGNATED_INITIALIZER;
--(instancetype)initWithCoder:(NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype)initWithLocation:(nonnull NSNumber *)loc length:(nonnull NSNumber *)len;
+-(nonnull instancetype)initWithLocationDecimal:(NSDecimal)loc lengthDecimal:(NSDecimal)len NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype)initWithCoder:(nonnull NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
 /// @}
 
 /// @name Checking Ranges
 /// @{
 -(BOOL)contains:(NSDecimal)number;
 -(BOOL)containsDouble:(double)number;
--(BOOL)containsNumber:(NSNumber *)number;
--(BOOL)isEqualToRange:(CPTPlotRange *)otherRange;
--(BOOL)containsRange:(CPTPlotRange *)otherRange;
--(BOOL)intersectsRange:(CPTPlotRange *)otherRange;
+-(BOOL)containsNumber:(nullable NSNumber *)number;
+-(BOOL)isEqualToRange:(nullable CPTPlotRange *)otherRange;
+-(BOOL)containsRange:(nullable CPTPlotRange *)otherRange;
+-(BOOL)intersectsRange:(nullable CPTPlotRange *)otherRange;
 /// @}
 
 /// @name Range Comparison
 /// @{
--(CPTPlotRangeComparisonResult)compareToNumber:(NSNumber *)number;
+-(CPTPlotRangeComparisonResult)compareToNumber:(nonnull NSNumber *)number;
 -(CPTPlotRangeComparisonResult)compareToDecimal:(NSDecimal)number;
 -(CPTPlotRangeComparisonResult)compareToDouble:(double)number;
 /// @}

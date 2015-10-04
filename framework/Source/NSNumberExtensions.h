@@ -3,11 +3,11 @@
  **/
 @interface NSNumber(CPTExtensions)
 
-+(instancetype)numberWithCGFloat:(CGFloat)number;
++(nonnull instancetype)numberWithCGFloat:(CGFloat)number;
 
 -(CGFloat)cgFloatValue;
--(instancetype)initWithCGFloat:(CGFloat)number;
+-(nonnull instancetype)initWithCGFloat:(CGFloat)number;
 
--(NSDecimalNumber *)decimalNumber;
+-(nonnull NSDecimalNumber *)decimalNumber;
 
 @end

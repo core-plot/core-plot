@@ -3,15 +3,16 @@
 #import "CPTDefinitions.h"
 #import "CPTFill.h"
 #import "CPTLineStyle.h"
+#import "CPTPlatformSpecificFunctions.h"
 #import "NSCoderExtensions.h"
 #import <tgmath.h>
 
 /// @cond
 @interface CPTLineCap()
 
-@property (nonatomic, readwrite, assign) CGPathRef cachedLineCapPath;
+@property (nonatomic, readwrite, assign, nullable) CGPathRef cachedLineCapPath;
 
--(CGPathRef)newLineCapPath;
+-(nonnull CGPathRef)newLineCapPath;
 
 @end
 
@@ -574,6 +575,25 @@
         break;
     }
     return lineCapPath;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark Debugging
+
+/// @cond
+
+-(id)debugQuickLookObject
+{
+    const CGSize symbolSize   = self.size;
+    const CGSize halfSize     = CPTSizeMake( symbolSize.width * CPTFloat(0.5), symbolSize.height * CPTFloat(0.5) );
+    const CGRect rect         = CGRectMake(-halfSize.width, -halfSize.height, symbolSize.width, symbolSize.height);
+    const CGPoint centerPoint = CGPointMake(halfSize.width, halfSize.height);
+
+    return CPTQuickLookImage(rect, ^(CGContextRef context, CGFloat scale, CGRect bounds) {
+        [self renderAsVectorInContext:context atPoint:centerPoint inDirection:CGPointMake(1.0, 0.0)];
+    });
 }
 
 /// @endcond

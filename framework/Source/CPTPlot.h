@@ -16,7 +16,7 @@
 
 /// @ingroup plotBindingsAllPlots
 /// @{
-extern NSString *const CPTPlotBindingDataLabels;
+extern NSString *__nonnull const CPTPlotBindingDataLabels;
 /// @}
 
 /**
@@ -27,6 +27,16 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
     CPTPlotCachePrecisionDouble, ///< All cached data will be converted to double precision.
     CPTPlotCachePrecisionDecimal ///< All cached data will be converted to @ref NSDecimal.
 };
+
+/**
+ *  @brief An array of plots.
+ **/
+typedef NSArray<__kindof CPTPlot *> *CPTPlotArray;
+
+/**
+ *  @brief A mutable array of plots.
+ **/
+typedef NSMutableArray<__kindof CPTPlot *> *CPTMutablePlotArray;
 
 #pragma mark -
 
@@ -42,7 +52,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
  *  @param plot The plot.
  *  @return The number of data points for the plot.
  **/
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot;
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot;
 
 @optional
 
@@ -59,7 +69,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
  *  @param indexRange The range of the data indexes of interest.
  *  @return An array of data points.
  **/
--(NSArray *)numbersForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;
+-(nullable NSArray *)numbersForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;
 
 /** @brief @optional Gets a plot data value for the given plot and field.
  *  Implement one and only one of the optional methods in this section.
@@ -74,7 +84,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
  *  @param idx The data index of interest.
  *  @return A data point.
  **/
--(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx;
+-(nullable id)numberForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx;
 
 /** @brief @optional Gets a range of plot data for the given plot and field.
  *  Implement one and only one of the optional methods in this section.
@@ -83,7 +93,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
  *  @param indexRange The range of the data indexes of interest.
  *  @return A retained C array of data points.
  **/
--(double *)doublesForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;
+-(nullable double *)doublesForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;
 
 /** @brief @optional Gets a plot data value for the given plot and field.
  *  Implement one and only one of the optional methods in this section.
@@ -92,7 +102,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
  *  @param idx The data index of interest.
  *  @return A data point.
  **/
--(double)doubleForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx;
+-(double)doubleForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx;
 
 /** @brief @optional Gets a range of plot data for the given plot and field.
  *  Implement one and only one of the optional methods in this section.
@@ -101,7 +111,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
  *  @param indexRange The range of the data indexes of interest.
  *  @return A one-dimensional array of data points.
  **/
--(CPTNumericData *)dataForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;
+-(nullable CPTNumericData *)dataForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;
 
 /** @brief @optional Gets a range of plot data for all fields of the given plot simultaneously.
  *  Implement one and only one of the optional methods in this section.
@@ -117,7 +127,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
  *  @param indexRange The range of the data indexes of interest.
  *  @return A two-dimensional array of data points.
  **/
--(CPTNumericData *)dataForPlot:(CPTPlot *)plot recordIndexRange:(NSRange)indexRange;
+-(nullable CPTNumericData *)dataForPlot:(nonnull CPTPlot *)plot recordIndexRange:(NSRange)indexRange;
 
 /// @}
 
@@ -129,7 +139,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
  *  @param indexRange The range of the data indexes of interest.
  *  @return An array of data labels.
  **/
--(NSArray *)dataLabelsForPlot:(CPTPlot *)plot recordIndexRange:(NSRange)indexRange;
+-(nullable NSArray<CPTLayer *> *)dataLabelsForPlot:(nonnull CPTPlot *)plot recordIndexRange:(NSRange)indexRange;
 
 /** @brief @optional Gets a data label for the given plot.
  *  This method will not be called if
@@ -141,7 +151,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
  *  If you return @nil, the default data label will be used. If you return an instance of NSNull,
  *  no label will be shown for the index in question.
  **/
--(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)idx;
+-(nullable CPTLayer *)dataLabelForPlot:(nonnull CPTPlot *)plot recordIndex:(NSUInteger)idx;
 
 /// @}
 
@@ -167,7 +177,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
  *  @if MacOnly clicked data label. @endif
  *  @if iOSOnly touched data label. @endif
  **/
--(void)plot:(CPTPlot *)plot dataLabelWasSelectedAtRecordIndex:(NSUInteger)idx;
+-(void)plot:(nonnull CPTPlot *)plot dataLabelWasSelectedAtRecordIndex:(NSUInteger)idx;
 
 /** @brief @optional Informs the delegate that a data label
  *  @if MacOnly was both pressed and released. @endif
@@ -178,7 +188,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
  *  @if iOSOnly touched data label. @endif
  *  @param event The event that triggered the selection.
  **/
--(void)plot:(CPTPlot *)plot dataLabelWasSelectedAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
+-(void)plot:(nonnull CPTPlot *)plot dataLabelWasSelectedAtRecordIndex:(NSUInteger)idx withEvent:(nonnull CPTNativeEvent *)event;
 
 /** @brief @optional Informs the delegate that a data label
  *  @if MacOnly was pressed. @endif
@@ -188,7 +198,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
  *  @if MacOnly clicked data label. @endif
  *  @if iOSOnly touched data label. @endif
  **/
--(void)plot:(CPTPlot *)plot dataLabelTouchDownAtRecordIndex:(NSUInteger)idx;
+-(void)plot:(nonnull CPTPlot *)plot dataLabelTouchDownAtRecordIndex:(NSUInteger)idx;
 
 /** @brief @optional Informs the delegate that a data label
  *  @if MacOnly was pressed. @endif
@@ -199,7 +209,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
  *  @if iOSOnly touched data label. @endif
  *  @param event The event that triggered the selection.
  **/
--(void)plot:(CPTPlot *)plot dataLabelTouchDownAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
+-(void)plot:(nonnull CPTPlot *)plot dataLabelTouchDownAtRecordIndex:(NSUInteger)idx withEvent:(nonnull CPTNativeEvent *)event;
 
 /** @brief @optional Informs the delegate that a data label
  *  @if MacOnly was released. @endif
@@ -209,7 +219,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
  *  @if MacOnly clicked data label. @endif
  *  @if iOSOnly touched data label. @endif
  **/
--(void)plot:(CPTPlot *)plot dataLabelTouchUpAtRecordIndex:(NSUInteger)idx;
+-(void)plot:(nonnull CPTPlot *)plot dataLabelTouchUpAtRecordIndex:(NSUInteger)idx;
 
 /** @brief @optional Informs the delegate that a data label
  *  @if MacOnly was released. @endif
@@ -220,7 +230,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
  *  @if iOSOnly touched data label. @endif
  *  @param event The event that triggered the selection.
  **/
--(void)plot:(CPTPlot *)plot dataLabelTouchUpAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
+-(void)plot:(nonnull CPTPlot *)plot dataLabelTouchUpAtRecordIndex:(NSUInteger)idx withEvent:(nonnull CPTNativeEvent *)event;
 
 /// @}
 
@@ -231,7 +241,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
  *  @brief @optional Informs the delegate that plot drawing is finished.
  *  @param plot The plot.
  **/
--(void)didFinishDrawing:(CPTPlot *)plot;
+-(void)didFinishDrawing:(nonnull CPTPlot *)plot;
 
 /// @}
 
@@ -243,23 +253,23 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
 
 /// @name Data Source
 /// @{
-@property (nonatomic, readwrite, cpt_weak_property) cpt_weak id<CPTPlotDataSource> dataSource;
+@property (nonatomic, readwrite, cpt_weak_property, nullable) cpt_weak id<CPTPlotDataSource> dataSource;
 /// @}
 
 /// @name Identification
 /// @{
-@property (nonatomic, readwrite, copy) NSString *title;
-@property (nonatomic, readwrite, copy) NSAttributedString *attributedTitle;
+@property (nonatomic, readwrite, copy, nullable) NSString *title;
+@property (nonatomic, readwrite, copy, nullable) NSAttributedString *attributedTitle;
 /// @}
 
 /// @name Plot Space
 /// @{
-@property (nonatomic, readwrite, strong) CPTPlotSpace *plotSpace;
+@property (nonatomic, readwrite, strong, nullable) CPTPlotSpace *plotSpace;
 /// @}
 
 /// @name Plot Area
 /// @{
-@property (nonatomic, readonly) CPTPlotArea *plotArea;
+@property (nonatomic, readonly, nullable) CPTPlotArea *plotArea;
 /// @}
 
 /// @name Data Loading
@@ -284,9 +294,9 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
 @property (nonatomic, readwrite, assign) CGFloat labelOffset;
 @property (nonatomic, readwrite, assign) CGFloat labelRotation;
 @property (nonatomic, readwrite, assign) NSUInteger labelField;
-@property (nonatomic, readwrite, copy) CPTTextStyle *labelTextStyle;
-@property (nonatomic, readwrite, strong) NSFormatter *labelFormatter;
-@property (nonatomic, readwrite, strong) CPTShadow *labelShadow;
+@property (nonatomic, readwrite, copy, nullable) CPTTextStyle *labelTextStyle;
+@property (nonatomic, readwrite, strong, nullable) NSFormatter *labelFormatter;
+@property (nonatomic, readwrite, strong, nullable) CPTShadow *labelShadow;
 /// @}
 
 /// @name Drawing
@@ -323,38 +333,38 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
 
 /// @name Plot Data
 /// @{
-+(id)nilData;
--(id)numbersFromDataSourceForField:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;
++(nonnull id)nilData;
+-(nullable id)numbersFromDataSourceForField:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;
 -(BOOL)loadNumbersForAllFieldsFromDataSourceInRecordIndexRange:(NSRange)indexRange;
 /// @}
 
 /// @name Data Cache
 /// @{
--(CPTMutableNumericData *)cachedNumbersForField:(NSUInteger)fieldEnum;
--(NSNumber *)cachedNumberForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx;
+-(nullable CPTMutableNumericData *)cachedNumbersForField:(NSUInteger)fieldEnum;
+-(nullable NSNumber *)cachedNumberForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx;
 -(double)cachedDoubleForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx;
 -(NSDecimal)cachedDecimalForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx;
--(NSArray *)cachedArrayForKey:(NSString *)key;
--(id)cachedValueForKey:(NSString *)key recordIndex:(NSUInteger)idx;
+-(nullable NSArray *)cachedArrayForKey:(nonnull NSString *)key;
+-(nullable id)cachedValueForKey:(nonnull NSString *)key recordIndex:(NSUInteger)idx;
 
--(void)cacheNumbers:(id)numbers forField:(NSUInteger)fieldEnum;
--(void)cacheNumbers:(id)numbers forField:(NSUInteger)fieldEnum atRecordIndex:(NSUInteger)idx;
--(void)cacheArray:(NSArray *)array forKey:(NSString *)key;
--(void)cacheArray:(NSArray *)array forKey:(NSString *)key atRecordIndex:(NSUInteger)idx;
+-(void)cacheNumbers:(nullable id)numbers forField:(NSUInteger)fieldEnum;
+-(void)cacheNumbers:(nullable id)numbers forField:(NSUInteger)fieldEnum atRecordIndex:(NSUInteger)idx;
+-(void)cacheArray:(nullable NSArray *)array forKey:(nonnull NSString *)key;
+-(void)cacheArray:(nullable NSArray *)array forKey:(nonnull NSString *)key atRecordIndex:(NSUInteger)idx;
 /// @}
 
 /// @name Plot Data Ranges
 /// @{
--(CPTPlotRange *)plotRangeForField:(NSUInteger)fieldEnum;
--(CPTPlotRange *)plotRangeForCoordinate:(CPTCoordinate)coord;
+-(nullable CPTPlotRange *)plotRangeForField:(NSUInteger)fieldEnum;
+-(nullable CPTPlotRange *)plotRangeForCoordinate:(CPTCoordinate)coord;
 /// @}
 
 /// @name Legends
 /// @{
 -(NSUInteger)numberOfLegendEntries;
--(NSString *)titleForLegendEntryAtIndex:(NSUInteger)idx;
--(NSAttributedString *)attributedTitleForLegendEntryAtIndex:(NSUInteger)idx;
--(void)drawSwatchForLegend:(CPTLegend *)legend atIndex:(NSUInteger)idx inRect:(CGRect)rect inContext:(CGContextRef)context;
+-(nullable NSString *)titleForLegendEntryAtIndex:(NSUInteger)idx;
+-(nullable NSAttributedString *)attributedTitleForLegendEntryAtIndex:(NSUInteger)idx;
+-(void)drawSwatchForLegend:(nonnull CPTLegend *)legend atIndex:(NSUInteger)idx inRect:(CGRect)rect inContext:(nonnull CGContextRef)context;
 /// @}
 
 @end
@@ -369,14 +379,14 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
 /// @name Fields
 /// @{
 -(NSUInteger)numberOfFields;
--(NSArray *)fieldIdentifiers;
--(NSArray *)fieldIdentifiersForCoordinate:(CPTCoordinate)coord;
+-(nonnull CPTNumberArray)fieldIdentifiers;
+-(nonnull CPTNumberArray)fieldIdentifiersForCoordinate:(CPTCoordinate)coord;
 -(CPTCoordinate)coordinateForFieldIdentifier:(NSUInteger)field;
 /// @}
 
 /// @name Data Labels
 /// @{
--(void)positionLabelAnnotation:(CPTPlotSpaceAnnotation *)label forIndex:(NSUInteger)idx;
+-(void)positionLabelAnnotation:(nonnull CPTPlotSpaceAnnotation *)label forIndex:(NSUInteger)idx;
 /// @}
 
 /// @name User Interaction

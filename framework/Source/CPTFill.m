@@ -2,6 +2,7 @@
 
 #import "CPTColor.h"
 #import "CPTImage.h"
+#import "CPTPlatformSpecificFunctions.h"
 #import "_CPTFillColor.h"
 #import "_CPTFillGradient.h"
 #import "_CPTFillImage.h"
@@ -177,5 +178,21 @@
 {
     // do nothing--subclasses override to do drawing here
 }
+
+#pragma mark -
+#pragma mark Debugging
+
+/// @cond
+
+-(id)debugQuickLookObject
+{
+    const CGRect rect = CGRectMake(0.0, 0.0, 100.0, 100.0);
+
+    return CPTQuickLookImage(rect, ^(CGContextRef context, CGFloat scale, CGRect bounds) {
+        [self fillRect:bounds inContext:context];
+    });
+}
+
+/// @endcond
 
 @end

@@ -3,8 +3,8 @@
 #pragma mark Graphics Context
 
 // linked list to store saved contexts
-static NSMutableArray *pushedContexts   = nil;
-static dispatch_once_t contextOnceToken = 0;
+static NSMutableArray<NSGraphicsContext *> *pushedContexts = nil;
+static dispatch_once_t contextOnceToken                    = 0;
 
 static dispatch_queue_t contextQueue  = NULL;
 static dispatch_once_t queueOnceToken = 0;
@@ -28,7 +28,7 @@ void CPTPushCGContext(CGContextRef newContext)
             [pushedContexts addObject:currentContext];
         }
         else {
-            [pushedContexts addObject:[NSNull null]];
+            [pushedContexts addObject:(NSGraphicsContext *)[NSNull null]];
         }
 
         if ( newContext ) {
@@ -63,19 +63,6 @@ void CPTPopCGContext(void)
             [pushedContexts removeLastObject];
         }
     });
-}
-
-#pragma mark -
-#pragma mark Context
-
-/**
- *  @brief Get the default graphics context
- **/
-CGContextRef CPTGetCurrentContext(void)
-{
-    CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
-
-    return context;
 }
 
 #pragma mark -
@@ -117,4 +104,37 @@ CPTRGBAColor CPTRGBAColorFromNSColor(NSColor *nsColor)
     rgbColor.alpha = alpha;
 
     return rgbColor;
+}
+
+#pragma mark -
+#pragma mark Debugging
+
+CPTNativeImage * __nonnull CPTQuickLookImage(CGRect rect, __nonnull CPTQuickLookImageBlock renderBlock)
+{
+    NSBitmapImageRep *layerImage = [[NSBitmapImageRep alloc]
+                                    initWithBitmapDataPlanes:NULL
+                                                  pixelsWide:(NSInteger)rect.size.width
+                                                  pixelsHigh:(NSInteger)rect.size.height
+                                               bitsPerSample:8
+                                             samplesPerPixel:4
+                                                    hasAlpha:YES
+                                                    isPlanar:NO
+                                              colorSpaceName:NSCalibratedRGBColorSpace
+                                                 bytesPerRow:(NSInteger)rect.size.width * 4
+                                                bitsPerPixel:32];
+
+    NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:layerImage];
+
+    CGContextRef context = (CGContextRef)[bitmapContext graphicsPort];
+
+    CGContextClearRect(context, rect);
+
+    renderBlock(context, 1.0, rect);
+
+    CGContextFlush(context);
+
+    NSImage *image = [[NSImage alloc] initWithSize:NSSizeFromCGSize(rect.size)];
+    [image addRepresentation:layerImage];
+
+    return image;
 }

@@ -1,5 +1,6 @@
 #import "CPTPlotSpaceAnnotation.h"
 
+#import "CPTExceptions.h"
 #import "CPTPlotArea.h"
 #import "CPTPlotAreaFrame.h"
 #import "CPTPlotSpace.h"
@@ -8,7 +9,7 @@
 
 @interface CPTPlotSpaceAnnotation()
 
-@property (nonatomic, readwrite) NSDecimal *decimalAnchor;
+@property (nonatomic, readwrite, nonnull) NSDecimal *decimalAnchor;
 @property (nonatomic, readwrite) NSUInteger anchorCount;
 
 -(void)setContentNeedsLayout;
@@ -27,7 +28,7 @@
  **/
 @implementation CPTPlotSpaceAnnotation
 
-/** @property NSArray *anchorPlotPoint
+/** @property CPTNumberArray anchorPlotPoint
  *  @brief An array of NSDecimalNumber objects giving the anchor plot coordinates.
  **/
 @synthesize anchorPlotPoint;
@@ -55,7 +56,7 @@
  *  @param newPlotPoint An array of NSDecimalNumber objects giving the anchor plot coordinates.
  *  @return The initialized CPTPlotSpaceAnnotation object.
  **/
--(instancetype)initWithPlotSpace:(CPTPlotSpace *)newPlotSpace anchorPlotPoint:(NSArray *)newPlotPoint
+-(instancetype)initWithPlotSpace:(CPTPlotSpace *)newPlotSpace anchorPlotPoint:(CPTNumberArray)newPlotPoint
 {
     NSParameterAssert(newPlotSpace);
 
@@ -75,10 +76,11 @@
 
 /// @cond
 
-// plotSpace is required; this will fail the assertion in -initWithPlotSpace:anchorPlotPoint:
+// plotSpace is required
 -(instancetype)init
 {
-    return [self initWithPlotSpace:nil anchorPlotPoint:nil];
+    [NSException raise:CPTException format:@"%@ must be initialized with a plot space.", NSStringFromClass([self class])];
+    return [self initWithPlotSpace:[[CPTPlotSpace alloc] init] anchorPlotPoint:nil];
 }
 
 -(void)dealloc
@@ -138,7 +140,7 @@
     if ( content ) {
         CPTLayer *hostLayer = self.annotationHostLayer;
         if ( hostLayer ) {
-            NSArray *plotAnchor = self.anchorPlotPoint;
+            CPTNumberArray plotAnchor = self.anchorPlotPoint;
             if ( plotAnchor ) {
                 // Get plot area point
                 CPTPlotSpace *thePlotSpace      = self.plotSpace;
@@ -173,7 +175,7 @@
 
 /// @cond
 
--(void)setAnchorPlotPoint:(NSArray *)newPlotPoint
+-(void)setAnchorPlotPoint:(CPTNumberArray)newPlotPoint
 {
     if ( anchorPlotPoint != newPlotPoint ) {
         anchorPlotPoint = [newPlotPoint copy];

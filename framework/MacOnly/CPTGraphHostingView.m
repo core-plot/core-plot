@@ -74,10 +74,16 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
         locationInWindow = NSZeroPoint;
         scrollOffset     = CGPointZero;
 
-        CPTLayer *mainLayer = [[CPTLayer alloc] initWithFrame:NSRectToCGRect(frame)];
-        self.layer = mainLayer;
+        if ( !self.superview.wantsLayer ) {
+            self.layer = [self makeBackingLayer];
+        }
     }
     return self;
+}
+
+-(CALayer *)makeBackingLayer
+{
+    return [[CPTLayer alloc] initWithFrame:NSRectToCGRect(self.bounds)];
 }
 
 -(void)dealloc
@@ -188,6 +194,13 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
         }
     }
 }
+
+/// @endcond
+
+#pragma mark -
+#pragma mark Printing
+
+/// @cond
 
 -(BOOL)knowsPageRange:(NSRangePointer)rangePointer
 {
@@ -448,7 +461,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
  **/
 -(void)plotSpaceAdded:(NSNotification *)notification
 {
-    NSDictionary *userInfo = notification.userInfo;
+    CPTDictionary userInfo = notification.userInfo;
     CPTPlotSpace *space    = userInfo[CPTGraphPlotSpaceNotificationKey];
 
     [space addObserver:self
@@ -462,7 +475,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
  **/
 -(void)plotSpaceRemoved:(NSNotification *)notification
 {
-    NSDictionary *userInfo = notification.userInfo;
+    CPTDictionary userInfo = notification.userInfo;
     CPTPlotSpace *space    = userInfo[CPTGraphPlotSpaceNotificationKey];
 
     [space removeObserver:self forKeyPath:@"isDragging" context:CPTGraphHostingViewKVOContext];
@@ -477,6 +490,22 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
     [self.window invalidateCursorRectsForView:self];
 }
 
+-(void)viewWillMoveToSuperview:(NSView *)newSuperview
+{
+    if ( self.superview.wantsLayer != newSuperview.wantsLayer ) {
+        self.wantsLayer = NO;
+        self.layer      = nil;
+
+        if ( newSuperview.wantsLayer ) {
+            self.wantsLayer = YES;
+        }
+        else {
+            self.layer      = [self makeBackingLayer];
+            self.wantsLayer = YES;
+        }
+    }
+}
+
 /// @endcond
 
 #pragma mark -
@@ -484,7 +513,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
 /// @cond
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(CPTDictionary)change context:(void *)context
 {
     if ( context == CPTGraphHostingViewKVOContext ) {
         CPTGraph *theGraph = self.hostedGraph;

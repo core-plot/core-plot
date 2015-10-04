@@ -2,6 +2,7 @@
 
 @class CPTLineStyle;
 @class CPTFill;
+@class CPTPlotSymbol;
 @class CPTShadow;
 
 /**
@@ -23,38 +24,48 @@ typedef NS_ENUM (NSInteger, CPTPlotSymbolType) {
     CPTPlotSymbolTypeCustom     ///< Custom symbol.
 };
 
+/**
+ *  @brief An array of plot symbols.
+ **/
+typedef NSArray<CPTPlotSymbol *> *CPTPlotSymbolArray;
+
+/**
+ *  @brief A mutable array of plot symbols.
+ **/
+typedef NSMutableArray<CPTPlotSymbol *> *CPTMutablePlotSymbolArray;
+
 @interface CPTPlotSymbol : NSObject<NSCoding, NSCopying>
 
 @property (nonatomic, readwrite, assign) CGPoint anchorPoint;
 @property (nonatomic, readwrite, assign) CGSize size;
 @property (nonatomic, readwrite, assign) CPTPlotSymbolType symbolType;
-@property (nonatomic, readwrite, strong) CPTLineStyle *lineStyle;
-@property (nonatomic, readwrite, strong) CPTFill *fill;
-@property (nonatomic, readwrite, copy) CPTShadow *shadow;
-@property (nonatomic, readwrite, assign) CGPathRef customSymbolPath;
+@property (nonatomic, readwrite, strong, nullable) CPTLineStyle *lineStyle;
+@property (nonatomic, readwrite, strong, nullable) CPTFill *fill;
+@property (nonatomic, readwrite, copy, nullable) CPTShadow *shadow;
+@property (nonatomic, readwrite, assign, nullable) CGPathRef customSymbolPath;
 @property (nonatomic, readwrite, assign) BOOL usesEvenOddClipRule;
 
 /// @name Factory Methods
 /// @{
-+(instancetype)plotSymbol;
-+(instancetype)crossPlotSymbol;
-+(instancetype)ellipsePlotSymbol;
-+(instancetype)rectanglePlotSymbol;
-+(instancetype)plusPlotSymbol;
-+(instancetype)starPlotSymbol;
-+(instancetype)diamondPlotSymbol;
-+(instancetype)trianglePlotSymbol;
-+(instancetype)pentagonPlotSymbol;
-+(instancetype)hexagonPlotSymbol;
-+(instancetype)dashPlotSymbol;
-+(instancetype)snowPlotSymbol;
-+(instancetype)customPlotSymbolWithPath:(CGPathRef)aPath;
++(nonnull instancetype)plotSymbol;
++(nonnull instancetype)crossPlotSymbol;
++(nonnull instancetype)ellipsePlotSymbol;
++(nonnull instancetype)rectanglePlotSymbol;
++(nonnull instancetype)plusPlotSymbol;
++(nonnull instancetype)starPlotSymbol;
++(nonnull instancetype)diamondPlotSymbol;
++(nonnull instancetype)trianglePlotSymbol;
++(nonnull instancetype)pentagonPlotSymbol;
++(nonnull instancetype)hexagonPlotSymbol;
++(nonnull instancetype)dashPlotSymbol;
++(nonnull instancetype)snowPlotSymbol;
++(nonnull instancetype)customPlotSymbolWithPath:(nullable CGPathRef)aPath;
 /// @}
 
 /// @name Drawing
 /// @{
--(void)renderInContext:(CGContextRef)context atPoint:(CGPoint)center scale:(CGFloat)scale alignToPixels:(BOOL)alignToPixels;
--(void)renderAsVectorInContext:(CGContextRef)context atPoint:(CGPoint)center scale:(CGFloat)scale;
+-(void)renderInContext:(nonnull CGContextRef)context atPoint:(CGPoint)center scale:(CGFloat)scale alignToPixels:(BOOL)alignToPixels;
+-(void)renderAsVectorInContext:(nonnull CGContextRef)context atPoint:(CGPoint)center scale:(CGFloat)scale;
 /// @}
 
 @end

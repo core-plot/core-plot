@@ -1,7 +1,8 @@
 #import <Cocoa/Cocoa.h>
+#import <CorePlot/CorePlot.h>
 
 @interface NSString(ParseCSV)
 
--(NSArray *)arrayByParsingCSVLine;
+-(CPTStringArray)arrayByParsingCSVLine;
 
 @end

@@ -12,7 +12,7 @@ typedef struct _CPTGradientElement {
     CPTRGBAColor color; ///< Color
     CGFloat position;   ///< Gradient position (0 ≤ @par{position} ≤ 1)
 
-    struct _CPTGradientElement *nextElement; ///< Pointer to the next CPTGradientElement in the list (last element == @NULL)
+    struct _CPTGradientElement *__nullable nextElement; ///< Pointer to the next CPTGradientElement in the list (last element == @NULL)
 }
 CPTGradientElement;
 
@@ -59,46 +59,46 @@ typedef NS_ENUM (NSInteger, CPTGradientType) {
 
 /// @name Factory Methods
 /// @{
-+(instancetype)gradientWithBeginningColor:(CPTColor *)begin endingColor:(CPTColor *)end;
-+(instancetype)gradientWithBeginningColor:(CPTColor *)begin endingColor:(CPTColor *)end beginningPosition:(CGFloat)beginningPosition endingPosition:(CGFloat)endingPosition;
++(nonnull instancetype)gradientWithBeginningColor:(nonnull CPTColor *)begin endingColor:(nonnull CPTColor *)end;
++(nonnull instancetype)gradientWithBeginningColor:(nonnull CPTColor *)begin endingColor:(nonnull CPTColor *)end beginningPosition:(CGFloat)beginningPosition endingPosition:(CGFloat)endingPosition;
 
-+(instancetype)aquaSelectedGradient;
-+(instancetype)aquaNormalGradient;
-+(instancetype)aquaPressedGradient;
++(nonnull instancetype)aquaSelectedGradient;
++(nonnull instancetype)aquaNormalGradient;
++(nonnull instancetype)aquaPressedGradient;
 
-+(instancetype)unifiedSelectedGradient;
-+(instancetype)unifiedNormalGradient;
-+(instancetype)unifiedPressedGradient;
-+(instancetype)unifiedDarkGradient;
++(nonnull instancetype)unifiedSelectedGradient;
++(nonnull instancetype)unifiedNormalGradient;
++(nonnull instancetype)unifiedPressedGradient;
++(nonnull instancetype)unifiedDarkGradient;
 
-+(instancetype)sourceListSelectedGradient;
-+(instancetype)sourceListUnselectedGradient;
++(nonnull instancetype)sourceListSelectedGradient;
++(nonnull instancetype)sourceListUnselectedGradient;
 
-+(instancetype)rainbowGradient;
-+(instancetype)hydrogenSpectrumGradient;
++(nonnull instancetype)rainbowGradient;
++(nonnull instancetype)hydrogenSpectrumGradient;
 /// @}
 
 /// @name Modification
 /// @{
--(CPTGradient *)gradientWithAlphaComponent:(CGFloat)alpha;
--(CPTGradient *)gradientWithBlendingMode:(CPTGradientBlendingMode)mode;
+-(nonnull CPTGradient *)gradientWithAlphaComponent:(CGFloat)alpha;
+-(nonnull CPTGradient *)gradientWithBlendingMode:(CPTGradientBlendingMode)mode;
 
--(CPTGradient *)addColorStop:(CPTColor *)color atPosition:(CGFloat)position; // positions given relative to [0,1]
--(CPTGradient *)removeColorStopAtIndex:(NSUInteger)idx;
--(CPTGradient *)removeColorStopAtPosition:(CGFloat)position;
+-(nonnull CPTGradient *)addColorStop:(nonnull CPTColor *)color atPosition:(CGFloat)position; // positions given relative to [0,1]
+-(nonnull CPTGradient *)removeColorStopAtIndex:(NSUInteger)idx;
+-(nonnull CPTGradient *)removeColorStopAtPosition:(CGFloat)position;
 /// @}
 
 /// @name Information
 /// @{
--(CGColorRef)newColorStopAtIndex:(NSUInteger)idx;
--(CGColorRef)newColorAtPosition:(CGFloat)position;
+-(nullable CGColorRef)newColorStopAtIndex:(NSUInteger)idx;
+-(nonnull CGColorRef)newColorAtPosition:(CGFloat)position;
 /// @}
 
 /// @name Drawing
 /// @{
--(void)drawSwatchInRect:(CGRect)rect inContext:(CGContextRef)context;
--(void)fillRect:(CGRect)rect inContext:(CGContextRef)context;
--(void)fillPathInContext:(CGContextRef)context;
+-(void)drawSwatchInRect:(CGRect)rect inContext:(nonnull CGContextRef)context;
+-(void)fillRect:(CGRect)rect inContext:(nonnull CGContextRef)context;
+-(void)fillPathInContext:(nonnull CGContextRef)context;
 /// @}
 
 @end

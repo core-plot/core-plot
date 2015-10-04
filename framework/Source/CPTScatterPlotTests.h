@@ -1,5 +1,7 @@
 #import "CPTTestCase.h"
-#import <CorePlot/CorePlot.h>
+
+@class CPTScatterPlot;
+@class CPTXYPlotSpace;
 
 @interface CPTScatterPlotTests : CPTTestCase
 

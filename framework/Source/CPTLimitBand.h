@@ -1,20 +1,33 @@
-@class CPTPlotRange;
+/// @file
+
 @class CPTFill;
+@class CPTLimitBand;
+@class CPTPlotRange;
+
+/**
+ *  @brief An array of limit bands.
+ **/
+typedef NSArray<CPTLimitBand *> *CPTLimitBandArray;
+
+/**
+ *  @brief A mutable array of limit bands.
+ **/
+typedef NSMutableArray<CPTLimitBand *> *CPTMutableLimitBandArray;
 
 @interface CPTLimitBand : NSObject<NSCoding, NSCopying>
 
-@property (nonatomic, readwrite, strong) CPTPlotRange *range;
-@property (nonatomic, readwrite, strong) CPTFill *fill;
+@property (nonatomic, readwrite, strong, nullable) CPTPlotRange *range;
+@property (nonatomic, readwrite, strong, nullable) CPTFill *fill;
 
 /// @name Factory Methods
 /// @{
-+(instancetype)limitBandWithRange:(CPTPlotRange *)newRange fill:(CPTFill *)newFill;
++(nonnull instancetype)limitBandWithRange:(nullable CPTPlotRange *)newRange fill:(nullable CPTFill *)newFill;
 /// @}
 
 /// @name Initialization
 /// @{
--(instancetype)initWithRange:(CPTPlotRange *)newRange fill:(CPTFill *)newFill NS_DESIGNATED_INITIALIZER;
--(instancetype)initWithCoder:(NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype)initWithRange:(nullable CPTPlotRange *)newRange fill:(nullable CPTFill *)newFill NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype)initWithCoder:(nonnull NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
 /// @}
 
 @end

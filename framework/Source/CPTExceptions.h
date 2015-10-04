@@ -2,7 +2,7 @@
 
 /// @name Custom Exception Identifiers
 /// @{
-extern NSString *const CPTException;
-extern NSString *const CPTDataException;
-extern NSString *const CPTNumericDataException;
+extern NSString *__nonnull const CPTException;
+extern NSString *__nonnull const CPTDataException;
+extern NSString *__nonnull const CPTNumericDataException;
 /// @}

@@ -10,7 +10,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 @interface CandlestickPlot()
 
 @property (nonatomic, readwrite, strong) CPTGraph *graph;
-@property (nonatomic, readwrite, strong) NSArray *plotData;
+@property (nonatomic, readwrite, strong) NSArray<NSDictionary *> *plotData;
 
 @end
 
@@ -40,7 +40,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 -(void)generateData
 {
     if ( !self.plotData ) {
-        NSMutableArray *newData = [NSMutableArray array];
+        NSMutableArray<NSDictionary *> *newData = [NSMutableArray array];
         for ( NSUInteger i = 0; i < 8; i++ ) {
             NSTimeInterval x = oneDay * i;
 
@@ -94,7 +94,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     // Axes
     CPTXYAxisSet *xyAxisSet = (CPTXYAxisSet *)newGraph.axisSet;
     CPTXYAxis *xAxis        = xyAxisSet.xAxis;
-    xAxis.majorIntervalLength   = CPTDecimalFromDouble(oneDay);
+    xAxis.majorIntervalLength   = @(oneDay);
     xAxis.minorTicksPerInterval = 0;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateStyle = kCFDateFormatterShortStyle;
@@ -110,7 +110,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     xAxis.axisLineCapMax = lineCap;
 
     CPTXYAxis *yAxis = xyAxisSet.yAxis;
-    yAxis.orthogonalCoordinateDecimal = CPTDecimalFromDouble(-0.5 * oneDay);
+    yAxis.orthogonalPosition = @(-0.5 * oneDay);
 
     // Line plot with gradient fill
     CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] initWithFrame:newGraph.bounds];
@@ -125,14 +125,14 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     areaGradient.angle = -90.0;
     CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill      = areaGradientFill;
-    dataSourceLinePlot.areaBaseValue = CPTDecimalFromDouble(0.0);
+    dataSourceLinePlot.areaBaseValue = @0.0;
 
     areaColor                         = [CPTColor colorWithComponentRed:CPTFloat(0.0) green:CPTFloat(1.0) blue:CPTFloat(0.0) alpha:CPTFloat(0.6)];
     areaGradient                      = [CPTGradient gradientWithBeginningColor:[CPTColor clearColor] endingColor:areaColor];
     areaGradient.angle                = -90.0;
     areaGradientFill                  = [CPTFill fillWithGradient:areaGradient];
     dataSourceLinePlot.areaFill2      = areaGradientFill;
-    dataSourceLinePlot.areaBaseValue2 = CPTDecimalFromDouble(5.0);
+    dataSourceLinePlot.areaBaseValue2 = @5.0;
 
     CPTMutableShadow *whiteShadow = [CPTMutableShadow shadow];
     whiteShadow.shadowOffset     = CGSizeMake(2.0, -2.0);
@@ -173,8 +173,8 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 
     // Set plot ranges
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)newGraph.defaultPlotSpace;
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-0.5 * oneDay) length:CPTDecimalFromDouble(oneDay * self.plotData.count)];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromInteger(0) length:CPTDecimalFromInteger(4)];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@(-0.5 * oneDay) length:@(oneDay * self.plotData.count)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@4.0];
 }
 
 #pragma mark -

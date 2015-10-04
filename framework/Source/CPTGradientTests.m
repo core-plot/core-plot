@@ -1,5 +1,6 @@
-#import "CPTGradient.h"
 #import "CPTGradientTests.h"
+
+#import "CPTGradient.h"
 
 @implementation CPTGradientTests
 
