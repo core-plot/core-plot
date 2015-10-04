@@ -220,12 +220,8 @@
                    context:nil];
     }
     else {
-        BOOL hasColorAttributeName = (&NSForegroundColorAttributeName != NULL);
-
-        if ( hasColorAttributeName ) {
-            UIColor *styleColor = style.attributes[NSForegroundColorAttributeName];
-            [styleColor set];
-        }
+        UIColor *styleColor = style.attributes[NSForegroundColorAttributeName];
+        [styleColor set];
 
         UIFont *theFont    = nil;
         NSString *fontName = style.fontName;
@@ -243,12 +239,8 @@
 #pragma clang diagnostic pop
     }
 #else
-    BOOL hasColorAttributeName = (&NSForegroundColorAttributeName != NULL);
-
-    if ( hasColorAttributeName ) {
-        UIColor *styleColor = style.attributes[NSForegroundColorAttributeName];
-        [styleColor set];
-    }
+    UIColor *styleColor = style.attributes[NSForegroundColorAttributeName];
+    [styleColor set];
 
     UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
 
