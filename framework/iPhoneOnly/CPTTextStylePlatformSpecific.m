@@ -262,7 +262,7 @@
     else {
         BOOL hasColorAttributeName = (&NSForegroundColorAttributeName != NULL);
 
-        if (hasColorAttributeName) {
+        if ( hasColorAttributeName ) {
             UIColor *styleColor = style.attributes[NSForegroundColorAttributeName];
             [styleColor set];
         }
@@ -283,14 +283,13 @@
 #pragma clang diagnostic pop
     }
 #else
-    
     BOOL hasColorAttributeName = (&NSForegroundColorAttributeName != NULL);
 
-    if (hasColorAttributeName) {
+    if ( hasColorAttributeName ) {
         UIColor *styleColor = style.attributes[NSForegroundColorAttributeName];
         [styleColor set];
     }
-    
+
     UIFont *theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
 
     [self drawInRect:rect
