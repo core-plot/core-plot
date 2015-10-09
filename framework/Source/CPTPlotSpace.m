@@ -429,7 +429,7 @@ typedef NSMutableOrderedSet<NSString *> *CPTMutableCategorySet;
     return handledByDelegate;
 }
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
 #else
 
 /**

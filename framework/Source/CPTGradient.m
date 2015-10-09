@@ -765,7 +765,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
     CPTGradientElement *element = [self elementAtIndex:idx];
 
     if ( element != NULL ) {
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
         CGFloat colorComponents[4] = { element->color.red, element->color.green, element->color.blue, element->color.alpha };
         return CGColorCreate(self.colorspace.cgColorSpace, colorComponents);
 
@@ -802,7 +802,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
             break;
     }
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     CGFloat colorComponents[4] = { components[0], components[1], components[2], components[3] };
     gradientColor = CGColorCreate(self.colorspace.cgColorSpace, colorComponents);
 #else

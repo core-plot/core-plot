@@ -13,7 +13,7 @@ typedef NS_ENUM (NSInteger, CPTTextAlignment) {
 
 // @cond
 // for iOS SDK compatibility
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
 #if __IPHONE_OS_VERSION_MAX_ALLOWED < 70000
 @interface NSString(CPTTextStylePlatformSpecificExtensions)
 

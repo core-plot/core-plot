@@ -131,7 +131,7 @@
  **/
 -(void)drawTitleInRect:(CGRect)rect inContext:(CGContextRef)context scale:(CGFloat)scale
 {
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     CGContextSaveGState(context);
     CGContextTranslateCTM(context, CPTFloat(0.0), rect.origin.y);
     CGContextScaleCTM( context, CPTFloat(1.0), CPTFloat(-1.0) );
@@ -170,7 +170,7 @@
                    inContext:context];
     }
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     CGContextRestoreGState(context);
 #endif
 }
@@ -201,7 +201,7 @@
     NSAttributedString *styledTitle = self.attributedTitle;
 
     if ( (styledTitle.length > 0) && [styledTitle respondsToSelector:@selector(size)] ) {
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
         theTitleSize = styledTitle.size;
 #else
         theTitleSize = NSSizeToCGSize(styledTitle.size);

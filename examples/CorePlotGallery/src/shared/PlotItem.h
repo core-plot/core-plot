@@ -7,7 +7,7 @@
 
 #import <CorePlot/CorePlot.h>
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 
 typedef CGRect CGNSRect;
@@ -42,7 +42,7 @@ extern NSString *const kFinancialPlots;
 
 -(void)renderInView:(PlotGalleryNativeView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated;
 -(CPTNativeImage *)image;
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
 #else
 -(void)setFrameSize:(NSSize)size;
 #endif

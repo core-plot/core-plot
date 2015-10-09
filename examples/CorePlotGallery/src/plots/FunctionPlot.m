@@ -6,7 +6,7 @@
 
 @property (nonatomic, readwrite, strong) NSMutableSet<CPTFunctionDataSource *> *dataSources;
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
 -(UIFont *)italicFontForFont:(UIFont *)oldFont;
 #else
 -(NSFont *)italicFontForFont:(NSFont *)oldFont;
@@ -50,7 +50,7 @@
 
 -(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
 {
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     CGRect bounds = hostingView.bounds;
 #else
     CGRect bounds = NSRectToCGRect(hostingView.bounds);
@@ -144,7 +144,7 @@
         NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:titleString
                                                                                   attributes:textAttributes];
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
         UIFont *italicFont = [self italicFontForFont:textAttributes[NSFontAttributeName]];
 #else
         NSFont *italicFont = [self italicFontForFont:textAttributes[NSFontAttributeName]];
@@ -157,7 +157,7 @@
                       value:italicFont
                       range:NSMakeRange(8, 1)];
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
         UIFont *labelFont = [UIFont fontWithName:@"Helvetica" size:self.titleSize * CPTFloat(0.5)];
 #else
         NSFont *labelFont = [NSFont fontWithName:@"Helvetica" size:self.titleSize * CPTFloat(0.5)];
@@ -207,7 +207,7 @@
     graph.legendDisplacement     = CGPointMake( 0.0, self.titleSize * CPTFloat(1.25) );
 }
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
 -(UIFont *)italicFontForFont:(UIFont *)oldFont
 {
     NSString *italicName = nil;

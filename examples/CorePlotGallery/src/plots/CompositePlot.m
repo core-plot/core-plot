@@ -53,7 +53,7 @@
 #pragma mark -
 #pragma mark Plot construction methods
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
 #else
 
 -(void)setFrameSize:(NSSize)newSize
@@ -87,7 +87,7 @@
     CPTGraphHostingView *barView     = [[CPTGraphHostingView alloc] init];
     CPTGraphHostingView *pieView     = [[CPTGraphHostingView alloc] init];
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     for ( UIView *view in @[scatterView, barView, pieView] ) {
         view.translatesAutoresizingMaskIntoConstraints = NO;
         [hostingView addSubview:view];
@@ -224,7 +224,7 @@
 -(void)renderScatterPlotInHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme
 {
     // Create graph from theme
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
     CGRect bounds = self.scatterPlotView.bounds;
 #else
     CGRect bounds = NSRectToCGRect(self.scatterPlotView.bounds);
@@ -330,7 +330,7 @@
 
 -(void)renderBarPlotInHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme
 {
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     CGRect bounds = hostingView.bounds;
 #else
     CGRect bounds = NSRectToCGRect(hostingView.bounds);
@@ -398,7 +398,7 @@
 
 -(void)renderPieChartInHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme
 {
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     [hostingView layoutIfNeeded];
 
     CGRect bounds = hostingView.bounds;

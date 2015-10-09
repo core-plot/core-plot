@@ -74,7 +74,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element);
  **/
 -(void)encodeCGColorSpace:(CGColorSpaceRef)colorSpace forKey:(NSString *)key
 {
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     NSLog(@"Color space encoding is not supported on iOS. Decoding will return a generic RGB color space.");
 #else
     if ( colorSpace ) {
@@ -330,7 +330,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element)
 {
     CGColorSpaceRef colorSpace = NULL;
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     NSLog(@"Color space decoding is not supported on iOS. Using generic RGB color space.");
     colorSpace = CGColorSpaceCreateDeviceRGB();
 #else
