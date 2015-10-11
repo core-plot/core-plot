@@ -1,9 +1,13 @@
 //
-// Prefix header for all source files of the 'Plot Gallery' target in the 'Plot Gallery' project
+// Prefix header for all source files in the 'Plot Gallery' project
 //
-#import <Availability.h>
-
 #ifdef __OBJC__
-    #import <Foundation/Foundation.h>
-    #import <UIKit/UIKit.h>
+    #import <TargetConditionals.h>
+
+    #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+        #import <Foundation/Foundation.h>
+        #import <UIKit/UIKit.h>
+    #else
+        #import <Cocoa/Cocoa.h>
+    #endif
 #endif

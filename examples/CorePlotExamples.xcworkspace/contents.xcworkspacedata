@@ -5,10 +5,7 @@
       location = "group:CorePlotGallery"
       name = "Plot Gallery">
       <FileRef
-         location = "group:Plot_Gallery_iOS.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:Plot_Gallery_Mac.xcodeproj">
+         location = "group:Plot_Gallery.xcodeproj">
       </FileRef>
    </Group>
    <Group
