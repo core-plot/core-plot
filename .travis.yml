@@ -6,11 +6,14 @@ env:
     SDK:iphoneos
 
 # Framework builds
-script: xcodebuild -project framework/CorePlot.xcodeproj -target CorePlot -configuration Release
-script: xcodebuild -project framework/CorePlot-CocoaTouch.xcodeproj -target CorePlot-CocoaTouch -sdk ${SDK} -configuration Release
+script: xcodebuild -project framework/CorePlot.xcodeproj -target "CorePlot Mac" -configuration Release
+script: xcodebuild -project framework/CorePlot.xcodeproj -target "CorePlot iOS" -sdk ${SDK} -configuration Release
+script: xcodebuild -project framework/CorePlot.xcodeproj -target "CorePlot-CocoaTouch" -sdk ${SDK} -configuration Release
 
 # Unit tests
-script: xcodebuild -project framework/CorePlot.xcodeproj -target UnitTests -configuration Release
+script: xcodebuild -project framework/CorePlot.xcodeproj -target "UnitTests Mac" -configuration Release
+script: xcodebuild -project framework/CorePlot.xcodeproj -target "UnitTests iOS" -sdk ${SDK} -configuration Release
+script: xcodebuild -project framework/CorePlot.xcodeproj -target "CorePlot-CocoaTouchTests" -sdk ${SDK} -configuration Release
 
 # Mac examples
 script: xcodebuild -project examples/CorePlotGallery/Plot_Gallery.xcodeproj -target "Plot Gallery-Mac" -configuration Release
