@@ -12,8 +12,6 @@
 
 -(CPTTheme *)currentTheme;
 
-@property (nonatomic, readwrite) UIPopoverController *themePopoverController;
-
 -(void)setupView;
 -(void)themeChanged:(NSNotification *)notification;
 
@@ -27,7 +25,6 @@
 @synthesize hostingView;
 @synthesize themeBarButton;
 @synthesize currentThemeName;
-@synthesize themePopoverController;
 
 #pragma mark -
 #pragma mark Initialization and Memory Management
