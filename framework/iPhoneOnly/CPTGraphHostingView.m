@@ -9,10 +9,13 @@
 /// @cond
 @interface CPTGraphHostingView()
 
+#if (TARGET_OS_SIMULATOR || TARGET_OS_IPHONE) && !TARGET_OS_TV
 @property (nonatomic, readwrite, cpt_weak_property) cpt_weak UIPinchGestureRecognizer *pinchGestureRecognizer;
 
--(void)graphNeedsRedraw:(NSNotification *)notification;
 -(void)handlePinchGesture:(UIPinchGestureRecognizer *)aPinchGestureRecognizer;
+#endif
+
+-(void)graphNeedsRedraw:(NSNotification *)notification;
 
 @end
 
@@ -44,11 +47,15 @@
 
 /// @cond
 
+#if (TARGET_OS_SIMULATOR || TARGET_OS_IPHONE) && !TARGET_OS_TV
+
 /** @internal
- *  @property cpt_weak id pinchGestureRecognizer
+ *  @property cpt_weak UIPinchGestureRecognizer *pinchGestureRecognizer
  *  @brief The pinch gesture recognizer for this view.
+ *  @since Not available on tvOS.
  **/
 @synthesize pinchGestureRecognizer;
+#endif
 
 /// @endcond
 
@@ -216,6 +223,7 @@
 
 /// @cond
 
+#if (TARGET_OS_SIMULATOR || TARGET_OS_IPHONE) && !TARGET_OS_TV
 -(void)setAllowPinchScaling:(BOOL)allowScaling
 {
     if ( allowPinchScaling != allowScaling ) {
@@ -265,6 +273,22 @@
 
     pinchRecognizer.scale = 1.0;
 }
+#endif
+
+/// @endcond
+
+#pragma mark -
+#pragma mark TV Focus
+
+/// @cond
+
+#if TARGET_OS_TV
+
+-(BOOL)canBecomeFocused
+{
+    return YES;
+}
+#endif
 
 /// @endcond
 
