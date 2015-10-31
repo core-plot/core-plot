@@ -85,7 +85,7 @@ copytree(iOSHeaderFile, join(iosDir, 'CorePlotHeaders'))
 
 # Build tvOS Framework
 RunXcode('CorePlot.xcodeproj', 'Universal tvOS Framework')
-tvOSProductsDir = join(projectRoot, 'build/Release-tvuniversal')
+tvOSProductsDir = join(projectRoot, 'build/Release-appletvuniversal')
 tvOSFramework = join(tvOSProductsDir, 'CorePlot.framework')
 copytree(tvOSFramework, join(tvosDir, 'CorePlot.framework'), symlinks=True)
 

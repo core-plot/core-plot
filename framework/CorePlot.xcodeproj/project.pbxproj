@@ -2579,7 +2579,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\nUFW_TARGET=\"CorePlot tvOS\"\nUFW_BUILD_DIR=\"${BUILD_DIR}\"\n\nif [ -z ${SDK_NAME} ]; then\n# Use the latest tvOS SDK available\nUFW_GREP_RESULT=$(xcodebuild -showsdks | grep -o \"tvos.*$\")\nwhile read -r line; do\nUFW_SDK_VERSION=\"${line}\"\ndone <<< \"${UFW_GREP_RESULT}\"\nelse\n# Use the SDK specified by XCode\nUFW_SDK_VERSION=\"${SDK_NAME}\"\nfi\n\nFRAMEWORK_NAME=\"${PROJECT_NAME}\"\nUFW_SDK_VERSION=$(echo \"${UFW_SDK_VERSION}\" | grep -o \"[0-9].*$\")\nUFW_IPHONE_PATH=\"${UFW_BUILD_DIR}/Release-tvos/${FRAMEWORK_NAME}.framework\"\nUFW_SIMULATOR_PATH=\"${UFW_BUILD_DIR}/Release-tvsimulator/${FRAMEWORK_NAME}.framework\"\nUFW_UNIVERSAL_DIR=\"${UFW_BUILD_DIR}/Release-tvuniversal\"\nUFW_FRAMEWORK=\"${UFW_UNIVERSAL_DIR}/${FRAMEWORK_NAME}.framework\"\n\n# Build Framework\n\nrm -rf \"${UFW_UNIVERSAL_DIR}\"\n\nxcodebuild -target \"${UFW_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk iphoneos${UFW_SDK_VERSION} clean build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\nxcodebuild -target \"${UFW_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk iphonesimulator${UFW_SDK_VERSION} clean build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\n\nmkdir -p \"${UFW_UNIVERSAL_DIR}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: mkdir failed\"; exit 1; fi\n\ncp -r \"${UFW_IPHONE_PATH}/.\" \"${UFW_FRAMEWORK}\"\n\nlipo -create -output \"${UFW_FRAMEWORK}/${FRAMEWORK_NAME}\" \"${UFW_SIMULATOR_PATH}/${FRAMEWORK_NAME}\" \"${UFW_IPHONE_PATH}/${FRAMEWORK_NAME}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: lipo failed\"; exit 1; fi\n";
+			shellScript = "\nUFW_TARGET=\"CorePlot tvOS\"\nUFW_BUILD_DIR=\"${BUILD_DIR}\"\n\nif [ -z ${SDK_NAME} ]; then\n# Use the latest tvOS SDK available\nUFW_GREP_RESULT=$(xcodebuild -showsdks | grep -o \"appletvos.*$\")\nwhile read -r line; do\nUFW_SDK_VERSION=\"${line}\"\ndone <<< \"${UFW_GREP_RESULT}\"\nelse\n# Use the SDK specified by XCode\nUFW_SDK_VERSION=\"${SDK_NAME}\"\nfi\n\nFRAMEWORK_NAME=\"${PROJECT_NAME}\"\nUFW_SDK_VERSION=$(echo \"${UFW_SDK_VERSION}\" | grep -o \"[0-9].*$\")\nUFW_IPHONE_PATH=\"${UFW_BUILD_DIR}/Release-appletvos/${FRAMEWORK_NAME}.framework\"\nUFW_SIMULATOR_PATH=\"${UFW_BUILD_DIR}/Release-appletvsimulator/${FRAMEWORK_NAME}.framework\"\nUFW_UNIVERSAL_DIR=\"${UFW_BUILD_DIR}/Release-appletvuniversal\"\nUFW_FRAMEWORK=\"${UFW_UNIVERSAL_DIR}/${FRAMEWORK_NAME}.framework\"\n\n# Build Framework\n\nrm -rf \"${UFW_UNIVERSAL_DIR}\"\n\nxcodebuild -target \"${UFW_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk appletvos${UFW_SDK_VERSION} clean build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\nxcodebuild -target \"${UFW_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk appletvsimulator${UFW_SDK_VERSION} clean build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\n\nmkdir -p \"${UFW_UNIVERSAL_DIR}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: mkdir failed\"; exit 1; fi\n\ncp -r \"${UFW_IPHONE_PATH}/.\" \"${UFW_FRAMEWORK}\"\n\nlipo -create -output \"${UFW_FRAMEWORK}/${FRAMEWORK_NAME}\" \"${UFW_SIMULATOR_PATH}/${FRAMEWORK_NAME}\" \"${UFW_IPHONE_PATH}/${FRAMEWORK_NAME}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: lipo failed\"; exit 1; fi\n";
 		};
 		C38A09921A4618B600D45436 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3299,8 +3299,8 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SDKROOT = appletvos;
+				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
 			};
 			name = Debug;
 		};
@@ -3313,8 +3313,8 @@
 				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SDKROOT = appletvos;
+				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
 				ZERO_LINK = NO;
 			};
 			name = Release;
