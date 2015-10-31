@@ -1,18 +1,24 @@
 language: objective-c
-osx_image: xcode7
+osx_image: xcode7.1
 
-env:
+ios_env:
     SDK:iphonesimulator
     SDK:iphoneos
+
+tvos_env:
+    TVSDK:appletvsimulator
+    TVSDK:appletvos
 
 # Framework builds
 script: xcodebuild -project framework/CorePlot.xcodeproj -target "CorePlot Mac" -configuration Release
 script: xcodebuild -project framework/CorePlot.xcodeproj -target "CorePlot iOS" -sdk ${SDK} -configuration Release
+script: xcodebuild -project framework/CorePlot.xcodeproj -target "CorePlot tvOS" -sdk ${TVSDK} -configuration Release
 script: xcodebuild -project framework/CorePlot.xcodeproj -target "CorePlot-CocoaTouch" -sdk ${SDK} -configuration Release
 
 # Unit tests
 script: xcodebuild -project framework/CorePlot.xcodeproj -target "UnitTests Mac" -configuration Release
 script: xcodebuild -project framework/CorePlot.xcodeproj -target "UnitTests iOS" -sdk ${SDK} -configuration Release
+script: xcodebuild -project framework/CorePlot.xcodeproj -target "UnitTests tvOS" -sdk ${TVSDK} -configuration Release
 script: xcodebuild -project framework/CorePlot.xcodeproj -target "CorePlot-CocoaTouchTests" -sdk ${SDK} -configuration Release
 
 # Mac examples
@@ -30,6 +36,9 @@ script: xcodebuild -project examples/CPTTestApp-iPad/CPTTestApp-iPad.xcodeproj -
 script: xcodebuild -project examples/CPTTestApp-iPhone/CPTTestApp-iPhone.xcodeproj -target CPTTestApp-iPhone -sdk ${SDK} -configuration Release
 script: xcodebuild -project examples/CPTTestApp-iPhone-SpeedTest/CPTTestApp-iPhone.xcodeproj -CPTTestApp-iPhone AAPLot -sdk ${SDK} -configuration Release
 script: xcodebuild -project examples/StockPlot/StockPlot.xcodeproj -target StockPlot -sdk ${SDK} -configuration Release
+
+# tvOS examples
+script: xcodebuild -project examples/CorePlotGallery/Plot_Gallery.xcodeproj -target "Plot Gallery-tvOS" -sdk ${TVSDK} -configuration Release
 
 # Quartz Composer plugin
 script: xcodebuild -project QCPlugin/CorePlotQCPlugin.xcodeproj -target CorePlotQCPlugin -configuration Release
