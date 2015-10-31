@@ -163,13 +163,13 @@
         // Read headers from the first line of the file
         [fileContents getParagraphStart:&lineStart end:&lineEnd contentsEnd:&contentsEnd forRange:NSMakeRange(lineEnd, 0)];
 //		currentRange = NSMakeRange(lineStart, contentsEnd - lineStart);
-//		CPTStringArray columnHeaders = [[fileContents substringWithRange:currentRange] arrayByParsingCSVLine];
+//		CPTStringArray * columnHeaders = [[fileContents substringWithRange:currentRange] arrayByParsingCSVLine];
 //		NSLog([columnHeaders objectAtIndex:0]);
 
         while ( lineEnd < length ) {
             [fileContents getParagraphStart:&lineStart end:&lineEnd contentsEnd:&contentsEnd forRange:NSMakeRange(lineEnd, 0)];
             currentRange = NSMakeRange(lineStart, contentsEnd - lineStart);
-            CPTStringArray columnValues = [[fileContents substringWithRange:currentRange] arrayByParsingCSVLine];
+            CPTStringArray *columnValues = [[fileContents substringWithRange:currentRange] arrayByParsingCSVLine];
 
             double xValue = [columnValues[0] doubleValue];
             double yValue = [columnValues[1] doubleValue];
@@ -411,8 +411,8 @@
 
             double start[2];
             [self.graph.defaultPlotSpace doublePrecisionPlotPoint:start numberOfCoordinates:2 forPlotAreaViewPoint:dragStartInPlotArea];
-            CPTNumberArray anchorPoint = @[@(start[CPTCoordinateX]),
-                                           @(start[CPTCoordinateY])];
+            CPTNumberArray *anchorPoint = @[@(start[CPTCoordinateX]),
+                                            @(start[CPTCoordinateY])];
 
             // now create the annotation
             CPTPlotSpace *defaultSpace = self.graph.defaultPlotSpace;

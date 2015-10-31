@@ -273,7 +273,7 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
     return [[PlotGallery sharedPlotGallery] numberOfSections];
 }
 
--(CPTDictionary)imageBrowser:(IKImageBrowserView *)aBrowser groupAtIndex:(NSUInteger)index
+-(CPTDictionary *)imageBrowser:(IKImageBrowserView *)aBrowser groupAtIndex:(NSUInteger)index
 {
     NSString *groupTitle = [[PlotGallery sharedPlotGallery] sectionTitles][index];
 

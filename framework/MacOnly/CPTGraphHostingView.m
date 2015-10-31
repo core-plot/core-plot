@@ -461,8 +461,8 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
  **/
 -(void)plotSpaceAdded:(NSNotification *)notification
 {
-    CPTDictionary userInfo = notification.userInfo;
-    CPTPlotSpace *space    = userInfo[CPTGraphPlotSpaceNotificationKey];
+    CPTDictionary *userInfo = notification.userInfo;
+    CPTPlotSpace *space     = userInfo[CPTGraphPlotSpaceNotificationKey];
 
     [space addObserver:self
             forKeyPath:@"isDragging"
@@ -475,8 +475,8 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
  **/
 -(void)plotSpaceRemoved:(NSNotification *)notification
 {
-    CPTDictionary userInfo = notification.userInfo;
-    CPTPlotSpace *space    = userInfo[CPTGraphPlotSpaceNotificationKey];
+    CPTDictionary *userInfo = notification.userInfo;
+    CPTPlotSpace *space     = userInfo[CPTGraphPlotSpaceNotificationKey];
 
     [space removeObserver:self forKeyPath:@"isDragging" context:CPTGraphHostingViewKVOContext];
     [self.window invalidateCursorRectsForView:self];
@@ -513,7 +513,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
 /// @cond
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(CPTDictionary)change context:(void *)context
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(CPTDictionary *)change context:(void *)context
 {
     if ( context == CPTGraphHostingViewKVOContext ) {
         CPTGraph *theGraph = self.hostedGraph;

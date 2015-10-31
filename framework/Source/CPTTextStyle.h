@@ -37,11 +37,11 @@ typedef NSMutableArray<CPTTextStyle *> *CPTMutableTextStyleArray;
  **/
 @interface CPTTextStyle(CPTPlatformSpecificTextStyleExtensions)
 
-@property (readonly, nonatomic, nonnull) CPTDictionary attributes;
+@property (readonly, nonatomic, nonnull) CPTDictionary *attributes;
 
 /// @name Factory Methods
 /// @{
-+(nonnull instancetype)textStyleWithAttributes:(nullable CPTDictionary)attributes;
++(nonnull instancetype)textStyleWithAttributes:(nullable CPTDictionary *)attributes;
 /// @}
 
 @end

@@ -241,7 +241,7 @@ typedef NSMutableOrderedSet<NSString *> *CPTMutableCategorySet;
  *  @param newCategories An array of category names.
  *  @param coordinate The axis coordinate.
  */
--(void)setCategories:(CPTStringArray)newCategories forCoordinate:(CPTCoordinate)coordinate
+-(void)setCategories:(CPTStringArray *)newCategories forCoordinate:(CPTCoordinate)coordinate
 {
     NSMutableDictionary<NSNumber *, CPTMutableCategorySet> *names = self.categoryNames;
 
@@ -274,7 +274,7 @@ typedef NSMutableOrderedSet<NSString *> *CPTMutableCategorySet;
  *  @param coordinate The axis coordinate.
  *  @return An array of category names.
  */
--(CPTStringArray)categoriesForCoordinate:(CPTCoordinate)coordinate
+-(CPTStringArray *)categoriesForCoordinate:(CPTCoordinate)coordinate
 {
     CPTMutableCategorySet categories = [self orderedSetForCoordinate:coordinate];
 
@@ -481,7 +481,7 @@ typedef NSMutableOrderedSet<NSString *> *CPTMutableCategorySet;
  *  @param plotPoint An array of data point coordinates (as NSNumber values).
  *  @return The drawing coordinates of the data point.
  **/
--(CGPoint)plotAreaViewPointForPlotPoint:(CPTNumberArray)plotPoint
+-(CGPoint)plotAreaViewPointForPlotPoint:(CPTNumberArray *)plotPoint
 {
     NSParameterAssert(plotPoint.count == self.numberOfCoordinates);
 
@@ -516,7 +516,7 @@ typedef NSMutableOrderedSet<NSString *> *CPTMutableCategorySet;
  *  @param point The drawing coordinates of the data point.
  *  @return An array of data point coordinates (as NSNumber values).
  **/
--(CPTNumberArray)plotPointForPlotAreaViewPoint:(CGPoint)point
+-(CPTNumberArray *)plotPointForPlotAreaViewPoint:(CGPoint)point
 {
     return nil;
 }
@@ -554,7 +554,7 @@ typedef NSMutableOrderedSet<NSString *> *CPTMutableCategorySet;
  *  @param event The event.
  *  @return An array of data point coordinates (as NSNumber values).
  **/
--(CPTNumberArray)plotPointForEvent:(CPTNativeEvent *)event
+-(CPTNumberArray *)plotPointForEvent:(CPTNativeEvent *)event
 {
     return nil;
 }

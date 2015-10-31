@@ -379,8 +379,8 @@ typedef NSMutableArray<__kindof CPTPlot *> *CPTMutablePlotArray;
 /// @name Fields
 /// @{
 -(NSUInteger)numberOfFields;
--(nonnull CPTNumberArray)fieldIdentifiers;
--(nonnull CPTNumberArray)fieldIdentifiersForCoordinate:(CPTCoordinate)coord;
+-(nonnull CPTNumberArray *)fieldIdentifiers;
+-(nonnull CPTNumberArray *)fieldIdentifiersForCoordinate:(CPTCoordinate)coord;
 -(CPTCoordinate)coordinateForFieldIdentifier:(NSUInteger)field;
 /// @}
 

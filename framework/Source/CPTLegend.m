@@ -29,8 +29,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 
 @property (nonatomic, readwrite, strong) CPTMutablePlotArray plots;
 @property (nonatomic, readwrite, strong) CPTMutableLegendEntryArray legendEntries;
-@property (nonatomic, readwrite, strong) CPTNumberArray rowHeightsThatFit;
-@property (nonatomic, readwrite, strong) CPTNumberArray columnWidthsThatFit;
+@property (nonatomic, readwrite, strong) CPTNumberArray *rowHeightsThatFit;
+@property (nonatomic, readwrite, strong) CPTNumberArray *columnWidthsThatFit;
 @property (nonatomic, readwrite, assign) BOOL layoutChanged;
 @property (nonatomic, readwrite, cpt_weak_property) cpt_weak CPTLegendEntry *pointingDeviceDownEntry;
 
@@ -160,7 +160,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  **/
 @synthesize equalColumns;
 
-/** @property CPTNumberArray rowHeights
+/** @property CPTNumberArray * rowHeights
  *  @brief The desired height of each row of legend entries, including the swatch and title.
  *  Each element in this array should be an NSNumber representing the height of the corresponding row in device units.
  *  Rows are numbered from top to bottom starting from zero (@num{0}). If @nil, all rows will be sized automatically.
@@ -169,14 +169,14 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  **/
 @synthesize rowHeights;
 
-/** @property CPTNumberArray rowHeightsThatFit
+/** @property CPTNumberArray * rowHeightsThatFit
  *  @brief The computed best-fit height of each row of legend entries, including the swatch and title.
  *  Each element in this array is an NSNumber representing the height of the corresponding row in device units.
  *  Rows are numbered from top to bottom starting from zero (@num{0}).
  **/
 @synthesize rowHeightsThatFit;
 
-/** @property CPTNumberArray columnWidths
+/** @property CPTNumberArray * columnWidths
  *  @brief The desired width of each column of legend entries, including the swatch, title, and title offset.
  *  Each element in this array should be an NSNumber representing the width of the corresponding column in device units.
  *  Columns are numbered from left to right starting from zero (@num{0}). If @nil, all columns will be sized automatically.
@@ -185,7 +185,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  **/
 @synthesize columnWidths;
 
-/** @property CPTNumberArray columnWidthsThatFit
+/** @property CPTNumberArray * columnWidthsThatFit
  *  @brief The computed best-fit width of each column of legend entries, including the swatch, title, and title offset.
  *  Each element in this array is an NSNumber representing the width of the corresponding column in device units.
  *  Columns are numbered from left to right starting from zero (@num{0}).
@@ -504,10 +504,10 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     }
 
     // calculate column positions
-    CPTNumberArray computedColumnWidths = self.columnWidthsThatFit;
-    NSUInteger columnCount              = computedColumnWidths.count;
-    CGFloat *actualColumnWidths         = malloc(sizeof(CGFloat) * columnCount);
-    CGFloat *columnPositions            = malloc(sizeof(CGFloat) * columnCount);
+    CPTNumberArray *computedColumnWidths = self.columnWidthsThatFit;
+    NSUInteger columnCount               = computedColumnWidths.count;
+    CGFloat *actualColumnWidths          = malloc(sizeof(CGFloat) * columnCount);
+    CGFloat *columnPositions             = malloc(sizeof(CGFloat) * columnCount);
     columnPositions[0] = self.paddingLeft;
     CGFloat theOffset       = self.titleOffset;
     CGSize theSwatchSize    = self.swatchSize;
@@ -528,10 +528,10 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     }
 
     // calculate row positions
-    CPTNumberArray computedRowHeights = self.rowHeightsThatFit;
-    NSUInteger rowCount               = computedRowHeights.count;
-    CGFloat *actualRowHeights         = malloc(sizeof(CGFloat) * rowCount);
-    CGFloat *rowPositions             = malloc(sizeof(CGFloat) * rowCount);
+    CPTNumberArray *computedRowHeights = self.rowHeightsThatFit;
+    NSUInteger rowCount                = computedRowHeights.count;
+    CGFloat *actualRowHeights          = malloc(sizeof(CGFloat) * rowCount);
+    CGFloat *rowPositions              = malloc(sizeof(CGFloat) * rowCount);
     rowPositions[rowCount - 1] = self.paddingBottom;
     CGFloat theRowMargin  = self.rowMargin;
     CGFloat lastRowHeight = 0.0;
@@ -723,14 +723,14 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     }
 
     // compute row heights and column widths
-    NSUInteger row                     = 0;
-    NSUInteger col                     = 0;
-    CGFloat *maxTitleHeight            = calloc( rowCount, sizeof(CGFloat) );
-    CGFloat *maxTitleWidth             = calloc( columnCount, sizeof(CGFloat) );
-    CGSize theSwatchSize               = self.swatchSize;
-    CPTNumberArray desiredRowHeights   = self.rowHeights;
-    CPTNumberArray desiredColumnWidths = self.columnWidths;
-    Class numberClass                  = [NSNumber class];
+    NSUInteger row                      = 0;
+    NSUInteger col                      = 0;
+    CGFloat *maxTitleHeight             = calloc( rowCount, sizeof(CGFloat) );
+    CGFloat *maxTitleWidth              = calloc( columnCount, sizeof(CGFloat) );
+    CGSize theSwatchSize                = self.swatchSize;
+    CPTNumberArray *desiredRowHeights   = self.rowHeights;
+    CPTNumberArray *desiredColumnWidths = self.columnWidths;
+    Class numberClass                   = [NSNumber class];
 
     for ( CPTLegendEntry *legendEntry in self.legendEntries ) {
         legendEntry.row    = row;
@@ -770,13 +770,13 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     }
 
     // save row heights and column widths
-    CPTMutableNumberArray maxRowHeights = [[NSMutableArray alloc] initWithCapacity:rowCount];
+    CPTMutableNumberArray *maxRowHeights = [[NSMutableArray alloc] initWithCapacity:rowCount];
     for ( NSUInteger i = 0; i < rowCount; i++ ) {
         [maxRowHeights addObject:@(maxTitleHeight[i])];
     }
     self.rowHeightsThatFit = maxRowHeights;
 
-    CPTMutableNumberArray maxColumnWidths = [[NSMutableArray alloc] initWithCapacity:columnCount];
+    CPTMutableNumberArray *maxColumnWidths = [[NSMutableArray alloc] initWithCapacity:columnCount];
     for ( NSUInteger i = 0; i < columnCount; i++ ) {
         [maxColumnWidths addObject:@(maxTitleWidth[i])];
     }
@@ -1430,7 +1430,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     }
 }
 
--(void)setRowHeights:(CPTNumberArray)newRowHeights
+-(void)setRowHeights:(CPTNumberArray *)newRowHeights
 {
     if ( newRowHeights != rowHeights ) {
         rowHeights         = [newRowHeights copy];
@@ -1438,7 +1438,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     }
 }
 
--(void)setColumnWidths:(CPTNumberArray)newColumnWidths
+-(void)setColumnWidths:(CPTNumberArray *)newColumnWidths
 {
     if ( newColumnWidths != columnWidths ) {
         columnWidths       = [newColumnWidths copy];
@@ -1527,7 +1527,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     }
 }
 
--(CPTNumberArray)rowHeightsThatFit
+-(CPTNumberArray *)rowHeightsThatFit
 {
     if ( !rowHeightsThatFit ) {
         [self recalculateLayout];
@@ -1535,7 +1535,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     return rowHeightsThatFit;
 }
 
--(CPTNumberArray)columnWidthsThatFit
+-(CPTNumberArray *)columnWidthsThatFit
 {
     if ( !columnWidthsThatFit ) {
         [self recalculateLayout];

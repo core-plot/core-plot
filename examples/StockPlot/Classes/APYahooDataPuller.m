@@ -47,9 +47,9 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 @synthesize delegate;
 
 //convert any NSNumber in financial line to NSDecimalNumber
--(CPTDictionary)sanitizedFinancialLine:(CPTDictionary)theFinancialLine
+-(CPTDictionary *)sanitizedFinancialLine:(CPTDictionary *)theFinancialLine
 {
-    CPTMutableDictionary aFinancialLine = [NSMutableDictionary dictionaryWithDictionary:theFinancialLine];
+    CPTMutableDictionary *aFinancialLine = [NSMutableDictionary dictionaryWithDictionary:theFinancialLine];
 
     for ( id key in [aFinancialLine allKeys] ) {
         id something = aFinancialLine[key];
@@ -67,12 +67,12 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 
     if ( financialData != aFinancialData ) {
         NSMutableArray *mutableFinancialData = [aFinancialData mutableCopy];
-        CPTDictionary financialLine          = nil;
+        CPTDictionary *financialLine         = nil;
 
         NSUInteger count = mutableFinancialData.count;
 
         for ( NSUInteger i = 0; i < count; i++ ) {
-            financialLine           = (CPTDictionary)mutableFinancialData[i];
+            financialLine           = (CPTDictionary *)mutableFinancialData[i];
             financialLine           = [self sanitizedFinancialLine:financialLine];
             mutableFinancialData[i] = financialLine;
         }
@@ -84,9 +84,9 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     }
 }
 
--(CPTDictionary)plistRep
+-(CPTDictionary *)plistRep
 {
-    CPTMutableDictionary rep = [NSMutableDictionary dictionaryWithCapacity:7];
+    CPTMutableDictionary *rep = [NSMutableDictionary dictionaryWithCapacity:7];
 
     rep[@"symbol"]        = [self symbol];
     rep[@"startDate"]     = [self startDate];
@@ -105,7 +105,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     return success;
 }
 
--(instancetype)initWithDictionary:(CPTDictionary)aDict targetSymbol:(NSString *)aSymbol targetStartDate:(NSDate *)aStartDate targetEndDate:(NSDate *)anEndDate
+-(instancetype)initWithDictionary:(CPTDictionary *)aDict targetSymbol:(NSString *)aSymbol targetStartDate:(NSDate *)aStartDate targetEndDate:(NSDate *)anEndDate
 {
     self = [super init];
     if ( self != nil ) {
@@ -125,7 +125,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 
 -(NSString *)pathForSymbol:(NSString *)aSymbol
 {
-    CPTStringArray paths         = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    CPTStringArray *paths        = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = paths[0];
     NSString *docPath            = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", aSymbol]];
 
@@ -144,24 +144,24 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 }
 
 //Always returns *something*
--(CPTDictionary)dictionaryForSymbol:(NSString *)aSymbol
+-(CPTDictionary *)dictionaryForSymbol:(NSString *)aSymbol
 {
     NSString *path = [self faultTolerantPathForSymbol:aSymbol];
 
-    CPTMutableDictionary localPlistDict = [NSMutableDictionary dictionaryWithContentsOfFile:path];
+    CPTMutableDictionary *localPlistDict = [NSMutableDictionary dictionaryWithContentsOfFile:path];
 
     return localPlistDict;
 }
 
 -(instancetype)initWithTargetSymbol:(NSString *)aSymbol targetStartDate:(NSDate *)aStartDate targetEndDate:(NSDate *)anEndDate
 {
-    CPTDictionary cachedDictionary = [self dictionaryForSymbol:aSymbol];
+    CPTDictionary *cachedDictionary = [self dictionaryForSymbol:aSymbol];
 
     if ( nil != cachedDictionary ) {
         return [self initWithDictionary:cachedDictionary targetSymbol:aSymbol targetStartDate:aStartDate targetEndDate:anEndDate];
     }
 
-    CPTMutableDictionary rep = [NSMutableDictionary dictionaryWithCapacity:7];
+    CPTMutableDictionary *rep = [NSMutableDictionary dictionaryWithCapacity:7];
     rep[@"symbol"]        = aSymbol;
     rep[@"startDate"]     = aStartDate;
     rep[@"endDate"]       = anEndDate;
@@ -318,7 +318,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 
 -(void)populateWithString:(NSString *)csv
 {
-    CPTStringArray csvLines = [csv componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    CPTStringArray *csvLines = [csv componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
 
     NSMutableArray<NSDictionary *> *newFinancials                 = [NSMutableArray arrayWithCapacity:csvLines.count];
     NSDictionary<NSString *, NSDecimalNumber *> *currentFinancial = nil;

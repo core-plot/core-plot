@@ -2,7 +2,7 @@
 
 @interface ColoredBarChart()
 
-@property (nonatomic, readwrite, strong) CPTNumberArray plotData;
+@property (nonatomic, readwrite, strong) CPTNumberArray *plotData;
 
 @end
 
@@ -28,7 +28,7 @@
 -(void)generateData
 {
     if ( self.plotData == nil ) {
-        CPTMutableNumberArray contentArray = [NSMutableArray array];
+        CPTMutableNumberArray *contentArray = [NSMutableArray array];
         for ( NSUInteger i = 0; i < 8; i++ ) {
             [contentArray addObject:@(10.0 * arc4random() / (double)UINT32_MAX + 5.0)];
         }
@@ -146,7 +146,7 @@
 
 -(NSArray *)numbersForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange
 {
-    CPTNumberArray nums = nil;
+    CPTNumberArray *nums = nil;
 
     switch ( fieldEnum ) {
         case CPTBarPlotFieldBarLocation:

@@ -3,6 +3,6 @@
 
 @interface NSString(ParseCSV)
 
--(CPTStringArray)arrayByParsingCSVLine;
+-(CPTStringArray *)arrayByParsingCSVLine;
 
 @end

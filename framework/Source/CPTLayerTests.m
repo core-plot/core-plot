@@ -8,7 +8,7 @@ static const double precision = 1.0e-6;
 
 @interface CPTLayerTests()
 
--(void)testPositionsWithScale:(CGFloat)scale anchorPoint:(CGPoint)anchor expected:(CPTNumberArray)expected;
+-(void)testPositionsWithScale:(CGFloat)scale anchorPoint:(CGPoint)anchor expected:(CPTNumberArray *)expected;
 
 @end
 
@@ -40,7 +40,7 @@ static const double precision = 1.0e-6;
 
 -(void)testPixelAlign1xLeft
 {
-    CPTNumberArray expected = @[@10.0, @10.0, @11.0, @11.0, @11.0, @11.0];
+    CPTNumberArray *expected = @[@10.0, @10.0, @11.0, @11.0, @11.0, @11.0];
 
     [self testPositionsWithScale:CPTFloat(1.0)
                      anchorPoint:CGPointZero
@@ -49,7 +49,7 @@ static const double precision = 1.0e-6;
 
 -(void)testPixelAlign1xLeftMiddle
 {
-    CPTNumberArray expected = @[@10.75, @10.75, @10.75, @10.75, @10.75, @10.75];
+    CPTNumberArray *expected = @[@10.75, @10.75, @10.75, @10.75, @10.75, @10.75];
 
     [self testPositionsWithScale:CPTFloat(1.0)
                      anchorPoint:CPTPointMake(0.25, 0.25)
@@ -58,7 +58,7 @@ static const double precision = 1.0e-6;
 
 -(void)testPixelAlign1xMiddle
 {
-    CPTNumberArray expected = @[@10.5, @10.5, @10.5, @10.5, @10.5, @11.5];
+    CPTNumberArray *expected = @[@10.5, @10.5, @10.5, @10.5, @10.5, @11.5];
 
     [self testPositionsWithScale:CPTFloat(1.0)
                      anchorPoint:CPTPointMake(0.5, 0.5)
@@ -67,7 +67,7 @@ static const double precision = 1.0e-6;
 
 -(void)testPixelAlign1xRightMiddle
 {
-    CPTNumberArray expected = @[@10.25, @10.25, @10.25, @11.25, @11.25, @11.25];
+    CPTNumberArray *expected = @[@10.25, @10.25, @10.25, @11.25, @11.25, @11.25];
 
     [self testPositionsWithScale:CPTFloat(1.0)
                      anchorPoint:CPTPointMake(0.75, 0.75)
@@ -76,7 +76,7 @@ static const double precision = 1.0e-6;
 
 -(void)testPixelAlign1xRight
 {
-    CPTNumberArray expected = @[@10.0, @10.0, @11.0, @11.0, @11.0, @11.0];
+    CPTNumberArray *expected = @[@10.0, @10.0, @11.0, @11.0, @11.0, @11.0];
 
     [self testPositionsWithScale:CPTFloat(1.0)
                      anchorPoint:CPTPointMake(1.0, 1.0)
@@ -87,7 +87,7 @@ static const double precision = 1.0e-6;
 
 -(void)testPixelAlign2xLeft
 {
-    CPTNumberArray expected = @[@10.5, @10.5, @10.5, @11.0, @11.0, @11.0];
+    CPTNumberArray *expected = @[@10.5, @10.5, @10.5, @11.0, @11.0, @11.0];
 
     [self testPositionsWithScale:CPTFloat(2.0)
                      anchorPoint:CGPointZero
@@ -96,7 +96,7 @@ static const double precision = 1.0e-6;
 
 -(void)testPixelAlign2xLeftMiddle
 {
-    CPTNumberArray expected = @[@10.25, @10.25, @10.75, @10.75, @10.75, @11.25];
+    CPTNumberArray *expected = @[@10.25, @10.25, @10.75, @10.75, @10.75, @11.25];
 
     [self testPositionsWithScale:CPTFloat(2.0)
                      anchorPoint:CPTPointMake(0.25, 0.25)
@@ -105,7 +105,7 @@ static const double precision = 1.0e-6;
 
 -(void)testPixelAlign2xMiddle
 {
-    CPTNumberArray expected = @[@10.5, @10.5, @10.5, @11.0, @11.0, @11.0];
+    CPTNumberArray *expected = @[@10.5, @10.5, @10.5, @11.0, @11.0, @11.0];
 
     [self testPositionsWithScale:CPTFloat(2.0)
                      anchorPoint:CPTPointMake(0.5, 0.5)
@@ -114,7 +114,7 @@ static const double precision = 1.0e-6;
 
 -(void)testPixelAlign2xRightMiddle
 {
-    CPTNumberArray expected = @[@10.25, @10.25, @10.75, @10.75, @10.75, @11.25];
+    CPTNumberArray *expected = @[@10.25, @10.25, @10.75, @10.75, @10.75, @11.25];
 
     [self testPositionsWithScale:CPTFloat(2.0)
                      anchorPoint:CPTPointMake(0.75, 0.75)
@@ -123,7 +123,7 @@ static const double precision = 1.0e-6;
 
 -(void)testPixelAlign2xRight
 {
-    CPTNumberArray expected = @[@10.5, @10.5, @10.5, @11.0, @11.0, @11.0];
+    CPTNumberArray *expected = @[@10.5, @10.5, @10.5, @11.0, @11.0, @11.0];
 
     [self testPositionsWithScale:CPTFloat(2.0)
                      anchorPoint:CPTPointMake(1.0, 1.0)
@@ -132,7 +132,7 @@ static const double precision = 1.0e-6;
 
 #pragma mark - Utility methods
 
--(void)testPositionsWithScale:(CGFloat)scale anchorPoint:(CGPoint)anchor expected:(CPTNumberArray)expectedValues
+-(void)testPositionsWithScale:(CGFloat)scale anchorPoint:(CGPoint)anchor expected:(CPTNumberArray *)expectedValues
 {
     NSUInteger positionCount = self.positions.count;
 

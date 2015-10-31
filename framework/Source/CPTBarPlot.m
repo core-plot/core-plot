@@ -36,9 +36,9 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 /// @cond
 @interface CPTBarPlot()
 
-@property (nonatomic, readwrite, copy) CPTNumberArray barLocations;
-@property (nonatomic, readwrite, copy) CPTNumberArray barTips;
-@property (nonatomic, readwrite, copy) CPTNumberArray barBases;
+@property (nonatomic, readwrite, copy) CPTNumberArray *barLocations;
+@property (nonatomic, readwrite, copy) CPTNumberArray *barTips;
+@property (nonatomic, readwrite, copy) CPTNumberArray *barBases;
 @property (nonatomic, readwrite, copy) CPTFillArray barFills;
 @property (nonatomic, readwrite, copy) CPTLineStyleArray barLineStyles;
 @property (nonatomic, readwrite, assign) NSUInteger pointingDeviceDownIndex;
@@ -1470,32 +1470,32 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 
 /// @cond
 
--(CPTNumberArray)barTips
+-(CPTNumberArray *)barTips
 {
     return [[self cachedNumbersForField:CPTBarPlotFieldBarTip] sampleArray];
 }
 
--(void)setBarTips:(CPTNumberArray)newTips
+-(void)setBarTips:(CPTNumberArray *)newTips
 {
     [self cacheNumbers:newTips forField:CPTBarPlotFieldBarTip];
 }
 
--(CPTNumberArray)barBases
+-(CPTNumberArray *)barBases
 {
     return [[self cachedNumbersForField:CPTBarPlotFieldBarBase] sampleArray];
 }
 
--(void)setBarBases:(CPTNumberArray)newBases
+-(void)setBarBases:(CPTNumberArray *)newBases
 {
     [self cacheNumbers:newBases forField:CPTBarPlotFieldBarBase];
 }
 
--(CPTNumberArray)barLocations
+-(CPTNumberArray *)barLocations
 {
     return [[self cachedNumbersForField:CPTBarPlotFieldBarLocation] sampleArray];
 }
 
--(void)setBarLocations:(CPTNumberArray)newLocations
+-(void)setBarLocations:(CPTNumberArray *)newLocations
 {
     [self cacheNumbers:newLocations forField:CPTBarPlotFieldBarLocation];
 }
@@ -1615,16 +1615,16 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     return 3;
 }
 
--(CPTNumberArray)fieldIdentifiers
+-(CPTNumberArray *)fieldIdentifiers
 {
     return @[@(CPTBarPlotFieldBarLocation),
              @(CPTBarPlotFieldBarTip),
              @(CPTBarPlotFieldBarBase)];
 }
 
--(CPTNumberArray)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
+-(CPTNumberArray *)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
 {
-    CPTNumberArray result = nil;
+    CPTNumberArray *result = nil;
 
     switch ( coord ) {
         case CPTCoordinateX:

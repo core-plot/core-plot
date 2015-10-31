@@ -1132,7 +1132,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     return 5;
 }
 
--(CPTNumberArray)fieldIdentifiers
+-(CPTNumberArray *)fieldIdentifiers
 {
     return @[@(CPTTradingRangePlotFieldX),
              @(CPTTradingRangePlotFieldOpen),
@@ -1141,9 +1141,9 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
              @(CPTTradingRangePlotFieldLow)];
 }
 
--(CPTNumberArray)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
+-(CPTNumberArray *)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
 {
-    CPTNumberArray result = nil;
+    CPTNumberArray *result = nil;
 
     switch ( coord ) {
         case CPTCoordinateX:
@@ -1205,11 +1205,11 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
     NSNumber *xValue = [self cachedNumberForField:CPTTradingRangePlotFieldX recordIndex:idx];
     NSNumber *yValue;
-    CPTNumberArray yValues = @[[self cachedNumberForField:CPTTradingRangePlotFieldOpen recordIndex:idx],
-                               [self cachedNumberForField:CPTTradingRangePlotFieldClose recordIndex:idx],
-                               [self cachedNumberForField:CPTTradingRangePlotFieldHigh recordIndex:idx],
-                               [self cachedNumberForField:CPTTradingRangePlotFieldLow recordIndex:idx]];
-    CPTNumberArray yValuesSorted = [yValues sortedArrayUsingSelector:@selector(compare:)];
+    CPTNumberArray *yValues = @[[self cachedNumberForField:CPTTradingRangePlotFieldOpen recordIndex:idx],
+                                [self cachedNumberForField:CPTTradingRangePlotFieldClose recordIndex:idx],
+                                [self cachedNumberForField:CPTTradingRangePlotFieldHigh recordIndex:idx],
+                                [self cachedNumberForField:CPTTradingRangePlotFieldLow recordIndex:idx]];
+    CPTNumberArray *yValuesSorted = [yValues sortedArrayUsingSelector:@selector(compare:)];
     if ( positiveDirection ) {
         yValue = [yValuesSorted lastObject];
     }

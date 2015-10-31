@@ -2,7 +2,7 @@
 
 @class APYahooDataPuller;
 
-typedef NSArray<CPTDictionary> *CPTFinancialDataArray;
+typedef NSArray<CPTDictionary *> *CPTFinancialDataArray;
 
 @protocol APYahooDataPullerDelegate
 

@@ -207,42 +207,42 @@ extern const CPTEdgeInsets CPTEdgeInsetsZero; ///< Defines a set of stretchable 
 /**
  *  @brief An array of numbers.
  **/
-typedef NSArray<NSNumber *> *CPTNumberArray;
+typedef NSArray<NSNumber *> CPTNumberArray;
 
 /**
  *  @brief A mutable array of numbers.
  **/
-typedef NSMutableArray<NSNumber *> *CPTMutableNumberArray;
+typedef NSMutableArray<NSNumber *> CPTMutableNumberArray;
 
 /**
  *  @brief A set of numbers.
  **/
-typedef NSSet<NSNumber *> *CPTNumberSet;
+typedef NSSet<NSNumber *> CPTNumberSet;
 
 /**
  *  @brief A mutable set of numbers.
  **/
-typedef NSMutableSet<NSNumber *> *CPTMutableNumberSet;
+typedef NSMutableSet<NSNumber *> CPTMutableNumberSet;
 
 /**
  *  @brief An array of strings.
  **/
-typedef NSArray<NSString *> *CPTStringArray;
+typedef NSArray<NSString *> CPTStringArray;
 
 /**
  *  @brief A mutable array of strings.
  **/
-typedef NSMutableArray<NSString *> *CPTMutableStringArray;
+typedef NSMutableArray<NSString *> CPTMutableStringArray;
 
 /**
  *  @brief An array of strings.
  **/
-typedef NSDictionary<NSString *, id> *CPTDictionary;
+typedef NSDictionary<NSString *, id> CPTDictionary;
 
 /**
  *  @brief A mutable array of strings.
  **/
-typedef NSMutableDictionary<NSString *, id> *CPTMutableDictionary;
+typedef NSMutableDictionary<NSString *, id> CPTMutableDictionary;
 
 /**
  *  @brief Render a Quick Look image into the given context.

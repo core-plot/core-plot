@@ -81,7 +81,7 @@ typedef NS_ENUM (NSInteger, CPTGraphLayerType) {
 @property (nonatomic, readwrite, strong, nullable) CPTAxisSet *axisSet;
 @property (nonatomic, readwrite, strong, nullable) CPTPlotAreaFrame *plotAreaFrame;
 @property (nonatomic, readonly, nullable) CPTPlotSpace *defaultPlotSpace;
-@property (nonatomic, readwrite, strong, nullable) CPTNumberArray topDownLayerOrder;
+@property (nonatomic, readwrite, strong, nullable) CPTNumberArray *topDownLayerOrder;
 /// @}
 
 /// @name Legend

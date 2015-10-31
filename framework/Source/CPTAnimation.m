@@ -26,7 +26,7 @@ typedef NSMutableArray<CPTAnimationOperation *> *CPTMutableAnimationArray;
 +(nonnull SEL)setterFromProperty:(nonnull NSString *)property;
 
 -(CPTAnimationTimingFunction)timingFunctionForAnimationCurve:(CPTAnimationCurve)animationCurve;
--(void)updateOnMainThreadWithParameters:(nonnull CPTDictionary)parameters;
+-(void)updateOnMainThreadWithParameters:(nonnull CPTDictionary *)parameters;
 
 -(void)startTimer;
 -(void)cancelTimer;
@@ -266,8 +266,8 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
     CPTMutableAnimationArray runningOperations      = self.runningAnimationOperations;
     CPTMutableAnimationArray expiredOperations      = [[NSMutableArray alloc] init];
 
-    CGFloat currentTime     = self.timeOffset;
-    CPTStringArray runModes = @[NSRunLoopCommonModes];
+    CGFloat currentTime      = self.timeOffset;
+    CPTStringArray *runModes = @[NSRunLoopCommonModes];
 
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
 
@@ -335,7 +335,7 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
 
                     CGFloat progress = timingFunction(currentTime - startTime, duration);
 
-                    CPTDictionary parameters = @{
+                    CPTDictionary *parameters = @{
                         CPTAnimationOperationKey: animationOperation,
                         CPTAnimationValueKey: [period tweenedValueForProgress:progress],
                         CPTAnimationStartedKey: @(started),
@@ -367,7 +367,7 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
 }
 
 // This method must be called from the main thread.
--(void)updateOnMainThreadWithParameters:(CPTDictionary)parameters
+-(void)updateOnMainThreadWithParameters:(CPTDictionary *)parameters
 {
     CPTAnimationOperation *animationOperation = parameters[CPTAnimationOperationKey];
 

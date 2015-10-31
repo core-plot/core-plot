@@ -9,7 +9,7 @@ static const NSUInteger numberOfPoints = 11;
 
 @interface ControlChart()
 
-@property (nonatomic, readwrite, strong) CPTNumberArray plotData;
+@property (nonatomic, readwrite, strong) CPTNumberArray *plotData;
 @property (nonatomic, readwrite, assign) double meanValue;
 @property (nonatomic, readwrite, assign) double standardError;
 
@@ -39,7 +39,7 @@ static const NSUInteger numberOfPoints = 11;
 -(void)generateData
 {
     if ( self.plotData == nil ) {
-        CPTMutableNumberArray contentArray = [NSMutableArray array];
+        CPTMutableNumberArray *contentArray = [NSMutableArray array];
 
         double sum = 0.0;
 

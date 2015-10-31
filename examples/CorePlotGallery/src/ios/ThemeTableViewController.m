@@ -15,7 +15,7 @@ NSString *const PlotGalleryThemeNameKey               = @"PlotGalleryThemeNameKe
 
 @interface ThemeTableViewController()
 
-@property (nonatomic, readwrite, strong) CPTMutableStringArray themes;
+@property (nonatomic, readwrite, strong) CPTMutableStringArray *themes;
 
 @end
 
@@ -27,7 +27,7 @@ NSString *const PlotGalleryThemeNameKey               = @"PlotGalleryThemeNameKe
 
 -(void)setupThemes
 {
-    CPTMutableStringArray themeList = [[NSMutableArray alloc] init];
+    CPTMutableStringArray *themeList = [[NSMutableArray alloc] init];
 
     [themeList addObject:kThemeTableViewControllerDefaultTheme];
     [themeList addObject:kThemeTableViewControllerNoTheme];

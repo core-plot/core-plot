@@ -3,11 +3,11 @@
 
 @implementation NSDictionary(APFinancialData)
 
-+(CPTDictionary)dictionaryWithCSVLine:(NSString *)csvLine
++(CPTDictionary *)dictionaryWithCSVLine:(NSString *)csvLine
 {
-    CPTStringArray csvChunks = [csvLine componentsSeparatedByString:@","];
+    CPTStringArray *csvChunks = [csvLine componentsSeparatedByString:@","];
 
-    CPTMutableDictionary csvDict = [NSMutableDictionary dictionaryWithCapacity:7];
+    CPTMutableDictionary *csvDict = [NSMutableDictionary dictionaryWithCapacity:7];
 
     // Date,Open,High,Low,Close,Volume,Adj Close
     // 2009-06-08,143.82,144.23,139.43,143.85,33255400,143.85

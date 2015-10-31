@@ -254,8 +254,8 @@
     // Define some custom labels for the data elements
     x.labelRotation  = CPTFloat(M_PI_4);
     x.labelingPolicy = CPTAxisLabelingPolicyNone;
-    CPTNumberArray customTickLocations  = @[@1, @5, @10, @15];
-    CPTStringArray xAxisLabels          = @[@"Label A", @"Label B", @"Label C", @"Label D"];
+    CPTNumberArray *customTickLocations = @[@1, @5, @10, @15];
+    CPTStringArray *xAxisLabels         = @[@"Label A", @"Label B", @"Label C", @"Label D"];
     NSUInteger labelLocation            = 0;
     CPTMutableAxisLabelSet customLabels = [NSMutableSet setWithCapacity:[xAxisLabels count]];
     for ( NSNumber *tickLocation in customTickLocations ) {

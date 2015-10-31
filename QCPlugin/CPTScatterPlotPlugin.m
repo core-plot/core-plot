@@ -210,8 +210,8 @@
     NSString *xKey       = [NSString stringWithFormat:@"plotXNumbers%lu", (unsigned long)plotIndex];
     NSString *yKey       = [NSString stringWithFormat:@"plotYNumbers%lu", (unsigned long)plotIndex];
 
-    CPTDictionary xVals = [self valueForInputKey:xKey];
-    CPTDictionary yVals = [self valueForInputKey:yKey];
+    CPTDictionary *xVals = [self valueForInputKey:xKey];
+    CPTDictionary *yVals = [self valueForInputKey:yKey];
 
     if ( !xVals || !yVals ) {
         return 0;
@@ -229,8 +229,8 @@
     NSString *xKey       = [NSString stringWithFormat:@"plotXNumbers%lu", (unsigned long)plotIndex];
     NSString *yKey       = [NSString stringWithFormat:@"plotYNumbers%lu", (unsigned long)plotIndex];
 
-    CPTDictionary xVals = [self valueForInputKey:xKey];
-    CPTDictionary yVals = [self valueForInputKey:yKey];
+    CPTDictionary *xVals = [self valueForInputKey:xKey];
+    CPTDictionary *yVals = [self valueForInputKey:yKey];
 
     if ( !xVals || !yVals ) {
         return nil;
@@ -239,7 +239,7 @@
         return nil;
     }
 
-    CPTDictionary dict = (fieldEnum == CPTScatterPlotFieldX) ? xVals : yVals;
+    CPTDictionary *dict = (fieldEnum == CPTScatterPlotFieldX) ? xVals : yVals;
 
     NSString *dictionaryKey = [NSString stringWithFormat:@"%lu", (unsigned long)index];
 

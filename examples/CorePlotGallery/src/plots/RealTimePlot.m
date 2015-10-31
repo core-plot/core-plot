@@ -13,7 +13,7 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
 
 @interface RealTimePlot()
 
-@property (nonatomic, readwrite, strong) CPTMutableNumberArray plotData;
+@property (nonatomic, readwrite, strong) CPTMutableNumberArray *plotData;
 @property (nonatomic, readwrite, assign) NSUInteger currentIndex;
 @property (nonatomic, readwrite, strong) NSTimer *dataTimer;
 

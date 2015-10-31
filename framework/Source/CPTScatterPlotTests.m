@@ -7,8 +7,8 @@
 @interface CPTScatterPlot(Testing)
 
 -(void)calculatePointsToDraw:(BOOL *)pointDrawFlags forPlotSpace:(CPTXYPlotSpace *)xyPlotSpace includeVisiblePointsOnly:(BOOL)visibleOnly numberOfPoints:(NSUInteger)dataCount;
--(void)setXValues:(CPTNumberArray)newValues;
--(void)setYValues:(CPTNumberArray)newValues;
+-(void)setXValues:(CPTNumberArray *)newValues;
+-(void)setYValues:(CPTNumberArray *)newValues;
 
 @end
 
@@ -22,7 +22,7 @@
     double values[5] = { 0.5, 0.5, 0.5, 0.5, 0.5 };
 
     self.plot = [CPTScatterPlot new];
-    CPTMutableNumberArray yValues = [NSMutableArray array];
+    CPTMutableNumberArray *yValues = [NSMutableArray array];
     for ( NSInteger i = 0; i < 5; i++ ) {
         [yValues addObject:@(values[i])];
     }
@@ -47,7 +47,7 @@
     BOOL drawFlags[5];
     double inRangeValues[5] = { 0.1, 0.2, 0.15, 0.6, 0.9 };
 
-    CPTMutableNumberArray values = [NSMutableArray array];
+    CPTMutableNumberArray *values = [NSMutableArray array];
 
     for ( NSUInteger i = 0; i < 5; i++ ) {
         [values addObject:@(inRangeValues[i])];
@@ -64,7 +64,7 @@
     BOOL drawFlags[5];
     double inRangeValues[5] = { 0.1, 0.2, 0.15, 0.6, 0.9 };
 
-    CPTMutableNumberArray values = [NSMutableArray array];
+    CPTMutableNumberArray *values = [NSMutableArray array];
 
     for ( NSUInteger i = 0; i < 5; i++ ) {
         [values addObject:@(inRangeValues[i])];
@@ -81,7 +81,7 @@
     BOOL drawFlags[5];
     double inRangeValues[5] = { -0.1, -0.2, -0.15, -0.6, -0.9 };
 
-    CPTMutableNumberArray values = [NSMutableArray array];
+    CPTMutableNumberArray *values = [NSMutableArray array];
 
     for ( NSUInteger i = 0; i < 5; i++ ) {
         [values addObject:@(inRangeValues[i])];
@@ -98,7 +98,7 @@
     BOOL drawFlags[5];
     double inRangeValues[5] = { -0.1, -0.2, -0.15, -0.6, -0.9 };
 
-    CPTMutableNumberArray values = [NSMutableArray array];
+    CPTMutableNumberArray *values = [NSMutableArray array];
 
     for ( NSUInteger i = 0; i < 5; i++ ) {
         [values addObject:@(inRangeValues[i])];
@@ -115,7 +115,7 @@
     BOOL drawFlags[5];
     double inRangeValues[5] = { -0.1, 2, -0.15, 3, -0.9 };
 
-    CPTMutableNumberArray values = [NSMutableArray array];
+    CPTMutableNumberArray *values = [NSMutableArray array];
 
     for ( NSUInteger i = 0; i < 5; i++ ) {
         [values addObject:@(inRangeValues[i])];
@@ -132,7 +132,7 @@
     BOOL drawFlags[5];
     double inRangeValues[5] = { -0.1, 2, -0.15, 3, -0.9 };
 
-    CPTMutableNumberArray values = [NSMutableArray array];
+    CPTMutableNumberArray *values = [NSMutableArray array];
 
     for ( NSUInteger i = 0; i < 5; i++ ) {
         [values addObject:@(inRangeValues[i])];
@@ -150,7 +150,7 @@
     double inRangeValues[5] = { -0.1, 0.1, 0.2, 1.2, 1.5 };
     BOOL expected[5]        = { YES, YES, YES, YES, NO };
 
-    CPTMutableNumberArray values = [NSMutableArray array];
+    CPTMutableNumberArray *values = [NSMutableArray array];
 
     for ( NSUInteger i = 0; i < 5; i++ ) {
         [values addObject:@(inRangeValues[i])];
@@ -172,7 +172,7 @@
     BOOL drawFlags[5];
     double inRangeValues[5] = { -0.1, 0.1, 0.2, 1.2, 1.5 };
 
-    CPTMutableNumberArray values = [NSMutableArray array];
+    CPTMutableNumberArray *values = [NSMutableArray array];
 
     for ( NSUInteger i = 0; i < 5; i++ ) {
         [values addObject:@(inRangeValues[i])];
@@ -195,7 +195,7 @@
     double inRangeValues[5] = { -0.1, 1.1, 0.9, -0.1, -0.2 };
     BOOL expected[5]        = { YES, YES, YES, YES, NO };
 
-    CPTMutableNumberArray values = [NSMutableArray array];
+    CPTMutableNumberArray *values = [NSMutableArray array];
 
     for ( NSUInteger i = 0; i < 5; i++ ) {
         [values addObject:@(inRangeValues[i])];
@@ -217,7 +217,7 @@
     BOOL drawFlags[5];
     double inRangeValues[5] = { -0.1, 1.1, 0.9, -0.1, -0.2 };
 
-    CPTMutableNumberArray values = [NSMutableArray array];
+    CPTMutableNumberArray *values = [NSMutableArray array];
 
     for ( NSUInteger i = 0; i < 5; i++ ) {
         [values addObject:@(inRangeValues[i])];

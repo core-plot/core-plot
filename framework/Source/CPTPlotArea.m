@@ -74,7 +74,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
  **/
 @synthesize axisTitleGroup;
 
-/** @property CPTNumberArray topDownLayerOrder
+/** @property CPTNumberArray * topDownLayerOrder
  *  @brief An array of graph layers to be drawn in an order other than the default.
  *
  *  The array should reference the layers using the constants defined in #CPTGraphLayerType.
@@ -409,7 +409,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         *(buLayerOrder++) = (CPTGraphLayerType)i;
     }
 
-    CPTNumberArray tdLayerOrder = self.topDownLayerOrder;
+    CPTNumberArray *tdLayerOrder = self.topDownLayerOrder;
     if ( tdLayerOrder ) {
         buLayerOrder = self.bottomUpLayerOrder;
 
@@ -882,7 +882,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     }
 }
 
--(void)setTopDownLayerOrder:(CPTNumberArray)newArray
+-(void)setTopDownLayerOrder:(CPTNumberArray *)newArray
 {
     if ( newArray != topDownLayerOrder ) {
         topDownLayerOrder = newArray;

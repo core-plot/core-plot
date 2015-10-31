@@ -100,7 +100,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
  **/
 @dynamic defaultPlotSpace;
 
-/** @property CPTNumberArray topDownLayerOrder
+/** @property CPTNumberArray * topDownLayerOrder
  *  @brief An array of graph layers to be drawn in an order other than the default.
  *  @see CPTPlotArea @link CPTPlotArea::topDownLayerOrder topDownLayerOrder @endlink property.
  **/
@@ -834,12 +834,12 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
     }
 }
 
--(CPTNumberArray)topDownLayerOrder
+-(CPTNumberArray *)topDownLayerOrder
 {
     return self.plotAreaFrame.plotArea.topDownLayerOrder;
 }
 
--(void)setTopDownLayerOrder:(CPTNumberArray)newArray
+-(void)setTopDownLayerOrder:(CPTNumberArray *)newArray
 {
     self.plotAreaFrame.plotArea.topDownLayerOrder = newArray;
 }

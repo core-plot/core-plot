@@ -2,12 +2,12 @@
 
 @implementation NSString(ParseCSV)
 
--(CPTStringArray)arrayByParsingCSVLine
+-(CPTStringArray *)arrayByParsingCSVLine
 {
     BOOL isRemoveWhitespace = YES;
 
-    CPTMutableStringArray theArray        = [NSMutableArray array];
-    CPTStringArray theFields              = [self componentsSeparatedByString:@","];
+    CPTMutableStringArray *theArray       = [NSMutableArray array];
+    CPTStringArray *theFields             = [self componentsSeparatedByString:@","];
     NSCharacterSet *quotedCharacterSet    = [NSCharacterSet characterSetWithCharactersInString:@"\""];
     NSMutableString *theConcatenatedField = [NSMutableString string];
 

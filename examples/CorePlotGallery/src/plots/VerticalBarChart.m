@@ -221,7 +221,7 @@ static const BOOL kUseHorizontalBars = NO;
     theLegend.paddingRight  = textSize * CPTFloat(0.375);
     theLegend.paddingBottom = textSize * CPTFloat(0.375);
 
-    CPTNumberArray plotPoint = (kUseHorizontalBars ? @[@95, @0] : @[@0, @95]);
+    CPTNumberArray *plotPoint = (kUseHorizontalBars ? @[@95, @0] : @[@0, @95]);
 
     CPTPlotSpaceAnnotation *legendAnnotation = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:barPlotSpace anchorPlotPoint:plotPoint];
     legendAnnotation.contentLayer = theLegend;
@@ -263,7 +263,7 @@ static const BOOL kUseHorizontalBars = NO;
     NSNumber *x = @(index);
     NSNumber *y = @2;
 
-    CPTNumberArray anchorPoint = (kUseHorizontalBars ? @[y, x] : @[x, y]);
+    CPTNumberArray *anchorPoint = (kUseHorizontalBars ? @[y, x] : @[x, y]);
 
     // Add annotation
     // First make a string for the y value

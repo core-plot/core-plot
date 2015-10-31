@@ -17,7 +17,7 @@ typedef NS_ENUM (NSInteger, CPTTextAlignment) {
 #if __IPHONE_OS_VERSION_MAX_ALLOWED < 70000
 @interface NSString(CPTTextStylePlatformSpecificExtensions)
 
--(CGSize)sizeWithAttributes:(CPTDictionary)attrs;
+-(CGSize)sizeWithAttributes:(CPTDictionary *)attrs;
 
 @end
 #else

@@ -813,7 +813,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
             CPTNumericDataType dataType  = data.dataType;
 
             if ( (sampleCount > 0) && (data.numberOfDimensions == 2) ) {
-                CPTNumberArray theShape     = data.shape;
+                CPTNumberArray *theShape    = data.shape;
                 const NSUInteger rowCount   = [theShape[0] unsignedIntegerValue];
                 const NSUInteger fieldCount = [theShape[1] unsignedIntegerValue];
 
@@ -973,13 +973,13 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
             case CPTScaleTypeCategory:
             {
-                CPTStringArray samples = (CPTStringArray)numbers;
+                CPTStringArray *samples = (CPTStringArray *)numbers;
                 if ( [samples isKindOfClass:[NSArray class]] ) {
                     [thePlotSpace setCategories:samples forCoordinate:coordinate];
 
                     NSUInteger sampleCount = samples.count;
                     if ( sampleCount > 0 ) {
-                        CPTMutableNumberArray indices = [[NSMutableArray alloc] initWithCapacity:sampleCount];
+                        CPTMutableNumberArray *indices = [[NSMutableArray alloc] initWithCapacity:sampleCount];
 
                         for ( NSString *category in samples ) {
                             [indices addObject:@([thePlotSpace indexOfCategory:category forCoordinate:coordinate])];
@@ -1070,11 +1070,11 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
             case CPTScaleTypeCategory:
             {
-                CPTStringArray samples = (CPTStringArray)numbers;
+                CPTStringArray *samples = (CPTStringArray *)numbers;
                 if ( [samples isKindOfClass:[NSArray class]] ) {
                     sampleCount = samples.count;
                     if ( sampleCount > 0 ) {
-                        CPTMutableNumberArray indices = [[NSMutableArray alloc] initWithCapacity:sampleCount];
+                        CPTMutableNumberArray *indices = [[NSMutableArray alloc] initWithCapacity:sampleCount];
 
                         for ( NSString *category in samples ) {
                             [thePlotSpace addCategory:category forCoordinate:coordinate];
@@ -1144,7 +1144,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         mutableNumbers = [[CPTMutableNumericData alloc] initWithData:numbers dataType:loadedDataType shape:nil];
     }
     else if ( [numbers isKindOfClass:[NSArray class]] ) {
-        if ( ( (CPTNumberArray)numbers ).count == 0 ) {
+        if ( ( (CPTNumberArray *)numbers ).count == 0 ) {
             loadedDataType = self.doubleDataType;
         }
         else if ( [( (NSArray < NSNumber * > *)numbers )[0] isKindOfClass :[NSDecimalNumber class]] ) {
@@ -1487,7 +1487,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  **/
 -(CPTPlotRange *)plotRangeForCoordinate:(CPTCoordinate)coord
 {
-    CPTNumberArray fields = [self fieldIdentifiersForCoordinate:coord];
+    CPTNumberArray *fields = [self fieldIdentifiersForCoordinate:coord];
 
     if ( fields.count == 0 ) {
         return nil;
@@ -1558,9 +1558,9 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         return;
     }
 
-    CPTDictionary textAttributes = [dataLabelTextStyle attributes];
-    BOOL hasAttributedFormatter  = ([dataLabelFormatter attributedStringForObjectValue:[NSDecimalNumber zero]
-                                                                 withDefaultAttributes:textAttributes] != nil);
+    CPTDictionary *textAttributes = [dataLabelTextStyle attributes];
+    BOOL hasAttributedFormatter   = ([dataLabelFormatter attributedStringForObjectValue:[NSDecimalNumber zero]
+                                                                  withDefaultAttributes:textAttributes] != nil);
 
     NSUInteger sampleCount = self.cachedDataCount;
     NSRange indexRange     = self.labelIndexRange;
@@ -2181,7 +2181,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 /** @brief Identifiers (enum values) identifying the fields.
  *  @return Array of NSNumber objects for the various field identifiers.
  **/
--(CPTNumberArray)fieldIdentifiers
+-(CPTNumberArray *)fieldIdentifiers
 {
     return @[];
 }
@@ -2190,7 +2190,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  @param coord The coordinate for which the corresponding field identifiers are desired.
  *  @return Array of NSNumber objects for the field identifiers.
  **/
--(CPTNumberArray)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
+-(CPTNumberArray *)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
 {
     return @[];
 }

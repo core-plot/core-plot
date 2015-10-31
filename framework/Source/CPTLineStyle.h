@@ -23,7 +23,7 @@ typedef NSMutableArray<CPTLineStyle *> *CPTMutableLineStyleArray;
 @property (nonatomic, readonly) CGLineJoin lineJoin;
 @property (nonatomic, readonly) CGFloat miterLimit;
 @property (nonatomic, readonly) CGFloat lineWidth;
-@property (nonatomic, readonly, nullable) CPTNumberArray dashPattern;
+@property (nonatomic, readonly, nullable) CPTNumberArray *dashPattern;
 @property (nonatomic, readonly) CGFloat patternPhase;
 @property (nonatomic, readonly, nullable) CPTColor *lineColor;
 @property (nonatomic, readonly, nullable) CPTFill *lineFill;

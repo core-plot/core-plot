@@ -70,7 +70,7 @@ typedef NSMutableArray<__kindof CPTAxis *> *CPTMutableAxisArray;
  *  @param locations The locations of the major ticks.
  *  @return @YES if the axis class should proceed with automatic labeling.
  **/
--(BOOL)axis:(nonnull CPTAxis *)axis shouldUpdateAxisLabelsAtLocations:(nonnull CPTNumberSet)locations;
+-(BOOL)axis:(nonnull CPTAxis *)axis shouldUpdateAxisLabelsAtLocations:(nonnull CPTNumberSet *)locations;
 
 /** @brief @optional This method gives the delegate a chance to create custom labels for each minor tick.
  *  It can be used with any labeling policy. Returning @NO will cause the axis not
@@ -79,7 +79,7 @@ typedef NSMutableArray<__kindof CPTAxis *> *CPTMutableAxisArray;
  *  @param locations The locations of the minor ticks.
  *  @return @YES if the axis class should proceed with automatic labeling.
  **/
--(BOOL)axis:(nonnull CPTAxis *)axis shouldUpdateMinorAxisLabelsAtLocations:(nonnull CPTNumberSet)locations;
+-(BOOL)axis:(nonnull CPTAxis *)axis shouldUpdateMinorAxisLabelsAtLocations:(nonnull CPTNumberSet *)locations;
 
 /// @}
 
@@ -249,7 +249,7 @@ typedef NSMutableArray<__kindof CPTAxis *> *CPTMutableAxisArray;
 @property (nonatomic, readwrite, strong, nullable) NSNumber *majorIntervalLength;
 @property (nonatomic, readwrite, assign) CGFloat majorTickLength;
 @property (nonatomic, readwrite, copy, nullable) CPTLineStyle *majorTickLineStyle;
-@property (nonatomic, readwrite, strong, nullable) CPTNumberSet majorTickLocations;
+@property (nonatomic, readwrite, strong, nullable) CPTNumberSet *majorTickLocations;
 @property (nonatomic, readwrite, assign) NSUInteger preferredNumberOfMajorTicks;
 /// @}
 
@@ -258,7 +258,7 @@ typedef NSMutableArray<__kindof CPTAxis *> *CPTMutableAxisArray;
 @property (nonatomic, readwrite, assign) NSUInteger minorTicksPerInterval;
 @property (nonatomic, readwrite, assign) CGFloat minorTickLength;
 @property (nonatomic, readwrite, copy, nullable) CPTLineStyle *minorTickLineStyle;
-@property (nonatomic, readwrite, strong, nullable) CPTNumberSet minorTickLocations;
+@property (nonatomic, readwrite, strong, nullable) CPTNumberSet *minorTickLocations;
 /// @}
 
 /// @name Grid Lines
@@ -303,8 +303,8 @@ typedef NSMutableArray<__kindof CPTAxis *> *CPTMutableAxisArray;
 
 /// @name Ticks
 /// @{
--(nullable CPTNumberSet)filteredMajorTickLocations:(nullable CPTNumberSet)allLocations;
--(nullable CPTNumberSet)filteredMinorTickLocations:(nullable CPTNumberSet)allLocations;
+-(nullable CPTNumberSet *)filteredMajorTickLocations:(nullable CPTNumberSet *)allLocations;
+-(nullable CPTNumberSet *)filteredMinorTickLocations:(nullable CPTNumberSet *)allLocations;
 /// @}
 
 /// @name Background Bands

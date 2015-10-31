@@ -47,8 +47,8 @@ typedef struct CGPointError CGPointError;
 
 @interface CPTRangePlot()
 
-@property (nonatomic, readwrite, copy) CPTNumberArray xValues;
-@property (nonatomic, readwrite, copy) CPTNumberArray yValues;
+@property (nonatomic, readwrite, copy) CPTNumberArray *xValues;
+@property (nonatomic, readwrite, copy) CPTNumberArray *yValues;
 @property (nonatomic, readwrite, copy) CPTMutableNumericData *highValues;
 @property (nonatomic, readwrite, copy) CPTMutableNumericData *lowValues;
 @property (nonatomic, readwrite, copy) CPTMutableNumericData *leftValues;
@@ -937,7 +937,7 @@ typedef struct CGPointError CGPointError;
     return 6;
 }
 
--(CPTNumberArray)fieldIdentifiers
+-(CPTNumberArray *)fieldIdentifiers
 {
     return @[@(CPTRangePlotFieldX),
              @(CPTRangePlotFieldY),
@@ -947,9 +947,9 @@ typedef struct CGPointError CGPointError;
              @(CPTRangePlotFieldRight)];
 }
 
--(CPTNumberArray)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
+-(CPTNumberArray *)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
 {
-    CPTNumberArray result = nil;
+    CPTNumberArray *result = nil;
 
     switch ( coord ) {
         case CPTCoordinateX:
@@ -1010,8 +1010,8 @@ typedef struct CGPointError CGPointError;
     }
 
     NSNumber *yValue;
-    CPTNumberArray yValues       = @[[self cachedNumberForField:CPTRangePlotFieldY recordIndex:idx]];
-    CPTNumberArray yValuesSorted = [yValues sortedArrayUsingSelector:@selector(compare:)];
+    CPTNumberArray *yValues       = @[[self cachedNumberForField:CPTRangePlotFieldY recordIndex:idx]];
+    CPTNumberArray *yValuesSorted = [yValues sortedArrayUsingSelector:@selector(compare:)];
     if ( positiveDirection ) {
         yValue = [yValuesSorted lastObject];
     }
@@ -1287,22 +1287,22 @@ typedef struct CGPointError CGPointError;
     }
 }
 
--(void)setXValues:(CPTNumberArray)newValues
+-(void)setXValues:(CPTNumberArray *)newValues
 {
     [self cacheNumbers:newValues forField:CPTRangePlotFieldX];
 }
 
--(CPTNumberArray)xValues
+-(CPTNumberArray *)xValues
 {
     return [[self cachedNumbersForField:CPTRangePlotFieldX] sampleArray];
 }
 
--(void)setYValues:(CPTNumberArray)newValues
+-(void)setYValues:(CPTNumberArray *)newValues
 {
     [self cacheNumbers:newValues forField:CPTRangePlotFieldY];
 }
 
--(CPTNumberArray)yValues
+-(CPTNumberArray *)yValues
 {
     return [[self cachedNumbersForField:CPTRangePlotFieldY] sampleArray];
 }

@@ -249,7 +249,7 @@
     NSNumber *x = dataPoint[@"x"];
     NSNumber *y = dataPoint[@"y"];
 
-    CPTNumberArray anchorPoint = @[x, y];
+    CPTNumberArray *anchorPoint = @[x, y];
 
     // Add annotation
     // First make a string for the y value

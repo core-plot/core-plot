@@ -34,8 +34,8 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 /// @cond
 @interface CPTScatterPlot()
 
-@property (nonatomic, readwrite, copy) CPTNumberArray xValues;
-@property (nonatomic, readwrite, copy) CPTNumberArray yValues;
+@property (nonatomic, readwrite, copy) CPTNumberArray *xValues;
+@property (nonatomic, readwrite, copy) CPTNumberArray *yValues;
 @property (nonatomic, readwrite, strong) CPTPlotSymbolArray plotSymbols;
 @property (nonatomic, readwrite, assign) NSUInteger pointingDeviceDownIndex;
 @property (nonatomic, readwrite, assign) BOOL pointingDeviceDownOnLine;
@@ -1326,14 +1326,14 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     return 2;
 }
 
--(CPTNumberArray)fieldIdentifiers
+-(CPTNumberArray *)fieldIdentifiers
 {
     return @[@(CPTScatterPlotFieldX), @(CPTScatterPlotFieldY)];
 }
 
--(CPTNumberArray)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
+-(CPTNumberArray *)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
 {
-    CPTNumberArray result = nil;
+    CPTNumberArray *result = nil;
 
     switch ( coord ) {
         case CPTCoordinateX:
@@ -1840,22 +1840,22 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 }
 
--(void)setXValues:(CPTNumberArray)newValues
+-(void)setXValues:(CPTNumberArray *)newValues
 {
     [self cacheNumbers:newValues forField:CPTScatterPlotFieldX];
 }
 
--(CPTNumberArray)xValues
+-(CPTNumberArray *)xValues
 {
     return [[self cachedNumbersForField:CPTScatterPlotFieldX] sampleArray];
 }
 
--(void)setYValues:(CPTNumberArray)newValues
+-(void)setYValues:(CPTNumberArray *)newValues
 {
     [self cacheNumbers:newValues forField:CPTScatterPlotFieldY];
 }
 
--(CPTNumberArray)yValues
+-(CPTNumberArray *)yValues
 {
     return [[self cachedNumbersForField:CPTScatterPlotFieldY] sampleArray];
 }

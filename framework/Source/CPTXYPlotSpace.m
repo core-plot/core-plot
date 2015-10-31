@@ -950,7 +950,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 }
 
 // Plot area view point for plot point
--(CGPoint)plotAreaViewPointForPlotPoint:(CPTNumberArray)plotPoint
+-(CGPoint)plotAreaViewPointForPlotPoint:(CPTNumberArray *)plotPoint
 {
     CGPoint viewPoint = [super plotAreaViewPointForPlotPoint:plotPoint];
 
@@ -1133,9 +1133,9 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 }
 
 // Plot point for view point
--(CPTNumberArray)plotPointForPlotAreaViewPoint:(CGPoint)point
+-(CPTNumberArray *)plotPointForPlotAreaViewPoint:(CGPoint)point
 {
-    CPTMutableNumberArray plotPoint = [[super plotPointForPlotAreaViewPoint:point] mutableCopy];
+    CPTMutableNumberArray *plotPoint = [[super plotPointForPlotAreaViewPoint:point] mutableCopy];
 
     CGSize boundsSize;
     CPTGraph *theGraph    = self.graph;
@@ -1333,7 +1333,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 }
 
 // Plot point for event
--(CPTNumberArray)plotPointForEvent:(CPTNativeEvent *)event
+-(CPTNumberArray *)plotPointForEvent:(CPTNativeEvent *)event
 {
     return [self plotPointForPlotAreaViewPoint:[self plotAreaViewPointForEvent:event]];
 }

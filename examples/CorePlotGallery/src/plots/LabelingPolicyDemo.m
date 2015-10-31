@@ -70,9 +70,9 @@
     axisTitleTextStyle.fontName = @"Helvetica-Bold";
 
     // Tick locations
-    CPTNumberSet majorTickLocations = [NSSet setWithObjects:@0, @30, @50, @85, @100, nil];
+    CPTNumberSet *majorTickLocations = [NSSet setWithObjects:@0, @30, @50, @85, @100, nil];
 
-    CPTMutableNumberSet minorTickLocations = [NSMutableSet set];
+    CPTMutableNumberSet *minorTickLocations = [NSMutableSet set];
     for ( NSUInteger loc = 0; loc <= 100; loc += 10 ) {
         [minorTickLocations addObject:@(loc)];
     }

@@ -28,7 +28,7 @@
  **/
 @implementation CPTPlotSpaceAnnotation
 
-/** @property CPTNumberArray anchorPlotPoint
+/** @property CPTNumberArray * anchorPlotPoint
  *  @brief An array of NSDecimalNumber objects giving the anchor plot coordinates.
  **/
 @synthesize anchorPlotPoint;
@@ -56,7 +56,7 @@
  *  @param newPlotPoint An array of NSDecimalNumber objects giving the anchor plot coordinates.
  *  @return The initialized CPTPlotSpaceAnnotation object.
  **/
--(instancetype)initWithPlotSpace:(CPTPlotSpace *)newPlotSpace anchorPlotPoint:(CPTNumberArray)newPlotPoint
+-(instancetype)initWithPlotSpace:(CPTPlotSpace *)newPlotSpace anchorPlotPoint:(CPTNumberArray *)newPlotPoint
 {
     NSParameterAssert(newPlotSpace);
 
@@ -140,7 +140,7 @@
     if ( content ) {
         CPTLayer *hostLayer = self.annotationHostLayer;
         if ( hostLayer ) {
-            CPTNumberArray plotAnchor = self.anchorPlotPoint;
+            CPTNumberArray *plotAnchor = self.anchorPlotPoint;
             if ( plotAnchor ) {
                 // Get plot area point
                 CPTPlotSpace *thePlotSpace      = self.plotSpace;
@@ -175,7 +175,7 @@
 
 /// @cond
 
--(void)setAnchorPlotPoint:(CPTNumberArray)newPlotPoint
+-(void)setAnchorPlotPoint:(CPTNumberArray *)newPlotPoint
 {
     if ( anchorPlotPoint != newPlotPoint ) {
         anchorPlotPoint = [newPlotPoint copy];

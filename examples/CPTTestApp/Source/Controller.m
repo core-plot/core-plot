@@ -469,7 +469,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     NSNumber *x = dataPoint[@"x"];
     NSNumber *y = dataPoint[@"y"];
 
-    CPTNumberArray anchorPoint = @[x, y];
+    CPTNumberArray *anchorPoint = @[x, y];
 
     // Add annotation
     // First make a string for the y value
@@ -510,9 +510,9 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 
     // Determine point of symbol in plot coordinates
 
-    NSNumber *x                = @0;
-    NSNumber *y                = [self numberForPlot:plot field:0 recordIndex:index];
-    CPTNumberArray anchorPoint = @[x, @(index)];
+    NSNumber *x                 = @0;
+    NSNumber *y                 = [self numberForPlot:plot field:0 recordIndex:index];
+    CPTNumberArray *anchorPoint = @[x, @(index)];
 
     // Add annotation
     // First make a string for the y value
