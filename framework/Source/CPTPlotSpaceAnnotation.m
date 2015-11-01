@@ -28,7 +28,7 @@
  **/
 @implementation CPTPlotSpaceAnnotation
 
-/** @property CPTNumberArray * anchorPlotPoint
+/** @property CPTNumberArray *anchorPlotPoint
  *  @brief An array of NSDecimalNumber objects giving the anchor plot coordinates.
  **/
 @synthesize anchorPlotPoint;

@@ -74,7 +74,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
  **/
 @synthesize axisTitleGroup;
 
-/** @property CPTNumberArray * topDownLayerOrder
+/** @property CPTNumberArray *topDownLayerOrder
  *  @brief An array of graph layers to be drawn in an order other than the default.
  *
  *  The array should reference the layers using the constants defined in #CPTGraphLayerType.
@@ -288,7 +288,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 
     [self.fill fillRect:self.bounds inContext:context];
 
-    CPTAxisArray theAxes = self.axisSet.axes;
+    CPTAxisArray *theAxes = self.axisSet.axes;
 
     for ( CPTAxis *axis in theAxes ) {
         [axis drawBackgroundBandsInContext:context];
@@ -353,7 +353,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     }
 }
 
--(CPTSublayerSet)sublayersExcludedFromAutomaticLayout
+-(CPTSublayerSet *)sublayersExcludedFromAutomaticLayout
 {
     CPTGridLineGroup *minorGrid = self.minorGridLineGroup;
     CPTGridLineGroup *majorGrid = self.majorGridLineGroup;
@@ -363,7 +363,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     CPTAxisLabelGroup *titles   = self.axisTitleGroup;
 
     if ( minorGrid || majorGrid || theAxisSet || thePlotGroup || labels || titles ) {
-        CPTMutableSublayerSet excludedSublayers = [[super sublayersExcludedFromAutomaticLayout] mutableCopy];
+        CPTMutableSublayerSet *excludedSublayers = [[super sublayersExcludedFromAutomaticLayout] mutableCopy];
         if ( !excludedSublayers ) {
             excludedSublayers = [NSMutableSet set];
         }

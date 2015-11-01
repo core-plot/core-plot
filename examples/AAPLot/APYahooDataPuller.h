@@ -2,7 +2,7 @@
 
 @class APYahooDataPuller;
 
-typedef NSArray<CPTDictionary *> *CPTFinancialDataArray;
+typedef NSArray<CPTDictionary *> CPTFinancialDataArray;
 
 @protocol APYahooDataPullerDelegate
 
@@ -21,7 +21,7 @@ typedef NSArray<CPTDictionary *> *CPTFinancialDataArray;
 @property (nonatomic, readwrite, copy) NSString *targetSymbol;
 @property (nonatomic, readwrite, strong) NSDate *targetStartDate;
 @property (nonatomic, readwrite, strong) NSDate *targetEndDate;
-@property (nonatomic, readonly, strong) CPTFinancialDataArray financialData;
+@property (nonatomic, readonly, strong) CPTFinancialDataArray *financialData;
 @property (nonatomic, readonly, strong) NSDecimalNumber *overallHigh;
 @property (nonatomic, readonly, strong) NSDecimalNumber *overallLow;
 @property (nonatomic, readonly, strong) NSDecimalNumber *overallVolumeHigh;

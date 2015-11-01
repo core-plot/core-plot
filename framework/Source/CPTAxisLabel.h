@@ -9,12 +9,12 @@
 /**
  *  @brief A set of CPTAxisLabel objects.
  **/
-typedef NSSet<CPTAxisLabel *> *CPTAxisLabelSet;
+typedef NSSet<CPTAxisLabel *> CPTAxisLabelSet;
 
 /**
  *  @brief A mutable set of CPTAxisLabel objects.
  **/
-typedef NSMutableSet<CPTAxisLabel *> *CPTMutableAxisLabelSet;
+typedef NSMutableSet<CPTAxisLabel *> CPTMutableAxisLabelSet;
 
 @interface CPTAxisLabel : NSObject<NSCoding>
 

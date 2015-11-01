@@ -81,7 +81,7 @@
  **/
 @dynamic byteOrder;
 
-/** @property CPTNumberArray * shape
+/** @property CPTNumberArray *shape
  *  @brief The shape of the data buffer array.
  *
  *  The shape describes the dimensions of the sample array stored in

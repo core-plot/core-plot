@@ -127,7 +127,7 @@
         num = @(index + 1);
     }
     else if ( fieldEnum == CPTScatterPlotFieldY ) {
-        CPTFinancialDataArray financialData = self.dataPuller.financialData;
+        CPTFinancialDataArray *financialData = self.dataPuller.financialData;
 
         CPTDictionary *fData = financialData[[financialData count] - index - 1];
         num = fData[@"close"];

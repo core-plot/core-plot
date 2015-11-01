@@ -30,8 +30,8 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 /// @cond
 @interface CPTGraph()
 
-@property (nonatomic, readwrite, strong, nonnull) CPTMutablePlotArray plots;
-@property (nonatomic, readwrite, strong, nonnull) CPTMutablePlotSpaceArray plotSpaces;
+@property (nonatomic, readwrite, strong, nonnull) CPTMutablePlotArray *plots;
+@property (nonatomic, readwrite, strong, nonnull) CPTMutablePlotSpaceArray *plotSpaces;
 @property (nonatomic, readwrite, strong) CPTLayerAnnotation *titleAnnotation;
 @property (nonatomic, readwrite, strong) CPTLayerAnnotation *legendAnnotation;
 @property (nonatomic, readwrite, assign) BOOL inTitleUpdate;
@@ -83,12 +83,12 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 
 /// @cond
 
-/** @property CPTMutablePlotArray plots
+/** @property CPTMutablePlotArray *plots
  *  @brief An array of all plots associated with the graph.
  **/
 @synthesize plots;
 
-/** @property CPTMutablePlotSpaceArray plotSpaces
+/** @property CPTMutablePlotSpaceArray *plotSpaces
  *  @brief An array of all plot spaces associated with the graph.
  **/
 @synthesize plotSpaces;
@@ -100,7 +100,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
  **/
 @dynamic defaultPlotSpace;
 
-/** @property CPTNumberArray * topDownLayerOrder
+/** @property CPTNumberArray *topDownLayerOrder
  *  @brief An array of graph layers to be drawn in an order other than the default.
  *  @see CPTPlotArea @link CPTPlotArea::topDownLayerOrder topDownLayerOrder @endlink property.
  **/
@@ -313,7 +313,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
         hostingView   = [coder decodeObjectForKey:@"CPTGraph.hostingView"];
         plotAreaFrame = [coder decodeObjectForKey:@"CPTGraph.plotAreaFrame"];
 
-        CPTPlotArray plotArray = [coder decodeObjectForKey:@"CPTGraph.plots"];
+        CPTPlotArray *plotArray = [coder decodeObjectForKey:@"CPTGraph.plots"];
         if ( plotArray ) {
             plots = [plotArray mutableCopy];
         }
@@ -321,7 +321,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
             plots = [[NSMutableArray alloc] init];
         }
 
-        CPTPlotSpaceArray plotSpaceArray = [coder decodeObjectForKey:@"CPTGraph.plotSpaces"];
+        CPTPlotSpaceArray *plotSpaceArray = [coder decodeObjectForKey:@"CPTGraph.plotSpaces"];
         if ( plotSpaceArray ) {
             plotSpaces = [plotSpaceArray mutableCopy];
         }
@@ -409,7 +409,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 /** @brief All plots associated with the graph.
  *  @return An array of all plots associated with the graph.
  **/
--(CPTPlotArray)allPlots
+-(CPTPlotArray *)allPlots
 {
     return [NSArray arrayWithArray:self.plots];
 }
@@ -533,7 +533,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 /** @brief All plot spaces associated with the graph.
  *  @return An array of all plot spaces associated with the graph.
  **/
--(CPTPlotSpaceArray)allPlotSpaces
+-(CPTPlotSpaceArray *)allPlotSpaces
 {
     return [NSArray arrayWithArray:self.plotSpaces];
 }

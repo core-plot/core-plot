@@ -27,8 +27,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 /// @cond
 @interface CPTLegend()
 
-@property (nonatomic, readwrite, strong) CPTMutablePlotArray plots;
-@property (nonatomic, readwrite, strong) CPTMutableLegendEntryArray legendEntries;
+@property (nonatomic, readwrite, strong) CPTMutablePlotArray *plots;
+@property (nonatomic, readwrite, strong) CPTMutableLegendEntryArray *legendEntries;
 @property (nonatomic, readwrite, strong) CPTNumberArray *rowHeightsThatFit;
 @property (nonatomic, readwrite, strong) CPTNumberArray *columnWidthsThatFit;
 @property (nonatomic, readwrite, assign) BOOL layoutChanged;
@@ -160,7 +160,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  **/
 @synthesize equalColumns;
 
-/** @property CPTNumberArray * rowHeights
+/** @property CPTNumberArray *rowHeights
  *  @brief The desired height of each row of legend entries, including the swatch and title.
  *  Each element in this array should be an NSNumber representing the height of the corresponding row in device units.
  *  Rows are numbered from top to bottom starting from zero (@num{0}). If @nil, all rows will be sized automatically.
@@ -169,14 +169,14 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  **/
 @synthesize rowHeights;
 
-/** @property CPTNumberArray * rowHeightsThatFit
+/** @property CPTNumberArray *rowHeightsThatFit
  *  @brief The computed best-fit height of each row of legend entries, including the swatch and title.
  *  Each element in this array is an NSNumber representing the height of the corresponding row in device units.
  *  Rows are numbered from top to bottom starting from zero (@num{0}).
  **/
 @synthesize rowHeightsThatFit;
 
-/** @property CPTNumberArray * columnWidths
+/** @property CPTNumberArray *columnWidths
  *  @brief The desired width of each column of legend entries, including the swatch, title, and title offset.
  *  Each element in this array should be an NSNumber representing the width of the corresponding column in device units.
  *  Columns are numbered from left to right starting from zero (@num{0}). If @nil, all columns will be sized automatically.
@@ -185,7 +185,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  **/
 @synthesize columnWidths;
 
-/** @property CPTNumberArray * columnWidthsThatFit
+/** @property CPTNumberArray *columnWidthsThatFit
  *  @brief The computed best-fit width of each column of legend entries, including the swatch, title, and title offset.
  *  Each element in this array is an NSNumber representing the width of the corresponding column in device units.
  *  Columns are numbered from left to right starting from zero (@num{0}).
@@ -207,12 +207,12 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  **/
 @synthesize titleOffset;
 
-/** @property CPTMutablePlotArray plots
+/** @property CPTMutablePlotArray *plots
  *  @brief An array of all plots associated with the legend.
  **/
 @synthesize plots;
 
-/** @property CPTMutableLegendEntryArray legendEntries
+/** @property CPTMutableLegendEntryArray *legendEntries
  *  @brief An array of all legend entries.
  **/
 @synthesize legendEntries;
@@ -235,7 +235,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  *  @param newPlots An array of plots.
  *  @return A new CPTLegend instance.
  **/
-+(instancetype)legendWithPlots:(CPTPlotArray)newPlots
++(instancetype)legendWithPlots:(CPTPlotArray *)newPlots
 {
     return [[self alloc] initWithPlots:newPlots];
 }
@@ -339,7 +339,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  *  @param newPlots An array of plots.
  *  @return The initialized CPTLegend object.
  **/
--(instancetype)initWithPlots:(CPTPlotArray)newPlots
+-(instancetype)initWithPlots:(CPTPlotArray *)newPlots
 {
     if ( (self = [self initWithFrame:CGRectZero]) ) {
         for ( CPTPlot *plot in newPlots ) {
@@ -830,7 +830,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 /** @brief All plots associated with the legend.
  *  @return An array of all plots associated with the legend.
  **/
--(CPTPlotArray)allPlots
+-(CPTPlotArray *)allPlots
 {
     return [NSArray arrayWithArray:self.plots];
 }
@@ -875,9 +875,9 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
         [self.plots addObject:plot];
         self.layoutChanged = YES;
 
-        CPTMutableLegendEntryArray theLegendEntries = self.legendEntries;
-        CPTTextStyle *theTextStyle                  = self.textStyle;
-        NSUInteger numberOfLegendEntries            = [plot numberOfLegendEntries];
+        CPTMutableLegendEntryArray *theLegendEntries = self.legendEntries;
+        CPTTextStyle *theTextStyle                   = self.textStyle;
+        NSUInteger numberOfLegendEntries             = [plot numberOfLegendEntries];
         for ( NSUInteger i = 0; i < numberOfLegendEntries; i++ ) {
             NSString *newTitle = [plot titleForLegendEntryAtIndex:i];
             if ( newTitle ) {
@@ -901,11 +901,11 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 -(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)idx
 {
     if ( [plot isKindOfClass:[CPTPlot class]] ) {
-        CPTMutablePlotArray thePlots = self.plots;
+        CPTMutablePlotArray *thePlots = self.plots;
         NSAssert(idx <= thePlots.count, @"index greater than the number of plots");
 
-        CPTMutableLegendEntryArray theLegendEntries = self.legendEntries;
-        NSUInteger legendEntryIndex                 = 0;
+        CPTMutableLegendEntryArray *theLegendEntries = self.legendEntries;
+        NSUInteger legendEntryIndex                  = 0;
         if ( idx == thePlots.count ) {
             legendEntryIndex = theLegendEntries.count;
         }
@@ -983,8 +983,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  **/
 -(void)removeLegendEntriesForPlot:(CPTPlot *)plot
 {
-    CPTMutableLegendEntryArray theLegendEntries = self.legendEntries;
-    CPTMutableLegendEntryArray entriesToRemove  = [[NSMutableArray alloc] init];
+    CPTMutableLegendEntryArray *theLegendEntries = self.legendEntries;
+    CPTMutableLegendEntryArray *entriesToRemove  = [[NSMutableArray alloc] init];
 
     for ( CPTLegendEntry *legendEntry in theLegendEntries ) {
         if ( legendEntry.plot == plot ) {
@@ -1016,7 +1016,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 {
     CPTPlot *thePlot = (CPTPlot *)notif.object;
 
-    CPTMutableLegendEntryArray theLegendEntries = self.legendEntries;
+    CPTMutableLegendEntryArray *theLegendEntries = self.legendEntries;
 
     NSUInteger legendEntryIndex = 0;
 

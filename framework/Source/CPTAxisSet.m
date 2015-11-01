@@ -9,7 +9,7 @@
  **/
 @implementation CPTAxisSet
 
-/** @property CPTAxisArray axes
+/** @property CPTAxisArray *axes
  *  @brief The axes in the axis set.
  **/
 @synthesize axes;
@@ -110,7 +110,7 @@
  **/
 -(void)relabelAxes
 {
-    CPTAxisArray theAxes = self.axes;
+    CPTAxisArray *theAxes = self.axes;
 
     [theAxes makeObjectsPerformSelector:@selector(setNeedsLayout)];
     [theAxes makeObjectsPerformSelector:@selector(setNeedsRelabel)];
@@ -210,7 +210,7 @@
 
 /// @cond
 
--(void)setAxes:(CPTAxisArray)newAxes
+-(void)setAxes:(CPTAxisArray *)newAxes
 {
     if ( newAxes != axes ) {
         for ( CPTAxis *axis in axes ) {

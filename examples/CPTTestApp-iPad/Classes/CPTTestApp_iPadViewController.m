@@ -130,9 +130,9 @@
     x.majorIntervalLength   = @0.5;
     x.orthogonalPosition    = @2.0;
     x.minorTicksPerInterval = 2;
-    CPTPlotRangeArray exclusionRanges = @[[CPTPlotRange plotRangeWithLocation:@1.99 length:@0.02],
-                                          [CPTPlotRange plotRangeWithLocation:@0.99 length:@0.02],
-                                          [CPTPlotRange plotRangeWithLocation:@2.99 length:@0.02]];
+    CPTPlotRangeArray *exclusionRanges = @[[CPTPlotRange plotRangeWithLocation:@1.99 length:@0.02],
+                                           [CPTPlotRange plotRangeWithLocation:@0.99 length:@0.02],
+                                           [CPTPlotRange plotRangeWithLocation:@2.99 length:@0.02]];
     x.labelExclusionRanges = exclusionRanges;
 
     CPTXYAxis *y = axisSet.yAxis;
@@ -254,10 +254,10 @@
     // Define some custom labels for the data elements
     x.labelRotation  = CPTFloat(M_PI_4);
     x.labelingPolicy = CPTAxisLabelingPolicyNone;
-    CPTNumberArray *customTickLocations = @[@1, @5, @10, @15];
-    CPTStringArray *xAxisLabels         = @[@"Label A", @"Label B", @"Label C", @"Label D"];
-    NSUInteger labelLocation            = 0;
-    CPTMutableAxisLabelSet customLabels = [NSMutableSet setWithCapacity:[xAxisLabels count]];
+    CPTNumberArray *customTickLocations  = @[@1, @5, @10, @15];
+    CPTStringArray *xAxisLabels          = @[@"Label A", @"Label B", @"Label C", @"Label D"];
+    NSUInteger labelLocation             = 0;
+    CPTMutableAxisLabelSet *customLabels = [NSMutableSet setWithCapacity:[xAxisLabels count]];
     for ( NSNumber *tickLocation in customTickLocations ) {
         CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:xAxisLabels[labelLocation++] textStyle:x.labelTextStyle];
         newLabel.tickLocation = tickLocation;

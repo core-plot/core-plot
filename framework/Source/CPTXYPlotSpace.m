@@ -17,7 +17,7 @@
 #import <tgmath.h>
 
 /// @cond
-typedef NSMutableArray<CPTAnimationOperation *> *CPTMutableAnimationArray;
+typedef NSMutableArray<CPTAnimationOperation *> CPTMutableAnimationArray;
 
 @interface CPTXYPlotSpace()
 
@@ -48,7 +48,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
 @property (nonatomic, readwrite) CGPoint lastDisplacement;
 @property (nonatomic, readwrite) NSTimeInterval lastDragTime;
 @property (nonatomic, readwrite) NSTimeInterval lastDeltaTime;
-@property (nonatomic, readwrite, retain, nonnull) CPTMutableAnimationArray animations;
+@property (nonatomic, readwrite, retain, nonnull) CPTMutableAnimationArray *animations;
 
 @end
 
@@ -526,7 +526,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
 
 -(void)animateRangeForCoordinate:(CPTCoordinate)coordinate shift:(NSDecimal)shift momentumTime:(CGFloat)momentumTime speed:(CGFloat)speed acceleration:(CGFloat)acceleration
 {
-    CPTMutableAnimationArray animationArray = self.animations;
+    CPTMutableAnimationArray *animationArray = self.animations;
     CPTAnimationOperation *op;
 
     NSString *property        = nil;
@@ -744,7 +744,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
     }
 }
 
--(void)scaleToFitPlots:(CPTPlotArray)plots
+-(void)scaleToFitPlots:(CPTPlotArray *)plots
 {
     if ( plots.count == 0 ) {
         return;
@@ -1482,7 +1482,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         self.lastDeltaTime    = 0.0;
 
         // Clear any previous animations
-        CPTMutableAnimationArray animationArray = self.animations;
+        CPTMutableAnimationArray *animationArray = self.animations;
         for ( CPTAnimationOperation *op in animationArray ) {
             [[CPTAnimation sharedInstance] removeAnimationOperation:op];
         }

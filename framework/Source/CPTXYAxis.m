@@ -480,8 +480,8 @@
 
 -(void)drawBackgroundBandsInContext:(CGContextRef)context
 {
-    CPTFillArray bandArray = self.alternatingBandFills;
-    NSUInteger bandCount   = bandArray.count;
+    CPTFillArray *bandArray = self.alternatingBandFills;
+    NSUInteger bandCount    = bandArray.count;
 
     if ( bandCount > 0 ) {
         CPTNumberArray *locations = [self.majorTickLocations allObjects];
@@ -603,7 +603,7 @@
 
 -(void)drawBackgroundLimitsInContext:(CGContextRef)context
 {
-    CPTLimitBandArray limitArray = self.backgroundLimitBands;
+    CPTLimitBandArray *limitArray = self.backgroundLimitBands;
 
     if ( limitArray.count > 0 ) {
         CPTPlotSpace *thePlotSpace = self.plotSpace;

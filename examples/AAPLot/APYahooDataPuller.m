@@ -9,7 +9,7 @@
 @property (nonatomic, readwrite, strong) NSDecimalNumber *overallLow;
 @property (nonatomic, readwrite, strong) NSDecimalNumber *overallVolumeHigh;
 @property (nonatomic, readwrite, strong) NSDecimalNumber *overallVolumeLow;
-@property (nonatomic, readwrite, strong) CPTFinancialDataArray financialData;
+@property (nonatomic, readwrite, strong) CPTFinancialDataArray *financialData;
 
 @property (nonatomic, readwrite, assign) BOOL loadingData;
 @property (nonatomic, readwrite, strong) NSMutableData *receivedData;

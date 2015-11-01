@@ -55,7 +55,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
 @property (nonatomic, readwrite, assign) BOOL needsRelabel;
 @property (nonatomic, readwrite, assign) NSRange labelIndexRange;
-@property (nonatomic, readwrite, strong) CPTMutableAnnotationArray labelAnnotations;
+@property (nonatomic, readwrite, strong) CPTMutableAnnotationArray *labelAnnotations;
 @property (nonatomic, readwrite, copy) NSArray<CPTLayer *> *dataLabels;
 
 @property (nonatomic, readwrite, assign) NSUInteger pointingDeviceDownLabelIndex;
@@ -1570,11 +1570,11 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         self.labelAnnotations = [NSMutableArray arrayWithCapacity:sampleCount];
     }
 
-    CPTPlotSpace *thePlotSpace           = self.plotSpace;
-    CGFloat theRotation                  = self.labelRotation;
-    CPTMutableAnnotationArray labelArray = self.labelAnnotations;
-    NSUInteger oldLabelCount             = labelArray.count;
-    id nilObject                         = [CPTPlot nilData];
+    CPTPlotSpace *thePlotSpace            = self.plotSpace;
+    CGFloat theRotation                   = self.labelRotation;
+    CPTMutableAnnotationArray *labelArray = self.labelAnnotations;
+    NSUInteger oldLabelCount              = labelArray.count;
+    id nilObject                          = [CPTPlot nilData];
 
     CPTMutableNumericData *labelFieldDataCache = [self cachedNumbersForField:self.labelField];
     CPTShadow *theShadow                       = self.labelShadow;
@@ -1695,9 +1695,9 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  **/
 -(void)repositionAllLabelAnnotations
 {
-    CPTAnnotationArray annotations = self.labelAnnotations;
-    NSUInteger labelCount          = annotations.count;
-    Class annotationClass          = [CPTAnnotation class];
+    CPTAnnotationArray *annotations = self.labelAnnotations;
+    NSUInteger labelCount           = annotations.count;
+    Class annotationClass           = [CPTAnnotation class];
 
     for ( NSUInteger i = 0; i < labelCount; i++ ) {
         CPTPlotSpaceAnnotation *annotation = annotations[i];
@@ -1841,9 +1841,9 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
          [theDelegate respondsToSelector:@selector(plot:dataLabelWasSelectedAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(plot:dataLabelWasSelectedAtRecordIndex:withEvent:)] ) {
         // Inform delegate if a label was hit
-        CPTMutableAnnotationArray labelArray = self.labelAnnotations;
-        NSUInteger labelCount                = labelArray.count;
-        Class annotationClass                = [CPTAnnotation class];
+        CPTMutableAnnotationArray *labelArray = self.labelAnnotations;
+        NSUInteger labelCount                 = labelArray.count;
+        Class annotationClass                 = [CPTAnnotation class];
 
         for ( NSUInteger idx = 0; idx < labelCount; idx++ ) {
             CPTPlotSpaceAnnotation *annotation = labelArray[idx];
@@ -1919,9 +1919,9 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
          [theDelegate respondsToSelector:@selector(plot:dataLabelWasSelectedAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(plot:dataLabelWasSelectedAtRecordIndex:withEvent:)] ) {
         // Inform delegate if a label was hit
-        CPTMutableAnnotationArray labelArray = self.labelAnnotations;
-        NSUInteger labelCount                = labelArray.count;
-        Class annotationClass                = [CPTAnnotation class];
+        CPTMutableAnnotationArray *labelArray = self.labelAnnotations;
+        NSUInteger labelCount                 = labelArray.count;
+        Class annotationClass                 = [CPTAnnotation class];
 
         for ( NSUInteger idx = 0; idx < labelCount; idx++ ) {
             CPTPlotSpaceAnnotation *annotation = labelArray[idx];

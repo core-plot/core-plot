@@ -201,19 +201,19 @@ extern NSString *__nonnull const CPTLegendNeedsReloadEntriesForPlotNotification;
 
 /// @name Factory Methods
 /// @{
-+(nonnull instancetype)legendWithPlots:(nullable CPTPlotArray)newPlots;
++(nonnull instancetype)legendWithPlots:(nullable CPTPlotArray *)newPlots;
 +(nonnull instancetype)legendWithGraph:(nullable __kindof CPTGraph *)graph;
 /// @}
 
 /// @name Initialization
 /// @{
--(nonnull instancetype)initWithPlots:(nullable CPTPlotArray)newPlots;
+-(nonnull instancetype)initWithPlots:(nullable CPTPlotArray *)newPlots;
 -(nonnull instancetype)initWithGraph:(nullable __kindof CPTGraph *)graph;
 /// @}
 
 /// @name Plots
 /// @{
--(nonnull CPTPlotArray)allPlots;
+-(nonnull CPTPlotArray *)allPlots;
 -(nullable CPTPlot *)plotAtIndex:(NSUInteger)idx;
 -(nullable CPTPlot *)plotWithIdentifier:(nullable id<NSCopying>)identifier;
 

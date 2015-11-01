@@ -9,12 +9,12 @@
 /**
  *  @brief An array of CPTLegendEntry objects.
  **/
-typedef NSArray<CPTLegendEntry *> *CPTLegendEntryArray;
+typedef NSArray<CPTLegendEntry *> CPTLegendEntryArray;
 
 /**
  *  @brief A mutable array of CPTLegendEntry objects.
  **/
-typedef NSMutableArray<CPTLegendEntry *> *CPTMutableLegendEntryArray;
+typedef NSMutableArray<CPTLegendEntry *> CPTMutableLegendEntryArray;
 
 @interface CPTLegendEntry : NSObject<NSCoding>
 

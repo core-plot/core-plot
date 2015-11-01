@@ -9,12 +9,13 @@
 /**
  *  @brief An array of annotations.
  **/
-typedef NSArray<__kindof CPTAnnotation *> *CPTAnnotationArray;
+typedef NSArray<__kindof CPTAnnotation *> CPTAnnotationArray;
 
 /**
  *  @brief A mutable array of annotations.
  **/
-typedef NSMutableArray<__kindof CPTAnnotation *> *CPTMutableAnnotationArray;
+typedef NSMutableArray<__kindof CPTAnnotation *> CPTMutableAnnotationArray
+;
 
 @interface CPTAnnotation : NSObject<NSCoding>
 

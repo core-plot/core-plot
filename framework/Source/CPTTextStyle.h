@@ -7,12 +7,12 @@
 /**
  *  @brief An array of text styles.
  **/
-typedef NSArray<CPTTextStyle *> *CPTTextStyleArray;
+typedef NSArray<CPTTextStyle *> CPTTextStyleArray;
 
 /**
  *  @brief A mutable array of text styles.
  **/
-typedef NSMutableArray<CPTTextStyle *> *CPTMutableTextStyleArray;
+typedef NSMutableArray<CPTTextStyle *> CPTMutableTextStyleArray;
 
 @interface CPTTextStyle : NSObject<NSCoding, NSCopying, NSMutableCopying>
 

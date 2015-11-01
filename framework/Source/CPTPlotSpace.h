@@ -156,12 +156,12 @@ extern NSString *__nonnull const CPTPlotSpaceDisplacementKey;
 /**
  *  @brief An array of plot spaces.
  **/
-typedef NSArray<__kindof CPTPlotSpace *> *CPTPlotSpaceArray;
+typedef NSArray<__kindof CPTPlotSpace *> CPTPlotSpaceArray;
 
 /**
  *  @brief A mutable array of plot spaces.
  **/
-typedef NSMutableArray<__kindof CPTPlotSpace *> *CPTMutablePlotSpaceArray;
+typedef NSMutableArray<__kindof CPTPlotSpace *> CPTMutablePlotSpaceArray;
 
 #pragma mark -
 
@@ -234,8 +234,8 @@ typedef NSMutableArray<__kindof CPTPlotSpace *> *CPTMutablePlotSpaceArray;
 
 /// @name Adjusting Ranges
 /// @{
--(void)scaleToFitPlots:(nullable CPTPlotArray)plots;
--(void)scaleToFitPlots:(nullable CPTPlotArray)plots forCoordinate:(CPTCoordinate)coordinate;
+-(void)scaleToFitPlots:(nullable CPTPlotArray *)plots;
+-(void)scaleToFitPlots:(nullable CPTPlotArray *)plots forCoordinate:(CPTCoordinate)coordinate;
 -(void)scaleBy:(CGFloat)interactionScale aboutPoint:(CGPoint)interactionPoint;
 /// @}
 

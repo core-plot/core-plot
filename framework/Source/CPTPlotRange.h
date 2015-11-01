@@ -16,12 +16,12 @@ typedef NS_ENUM (NSInteger, CPTPlotRangeComparisonResult) {
 /**
  *  @brief An array of plot ranges.
  **/
-typedef NSArray<CPTPlotRange *> *CPTPlotRangeArray;
+typedef NSArray<CPTPlotRange *> CPTPlotRangeArray;
 
 /**
  *  @brief A mutable array of plot ranges.
  **/
-typedef NSMutableArray<CPTPlotRange *> *CPTMutablePlotRangeArray;
+typedef NSMutableArray<CPTPlotRange *> CPTMutablePlotRangeArray;
 
 @interface CPTPlotRange : NSObject<NSCoding, NSCopying, NSMutableCopying>
 

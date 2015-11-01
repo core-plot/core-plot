@@ -61,7 +61,7 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotHistogramOption) {
  *  @param indexRange The range of the data indexes of interest.
  *  @return An array of plot symbols.
  **/
--(nullable CPTPlotSymbolArray)symbolsForScatterPlot:(nonnull CPTScatterPlot *)plot recordIndexRange:(NSRange)indexRange;
+-(nullable CPTPlotSymbolArray *)symbolsForScatterPlot:(nonnull CPTScatterPlot *)plot recordIndexRange:(NSRange)indexRange;
 
 /** @brief @optional Gets a single plot symbol for the given scatter plot.
  *  This method will not be called if
@@ -238,7 +238,7 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotHistogramOption) {
 
 /// @name Area Fill Bands
 /// @{
-@property (nonatomic, readonly, nullable) CPTLimitBandArray areaFillBands;
+@property (nonatomic, readonly, nullable) CPTLimitBandArray *areaFillBands;
 /// @}
 
 /// @name Drawing

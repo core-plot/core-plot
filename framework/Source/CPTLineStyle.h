@@ -10,12 +10,12 @@
 /**
  *  @brief An array of line styles.
  **/
-typedef NSArray<CPTLineStyle *> *CPTLineStyleArray;
+typedef NSArray<CPTLineStyle *> CPTLineStyleArray;
 
 /**
  *  @brief A mutable array of line styles.
  **/
-typedef NSMutableArray<CPTLineStyle *> *CPTMutableLineStyleArray;
+typedef NSMutableArray<CPTLineStyle *> CPTMutableLineStyleArray;
 
 @interface CPTLineStyle : NSObject<NSCoding, NSCopying, NSMutableCopying>
 

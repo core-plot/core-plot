@@ -123,7 +123,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
  **/
 @dynamic sublayerMaskingPath;
 
-/** @property CPTSublayerSet sublayersExcludedFromAutomaticLayout
+/** @property CPTSublayerSet *sublayersExcludedFromAutomaticLayout
  *  @brief A set of sublayers that should be excluded from the automatic sublayer layout.
  **/
 @dynamic sublayersExcludedFromAutomaticLayout;
@@ -367,7 +367,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
         self.renderingRecursively = NO;
 
         // render sublayers
-        CPTSublayerArray sublayersCopy = [self.sublayers copy];
+        CPTSublayerArray *sublayersCopy = [self.sublayers copy];
         for ( CALayer *currentSublayer in sublayersCopy ) {
             CGContextSaveGState(context);
 
@@ -615,7 +615,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 {
     CGRect selfBounds = self.bounds;
 
-    CPTSublayerArray mySublayers = self.sublayers;
+    CPTSublayerArray *mySublayers = self.sublayers;
 
     if ( mySublayers.count > 0 ) {
         CGFloat leftPadding, topPadding, rightPadding, bottomPadding;
@@ -634,8 +634,8 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
         subLayerFrame.origin = CGPointMake( round(leftPadding), round(bottomPadding) );
         subLayerFrame.size   = subLayerSize;
 
-        CPTSublayerSet excludedSublayers = [self sublayersExcludedFromAutomaticLayout];
-        Class layerClass                 = [CPTLayer class];
+        CPTSublayerSet *excludedSublayers = [self sublayersExcludedFromAutomaticLayout];
+        Class layerClass                  = [CPTLayer class];
         for ( CALayer *subLayer in mySublayers ) {
             if ( [subLayer isKindOfClass:layerClass] && ![excludedSublayers containsObject:subLayer] ) {
                 subLayer.frame = subLayerFrame;
@@ -646,7 +646,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 
 /// @}
 
--(CPTSublayerSet)sublayersExcludedFromAutomaticLayout
+-(CPTSublayerSet *)sublayersExcludedFromAutomaticLayout
 {
     return nil;
 }
@@ -670,7 +670,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 
 /// @cond
 
--(void)setSublayers:(CPTSublayerArray)sublayers
+-(void)setSublayers:(CPTSublayerArray *)sublayers
 {
     [super setSublayers:sublayers];
 

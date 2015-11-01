@@ -29,7 +29,7 @@
  **/
 @dynamic mutableBytes;
 
-/** @property CPTNumberArray * shape
+/** @property CPTNumberArray *shape
  *  @brief The shape of the data buffer array. Set a new shape to change the size of the data buffer.
  *
  *  The shape describes the dimensions of the sample array stored in

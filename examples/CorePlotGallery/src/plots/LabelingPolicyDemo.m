@@ -95,7 +95,7 @@
     axisNone.majorTickLocations = majorTickLocations;
     axisNone.minorTickLocations = minorTickLocations;
 
-    CPTMutableAxisLabelSet newAxisLabels = [NSMutableSet set];
+    CPTMutableAxisLabelSet *newAxisLabels = [NSMutableSet set];
     for ( NSUInteger i = 0; i <= 5; i++ ) {
         CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"Label %lu", (unsigned long)i]
                                                           textStyle:axisNone.labelTextStyle];

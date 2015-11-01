@@ -31,12 +31,12 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
 /**
  *  @brief An array of plots.
  **/
-typedef NSArray<__kindof CPTPlot *> *CPTPlotArray;
+typedef NSArray<__kindof CPTPlot *> CPTPlotArray;
 
 /**
  *  @brief A mutable array of plots.
  **/
-typedef NSMutableArray<__kindof CPTPlot *> *CPTMutablePlotArray;
+typedef NSMutableArray<__kindof CPTPlot *> CPTMutablePlotArray;
 
 #pragma mark -
 

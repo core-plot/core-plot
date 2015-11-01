@@ -65,7 +65,7 @@
  **/
 @synthesize lineWidth;
 
-/** @property CPTNumberArray * dashPattern
+/** @property CPTNumberArray *dashPattern
  *  @brief The dash-and-space pattern for the line. Default is @nil.
  **/
 @synthesize dashPattern;

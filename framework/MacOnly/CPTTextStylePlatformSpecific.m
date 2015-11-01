@@ -6,7 +6,7 @@
 
 @implementation CPTTextStyle(CPTPlatformSpecificTextStyleExtensions)
 
-/** @property CPTDictionary * attributes
+/** @property CPTDictionary *attributes
  *  @brief A dictionary of standard text attributes suitable for formatting an NSAttributedString.
  *
  *  The dictionary will contain values for the following keys that represent the receiver's text style:

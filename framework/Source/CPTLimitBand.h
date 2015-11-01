@@ -7,12 +7,12 @@
 /**
  *  @brief An array of limit bands.
  **/
-typedef NSArray<CPTLimitBand *> *CPTLimitBandArray;
+typedef NSArray<CPTLimitBand *> CPTLimitBandArray;
 
 /**
  *  @brief A mutable array of limit bands.
  **/
-typedef NSMutableArray<CPTLimitBand *> *CPTMutableLimitBandArray;
+typedef NSMutableArray<CPTLimitBand *> CPTMutableLimitBandArray;
 
 @interface CPTLimitBand : NSObject<NSCoding, NSCopying>
 

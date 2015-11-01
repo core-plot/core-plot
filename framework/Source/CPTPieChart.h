@@ -49,7 +49,7 @@ typedef NS_ENUM (NSInteger, CPTPieDirection) {
  *  @param indexRange The range of the data indexes of interest.
  *  @return An array of pie slice fills.
  **/
--(nullable CPTFillArray)sliceFillsForPieChart:(nonnull CPTPieChart *)pieChart recordIndexRange:(NSRange)indexRange;
+-(nullable CPTFillArray *)sliceFillsForPieChart:(nonnull CPTPieChart *)pieChart recordIndexRange:(NSRange)indexRange;
 
 /** @brief @optional Gets a fill for the given pie chart slice.
  *  This method will not be called if

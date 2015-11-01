@@ -32,12 +32,12 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
 /**
  *  @brief An array of axes.
  **/
-typedef NSArray<__kindof CPTAxis *> *CPTAxisArray;
+typedef NSArray<__kindof CPTAxis *> CPTAxisArray;
 
 /**
  *  @brief A mutable array of axes.
  **/
-typedef NSMutableArray<__kindof CPTAxis *> *CPTMutableAxisArray;
+typedef NSMutableArray<__kindof CPTAxis *> CPTMutableAxisArray;
 
 #pragma mark -
 
@@ -236,10 +236,10 @@ typedef NSMutableArray<__kindof CPTAxis *> *CPTMutableAxisArray;
 @property (nonatomic, readwrite, assign) CPTSign minorTickLabelDirection;
 @property (nonatomic, readwrite, strong, nullable) NSFormatter *labelFormatter;
 @property (nonatomic, readwrite, strong, nullable) NSFormatter *minorTickLabelFormatter;
-@property (nonatomic, readwrite, strong, nullable) CPTAxisLabelSet axisLabels;
-@property (nonatomic, readwrite, strong, nullable) CPTAxisLabelSet minorTickAxisLabels;
+@property (nonatomic, readwrite, strong, nullable) CPTAxisLabelSet *axisLabels;
+@property (nonatomic, readwrite, strong, nullable) CPTAxisLabelSet *minorTickAxisLabels;
 @property (nonatomic, readonly) BOOL needsRelabel;
-@property (nonatomic, readwrite, strong, nullable) CPTPlotRangeArray labelExclusionRanges;
+@property (nonatomic, readwrite, strong, nullable) CPTPlotRangeArray *labelExclusionRanges;
 @property (nonatomic, readwrite, strong, nullable) CPTShadow *labelShadow;
 @property (nonatomic, readwrite, strong, nullable) CPTShadow *minorTickLabelShadow;
 /// @}
@@ -270,8 +270,8 @@ typedef NSMutableArray<__kindof CPTAxis *> *CPTMutableAxisArray;
 
 /// @name Background Bands
 /// @{
-@property (nonatomic, readwrite, copy, nullable) CPTFillArray alternatingBandFills;
-@property (nonatomic, readonly, nullable) CPTLimitBandArray backgroundLimitBands;
+@property (nonatomic, readwrite, copy, nullable) CPTFillArray *alternatingBandFills;
+@property (nonatomic, readonly, nullable) CPTLimitBandArray *backgroundLimitBands;
 /// @}
 
 /// @name Plot Space

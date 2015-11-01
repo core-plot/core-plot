@@ -20,22 +20,22 @@ extern NSString *__nonnull const CPTLayerBoundsDidChangeNotification;
 /**
  *  @brief An array of CALayer objects.
  **/
-typedef NSArray<CALayer *> *CPTSublayerArray;
+typedef NSArray<CALayer *> CPTSublayerArray;
 
 /**
  *  @brief A mutable array of CALayer objects.
  **/
-typedef NSMutableArray<CALayer *> *CPTMutableSublayerArray;
+typedef NSMutableArray<CALayer *> CPTMutableSublayerArray;
 
 /**
  *  @brief A set of CALayer objects.
  **/
-typedef NSSet<CALayer *> *CPTSublayerSet;
+typedef NSSet<CALayer *> CPTSublayerSet;
 
 /**
  *  @brief A mutable set of CALayer objects.
  **/
-typedef NSMutableSet<CALayer *> *CPTMutableSublayerSet;
+typedef NSMutableSet<CALayer *> CPTMutableSublayerSet;
 
 @interface CPTLayer : CALayer<CPTResponder>
 
@@ -76,7 +76,7 @@ typedef NSMutableSet<CALayer *> *CPTMutableSublayerSet;
 
 /// @name Layout
 /// @{
-@property (nonatomic, readonly, nullable) CPTSublayerSet sublayersExcludedFromAutomaticLayout;
+@property (nonatomic, readonly, nullable) CPTSublayerSet *sublayersExcludedFromAutomaticLayout;
 /// @}
 
 /// @name Initialization

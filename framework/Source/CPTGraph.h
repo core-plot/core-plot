@@ -99,7 +99,7 @@ typedef NS_ENUM (NSInteger, CPTGraphLayerType) {
 
 /// @name Retrieving Plots
 /// @{
--(nonnull CPTPlotArray)allPlots;
+-(nonnull CPTPlotArray *)allPlots;
 -(nullable CPTPlot *)plotAtIndex:(NSUInteger)idx;
 -(nullable CPTPlot *)plotWithIdentifier:(nullable id<NSCopying>)identifier;
 /// @}
@@ -116,7 +116,7 @@ typedef NS_ENUM (NSInteger, CPTGraphLayerType) {
 
 /// @name Retrieving Plot Spaces
 /// @{
--(nonnull CPTPlotSpaceArray)allPlotSpaces;
+-(nonnull CPTPlotSpaceArray *)allPlotSpaces;
 -(nullable CPTPlotSpace *)plotSpaceAtIndex:(NSUInteger)idx;
 -(nullable CPTPlotSpace *)plotSpaceWithIdentifier:(nullable id<NSCopying>)identifier;
 /// @}

@@ -38,7 +38,7 @@
 @property (nonatomic, readwrite, cpt_weak_property, nullable) cpt_weak CPTAxisLabel *pointingDeviceDownTickLabel;
 @property (nonatomic, readwrite, assign) BOOL labelFormatterChanged;
 @property (nonatomic, readwrite, assign) BOOL minorLabelFormatterChanged;
-@property (nonatomic, readwrite, strong, nullable) CPTMutableLimitBandArray mutableBackgroundLimitBands;
+@property (nonatomic, readwrite, strong, nullable) CPTMutableLimitBandArray *mutableBackgroundLimitBands;
 @property (nonatomic, readonly) CGFloat tickOffset;
 @property (nonatomic, readwrite, assign) BOOL inTitleUpdate;
 @property (nonatomic, readwrite, assign) BOOL labelsUpdated;
@@ -293,12 +293,12 @@ NSDecimal CPTNiceLength(NSDecimal length);
 @synthesize minorLabelFormatterChanged;
 @dynamic tickOffset;
 
-/** @property CPTAxisLabelSet axisLabels
+/** @property CPTAxisLabelSet *axisLabels
  *  @brief The set of axis labels.
  **/
 @synthesize axisLabels;
 
-/** @property CPTAxisLabelSet minorTickAxisLabels
+/** @property CPTAxisLabelSet *minorTickAxisLabels
  *  @brief The set of minor tick axis labels.
  **/
 @synthesize minorTickAxisLabels;
@@ -308,7 +308,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
  **/
 @synthesize needsRelabel;
 
-/** @property CPTPlotRangeArray labelExclusionRanges
+/** @property CPTPlotRangeArray *labelExclusionRanges
  *  @brief An array of CPTPlotRange objects. Any tick marks and labels falling inside any of the ranges in the array will not be drawn.
  **/
 @synthesize labelExclusionRanges;
@@ -341,7 +341,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
  **/
 @synthesize majorTickLength;
 
-/** @property CPTNumberSet * majorTickLocations
+/** @property CPTNumberSet *majorTickLocations
  *  @brief A set of axis coordinates for all major tick marks.
  **/
 @synthesize majorTickLocations;
@@ -372,7 +372,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
  **/
 @synthesize minorTickLength;
 
-/** @property CPTNumberSet * minorTickLocations
+/** @property CPTNumberSet *minorTickLocations
  *  @brief A set of axis coordinates for all minor tick marks.
  **/
 @synthesize minorTickLocations;
@@ -401,7 +401,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
 
 // Background Bands
 
-/** @property CPTFillArray alternatingBandFills
+/** @property CPTFillArray *alternatingBandFills
  *  @brief An array of two or more fills to be drawn between successive major tick marks.
  *
  *  When initializing the fills, provide an NSArray containing any combination of CPTFill,
@@ -410,7 +410,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
  **/
 @synthesize alternatingBandFills;
 
-/** @property CPTLimitBandArray backgroundLimitBands
+/** @property CPTLimitBandArray *backgroundLimitBands
  *  @brief An array of CPTLimitBand objects.
  *
  *  The limit bands are drawn on top of the alternating band fills.
@@ -1406,7 +1406,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
  */
 -(CPTNumberSet *)filteredTickLocations:(CPTNumberSet *)allLocations
 {
-    CPTPlotRangeArray exclusionRanges = self.labelExclusionRanges;
+    CPTPlotRangeArray *exclusionRanges = self.labelExclusionRanges;
 
     if ( exclusionRanges ) {
         CPTMutableNumberSet *filteredLocations = [allLocations mutableCopy];
@@ -1552,7 +1552,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
     CPTPlotArea *thePlotArea = self.plotArea;
     [thePlotArea setAxisSetLayersForType:CPTGraphLayerTypeAxisLabels];
 
-    CPTMutableAxisLabelSet oldAxisLabels;
+    CPTMutableAxisLabelSet *oldAxisLabels;
     if ( useMajorAxisLabels ) {
         oldAxisLabels = [self.axisLabels mutableCopy];
     }
@@ -1560,10 +1560,10 @@ NSDecimal CPTNiceLength(NSDecimal length)
         oldAxisLabels = [self.minorTickAxisLabels mutableCopy];
     }
 
-    CPTMutableAxisLabelSet newAxisLabels = [[NSMutableSet alloc] initWithCapacity:locations.count];
-    CPTAxisLabel *blankLabel             = [[CPTAxisLabel alloc] initWithText:nil textStyle:nil];
-    CPTAxisLabelGroup *axisLabelGroup    = thePlotArea.axisLabelGroup;
-    CPTLayer *lastLayer                  = nil;
+    CPTMutableAxisLabelSet *newAxisLabels = [[NSMutableSet alloc] initWithCapacity:locations.count];
+    CPTAxisLabel *blankLabel              = [[CPTAxisLabel alloc] initWithText:nil textStyle:nil];
+    CPTAxisLabelGroup *axisLabelGroup     = thePlotArea.axisLabelGroup;
+    CPTLayer *lastLayer                   = nil;
 
     for ( NSDecimalNumber *tickLocation in locations ) {
         if ( labeledRange && ![labeledRange containsNumber:tickLocation] ) {
@@ -2211,7 +2211,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
 
 /// @cond
 
--(void)setAxisLabels:(CPTAxisLabelSet)newLabels
+-(void)setAxisLabels:(CPTAxisLabelSet *)newLabels
 {
     if ( newLabels != axisLabels ) {
         if ( self.labelsUpdated ) {
@@ -2251,7 +2251,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
     }
 }
 
--(void)setMinorTickAxisLabels:(CPTAxisLabelSet)newLabels
+-(void)setMinorTickAxisLabels:(CPTAxisLabelSet *)newLabels
 {
     if ( newLabels != minorTickAxisLabels ) {
         if ( self.labelsUpdated ) {
@@ -2493,7 +2493,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
     }
 }
 
--(void)setLabelExclusionRanges:(CPTPlotRangeArray)ranges
+-(void)setLabelExclusionRanges:(CPTPlotRangeArray *)ranges
 {
     if ( ranges != labelExclusionRanges ) {
         labelExclusionRanges = ranges;
@@ -3068,7 +3068,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
     }
 }
 
--(void)setAlternatingBandFills:(CPTFillArray)newFills
+-(void)setAlternatingBandFills:(CPTFillArray *)newFills
 {
     if ( newFills != alternatingBandFills ) {
         Class nullClass = [NSNull class];
@@ -3090,9 +3090,9 @@ NSDecimal CPTNiceLength(NSDecimal length)
             Class gradientClass = [CPTGradient class];
             Class imageClass    = [CPTImage class];
 
-            CPTMutableFillArray fillArray = [newFills mutableCopy];
-            NSUInteger i                  = 0;
-            CPTFill *newFill              = nil;
+            CPTMutableFillArray *fillArray = [newFills mutableCopy];
+            NSUInteger i                   = 0;
+            CPTFill *newFill               = nil;
 
             for ( id obj in newFills ) {
                 if ( [obj isKindOfClass:nullClass] || [obj isKindOfClass:fillClass] ) {
@@ -3128,7 +3128,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
     }
 }
 
--(CPTLimitBandArray)backgroundLimitBands
+-(CPTLimitBandArray *)backgroundLimitBands
 {
     return [self.mutableBackgroundLimitBands copy];
 }

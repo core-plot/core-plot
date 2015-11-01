@@ -144,8 +144,8 @@
 
 -(CPTNumericData *)dataForPlot:(CPTPlot *)plot recordIndexRange:(NSRange)indexRange
 {
-    CPTFinancialDataArray financialData = self.datapuller.financialData;
-    const NSUInteger financialDataCount = financialData.count;
+    CPTFinancialDataArray *financialData = self.datapuller.financialData;
+    const NSUInteger financialDataCount  = financialData.count;
 
     const BOOL useDoubles = plot.doublePrecisionCache;
 
@@ -365,8 +365,8 @@
 
 -(CPTNumericData *)dataForPlot:(CPTPlot *)plot recordIndexRange:(NSRange)indexRange
 {
-    CPTFinancialDataArray financialData = self.datapuller.financialData;
-    const NSUInteger financialDataCount = financialData.count;
+    CPTFinancialDataArray *financialData = self.datapuller.financialData;
+    const NSUInteger financialDataCount  = financialData.count;
 
     const BOOL useDoubles = plot.doublePrecisionCache;
 
@@ -662,7 +662,7 @@
     axisSet.yAxis.majorIntervalLength   = @50.0;
     axisSet.yAxis.minorTicksPerInterval = 4;
     axisSet.yAxis.orthogonalPosition    = @1.0;
-    CPTPlotRangeArray exclusionRanges = @[[CPTPlotRange plotRangeWithLocation:@0.0 length:low]];
+    CPTPlotRangeArray *exclusionRanges = @[[CPTPlotRange plotRangeWithLocation:@0.0 length:low]];
 
     axisSet.yAxis.labelExclusionRanges = exclusionRanges;
 

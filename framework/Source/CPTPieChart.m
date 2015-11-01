@@ -33,7 +33,7 @@ NSString *const CPTPieChartBindingPieSliceRadialOffsets = @"sliceRadialOffsets";
 @interface CPTPieChart()
 
 @property (nonatomic, readwrite, copy) CPTNumberArray *sliceWidths;
-@property (nonatomic, readwrite, copy) CPTFillArray sliceFills;
+@property (nonatomic, readwrite, copy) CPTFillArray *sliceFills;
 @property (nonatomic, readwrite, copy) CPTNumberArray *sliceRadialOffsets;
 @property (nonatomic, readwrite, assign) NSUInteger pointingDeviceDownIndex;
 
@@ -479,9 +479,9 @@ static const CGFloat colorLookupTable[10][3] =
     else if ( [theDataSource respondsToSelector:@selector(sliceFillForPieChart:recordIndex:)] ) {
         needsLegendUpdate = YES;
 
-        id nilObject              = [CPTPlot nilData];
-        CPTMutableFillArray array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
-        NSUInteger maxIndex       = NSMaxRange(indexRange);
+        id nilObject               = [CPTPlot nilData];
+        CPTMutableFillArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
+        NSUInteger maxIndex        = NSMaxRange(indexRange);
 
         for ( NSUInteger idx = indexRange.location; idx < maxIndex; idx++ ) {
             CPTFill *dataSourceFill = [theDataSource sliceFillForPieChart:self recordIndex:idx];
@@ -1364,12 +1364,12 @@ static const CGFloat colorLookupTable[10][3] =
     [self updateNormalizedData];
 }
 
--(CPTFillArray)sliceFills
+-(CPTFillArray *)sliceFills
 {
     return [self cachedArrayForKey:CPTPieChartBindingPieSliceFills];
 }
 
--(void)setSliceFills:(CPTFillArray)newSliceFills
+-(void)setSliceFills:(CPTFillArray *)newSliceFills
 {
     [self cacheArray:newSliceFills forKey:CPTPieChartBindingPieSliceFills];
     [self setNeedsDisplay];

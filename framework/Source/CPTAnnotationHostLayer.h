@@ -3,7 +3,7 @@
 
 @interface CPTAnnotationHostLayer : CPTLayer
 
-@property (nonatomic, readonly, nonnull) CPTAnnotationArray annotations;
+@property (nonatomic, readonly, nonnull) CPTAnnotationArray *annotations;
 
 /// @name Annotations
 /// @{

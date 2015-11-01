@@ -13,13 +13,13 @@ static NSString *const CPTAnimationStartedKey   = @"CPTAnimationStartedKey";
 static NSString *const CPTAnimationFinishedKey  = @"CPTAnimationFinishedKey";
 
 /// @cond
-typedef NSMutableArray<CPTAnimationOperation *> *CPTMutableAnimationArray;
+typedef NSMutableArray<CPTAnimationOperation *> CPTMutableAnimationArray;
 
 @interface CPTAnimation()
 
 @property (nonatomic, readwrite, assign) CGFloat timeOffset;
-@property (nonatomic, readwrite, strong, nonnull) CPTMutableAnimationArray animationOperations;
-@property (nonatomic, readwrite, strong, nonnull) CPTMutableAnimationArray runningAnimationOperations;
+@property (nonatomic, readwrite, strong, nonnull) CPTMutableAnimationArray *animationOperations;
+@property (nonatomic, readwrite, strong, nonnull) CPTMutableAnimationArray *runningAnimationOperations;
 @property (nonatomic, readwrite) dispatch_source_t timer;
 @property (nonatomic, readwrite) dispatch_queue_t animationQueue;
 
@@ -61,14 +61,14 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
 @synthesize defaultAnimationCurve;
 
 /** @internal
- *  @property CPTMutableAnimationArray animationOperations
+ *  @property CPTMutableAnimationArray *animationOperations
  *
  *  @brief The list of animation operations currently running or waiting to run.
  **/
 @synthesize animationOperations;
 
 /** @internal
- *  @property CPTMutableAnimationArray runningAnimationOperations
+ *  @property CPTMutableAnimationArray *runningAnimationOperations
  *  @brief The list of running animation operations.
  **/
 @synthesize runningAnimationOperations;
@@ -262,9 +262,9 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
 {
     self.timeOffset += kCPTAnimationFrameRate;
 
-    CPTMutableAnimationArray theAnimationOperations = self.animationOperations;
-    CPTMutableAnimationArray runningOperations      = self.runningAnimationOperations;
-    CPTMutableAnimationArray expiredOperations      = [[NSMutableArray alloc] init];
+    CPTMutableAnimationArray *theAnimationOperations = self.animationOperations;
+    CPTMutableAnimationArray *runningOperations      = self.runningAnimationOperations;
+    CPTMutableAnimationArray *expiredOperations      = [[NSMutableArray alloc] init];
 
     CGFloat currentTime      = self.timeOffset;
     CPTStringArray *runModes = @[NSRunLoopCommonModes];
