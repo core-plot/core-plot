@@ -3255,6 +3255,7 @@
 				ENABLE_TESTABILITY = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SYMROOT = "$(PROJECT_DIR)/../build";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
 		};
@@ -3262,6 +3263,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				SYMROOT = "$(PROJECT_DIR)/../build";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
 		};
