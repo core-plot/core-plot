@@ -1,3 +1,5 @@
+#import "TargetConditionals.h"
+
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
 
 #import <Foundation/Foundation.h>
