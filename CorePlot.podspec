@@ -33,10 +33,11 @@ Pod::Spec.new do |s|
   s.osx.source_files = 'framework/MacOnly/*.{h,m}'
   s.private_header_files = '**/_*.h', '**/CorePlotProbes.h'
 
-  s.requires_arc   = true
-  s.ios.xcconfig  = { 'HEADER_SEARCH_PATHS' => '"${PODS_ROOT}/Headers/Public/CorePlot/ios"' }
-  s.osx.xcconfig  = { 'HEADER_SEARCH_PATHS' => '"${PODS_ROOT}/Headers/Public/CorePlot/osx"' }
-  s.tvos.xcconfig = { 'HEADER_SEARCH_PATHS' => '"${PODS_ROOT}/Headers/Public/CorePlot/tvos"' }
+  s.requires_arc  = true
+  s.xcconfig      = { 'ALWAYS_SEARCH_USER_PATHS' => 'YES' }
+  s.ios.xcconfig  = { 'HEADER_SEARCH_PATHS' => '"${PODS_ROOT}/Headers/Private/CorePlot/ios"' }
+  s.osx.xcconfig  = { 'HEADER_SEARCH_PATHS' => '"${PODS_ROOT}/Headers/Private/CorePlot/osx"' }
+  s.tvos.xcconfig = { 'HEADER_SEARCH_PATHS' => '"${PODS_ROOT}/Headers/Private/CorePlot/tvos"' }
   
   s.frameworks     = 'QuartzCore', 'Accelerate'
   s.ios.frameworks = 'UIKit', 'Foundation'
