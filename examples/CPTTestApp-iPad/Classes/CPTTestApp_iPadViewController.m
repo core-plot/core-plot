@@ -76,30 +76,6 @@
     [self.piePlot performSelector:@selector(reloadData) withObject:nil afterDelay:0.4];
 }
 
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    if ( UIInterfaceOrientationIsLandscape(fromInterfaceOrientation) ) {
-        // Move the plots into place for portrait
-        self.scatterPlotView.frame = CGRectMake(20.0, 55.0, 728.0, 556.0);
-        self.barChartView.frame    = CGRectMake(20.0, 644.0, 340.0, 340.0);
-        self.pieChartView.frame    = CGRectMake(408.0, 644.0, 340.0, 340.0);
-    }
-    else {
-        // Move the plots into place for landscape
-        self.scatterPlotView.frame = CGRectMake(20.0, 51.0, 628.0, 677.0);
-        self.barChartView.frame    = CGRectMake(684.0, 51.0, 320.0, 320.0);
-        self.pieChartView.frame    = CGRectMake(684.0, 408.0, 320.0, 320.0);
-    }
-}
-
--(void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-
-    // Release any cached data, images, etc that aren't in use.
-}
-
 #pragma mark -
 #pragma mark Plot construction methods
 
