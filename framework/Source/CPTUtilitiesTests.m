@@ -88,8 +88,8 @@
 
 -(void)testConvertNegativeOne
 {
-    NSDecimal zero = [[NSDecimalNumber zero] decimalValue];
-    NSDecimal one  = [[NSDecimalNumber one] decimalValue];
+    NSDecimal zero = [NSDecimalNumber zero].decimalValue;
+    NSDecimal one  = [NSDecimalNumber one].decimalValue;
     NSDecimal negativeOne;
 
     NSDecimalSubtract(&negativeOne, &zero, &one, NSRoundPlain);
@@ -127,7 +127,7 @@
 
 -(void)testCachedZero
 {
-    NSDecimal zero = [[NSDecimalNumber zero] decimalValue];
+    NSDecimal zero = [NSDecimalNumber zero].decimalValue;
     NSDecimal testValue;
     NSString *errMessage;
 
@@ -184,7 +184,7 @@
 
 -(void)testCachedOne
 {
-    NSDecimal one = [[NSDecimalNumber one] decimalValue];
+    NSDecimal one = [NSDecimalNumber one].decimalValue;
     NSDecimal testValue;
     NSString *errMessage;
 

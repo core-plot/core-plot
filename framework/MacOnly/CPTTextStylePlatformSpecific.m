@@ -52,12 +52,12 @@
             newStyle.color = [CPTColor colorWithCGColor:styleColor.CGColor];
         }
         else {
-            const NSInteger numberOfComponents = [styleColor numberOfComponents];
+            const NSInteger numberOfComponents = styleColor.numberOfComponents;
 
             CGFloat *components = calloc( (size_t)numberOfComponents, sizeof(CGFloat) );
             [styleColor getComponents:components];
 
-            CGColorSpaceRef colorSpace = [[styleColor colorSpace] CGColorSpace];
+            CGColorSpaceRef colorSpace = styleColor.colorSpace.CGColorSpace;
             CGColorRef styleCGColor    = CGColorCreate(colorSpace, components);
 
             newStyle.color = [CPTColor colorWithCGColor:styleCGColor];
@@ -147,12 +147,12 @@
             newStyle.color = [CPTColor colorWithCGColor:styleColor.CGColor];
         }
         else {
-            const NSInteger numberOfComponents = [styleColor numberOfComponents];
+            const NSInteger numberOfComponents = styleColor.numberOfComponents;
 
             CGFloat *components = calloc( (size_t)numberOfComponents, sizeof(CGFloat) );
             [styleColor getComponents:components];
 
-            CGColorSpaceRef colorSpace = [[styleColor colorSpace] CGColorSpace];
+            CGColorSpaceRef colorSpace = styleColor.colorSpace.CGColorSpace;
             CGColorRef styleCGColor    = CGColorCreate(colorSpace, components);
 
             newStyle.color = [CPTColor colorWithCGColor:styleCGColor];

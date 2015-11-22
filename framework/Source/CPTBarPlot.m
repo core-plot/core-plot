@@ -1180,7 +1180,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     NSNumber *location = [self cachedNumberForField:CPTBarPlotFieldBarLocation recordIndex:idx];
     NSNumber *length   = [self cachedNumberForField:CPTBarPlotFieldBarTip recordIndex:idx];
 
-    BOOL positiveDirection    = CPTDecimalGreaterThanOrEqualTo([length decimalValue], theBaseDecimalValue);
+    BOOL positiveDirection    = CPTDecimalGreaterThanOrEqualTo(length.decimalValue, theBaseDecimalValue);
     BOOL horizontalBars       = self.barsAreHorizontal;
     CPTCoordinate coordinate  = (horizontalBars ? CPTCoordinateX : CPTCoordinateY);
     CPTPlotRange *lengthRange = [self.plotSpace plotRangeForCoordinate:coordinate];
@@ -1193,7 +1193,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         offsetLocation = @(location.doubleValue + [self doubleLengthInPlotCoordinates:self.barOffset.decimalValue]);
     }
     else {
-        NSDecimal decimalLocation = [location decimalValue];
+        NSDecimal decimalLocation = location.decimalValue;
         NSDecimal offset          = [self lengthInPlotCoordinates:self.barOffset.decimalValue];
         offsetLocation = [NSDecimalNumber decimalNumberWithDecimal:CPTDecimalAdd(decimalLocation, offset)];
     }

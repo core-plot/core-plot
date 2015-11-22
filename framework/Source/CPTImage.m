@@ -536,7 +536,7 @@ CPTImageSlices;
                                                                                bitsPerPixel:32];
 
             NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:imageRep];
-            CGContextRef context             = (CGContextRef)[bitmapContext graphicsPort];
+            CGContextRef context             = (CGContextRef)bitmapContext.graphicsPort;
 
             CGContextDrawImage(context, CPTRectMake(0.0, 0.0, imageSize.width, imageSize.height), imageRef);
 

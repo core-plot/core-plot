@@ -16,8 +16,8 @@ CGRect CPTCurrentRectValue(id boundObject, SEL boundGetter)
 {
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[boundObject methodSignatureForSelector:boundGetter]];
 
-    [invocation setTarget:boundObject];
-    [invocation setSelector:boundGetter];
+    invocation.target   = boundObject;
+    invocation.selector = boundGetter;
 
     [invocation invoke];
 

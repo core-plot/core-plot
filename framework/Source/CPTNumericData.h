@@ -57,8 +57,8 @@
 /// @name Samples
 /// @{
 -(NSUInteger)sampleIndex:(NSUInteger)idx, ...;
--(nullable const void *)samplePointer:(NSUInteger)sample;
--(nullable const void *)samplePointerAtIndex:(NSUInteger)idx, ...;
+-(nullable const void *)samplePointer:(NSUInteger)sample NS_RETURNS_INNER_POINTER;
+-(nullable const void *)samplePointerAtIndex:(NSUInteger)idx, ...NS_RETURNS_INNER_POINTER;
 -(nullable NSNumber *)sampleValue:(NSUInteger)sample;
 -(nullable NSNumber *)sampleValueAtIndex:(NSUInteger)idx, ...;
 -(nonnull CPTNumberArray *)sampleArray;

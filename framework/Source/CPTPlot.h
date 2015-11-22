@@ -93,7 +93,7 @@ typedef NSMutableArray<__kindof CPTPlot *> CPTMutablePlotArray;
  *  @param indexRange The range of the data indexes of interest.
  *  @return A retained C array of data points.
  **/
--(nullable double *)doublesForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;
+-(nullable double *)doublesForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange NS_RETURNS_INNER_POINTER;
 
 /** @brief @optional Gets a plot data value for the given plot and field.
  *  Implement one and only one of the optional methods in this section.

@@ -16,7 +16,7 @@ void CPTPopCGContext(void);
 
 /// @name Color Conversion
 /// @{
-__nonnull CGColorRef CPTCreateCGColorFromNSColor(NSColor *__nonnull nsColor);
+__nonnull CGColorRef CPTCreateCGColorFromNSColor(NSColor *__nonnull nsColor) CF_RETURNS_RETAINED;
 CPTRGBAColor CPTRGBAColorFromNSColor(NSColor *__nonnull nsColor);
 
 /// @}

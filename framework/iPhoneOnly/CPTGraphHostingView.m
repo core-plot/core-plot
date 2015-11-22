@@ -141,7 +141,7 @@
     BOOL handled = NO;
 
     // Ignore pinch or other multitouch gestures
-    if ( [[event allTouches] count] == 1 ) {
+    if ( [event allTouches].count == 1 ) {
         CPTGraph *theHostedGraph = self.hostedGraph;
 
         theHostedGraph.frame = self.bounds;
@@ -398,7 +398,7 @@
 
 -(void)setFrame:(CGRect)newFrame
 {
-    [super setFrame:newFrame];
+    super.frame = newFrame;
 
     CPTGraph *theHostedGraph = self.hostedGraph;
     [theHostedGraph setNeedsLayout];
@@ -413,7 +413,7 @@
 
 -(void)setBounds:(CGRect)newBounds
 {
-    [super setBounds:newBounds];
+    super.bounds = newBounds;
 
     CPTGraph *theHostedGraph = self.hostedGraph;
     [theHostedGraph setNeedsLayout];

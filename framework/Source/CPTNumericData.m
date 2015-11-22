@@ -439,7 +439,7 @@
     else {
         NSUInteger prod = 1;
         for ( NSNumber *cNum in shapeArray ) {
-            prod *= [cNum unsignedIntegerValue];
+            prod *= cNum.unsignedIntegerValue;
         }
 
         if ( prod != self.numberOfSamples ) {
@@ -559,7 +559,7 @@
         if ( [myData isKindOfClass:[NSMutableData class]] ) {
             NSUInteger sampleCount = 1;
             for ( NSNumber *num in shape ) {
-                sampleCount *= [num unsignedIntegerValue];
+                sampleCount *= num.unsignedIntegerValue;
             }
 
             myData.length = sampleCount * self.sampleBytes;
@@ -810,7 +810,7 @@
             if ( argIndex > 0 ) {
                 indices[argIndex] = va_arg(indexList, NSUInteger);
             }
-            dims[argIndex] = [dim unsignedIntegerValue];
+            dims[argIndex] = dim.unsignedIntegerValue;
 
             if ( indices[argIndex] >= dims[argIndex] ) {
                 free(dims);
@@ -1102,7 +1102,7 @@
     NSUInteger sampleCount             = self.numberOfSamples;
     NSMutableString *descriptionString = [NSMutableString stringWithCapacity:sampleCount * 3];
 
-    [descriptionString appendFormat:@"<%@ [", [super description]];
+    [descriptionString appendFormat:@"<%@ [", super.description];
     for ( NSUInteger i = 0; i < sampleCount; i++ ) {
         if ( i > 0 ) {
             [descriptionString appendFormat:@","];
@@ -1156,7 +1156,7 @@
 
 -(void)encodeWithCoder:(NSCoder *)encoder
 {
-    if ( [encoder allowsKeyedCoding] ) {
+    if ( encoder.allowsKeyedCoding ) {
         [encoder encodeObject:self.data forKey:@"CPTNumericData.data"];
 
         CPTNumericDataType selfDataType = self.dataType;
@@ -1196,7 +1196,7 @@
         CPTNumberArray *shapeArray;
         CPTDataOrder order;
 
-        if ( [decoder allowsKeyedCoding] ) {
+        if ( decoder.allowsKeyedCoding ) {
             newData = [decoder decodeObjectForKey:@"CPTNumericData.data"];
 
             newDataType = CPTDataType( (CPTDataTypeFormat)[decoder decodeIntegerForKey: @"CPTNumericData.dataType.dataTypeFormat"],

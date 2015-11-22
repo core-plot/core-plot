@@ -208,7 +208,7 @@
         locationDecimal = newLocation;
 
         if ( !self.inValueUpdate ) {
-            self.locationDouble = [[NSDecimalNumber decimalNumberWithDecimal:newLocation] doubleValue];
+            self.locationDouble = [NSDecimalNumber decimalNumberWithDecimal:newLocation].doubleValue;
         }
     }
 }
@@ -235,7 +235,7 @@
         lengthDecimal = newLength;
 
         if ( !self.inValueUpdate ) {
-            self.lengthDouble = [[NSDecimalNumber decimalNumberWithDecimal:newLength] doubleValue];
+            self.lengthDouble = [NSDecimalNumber decimalNumberWithDecimal:newLength].doubleValue;
         }
     }
 }
@@ -594,7 +594,7 @@
     NSDecimal myLength   = self.lengthDecimal;
 
     return [NSString stringWithFormat:@"<%@ {%@, %@}>",
-            [super description],
+            super.description,
             NSDecimalString(&myLocation, [NSLocale currentLocale]),
             NSDecimalString(&myLength, [NSLocale currentLocale])];
 }

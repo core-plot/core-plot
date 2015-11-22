@@ -11,7 +11,7 @@ static const double precision           = 1.0e-6;
 -(void)testFloatToDoubleConversion
 {
     NSMutableData *data = [NSMutableData dataWithLength:numberOfSamples * sizeof(float)];
-    float *samples      = (float *)[data mutableBytes];
+    float *samples      = (float *)data.mutableBytes;
 
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         samples[i] = sinf(i);
@@ -25,7 +25,7 @@ static const double precision           = 1.0e-6;
                                         sampleBytes:sizeof(double)
                                           byteOrder:NSHostByteOrder()];
 
-    const double *doubleSamples = (const double *)[dd.data bytes];
+    const double *doubleSamples = (const double *)dd.data.bytes;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         XCTAssertEqualWithAccuracy( (double)samples[i], doubleSamples[i], precision, @"(float)%g != (double)%g", samples[i], doubleSamples[i] );
     }
@@ -34,7 +34,7 @@ static const double precision           = 1.0e-6;
 -(void)testDoubleToFloatConversion
 {
     NSMutableData *data = [NSMutableData dataWithLength:numberOfSamples * sizeof(double)];
-    double *samples     = (double *)[data mutableBytes];
+    double *samples     = (double *)data.mutableBytes;
 
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         samples[i] = sin(i);
@@ -48,7 +48,7 @@ static const double precision           = 1.0e-6;
                                         sampleBytes:sizeof(float)
                                           byteOrder:NSHostByteOrder()];
 
-    const float *floatSamples = (const float *)[fd.data bytes];
+    const float *floatSamples = (const float *)fd.data.bytes;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         XCTAssertEqualWithAccuracy( (double)floatSamples[i], samples[i], precision, @"(float)%g != (double)%g", floatSamples[i], samples[i] );
     }
@@ -57,7 +57,7 @@ static const double precision           = 1.0e-6;
 -(void)testFloatToIntegerConversion
 {
     NSMutableData *data = [NSMutableData dataWithLength:numberOfSamples * sizeof(float)];
-    float *samples      = (float *)[data mutableBytes];
+    float *samples      = (float *)data.mutableBytes;
 
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         samples[i] = sinf(i) * 1000.0f;
@@ -71,7 +71,7 @@ static const double precision           = 1.0e-6;
                                              sampleBytes:sizeof(NSInteger)
                                                byteOrder:NSHostByteOrder()];
 
-    const NSInteger *intSamples = (const NSInteger *)[intData.data bytes];
+    const NSInteger *intSamples = (const NSInteger *)intData.data.bytes;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         XCTAssertEqualWithAccuracy( (NSInteger)samples[i], intSamples[i], precision, @"(float)%g != (NSInteger)%ld", samples[i], (long)intSamples[i] );
     }
@@ -80,7 +80,7 @@ static const double precision           = 1.0e-6;
 -(void)testIntegerToFloatConversion
 {
     NSMutableData *data = [NSMutableData dataWithLength:numberOfSamples * sizeof(NSInteger)];
-    NSInteger *samples  = (NSInteger *)[data mutableBytes];
+    NSInteger *samples  = (NSInteger *)data.mutableBytes;
 
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         samples[i] = (NSInteger)(sin(i) * 1000.0);
@@ -94,7 +94,7 @@ static const double precision           = 1.0e-6;
                                              sampleBytes:sizeof(float)
                                                byteOrder:NSHostByteOrder()];
 
-    const float *floatSamples = (const float *)[fd.data bytes];
+    const float *floatSamples = (const float *)fd.data.bytes;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         XCTAssertEqualWithAccuracy(floatSamples[i], (float)samples[i], precision, @"(float)%g != (NSInteger)%ld", floatSamples[i], (long)samples[i]);
     }
@@ -133,7 +133,7 @@ static const double precision           = 1.0e-6;
 -(void)testDecimalToDoubleConversion
 {
     NSMutableData *data = [NSMutableData dataWithLength:numberOfSamples * sizeof(NSDecimal)];
-    NSDecimal *samples  = (NSDecimal *)[data mutableBytes];
+    NSDecimal *samples  = (NSDecimal *)data.mutableBytes;
 
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         samples[i] = CPTDecimalFromDouble( sin(i) );
@@ -147,7 +147,7 @@ static const double precision           = 1.0e-6;
                                                          sampleBytes:sizeof(double)
                                                            byteOrder:NSHostByteOrder()];
 
-    const double *doubleSamples = (const double *)[doubleData.data bytes];
+    const double *doubleSamples = (const double *)doubleData.data.bytes;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         XCTAssertEqual(CPTDecimalDoubleValue(samples[i]), doubleSamples[i], @"(NSDecimal)%@ != (double)%g", CPTDecimalStringValue(samples[i]), doubleSamples[i]);
     }
@@ -156,7 +156,7 @@ static const double precision           = 1.0e-6;
 -(void)testDoubleToDecimalConversion
 {
     NSMutableData *data = [NSMutableData dataWithLength:numberOfSamples * sizeof(double)];
-    double *samples     = (double *)[data mutableBytes];
+    double *samples     = (double *)data.mutableBytes;
 
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         samples[i] = sin(i);
@@ -170,7 +170,7 @@ static const double precision           = 1.0e-6;
                                                          sampleBytes:sizeof(NSDecimal)
                                                            byteOrder:NSHostByteOrder()];
 
-    const NSDecimal *decimalSamples = (const NSDecimal *)[decimalData.data bytes];
+    const NSDecimal *decimalSamples = (const NSDecimal *)decimalData.data.bytes;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         XCTAssertTrue(CPTDecimalEquals( decimalSamples[i], CPTDecimalFromDouble(samples[i]) ), @"(NSDecimal)%@ != (double)%g", CPTDecimalStringValue(decimalSamples[i]), samples[i]);
     }
@@ -215,7 +215,7 @@ static const double precision           = 1.0e-6;
 -(void)testRoundTripToDoubleArray
 {
     NSMutableData *data = [NSMutableData dataWithLength:numberOfSamples * sizeof(double)];
-    double *samples     = (double *)[data mutableBytes];
+    double *samples     = (double *)data.mutableBytes;
 
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         samples[i] = sin(i);
@@ -243,7 +243,7 @@ static const double precision           = 1.0e-6;
 -(void)testRoundTripToIntegerArray
 {
     NSMutableData *data = [NSMutableData dataWithLength:numberOfSamples * sizeof(NSInteger)];
-    NSInteger *samples  = (NSInteger *)[data mutableBytes];
+    NSInteger *samples  = (NSInteger *)data.mutableBytes;
 
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         samples[i] = (NSInteger)(sin(i) * 1000.0);
@@ -271,7 +271,7 @@ static const double precision           = 1.0e-6;
 -(void)testRoundTripToDecimalArray
 {
     NSMutableData *data = [NSMutableData dataWithLength:numberOfSamples * sizeof(NSDecimal)];
-    NSDecimal *samples  = (NSDecimal *)[data mutableBytes];
+    NSDecimal *samples  = (NSDecimal *)data.mutableBytes;
 
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         samples[i] = CPTDecimalFromDouble( sin(i) );

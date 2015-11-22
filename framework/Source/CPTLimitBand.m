@@ -79,7 +79,7 @@
 
 -(void)encodeWithCoder:(NSCoder *)encoder
 {
-    if ( [encoder allowsKeyedCoding] ) {
+    if ( encoder.allowsKeyedCoding ) {
         [encoder encodeObject:self.range forKey:@"CPTLimitBand.range"];
         [encoder encodeObject:self.fill forKey:@"CPTLimitBand.fill"];
     }
@@ -98,7 +98,7 @@
 -(instancetype)initWithCoder:(NSCoder *)decoder
 {
     if ( (self = [super init]) ) {
-        if ( [decoder allowsKeyedCoding] ) {
+        if ( decoder.allowsKeyedCoding ) {
             range = [decoder decodeObjectForKey:@"CPTLimitBand.range"];
             fill  = [decoder decodeObjectForKey:@"CPTLimitBand.fill"];
         }
@@ -117,7 +117,7 @@
 
 -(NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@ with range: %@ and fill: %@>", [super description], self.range, self.fill];
+    return [NSString stringWithFormat:@"<%@ with range: %@ and fill: %@>", super.description, self.range, self.fill];
 }
 
 /// @endcond

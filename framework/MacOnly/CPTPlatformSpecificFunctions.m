@@ -125,7 +125,7 @@ CPTNativeImage * __nonnull CPTQuickLookImage(CGRect rect, __nonnull CPTQuickLook
 
     NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:layerImage];
 
-    CGContextRef context = (CGContextRef)[bitmapContext graphicsPort];
+    CGContextRef context = (CGContextRef)bitmapContext.graphicsPort;
 
     CGContextClearRect(context, rect);
 

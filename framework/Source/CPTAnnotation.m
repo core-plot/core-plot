@@ -102,7 +102,7 @@
 
 -(NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@ {%@}>", [super description], self.contentLayer];
+    return [NSString stringWithFormat:@"<%@ {%@}>", super.description, self.contentLayer];
 }
 
 /// @endcond
@@ -141,7 +141,7 @@
 {
     if ( !CGPointEqualToPoint(newDisplacement, displacement) ) {
         displacement = newDisplacement;
-        [[self.contentLayer superlayer] setNeedsLayout];
+        [self.contentLayer.superlayer setNeedsLayout];
     }
 }
 
@@ -149,7 +149,7 @@
 {
     if ( !CGPointEqualToPoint(newAnchorPoint, contentAnchorPoint) ) {
         contentAnchorPoint = newAnchorPoint;
-        [[self.contentLayer superlayer] setNeedsLayout];
+        [self.contentLayer.superlayer setNeedsLayout];
     }
 }
 
@@ -157,7 +157,7 @@
 {
     if ( newRotation != rotation ) {
         rotation = newRotation;
-        [[self.contentLayer superlayer] setNeedsLayout];
+        [self.contentLayer.superlayer setNeedsLayout];
     }
 }
 

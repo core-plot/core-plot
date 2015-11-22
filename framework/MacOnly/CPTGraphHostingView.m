@@ -187,7 +187,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
             // render CPTLayers recursively into the graphics context used for printing
             // (thanks to Brad for the tip: http://stackoverflow.com/a/2791305/132867 )
-            CGContextRef context = [graphicsContext graphicsPort];
+            CGContextRef context = graphicsContext.graphicsPort;
             [self.hostedGraph recursivelyRenderInContext:context];
 
             [graphicsContext restoreGraphicsState];
@@ -235,7 +235,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
     BOOL handled       = NO;
 
     if ( theGraph ) {
-        CGPoint pointOfMouseDown   = NSPointToCGPoint([self convertPoint:[theEvent locationInWindow] fromView:nil]);
+        CGPoint pointOfMouseDown   = NSPointToCGPoint([self convertPoint:theEvent.locationInWindow fromView:nil]);
         CGPoint pointInHostedGraph = [self.layer convertPoint:pointOfMouseDown toLayer:theGraph];
         handled = [theGraph pointingDeviceDownEvent:theEvent atPoint:pointInHostedGraph];
     }
@@ -251,7 +251,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
     BOOL handled       = NO;
 
     if ( theGraph ) {
-        CGPoint pointOfMouseDrag   = NSPointToCGPoint([self convertPoint:[theEvent locationInWindow] fromView:nil]);
+        CGPoint pointOfMouseDrag   = NSPointToCGPoint([self convertPoint:theEvent.locationInWindow fromView:nil]);
         CGPoint pointInHostedGraph = [self.layer convertPoint:pointOfMouseDrag toLayer:theGraph];
         handled = [theGraph pointingDeviceDraggedEvent:theEvent atPoint:pointInHostedGraph];
     }
@@ -267,7 +267,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
     BOOL handled       = NO;
 
     if ( theGraph ) {
-        CGPoint pointOfMouseUp     = NSPointToCGPoint([self convertPoint:[theEvent locationInWindow] fromView:nil]);
+        CGPoint pointOfMouseUp     = NSPointToCGPoint([self convertPoint:theEvent.locationInWindow fromView:nil]);
         CGPoint pointInHostedGraph = [self.layer convertPoint:pointOfMouseUp toLayer:theGraph];
         handled = [theGraph pointingDeviceUpEvent:theEvent atPoint:pointInHostedGraph];
     }
@@ -290,7 +290,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
     BOOL handled       = NO;
 
     if ( theGraph && self.allowPinchScaling ) {
-        CGPoint pointOfMagnification = NSPointToCGPoint([self convertPoint:[event locationInWindow] fromView:nil]);
+        CGPoint pointOfMagnification = NSPointToCGPoint([self convertPoint:event.locationInWindow fromView:nil]);
         CGPoint pointInHostedGraph   = [self.layer convertPoint:pointOfMagnification toLayer:theGraph];
         CGPoint pointInPlotArea      = [theGraph convertPoint:pointInHostedGraph toLayer:theGraph.plotAreaFrame.plotArea];
 

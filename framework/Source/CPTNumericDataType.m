@@ -202,7 +202,7 @@ CPTDataTypeFormat DataTypeForDataTypeString(NSString *dataTypeString)
     NSCAssert([dataTypeString length] >= 3, @"dataTypeString is too short");
 #pragma clang diagnostic pop
 
-    switch ( [[dataTypeString lowercaseString] characterAtIndex:1] ) {
+    switch ( [dataTypeString.lowercaseString characterAtIndex:1] ) {
         case 'f':
             result = CPTFloatingPointDataType;
             break;
@@ -236,7 +236,7 @@ size_t SampleBytesForDataTypeString(NSString *dataTypeString)
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wnullable-to-nonnull-conversion"
     NSCAssert([dataTypeString length] >= 3, @"dataTypeString is too short");
-    NSInteger result = [[dataTypeString substringFromIndex:2] integerValue];
+    NSInteger result = [dataTypeString substringFromIndex:2].integerValue;
     NSCAssert(result > 0, @"sample bytes is negative.");
 #pragma clang diagnostic pop
 
@@ -252,7 +252,7 @@ CFByteOrder ByteOrderForDataTypeString(NSString *dataTypeString)
 
     CFByteOrder result = CFByteOrderUnknown;
 
-    switch ( [[dataTypeString lowercaseString] characterAtIndex:0] ) {
+    switch ( [dataTypeString.lowercaseString characterAtIndex:0] ) {
         case '=':
             result = CFByteOrderGetCurrent();
             break;

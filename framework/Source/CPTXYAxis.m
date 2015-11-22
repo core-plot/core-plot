@@ -583,7 +583,7 @@
     NSUInteger bandCount    = bandArray.count;
 
     if ( bandCount > 0 ) {
-        CPTNumberArray *locations = [self.majorTickLocations allObjects];
+        CPTNumberArray *locations = self.majorTickLocations.allObjects;
 
         if ( locations.count > 0 ) {
             CPTPlotSpace *thePlotSpace = self.plotSpace;
@@ -644,7 +644,7 @@
             }
 
             for ( NSDecimalNumber *location in locations ) {
-                NSDecimal currentLocation = [location decimalValue];
+                NSDecimal currentLocation = location.decimalValue;
                 if ( !CPTDecimalEquals(CPTDecimalSubtract(currentLocation, lastLocation), zero) ) {
                     CPTFill *bandFill = bandArray[bandIndex++];
                     bandIndex %= bandCount;
@@ -774,7 +774,7 @@
     CGPoint endViewPoint   = [self viewPointForCoordinateValue:range.end];
 
     return [NSString stringWithFormat:@"<%@ with range: %@ viewCoordinates: %@ to %@>",
-            [super description],
+            super.description,
             range,
             CPTStringFromPoint(startViewPoint),
             CPTStringFromPoint(endViewPoint)];
@@ -874,7 +874,7 @@
 -(void)setCoordinate:(CPTCoordinate)newCoordinate
 {
     if ( self.coordinate != newCoordinate ) {
-        [super setCoordinate:newCoordinate];
+        super.coordinate = newCoordinate;
         switch ( newCoordinate ) {
             case CPTCoordinateX:
                 switch ( self.labelAlignment ) {

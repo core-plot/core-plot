@@ -856,7 +856,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 -(CPTPlot *)plotWithIdentifier:(id<NSCopying>)identifier
 {
     for ( CPTPlot *plot in self.plots ) {
-        if ( [[plot identifier] isEqual:identifier] ) {
+        if ( [plot.identifier isEqual:identifier] ) {
             return plot;
         }
     }
@@ -1272,7 +1272,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 
 -(NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@ for plots %@>", [super description], self.plots];
+    return [NSString stringWithFormat:@"<%@ for plots %@>", super.description, self.plots];
 }
 
 /// @endcond
@@ -1485,7 +1485,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 -(void)setPaddingLeft:(CGFloat)newPadding
 {
     if ( newPadding != self.paddingLeft ) {
-        [super setPaddingLeft:newPadding];
+        super.paddingLeft  = newPadding;
         self.layoutChanged = YES;
     }
 }
@@ -1493,7 +1493,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 -(void)setPaddingTop:(CGFloat)newPadding
 {
     if ( newPadding != self.paddingTop ) {
-        [super setPaddingTop:newPadding];
+        super.paddingTop   = newPadding;
         self.layoutChanged = YES;
     }
 }
@@ -1501,7 +1501,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 -(void)setPaddingRight:(CGFloat)newPadding
 {
     if ( newPadding != self.paddingRight ) {
-        [super setPaddingRight:newPadding];
+        super.paddingRight = newPadding;
         self.layoutChanged = YES;
     }
 }
@@ -1509,8 +1509,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 -(void)setPaddingBottom:(CGFloat)newPadding
 {
     if ( newPadding != self.paddingBottom ) {
-        [super setPaddingBottom:newPadding];
-        self.layoutChanged = YES;
+        super.paddingBottom = newPadding;
+        self.layoutChanged  = YES;
     }
 }
 
@@ -1519,7 +1519,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     CPTLineStyle *oldLineStyle = self.borderLineStyle;
 
     if ( newLineStyle != oldLineStyle ) {
-        [super setBorderLineStyle:newLineStyle];
+        super.borderLineStyle = newLineStyle;
 
         if ( newLineStyle.lineWidth != oldLineStyle.lineWidth ) {
             self.layoutChanged = YES;

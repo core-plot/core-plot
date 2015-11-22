@@ -35,7 +35,7 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
 {
     self.xData = nil;
     self.yData = nil;
-    [[self plots] removeAllObjects];
+    [self.plots removeAllObjects];
 }
 
 -(void)buildData
@@ -62,7 +62,7 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
         self.plots = [NSMutableArray array];
     }
 
-    [[self plots] addObject:newPlot];
+    [self.plots addObject:newPlot];
 }
 
 -(CPTPlotRange *)xRange
@@ -109,16 +109,16 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
 
     switch ( fieldEnum ) {
         case CPTScatterPlotFieldX:
-            result = [[self xData] objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:indexRange]];
+            result = [self.xData objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:indexRange]];
             break;
 
         case CPTScatterPlotFieldY:
-            result = [[self yData] objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:indexRange]];
+            result = [self.yData objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:indexRange]];
             if ( self.plots.count > 1 ) {
                 XCTAssertTrue([[self plots] containsObject:plot], @"Plot missing");
                 CPTMutableNumberArray *shiftedResult = [NSMutableArray arrayWithCapacity:result.count];
                 for ( NSDecimalNumber *d in result ) {
-                    [shiftedResult addObject:[d decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromDouble( CPTDataSourceTestCasePlotOffset * ([[self plots] indexOfObject:plot] + 1) )]]];
+                    [shiftedResult addObject:[d decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromDouble( CPTDataSourceTestCasePlotOffset * ([self.plots indexOfObject:plot] + 1) )]]];
                 }
 
                 result = shiftedResult;
