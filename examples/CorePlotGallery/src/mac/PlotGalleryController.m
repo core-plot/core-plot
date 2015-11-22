@@ -53,7 +53,7 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 {
     [[PlotGallery sharedPlotGallery] sortByTitle];
 
-    [self.splitView setDelegate:self];
+    self.splitView.delegate = self;
 
     [self.imageBrowser setDelegate:self];
     [self.imageBrowser setDataSource:self];
@@ -61,7 +61,7 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 
     [self.imageBrowser reloadData];
 
-    [self.hostingView setDelegate:self];
+    self.hostingView.delegate = self;
 
     [self setupThemes];
 
@@ -184,7 +184,7 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
                                                     bitsPerPixel:32];
 
         NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:layerImage];
-        CGContextRef context             = (CGContextRef)[bitmapContext graphicsPort];
+        CGContextRef context             = (CGContextRef)bitmapContext.graphicsPort;
 
         CGContextClearRect( context, CGRectMake(0.0, 0.0, boundsSize.width, boundsSize.height) );
         CGContextSetAllowsAntialiasing(context, true);
@@ -195,9 +195,9 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
         NSImage *image = [[NSImage alloc] initWithSize:NSSizeFromCGSize(boundsSize)];
         [image addRepresentation:layerImage];
 
-        NSData *tiffData          = [image TIFFRepresentation];
+        NSData *tiffData          = image.TIFFRepresentation;
         NSBitmapImageRep *tiffRep = [NSBitmapImageRep imageRepWithData:tiffData];
-        NSData *pngData           = [tiffRep representationUsingType:NSPNGFileType properties:[NSDictionary dictionary]];
+        NSData *pngData           = [tiffRep representationUsingType:NSPNGFileType properties:@{}];
 
         [pngData writeToURL:url atomically:NO];
     }
@@ -212,7 +212,7 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
     pngSavingDialog.allowsMultipleSelection = NO;
 
     if ( [pngSavingDialog runModal] == NSOKButton ) {
-        NSURL *url = [pngSavingDialog URL];
+        NSURL *url = pngSavingDialog.URL;
         if ( url ) {
             // top image
             CGSize topShelfSize = CGSizeMake(1920.0, 720.0);
@@ -260,7 +260,7 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 
 -(NSUInteger)numberOfItemsInImageBrowser:(IKImageBrowserView *)browser
 {
-    return [[PlotGallery sharedPlotGallery] count];
+    return [PlotGallery sharedPlotGallery].count;
 }
 
 -(id)imageBrowser:(IKImageBrowserView *)browser itemAtIndex:(NSUInteger)index
@@ -270,12 +270,12 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 
 -(NSUInteger)numberOfGroupsInImageBrowser:(IKImageBrowserView *)aBrowser
 {
-    return [[PlotGallery sharedPlotGallery] numberOfSections];
+    return [PlotGallery sharedPlotGallery].numberOfSections;
 }
 
 -(CPTDictionary *)imageBrowser:(IKImageBrowserView *)aBrowser groupAtIndex:(NSUInteger)index
 {
-    NSString *groupTitle = [[PlotGallery sharedPlotGallery] sectionTitles][index];
+    NSString *groupTitle = [PlotGallery sharedPlotGallery].sectionTitles[index];
 
     NSUInteger offset = 0;
 
@@ -297,7 +297,7 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 
 -(void)imageBrowserSelectionDidChange:(IKImageBrowserView *)browser
 {
-    NSUInteger index = [[browser selectionIndexes] firstIndex];
+    NSUInteger index = [browser selectionIndexes].firstIndex;
 
     if ( index != NSNotFound ) {
         PlotItem *item = [[PlotGallery sharedPlotGallery] objectInSection:0 atIndex:index];
@@ -321,13 +321,13 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 -(void)splitView:(NSSplitView *)sender resizeSubviewsWithOldSize:(NSSize)oldSize
 {
     // Lock the LHS width
-    NSRect frame   = [sender frame];
-    NSView *lhs    = [sender subviews][0];
-    NSRect lhsRect = [lhs frame];
-    NSView *rhs    = [sender subviews][1];
-    NSRect rhsRect = [rhs frame];
+    NSRect frame   = sender.frame;
+    NSView *lhs    = sender.subviews[0];
+    NSRect lhsRect = lhs.frame;
+    NSView *rhs    = sender.subviews[1];
+    NSRect rhsRect = rhs.frame;
 
-    CGFloat dividerThickness = [sender dividerThickness];
+    CGFloat dividerThickness = sender.dividerThickness;
 
     lhsRect.size.height = frame.size.height;
 
@@ -335,8 +335,8 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
     rhsRect.size.height = frame.size.height;
     rhsRect.origin.x    = lhsRect.size.width + dividerThickness;
 
-    [lhs setFrame:lhsRect];
-    [rhs setFrame:rhsRect];
+    lhs.frame = lhsRect;
+    rhs.frame = rhsRect;
 }
 
 @end

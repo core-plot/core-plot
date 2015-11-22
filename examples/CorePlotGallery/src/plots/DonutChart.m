@@ -154,7 +154,7 @@ static NSString *const outerChartName = @"Outer";
             whiteText.fontSize = self.titleSize * CPTFloat(0.5);
         });
 
-        newLayer                 = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%.0f", [self.plotData[index] floatValue]] style:whiteText];
+        newLayer                 = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%.0f", self.plotData[index].floatValue] style:whiteText];
         newLayer.fill            = [CPTFill fillWithColor:[CPTColor darkGrayColor]];
         newLayer.cornerRadius    = 5.0;
         newLayer.paddingLeft     = 3.0;

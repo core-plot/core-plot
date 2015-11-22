@@ -46,10 +46,10 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [[self navigationItem] setTitle:@"Stocks"];
+    self.navigationItem.title = @"Stocks";
     //the graph will set itself as delegate of the dataPuller when we push it, so we need to reset this.
     for ( APYahooDataPuller *dp in self.stocks ) {
-        [dp setDelegate:self];
+        dp.delegate = self;
     }
 }
 
@@ -57,11 +57,11 @@
 
 -(void)inspectStock:(APYahooDataPuller *)aStock
 {
-    NSDecimalNumber *high = [aStock overallHigh];
-    NSDecimalNumber *low  = [aStock overallLow];
+    NSDecimalNumber *high = aStock.overallHigh;
+    NSDecimalNumber *low  = aStock.overallLow;
 
-    if ( [high isEqualToNumber:[NSDecimalNumber notANumber]] || [low isEqualToNumber:[NSDecimalNumber notANumber]] || ([[aStock financialData] count] <= 0) ) {
-        NSString *message = [NSString stringWithFormat:@"No information available for %@", [aStock symbol]];
+    if ( [high isEqualToNumber:[NSDecimalNumber notANumber]] || [low isEqualToNumber:[NSDecimalNumber notANumber]] || (aStock.financialData.count <= 0) ) {
+        NSString *message = [NSString stringWithFormat:@"No information available for %@", aStock.symbol];
         UIAlertView *av   = [[UIAlertView alloc] initWithTitle:@"Alert" message:message delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
         [av show];
     }
@@ -71,7 +71,7 @@
             self.graph = aGraph;
         }
 
-        [self.graph setDataPuller:aStock];
+        self.graph.dataPuller = aStock;
         [self.navigationController pushViewController:self.graph animated:YES];
         self.graph.view.frame = self.view.bounds;
     }
@@ -101,44 +101,44 @@
 {
     APYahooDataPuller *dp = self.stocks[row];
 
-    [[cell textLabel] setText:[dp symbol]];
+    cell.textLabel.text = dp.symbol;
 
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    [df setDateStyle:NSDateFormatterShortStyle];
+    df.dateStyle = NSDateFormatterShortStyle;
     NSString *startString = @"(NA)";
-    if ( [dp startDate] ) {
-        startString = [df stringFromDate:[dp startDate]];
+    if ( dp.startDate ) {
+        startString = [df stringFromDate:dp.startDate];
     }
 
     NSString *endString = @"(NA)";
-    if ( [dp endDate] ) {
-        endString = [df stringFromDate:[dp endDate]];
+    if ( dp.endDate ) {
+        endString = [df stringFromDate:dp.endDate];
     }
 
     NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
-    [nf setRoundingMode:NSNumberFormatterRoundHalfUp];
-    [nf setDecimalSeparator:@"."];
-    [nf setGroupingSeparator:@","];
-    [nf setPositiveFormat:@"\u00A4###,##0.00"];
-    [nf setNegativeFormat:@"(\u00A4###,##0.00)"];
+    nf.roundingMode      = NSNumberFormatterRoundHalfUp;
+    nf.decimalSeparator  = @".";
+    nf.groupingSeparator = @",";
+    nf.positiveFormat    = @"\u00A4###,##0.00";
+    nf.negativeFormat    = @"(\u00A4###,##0.00)";
 
     NSString *overallLow = @"(NA)";
-    if ( ![[NSDecimalNumber notANumber] isEqual:[dp overallLow]] ) {
-        overallLow = [nf stringFromNumber:[dp overallLow]];
+    if ( ![[NSDecimalNumber notANumber] isEqual:dp.overallLow] ) {
+        overallLow = [nf stringFromNumber:dp.overallLow];
     }
     NSString *overallHigh = @"(NA)";
-    if ( ![[NSDecimalNumber notANumber] isEqual:[dp overallHigh]] ) {
-        overallHigh = [nf stringFromNumber:[dp overallHigh]];
+    if ( ![[NSDecimalNumber notANumber] isEqual:dp.overallHigh] ) {
+        overallHigh = [nf stringFromNumber:dp.overallHigh];
     }
 
-    [[cell detailTextLabel] setText:[NSString stringWithFormat:@"%@ - %@; Low:%@ High:%@", startString, endString, overallLow, overallHigh]];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@; Low:%@ High:%@", startString, endString, overallLow, overallHigh];
 
-    UIView *accessory = [cell accessoryView];
+    UIView *accessory = cell.accessoryView;
     if ( dp.loadingData ) {
         if ( ![accessory isMemberOfClass:[UIActivityIndicatorView class]] ) {
             accessory = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
             [(UIActivityIndicatorView *)accessory setHidesWhenStopped : NO];
-            [cell setAccessoryView:accessory];
+            cell.accessoryView = accessory;
         }
         [(UIActivityIndicatorView *)accessory startAnimating];
     }
@@ -149,8 +149,8 @@
         if ( dp.staleData ) {
             if ( ![accessory isMemberOfClass:[UIImageView class]] ) {
                 UIImage *caution = [UIImage imageNamed:@"caution.png"];
-                accessory = [[UIImageView alloc] initWithImage:caution];
-                [cell setAccessoryView:accessory];
+                accessory          = [[UIImageView alloc] initWithImage:caution];
+                cell.accessoryView = accessory;
 //                CGRect frame = accessory.frame;
 //#pragma unused (frame)
             }
@@ -193,7 +193,7 @@
     CPTMutableStringArray *symbols = [NSMutableArray arrayWithCapacity:self.stocks.count];
 
     for ( APYahooDataPuller *dp in self.stocks ) {
-        [symbols addObject:[dp symbol]];
+        [symbols addObject:dp.symbol];
     }
     return [NSArray arrayWithArray:symbols];
 }
@@ -226,10 +226,10 @@
 
     APYahooDataPuller *dp = [[APYahooDataPuller alloc] initWithTargetSymbol:aSymbol targetStartDate:start targetEndDate:end];
 
-    [[self stocks] addObject:dp];
+    [self.stocks addObject:dp];
     [dp fetchIfNeeded];
-    [dp setDelegate:self];
-    [[self tableView] reloadData]; //TODO: should reload whole thing
+    dp.delegate = self;
+    [self.tableView reloadData]; //TODO: should reload whole thing
 }
 
 -(void)dealloc

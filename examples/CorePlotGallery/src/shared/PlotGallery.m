@@ -107,7 +107,7 @@ static PlotGallery *sharedPlotGallery = nil;
 
 -(CPTStringArray *)sectionTitles
 {
-    return [[self.plotSections allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+    return [self.plotSections.allObjects sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 
 @end

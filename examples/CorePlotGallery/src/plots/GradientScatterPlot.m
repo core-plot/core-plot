@@ -34,7 +34,7 @@
 
 -(void)killGraph
 {
-    if ( [self.graphs count] ) {
+    if ( self.graphs.count ) {
         CPTGraph *graph = (self.graphs)[0];
 
         CPTPlotSpaceAnnotation *annotation = self.symbolTextAnnotation;
@@ -201,7 +201,7 @@
     NSNumber *num = self.plotData[index][key];
 
     if ( fieldEnum == CPTScatterPlotFieldY ) {
-        num = @([num doubleValue]);
+        num = @(num.doubleValue);
     }
 
     return num;
@@ -254,7 +254,7 @@
     // Add annotation
     // First make a string for the y value
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    [formatter setMaximumFractionDigits:2];
+    formatter.maximumFractionDigits = 2;
     NSString *yString = [formatter stringFromNumber:y];
 
     // Now add the annotation to the plot area
@@ -278,7 +278,7 @@
     CPTPlotSpaceAnnotation *annotation = self.symbolTextAnnotation;
 
     if ( annotation ) {
-        CPTXYGraph *graph = [self.graphs objectAtIndex:0];
+        CPTXYGraph *graph = (self.graphs)[0];
 
         [graph.plotAreaFrame.plotArea removeAnnotation:annotation];
         self.symbolTextAnnotation = nil;

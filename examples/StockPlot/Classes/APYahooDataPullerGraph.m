@@ -78,7 +78,7 @@
 
     [theGraph reloadData];
 
-    [[self navigationItem] setTitle:[self.dataPuller symbol]];
+    self.navigationItem.title = self.dataPuller.symbol;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -129,7 +129,7 @@
     else if ( fieldEnum == CPTScatterPlotFieldY ) {
         CPTFinancialDataArray *financialData = self.dataPuller.financialData;
 
-        CPTDictionary *fData = financialData[[financialData count] - index - 1];
+        CPTDictionary *fData = financialData[financialData.count - index - 1];
         num = fData[@"close"];
         NSAssert([num isMemberOfClass:[NSDecimalNumber class]], @"grrr");
     }
@@ -149,8 +149,8 @@
     //NSLog(@"in -setDataPuller:, old value of dataPuller: %@, changed to: %@", dataPuller, aDataPuller);
 
     if ( dataPuller != aDataPuller ) {
-        dataPuller = aDataPuller;
-        [dataPuller setDelegate:self];
+        dataPuller          = aDataPuller;
+        dataPuller.delegate = self;
         [self reloadData];
     }
 }

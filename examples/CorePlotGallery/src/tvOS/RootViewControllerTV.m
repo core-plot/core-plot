@@ -57,7 +57,7 @@
 
         controller.currentThemeName = self.currentThemeName;
 
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
 
         PlotItem *plotItem = [[PlotGallery sharedPlotGallery] objectInSection:[indexPath indexAtPosition:0]
                                                                       atIndex:[indexPath indexAtPosition:1]];
@@ -90,7 +90,7 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tv
 {
-    return (NSInteger)[[PlotGallery sharedPlotGallery] numberOfSections];
+    return (NSInteger)[PlotGallery sharedPlotGallery].numberOfSections;
 }
 
 -(NSInteger)tableView:(UITableView *)tv numberOfRowsInSection:(NSInteger)section
@@ -119,7 +119,7 @@
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return [[PlotGallery sharedPlotGallery] sectionTitles][(NSUInteger)section];
+    return [PlotGallery sharedPlotGallery].sectionTitles[(NSUInteger)section];
 }
 
 @end

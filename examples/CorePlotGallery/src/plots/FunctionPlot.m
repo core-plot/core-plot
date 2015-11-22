@@ -215,7 +215,7 @@
     CPTStringArray *fontNames = [UIFont fontNamesForFamilyName:oldFont.familyName];
 
     for ( NSString *fontName in fontNames ) {
-        NSString *upperCaseFontName = [fontName uppercaseString];
+        NSString *upperCaseFontName = fontName.uppercaseString;
         if ( [upperCaseFontName rangeOfString:@"ITALIC"].location != NSNotFound ) {
             italicName = fontName;
             break;
@@ -223,7 +223,7 @@
     }
     if ( !italicName ) {
         for ( NSString *fontName in fontNames ) {
-            NSString *upperCaseFontName = [fontName uppercaseString];
+            NSString *upperCaseFontName = fontName.uppercaseString;
             if ( [upperCaseFontName rangeOfString:@"OBLIQUE"].location != NSNotFound ) {
                 italicName = fontName;
                 break;

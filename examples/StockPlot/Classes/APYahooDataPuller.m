@@ -51,10 +51,10 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 {
     CPTMutableDictionary *aFinancialLine = [NSMutableDictionary dictionaryWithDictionary:theFinancialLine];
 
-    for ( id key in [aFinancialLine allKeys] ) {
+    for ( id key in aFinancialLine.allKeys ) {
         id something = aFinancialLine[key];
         if ( [something respondsToSelector:@selector(decimalValue)] ) {
-            something           = [NSDecimalNumber decimalNumberWithDecimal:[(NSNumber *)something decimalValue]];
+            something           = [NSDecimalNumber decimalNumberWithDecimal:( (NSNumber *)something ).decimalValue];
             aFinancialLine[key] = something;
         }
     }
@@ -88,12 +88,12 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 {
     CPTMutableDictionary *rep = [NSMutableDictionary dictionaryWithCapacity:7];
 
-    rep[@"symbol"]        = [self symbol];
-    rep[@"startDate"]     = [self startDate];
-    rep[@"endDate"]       = [self endDate];
-    rep[@"overallHigh"]   = [self overallHigh];
-    rep[@"overallLow"]    = [self overallLow];
-    rep[@"financialData"] = [self financialData];
+    rep[@"symbol"]        = self.symbol;
+    rep[@"startDate"]     = self.startDate;
+    rep[@"endDate"]       = self.endDate;
+    rep[@"overallHigh"]   = self.overallHigh;
+    rep[@"overallLow"]    = self.overallLow;
+    rep[@"financialData"] = self.financialData;
 
     return [NSDictionary dictionaryWithDictionary:rep];
 }
@@ -138,7 +138,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 
     if ( ![[NSFileManager defaultManager] fileExistsAtPath:docPath] ) {
         //if there isn't one in the user's documents directory, see if we ship with this data
-        docPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", aSymbol]];
+        docPath = [[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", aSymbol]];
     }
     return docPath;
 }
@@ -198,15 +198,15 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     NSDateComponents *compsStart = [gregorian components:unitFlags fromDate:self.targetStartDate];
     NSDateComponents *compsEnd   = [gregorian components:unitFlags fromDate:self.targetEndDate];
 
-    NSString *url = [NSString stringWithFormat:@"http://ichart.yahoo.com/table.csv?s=%@&", [self targetSymbol]];
+    NSString *url = [NSString stringWithFormat:@"http://ichart.yahoo.com/table.csv?s=%@&", self.targetSymbol];
 
-    url = [url stringByAppendingFormat:@"a=%ld&", (long)[compsStart month] - 1];
-    url = [url stringByAppendingFormat:@"b=%ld&", (long)[compsStart day]];
-    url = [url stringByAppendingFormat:@"c=%ld&", (long)[compsStart year]];
+    url = [url stringByAppendingFormat:@"a=%ld&", (long)compsStart.month - 1];
+    url = [url stringByAppendingFormat:@"b=%ld&", (long)compsStart.day];
+    url = [url stringByAppendingFormat:@"c=%ld&", (long)compsStart.year];
 
-    url = [url stringByAppendingFormat:@"d=%ld&", (long)[compsEnd month] - 1];
-    url = [url stringByAppendingFormat:@"e=%ld&", (long)[compsEnd day]];
-    url = [url stringByAppendingFormat:@"f=%ld&", (long)[compsEnd year]];
+    url = [url stringByAppendingFormat:@"d=%ld&", (long)compsEnd.month - 1];
+    url = [url stringByAppendingFormat:@"e=%ld&", (long)compsEnd.day];
+    url = [url stringByAppendingFormat:@"f=%ld&", (long)compsEnd.year];
     url = [url stringByAppendingString:@"g=d&"];
 
     url = [url stringByAppendingString:@"ignore=.csv"];
@@ -231,9 +231,9 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     NSTimeInterval twelveHours = 60.0 * 60.0 * 12.0;
 
     return 0 >= self.financialData.count ||
-           ![[self targetSymbol] isEqualToString:[self symbol]] ||
-           [[self targetStartDate] timeIntervalSinceDate:[self startDate]] > twelveHours ||
-           [[self targetEndDate] timeIntervalSinceDate:[self endDate]] > twelveHours;
+           ![self.targetSymbol isEqualToString:self.symbol] ||
+           [self.targetStartDate timeIntervalSinceDate:self.startDate] > twelveHours ||
+           [self.targetEndDate timeIntervalSinceDate:self.endDate] > twelveHours;
 }
 
 -(void)fetchIfNeeded
@@ -276,7 +276,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     // has enough information to create the NSURLResponse
     // it can be called multiple times, for example in the case of a
     // redirect, so each time we reset the data.
-    [self.receivedData setLength:0];
+    self.receivedData.length = 0;
 }
 
 -(void)cancelDownload
@@ -295,7 +295,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     self.loadingData  = NO;
     self.receivedData = nil;
     self.connection   = nil;
-    NSLog(@"err = %@", [error localizedDescription]);
+    NSLog(@"err = %@", error.localizedDescription);
     self.connection = nil;
 
     id theDelegate = self.delegate;
@@ -354,7 +354,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     self.endDate   = self.targetEndDate;
     self.symbol    = self.targetSymbol;
 
-    [self setFinancialData:[NSArray arrayWithArray:newFinancials]];
+    self.financialData = [NSArray arrayWithArray:newFinancials];
 }
 
 @end

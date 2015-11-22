@@ -153,7 +153,7 @@
         [self removeInputPortForKey:[NSString stringWithFormat:@"plotFillColor%lu", (unsigned long)(i - 1)]];
         [self removeInputPortForKey:[NSString stringWithFormat:@"plotDataLineWidth%lu", (unsigned long)(i - 1)]];
 
-        [theGraph removePlot:[[theGraph allPlots] lastObject]];
+        [theGraph removePlot:[theGraph allPlots].lastObject];
     }
 }
 
@@ -162,7 +162,7 @@
     CPTGraph *theGraph = self.graph;
 
     // The pixel width of a single plot unit (1..2) along the x axis of the plot
-    double count     = (double)[[theGraph allPlots] count];
+    double count     = (double)[theGraph allPlots].count;
     double unitWidth = theGraph.plotAreaFrame.bounds.size.width / (self.inputXMax - self.inputXMin);
     double barWidth  = self.inputBarWidth * unitWidth / count;
 
@@ -207,13 +207,13 @@
         return nil;
     }
 
-    NSUInteger keyCount          = [[dict allKeys] count];
+    NSUInteger keyCount          = dict.allKeys.count;
     CPTMutableNumberArray *array = [NSMutableArray array];
 
     if ( fieldEnum == CPTBarPlotFieldBarLocation ) {
         // Calculate horizontal position of bar - nth bar index + barWidth*plotIndex + 0.5
         float xpos;
-        float plotCount = [[self.graph allPlots] count];
+        float plotCount = [self.graph allPlots].count;
 
         for ( NSUInteger i = 0; i < keyCount; i++ ) {
             xpos = (float)i + (float)plotIndex / (plotCount);

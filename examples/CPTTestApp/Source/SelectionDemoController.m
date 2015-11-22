@@ -187,7 +187,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
     NSUInteger count = 0;
 
     if ( [(NSString *)plot.identifier isEqualToString : MAIN_PLOT] ) {
-        count = [self.dataForPlot count];
+        count = self.dataForPlot.count;
     }
     else if ( [(NSString *)plot.identifier isEqualToString : SELECTION_PLOT] ) {
         if ( self.selectedIndex < NSUIntegerMax ) {

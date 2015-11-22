@@ -60,12 +60,12 @@
     // for daylight savings time.
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
 
-    [dateComponents setMonth:10];
-    [dateComponents setDay:29];
-    [dateComponents setYear:2009];
-    [dateComponents setHour:12];
-    [dateComponents setMinute:0];
-    [dateComponents setSecond:0];
+    dateComponents.month  = 10;
+    dateComponents.day    = 29;
+    dateComponents.year   = 2009;
+    dateComponents.hour   = 12;
+    dateComponents.minute = 0;
+    dateComponents.second = 0;
 
     NSCalendar *gregorian = [[NSCalendar alloc]
                              initWithCalendarIdentifier:NSCalendarIdentifierGregorian];

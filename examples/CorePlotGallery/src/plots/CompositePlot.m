@@ -168,7 +168,7 @@
                                                              constant:0.0]];
 
 #else
-    NSRect viewRect = [hostingView bounds];
+    NSRect viewRect = hostingView.bounds;
 
     scatterView.frame = NSMakeRect( 0.0,
                                     0.0,
@@ -187,7 +187,7 @@
 
     for ( NSView *view in @[scatterView, barView, pieView] ) {
         [view setAutoresizesSubviews:YES];
-        [view setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+        view.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
         [hostingView addSubview:view];
     }
@@ -361,7 +361,7 @@
     CPTNumberArray *customTickLocations  = @[@1, @5, @10, @15];
     CPTStringArray *xAxisLabels          = @[@"Label A", @"Label B", @"Label C", @"Label D"];
     NSUInteger labelLocation             = 0;
-    CPTMutableAxisLabelSet *customLabels = [NSMutableSet setWithCapacity:[xAxisLabels count]];
+    CPTMutableAxisLabelSet *customLabels = [NSMutableSet setWithCapacity:xAxisLabels.count];
     for ( NSNumber *tickLocation in customTickLocations ) {
         CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:xAxisLabels[labelLocation++] textStyle:x.labelTextStyle];
         newLabel.tickLocation = tickLocation;
@@ -465,7 +465,7 @@
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
     if ( [plot isKindOfClass:[CPTPieChart class]] ) {
-        return [self.dataForChart count];
+        return self.dataForChart.count;
     }
     else if ( [plot isKindOfClass:[CPTBarPlot class]] ) {
         return 16;
@@ -480,7 +480,7 @@
     NSNumber *num = nil;
 
     if ( [plot isKindOfClass:[CPTPieChart class]] ) {
-        if ( index >= [self.dataForChart count] ) {
+        if ( index >= self.dataForChart.count ) {
             return nil;
         }
 
@@ -512,7 +512,7 @@
         // Green plot gets shifted above the blue
         if ( [(NSString *)plot.identifier isEqualToString : @"Green Plot"] ) {
             if ( fieldEnum == CPTScatterPlotFieldY ) {
-                num = @([num doubleValue] + 1.0);
+                num = @(num.doubleValue + 1.0);
             }
         }
     }
