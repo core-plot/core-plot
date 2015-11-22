@@ -197,6 +197,8 @@ static NSString *const kSecond = @"Second Derivative";
     y.minorGridLineStyle          = minorGridLineStyle;
     y.axisConstraints             = [CPTConstraints constraintWithLowerOffset:0.0];
     y.labelOffset                 = self.titleSize * CPTFloat(0.25);
+    y.alternatingBandFills        = @[[[CPTColor whiteColor] colorWithAlphaComponent:0.1], [NSNull null]];
+    y.alternatingBandAnchor       = @0.0;
 
     lineCap.lineStyle = y.axisLineStyle;
     lineCap.fill      = [CPTFill fillWithColor:lineCap.lineStyle.lineColor];

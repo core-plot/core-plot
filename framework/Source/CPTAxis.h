@@ -271,6 +271,7 @@ typedef NSMutableArray<__kindof CPTAxis *> CPTMutableAxisArray;
 /// @name Background Bands
 /// @{
 @property (nonatomic, readwrite, copy, nullable) CPTFillArray *alternatingBandFills;
+@property (nonatomic, readwrite, strong, nullable) NSNumber *alternatingBandAnchor;
 @property (nonatomic, readonly, nullable) CPTLimitBandArray *backgroundLimitBands;
 /// @}
 

@@ -410,6 +410,15 @@ NSDecimal CPTNiceLength(NSDecimal length);
  **/
 @synthesize alternatingBandFills;
 
+/** @property NSNumber *alternatingBandAnchor
+ *  @brief The starting location of the first band fill.
+ *
+ *  If @nil (the default), the first fill is drawn between the bottom left corner of the plot area
+ *  and the first major tick location inside the plot area. If the anchor falls between two
+ *  major tick locations, the first band fill wiil be drawn between those locations.
+ **/
+@synthesize alternatingBandAnchor;
+
 /** @property CPTLimitBandArray *backgroundLimitBands
  *  @brief An array of CPTLimitBand objects.
  *
@@ -521,6 +530,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
  *  - @ref labelShadow = @nil
  *  - @ref minorTickLabelShadow = @nil
  *  - @ref alternatingBandFills = @nil
+ *  - @ref alternatingBandAnchor = @nil
  *  - @ref minorGridLines = @nil
  *  - @ref majorGridLines = @nil
  *  - @ref needsDisplayOnBoundsChange = @YES
@@ -589,6 +599,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
         visibleAxisRange            = nil;
         gridLinesRange              = nil;
         alternatingBandFills        = nil;
+        alternatingBandAnchor       = nil;
         mutableBackgroundLimitBands = nil;
         minorGridLines              = nil;
         majorGridLines              = nil;
@@ -662,6 +673,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
         visibleAxisRange            = theLayer->visibleAxisRange;
         gridLinesRange              = theLayer->gridLinesRange;
         alternatingBandFills        = theLayer->alternatingBandFills;
+        alternatingBandAnchor       = theLayer->alternatingBandAnchor;
         mutableBackgroundLimitBands = theLayer->mutableBackgroundLimitBands;
         minorGridLines              = theLayer->minorGridLines;
         majorGridLines              = theLayer->majorGridLines;
@@ -744,6 +756,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
     [coder encodeObject:self.visibleAxisRange forKey:@"CPTAxis.visibleAxisRange"];
     [coder encodeObject:self.gridLinesRange forKey:@"CPTAxis.gridLinesRange"];
     [coder encodeObject:self.alternatingBandFills forKey:@"CPTAxis.alternatingBandFills"];
+    [coder encodeObject:self.alternatingBandAnchor forKey:@"CPTAxis.alternatingBandAnchor"];
     [coder encodeObject:self.mutableBackgroundLimitBands forKey:@"CPTAxis.mutableBackgroundLimitBands"];
     [coder encodeBool:self.separateLayers forKey:@"CPTAxis.separateLayers"];
     [coder encodeObject:self.labelShadow forKey:@"CPTAxis.labelShadow"];
@@ -811,6 +824,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
         visibleAxisRange            = [[coder decodeObjectForKey:@"CPTAxis.visibleAxisRange"] copy];
         gridLinesRange              = [[coder decodeObjectForKey:@"CPTAxis.gridLinesRange"] copy];
         alternatingBandFills        = [[coder decodeObjectForKey:@"CPTAxis.alternatingBandFills"] copy];
+        alternatingBandAnchor       = [coder decodeObjectForKey:@"CPTAxis.alternatingBandAnchor"];
         mutableBackgroundLimitBands = [[coder decodeObjectForKey:@"CPTAxis.mutableBackgroundLimitBands"] mutableCopy];
         separateLayers              = [coder decodeBoolForKey:@"CPTAxis.separateLayers"];
         labelShadow                 = [coder decodeObjectForKey:@"CPTAxis.labelShadow"];

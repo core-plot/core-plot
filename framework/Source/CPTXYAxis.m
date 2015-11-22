@@ -21,6 +21,8 @@
 -(void)orthogonalCoordinateViewLowerBound:(nonnull CGFloat *)lower upperBound:(nonnull CGFloat *)upper;
 -(CGPoint)viewPointForOrthogonalCoordinate:(nullable NSNumber *)orthogonalCoord axisCoordinate:(nullable NSNumber *)coordinateValue;
 
+-(NSUInteger)initialBandIndexForSortedLocations:(nonnull CPTNumberArray *)sortedLocations inRange:(nonnull CPTMutablePlotRange *)range;
+
 @end
 
 /// @endcond
@@ -478,6 +480,103 @@
 
 /// @cond
 
+-(NSUInteger)initialBandIndexForSortedLocations:(CPTNumberArray *)sortedLocations inRange:(CPTMutablePlotRange *)range
+{
+    NSUInteger bandIndex = 0;
+
+    NSNumber *bandAnchor = self.alternatingBandAnchor;
+    NSUInteger bandCount = self.alternatingBandFills.count;
+
+    if ( bandAnchor && (bandCount > 0) ) {
+        NSDecimal anchor = bandAnchor.decimalValue;
+
+        CPTPlotRange *theVisibleRange = self.visibleRange;
+        if ( theVisibleRange ) {
+            [range intersectionPlotRange:theVisibleRange];
+        }
+
+        NSDecimal rangeStart;
+        if ( range.lengthDouble >= 0.0 ) {
+            rangeStart = range.minLimitDecimal;
+        }
+        else {
+            rangeStart = range.maxLimitDecimal;
+        }
+
+        NSDecimal origin = self.labelingOrigin.decimalValue;
+        NSDecimal offset = CPTDecimalSubtract(anchor, origin);
+        NSDecimalRound(&offset, &offset, 0, NSRoundDown);
+
+        const NSDecimal zero = CPTDecimalFromInteger(0);
+
+        // Set starting coord--should be the smallest value >= rangeMin that is a whole multiple of majorInterval away from the alternatingBandAnchor
+        NSDecimal coord         = zero;
+        NSDecimal majorInterval = zero;
+
+        switch ( self.labelingPolicy ) {
+            case CPTAxisLabelingPolicyAutomatic:
+            case CPTAxisLabelingPolicyEqualDivisions:
+                if ( sortedLocations.count > 1 ) {
+                    if ( range.lengthDouble >= 0.0 ) {
+                        majorInterval = CPTDecimalSubtract(sortedLocations[1].decimalValue, sortedLocations[0].decimalValue);
+                    }
+                    else {
+                        majorInterval = CPTDecimalSubtract(sortedLocations[0].decimalValue, sortedLocations[1].decimalValue);
+                    }
+                }
+                break;
+
+            case CPTAxisLabelingPolicyFixedInterval:
+            {
+                majorInterval = self.majorIntervalLength.decimalValue;
+            }
+            break;
+
+            case CPTAxisLabelingPolicyLocationsProvided:
+            case CPTAxisLabelingPolicyNone:
+            {
+                // user provided tick locations; they're not guaranteed to be evenly spaced, but band drawing always starts with the first location
+                if ( range.lengthDouble >= 0.0 ) {
+                    for ( NSNumber *location in sortedLocations ) {
+                        if ( CPTDecimalLessThan(anchor, location.decimalValue) ) {
+                            break;
+                        }
+
+                        bandIndex++;
+                    }
+                }
+                else {
+                    for ( NSNumber *location in sortedLocations ) {
+                        if ( CPTDecimalGreaterThanOrEqualTo(anchor, location.decimalValue) ) {
+                            break;
+                        }
+
+                        bandIndex++;
+                    }
+                }
+
+                bandIndex = bandIndex % bandCount;
+            }
+            break;
+        }
+
+        if ( !CPTDecimalEquals(majorInterval, zero) ) {
+            coord = CPTDecimalDivide(CPTDecimalSubtract(rangeStart, origin), majorInterval);
+            NSDecimalRound(&coord, &coord, 0, NSRoundUp);
+            NSInteger stepCount = CPTDecimalIntegerValue(coord) + CPTDecimalIntegerValue(offset) + 1;
+
+            if ( stepCount >= 0 ) {
+                bandIndex = (NSUInteger)(stepCount % (NSInteger)bandCount);
+            }
+            else {
+                bandIndex = (NSUInteger)(-stepCount % (NSInteger)bandCount);
+            }
+        }
+    }
+
+    return bandIndex;
+}
+
 -(void)drawBackgroundBandsInContext:(CGContextRef)context
 {
     CPTFillArray *bandArray = self.alternatingBandFills;
@@ -506,7 +605,7 @@
                 [orthogonalRange intersectionPlotRange:theGridLineRange];
             }
 
-            NSDecimal zero                   = CPTDecimalFromInteger(0);
+            const NSDecimal zero             = CPTDecimalFromInteger(0);
             NSSortDescriptor *sortDescriptor = nil;
             if ( range ) {
                 if ( CPTDecimalGreaterThanOrEqualTo(range.lengthDecimal, zero) ) {
@@ -521,8 +620,10 @@
             }
             locations = [locations sortedArrayUsingDescriptors:@[sortDescriptor]];
 
-            NSUInteger bandIndex = 0;
-            id null              = [NSNull null];
+            NSUInteger bandIndex = [self initialBandIndexForSortedLocations:locations inRange:range];
+
+            const id null = [NSNull null];
+
             NSDecimal lastLocation;
             if ( range ) {
                 lastLocation = range.locationDecimal;

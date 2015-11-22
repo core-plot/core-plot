@@ -6,6 +6,7 @@ To be determined.
 
 ## Details
 - **New**: Added a tvOS framework.
+- **New**: Added an option to anchor alternating band fills to a specific starting value.
 - **Changed**: Changed the annotated type definitions to exclude the pointer star ("*").
 - **Changed**: Miscellaneous bug fixes and cleanup.
 
