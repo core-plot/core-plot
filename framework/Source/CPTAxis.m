@@ -3142,6 +3142,16 @@ NSDecimal CPTNiceLength(NSDecimal length)
     }
 }
 
+-(void)setAlternatingBandAnchor:(NSNumber *)newBandAnchor
+{
+    if ( newBandAnchor != alternatingBandAnchor ) {
+        alternatingBandAnchor = newBandAnchor;
+
+        CPTPlotArea *thePlotArea = self.plotArea;
+        [thePlotArea setNeedsDisplay];
+    }
+}
+
 -(CPTLimitBandArray *)backgroundLimitBands
 {
     return [self.mutableBackgroundLimitBands copy];
