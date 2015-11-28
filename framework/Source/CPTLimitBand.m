@@ -79,14 +79,8 @@
 
 -(void)encodeWithCoder:(NSCoder *)encoder
 {
-    if ( encoder.allowsKeyedCoding ) {
-        [encoder encodeObject:self.range forKey:@"CPTLimitBand.range"];
-        [encoder encodeObject:self.fill forKey:@"CPTLimitBand.fill"];
-    }
-    else {
-        [encoder encodeObject:self.range];
-        [encoder encodeObject:self.fill];
-    }
+    [encoder encodeObject:self.range forKey:@"CPTLimitBand.range"];
+    [encoder encodeObject:self.fill forKey:@"CPTLimitBand.fill"];
 }
 
 /// @endcond
@@ -98,14 +92,8 @@
 -(instancetype)initWithCoder:(NSCoder *)decoder
 {
     if ( (self = [super init]) ) {
-        if ( decoder.allowsKeyedCoding ) {
-            range = [decoder decodeObjectForKey:@"CPTLimitBand.range"];
-            fill  = [decoder decodeObjectForKey:@"CPTLimitBand.fill"];
-        }
-        else {
-            range = [decoder decodeObject];
-            fill  = [decoder decodeObject];
-        }
+        range = [decoder decodeObjectForKey:@"CPTLimitBand.range"];
+        fill  = [decoder decodeObjectForKey:@"CPTLimitBand.fill"];
     }
     return self;
 }

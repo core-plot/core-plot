@@ -182,29 +182,26 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-    if ( coder.allowsKeyedCoding ) {
-        NSUInteger count                   = 0;
-        CPTGradientElement *currentElement = self.elementList;
-        while ( currentElement != NULL ) {
-            [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.red)];
-            [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.green)];
-            [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.blue)];
-            [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.alpha)];
-            [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->position)];
+    NSUInteger count = 0;
 
-            count++;
-            currentElement = currentElement->nextElement;
-        }
-        [coder encodeInteger:(NSInteger)count forKey:@"CPTGradient.elementCount"];
-        [coder encodeInteger:self.blendingMode forKey:@"CPTGradient.blendingMode"];
-        [coder encodeCGFloat:self.angle forKey:@"CPTGradient.angle"];
-        [coder encodeInteger:self.gradientType forKey:@"CPTGradient.type"];
-        [coder encodeCPTPoint:self.startAnchor forKey:@"CPTPlotSymbol.startAnchor"];
-        [coder encodeCPTPoint:self.endAnchor forKey:@"CPTPlotSymbol.endAnchor"];
+    CPTGradientElement *currentElement = self.elementList;
+
+    while ( currentElement != NULL ) {
+        [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.red)];
+        [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.green)];
+        [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.blue)];
+        [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.alpha)];
+        [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->position)];
+
+        count++;
+        currentElement = currentElement->nextElement;
     }
-    else {
-        [NSException raise:NSInvalidArchiveOperationException format:@"Only supports NSKeyedArchiver coders"];
-    }
+    [coder encodeInteger:(NSInteger)count forKey:@"CPTGradient.elementCount"];
+    [coder encodeInteger:self.blendingMode forKey:@"CPTGradient.blendingMode"];
+    [coder encodeCGFloat:self.angle forKey:@"CPTGradient.angle"];
+    [coder encodeInteger:self.gradientType forKey:@"CPTGradient.type"];
+    [coder encodeCPTPoint:self.startAnchor forKey:@"CPTPlotSymbol.startAnchor"];
+    [coder encodeCPTPoint:self.endAnchor forKey:@"CPTPlotSymbol.endAnchor"];
 }
 
 -(instancetype)initWithCoder:(NSCoder *)coder
