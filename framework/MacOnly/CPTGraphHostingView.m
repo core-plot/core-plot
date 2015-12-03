@@ -503,6 +503,11 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
             self.layer      = [self makeBackingLayer];
             self.wantsLayer = YES;
         }
+
+        CPTGraph *theGraph = self.hostedGraph;
+        if ( theGraph ) {
+            [self.layer addSublayer:theGraph];
+        }
     }
 }
 
