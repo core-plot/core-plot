@@ -5,6 +5,7 @@
 To be determined.
 
 ## Details
+- **New**: Increased the Mac deployment target to OS X 10.8.
 - **New**: Added a tvOS framework.
 - **New**: Added an option to anchor alternating band fills to a specific starting value.
 - **Changed**: Changed the annotated type definitions to exclude the pointer star ("*").

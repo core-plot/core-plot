@@ -693,7 +693,9 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 -(IBAction)plotSymbolDemo:(id)sender
 {
     if ( !self.plotSymbolWindow ) {
-        [NSBundle loadNibNamed:@"PlotSymbolDemo" owner:self];
+        [[NSBundle mainBundle] loadNibNamed:@"PlotSymbolDemo"
+                                      owner:self
+                            topLevelObjects:nil];
     }
 
     NSWindow *window = self.plotSymbolWindow;
@@ -703,7 +705,9 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 -(IBAction)axisDemo:(id)sender
 {
     if ( !self.axisDemoWindow ) {
-        [NSBundle loadNibNamed:@"AxisDemo" owner:self];
+        [[NSBundle mainBundle] loadNibNamed:@"AxisDemo"
+                                      owner:self
+                            topLevelObjects:nil];
     }
 
     NSWindow *window = self.axisDemoWindow;
@@ -713,7 +717,9 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 -(IBAction)selectionDemo:(id)sender
 {
     if ( !self.selectionDemoWindow ) {
-        [NSBundle loadNibNamed:@"SelectionDemo" owner:self];
+        [[NSBundle mainBundle] loadNibNamed:@"SelectionDemo"
+                                      owner:self
+                            topLevelObjects:nil];
     }
 
     NSWindow *window = self.selectionDemoWindow;
