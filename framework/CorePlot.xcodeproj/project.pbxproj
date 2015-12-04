@@ -236,6 +236,10 @@
 		C34F0D59121CB3F00020FDD3 /* CPTDataSourceTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A745E0FB24C7200918464 /* CPTDataSourceTestCase.m */; };
 		C36E89BA11EE7F97003DE309 /* CPTPlotRangeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C36E89B911EE7F97003DE309 /* CPTPlotRangeTests.m */; };
 		C370D5971A753F1C00AF4312 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3226A571A69F6FA00F77249 /* CoreGraphics.framework */; };
+		C377B3BB1C122AA600891DF8 /* CPTCalendarFormatterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C377B3BA1C122AA600891DF8 /* CPTCalendarFormatterTests.m */; };
+		C377B3BC1C122AA600891DF8 /* CPTCalendarFormatterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C377B3BA1C122AA600891DF8 /* CPTCalendarFormatterTests.m */; };
+		C377B3BD1C122AA600891DF8 /* CPTCalendarFormatterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C377B3BA1C122AA600891DF8 /* CPTCalendarFormatterTests.m */; };
+		C377B3BE1C122AA600891DF8 /* CPTCalendarFormatterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C377B3BA1C122AA600891DF8 /* CPTCalendarFormatterTests.m */; };
 		C3791D09191D4C4C001EC514 /* CPTImagePlatformSpecific.m in Sources */ = {isa = PBXBuildFile; fileRef = C3791D07191D4C4C001EC514 /* CPTImagePlatformSpecific.m */; };
 		C37EA5CB1BC83F2A0091C8F7 /* CPTGraphHostingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C38A0B281A46265300D45436 /* CPTGraphHostingView.m */; };
 		C37EA5CC1BC83F2A0091C8F7 /* CPTLayerAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E10BBA11D10183000B8DAB /* CPTLayerAnnotation.m */; };
@@ -1095,6 +1099,8 @@
 		C36468A90FE5533F0064B186 /* CPTTextStyleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTTextStyleTests.m; sourceTree = "<group>"; };
 		C36E89B811EE7F97003DE309 /* CPTPlotRangeTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPlotRangeTests.h; sourceTree = "<group>"; };
 		C36E89B911EE7F97003DE309 /* CPTPlotRangeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTPlotRangeTests.m; sourceTree = "<group>"; };
+		C377B3B91C122AA600891DF8 /* CPTCalendarFormatterTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTCalendarFormatterTests.h; sourceTree = "<group>"; };
+		C377B3BA1C122AA600891DF8 /* CPTCalendarFormatterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTCalendarFormatterTests.m; sourceTree = "<group>"; };
 		C3791D07191D4C4C001EC514 /* CPTImagePlatformSpecific.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = CPTImagePlatformSpecific.m; path = MacOnly/CPTImagePlatformSpecific.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C37EA6921BC83F2A0091C8F7 /* CorePlot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CorePlot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C37EA6931BC83F2A0091C8F7 /* CorePlot-tvOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CorePlot-tvOS-Info.plist"; path = "/Users/eskroch/Projects/Core Plot/framework/Info/CorePlot-tvOS-Info.plist"; sourceTree = "<absolute>"; };
@@ -1947,6 +1953,8 @@
 		C3D979A513D2159400145DFF /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				C377B3B91C122AA600891DF8 /* CPTCalendarFormatterTests.h */,
+				C377B3BA1C122AA600891DF8 /* CPTCalendarFormatterTests.m */,
 				C3D979A713D2328000145DFF /* CPTTimeFormatterTests.h */,
 				C3D979A813D2328000145DFF /* CPTTimeFormatterTests.m */,
 			);
@@ -2648,6 +2656,7 @@
 				C3D979AF13D2337E00145DFF /* CPTColorSpaceTests.m in Sources */,
 				C3D979B213D233C100145DFF /* CPTGradientTests.m in Sources */,
 				C3D979B513D2340000145DFF /* CPTImageTests.m in Sources */,
+				C377B3BB1C122AA600891DF8 /* CPTCalendarFormatterTests.m in Sources */,
 				C3D979B813D2344100145DFF /* CPTLineStyleTests.m in Sources */,
 				C3D979BB13D2347400145DFF /* CPTFillTests.m in Sources */,
 				C3C1C0801790D3B400E8B1B7 /* CPTLayerTests.m in Sources */,
@@ -2882,6 +2891,7 @@
 				C37EA6AA1BC83F2D0091C8F7 /* CPTMutableNumericDataTypeConversionTests.m in Sources */,
 				C37EA6AB1BC83F2D0091C8F7 /* CPTLineStyleTests.m in Sources */,
 				C37EA6AC1BC83F2D0091C8F7 /* CPTTextStyleTests.m in Sources */,
+				C377B3BE1C122AA600891DF8 /* CPTCalendarFormatterTests.m in Sources */,
 				C37EA6AD1BC83F2D0091C8F7 /* CPTTimeFormatterTests.m in Sources */,
 				C37EA6AE1BC83F2D0091C8F7 /* CPTLayerTests.m in Sources */,
 				C37EA6AF1BC83F2D0091C8F7 /* CPTScatterPlotTests.m in Sources */,
@@ -3014,6 +3024,7 @@
 				C38A09E61A461CB200D45436 /* CPTMutableNumericDataTypeConversionTests.m in Sources */,
 				C38A0A8B1A46210A00D45436 /* CPTLineStyleTests.m in Sources */,
 				C38A0A501A461F3D00D45436 /* CPTTextStyleTests.m in Sources */,
+				C377B3BC1C122AA600891DF8 /* CPTCalendarFormatterTests.m in Sources */,
 				C38A0A9B1A46219600D45436 /* CPTTimeFormatterTests.m in Sources */,
 				C38A0A121A461D6A00D45436 /* CPTLayerTests.m in Sources */,
 				C38A0AD81A46257600D45436 /* CPTScatterPlotTests.m in Sources */,
@@ -3146,6 +3157,7 @@
 				C38A09E51A461CAE00D45436 /* CPTMutableNumericDataTests.m in Sources */,
 				C38A0B161A46262000D45436 /* CPTDarkGradientThemeTests.m in Sources */,
 				C38A0A131A461D6B00D45436 /* CPTLayerTests.m in Sources */,
+				C377B3BD1C122AA600891DF8 /* CPTCalendarFormatterTests.m in Sources */,
 				C38A0A9C1A46219700D45436 /* CPTTimeFormatterTests.m in Sources */,
 				C38A0A511A461F3D00D45436 /* CPTTextStyleTests.m in Sources */,
 				C38A0A8C1A46210A00D45436 /* CPTColorTests.m in Sources */,

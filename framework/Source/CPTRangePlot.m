@@ -225,16 +225,31 @@ typedef struct CGPointError CGPointError;
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        barLineStyle        = [[coder decodeObjectForKey:@"CPTRangePlot.barLineStyle"] copy];
-        barWidth            = [coder decodeCGFloatForKey:@"CPTRangePlot.barWidth"];
-        gapHeight           = [coder decodeCGFloatForKey:@"CPTRangePlot.gapHeight"];
-        gapWidth            = [coder decodeCGFloatForKey:@"CPTRangePlot.gapWidth"];
-        areaFill            = [[coder decodeObjectForKey:@"CPTRangePlot.areaFill"] copy];
-        areaBorderLineStyle = [[coder decodeObjectForKey:@"CPTRangePlot.areaBorderLineStyle"] copy];
+        barLineStyle = [[coder decodeObjectOfClass:[CPTLineStyle class]
+                                            forKey:@"CPTRangePlot.barLineStyle"] copy];
+        barWidth  = [coder decodeCGFloatForKey:@"CPTRangePlot.barWidth"];
+        gapHeight = [coder decodeCGFloatForKey:@"CPTRangePlot.gapHeight"];
+        gapWidth  = [coder decodeCGFloatForKey:@"CPTRangePlot.gapWidth"];
+        areaFill  = [[coder decodeObjectOfClass:[CPTFill class]
+                                         forKey:@"CPTRangePlot.areaFill"] copy];
+        areaBorderLineStyle = [[coder decodeObjectOfClass:[CPTLineStyle class]
+                                                   forKey:@"CPTRangePlot.areaBorderLineStyle"] copy];
 
         pointingDeviceDownIndex = NSNotFound;
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

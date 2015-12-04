@@ -72,9 +72,22 @@
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        maskedLayer = [coder decodeObjectForKey:@"CPTBorderLayer.maskedLayer"];
+        maskedLayer = [coder decodeObjectOfClass:[CPTBorderedLayer class]
+                                          forKey:@"CPTBorderLayer.maskedLayer"];
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

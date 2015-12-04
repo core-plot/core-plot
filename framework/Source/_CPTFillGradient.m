@@ -18,7 +18,7 @@
 
 @implementation _CPTFillGradient
 
-/** @property fillGradient
+/** @property CPTGradient *fillGradient
  *  @brief The fill gradient.
  **/
 @synthesize fillGradient;
@@ -106,9 +106,22 @@
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        fillGradient = [coder decodeObjectForKey:@"_CPTFillGradient.fillGradient"];
+        fillGradient = [coder decodeObjectOfClass:[CPTGradient class]
+                                           forKey:@"_CPTFillGradient.fillGradient"];
     }
     return self;
 }
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
+/// @endcond
 
 @end

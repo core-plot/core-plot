@@ -97,9 +97,22 @@
     if ( (self = [super init]) ) {
         shadowOffset     = [coder decodeCPTSizeForKey:@"CPTShadow.shadowOffset"];
         shadowBlurRadius = [coder decodeCGFloatForKey:@"CPTShadow.shadowBlurRadius"];
-        shadowColor      = [coder decodeObjectForKey:@"CPTShadow.shadowColor"];
+        shadowColor      = [coder decodeObjectOfClass:[CPTColor class]
+                                               forKey:@"CPTShadow.shadowColor"];
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

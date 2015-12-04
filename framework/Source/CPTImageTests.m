@@ -30,7 +30,7 @@
     CGColorSpaceRelease(colorSpace);
     CGImageRelease(cgImage);
 
-    CPTImage *newImage = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:image]];
+    CPTImage *newImage = [self archiveRoundTrip:image];
 
     XCTAssertEqualObjects(image, newImage, @"Images not equal");
 }

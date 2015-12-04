@@ -14,16 +14,21 @@ typedef NSArray<__kindof CPTAnnotation *> CPTAnnotationArray;
 /**
  *  @brief A mutable array of annotations.
  **/
-typedef NSMutableArray<__kindof CPTAnnotation *> CPTMutableAnnotationArray
-;
+typedef NSMutableArray<__kindof CPTAnnotation *> CPTMutableAnnotationArray;
 
-@interface CPTAnnotation : NSObject<NSCoding>
+@interface CPTAnnotation : NSObject<NSCoding, NSSecureCoding>
 
 @property (nonatomic, readwrite, strong, nullable) CPTLayer *contentLayer;
 @property (nonatomic, readwrite, cpt_weak_property, nullable) cpt_weak CPTAnnotationHostLayer *annotationHostLayer;
 @property (nonatomic, readwrite, assign) CGPoint contentAnchorPoint;
 @property (nonatomic, readwrite, assign) CGPoint displacement;
 @property (nonatomic, readwrite, assign) CGFloat rotation;
+
+/// @name Initialization
+/// @{
+-(nonnull instancetype)init NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype)initWithCoder:(nonnull NSCoder *)coder NS_DESIGNATED_INITIALIZER;
+/// @}
 
 @end
 

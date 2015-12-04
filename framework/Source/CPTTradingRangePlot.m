@@ -275,20 +275,37 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        lineStyle         = [[coder decodeObjectForKey:@"CPTTradingRangePlot.lineStyle"] copy];
-        increaseLineStyle = [[coder decodeObjectForKey:@"CPTTradingRangePlot.increaseLineStyle"] copy];
-        decreaseLineStyle = [[coder decodeObjectForKey:@"CPTTradingRangePlot.decreaseLineStyle"] copy];
-        increaseFill      = [[coder decodeObjectForKey:@"CPTTradingRangePlot.increaseFill"] copy];
-        decreaseFill      = [[coder decodeObjectForKey:@"CPTTradingRangePlot.decreaseFill"] copy];
-        plotStyle         = (CPTTradingRangePlotStyle)[coder decodeIntegerForKey : @"CPTTradingRangePlot.plotStyle"];
-        barWidth          = [coder decodeCGFloatForKey:@"CPTTradingRangePlot.barWidth"];
-        stickLength       = [coder decodeCGFloatForKey:@"CPTTradingRangePlot.stickLength"];
-        barCornerRadius   = [coder decodeCGFloatForKey:@"CPTTradingRangePlot.barCornerRadius"];
-        showBarBorder     = [coder decodeBoolForKey:@"CPTTradingRangePlot.showBarBorder"];
+        lineStyle = [[coder decodeObjectOfClass:[CPTLineStyle class]
+                                         forKey:@"CPTTradingRangePlot.lineStyle"] copy];
+        increaseLineStyle = [[coder decodeObjectOfClass:[CPTLineStyle class]
+                                                 forKey:@"CPTTradingRangePlot.increaseLineStyle"] copy];
+        decreaseLineStyle = [[coder decodeObjectOfClass:[CPTLineStyle class]
+                                                 forKey:@"CPTTradingRangePlot.decreaseLineStyle"] copy];
+        increaseFill = [[coder decodeObjectOfClass:[CPTFill class]
+                                            forKey:@"CPTTradingRangePlot.increaseFill"] copy];
+        decreaseFill = [[coder decodeObjectOfClass:[CPTFill class]
+                                            forKey:@"CPTTradingRangePlot.decreaseFill"] copy];
+        plotStyle       = (CPTTradingRangePlotStyle)[coder decodeIntegerForKey : @"CPTTradingRangePlot.plotStyle"];
+        barWidth        = [coder decodeCGFloatForKey:@"CPTTradingRangePlot.barWidth"];
+        stickLength     = [coder decodeCGFloatForKey:@"CPTTradingRangePlot.stickLength"];
+        barCornerRadius = [coder decodeCGFloatForKey:@"CPTTradingRangePlot.barCornerRadius"];
+        showBarBorder   = [coder decodeBoolForKey:@"CPTTradingRangePlot.showBarBorder"];
 
         pointingDeviceDownIndex = NSNotFound;
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

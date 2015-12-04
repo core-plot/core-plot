@@ -529,6 +529,15 @@
         <base>NSFastEnumeration-p</base>
         <base>NSMutableCopying-p</base>
     </compound>
+    <compound kind="protocol" objc="yes">
+        <name>NSSecureCoding</name>
+        <filename>https://developer.apple.com/library/mac/documentation/Foundation/Reference/NSSecureCoding_Protocol_Ref/</filename>
+        <member kind="function" static="yes">
+            <type>BOOL</type>
+            <name>supportsSecureCoding:</name>
+            <anchor>//apple_ref/occ/intfcm/NSSecureCoding/supportsSecureCoding</anchor>
+        </member>
+    </compound>
     <compound kind="class" objc="yes">
         <name>NSString</name>
         <filename>https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html</filename>

@@ -311,20 +311,38 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        lineStyle                     = [[coder decodeObjectForKey:@"CPTBarPlot.lineStyle"] copy];
-        fill                          = [[coder decodeObjectForKey:@"CPTBarPlot.fill"] copy];
-        barWidth                      = [coder decodeObjectForKey:@"CPTBarPlot.barWidth"];
-        barOffset                     = [coder decodeObjectForKey:@"CPTBarPlot.barOffset"];
-        barCornerRadius               = [coder decodeCGFloatForKey:@"CPTBarPlot.barCornerRadius"];
-        barBaseCornerRadius           = [coder decodeCGFloatForKey:@"CPTBarPlot.barBaseCornerRadius"];
-        baseValue                     = [coder decodeObjectForKey:@"CPTBarPlot.baseValue"];
+        lineStyle = [[coder decodeObjectOfClass:[CPTLineStyle class]
+                                         forKey:@"CPTBarPlot.lineStyle"] copy];
+        fill = [[coder decodeObjectOfClass:[CPTFill class]
+                                    forKey:@"CPTBarPlot.fill"] copy];
+        barWidth = [coder decodeObjectOfClass:[NSNumber class]
+                                       forKey:@"CPTBarPlot.barWidth"];
+        barOffset = [coder decodeObjectOfClass:[NSNumber class]
+                                        forKey:@"CPTBarPlot.barOffset"];
+        barCornerRadius     = [coder decodeCGFloatForKey:@"CPTBarPlot.barCornerRadius"];
+        barBaseCornerRadius = [coder decodeCGFloatForKey:@"CPTBarPlot.barBaseCornerRadius"];
+        baseValue           = [coder decodeObjectOfClass:[NSNumber class]
+                                                  forKey:@"CPTBarPlot.baseValue"];
         barsAreHorizontal             = [coder decodeBoolForKey:@"CPTBarPlot.barsAreHorizontal"];
         barBasesVary                  = [coder decodeBoolForKey:@"CPTBarPlot.barBasesVary"];
         barWidthsAreInViewCoordinates = [coder decodeBoolForKey:@"CPTBarPlot.barWidthsAreInViewCoordinates"];
-        plotRange                     = [[coder decodeObjectForKey:@"CPTBarPlot.plotRange"] copy];
-        pointingDeviceDownIndex       = NSNotFound;
+        plotRange                     = [[coder decodeObjectOfClass:[CPTPlotRange class]
+                                                             forKey:@"CPTBarPlot.plotRange"] copy];
+        pointingDeviceDownIndex = NSNotFound;
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

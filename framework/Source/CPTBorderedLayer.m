@@ -115,12 +115,26 @@
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        borderLineStyle = [[coder decodeObjectForKey:@"CPTBorderedLayer.borderLineStyle"] copy];
-        fill            = [[coder decodeObjectForKey:@"CPTBorderedLayer.fill"] copy];
+        borderLineStyle = [[coder decodeObjectOfClass:[CPTLineStyle class]
+                                               forKey:@"CPTBorderedLayer.borderLineStyle"] copy];
+        fill = [[coder decodeObjectOfClass:[CPTFill class]
+                                    forKey:@"CPTBorderedLayer.fill"] copy];
 
         inLayout = NO;
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

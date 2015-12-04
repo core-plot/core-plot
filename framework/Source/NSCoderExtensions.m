@@ -334,7 +334,8 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element)
     NSLog(@"Color space decoding is not supported on iOS. Using generic RGB color space.");
     colorSpace = CGColorSpaceCreateDeviceRGB();
 #else
-    NSData *iccProfile = [self decodeObjectForKey:key];
+    NSData *iccProfile = [self decodeObjectOfClass:[NSData class]
+                                            forKey:key];
     if ( iccProfile ) {
         colorSpace = CGColorSpaceCreateWithICCProfile( (__bridge CFDataRef)iccProfile );
     }
@@ -446,7 +447,8 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element)
     const CGBitmapInfo *bitmapInfo = (const void *)[self decodeBytesForKey:newKey returnedLength:&length];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.provider", key];
-    CGDataProviderRef provider = CGDataProviderCreateWithCFData( (__bridge CFDataRef)[self decodeObjectForKey:newKey] );
+    CGDataProviderRef provider = CGDataProviderCreateWithCFData( (__bridge CFDataRef)[self decodeObjectOfClass:[NSData class]
+                                                                                                        forKey:newKey] );
 
     newKey = [[NSString alloc] initWithFormat:@"%@.numberOfComponents", key];
     size_t numberOfComponents = (size_t)[self decodeInt64ForKey : newKey];
@@ -501,7 +503,8 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element)
 {
     NSDecimal result;
 
-    NSNumber *number = [self decodeObjectForKey:key];
+    NSNumber *number = [self decodeObjectOfClass:[NSDecimalNumber class]
+                                          forKey:key];
 
     if ( [number respondsToSelector:@selector(decimalValue)] ) {
         result = number.decimalValue;

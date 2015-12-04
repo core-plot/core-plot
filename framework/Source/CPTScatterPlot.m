@@ -296,15 +296,22 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        interpolation                           = (CPTScatterPlotInterpolation)[coder decodeIntegerForKey : @"CPTScatterPlot.interpolation"];
-        histogramOption                         = (CPTScatterPlotHistogramOption)[coder decodeIntegerForKey : @"CPTScatterPlot.histogramOption"];
-        dataLineStyle                           = [[coder decodeObjectForKey:@"CPTScatterPlot.dataLineStyle"] copy];
-        plotSymbol                              = [[coder decodeObjectForKey:@"CPTScatterPlot.plotSymbol"] copy];
-        areaFill                                = [[coder decodeObjectForKey:@"CPTScatterPlot.areaFill"] copy];
-        areaFill2                               = [[coder decodeObjectForKey:@"CPTScatterPlot.areaFill2"] copy];
-        mutableAreaFillBands                    = [[coder decodeObjectForKey:@"CPTScatterPlot.mutableAreaFillBands"] mutableCopy];
-        areaBaseValue                           = [coder decodeObjectForKey:@"CPTScatterPlot.areaBaseValue"];
-        areaBaseValue2                          = [coder decodeObjectForKey:@"CPTScatterPlot.areaBaseValue2"];
+        interpolation   = (CPTScatterPlotInterpolation)[coder decodeIntegerForKey : @"CPTScatterPlot.interpolation"];
+        histogramOption = (CPTScatterPlotHistogramOption)[coder decodeIntegerForKey : @"CPTScatterPlot.histogramOption"];
+        dataLineStyle   = [[coder decodeObjectOfClass:[CPTLineStyle class]
+                                               forKey:@"CPTScatterPlot.dataLineStyle"] copy];
+        plotSymbol = [[coder decodeObjectOfClass:[CPTPlotSymbol class]
+                                          forKey:@"CPTScatterPlot.plotSymbol"] copy];
+        areaFill = [[coder decodeObjectOfClass:[CPTFill class]
+                                        forKey:@"CPTScatterPlot.areaFill"] copy];
+        areaFill2 = [[coder decodeObjectOfClass:[CPTFill class]
+                                         forKey:@"CPTScatterPlot.areaFill2"] copy];
+        mutableAreaFillBands = [[coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [CPTLimitBand class]]]
+                                                      forKey:@"CPTScatterPlot.mutableAreaFillBands"] mutableCopy];
+        areaBaseValue = [coder decodeObjectOfClass:[NSNumber class]
+                                            forKey:@"CPTScatterPlot.areaBaseValue"];
+        areaBaseValue2 = [coder decodeObjectOfClass:[NSNumber class]
+                                             forKey:@"CPTScatterPlot.areaBaseValue2"];
         plotSymbolMarginForHitDetection         = [coder decodeCGFloatForKey:@"CPTScatterPlot.plotSymbolMarginForHitDetection"];
         plotLineMarginForHitDetection           = [coder decodeCGFloatForKey:@"CPTScatterPlot.plotLineMarginForHitDetection"];
         allowSimultaneousSymbolAndPlotSelection = [coder decodeBoolForKey:@"CPTScatterPlot.allowSimultaneousSymbolAndPlotSelection"];
@@ -312,6 +319,18 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         pointingDeviceDownOnLine                = NO;
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

@@ -408,7 +408,7 @@
 
 -(void)testKeyedArchivingRoundTrip
 {
-    CPTPlotRange *newRange = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:self.plotRange]];
+    CPTPlotRange *newRange = [self archiveRoundTrip:self.plotRange];
 
     XCTAssertTrue([self.plotRange isEqualToRange:newRange], @"Ranges equal");
 }

@@ -16,7 +16,7 @@ typedef NSSet<CPTAxisLabel *> CPTAxisLabelSet;
  **/
 typedef NSMutableSet<CPTAxisLabel *> CPTMutableAxisLabelSet;
 
-@interface CPTAxisLabel : NSObject<NSCoding>
+@interface CPTAxisLabel : NSObject<NSCoding, NSSecureCoding>
 
 @property (nonatomic, readwrite, strong, nullable) CPTLayer *contentLayer;
 @property (nonatomic, readwrite, assign) CGFloat offset;

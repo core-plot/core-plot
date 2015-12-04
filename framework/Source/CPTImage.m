@@ -1,5 +1,6 @@
 #import "CPTImage.h"
 
+#import "CPTPlatformSpecificDefines.h"
 #import "CPTUtilities.h"
 #import "NSCoderExtensions.h"
 
@@ -215,7 +216,8 @@ CPTImageSlices;
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        nativeImage           = [[coder decodeObjectForKey:@"CPTImage.nativeImage"] copy];
+        nativeImage = [[coder decodeObjectOfClass:[CPTNativeImage class]
+                                           forKey:@"CPTImage.nativeImage"] copy];
         image                 = [coder newCGImageDecodeForKey:@"CPTImage.image"];
         scale                 = [coder decodeCGFloatForKey:@"CPTImage.scale"];
         tiled                 = [coder decodeBoolForKey:@"CPTImage.tiled"];
@@ -229,6 +231,18 @@ CPTImageSlices;
     }
     return self;
 }
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
+/// @endcond
 
 #pragma mark -
 #pragma mark NSCopying Methods

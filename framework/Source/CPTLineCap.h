@@ -22,7 +22,7 @@ typedef NS_ENUM (NSInteger, CPTLineCapType) {
     CPTLineCapTypeCustom      ///< Custom line cap.
 };
 
-@interface CPTLineCap : NSObject<NSCoding, NSCopying>
+@interface CPTLineCap : NSObject<NSCopying, NSCoding, NSSecureCoding>
 
 @property (nonatomic, readwrite, assign) CGSize size;
 @property (nonatomic, readwrite, assign) CPTLineCapType lineCapType;

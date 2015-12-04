@@ -37,7 +37,7 @@ typedef NSSet<CALayer *> CPTSublayerSet;
  **/
 typedef NSMutableSet<CALayer *> CPTMutableSublayerSet;
 
-@interface CPTLayer : CALayer<CPTResponder>
+@interface CPTLayer : CALayer<CPTResponder, NSSecureCoding>
 
 /// @name Graph
 /// @{

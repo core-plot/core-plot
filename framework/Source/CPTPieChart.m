@@ -277,18 +277,32 @@ static const CGFloat colorLookupTable[10][3] =
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        pieRadius                     = [coder decodeCGFloatForKey:@"CPTPieChart.pieRadius"];
-        pieInnerRadius                = [coder decodeCGFloatForKey:@"CPTPieChart.pieInnerRadius"];
-        startAngle                    = [coder decodeCGFloatForKey:@"CPTPieChart.startAngle"];
-        endAngle                      = [coder decodeCGFloatForKey:@"CPTPieChart.endAngle"];
-        sliceDirection                = (CPTPieDirection)[coder decodeIntegerForKey : @"CPTPieChart.sliceDirection"];
-        centerAnchor                  = [coder decodeCPTPointForKey:@"CPTPieChart.centerAnchor"];
-        borderLineStyle               = [[coder decodeObjectForKey:@"CPTPieChart.borderLineStyle"] copy];
-        overlayFill                   = [[coder decodeObjectForKey:@"CPTPieChart.overlayFill"] copy];
+        pieRadius       = [coder decodeCGFloatForKey:@"CPTPieChart.pieRadius"];
+        pieInnerRadius  = [coder decodeCGFloatForKey:@"CPTPieChart.pieInnerRadius"];
+        startAngle      = [coder decodeCGFloatForKey:@"CPTPieChart.startAngle"];
+        endAngle        = [coder decodeCGFloatForKey:@"CPTPieChart.endAngle"];
+        sliceDirection  = (CPTPieDirection)[coder decodeIntegerForKey : @"CPTPieChart.sliceDirection"];
+        centerAnchor    = [coder decodeCPTPointForKey:@"CPTPieChart.centerAnchor"];
+        borderLineStyle = [[coder decodeObjectOfClass:[CPTLineStyle class]
+                                               forKey:@"CPTPieChart.borderLineStyle"] copy];
+        overlayFill = [[coder decodeObjectOfClass:[CPTFill class]
+                                           forKey:@"CPTPieChart.overlayFill"] copy];
         labelRotationRelativeToRadius = [coder decodeBoolForKey:@"CPTPieChart.labelRotationRelativeToRadius"];
         pointingDeviceDownIndex       = NSNotFound;
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

@@ -18,7 +18,7 @@
 
 @implementation _CPTFillColor
 
-/** @property fillColor
+/** @property CPTColor *fillColor
  *  @brief The fill color.
  **/
 @synthesize fillColor;
@@ -120,9 +120,22 @@
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        fillColor = [coder decodeObjectForKey:@"_CPTFillColor.fillColor"];
+        fillColor = [coder decodeObjectOfClass:[CPTColor class]
+                                        forKey:@"_CPTFillColor.fillColor"];
     }
     return self;
 }
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
+/// @endcond
 
 @end

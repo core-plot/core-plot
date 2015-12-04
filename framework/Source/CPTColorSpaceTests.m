@@ -11,7 +11,7 @@
 {
     CPTColorSpace *colorSpace = [CPTColorSpace genericRGBSpace];
 
-    CPTColorSpace *newColorSpace = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:colorSpace]];
+    CPTColorSpace *newColorSpace = [self archiveRoundTrip:colorSpace];
 
     CFDataRef iccProfile    = CGColorSpaceCopyICCProfile(colorSpace.cgColorSpace);
     CFDataRef newIccProfile = CGColorSpaceCopyICCProfile(newColorSpace.cgColorSpace);

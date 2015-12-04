@@ -23,7 +23,7 @@ typedef NSArray<CPTPlotRange *> CPTPlotRangeArray;
  **/
 typedef NSMutableArray<CPTPlotRange *> CPTMutablePlotRangeArray;
 
-@interface CPTPlotRange : NSObject<NSCoding, NSCopying, NSMutableCopying>
+@interface CPTPlotRange : NSObject<NSCopying, NSMutableCopying, NSCoding, NSSecureCoding>
 
 /// @name Range Limits
 /// @{

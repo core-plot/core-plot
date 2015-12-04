@@ -17,7 +17,7 @@ typedef NSArray<CPTLineStyle *> CPTLineStyleArray;
  **/
 typedef NSMutableArray<CPTLineStyle *> CPTMutableLineStyleArray;
 
-@interface CPTLineStyle : NSObject<NSCoding, NSCopying, NSMutableCopying>
+@interface CPTLineStyle : NSObject<NSCopying, NSMutableCopying, NSCoding, NSSecureCoding>
 
 @property (nonatomic, readonly) CGLineCap lineCap;
 @property (nonatomic, readonly) CGLineJoin lineJoin;

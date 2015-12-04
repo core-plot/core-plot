@@ -165,7 +165,7 @@ typedef NSMutableArray<__kindof CPTPlotSpace *> CPTMutablePlotSpaceArray;
 
 #pragma mark -
 
-@interface CPTPlotSpace : NSObject<CPTResponder, NSCoding>
+@interface CPTPlotSpace : NSObject<CPTResponder, NSCoding, NSSecureCoding>
 
 @property (nonatomic, readwrite, copy, nullable) id<NSCopying, NSCoding, NSObject> identifier;
 @property (nonatomic, readwrite) BOOL allowsUserInteraction;

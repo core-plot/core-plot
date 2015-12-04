@@ -258,18 +258,22 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        CPTPlotRange *range = [coder decodeObjectForKey:@"CPTXYPlotSpace.xRange"];
+        CPTPlotRange *range = [coder decodeObjectOfClass:[CPTPlotRange class]
+                                                  forKey:@"CPTXYPlotSpace.xRange"];
         if ( range ) {
             xRange = [range copy];
         }
-        range = [coder decodeObjectForKey:@"CPTXYPlotSpace.yRange"];
+        range = [coder decodeObjectOfClass:[CPTPlotRange class]
+                                    forKey:@"CPTXYPlotSpace.yRange"];
         if ( range ) {
             yRange = [range copy];
         }
-        globalXRange = [[coder decodeObjectForKey:@"CPTXYPlotSpace.globalXRange"] copy];
-        globalYRange = [[coder decodeObjectForKey:@"CPTXYPlotSpace.globalYRange"] copy];
-        xScaleType   = (CPTScaleType)[coder decodeIntegerForKey : @"CPTXYPlotSpace.xScaleType"];
-        yScaleType   = (CPTScaleType)[coder decodeIntegerForKey : @"CPTXYPlotSpace.yScaleType"];
+        globalXRange = [[coder decodeObjectOfClass:[CPTPlotRange class]
+                                            forKey:@"CPTXYPlotSpace.globalXRange"] copy];
+        globalYRange = [[coder decodeObjectOfClass:[CPTPlotRange class]
+                                            forKey:@"CPTXYPlotSpace.globalYRange"] copy];
+        xScaleType = (CPTScaleType)[coder decodeIntegerForKey : @"CPTXYPlotSpace.xScaleType"];
+        yScaleType = (CPTScaleType)[coder decodeIntegerForKey : @"CPTXYPlotSpace.yScaleType"];
 
         if ( [coder containsValueForKey:@"CPTXYPlotSpace.allowsMomentum"] ) {
             self.allowsMomentum = [coder decodeBoolForKey:@"CPTXYPlotSpace.allowsMomentum"];
@@ -291,6 +295,18 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
         animations       = [[NSMutableArray alloc] init];
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

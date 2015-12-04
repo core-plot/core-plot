@@ -18,7 +18,7 @@
 
 @implementation _CPTFillImage
 
-/** @property fillImage
+/** @property CPTImage *fillImage
  *  @brief The fill image.
  **/
 @synthesize fillImage;
@@ -112,9 +112,22 @@
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        fillImage = [coder decodeObjectForKey:@"_CPTFillImage.fillImage"];
+        fillImage = [coder decodeObjectOfClass:[CPTImage class]
+                                        forKey:@"_CPTFillImage.fillImage"];
     }
     return self;
 }
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
+/// @endcond
 
 @end

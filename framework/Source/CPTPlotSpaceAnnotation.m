@@ -112,16 +112,30 @@
  */
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
-        anchorPlotPoint = [[coder decodeObjectForKey:@"CPTPlotSpaceAnnotation.anchorPlotPoint"] copy];
+    if ( (self = [super initWithCoder:coder]) ) {
+        anchorPlotPoint = [[coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [NSNumber class]]]
+                                                 forKey:@"CPTPlotSpaceAnnotation.anchorPlotPoint"] copy];
 
-        CPTPlotSpace *thePlotSpace = [coder decodeObjectForKey:@"CPTPlotSpaceAnnotation.plotSpace"];
+        CPTPlotSpace *thePlotSpace = [coder decodeObjectOfClass:[CPTPlotSpace class]
+                                                         forKey:@"CPTPlotSpaceAnnotation.plotSpace"];
         if ( thePlotSpace ) {
             plotSpace = thePlotSpace;
         }
     }
     return self;
 }
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
+/// @endcond
 
 #pragma mark -
 #pragma mark Layout

@@ -664,7 +664,7 @@
     plotSpace.globalYRange = [CPTPlotRange plotRangeWithLocation:@10.0
                                                           length:@(-10.0)];
 
-    CPTXYPlotSpace *newPlotSpace = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:plotSpace]];
+    CPTXYPlotSpace *newPlotSpace = [self archiveRoundTrip:plotSpace];
 
     NSString *errMessage = [NSString stringWithFormat:@"xRange was %@, expected %@", plotSpace.xRange, newPlotSpace.xRange];
     XCTAssertTrue([plotSpace.xRange isEqualToRange:newPlotSpace.xRange], @"%@", errMessage);

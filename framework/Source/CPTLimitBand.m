@@ -92,11 +92,25 @@
 -(instancetype)initWithCoder:(NSCoder *)decoder
 {
     if ( (self = [super init]) ) {
-        range = [decoder decodeObjectForKey:@"CPTLimitBand.range"];
-        fill  = [decoder decodeObjectForKey:@"CPTLimitBand.fill"];
+        range = [decoder decodeObjectOfClass:[CPTPlotRange class]
+                                      forKey:@"CPTLimitBand.range"];
+        fill = [decoder decodeObjectOfClass:[CPTFill class]
+                                     forKey:@"CPTLimitBand.fill"];
     }
     return self;
 }
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
+/// @endcond
 
 #pragma mark -
 #pragma mark Description

@@ -108,10 +108,24 @@
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        orthogonalPosition = [coder decodeObjectForKey:@"CPTXYAxis.orthogonalPosition"];
-        axisConstraints    = [coder decodeObjectForKey:@"CPTXYAxis.axisConstraints"];
+        orthogonalPosition = [coder decodeObjectOfClass:[NSNumber class]
+                                                 forKey:@"CPTXYAxis.orthogonalPosition"];
+        axisConstraints = [coder decodeObjectOfClass:[CPTConstraints class]
+                                              forKey:@"CPTXYAxis.axisConstraints"];
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

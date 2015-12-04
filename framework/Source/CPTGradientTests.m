@@ -11,7 +11,7 @@
 {
     CPTGradient *gradient = [CPTGradient rainbowGradient];
 
-    CPTGradient *newGradient = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:gradient]];
+    CPTGradient *newGradient = [self archiveRoundTrip:gradient];
 
     XCTAssertEqualObjects(gradient, newGradient, @"Gradients not equal");
 }

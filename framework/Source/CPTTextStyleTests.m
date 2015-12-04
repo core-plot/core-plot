@@ -22,7 +22,7 @@
 {
     CPTTextStyle *textStyle = [CPTTextStyle textStyle];
 
-    CPTTextStyle *newTextStyle = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:textStyle]];
+    CPTTextStyle *newTextStyle = [self archiveRoundTrip:textStyle];
 
     XCTAssertEqualObjects(newTextStyle.fontName, textStyle.fontName, @"Font names not equal");
     XCTAssertEqual(newTextStyle.fontSize, textStyle.fontSize, @"Font sizes not equal");

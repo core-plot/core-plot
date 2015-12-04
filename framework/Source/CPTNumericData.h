@@ -1,7 +1,7 @@
 #import "CPTDefinitions.h"
 #import "CPTNumericDataType.h"
 
-@interface CPTNumericData : NSObject<NSCopying, NSMutableCopying, NSCoding>
+@interface CPTNumericData : NSObject<NSCopying, NSMutableCopying, NSCoding, NSSecureCoding>
 
 /// @name Data Buffer
 /// @{

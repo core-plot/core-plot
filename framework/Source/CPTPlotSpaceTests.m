@@ -32,7 +32,7 @@
 
     plotSpace.identifier = @"test plot space";
 
-    CPTPlotSpace *newPlotSpace = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:plotSpace]];
+    CPTPlotSpace *newPlotSpace = [self archiveRoundTrip:plotSpace];
 
     XCTAssertEqualObjects(plotSpace.identifier, newPlotSpace.identifier, @"identifier not equal");
     XCTAssertEqual(plotSpace.allowsUserInteraction, newPlotSpace.allowsUserInteraction, @"allowsUserInteraction not equal");

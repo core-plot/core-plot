@@ -1,5 +1,6 @@
 #import "CPTPlotSpace.h"
 
+#import "CPTGraph.h"
 #import "CPTMutablePlotRange.h"
 #import "CPTUtilities.h"
 
@@ -143,16 +144,32 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        graph                 = [coder decodeObjectForKey:@"CPTPlotSpace.graph"];
-        identifier            = [[coder decodeObjectForKey:@"CPTPlotSpace.identifier"] copy];
-        delegate              = [coder decodeObjectForKey:@"CPTPlotSpace.delegate"];
+        graph = [coder decodeObjectOfClass:[CPTGraph class]
+                                    forKey:@"CPTPlotSpace.graph"];
+        identifier = [[coder decodeObjectOfClass:[NSObject class]
+                                          forKey:@"CPTPlotSpace.identifier"] copy];
+        delegate = [coder decodeObjectOfClass:[NSObject class]
+                                       forKey:@"CPTPlotSpace.delegate"];
         allowsUserInteraction = [coder decodeBoolForKey:@"CPTPlotSpace.allowsUserInteraction"];
-        categoryNames         = [[coder decodeObjectForKey:@"CPTPlotSpace.categoryNames"] mutableCopy];
+        categoryNames         = [[coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSDictionary class], [NSString class], [NSNumber class]]]
+                                                       forKey:@"CPTPlotSpace.categoryNames"] mutableCopy];
 
         isDragging = NO;
     }
     return self;
 }
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
+/// @endcond
 
 #pragma mark -
 #pragma mark Categorical Data

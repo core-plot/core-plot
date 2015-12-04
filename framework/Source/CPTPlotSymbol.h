@@ -34,7 +34,7 @@ typedef NSArray<CPTPlotSymbol *> CPTPlotSymbolArray;
  **/
 typedef NSMutableArray<CPTPlotSymbol *> CPTMutablePlotSymbolArray;
 
-@interface CPTPlotSymbol : NSObject<NSCoding, NSCopying>
+@interface CPTPlotSymbol : NSObject<NSCopying, NSCoding, NSSecureCoding>
 
 @property (nonatomic, readwrite, assign) CGPoint anchorPoint;
 @property (nonatomic, readwrite, assign) CGSize size;

@@ -168,13 +168,28 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        textStyle      = [coder decodeObjectForKey:@"CPTTextLayer.textStyle"];
-        text           = [[coder decodeObjectForKey:@"CPTTextLayer.text"] copy];
-        attributedText = [[coder decodeObjectForKey:@"CPTTextLayer.attributedText"] copy];
+        textStyle = [coder decodeObjectOfClass:[CPTTextStyle class]
+                                        forKey:@"CPTTextLayer.textStyle"];
+        text = [[coder decodeObjectOfClass:[NSString class]
+                                    forKey:@"CPTTextLayer.text"] copy];
+        attributedText = [[coder decodeObjectOfClass:[NSAttributedString class]
+                                              forKey:@"CPTTextLayer.attributedText"] copy];
 
         inTextUpdate = NO;
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

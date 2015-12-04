@@ -452,36 +452,59 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        plots                 = [[coder decodeObjectForKey:@"CPTLegend.plots"] mutableCopy];
-        legendEntries         = [[coder decodeObjectForKey:@"CPTLegend.legendEntries"] mutableCopy];
-        layoutChanged         = [coder decodeBoolForKey:@"CPTLegend.layoutChanged"];
-        textStyle             = [[coder decodeObjectForKey:@"CPTLegend.textStyle"] copy];
+        plots = [[coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [CPTPlot class]]]
+                                       forKey:@"CPTLegend.plots"] mutableCopy];
+        legendEntries = [[coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [CPTLegendEntry class]]]
+                                               forKey:@"CPTLegend.legendEntries"] mutableCopy];
+        layoutChanged = [coder decodeBoolForKey:@"CPTLegend.layoutChanged"];
+        textStyle     = [[coder decodeObjectOfClass:[CPTTextStyle class]
+                                             forKey:@"CPTLegend.textStyle"] copy];
         swatchSize            = [coder decodeCPTSizeForKey:@"CPTLegend.swatchSize"];
-        swatchBorderLineStyle = [[coder decodeObjectForKey:@"CPTLegend.swatchBorderLineStyle"] copy];
-        swatchCornerRadius    = [coder decodeCGFloatForKey:@"CPTLegend.swatchCornerRadius"];
-        swatchFill            = [[coder decodeObjectForKey:@"CPTLegend.swatchFill"] copy];
-        entryBorderLineStyle  = [[coder decodeObjectForKey:@"CPTLegend.entryBorderLineStyle"] copy];
-        entryCornerRadius     = [coder decodeCGFloatForKey:@"CPTLegend.entryCornerRadius"];
-        entryFill             = [[coder decodeObjectForKey:@"CPTLegend.entryFill"] copy];
-        entryPaddingLeft      = [coder decodeCGFloatForKey:@"CPTLegend.entryPaddingLeft"];
-        entryPaddingTop       = [coder decodeCGFloatForKey:@"CPTLegend.entryPaddingTop"];
-        entryPaddingRight     = [coder decodeCGFloatForKey:@"CPTLegend.entryPaddingRight"];
-        entryPaddingBottom    = [coder decodeCGFloatForKey:@"CPTLegend.entryPaddingBottom"];
-        numberOfRows          = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegend.numberOfRows"];
-        numberOfColumns       = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegend.numberOfColumns"];
-        equalRows             = [coder decodeBoolForKey:@"CPTLegend.equalRows"];
-        equalColumns          = [coder decodeBoolForKey:@"CPTLegend.equalColumns"];
-        rowHeights            = [[coder decodeObjectForKey:@"CPTLegend.rowHeights"] copy];
-        rowHeightsThatFit     = [coder decodeObjectForKey:@"CPTLegend.rowHeightsThatFit"];
-        columnWidths          = [[coder decodeObjectForKey:@"CPTLegend.columnWidths"] copy];
-        columnWidthsThatFit   = [coder decodeObjectForKey:@"CPTLegend.columnWidthsThatFit"];
-        columnMargin          = [coder decodeCGFloatForKey:@"CPTLegend.columnMargin"];
-        rowMargin             = [coder decodeCGFloatForKey:@"CPTLegend.rowMargin"];
-        titleOffset           = [coder decodeCGFloatForKey:@"CPTLegend.titleOffset"];
+        swatchBorderLineStyle = [[coder decodeObjectOfClass:[CPTLineStyle class]
+                                                     forKey:@"CPTLegend.swatchBorderLineStyle"] copy];
+        swatchCornerRadius = [coder decodeCGFloatForKey:@"CPTLegend.swatchCornerRadius"];
+        swatchFill         = [[coder decodeObjectOfClass:[CPTFill class]
+                                                  forKey:@"CPTLegend.swatchFill"] copy];
+        entryBorderLineStyle = [[coder decodeObjectOfClass:[CPTLineStyle class]
+                                                    forKey:@"CPTLegend.entryBorderLineStyle"] copy];
+        entryCornerRadius = [coder decodeCGFloatForKey:@"CPTLegend.entryCornerRadius"];
+        entryFill         = [[coder decodeObjectOfClass:[CPTFill class]
+                                                 forKey:@"CPTLegend.entryFill"] copy];
+        entryPaddingLeft   = [coder decodeCGFloatForKey:@"CPTLegend.entryPaddingLeft"];
+        entryPaddingTop    = [coder decodeCGFloatForKey:@"CPTLegend.entryPaddingTop"];
+        entryPaddingRight  = [coder decodeCGFloatForKey:@"CPTLegend.entryPaddingRight"];
+        entryPaddingBottom = [coder decodeCGFloatForKey:@"CPTLegend.entryPaddingBottom"];
+        numberOfRows       = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegend.numberOfRows"];
+        numberOfColumns    = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegend.numberOfColumns"];
+        equalRows          = [coder decodeBoolForKey:@"CPTLegend.equalRows"];
+        equalColumns       = [coder decodeBoolForKey:@"CPTLegend.equalColumns"];
+        rowHeights         = [[coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [NSNumber class]]]
+                                                    forKey:@"CPTLegend.rowHeights"] copy];
+        rowHeightsThatFit = [coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [NSNumber class]]]
+                                                  forKey:@"CPTLegend.rowHeightsThatFit"];
+        columnWidths = [[coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [NSNumber class]]]
+                                              forKey:@"CPTLegend.columnWidths"] copy];
+        columnWidthsThatFit = [coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [NSNumber class]]]
+                                                    forKey:@"CPTLegend.columnWidthsThatFit"];
+        columnMargin = [coder decodeCGFloatForKey:@"CPTLegend.columnMargin"];
+        rowMargin    = [coder decodeCGFloatForKey:@"CPTLegend.rowMargin"];
+        titleOffset  = [coder decodeCGFloatForKey:@"CPTLegend.titleOffset"];
 
         pointingDeviceDownEntry = nil;
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

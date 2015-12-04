@@ -114,11 +114,14 @@
  */
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
-        anchorLayer  = [coder decodeObjectForKey:@"CPTLayerAnnotation.anchorLayer"];
-        xConstraints = [coder decodeObjectForKey:@"CPTLayerAnnotation.xConstraints"];
-        yConstraints = [coder decodeObjectForKey:@"CPTLayerAnnotation.yConstraints"];
-        rectAnchor   = (CPTRectAnchor)[coder decodeIntegerForKey : @"CPTLayerAnnotation.rectAnchor"];
+    if ( (self = [super initWithCoder:coder]) ) {
+        anchorLayer = [coder decodeObjectOfClass:[CPTLayer class]
+                                          forKey:@"CPTLayerAnnotation.anchorLayer"];
+        xConstraints = [coder decodeObjectOfClass:[CPTConstraints class]
+                                           forKey:@"CPTLayerAnnotation.xConstraints"];
+        yConstraints = [coder decodeObjectOfClass:[CPTConstraints class]
+                                           forKey:@"CPTLayerAnnotation.yConstraints"];
+        rectAnchor = (CPTRectAnchor)[coder decodeIntegerForKey : @"CPTLayerAnnotation.rectAnchor"];
     }
     return self;
 }
@@ -156,6 +159,18 @@
             [content pixelAlign];
         }
     }
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

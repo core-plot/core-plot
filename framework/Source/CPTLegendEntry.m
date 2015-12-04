@@ -110,13 +110,27 @@
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        plot      = [coder decodeObjectForKey:@"CPTLegendEntry.plot"];
+        plot = [coder decodeObjectOfClass:[CPTPlot class]
+                                   forKey:@"CPTLegendEntry.plot"];
         index     = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegendEntry.index"];
         row       = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegendEntry.row"];
         column    = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegendEntry.column"];
-        textStyle = [coder decodeObjectForKey:@"CPTLegendEntry.textStyle"];
+        textStyle = [coder decodeObjectOfClass:[CPTTextStyle class]
+                                        forKey:@"CPTLegendEntry.textStyle"];
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

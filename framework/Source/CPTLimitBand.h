@@ -14,7 +14,7 @@ typedef NSArray<CPTLimitBand *> CPTLimitBandArray;
  **/
 typedef NSMutableArray<CPTLimitBand *> CPTMutableLimitBandArray;
 
-@interface CPTLimitBand : NSObject<NSCoding, NSCopying>
+@interface CPTLimitBand : NSObject<NSCopying, NSCoding, NSSecureCoding>
 
 @property (nonatomic, readwrite, strong, nullable) CPTPlotRange *range;
 @property (nonatomic, readwrite, strong, nullable) CPTFill *fill;

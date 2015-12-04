@@ -12,7 +12,7 @@ extern NSString *__nonnull const kCPTStocksTheme;       ///< A graph theme with 
 @class CPTAxisSet;
 @class CPTMutableTextStyle;
 
-@interface CPTTheme : NSObject<NSCoding>
+@interface CPTTheme : NSObject<NSCoding, NSSecureCoding>
 
 @property (nonatomic, readwrite, strong, nullable) Class graphClass;
 

@@ -80,7 +80,8 @@
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        CPTAnnotationArray *annotations = [coder decodeObjectForKey:@"CPTAnnotationHostLayer.mutableAnnotations"];
+        CPTAnnotationArray *annotations = [coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [CPTAnnotation class]]]
+                                                                forKey:@"CPTAnnotationHostLayer.mutableAnnotations"];
         if ( annotations ) {
             mutableAnnotations = [annotations mutableCopy];
         }
@@ -89,6 +90,18 @@
         }
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

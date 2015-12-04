@@ -120,13 +120,26 @@
         [self commonInit];
 
         collapsesLayers  = [coder decodeBoolForKey:@"CPTGraphHostingView.collapsesLayers"];
-        self.hostedGraph = [coder decodeObjectForKey:@"CPTGraphHostingView.hostedGraph"]; // setup layers
+        self.hostedGraph = [coder decodeObjectOfClass:[CPTGraph class]
+                                               forKey:@"CPTGraphHostingView.hostedGraph"]; // setup layers
 
         if ( [coder containsValueForKey:@"CPTGraphHostingView.allowPinchScaling"] ) {
             self.allowPinchScaling = [coder decodeBoolForKey:@"CPTGraphHostingView.allowPinchScaling"]; // set gesture recognizer if needed
         }
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

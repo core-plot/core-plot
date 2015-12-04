@@ -191,17 +191,33 @@
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        lineCap      = (CGLineCap)[coder decodeIntForKey : @"CPTLineStyle.lineCap"];
-        lineJoin     = (CGLineJoin)[coder decodeIntForKey : @"CPTLineStyle.lineJoin"];
-        miterLimit   = [coder decodeCGFloatForKey:@"CPTLineStyle.miterLimit"];
-        lineWidth    = [coder decodeCGFloatForKey:@"CPTLineStyle.lineWidth"];
-        dashPattern  = [coder decodeObjectForKey:@"CPTLineStyle.dashPattern"];
+        lineCap     = (CGLineCap)[coder decodeIntForKey : @"CPTLineStyle.lineCap"];
+        lineJoin    = (CGLineJoin)[coder decodeIntForKey : @"CPTLineStyle.lineJoin"];
+        miterLimit  = [coder decodeCGFloatForKey:@"CPTLineStyle.miterLimit"];
+        lineWidth   = [coder decodeCGFloatForKey:@"CPTLineStyle.lineWidth"];
+        dashPattern = [coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [NSNumber class]]]
+                                            forKey:@"CPTLineStyle.dashPattern"];
         patternPhase = [coder decodeCGFloatForKey:@"CPTLineStyle.patternPhase"];
-        lineColor    = [coder decodeObjectForKey:@"CPTLineStyle.lineColor"];
-        lineFill     = [coder decodeObjectForKey:@"CPTLineStyle.lineFill"];
-        lineGradient = [coder decodeObjectForKey:@"CPTLineStyle.lineGradient"];
+        lineColor    = [coder decodeObjectOfClass:[CPTColor class]
+                                           forKey:@"CPTLineStyle.lineColor"];
+        lineFill = [coder decodeObjectOfClass:[CPTFill class]
+                                       forKey:@"CPTLineStyle.lineFill"];
+        lineGradient = [coder decodeObjectOfClass:[CPTGradient class]
+                                           forKey:@"CPTLineStyle.lineGradient"];
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

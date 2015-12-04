@@ -14,7 +14,7 @@ typedef NSArray<CPTTextStyle *> CPTTextStyleArray;
  **/
 typedef NSMutableArray<CPTTextStyle *> CPTMutableTextStyleArray;
 
-@interface CPTTextStyle : NSObject<NSCoding, NSCopying, NSMutableCopying>
+@interface CPTTextStyle : NSObject<NSCopying, NSMutableCopying, NSCoding, NSSecureCoding>
 
 @property (readonly, copy, nonatomic, nullable) NSString *fontName;
 @property (readonly, nonatomic) CGFloat fontSize;

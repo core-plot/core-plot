@@ -310,10 +310,13 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        hostingView   = [coder decodeObjectForKey:@"CPTGraph.hostingView"];
-        plotAreaFrame = [coder decodeObjectForKey:@"CPTGraph.plotAreaFrame"];
+        hostingView = [coder decodeObjectOfClass:[CPTGraphHostingView class]
+                                          forKey:@"CPTGraph.hostingView"];
+        plotAreaFrame = [coder decodeObjectOfClass:[CPTPlotAreaFrame class]
+                                            forKey:@"CPTGraph.plotAreaFrame"];
 
-        CPTPlotArray *plotArray = [coder decodeObjectForKey:@"CPTGraph.plots"];
+        CPTPlotArray *plotArray = [coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [CPTPlot class]]]
+                                                        forKey:@"CPTGraph.plots"];
         if ( plotArray ) {
             plots = [plotArray mutableCopy];
         }
@@ -321,7 +324,8 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
             plots = [[NSMutableArray alloc] init];
         }
 
-        CPTPlotSpaceArray *plotSpaceArray = [coder decodeObjectForKey:@"CPTGraph.plotSpaces"];
+        CPTPlotSpaceArray *plotSpaceArray = [coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [CPTPlotSpace class]]]
+                                                                  forKey:@"CPTGraph.plotSpaces"];
         if ( plotSpaceArray ) {
             plotSpaces = [plotSpaceArray mutableCopy];
         }
@@ -329,20 +333,38 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
             plotSpaces = [[NSMutableArray alloc] init];
         }
 
-        title                    = [[coder decodeObjectForKey:@"CPTGraph.title"] copy];
-        attributedTitle          = [[coder decodeObjectForKey:@"CPTGraph.attributedTitle"] copy];
-        titleTextStyle           = [[coder decodeObjectForKey:@"CPTGraph.titleTextStyle"] copy];
+        title = [[coder decodeObjectOfClass:[NSString class]
+                                     forKey:@"CPTGraph.title"] copy];
+        attributedTitle = [[coder decodeObjectOfClass:[NSAttributedString class]
+                                               forKey:@"CPTGraph.attributedTitle"] copy];
+        titleTextStyle = [[coder decodeObjectOfClass:[CPTTextStyle class]
+                                              forKey:@"CPTGraph.titleTextStyle"] copy];
         titlePlotAreaFrameAnchor = (CPTRectAnchor)[coder decodeIntegerForKey : @"CPTGraph.titlePlotAreaFrameAnchor"];
         titleDisplacement        = [coder decodeCPTPointForKey:@"CPTGraph.titleDisplacement"];
-        titleAnnotation          = [coder decodeObjectForKey:@"CPTGraph.titleAnnotation"];
-        legend                   = [coder decodeObjectForKey:@"CPTGraph.legend"];
-        legendAnnotation         = [coder decodeObjectForKey:@"CPTGraph.legendAnnotation"];
-        legendAnchor             = (CPTRectAnchor)[coder decodeIntegerForKey : @"CPTGraph.legendAnchor"];
-        legendDisplacement       = [coder decodeCPTPointForKey:@"CPTGraph.legendDisplacement"];
+        titleAnnotation          = [coder decodeObjectOfClass:[CPTLayerAnnotation class]
+                                                       forKey:@"CPTGraph.titleAnnotation"];
+        legend = [coder decodeObjectOfClass:[CPTLegend class]
+                                     forKey:@"CPTGraph.legend"];
+        legendAnnotation = [coder decodeObjectOfClass:[CPTLayerAnnotation class]
+                                               forKey:@"CPTGraph.legendAnnotation"];
+        legendAnchor       = (CPTRectAnchor)[coder decodeIntegerForKey : @"CPTGraph.legendAnchor"];
+        legendDisplacement = [coder decodeCPTPointForKey:@"CPTGraph.legendDisplacement"];
 
         inTitleUpdate = NO;
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

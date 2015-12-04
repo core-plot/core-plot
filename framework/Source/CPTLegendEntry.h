@@ -16,7 +16,7 @@ typedef NSArray<CPTLegendEntry *> CPTLegendEntryArray;
  **/
 typedef NSMutableArray<CPTLegendEntry *> CPTMutableLegendEntryArray;
 
-@interface CPTLegendEntry : NSObject<NSCoding>
+@interface CPTLegendEntry : NSObject<NSCoding, NSSecureCoding>
 
 /// @name Plot Info
 /// @{

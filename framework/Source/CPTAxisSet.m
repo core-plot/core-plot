@@ -80,10 +80,24 @@
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        axes            = [[coder decodeObjectForKey:@"CPTAxisSet.axes"] copy];
-        borderLineStyle = [[coder decodeObjectForKey:@"CPTAxisSet.borderLineStyle"] copy];
+        axes = [[coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [CPTAxis class]]]
+                                      forKey:@"CPTAxisSet.axes"] copy];
+        borderLineStyle = [[coder decodeObjectOfClass:[CPTLineStyle class]
+                                               forKey:@"CPTAxisSet.borderLineStyle"] copy];
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

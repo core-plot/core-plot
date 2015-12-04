@@ -15,7 +15,7 @@ typedef NSArray<CPTFill *> CPTFillArray;
  **/
 typedef NSMutableArray<CPTFill *> CPTMutableFillArray;
 
-@interface CPTFill : NSObject<NSCopying, NSCoding>
+@interface CPTFill : NSObject<NSCopying, NSCoding, NSSecureCoding>
 
 /// @name Factory Methods
 /// @{

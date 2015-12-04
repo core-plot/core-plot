@@ -152,12 +152,15 @@
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        anchorPoint         = [coder decodeCPTPointForKey:@"CPTPlotSymbol.anchorPoint"];
-        size                = [coder decodeCPTSizeForKey:@"CPTPlotSymbol.size"];
-        symbolType          = (CPTPlotSymbolType)[coder decodeIntegerForKey : @"CPTPlotSymbol.symbolType"];
-        lineStyle           = [coder decodeObjectForKey:@"CPTPlotSymbol.lineStyle"];
-        fill                = [coder decodeObjectForKey:@"CPTPlotSymbol.fill"];
-        shadow              = [[coder decodeObjectForKey:@"CPTPlotSymbol.shadow"] copy];
+        anchorPoint = [coder decodeCPTPointForKey:@"CPTPlotSymbol.anchorPoint"];
+        size        = [coder decodeCPTSizeForKey:@"CPTPlotSymbol.size"];
+        symbolType  = (CPTPlotSymbolType)[coder decodeIntegerForKey : @"CPTPlotSymbol.symbolType"];
+        lineStyle   = [coder decodeObjectOfClass:[CPTLineStyle class]
+                                          forKey:@"CPTPlotSymbol.lineStyle"];
+        fill = [coder decodeObjectOfClass:[CPTFill class]
+                                   forKey:@"CPTPlotSymbol.fill"];
+        shadow = [[coder decodeObjectOfClass:[CPTShadow class]
+                                      forKey:@"CPTPlotSymbol.shadow"] copy];
         customSymbolPath    = [coder newCGPathDecodeForKey:@"CPTPlotSymbol.customSymbolPath"];
         usesEvenOddClipRule = [coder decodeBoolForKey:@"CPTPlotSymbol.usesEvenOddClipRule"];
 
@@ -166,6 +169,18 @@
         cachedScale      = CPTFloat(0.0);
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond
