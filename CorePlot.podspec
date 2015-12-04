@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
                   'Core Data, and Cocoa Bindings.'
 
   s.ios.deployment_target = '6.0'
-  s.osx.deployment_target = '10.7'
+  s.osx.deployment_target = '10.8'
   s.tvos.deployment_target = '9.0'
   
   s.ios.header_dir = 'ios'
