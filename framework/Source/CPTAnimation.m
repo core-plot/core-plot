@@ -7,10 +7,11 @@
 
 static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames per second
 
-static NSString *const CPTAnimationOperationKey = @"CPTAnimationOperationKey";
-static NSString *const CPTAnimationValueKey     = @"CPTAnimationValueKey";
-static NSString *const CPTAnimationStartedKey   = @"CPTAnimationStartedKey";
-static NSString *const CPTAnimationFinishedKey  = @"CPTAnimationFinishedKey";
+static NSString *const CPTAnimationOperationKey  = @"CPTAnimationOperationKey";
+static NSString *const CPTAnimationValueKey      = @"CPTAnimationValueKey";
+static NSString *const CPTAnimationValueClassKey = @"CPTAnimationValueClassKey";
+static NSString *const CPTAnimationStartedKey    = @"CPTAnimationStartedKey";
+static NSString *const CPTAnimationFinishedKey   = @"CPTAnimationFinishedKey";
 
 /// @cond
 typedef NSMutableArray<CPTAnimationOperation *> CPTMutableAnimationArray;
@@ -333,11 +334,13 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
                         [period setStartValueFromObject:animationOperation.boundObject propertyGetter:animationOperation.boundGetter];
                     }
 
+                    Class valueClass = period.valueClass;
                     CGFloat progress = timingFunction(currentTime - startTime, duration);
 
                     CPTDictionary *parameters = @{
                         CPTAnimationOperationKey: animationOperation,
                         CPTAnimationValueKey: [period tweenedValueForProgress:progress],
+                        CPTAnimationValueClassKey: valueClass ? valueClass : [NSNull null],
                         CPTAnimationStartedKey: @(started),
                         CPTAnimationFinishedKey: @(currentTime >= endTime)
                     };
@@ -379,6 +382,11 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
 
     if ( !canceled ) {
         @try {
+            Class valueClass = parameters[CPTAnimationValueClassKey];
+            if ( [valueClass isKindOfClass:[NSNull class]] ) {
+                valueClass = Nil;
+            }
+
             id<CPTAnimationDelegate> delegate = animationOperation.delegate;
 
             NSNumber *started = parameters[CPTAnimationStartedKey];
@@ -396,14 +404,24 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
             id boundObject  = animationOperation.boundObject;
             id tweenedValue = parameters[CPTAnimationValueKey];
 
-            if ( [tweenedValue isKindOfClass:[NSDecimalNumber class]] ) {
+            if ( valueClass ) {
+                // object properties
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+                id<NSObject> theObject = boundObject;
+                [theObject performSelector:boundSetter withObject:tweenedValue];
+#pragma clang diagnostic pop
+            }
+            else if ( [tweenedValue isKindOfClass:[NSDecimalNumber class]] ) {
+                // NSDecimal properties
                 NSDecimal buffer = ( (NSDecimalNumber *)tweenedValue ).decimalValue;
 
                 typedef void (*SetterType)(id, SEL, NSDecimal);
                 SetterType setterMethod = (SetterType)[boundObject methodForSelector : boundSetter];
                 setterMethod(boundObject, boundSetter, buffer);
             }
-            else if ( [tweenedValue isKindOfClass:[NSValue class]] ) {
+            else {
+                // wrapped scalars and structs
                 NSValue *value = (NSValue *)tweenedValue;
 
                 NSUInteger bufferSize = 0;
@@ -419,13 +437,6 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
                 free(buffer);
 
                 [invocation invoke];
-            }
-            else {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                id<NSObject> theObject = boundObject;
-                [theObject performSelector:boundSetter withObject:tweenedValue];
-#pragma clang diagnostic pop
             }
 
             if ( [delegate respondsToSelector:@selector(animationDidUpdate:)] ) {

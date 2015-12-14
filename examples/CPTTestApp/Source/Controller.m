@@ -531,13 +531,28 @@ static NSString *const barPlot2       = @"Bar Plot 2";
         self.symbolTextAnnotation = annotation;
     }
 
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"barWidth"];
-    animation.duration            = 0.25;
-    animation.toValue             = @0.0;
-    animation.repeatCount         = 1;
-    animation.autoreverses        = YES;
-    animation.removedOnCompletion = YES;
-    [plot addAnimation:animation forKey:@"barWidth"];
+    const CGFloat duration = 0.25;
+    NSNumber *barWidth     = plot.barWidth;
+
+    if ( barWidth ) {
+        [CPTAnimation animate:plot
+                     property:@"barWidth"
+                   fromNumber:plot.barWidth
+                     toNumber:@0.0
+                     duration:duration
+                    withDelay:0.0
+               animationCurve:CPTAnimationCurveDefault
+                     delegate:nil];
+
+        [CPTAnimation animate:plot
+                     property:@"barWidth"
+                   fromNumber:nil
+                     toNumber:barWidth
+                     duration:duration
+                    withDelay:duration
+               animationCurve:CPTAnimationCurveDefault
+                     delegate:nil];
+    }
 }
 
 #pragma mark -

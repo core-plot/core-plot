@@ -8,6 +8,7 @@ To be determined.
 - **New**: Increased the Mac deployment target to OS X 10.8.
 - **New**: Added a tvOS framework.
 - **New**: Added an option to anchor alternating band fills to a specific starting value.
+- **New**: Added support for animating `NSNumber` properties with `CPTAnimation`.
 - **New**: Added support for `NSSecureCoding`.
 - **Changed**: Changed the annotated type definitions to exclude the pointer star ("*").
 - **Changed**: Miscellaneous bug fixes and cleanup.
