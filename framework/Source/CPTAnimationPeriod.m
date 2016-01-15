@@ -14,9 +14,9 @@
 /// @cond
 @interface CPTAnimationPeriod()
 
-+(nonnull instancetype)periodWithStartValue:(nullable NSValue *)aStartValue endValue:(nonnull NSValue *)anEndValue ofClass:(nullable Class)class duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay;
++(nonnull instancetype)periodWithStartValue:(nullable NSValue *)aStartValue endValue:(nullable NSValue *)anEndValue ofClass:(nullable Class)class duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay;
 
--(nonnull instancetype)initWithStartValue:(nullable NSValue *)aStartValue endValue:(nonnull NSValue *)anEndValue ofClass:(nullable Class)class duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay;
+-(nonnull instancetype)initWithStartValue:(nullable NSValue *)aStartValue endValue:(nullable NSValue *)anEndValue ofClass:(nullable Class)class duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay;
 
 @property (nonatomic, readwrite) CGFloat startOffset;
 
@@ -228,11 +228,13 @@
  **/
 +(instancetype)periodWithStartPlotRange:(CPTPlotRange *)aStartPlotRange endPlotRange:(CPTPlotRange *)anEndPlotRange duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
+    CPTPlotRange *startRange = aStartPlotRange;
+
     if ( isnan(aStartPlotRange.locationDouble) || isnan(aStartPlotRange.lengthDouble) ) {
-        aStartPlotRange = nil;
+        startRange = nil;
     }
 
-    return [_CPTAnimationPlotRangePeriod periodWithStartValue:(NSValue *)aStartPlotRange
+    return [_CPTAnimationPlotRangePeriod periodWithStartValue:(NSValue *)startRange
                                                      endValue:(NSValue *)anEndPlotRange
                                                       ofClass:[CPTPlotRange class]
                                                      duration:aDuration
@@ -421,11 +423,13 @@
  **/
 -(instancetype)initWithStartPlotRange:(CPTPlotRange *)aStartPlotRange endPlotRange:(CPTPlotRange *)anEndPlotRange duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
+    CPTPlotRange *startRange = aStartPlotRange;
+
     if ( isnan(aStartPlotRange.locationDouble) || isnan(aStartPlotRange.lengthDouble) ) {
-        aStartPlotRange = nil;
+        startRange = nil;
     }
 
-    self = [[_CPTAnimationPlotRangePeriod alloc] initWithStartValue:(NSValue *)aStartPlotRange
+    self = [[_CPTAnimationPlotRangePeriod alloc] initWithStartValue:(NSValue *)startRange
                                                            endValue:(NSValue *)anEndPlotRange
                                                             ofClass:[CPTPlotRange class]
                                                            duration:aDuration

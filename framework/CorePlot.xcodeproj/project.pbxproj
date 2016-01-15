@@ -3254,6 +3254,8 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Info/CorePlot-Info.plist";
 				INSTALL_PATH = "@rpath";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CorePlot;
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/MacOnly";
@@ -3272,6 +3274,8 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Info/CorePlot-Info.plist";
 				INSTALL_PATH = "@rpath";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CorePlot;
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/MacOnly";

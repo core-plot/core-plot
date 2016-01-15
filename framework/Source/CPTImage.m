@@ -577,7 +577,7 @@ CPTImageSlices;
     if ( !CPTEdgeInsetsEqualToEdgeInsets(edgeInsets, newEdgeInsets) ) {
         edgeInsets = newEdgeInsets;
 
-        CPTImageSlices imageSlices;
+        CPTImageSlices imageSlices = {};
 
         for ( NSUInteger i = 0; i < 9; i++ ) {
             imageSlices.slice[i] = NULL;
@@ -621,7 +621,7 @@ CPTImageSlices;
     CGSize centerSize = CGSizeMake(width - capLeft - capRight,
                                    height - capTop - capBottom);
 
-    CPTImageSlices imageSlices;
+    CPTImageSlices imageSlices = {};
 
     for ( NSUInteger i = 0; i < 9; i++ ) {
         imageSlices.slice[i] = NULL;
