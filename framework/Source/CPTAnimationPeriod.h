@@ -7,8 +7,8 @@
 
 /// @name Timing Values
 /// @{
-@property (nonatomic, readwrite, copy, nonnull) NSValue *startValue;
-@property (nonatomic, readwrite, copy, nonnull) NSValue *endValue;
+@property (nonatomic, readwrite, copy, nullable) NSValue *startValue;
+@property (nonatomic, readwrite, copy, nullable) NSValue *endValue;
 @property (nonatomic, readwrite) CGFloat duration;
 @property (nonatomic, readwrite) CGFloat delay;
 @property (nonatomic, readonly) CGFloat startOffset;

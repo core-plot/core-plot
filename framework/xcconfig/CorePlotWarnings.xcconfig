@@ -71,4 +71,4 @@ CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES
 CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES
 CLANG_ANALYZER_SECURITY_INSECUREAPI_VFORK = YES
 
-OTHER_CFLAGS = -Weverything -Wno-unused-parameter -Wno-undef -Wno-switch-enum -Wno-float-equal -Wno-padded -Wno-dollar-in-identifier-extension -Wno-custom-atomic-properties -Wno-gnu -Wno-assign-enum -Wno-pedantic -Wno-documentation -Wno-unknown-warning-option -Wno-cstring-format-directive -Wno-documentation-unknown-command -Wno-reserved-id-macro -Wno-incompatible-pointer-types-discards-qualifiers
+OTHER_CFLAGS = -Weverything -Wno-unused-parameter -Wno-undef -Wno-switch-enum -Wno-float-equal -Wno-padded -Wno-dollar-in-identifier-extension -Wno-custom-atomic-properties -Wno-gnu -Wno-assign-enum -Wno-pedantic -Wno-documentation -Wno-unknown-warning-option -Wno-cstring-format-directive -Wno-documentation-unknown-command -Wno-reserved-id-macro -Wno-incompatible-pointer-types-discards-qualifiers -Wno-partial-availability

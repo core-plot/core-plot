@@ -13,9 +13,9 @@
 /// @cond
 @interface CPTAnimationPeriod()
 
-+(instancetype)periodWithStartValue:(NSValue *)aStartValue endValue:(NSValue *)anEndValue duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay;
++(instancetype)periodWithStartValue:(nullable NSValue *)aStartValue endValue:(nullable NSValue *)anEndValue duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay;
 
--(instancetype)initWithStartValue:(NSValue *)aStartValue endValue:(NSValue *)anEndValue duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay;
+-(instancetype)initWithStartValue:(nullable NSValue *)aStartValue endValue:(nullable NSValue *)anEndValue duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay;
 
 @property (nonatomic, readwrite) CGFloat startOffset;
 
@@ -198,11 +198,13 @@
  **/
 +(instancetype)periodWithStartPlotRange:(CPTPlotRange *)aStartPlotRange endPlotRange:(CPTPlotRange *)anEndPlotRange duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
+    CPTPlotRange *startRange = aStartPlotRange;
+
     if ( isnan(aStartPlotRange.locationDouble) || isnan(aStartPlotRange.lengthDouble) ) {
-        aStartPlotRange = nil;
+        startRange = nil;
     }
 
-    return [_CPTAnimationPlotRangePeriod periodWithStartValue:(NSValue *)aStartPlotRange
+    return [_CPTAnimationPlotRangePeriod periodWithStartValue:(NSValue *)startRange
                                                      endValue:(NSValue *)anEndPlotRange
                                                      duration:aDuration
                                                     withDelay:aDelay];
@@ -363,11 +365,13 @@
  **/
 -(instancetype)initWithStartPlotRange:(CPTPlotRange *)aStartPlotRange endPlotRange:(CPTPlotRange *)anEndPlotRange duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
+    CPTPlotRange *startRange = aStartPlotRange;
+
     if ( isnan(aStartPlotRange.locationDouble) || isnan(aStartPlotRange.lengthDouble) ) {
-        aStartPlotRange = nil;
+        startRange = nil;
     }
 
-    self = [[_CPTAnimationPlotRangePeriod alloc] initWithStartValue:(NSValue *)aStartPlotRange
+    self = [[_CPTAnimationPlotRangePeriod alloc] initWithStartValue:(NSValue *)startRange
                                                            endValue:(NSValue *)anEndPlotRange
                                                            duration:aDuration
                                                           withDelay:aDelay];

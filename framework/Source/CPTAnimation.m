@@ -165,17 +165,14 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
  **/
 +(CPTAnimationOperation *)animate:(id)object property:(NSString *)property period:(CPTAnimationPeriod *)period animationCurve:(CPTAnimationCurve)animationCurve delegate:(id<CPTAnimationDelegate>)delegate
 {
-    CPTAnimationOperation *animationOperation = [[CPTAnimationOperation alloc] init];
+    CPTAnimationOperation *animationOperation =
+        [[CPTAnimationOperation alloc] initWithAnimationPeriod:period
+                                                animationCurve:animationCurve
+                                                        object:object
+                                                        getter:NSSelectorFromString(property)
+                                                        setter:[CPTAnimation setterFromProperty:property]];
 
-    animationOperation.period         = period;
-    animationOperation.animationCurve = animationCurve;
-    animationOperation.delegate       = delegate;
-
-    if ( object ) {
-        animationOperation.boundObject = object;
-        animationOperation.boundGetter = NSSelectorFromString(property);
-        animationOperation.boundSetter = [CPTAnimation setterFromProperty:property];
-    }
+    animationOperation.delegate = delegate;
 
     [[CPTAnimation sharedInstance] addAnimationOperation:animationOperation];
 

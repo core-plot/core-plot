@@ -460,10 +460,13 @@
 
     if ( myColor ) {
         cgColorCopy = CGColorCreateCopy(myColor);
+        CPTColor *colorCopy = [[[self class] allocWithZone:zone] initWithCGColor:cgColorCopy];
+        CGColorRelease(cgColorCopy);
+        return colorCopy;
     }
-    CPTColor *colorCopy = [[[self class] allocWithZone:zone] initWithCGColor:cgColorCopy];
-    CGColorRelease(cgColorCopy);
-    return colorCopy;
+    else {
+        return nil;
+    }
 }
 
 /// @endcond

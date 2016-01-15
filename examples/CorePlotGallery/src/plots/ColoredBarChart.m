@@ -205,6 +205,7 @@
             break;
 
         default:
+            color = [CPTColor blackColor];
             break;
     }
 

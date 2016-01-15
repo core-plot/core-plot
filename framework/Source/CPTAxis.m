@@ -1319,16 +1319,16 @@ NSDecimal CPTNiceLength(NSDecimal length);
 NSDecimal CPTNiceNum(NSDecimal x)
 {
     NSDecimal zero = CPTDecimalFromInteger(0);
-    NSDecimal minusOne;
 
     if ( CPTDecimalEquals(x, zero) ) {
         return zero;
     }
 
+    NSDecimal minusOne = CPTDecimalFromInteger(-1);
+
     BOOL xIsNegative = CPTDecimalLessThan(x, zero);
     if ( xIsNegative ) {
-        minusOne = CPTDecimalFromInteger(-1);
-        x        = CPTDecimalMultiply(x, minusOne);
+        x = CPTDecimalMultiply(x, minusOne);
     }
 
     short exponent = (short)lrint( floor( log10( CPTDecimalDoubleValue(x) ) ) );
@@ -1369,16 +1369,16 @@ NSDecimal CPTNiceNum(NSDecimal x)
 NSDecimal CPTNiceLength(NSDecimal length)
 {
     NSDecimal zero = CPTDecimalFromInteger(0);
-    NSDecimal minusOne;
 
     if ( CPTDecimalEquals(length, zero) ) {
         return zero;
     }
 
+    NSDecimal minusOne = CPTDecimalFromInteger(-1);
+
     BOOL isNegative = CPTDecimalLessThan(length, zero);
     if ( isNegative ) {
-        minusOne = CPTDecimalFromInteger(-1);
-        length   = CPTDecimalMultiply(length, minusOne);
+        length = CPTDecimalMultiply(length, minusOne);
     }
 
     NSDecimal roundedNumber;

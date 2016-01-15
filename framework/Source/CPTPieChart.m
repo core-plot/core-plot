@@ -594,6 +594,9 @@ static const CGFloat colorLookupTable[10][3] =
 
         bounds = CPTRectMake( centerPoint.x - radius, centerPoint.y - radius, radius * CPTFloat(2.0), radius * CPTFloat(2.0) );
     }
+    else {
+        bounds = CGRectZero;
+    }
 
     [borderStyle setLineStyleInContext:context];
     Class fillClass = [CPTFill class];

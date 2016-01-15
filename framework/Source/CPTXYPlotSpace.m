@@ -547,6 +547,8 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
             break;
 
         default:
+            property = @"";
+            oldRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@0];
             break;
     }
 

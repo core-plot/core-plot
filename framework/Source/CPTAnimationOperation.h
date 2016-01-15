@@ -34,4 +34,9 @@
 @property (nonatomic, readwrite, copy, nullable) NSDictionary *userInfo;
 /// @}
 
+/// @name Initialization
+/// @{
+-(nonnull instancetype)initWithAnimationPeriod:(nonnull CPTAnimationPeriod *)animationPeriod animationCurve:(CPTAnimationCurve)curve object:(nonnull id)object getter:(nonnull SEL)getter setter:(nonnull SEL)setter NS_DESIGNATED_INITIALIZER;
+/// @}
+
 @end
