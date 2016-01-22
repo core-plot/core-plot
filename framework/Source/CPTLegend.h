@@ -29,6 +29,16 @@ extern NSString *__nonnull const CPTLegendNeedsReloadEntriesForPlotNotification;
 /// @}
 
 /**
+ *  @brief Enumeration of legend layout options.
+ **/
+typedef NS_ENUM (NSInteger, CPTLegendSwatchLayout) {
+    CPTLegendSwatchLayoutLeft, ///< Lay out the swatch to the left side of the title.
+    CPTLegendSwatchLayoutRight ///< Lay out the swatch to the right side of the title.
+};
+
+#pragma mark -
+
+/**
  *  @brief Legend delegate.
  **/
 @protocol CPTLegendDelegate<NSObject>
@@ -197,6 +207,7 @@ extern NSString *__nonnull const CPTLegendNeedsReloadEntriesForPlotNotification;
 @property (nonatomic, readwrite, assign) CGFloat columnMargin;
 @property (nonatomic, readwrite, assign) CGFloat rowMargin;
 @property (nonatomic, readwrite, assign) CGFloat titleOffset;
+@property (nonatomic, readwrite, assign) CPTLegendSwatchLayout swatchLayout;
 /// @}
 
 /// @name Factory Methods

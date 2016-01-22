@@ -10,6 +10,7 @@ To be determined.
 - **New**: Added an option to anchor alternating band fills to a specific starting value.
 - **New**: Added support for animating `NSNumber` properties with `CPTAnimation`.
 - **New**: Added support for `NSSecureCoding`.
+- **New**: Added an option to draw legend swatches to the left or right side of the title.
 - **Changed**: Changed the annotated type definitions to exclude the pointer star ("*").
 - **Changed**: Miscellaneous bug fixes and cleanup.
 

@@ -207,6 +207,11 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  **/
 @synthesize titleOffset;
 
+/** @property CPTLegendSwatchLayout swatchLayout
+ *  @brief Draw the legend swatch to the left or right side of the title. Default is #CPTLegendSwatchLayoutLeft.
+ **/
+@synthesize swatchLayout;
+
 /** @property CPTMutablePlotArray *plots
  *  @brief An array of all plots associated with the legend.
  **/
@@ -282,6 +287,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
  *  - @ref columnMargin = @num{10.0}
  *  - @ref rowMargin = @num{5.0}
  *  - @ref titleOffset = @num{5.0}
+ *  - @ref swatchLayout = #CPTLegendSwatchLayoutLeft
  *  - @ref paddingLeft = @num{5.0}
  *  - @ref paddingTop = @num{5.0}
  *  - @ref paddingRight = @num{5.0}
@@ -320,6 +326,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
         columnMargin          = CPTFloat(10.0);
         rowMargin             = CPTFloat(5.0);
         titleOffset           = CPTFloat(5.0);
+        swatchLayout          = CPTLegendSwatchLayoutLeft;
 
         pointingDeviceDownEntry = nil;
 
@@ -396,6 +403,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
         columnMargin          = theLayer->columnMargin;
         rowMargin             = theLayer->rowMargin;
         titleOffset           = theLayer->titleOffset;
+        swatchLayout          = theLayer->swatchLayout;
 
         pointingDeviceDownEntry = theLayer->pointingDeviceDownEntry;
     }
@@ -444,6 +452,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     [coder encodeCGFloat:self.columnMargin forKey:@"CPTLegend.columnMargin"];
     [coder encodeCGFloat:self.rowMargin forKey:@"CPTLegend.rowMargin"];
     [coder encodeCGFloat:self.titleOffset forKey:@"CPTLegend.titleOffset"];
+    [coder encodeInteger:(NSInteger)self.swatchLayout forKey:@"CPTLegend.swatchLayout"];
 
     // No need to archive these properties:
     // pointingDeviceDownEntry
@@ -489,6 +498,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
         columnMargin = [coder decodeCGFloatForKey:@"CPTLegend.columnMargin"];
         rowMargin    = [coder decodeCGFloatForKey:@"CPTLegend.rowMargin"];
         titleOffset  = [coder decodeCGFloatForKey:@"CPTLegend.titleOffset"];
+        swatchLayout = (CPTLegendSwatchLayout)[coder decodeIntegerForKey : @"CPTLegend.swatchLayout"];
 
         pointingDeviceDownEntry = nil;
     }
@@ -627,12 +637,28 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
                 [theLineStyle strokePathInContext:context];
             }
 
+            // lay out swatch and title
+            CGFloat swatchLeft;
+            CGFloat titleLeft;
+
+            switch ( self.swatchLayout ) {
+                case CPTLegendSwatchLayoutLeft:
+                    swatchLeft = left + padLeft;
+                    titleLeft  = swatchLeft + theSwatchSize.width + theOffset;
+                    break;
+
+                case CPTLegendSwatchLayoutRight:
+                    swatchLeft = CGRectGetMaxX(entryRect) - padRight - theSwatchSize.width;
+                    titleLeft  = left + padLeft;
+                    break;
+            }
+
             // draw swatch
-            left += padLeft;
-            CGRect swatchRect = CPTRectMake(left,
+            CGRect swatchRect = CPTRectMake(swatchLeft,
                                             rowPosition + (entryRect.size.height - theSwatchSize.height) * CPTFloat(0.5),
                                             theSwatchSize.width,
                                             theSwatchSize.height);
+
             BOOL legendShouldDrawSwatch = YES;
             if ( delegateCanDraw ) {
                 legendShouldDrawSwatch = [theDelegate legend:self
@@ -649,9 +675,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
             }
 
             // draw title
-            left += theSwatchSize.width + theOffset;
-
-            [legendEntry drawTitleInRect:CPTAlignRectToUserSpace( context, CPTRectMake(left, rowPosition + padBottom, actualColumnWidths[col] + CPTFloat(1.0), actualRowHeights[row]) )
+            [legendEntry drawTitleInRect:CPTAlignRectToUserSpace( context, CPTRectMake(titleLeft, rowPosition + padBottom, actualColumnWidths[col] + CPTFloat(1.0), actualRowHeights[row]) )
                                inContext:context
                                    scale:self.contentsScale];
         }
@@ -1489,6 +1513,14 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
 {
     if ( newTitleOffset != titleOffset ) {
         titleOffset        = newTitleOffset;
+        self.layoutChanged = YES;
+    }
+}
+
+-(void)setSwatchLayout:(CPTLegendSwatchLayout)newSwatchLayout
+{
+    if ( newSwatchLayout != swatchLayout ) {
+        swatchLayout       = newSwatchLayout;
         self.layoutChanged = YES;
     }
 }
