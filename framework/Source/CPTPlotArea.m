@@ -904,10 +904,10 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 -(void)setBounds:(CGRect)newBounds
 {
     if ( !CGRectEqualToRect(self.bounds, newBounds) ) {
-        [super setBounds:newBounds];
-
         self.widthDecimal  = CPTDecimalFromCGFloat(newBounds.size.width);
         self.heightDecimal = CPTDecimalFromCGFloat(newBounds.size.height);
+
+        [super setBounds:newBounds];
     }
 }
 
