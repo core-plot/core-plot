@@ -467,8 +467,8 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
         entryPaddingTop       = [coder decodeCGFloatForKey:@"CPTLegend.entryPaddingTop"];
         entryPaddingRight     = [coder decodeCGFloatForKey:@"CPTLegend.entryPaddingRight"];
         entryPaddingBottom    = [coder decodeCGFloatForKey:@"CPTLegend.entryPaddingBottom"];
-        numberOfRows          = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegend.numberOfRows"];
-        numberOfColumns       = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegend.numberOfColumns"];
+        numberOfRows          = (NSUInteger)[coder decodeIntegerForKey:@"CPTLegend.numberOfRows"];
+        numberOfColumns       = (NSUInteger)[coder decodeIntegerForKey:@"CPTLegend.numberOfColumns"];
         equalRows             = [coder decodeBoolForKey:@"CPTLegend.equalRows"];
         equalColumns          = [coder decodeBoolForKey:@"CPTLegend.equalColumns"];
         rowHeights            = [[coder decodeObjectForKey:@"CPTLegend.rowHeights"] copy];
@@ -613,10 +613,10 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
             BOOL legendShouldDrawSwatch = YES;
             if ( delegateCanDraw ) {
                 legendShouldDrawSwatch = [theDelegate legend:self
-                                          shouldDrawSwatchAtIndex:entryIndex
-                                                          forPlot:entryPlot
-                                                           inRect:swatchRect
-                                                        inContext:context];
+                                     shouldDrawSwatchAtIndex:entryIndex
+                                                     forPlot:entryPlot
+                                                      inRect:swatchRect
+                                                   inContext:context];
             }
             if ( legendShouldDrawSwatch ) {
                 [entryPlot drawSwatchForLegend:self
@@ -743,7 +743,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
             if ( row < desiredRowHeights.count ) {
                 id desiredRowHeight = desiredRowHeights[row];
                 if ( [desiredRowHeight isKindOfClass:numberClass] ) {
-                    maxTitleHeight[row] = MAX(maxTitleHeight[row], [(NSNumber *)desiredRowHeight cgFloatValue]);
+                    maxTitleHeight[row] = MAX(maxTitleHeight[row], [(NSNumber *) desiredRowHeight cgFloatValue]);
                 }
             }
         }
@@ -754,7 +754,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
             if ( col < desiredColumnWidths.count ) {
                 id desiredColumnWidth = desiredColumnWidths[col];
                 if ( [desiredColumnWidth isKindOfClass:numberClass] ) {
-                    maxTitleWidth[col] = MAX(maxTitleWidth[col], [(NSNumber *)desiredColumnWidth cgFloatValue]);
+                    maxTitleWidth[col] = MAX(maxTitleWidth[col], [(NSNumber *) desiredColumnWidth cgFloatValue]);
                 }
             }
         }

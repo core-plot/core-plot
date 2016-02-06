@@ -113,7 +113,7 @@
         contentLayer = [coder decodeObjectForKey:@"CPTAxisLabel.contentLayer"];
         offset       = [coder decodeCGFloatForKey:@"CPTAxisLabel.offset"];
         rotation     = [coder decodeCGFloatForKey:@"CPTAxisLabel.rotation"];
-        alignment    = (CPTAlignment)[coder decodeIntegerForKey : @"CPTAxisLabel.alignment"];
+        alignment    = (CPTAlignment)[coder decodeIntegerForKey:@"CPTAxisLabel.alignment"];
         tickLocation = [coder decodeObjectForKey:@"CPTAxisLabel.tickLocation"];
     }
     return self;

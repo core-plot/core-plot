@@ -1,6 +1,6 @@
 //
-//  DetailViewController.m
-//  CorePlotGallery
+// DetailViewController.m
+// CorePlotGallery
 //
 
 #import "DetailViewController.h"

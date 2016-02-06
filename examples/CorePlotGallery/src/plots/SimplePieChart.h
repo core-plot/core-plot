@@ -1,6 +1,6 @@
 //
-//  SimplePieChart.h
-//  CorePlotGallery
+// SimplePieChart.h
+// CorePlotGallery
 //
 
 #import "PlotItem.h"

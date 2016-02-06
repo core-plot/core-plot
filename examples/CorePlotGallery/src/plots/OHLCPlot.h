@@ -1,6 +1,6 @@
 //
-//  OHLCPlot.h
-//  CorePlotGallery
+// OHLCPlot.h
+// CorePlotGallery
 //
 
 #import "PlotItem.h"

@@ -27,7 +27,7 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
 
 -(void)setUp
 {
-    //check CPTDataSource conformance
+    // check CPTDataSource conformance
     XCTAssertTrue([self conformsToProtocol:@protocol(CPTPlotDataSource)], @"CPTDataSourceTestCase should conform to <CPTPlotDataSource>");
 }
 

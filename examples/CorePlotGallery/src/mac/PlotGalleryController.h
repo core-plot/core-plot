@@ -1,6 +1,6 @@
 //
-//  PlotGalleryController.h
-//  CorePlotGallery
+// PlotGalleryController.h
+// CorePlotGallery
 //
 
 #import <Cocoa/Cocoa.h>

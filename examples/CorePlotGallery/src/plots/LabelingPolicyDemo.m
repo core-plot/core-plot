@@ -1,6 +1,6 @@
 //
-//  LabelingPolicyDemo.m
-//  Plot Gallery
+// LabelingPolicyDemo.m
+// Plot Gallery
 //
 
 #import "LabelingPolicyDemo.h"

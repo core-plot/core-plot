@@ -762,7 +762,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        coordinate                  = (CPTCoordinate)[coder decodeIntegerForKey : @"CPTAxis.coordinate"];
+        coordinate                  = (CPTCoordinate)[coder decodeIntegerForKey:@"CPTAxis.coordinate"];
         plotSpace                   = [coder decodeObjectForKey:@"CPTAxis.plotSpace"];
         majorTickLocations          = [coder decodeObjectForKey:@"CPTAxis.majorTickLocations"];
         minorTickLocations          = [coder decodeObjectForKey:@"CPTAxis.minorTickLocations"];
@@ -772,22 +772,22 @@ NSDecimal CPTNiceLength(NSDecimal length);
         minorTickLabelOffset        = [coder decodeCGFloatForKey:@"CPTAxis.minorTickLabelOffset"];
         labelRotation               = [coder decodeCGFloatForKey:@"CPTAxis.labelRotation"];
         minorTickLabelRotation      = [coder decodeCGFloatForKey:@"CPTAxis.minorTickLabelRotation"];
-        labelAlignment              = (CPTAlignment)[coder decodeIntegerForKey : @"CPTAxis.labelAlignment"];
-        minorTickLabelAlignment     = (CPTAlignment)[coder decodeIntegerForKey : @"CPTAxis.minorTickLabelAlignment"];
+        labelAlignment              = (CPTAlignment)[coder decodeIntegerForKey:@"CPTAxis.labelAlignment"];
+        minorTickLabelAlignment     = (CPTAlignment)[coder decodeIntegerForKey:@"CPTAxis.minorTickLabelAlignment"];
         axisLineStyle               = [[coder decodeObjectForKey:@"CPTAxis.axisLineStyle"] copy];
         majorTickLineStyle          = [[coder decodeObjectForKey:@"CPTAxis.majorTickLineStyle"] copy];
         minorTickLineStyle          = [[coder decodeObjectForKey:@"CPTAxis.minorTickLineStyle"] copy];
-        tickLabelDirection          = (CPTSign)[coder decodeIntegerForKey : @"CPTAxis.tickLabelDirection"];
-        minorTickLabelDirection     = (CPTSign)[coder decodeIntegerForKey : @"CPTAxis.minorTickLabelDirection"];
+        tickLabelDirection          = (CPTSign)[coder decodeIntegerForKey:@"CPTAxis.tickLabelDirection"];
+        minorTickLabelDirection     = (CPTSign)[coder decodeIntegerForKey:@"CPTAxis.minorTickLabelDirection"];
         majorGridLineStyle          = [[coder decodeObjectForKey:@"CPTAxis.majorGridLineStyle"] copy];
         minorGridLineStyle          = [[coder decodeObjectForKey:@"CPTAxis.minorGridLineStyle"] copy];
         axisLineCapMin              = [[coder decodeObjectForKey:@"CPTAxis.axisLineCapMin"] copy];
         axisLineCapMax              = [[coder decodeObjectForKey:@"CPTAxis.axisLineCapMax"] copy];
         labelingOrigin              = [coder decodeObjectForKey:@"CPTAxis.labelingOrigin"];
         majorIntervalLength         = [coder decodeObjectForKey:@"CPTAxis.majorIntervalLength"];
-        minorTicksPerInterval       = (NSUInteger)[coder decodeIntegerForKey : @"CPTAxis.minorTicksPerInterval"];
-        preferredNumberOfMajorTicks = (NSUInteger)[coder decodeIntegerForKey : @"CPTAxis.preferredNumberOfMajorTicks"];
-        labelingPolicy              = (CPTAxisLabelingPolicy)[coder decodeIntegerForKey : @"CPTAxis.labelingPolicy"];
+        minorTicksPerInterval       = (NSUInteger)[coder decodeIntegerForKey:@"CPTAxis.minorTicksPerInterval"];
+        preferredNumberOfMajorTicks = (NSUInteger)[coder decodeIntegerForKey:@"CPTAxis.preferredNumberOfMajorTicks"];
+        labelingPolicy              = (CPTAxisLabelingPolicy)[coder decodeIntegerForKey:@"CPTAxis.labelingPolicy"];
         labelTextStyle              = [[coder decodeObjectForKey:@"CPTAxis.labelTextStyle"] copy];
         minorTickLabelTextStyle     = [[coder decodeObjectForKey:@"CPTAxis.minorTickLabelTextStyle"] copy];
         titleTextStyle              = [[coder decodeObjectForKey:@"CPTAxis.titleTextStyle"] copy];
@@ -802,9 +802,9 @@ NSDecimal CPTNiceLength(NSDecimal length);
         attributedTitle             = [[coder decodeObjectForKey:@"CPTAxis.attributedTitle"] copy];
         titleOffset                 = [coder decodeCGFloatForKey:@"CPTAxis.titleOffset"];
         titleRotation               = [coder decodeCGFloatForKey:@"CPTAxis.titleRotation"];
-        titleDirection              = (CPTSign)[coder decodeIntegerForKey : @"CPTAxis.titleDirection"];
+        titleDirection              = (CPTSign)[coder decodeIntegerForKey:@"CPTAxis.titleDirection"];
         titleLocation               = [coder decodeObjectForKey:@"CPTAxis.titleLocation"];
-        tickDirection               = (CPTSign)[coder decodeIntegerForKey : @"CPTAxis.tickDirection"];
+        tickDirection               = (CPTSign)[coder decodeIntegerForKey:@"CPTAxis.tickDirection"];
         needsRelabel                = [coder decodeBoolForKey:@"CPTAxis.needsRelabel"];
         labelExclusionRanges        = [coder decodeObjectForKey:@"CPTAxis.labelExclusionRanges"];
         visibleRange                = [[coder decodeObjectForKey:@"CPTAxis.visibleRange"] copy];
@@ -2300,7 +2300,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
         for ( CPTAxisLabel *axisLabel in self.axisLabels ) {
             CPTLayer *contentLayer = axisLabel.contentLayer;
             if ( [contentLayer isKindOfClass:textLayerClass] ) {
-                [(CPTTextLayer *)contentLayer setTextStyle : labelTextStyle];
+                [(CPTTextLayer *) contentLayer setTextStyle:labelTextStyle];
             }
         }
 
@@ -2317,7 +2317,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
         for ( CPTAxisLabel *axisLabel in self.minorTickAxisLabels ) {
             CPTLayer *contentLayer = axisLabel.contentLayer;
             if ( [contentLayer isKindOfClass:textLayerClass] ) {
-                [(CPTTextLayer *)contentLayer setTextStyle : minorTickLabelTextStyle];
+                [(CPTTextLayer *) contentLayer setTextStyle:minorTickLabelTextStyle];
             }
         }
 

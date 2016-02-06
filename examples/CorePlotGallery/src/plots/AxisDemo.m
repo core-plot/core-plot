@@ -1,6 +1,6 @@
 //
-//  AxisDemo.m
-//  Plot Gallery-Mac
+// AxisDemo.m
+// Plot Gallery-Mac
 //
 
 #import "AxisDemo.h"

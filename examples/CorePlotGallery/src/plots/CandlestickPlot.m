@@ -1,6 +1,6 @@
 //
-//  CandlestickPlot.m
-//  CorePlotGallery
+// CandlestickPlot.m
+// CorePlotGallery
 //
 
 #import "CandlestickPlot.h"

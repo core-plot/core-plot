@@ -1,6 +1,6 @@
 //
-//  AppDelegate.m
-//  CorePlotGallery
+// AppDelegate.m
+// CorePlotGallery
 //
 
 #import "AppDelegate.h"
@@ -35,7 +35,7 @@
 
 -(BOOL)splitViewController:(UISplitViewController *)splitViewController collapseSecondaryViewController:(UIViewController *)secondaryViewController ontoPrimaryViewController:(UIViewController *)primaryViewController
 {
-    if ( [secondaryViewController isKindOfClass:[UINavigationController class]] && [[(UINavigationController *)secondaryViewController topViewController] isKindOfClass:[DetailViewController class]] && ([(DetailViewController *)[(UINavigationController *)secondaryViewController topViewController] detailItem] == nil) ) {
+    if ( [secondaryViewController isKindOfClass:[UINavigationController class]] && [[(UINavigationController *) secondaryViewController topViewController] isKindOfClass:[DetailViewController class]] && ([(DetailViewController *)[(UINavigationController *) secondaryViewController topViewController] detailItem] == nil) ) {
         // Return YES to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
         return YES;
     }

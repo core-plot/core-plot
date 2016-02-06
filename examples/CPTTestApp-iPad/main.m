@@ -1,8 +1,8 @@
 //
-//  main.m
-//  CPTTestApp-iPad
+// main.m
+// CPTTestApp-iPad
 //
-//  Created by Brad Larson on 4/1/2010.
+// Created by Brad Larson on 4/1/2010.
 //
 
 #import <UIKit/UIKit.h>

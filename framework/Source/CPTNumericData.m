@@ -1199,12 +1199,12 @@
         if ( [decoder allowsKeyedCoding] ) {
             newData = [decoder decodeObjectForKey:@"CPTNumericData.data"];
 
-            newDataType = CPTDataType( (CPTDataTypeFormat)[decoder decodeIntegerForKey: @"CPTNumericData.dataType.dataTypeFormat"],
-                                       (size_t)[decoder decodeInt64ForKey: @"CPTNumericData.dataType.sampleBytes"],
-                                       (CFByteOrder)[decoder decodeInt64ForKey: @"CPTNumericData.dataType.byteOrder"] );
+            newDataType = CPTDataType( (CPTDataTypeFormat)[decoder decodeIntegerForKey:@"CPTNumericData.dataType.dataTypeFormat"],
+                                       (size_t)[decoder decodeInt64ForKey:@"CPTNumericData.dataType.sampleBytes"],
+                                       (CFByteOrder)[decoder decodeInt64ForKey:@"CPTNumericData.dataType.byteOrder"] );
 
             shapeArray = [decoder decodeObjectForKey:@"CPTNumericData.shape"];
-            order      = (CPTDataOrder)[decoder decodeIntegerForKey : @"CPTNumericData.dataOrder"];
+            order      = (CPTDataOrder)[decoder decodeIntegerForKey:@"CPTNumericData.dataOrder"];
         }
         else {
             newData = [decoder decodeObject];

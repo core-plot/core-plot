@@ -1,6 +1,6 @@
 //
-//  GradientScatterPlot.m
-//  CorePlotGallery
+// GradientScatterPlot.m
+// CorePlotGallery
 //
 
 #import "GradientScatterPlot.h"

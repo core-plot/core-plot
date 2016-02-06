@@ -49,7 +49,7 @@
     NSDecimalNumber *theAdjClose = [NSDecimalNumber decimalNumberWithString:csvChunks[6]];
     csvDict[@"adjClose"] = theAdjClose;
 
-    //non-mutable autoreleased dict
+    // non-mutable autoreleased dict
     return [NSDictionary dictionaryWithDictionary:csvDict];
 }
 

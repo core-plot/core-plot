@@ -1,6 +1,6 @@
 //
-//  PlotSpaceDemo.h
-//  Plot Gallery
+// PlotSpaceDemo.h
+// Plot Gallery
 //
 
 #import "PlotItem.h"

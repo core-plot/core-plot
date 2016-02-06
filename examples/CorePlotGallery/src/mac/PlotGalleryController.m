@@ -1,12 +1,12 @@
 //
-//  PlotGalleryController.m
-//  CorePlotGallery
+// PlotGalleryController.m
+// CorePlotGallery
 //
 
 #import "PlotGalleryController.h"
 
 #import "dlfcn.h"
-//#define EMBED_NU	1
+// #define EMBED_NU  1
 
 static const CGFloat CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0;
 
@@ -57,7 +57,7 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 
     [self.imageBrowser setDelegate:self];
     [self.imageBrowser setDataSource:self];
-    [self.imageBrowser setCellsStyleMask:IKCellsStyleShadowed | IKCellsStyleTitled]; //| IKCellsStyleSubtitled];
+    [self.imageBrowser setCellsStyleMask:IKCellsStyleShadowed | IKCellsStyleTitled]; // | IKCellsStyleSubtitled];
 
     [self.imageBrowser reloadData];
 

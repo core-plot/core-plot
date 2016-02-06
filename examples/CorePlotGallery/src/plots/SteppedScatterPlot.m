@@ -1,6 +1,6 @@
 //
-//  SteppedScatterPlot.m
-//  Plot Gallery-Mac
+// SteppedScatterPlot.m
+// Plot Gallery-Mac
 //
 
 #import "SteppedScatterPlot.h"

@@ -332,12 +332,12 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
         title                    = [[coder decodeObjectForKey:@"CPTGraph.title"] copy];
         attributedTitle          = [[coder decodeObjectForKey:@"CPTGraph.attributedTitle"] copy];
         titleTextStyle           = [[coder decodeObjectForKey:@"CPTGraph.titleTextStyle"] copy];
-        titlePlotAreaFrameAnchor = (CPTRectAnchor)[coder decodeIntegerForKey : @"CPTGraph.titlePlotAreaFrameAnchor"];
+        titlePlotAreaFrameAnchor = (CPTRectAnchor)[coder decodeIntegerForKey:@"CPTGraph.titlePlotAreaFrameAnchor"];
         titleDisplacement        = [coder decodeCPTPointForKey:@"CPTGraph.titleDisplacement"];
         titleAnnotation          = [coder decodeObjectForKey:@"CPTGraph.titleAnnotation"];
         legend                   = [coder decodeObjectForKey:@"CPTGraph.legend"];
         legendAnnotation         = [coder decodeObjectForKey:@"CPTGraph.legendAnnotation"];
-        legendAnchor             = (CPTRectAnchor)[coder decodeIntegerForKey : @"CPTGraph.legendAnchor"];
+        legendAnchor             = (CPTRectAnchor)[coder decodeIntegerForKey:@"CPTGraph.legendAnchor"];
         legendDisplacement       = [coder decodeCPTPointForKey:@"CPTGraph.legendDisplacement"];
 
         inTitleUpdate = NO;

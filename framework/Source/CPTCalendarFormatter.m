@@ -103,7 +103,7 @@
         dateFormatter         = [coder decodeObjectForKey:@"CPTCalendarFormatter.dateFormatter"];
         referenceDate         = [[coder decodeObjectForKey:@"CPTCalendarFormatter.referenceDate"] copy];
         referenceCalendar     = [[coder decodeObjectForKey:@"CPTCalendarFormatter.referenceCalendar"] copy];
-        referenceCalendarUnit = (NSCalendarUnit)[coder decodeIntegerForKey : @"CPTCalendarFormatter.referenceCalendarUnit"];
+        referenceCalendarUnit = (NSCalendarUnit)[coder decodeIntegerForKey:@"CPTCalendarFormatter.referenceCalendarUnit"];
     }
     return self;
 }

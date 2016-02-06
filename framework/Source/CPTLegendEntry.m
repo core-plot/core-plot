@@ -111,9 +111,9 @@
 {
     if ( (self = [super init]) ) {
         plot      = [coder decodeObjectForKey:@"CPTLegendEntry.plot"];
-        index     = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegendEntry.index"];
-        row       = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegendEntry.row"];
-        column    = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegendEntry.column"];
+        index     = (NSUInteger)[coder decodeIntegerForKey:@"CPTLegendEntry.index"];
+        row       = (NSUInteger)[coder decodeIntegerForKey:@"CPTLegendEntry.row"];
+        column    = (NSUInteger)[coder decodeIntegerForKey:@"CPTLegendEntry.column"];
         textStyle = [coder decodeObjectForKey:@"CPTLegendEntry.textStyle"];
     }
     return self;

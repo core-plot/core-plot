@@ -1,6 +1,6 @@
 //
-//  PlotView.m
-//  CorePlotGallery
+// PlotView.m
+// CorePlotGallery
 //
 
 #import "PlotView.h"

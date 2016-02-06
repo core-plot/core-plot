@@ -1,6 +1,6 @@
 //
-//  ImageDemo.m
-//  Plot Gallery
+// ImageDemo.m
+// Plot Gallery
 //
 
 #import "ImageDemo.h"

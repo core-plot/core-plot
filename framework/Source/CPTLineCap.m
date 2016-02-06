@@ -126,7 +126,7 @@
 {
     if ( (self = [super init]) ) {
         size                = [coder decodeCPTSizeForKey:@"CPTLineCap.size"];
-        lineCapType         = (CPTLineCapType)[coder decodeIntegerForKey : @"CPTLineCap.lineCapType"];
+        lineCapType         = (CPTLineCapType)[coder decodeIntegerForKey:@"CPTLineCap.lineCapType"];
         lineStyle           = [coder decodeObjectForKey:@"CPTLineCap.lineStyle"];
         fill                = [coder decodeObjectForKey:@"CPTLineCap.fill"];
         customLineCapPath   = [coder newCGPathDecodeForKey:@"CPTLineCap.customLineCapPath"];

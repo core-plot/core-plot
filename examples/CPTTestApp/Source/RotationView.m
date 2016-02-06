@@ -1,6 +1,6 @@
 //
-//  3DRotationView.m
-//  CPTTestApp
+// 3DRotationView.m
+// CPTTestApp
 //
 
 #import "RotationView.h"

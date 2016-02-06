@@ -1,6 +1,6 @@
 //
-//  LineCapDemo.h
-//  Plot Gallery
+// LineCapDemo.h
+// Plot Gallery
 //
 
 #import "PlotItem.h"

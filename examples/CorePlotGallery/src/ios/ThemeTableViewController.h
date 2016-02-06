@@ -1,6 +1,6 @@
 //
-//  ThemeTableViewController.h
-//  CorePlotGallery
+// ThemeTableViewController.h
+// CorePlotGallery
 //
 
 extern NSString *const kThemeTableViewControllerNoTheme;

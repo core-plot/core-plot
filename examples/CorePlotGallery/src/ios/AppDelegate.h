@@ -1,6 +1,6 @@
 //
-//  AppDelegate.h
-//  CorePlotGallery
+// AppDelegate.h
+// CorePlotGallery
 //
 
 #import <UIKit/UIKit.h>

@@ -1,6 +1,6 @@
 //
-//  SimpleBarGraph.m
-//  CorePlotGallery
+// SimpleBarGraph.m
+// CorePlotGallery
 //
 
 #import "VerticalBarChart.h"

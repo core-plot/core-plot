@@ -1,9 +1,9 @@
 //
-//  main.m
-//  CPTTestApp
+// main.m
+// CPTTestApp
 //
-//  Created by Dirkjan Krijnders on 2/2/09.
-//  Copyright __MyCompanyName__ 2009. All rights reserved.
+// Created by Dirkjan Krijnders on 2/2/09.
+// Copyright __MyCompanyName__ 2009. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
