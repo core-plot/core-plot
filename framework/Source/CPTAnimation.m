@@ -414,7 +414,7 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
                 NSDecimal buffer = ( (NSDecimalNumber *)tweenedValue ).decimalValue;
 
                 typedef void (*SetterType)(id, SEL, NSDecimal);
-                SetterType setterMethod = (SetterType)[boundObject methodForSelector : boundSetter];
+                SetterType setterMethod = (SetterType)[boundObject methodForSelector:boundSetter];
                 setterMethod(boundObject, boundSetter, buffer);
             }
             else {

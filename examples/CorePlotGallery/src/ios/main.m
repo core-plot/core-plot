@@ -1,6 +1,6 @@
 //
-//  main.m
-//  CorePlotGallery
+// main.m
+// CorePlotGallery
 //
 
 #import "AppDelegate.h"

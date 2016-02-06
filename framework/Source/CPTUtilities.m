@@ -20,7 +20,7 @@ static BOOL cacheValueInitialized[kCacheSize] = { NO, NO, NO, NO };
  **/
 int8_t CPTDecimalCharValue(NSDecimal decimalNumber)
 {
-    return (int8_t)[NSDecimalNumber decimalNumberWithDecimal : decimalNumber].charValue;
+    return (int8_t)[NSDecimalNumber decimalNumberWithDecimal:decimalNumber].charValue;
 }
 
 /**
@@ -30,7 +30,7 @@ int8_t CPTDecimalCharValue(NSDecimal decimalNumber)
  **/
 int16_t CPTDecimalShortValue(NSDecimal decimalNumber)
 {
-    return (int16_t)[NSDecimalNumber decimalNumberWithDecimal : decimalNumber].shortValue;
+    return (int16_t)[NSDecimalNumber decimalNumberWithDecimal:decimalNumber].shortValue;
 }
 
 /**
@@ -40,7 +40,7 @@ int16_t CPTDecimalShortValue(NSDecimal decimalNumber)
  **/
 int32_t CPTDecimalLongValue(NSDecimal decimalNumber)
 {
-    return (int32_t)[NSDecimalNumber decimalNumberWithDecimal : decimalNumber].longValue;
+    return (int32_t)[NSDecimalNumber decimalNumberWithDecimal:decimalNumber].longValue;
 }
 
 /**
@@ -50,7 +50,7 @@ int32_t CPTDecimalLongValue(NSDecimal decimalNumber)
  **/
 int64_t CPTDecimalLongLongValue(NSDecimal decimalNumber)
 {
-    return (int64_t)[NSDecimalNumber decimalNumberWithDecimal : decimalNumber].longLongValue;
+    return (int64_t)[NSDecimalNumber decimalNumberWithDecimal:decimalNumber].longLongValue;
 }
 
 /**
@@ -70,7 +70,7 @@ int CPTDecimalIntValue(NSDecimal decimalNumber)
  **/
 NSInteger CPTDecimalIntegerValue(NSDecimal decimalNumber)
 {
-    return (NSInteger)[NSDecimalNumber decimalNumberWithDecimal : decimalNumber].integerValue;
+    return (NSInteger)[NSDecimalNumber decimalNumberWithDecimal:decimalNumber].integerValue;
 }
 
 /**
@@ -80,7 +80,7 @@ NSInteger CPTDecimalIntegerValue(NSDecimal decimalNumber)
  **/
 uint8_t CPTDecimalUnsignedCharValue(NSDecimal decimalNumber)
 {
-    return (uint8_t)[NSDecimalNumber decimalNumberWithDecimal : decimalNumber].unsignedCharValue;
+    return (uint8_t)[NSDecimalNumber decimalNumberWithDecimal:decimalNumber].unsignedCharValue;
 }
 
 /**
@@ -90,7 +90,7 @@ uint8_t CPTDecimalUnsignedCharValue(NSDecimal decimalNumber)
  **/
 uint16_t CPTDecimalUnsignedShortValue(NSDecimal decimalNumber)
 {
-    return (uint16_t)[NSDecimalNumber decimalNumberWithDecimal : decimalNumber].unsignedShortValue;
+    return (uint16_t)[NSDecimalNumber decimalNumberWithDecimal:decimalNumber].unsignedShortValue;
 }
 
 /**
@@ -100,7 +100,7 @@ uint16_t CPTDecimalUnsignedShortValue(NSDecimal decimalNumber)
  **/
 uint32_t CPTDecimalUnsignedLongValue(NSDecimal decimalNumber)
 {
-    return (uint32_t)[NSDecimalNumber decimalNumberWithDecimal : decimalNumber].unsignedLongValue;
+    return (uint32_t)[NSDecimalNumber decimalNumberWithDecimal:decimalNumber].unsignedLongValue;
 }
 
 /**
@@ -110,7 +110,7 @@ uint32_t CPTDecimalUnsignedLongValue(NSDecimal decimalNumber)
  **/
 uint64_t CPTDecimalUnsignedLongLongValue(NSDecimal decimalNumber)
 {
-    return (uint64_t)[NSDecimalNumber decimalNumberWithDecimal : decimalNumber].unsignedLongLongValue;
+    return (uint64_t)[NSDecimalNumber decimalNumberWithDecimal:decimalNumber].unsignedLongLongValue;
 }
 
 /**
@@ -130,7 +130,7 @@ unsigned int CPTDecimalUnsignedIntValue(NSDecimal decimalNumber)
  **/
 NSUInteger CPTDecimalUnsignedIntegerValue(NSDecimal decimalNumber)
 {
-    return (NSUInteger)[NSDecimalNumber decimalNumberWithDecimal : decimalNumber].unsignedIntegerValue;
+    return (NSUInteger)[NSDecimalNumber decimalNumberWithDecimal:decimalNumber].unsignedIntegerValue;
 }
 
 /**
@@ -161,7 +161,7 @@ double CPTDecimalDoubleValue(NSDecimal decimalNumber)
 CGFloat CPTDecimalCGFloatValue(NSDecimal decimalNumber)
 {
 #if CGFLOAT_IS_DOUBLE
-    return (CGFloat)[NSDecimalNumber decimalNumberWithDecimal : decimalNumber].doubleValue;
+    return (CGFloat)[NSDecimalNumber decimalNumberWithDecimal:decimalNumber].doubleValue;
 
 #else
     return (CGFloat)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] floatValue];

@@ -1,6 +1,6 @@
 //
-//  CompositePlot.h
-//  CorePlotGallery
+// CompositePlot.h
+// CorePlotGallery
 //
 
 #import "PlotItem.h"

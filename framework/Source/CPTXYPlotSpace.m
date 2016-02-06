@@ -272,8 +272,8 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
                                             forKey:@"CPTXYPlotSpace.globalXRange"] copy];
         globalYRange = [[coder decodeObjectOfClass:[CPTPlotRange class]
                                             forKey:@"CPTXYPlotSpace.globalYRange"] copy];
-        xScaleType = (CPTScaleType)[coder decodeIntegerForKey : @"CPTXYPlotSpace.xScaleType"];
-        yScaleType = (CPTScaleType)[coder decodeIntegerForKey : @"CPTXYPlotSpace.yScaleType"];
+        xScaleType = (CPTScaleType)[coder decodeIntegerForKey:@"CPTXYPlotSpace.xScaleType"];
+        yScaleType = (CPTScaleType)[coder decodeIntegerForKey:@"CPTXYPlotSpace.yScaleType"];
 
         if ( [coder containsValueForKey:@"CPTXYPlotSpace.allowsMomentum"] ) {
             self.allowsMomentum = [coder decodeBoolForKey:@"CPTXYPlotSpace.allowsMomentum"];
@@ -282,8 +282,8 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
             allowsMomentumX = [coder decodeBoolForKey:@"CPTXYPlotSpace.allowsMomentumX"];
             allowsMomentumY = [coder decodeBoolForKey:@"CPTXYPlotSpace.allowsMomentumY"];
         }
-        momentumAnimationCurve    = (CPTAnimationCurve)[coder decodeIntForKey : @"CPTXYPlotSpace.momentumAnimationCurve"];
-        bounceAnimationCurve      = (CPTAnimationCurve)[coder decodeIntForKey : @"CPTXYPlotSpace.bounceAnimationCurve"];
+        momentumAnimationCurve    = (CPTAnimationCurve)[coder decodeIntForKey:@"CPTXYPlotSpace.momentumAnimationCurve"];
+        bounceAnimationCurve      = (CPTAnimationCurve)[coder decodeIntForKey:@"CPTXYPlotSpace.bounceAnimationCurve"];
         momentumAcceleration      = [coder decodeCGFloatForKey:@"CPTXYPlotSpace.momentumAcceleration"];
         bounceAcceleration        = [coder decodeCGFloatForKey:@"CPTXYPlotSpace.bounceAcceleration"];
         minimumDisplacementToDrag = [coder decodeCGFloatForKey:@"CPTXYPlotSpace.minimumDisplacementToDrag"];
@@ -1670,18 +1670,18 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         // X range
         NSDecimal shiftX        = CPTDecimalSubtract(lastPoint[CPTCoordinateX], newPoint[CPTCoordinateX]);
         CPTPlotRange *newRangeX = [self shiftRange:self.xRange
-                                                 by:shiftX
-                                      usingMomentum:self.allowsMomentumX
-                                      inGlobalRange:self.globalXRange
-                                   withDisplacement:&displacement.x];
+                                                by:shiftX
+                                     usingMomentum:self.allowsMomentumX
+                                     inGlobalRange:self.globalXRange
+                                  withDisplacement:&displacement.x];
 
         // Y range
         NSDecimal shiftY        = CPTDecimalSubtract(lastPoint[CPTCoordinateY], newPoint[CPTCoordinateY]);
         CPTPlotRange *newRangeY = [self shiftRange:self.yRange
-                                                 by:shiftY
-                                      usingMomentum:self.allowsMomentumY
-                                      inGlobalRange:self.globalYRange
-                                   withDisplacement:&displacement.y];
+                                                by:shiftY
+                                     usingMomentum:self.allowsMomentumY
+                                     inGlobalRange:self.globalYRange
+                                  withDisplacement:&displacement.y];
 
         self.lastDragPoint    = pointInPlotArea;
         self.lastDisplacement = displacement;
@@ -1783,18 +1783,18 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
     // X range
     NSDecimal shiftX        = CPTDecimalSubtract(lastPoint[CPTCoordinateX], newPoint[CPTCoordinateX]);
     CPTPlotRange *newRangeX = [self shiftRange:self.xRange
-                                             by:shiftX
-                                  usingMomentum:NO
-                                  inGlobalRange:self.globalXRange
-                               withDisplacement:&displacement.x];
+                                            by:shiftX
+                                 usingMomentum:NO
+                                 inGlobalRange:self.globalXRange
+                              withDisplacement:&displacement.x];
 
     // Y range
     NSDecimal shiftY        = CPTDecimalSubtract(lastPoint[CPTCoordinateY], newPoint[CPTCoordinateY]);
     CPTPlotRange *newRangeY = [self shiftRange:self.yRange
-                                             by:shiftY
-                                  usingMomentum:NO
-                                  inGlobalRange:self.globalYRange
-                               withDisplacement:&displacement.y];
+                                            by:shiftY
+                                 usingMomentum:NO
+                                 inGlobalRange:self.globalYRange
+                              withDisplacement:&displacement.y];
 
     self.xRange = newRangeX;
     self.yRange = newRangeY;

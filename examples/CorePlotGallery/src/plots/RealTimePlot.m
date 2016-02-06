@@ -1,6 +1,6 @@
 //
-//  RealTimePlot.m
-//  CorePlotGallery
+// RealTimePlot.m
+// CorePlotGallery
 //
 
 #import "RealTimePlot.h"

@@ -61,7 +61,7 @@
     CPTTimeFormatter *myTimeFormatter = [[CPTTimeFormatter alloc] initWithDateFormatter:timeFormatter];
     myTimeFormatter.referenceDate = refDate;
     x.minorTickLabelFormatter     = myTimeFormatter;
-//	x.minorTickLabelRotation = M_PI_2;
+// x.minorTickLabelRotation = M_PI_2;
 
     CPTXYAxis *y = axisSet.yAxis;
     y.majorIntervalLength   = @0.5;

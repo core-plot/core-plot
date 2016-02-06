@@ -1184,14 +1184,14 @@
         newData = [decoder decodeObjectOfClass:[NSData class]
                                         forKey:@"CPTNumericData.data"];
 
-        newDataType = CPTDataType( (CPTDataTypeFormat)[decoder decodeIntegerForKey: @"CPTNumericData.dataType.dataTypeFormat"],
-                                   (size_t)[decoder decodeInt64ForKey: @"CPTNumericData.dataType.sampleBytes"],
-                                   (CFByteOrder)[decoder decodeInt64ForKey: @"CPTNumericData.dataType.byteOrder"] );
+        newDataType = CPTDataType( (CPTDataTypeFormat)[decoder decodeIntegerForKey:@"CPTNumericData.dataType.dataTypeFormat"],
+                                   (size_t)[decoder decodeInt64ForKey:@"CPTNumericData.dataType.sampleBytes"],
+                                   (CFByteOrder)[decoder decodeInt64ForKey:@"CPTNumericData.dataType.byteOrder"] );
 
         shapeArray = [decoder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [NSNumber class]]]
                                              forKey:@"CPTNumericData.shape"];
 
-        order = (CPTDataOrder)[decoder decodeIntegerForKey : @"CPTNumericData.dataOrder"];
+        order = (CPTDataOrder)[decoder decodeIntegerForKey:@"CPTNumericData.dataOrder"];
 
         [self commonInitWithData:newData dataType:newDataType shape:shapeArray dataOrder:order];
     }

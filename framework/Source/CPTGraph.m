@@ -339,7 +339,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
                                                forKey:@"CPTGraph.attributedTitle"] copy];
         titleTextStyle = [[coder decodeObjectOfClass:[CPTTextStyle class]
                                               forKey:@"CPTGraph.titleTextStyle"] copy];
-        titlePlotAreaFrameAnchor = (CPTRectAnchor)[coder decodeIntegerForKey : @"CPTGraph.titlePlotAreaFrameAnchor"];
+        titlePlotAreaFrameAnchor = (CPTRectAnchor)[coder decodeIntegerForKey:@"CPTGraph.titlePlotAreaFrameAnchor"];
         titleDisplacement        = [coder decodeCPTPointForKey:@"CPTGraph.titleDisplacement"];
         titleAnnotation          = [coder decodeObjectOfClass:[CPTLayerAnnotation class]
                                                        forKey:@"CPTGraph.titleAnnotation"];
@@ -347,7 +347,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
                                      forKey:@"CPTGraph.legend"];
         legendAnnotation = [coder decodeObjectOfClass:[CPTLayerAnnotation class]
                                                forKey:@"CPTGraph.legendAnnotation"];
-        legendAnchor       = (CPTRectAnchor)[coder decodeIntegerForKey : @"CPTGraph.legendAnchor"];
+        legendAnchor       = (CPTRectAnchor)[coder decodeIntegerForKey:@"CPTGraph.legendAnchor"];
         legendDisplacement = [coder decodeCPTPointForKey:@"CPTGraph.legendDisplacement"];
 
         inTitleUpdate = NO;

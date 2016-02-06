@@ -1,6 +1,6 @@
 //
-//  SimplePieChart.m
-//  CorePlotGallery
+// SimplePieChart.m
+// CorePlotGallery
 //
 
 #import "SimplePieChart.h"

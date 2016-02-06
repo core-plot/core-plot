@@ -112,9 +112,9 @@
     if ( (self = [super init]) ) {
         plot = [coder decodeObjectOfClass:[CPTPlot class]
                                    forKey:@"CPTLegendEntry.plot"];
-        index     = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegendEntry.index"];
-        row       = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegendEntry.row"];
-        column    = (NSUInteger)[coder decodeIntegerForKey : @"CPTLegendEntry.column"];
+        index     = (NSUInteger)[coder decodeIntegerForKey:@"CPTLegendEntry.index"];
+        row       = (NSUInteger)[coder decodeIntegerForKey:@"CPTLegendEntry.row"];
+        column    = (NSUInteger)[coder decodeIntegerForKey:@"CPTLegendEntry.column"];
         textStyle = [coder decodeObjectOfClass:[CPTTextStyle class]
                                         forKey:@"CPTLegendEntry.textStyle"];
     }

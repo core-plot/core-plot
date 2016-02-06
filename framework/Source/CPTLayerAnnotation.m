@@ -121,7 +121,7 @@
                                            forKey:@"CPTLayerAnnotation.xConstraints"];
         yConstraints = [coder decodeObjectOfClass:[CPTConstraints class]
                                            forKey:@"CPTLayerAnnotation.yConstraints"];
-        rectAnchor = (CPTRectAnchor)[coder decodeIntegerForKey : @"CPTLayerAnnotation.rectAnchor"];
+        rectAnchor = (CPTRectAnchor)[coder decodeIntegerForKey:@"CPTLayerAnnotation.rectAnchor"];
     }
     return self;
 }

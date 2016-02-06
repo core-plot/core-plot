@@ -585,7 +585,7 @@
 
 -(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index
 {
-    if ( ![(NSString *)plot.identifier isEqualToString : @"OHLC"] ) {
+    if ( ![(NSString *) plot.identifier isEqualToString:@"OHLC"] ) {
         return (id)[NSNull null]; // Don't show any label
     }
     else if ( index % 5 ) {
@@ -642,7 +642,7 @@
     NSDecimalNumber *volumeLengthDisplayLocation   = [volumeLength decimalNumberByAdding:volumeLengthDisplacementValue];
 
     volumePlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@(thePuller.financialData.count + 1)];
-//    volumePlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:volumeLowDisplayLocation length:volumeLengthDisplayLocation];
+// volumePlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:volumeLowDisplayLocation length:volumeLengthDisplayLocation];
 
     if ( animationOperation ) {
         [[CPTAnimation sharedInstance] removeAnimationOperation:animationOperation];
@@ -651,10 +651,10 @@
     if ( volumeLowDisplayLocation && volumeLengthDisplayLocation ) {
         animationOperation = [CPTAnimation animate:volumePlotSpace
                                           property:@"yRange"
-                                     fromPlotRange:[CPTPlotRange plotRangeWithLocationDecimal:volumeLowDisplayLocation.decimalValue
-                                                                                lengthDecimal:CPTDecimalMultiply( volumeLengthDisplayLocation.decimalValue, CPTDecimalFromInteger(10) )]
-                                       toPlotRange:[CPTPlotRange plotRangeWithLocation:volumeLowDisplayLocation
-                                                                                length:volumeLengthDisplayLocation]
+                                     fromPlotRange:[CPTPlotRange      plotRangeWithLocationDecimal:volumeLowDisplayLocation.decimalValue
+                                                                                     lengthDecimal:CPTDecimalMultiply( volumeLengthDisplayLocation.decimalValue, CPTDecimalFromInteger(10) )]
+                                       toPlotRange:[CPTPlotRange      plotRangeWithLocation:volumeLowDisplayLocation
+                                                                                     length:volumeLengthDisplayLocation]
                                           duration:2.5];
     }
 

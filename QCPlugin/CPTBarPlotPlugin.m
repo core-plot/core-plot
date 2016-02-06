@@ -177,7 +177,7 @@
         plot.barWidth          = @(barWidth);
         plot.barOffset         = @(self.inputBarOffset);
         plot.barsAreHorizontal = self.inputHorizontalBars;
-        plot.fill              = [CPTFill fillWithColor:[CPTColor colorWithCGColor:(CGColorRef)[self areaFillColor : index]]];
+        plot.fill              = [CPTFill fillWithColor:[CPTColor colorWithCGColor:(CGColorRef)[self areaFillColor:index]]];
 
         [plot reloadData];
     }

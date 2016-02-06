@@ -1,6 +1,6 @@
 //
-//  DetailViewController.h
-//  CorePlotGallery
+// DetailViewController.h
+// CorePlotGallery
 //
 
 @class PlotItem;

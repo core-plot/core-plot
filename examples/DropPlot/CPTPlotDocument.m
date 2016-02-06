@@ -40,7 +40,7 @@
 @synthesize dragStart;
 @synthesize dragEnd;
 
-//#define USE_NSDECIMAL
+// #define USE_NSDECIMAL
 
 -(instancetype)init
 {
@@ -162,9 +162,9 @@
 
         // Read headers from the first line of the file
         [fileContents getParagraphStart:&lineStart end:&lineEnd contentsEnd:&contentsEnd forRange:NSMakeRange(lineEnd, 0)];
-//		currentRange = NSMakeRange(lineStart, contentsEnd - lineStart);
-//		CPTStringArray * columnHeaders = [[fileContents substringWithRange:currentRange] arrayByParsingCSVLine];
-//		NSLog([columnHeaders objectAtIndex:0]);
+        // currentRange = NSMakeRange(lineStart, contentsEnd - lineStart);
+        // CPTStringArray * columnHeaders = [[fileContents substringWithRange:currentRange] arrayByParsingCSVLine];
+        // NSLog([columnHeaders objectAtIndex:0]);
 
         while ( lineEnd < length ) {
             [fileContents getParagraphStart:&lineStart end:&lineEnd contentsEnd:&contentsEnd forRange:NSMakeRange(lineEnd, 0)];

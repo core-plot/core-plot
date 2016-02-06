@@ -1,6 +1,6 @@
 //
-//  Plot_Gallery_MacAppDelegate.m
-//  CorePlotGallery
+// Plot_Gallery_MacAppDelegate.m
+// CorePlotGallery
 //
 
 #import "Plot_Gallery_MacAppDelegate.h"

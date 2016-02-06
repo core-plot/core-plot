@@ -1,6 +1,6 @@
 //
-//  ThemeTableViewControllerTV.m
-//  CorePlotGallery
+// ThemeTableViewControllerTV.m
+// CorePlotGallery
 //
 
 #import "ThemeTableViewControllerTV.h"

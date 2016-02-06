@@ -1,6 +1,6 @@
 //
-//  RootViewController.h
-//  CorePlotGallery
+// RootViewController.h
+// CorePlotGallery
 //
 
 @interface RootViewController : UITableViewController

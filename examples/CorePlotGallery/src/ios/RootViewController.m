@@ -1,6 +1,6 @@
 //
-//  RootViewController.m
-//  CorePlotGallery
+// RootViewController.m
+// CorePlotGallery
 //
 
 #import "RootViewController.h"
@@ -86,7 +86,7 @@
 
 -(NSInteger)tableView:(UITableView *)tv numberOfRowsInSection:(NSInteger)section
 {
-    return (NSInteger)[[PlotGallery sharedPlotGallery] numberOfRowsInSection : (NSUInteger)section];
+    return (NSInteger)[[PlotGallery sharedPlotGallery] numberOfRowsInSection:(NSUInteger)section];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath

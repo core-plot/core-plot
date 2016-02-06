@@ -1,8 +1,8 @@
 //
-//  CurvedScatterPlot.m
-//  Plot_Gallery_iOS
+// CurvedScatterPlot.m
+// Plot_Gallery_iOS
 //
-//  Created by Nino Ag on 23/10/11.
+// Created by Nino Ag on 23/10/11.
 
 #import "CurvedScatterPlot.h"
 
@@ -234,7 +234,7 @@ static NSString *const kSecond = @"Second Derivative";
     firstPlot.dataLineStyle = lineStyle;
     firstPlot.dataSource    = self;
 
-//    [graph addPlot:firstPlot];
+// [graph addPlot:firstPlot];
 
     // Second derivative
     CPTScatterPlot *secondPlot = [[CPTScatterPlot alloc] init];
@@ -243,7 +243,7 @@ static NSString *const kSecond = @"Second Derivative";
     secondPlot.dataLineStyle = lineStyle;
     secondPlot.dataSource    = self;
 
-//    [graph addPlot:secondPlot];
+// [graph addPlot:secondPlot];
 
     // Auto scale the plot space to fit the plot data
     [plotSpace scaleToFitPlots:[graph allPlots]];

@@ -285,7 +285,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
                                             forKey:@"CPTTradingRangePlot.increaseFill"] copy];
         decreaseFill = [[coder decodeObjectOfClass:[CPTFill class]
                                             forKey:@"CPTTradingRangePlot.decreaseFill"] copy];
-        plotStyle       = (CPTTradingRangePlotStyle)[coder decodeIntegerForKey : @"CPTTradingRangePlot.plotStyle"];
+        plotStyle       = (CPTTradingRangePlotStyle)[coder decodeIntegerForKey:@"CPTTradingRangePlot.plotStyle"];
         barWidth        = [coder decodeCGFloatForKey:@"CPTTradingRangePlot.barWidth"];
         stickLength     = [coder decodeCGFloatForKey:@"CPTTradingRangePlot.stickLength"];
         barCornerRadius = [coder decodeCGFloatForKey:@"CPTTradingRangePlot.barCornerRadius"];

@@ -154,7 +154,7 @@
     if ( (self = [super init]) ) {
         anchorPoint = [coder decodeCPTPointForKey:@"CPTPlotSymbol.anchorPoint"];
         size        = [coder decodeCPTSizeForKey:@"CPTPlotSymbol.size"];
-        symbolType  = (CPTPlotSymbolType)[coder decodeIntegerForKey : @"CPTPlotSymbol.symbolType"];
+        symbolType  = (CPTPlotSymbolType)[coder decodeIntegerForKey:@"CPTPlotSymbol.symbolType"];
         lineStyle   = [coder decodeObjectOfClass:[CPTLineStyle class]
                                           forKey:@"CPTPlotSymbol.lineStyle"];
         fill = [coder decodeObjectOfClass:[CPTFill class]

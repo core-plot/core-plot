@@ -1,6 +1,6 @@
 //
-//  PlotItem.h
-//  CorePlotGallery
+// PlotItem.h
+// CorePlotGallery
 //
 
 #import <Foundation/Foundation.h>

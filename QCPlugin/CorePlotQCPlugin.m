@@ -699,7 +699,7 @@ static void _BufferReleaseCallback(const void *address, void *context)
      */
 
     if ( [key isEqualToString:@"numberOfPlots"] ) {
-        [self setNumberOfPlots:MAX(1, [(NSNumber *)serializedValue unsignedIntegerValue])];
+        [self setNumberOfPlots:MAX(1, [(NSNumber *) serializedValue unsignedIntegerValue])];
     }
     else {
         [super setSerializedValue:serializedValue forKey:key];
@@ -824,7 +824,7 @@ static void _BufferReleaseCallback(const void *address, void *context)
         drawErrorText( bmContext, CPTRectMake(0, 0, self.inputPixelsWide, self.inputPixelsHigh) );
     }
 
-    //CGContextSetAllowsAntialiasing(bitmapContext, false);
+    // CGContextSetAllowsAntialiasing(bitmapContext, false);
     CGContextFlush(bmContext);
 
     // ... and put it on the output port

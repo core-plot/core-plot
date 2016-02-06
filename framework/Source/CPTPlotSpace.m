@@ -683,7 +683,7 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
 {
     return [NSString stringWithFormat:@"Identifier: %@\nallowsUserInteraction: %@",
             self.identifier,
-            self.allowsUserInteraction ? @"YES":@"NO"];
+            self.allowsUserInteraction ? @"YES" : @"NO"];
 }
 
 /// @endcond

@@ -1,6 +1,6 @@
 //
-//  CompositePlot.m
-//  CorePlotGallery
+// CompositePlot.m
+// CorePlotGallery
 //
 
 #import "CompositePlot.h"
@@ -442,7 +442,7 @@
 
 -(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index
 {
-    if ( [(NSString *)plot.identifier isEqualToString : @"Blue Plot"] ) {
+    if ( [(NSString *) plot.identifier isEqualToString:@"Blue Plot"] ) {
         self.selectedIndex = (NSInteger)index;
     }
 }
@@ -510,7 +510,7 @@
         num = self.dataForPlot[index][key];
 
         // Green plot gets shifted above the blue
-        if ( [(NSString *)plot.identifier isEqualToString : @"Green Plot"] ) {
+        if ( [(NSString *) plot.identifier isEqualToString:@"Green Plot"] ) {
             if ( fieldEnum == CPTScatterPlotFieldY ) {
                 num = @(num.doubleValue + 1.0);
             }
@@ -570,7 +570,7 @@
 
     CPTPlotSymbol *symbol = nil; // Use the default symbol
 
-    if ( [(NSString *)plot.identifier isEqualToString : @"Blue Plot"] && ( (NSInteger)index == self.selectedIndex ) ) {
+    if ( [(NSString *) plot.identifier isEqualToString:@"Blue Plot"] && ( (NSInteger)index == self.selectedIndex ) ) {
         dispatch_once(&onceToken, ^{
             redDot = [[CPTPlotSymbol alloc] init];
             redDot.symbolType = CPTPlotSymbolTypeEllipse;

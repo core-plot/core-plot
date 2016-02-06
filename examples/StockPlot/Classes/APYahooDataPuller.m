@@ -46,7 +46,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 
 @synthesize delegate;
 
-//convert any NSNumber in financial line to NSDecimalNumber
+// convert any NSNumber in financial line to NSDecimalNumber
 -(CPTDictionary *)sanitizedFinancialLine:(CPTDictionary *)theFinancialLine
 {
     CPTMutableDictionary *aFinancialLine = [NSMutableDictionary dictionaryWithDictionary:theFinancialLine];
@@ -63,7 +63,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 
 -(void)setFinancialData:(NSArray *)aFinancialData
 {
-    //NSLog(@"in -setFinancialData:, old value of financialData: %@, changed to: %@", financialData, aFinancialData);
+    // NSLog(@"in -setFinancialData:, old value of financialData: %@, changed to: %@", financialData, aFinancialData);
 
     if ( financialData != aFinancialData ) {
         NSMutableArray *mutableFinancialData = [aFinancialData mutableCopy];
@@ -137,13 +137,13 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     NSString *docPath = [self pathForSymbol:aSymbol];
 
     if ( ![[NSFileManager defaultManager] fileExistsAtPath:docPath] ) {
-        //if there isn't one in the user's documents directory, see if we ship with this data
+        // if there isn't one in the user's documents directory, see if we ship with this data
         docPath = [[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", aSymbol]];
     }
     return docPath;
 }
 
-//Always returns *something*
+// Always returns *something*
 -(CPTDictionary *)dictionaryForSymbol:(NSString *)aSymbol
 {
     NSString *path = [self faultTolerantPathForSymbol:aSymbol];
@@ -174,7 +174,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 
 -(instancetype)init
 {
-    NSTimeInterval secondsAgo = -timeIntervalForNumberOfWeeks(14.0); //12 weeks ago
+    NSTimeInterval secondsAgo = -timeIntervalForNumberOfWeeks(14.0); // 12 weeks ago
     NSDate *start             = [NSDate dateWithTimeIntervalSinceNow:secondsAgo];
 
     NSDate *end = [NSDate date];
@@ -242,7 +242,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
         return;
     }
 
-    //Check to see if cached data is stale
+    // Check to see if cached data is stale
     if ( self.staleData ) {
         self.loadingData = YES;
         NSString *urlString = [self URL];

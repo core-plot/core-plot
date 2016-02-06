@@ -296,8 +296,8 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        interpolation   = (CPTScatterPlotInterpolation)[coder decodeIntegerForKey : @"CPTScatterPlot.interpolation"];
-        histogramOption = (CPTScatterPlotHistogramOption)[coder decodeIntegerForKey : @"CPTScatterPlot.histogramOption"];
+        interpolation   = (CPTScatterPlotInterpolation)[coder decodeIntegerForKey:@"CPTScatterPlot.interpolation"];
+        histogramOption = (CPTScatterPlotHistogramOption)[coder decodeIntegerForKey:@"CPTScatterPlot.histogramOption"];
         dataLineStyle   = [[coder decodeObjectOfClass:[CPTLineStyle class]
                                                forKey:@"CPTScatterPlot.dataLineStyle"] copy];
         plotSymbol = [[coder decodeObjectOfClass:[CPTPlotSymbol class]

@@ -10,10 +10,10 @@
 
 /** @brief Initializes a newly allocated CPTMaskLayer object with the provided frame rectangle.
  *
- *	This is the designated initializer. The initialized layer will have the following properties:
- *	- @ref needsDisplayOnBoundsChange = @YES
+ *  This is the designated initializer. The initialized layer will have the following properties:
+ *  - @ref needsDisplayOnBoundsChange = @YES
  *
- *	@param newFrame The frame rectangle.
+ *  @param newFrame The frame rectangle.
  *  @return The initialized CPTMaskLayer object.
  **/
 -(instancetype)initWithFrame:(CGRect)newFrame

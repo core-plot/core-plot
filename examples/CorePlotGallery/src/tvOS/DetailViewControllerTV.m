@@ -1,6 +1,6 @@
 //
-//  DetailViewControllerTV
-//  CorePlotGallery
+// DetailViewControllerTV
+// CorePlotGallery
 //
 
 #import "DetailViewControllerTV.h"

@@ -1,6 +1,6 @@
 //
-//  CandlestickPlot.h
-//  CorePlotGallery
+// CandlestickPlot.h
+// CorePlotGallery
 //
 
 #import "PlotItem.h"

@@ -186,10 +186,10 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 {
     NSUInteger count = 0;
 
-    if ( [(NSString *)plot.identifier isEqualToString : MAIN_PLOT] ) {
+    if ( [(NSString *) plot.identifier isEqualToString:MAIN_PLOT] ) {
         count = self.dataForPlot.count;
     }
-    else if ( [(NSString *)plot.identifier isEqualToString : SELECTION_PLOT] ) {
+    else if ( [(NSString *) plot.identifier isEqualToString:SELECTION_PLOT] ) {
         if ( self.selectedIndex < NSUIntegerMax ) {
             count = 5;
         }
@@ -202,11 +202,11 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 {
     NSNumber *num = nil;
 
-    if ( [(NSString *)plot.identifier isEqualToString : MAIN_PLOT] ) {
+    if ( [(NSString *) plot.identifier isEqualToString:MAIN_PLOT] ) {
         NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
         num = (self.dataForPlot)[index][key];
     }
-    else if ( [(NSString *)plot.identifier isEqualToString : SELECTION_PLOT] ) {
+    else if ( [(NSString *) plot.identifier isEqualToString:SELECTION_PLOT] ) {
         CPTXYPlotSpace *thePlotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
 
         switch ( fieldEnum ) {
@@ -266,7 +266,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 
     CPTPlotSymbol *symbol = (id)[NSNull null];
 
-    if ( [(NSString *)plot.identifier isEqualToString : SELECTION_PLOT] && (index == 2) ) {
+    if ( [(NSString *) plot.identifier isEqualToString:SELECTION_PLOT] && (index == 2) ) {
         if ( !redDot ) {
             redDot            = [[CPTPlotSymbol alloc] init];
             redDot.symbolType = CPTPlotSymbolTypeEllipse;

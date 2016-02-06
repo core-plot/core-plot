@@ -1,6 +1,6 @@
 //
-//  RangePlot.h
-//  CorePlotGallery
+// RangePlot.h
+// CorePlotGallery
 //
 
 #import "PlotItem.h"

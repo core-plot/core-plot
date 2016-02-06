@@ -531,10 +531,10 @@
                                                            withDelay:delay];
 
     return [self animate:object
-                  property:property
-                    period:period
-            animationCurve:animationCurve
-                  delegate:delegate
+                property:property
+                  period:period
+          animationCurve:animationCurve
+                delegate:delegate
     ];
 }
 
@@ -556,10 +556,10 @@
                                                            withDelay:CPTFloat(0.0)];
 
     return [self animate:object
-                  property:property
-                    period:period
-            animationCurve:animationCurve
-                  delegate:delegate
+                property:property
+                  period:period
+          animationCurve:animationCurve
+                delegate:delegate
     ];
 }
 
@@ -579,10 +579,10 @@
                                                            withDelay:CPTFloat(0.0)];
 
     return [self animate:object
-                  property:property
-                    period:period
-            animationCurve:CPTAnimationCurveDefault
-                  delegate:nil];
+                property:property
+                  period:period
+          animationCurve:CPTAnimationCurveDefault
+                delegate:nil];
 }
 
 // CGPoint
@@ -606,10 +606,10 @@
                                                                 withDelay:delay];
 
     return [self animate:object
-                  property:property
-                    period:period
-            animationCurve:animationCurve
-                  delegate:delegate
+                property:property
+                  period:period
+          animationCurve:animationCurve
+                delegate:delegate
     ];
 }
 
@@ -631,10 +631,10 @@
                                                                 withDelay:CPTFloat(0.0)];
 
     return [self animate:object
-                  property:property
-                    period:period
-            animationCurve:animationCurve
-                  delegate:delegate
+                property:property
+                  period:period
+          animationCurve:animationCurve
+                delegate:delegate
     ];
 }
 
@@ -654,10 +654,10 @@
                                                                 withDelay:CPTFloat(0.0)];
 
     return [self animate:object
-                  property:property
-                    period:period
-            animationCurve:CPTAnimationCurveDefault
-                  delegate:nil];
+                property:property
+                  period:period
+          animationCurve:CPTAnimationCurveDefault
+                delegate:nil];
 }
 
 // CGSize
@@ -681,10 +681,10 @@
                                                                withDelay:delay];
 
     return [self animate:object
-                  property:property
-                    period:period
-            animationCurve:animationCurve
-                  delegate:delegate
+                property:property
+                  period:period
+          animationCurve:animationCurve
+                delegate:delegate
     ];
 }
 
@@ -706,10 +706,10 @@
                                                                withDelay:CPTFloat(0.0)];
 
     return [self animate:object
-                  property:property
-                    period:period
-            animationCurve:animationCurve
-                  delegate:delegate
+                property:property
+                  period:period
+          animationCurve:animationCurve
+                delegate:delegate
     ];
 }
 
@@ -729,10 +729,10 @@
                                                                withDelay:CPTFloat(0.0)];
 
     return [self animate:object
-                  property:property
-                    period:period
-            animationCurve:CPTAnimationCurveDefault
-                  delegate:nil];
+                property:property
+                  period:period
+          animationCurve:CPTAnimationCurveDefault
+                delegate:nil];
 }
 
 // CGRect
@@ -756,10 +756,10 @@
                                                                withDelay:delay];
 
     return [self animate:object
-                  property:property
-                    period:period
-            animationCurve:animationCurve
-                  delegate:delegate
+                property:property
+                  period:period
+          animationCurve:animationCurve
+                delegate:delegate
     ];
 }
 
@@ -781,10 +781,10 @@
                                                                withDelay:CPTFloat(0.0)];
 
     return [self animate:object
-                  property:property
-                    period:period
-            animationCurve:animationCurve
-                  delegate:delegate
+                property:property
+                  period:period
+          animationCurve:animationCurve
+                delegate:delegate
     ];
 }
 
@@ -804,10 +804,10 @@
                                                                withDelay:CPTFloat(0.0)];
 
     return [self animate:object
-                  property:property
-                    period:period
-            animationCurve:CPTAnimationCurveDefault
-                  delegate:nil];
+                property:property
+                  period:period
+          animationCurve:CPTAnimationCurveDefault
+                delegate:nil];
 }
 
 // NSDecimal
@@ -831,10 +831,10 @@
                                                                   withDelay:delay];
 
     return [self animate:object
-                  property:property
-                    period:period
-            animationCurve:animationCurve
-                  delegate:delegate
+                property:property
+                  period:period
+          animationCurve:animationCurve
+                delegate:delegate
     ];
 }
 
@@ -856,10 +856,10 @@
                                                                   withDelay:CPTFloat(0.0)];
 
     return [self animate:object
-                  property:property
-                    period:period
-            animationCurve:animationCurve
-                  delegate:delegate
+                property:property
+                  period:period
+          animationCurve:animationCurve
+                delegate:delegate
     ];
 }
 
@@ -879,10 +879,10 @@
                                                                   withDelay:CPTFloat(0.0)];
 
     return [self animate:object
-                  property:property
-                    period:period
-            animationCurve:CPTAnimationCurveDefault
-                  delegate:nil];
+                property:property
+                  period:period
+          animationCurve:CPTAnimationCurveDefault
+                delegate:nil];
 }
 
 // NSNumber
@@ -906,10 +906,10 @@
                                                                  withDelay:delay];
 
     return [self animate:object
-                  property:property
-                    period:period
-            animationCurve:animationCurve
-                  delegate:delegate
+                property:property
+                  period:period
+          animationCurve:animationCurve
+                delegate:delegate
     ];
 }
 
@@ -931,10 +931,10 @@
                                                                  withDelay:CPTFloat(0.0)];
 
     return [self animate:object
-                  property:property
-                    period:period
-            animationCurve:animationCurve
-                  delegate:delegate
+                property:property
+                  period:period
+          animationCurve:animationCurve
+                delegate:delegate
     ];
 }
 
@@ -954,10 +954,10 @@
                                                                  withDelay:CPTFloat(0.0)];
 
     return [self animate:object
-                  property:property
-                    period:period
-            animationCurve:CPTAnimationCurveDefault
-                  delegate:nil];
+                property:property
+                  period:period
+          animationCurve:CPTAnimationCurveDefault
+                delegate:nil];
 }
 
 // CPTPlotRange
@@ -981,10 +981,10 @@
                                                                     withDelay:delay];
 
     return [self animate:object
-                  property:property
-                    period:period
-            animationCurve:animationCurve
-                  delegate:delegate
+                property:property
+                  period:period
+          animationCurve:animationCurve
+                delegate:delegate
     ];
 }
 
@@ -1006,10 +1006,10 @@
                                                                     withDelay:CPTFloat(0.0)];
 
     return [self animate:object
-                  property:property
-                    period:period
-            animationCurve:animationCurve
-                  delegate:delegate
+                property:property
+                  period:period
+          animationCurve:animationCurve
+                delegate:delegate
     ];
 }
 
@@ -1029,10 +1029,10 @@
                                                                     withDelay:CPTFloat(0.0)];
 
     return [self animate:object
-                  property:property
-                    period:period
-            animationCurve:CPTAnimationCurveDefault
-                  delegate:nil];
+                property:property
+                  period:period
+          animationCurve:CPTAnimationCurveDefault
+                delegate:nil];
 }
 
 @end

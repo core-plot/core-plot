@@ -431,10 +431,10 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 
 -(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index
 {
-    if ( [(NSString *)plot.identifier isEqualToString : barPlot2] ) {
+    if ( [(NSString *) plot.identifier isEqualToString:barPlot2] ) {
         return (id)[NSNull null]; // Don't show any label
     }
-    else if ( [(NSString *)plot.identifier isEqualToString : barPlot1] && (index < 4) ) {
+    else if ( [(NSString *) plot.identifier isEqualToString:barPlot1] && (index < 4) ) {
         return (id)[NSNull null];
     }
     else if ( index % 4 ) {

@@ -1,6 +1,6 @@
 //
-//  DatePlot.h
-//  Plot Gallery-Mac
+// DatePlot.h
+// Plot Gallery-Mac
 //
 
 #import "PlotItem.h"

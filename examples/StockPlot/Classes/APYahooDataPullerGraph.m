@@ -1,9 +1,9 @@
 //
-//  APYahooDataPullerGraph.m
-//  StockPlot
+// APYahooDataPullerGraph.m
+// StockPlot
 //
-//  Created by Jonathan Saggau on 6/19/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+// Created by Jonathan Saggau on 6/19/09.
+// Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
 #import "APYahooDataPullerGraph.h"
@@ -56,7 +56,7 @@
     NSDecimalNumber *low    = self.dataPuller.overallLow;
     NSDecimalNumber *length = [high decimalNumberBySubtracting:low];
 
-    //NSLog(@"high = %@, low = %@, length = %@", high, low, length);
+    // NSLog(@"high = %@, low = %@, length = %@", high, low, length);
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@(self.dataPuller.financialData.count)];
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:low length:length];
     // Axes
@@ -95,12 +95,12 @@
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    //    NSLog(@"willRotateToInterfaceOrientation");
+    // NSLog(@"willRotateToInterfaceOrientation");
 }
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
-    //    NSLog(@"didRotateFromInterfaceOrientation");
+    // NSLog(@"didRotateFromInterfaceOrientation");
 }
 
 -(void)didReceiveMemoryWarning
@@ -146,7 +146,7 @@
 
 -(void)setDataPuller:(APYahooDataPuller *)aDataPuller
 {
-    //NSLog(@"in -setDataPuller:, old value of dataPuller: %@, changed to: %@", dataPuller, aDataPuller);
+    // NSLog(@"in -setDataPuller:, old value of dataPuller: %@, changed to: %@", dataPuller, aDataPuller);
 
     if ( dataPuller != aDataPuller ) {
         dataPuller          = aDataPuller;

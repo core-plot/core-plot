@@ -1,6 +1,6 @@
 //
-//  PlotView.h
-//  CorePlotGallery
+// PlotView.h
+// CorePlotGallery
 //
 
 #import <Cocoa/Cocoa.h>

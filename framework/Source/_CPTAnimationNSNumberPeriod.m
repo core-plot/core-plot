@@ -7,7 +7,7 @@
 -(void)setStartValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
 {
     typedef NSNumber *(*GetterType)(id, SEL);
-    GetterType getterMethod = (GetterType)[boundObject methodForSelector : boundGetter];
+    GetterType getterMethod = (GetterType)[boundObject methodForSelector:boundGetter];
 
     self.startValue = getterMethod(boundObject, boundGetter);
 }
@@ -19,7 +19,7 @@
     }
 
     typedef NSNumber *(*GetterType)(id, SEL);
-    GetterType getterMethod = (GetterType)[boundObject methodForSelector : boundGetter];
+    GetterType getterMethod = (GetterType)[boundObject methodForSelector:boundGetter];
 
     NSNumber *current = getterMethod(boundObject, boundGetter);
     NSNumber *start   = (NSNumber *)self.startValue;

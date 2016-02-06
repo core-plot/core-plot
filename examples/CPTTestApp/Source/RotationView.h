@@ -1,6 +1,6 @@
 //
-//  RotationView.h
-//  CPTTestApp
+// RotationView.h
+// CPTTestApp
 //
 
 #import <Cocoa/Cocoa.h>

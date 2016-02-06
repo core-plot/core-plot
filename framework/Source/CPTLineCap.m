@@ -126,7 +126,7 @@
 {
     if ( (self = [super init]) ) {
         size        = [coder decodeCPTSizeForKey:@"CPTLineCap.size"];
-        lineCapType = (CPTLineCapType)[coder decodeIntegerForKey : @"CPTLineCap.lineCapType"];
+        lineCapType = (CPTLineCapType)[coder decodeIntegerForKey:@"CPTLineCap.lineCapType"];
         lineStyle   = [coder decodeObjectOfClass:[CPTLineStyle class]
                                           forKey:@"CPTLineCap.lineStyle"];
         fill = [coder decodeObjectOfClass:[CPTFill class]

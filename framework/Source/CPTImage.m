@@ -442,7 +442,7 @@ CPTImageSlices;
             CFDataRef otherProviderData     = CGDataProviderCopyData(otherProvider);
 
             if ( selfProviderData && otherProviderData ) {
-                equalImages = [(__bridge NSData *)selfProviderData isEqualToData : (__bridge NSData *)otherProviderData];
+                equalImages = [(__bridge NSData *) selfProviderData isEqualToData:(__bridge NSData *)otherProviderData];
             }
             else {
                 equalImages = (selfProviderData == otherProviderData);

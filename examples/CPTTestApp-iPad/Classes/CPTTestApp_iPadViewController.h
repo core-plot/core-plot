@@ -1,8 +1,8 @@
 //
-//  CPTTestApp_iPadViewController.h
-//  CPTTestApp-iPad
+// CPTTestApp_iPadViewController.h
+// CPTTestApp-iPad
 //
-//  Created by Brad Larson on 4/1/2010.
+// Created by Brad Larson on 4/1/2010.
 //
 
 #import "CorePlot-CocoaTouch.h"

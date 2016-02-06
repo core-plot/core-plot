@@ -191,8 +191,8 @@
 -(instancetype)initWithCoder:(NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        lineCap     = (CGLineCap)[coder decodeIntForKey : @"CPTLineStyle.lineCap"];
-        lineJoin    = (CGLineJoin)[coder decodeIntForKey : @"CPTLineStyle.lineJoin"];
+        lineCap     = (CGLineCap)[coder decodeIntForKey:@"CPTLineStyle.lineCap"];
+        lineJoin    = (CGLineJoin)[coder decodeIntForKey:@"CPTLineStyle.lineJoin"];
         miterLimit  = [coder decodeCGFloatForKey:@"CPTLineStyle.miterLimit"];
         lineWidth   = [coder decodeCGFloatForKey:@"CPTLineStyle.lineWidth"];
         dashPattern = [coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [NSNumber class]]]

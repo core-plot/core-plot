@@ -1,6 +1,6 @@
 //
-//  SimpleScatterPlot.m
-//  CorePlotGallery
+// SimpleScatterPlot.m
+// CorePlotGallery
 //
 
 #import "SimpleScatterPlot.h"

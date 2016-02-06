@@ -360,12 +360,12 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element)
 
     // decode count
     NSString *newKey = [[NSString alloc] initWithFormat:@"%@.count", key];
-    NSUInteger count = (NSUInteger)[self decodeIntegerForKey : newKey];
+    NSUInteger count = (NSUInteger)[self decodeIntegerForKey:newKey];
 
     // decode elements
     for ( NSUInteger i = 0; i < count; i++ ) {
         newKey = [[NSString alloc] initWithFormat:@"%@[%lu].type", key, (unsigned long)i];
-        CGPathElementType type = (CGPathElementType)[self decodeIntForKey : newKey];
+        CGPathElementType type = (CGPathElementType)[self decodeIntForKey:newKey];
 
         CGPoint point1 = CGPointZero;
         CGPoint point2 = CGPointZero;
@@ -425,19 +425,19 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element)
 -(CGImageRef)newCGImageDecodeForKey:(NSString *)key
 {
     NSString *newKey = [[NSString alloc] initWithFormat:@"%@.width", key];
-    size_t width     = (size_t)[self decodeInt64ForKey : newKey];
+    size_t width     = (size_t)[self decodeInt64ForKey:newKey];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.height", key];
-    size_t height = (size_t)[self decodeInt64ForKey : newKey];
+    size_t height = (size_t)[self decodeInt64ForKey:newKey];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.bitsPerComponent", key];
-    size_t bitsPerComponent = (size_t)[self decodeInt64ForKey : newKey];
+    size_t bitsPerComponent = (size_t)[self decodeInt64ForKey:newKey];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.bitsPerPixel", key];
-    size_t bitsPerPixel = (size_t)[self decodeInt64ForKey : newKey];
+    size_t bitsPerPixel = (size_t)[self decodeInt64ForKey:newKey];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.bytesPerRow", key];
-    size_t bytesPerRow = (size_t)[self decodeInt64ForKey : newKey];
+    size_t bytesPerRow = (size_t)[self decodeInt64ForKey:newKey];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.colorSpace", key];
     CGColorSpaceRef colorSpace = [self newCGColorSpaceDecodeForKey:newKey];
@@ -451,7 +451,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element)
                                                                                                         forKey:newKey] );
 
     newKey = [[NSString alloc] initWithFormat:@"%@.numberOfComponents", key];
-    size_t numberOfComponents = (size_t)[self decodeInt64ForKey : newKey];
+    size_t numberOfComponents = (size_t)[self decodeInt64ForKey:newKey];
 
     CGFloat *decodeArray = NULL;
     if ( numberOfComponents ) {
@@ -470,7 +470,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element)
     bool shouldInterpolate = [self decodeBoolForKey:newKey];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.renderingIntent", key];
-    CGColorRenderingIntent intent = (CGColorRenderingIntent)[self decodeIntForKey : newKey];
+    CGColorRenderingIntent intent = (CGColorRenderingIntent)[self decodeIntForKey:newKey];
 
     CGImageRef newImage = CGImageCreate(width,
                                         height,

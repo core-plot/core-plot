@@ -38,13 +38,13 @@ double gcd(double a, double b);
             string = @"0";
         }
         else if ( ABS(fraction) == 1.0 ) {
-            string = [NSString stringWithFormat:@"%@π", signbit(fraction) ? self.minusSign:@""];
+            string = [NSString stringWithFormat:@"%@π", signbit(fraction) ? self.minusSign : @""];
         }
         else if ( ABS(numerator) == 1.0 ) {
-            string = [NSString stringWithFormat:@"%@π/%g", signbit(numerator) ? self.minusSign:@"", denominator];
+            string = [NSString stringWithFormat:@"%@π/%g", signbit(numerator) ? self.minusSign : @"", denominator];
         }
         else if ( ABS(numerator / divisor) == 1.0 ) {
-            string = [NSString stringWithFormat:@"%@π/%g", signbit(numerator) ? self.minusSign:@"", denominator / divisor];
+            string = [NSString stringWithFormat:@"%@π/%g", signbit(numerator) ? self.minusSign : @"", denominator / divisor];
         }
         else if ( round(fraction) == fraction ) {
             string = [NSString stringWithFormat:@"%g π", fraction];

@@ -152,7 +152,7 @@
         case CPTBarPlotFieldBarLocation:
             nums = [NSMutableArray arrayWithCapacity:indexRange.length];
             for ( NSUInteger i = indexRange.location; i < NSMaxRange(indexRange); i++ ) {
-                [(NSMutableArray < NSNumber * > *) nums addObject : @(i)];
+                [(NSMutableArray < NSNumber * > *) nums addObject:@(i)];
             }
             break;
 

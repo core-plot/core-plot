@@ -59,7 +59,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     if ( delegate != aDelegate ) {
         delegate = aDelegate;
         if ( self.financialData.count > 0 ) {
-            [self notifyPulledData]; //loads cached data onto UI
+            [self notifyPulledData]; // loads cached data onto UI
         }
     }
 }
@@ -121,13 +121,13 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     NSString *docPath = [self pathForSymbol:aSymbol];
 
     if ( ![[NSFileManager defaultManager] fileExistsAtPath:docPath] ) {
-        //if there isn't one in the user's documents directory, see if we ship with this data
+        // if there isn't one in the user's documents directory, see if we ship with this data
         docPath = [[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", aSymbol]];
     }
     return docPath;
 }
 
-//Always returns *something*
+// Always returns *something*
 -(CPTDictionary *)dictionaryForSymbol:(NSString *)aSymbol
 {
     NSString *path = [self faultTolerantPathForSymbol:aSymbol];
@@ -158,7 +158,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 
 -(instancetype)init
 {
-    NSTimeInterval secondsAgo = -timeIntervalForNumberOfWeeks(14.0); //12 weeks ago
+    NSTimeInterval secondsAgo = -timeIntervalForNumberOfWeeks(14.0); // 12 weeks ago
     NSDate *start             = [NSDate dateWithTimeIntervalSinceNow:secondsAgo];
 
     NSDate *end = [NSDate date];
@@ -239,7 +239,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
             self.receivedData = [NSMutableData data];
         }
         else {
-            //TODO: Inform the user that the download could not be started
+            // TODO: Inform the user that the download could not be started
             self.loadingData = NO;
         }
     }
@@ -277,7 +277,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     self.receivedData = nil;
     self.connection   = nil;
     NSLog(@"err = %@", error.localizedDescription);
-    //TODO:report err
+    // TODO:report err
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
@@ -291,7 +291,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     self.receivedData = nil;
     [self parseCSVAndPopulate];
 
-    //see if we need to write to file
+    // see if we need to write to file
     CPTDictionary *dictionaryForSymbol = [self dictionaryForSymbol:self.symbol];
 
     BOOL sameSymbol      = NO;

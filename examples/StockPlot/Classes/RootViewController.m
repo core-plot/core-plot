@@ -1,9 +1,9 @@
 //
-//  RootViewController.m
-//  StockPlot
+// RootViewController.m
+// StockPlot
 //
-//  Created by Jonathan Saggau on 6/19/09.
-//  Copyright __MyCompanyName__ 2009. All rights reserved.
+// Created by Jonathan Saggau on 6/19/09.
+// Copyright __MyCompanyName__ 2009. All rights reserved.
 //
 
 #import "APYahooDataPuller.h"
@@ -47,7 +47,7 @@
 {
     [super viewWillAppear:animated];
     self.navigationItem.title = @"Stocks";
-    //the graph will set itself as delegate of the dataPuller when we push it, so we need to reset this.
+    // the graph will set itself as delegate of the dataPuller when we push it, so we need to reset this.
     for ( APYahooDataPuller *dp in self.stocks ) {
         dp.delegate = self;
     }
@@ -137,22 +137,22 @@
     if ( dp.loadingData ) {
         if ( ![accessory isMemberOfClass:[UIActivityIndicatorView class]] ) {
             accessory = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-            [(UIActivityIndicatorView *)accessory setHidesWhenStopped : NO];
+            [(UIActivityIndicatorView *) accessory setHidesWhenStopped:NO];
             cell.accessoryView = accessory;
         }
-        [(UIActivityIndicatorView *)accessory startAnimating];
+        [(UIActivityIndicatorView *) accessory startAnimating];
     }
     else {
         if ( [accessory isMemberOfClass:[UIActivityIndicatorView class]] ) {
-            [(UIActivityIndicatorView *)accessory stopAnimating];
+            [(UIActivityIndicatorView *) accessory stopAnimating];
         }
         if ( dp.staleData ) {
             if ( ![accessory isMemberOfClass:[UIImageView class]] ) {
                 UIImage *caution = [UIImage imageNamed:@"caution.png"];
                 accessory          = [[UIImageView alloc] initWithImage:caution];
                 cell.accessoryView = accessory;
-//                CGRect frame = accessory.frame;
-//#pragma unused (frame)
+// CGRect frame = accessory.frame;
+// #pragma unused (frame)
             }
         }
         else {
@@ -189,7 +189,7 @@
 
 -(CPTStringArray *)symbols
 {
-    //NSLog(@"in -symbols, returned symbols = %@", symbols);
+    // NSLog(@"in -symbols, returned symbols = %@", symbols);
     CPTMutableStringArray *symbols = [NSMutableArray arrayWithCapacity:self.stocks.count];
 
     for ( APYahooDataPuller *dp in self.stocks ) {
@@ -220,7 +220,7 @@
 
 -(void)addSymbol:(NSString *)aSymbol
 {
-    NSTimeInterval secondsAgo = -fabs(60.0 * 60.0 * 24.0 * 7.0 * 12.0); //12 weeks ago
+    NSTimeInterval secondsAgo = -fabs(60.0 * 60.0 * 24.0 * 7.0 * 12.0); // 12 weeks ago
     NSDate *start             = [NSDate dateWithTimeIntervalSinceNow:secondsAgo];
     NSDate *end               = [NSDate date];
 
@@ -229,7 +229,7 @@
     [self.stocks addObject:dp];
     [dp fetchIfNeeded];
     dp.delegate = self;
-    [self.tableView reloadData]; //TODO: should reload whole thing
+    [self.tableView reloadData]; // TODO: should reload whole thing
 }
 
 -(void)dealloc

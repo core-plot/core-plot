@@ -429,7 +429,7 @@
     if ( (self = [super init]) ) {
         CGColorSpaceRef colorSpace = [coder newCGColorSpaceDecodeForKey:@"CPTColor.colorSpace"];
 
-        size_t numberOfComponents = (size_t)[coder decodeInt64ForKey : @"CPTColor.numberOfComponents"];
+        size_t numberOfComponents = (size_t)[coder decodeInt64ForKey:@"CPTColor.numberOfComponents"];
 
         CGFloat *colorComponents = malloc( numberOfComponents * sizeof(CGFloat) );
 

@@ -1,9 +1,9 @@
 //
-//  StockPlotAppDelegate.m
-//  StockPlot
+// StockPlotAppDelegate.m
+// StockPlot
 //
-//  Created by Jonathan Saggau on 6/19/09.
-//  Copyright __MyCompanyName__ 2009. All rights reserved.
+// Created by Jonathan Saggau on 6/19/09.
+// Copyright __MyCompanyName__ 2009. All rights reserved.
 //
 
 #import "RootViewController.h"

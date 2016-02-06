@@ -1,6 +1,6 @@
 //
-//  SimpleBarGraph.h
-//  CorePlotGallery
+// SimpleBarGraph.h
+// CorePlotGallery
 //
 
 #import "PlotItem.h"

@@ -1,9 +1,9 @@
 //
-//  RootViewController.m
-//  AAPLot
+// RootViewController.m
+// AAPLot
 //
-//  Created by Jonathan Saggau on 6/9/09.
-//  Copyright Sounds Broken inc. 2009. All rights reserved.
+// Created by Jonathan Saggau on 6/9/09.
+// Copyright Sounds Broken inc. 2009. All rights reserved.
 //
 
 #import "FlipsideViewController.h"

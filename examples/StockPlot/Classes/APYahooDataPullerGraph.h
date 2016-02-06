@@ -1,9 +1,9 @@
 //
-//  APYahooDataPullerGraph.h
-//  StockPlot
+// APYahooDataPullerGraph.h
+// StockPlot
 //
-//  Created by Jonathan Saggau on 6/19/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+// Created by Jonathan Saggau on 6/19/09.
+// Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
 #import "APYahooDataPuller.h"

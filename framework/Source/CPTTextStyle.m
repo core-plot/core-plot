@@ -135,8 +135,8 @@
         fontSize = [coder decodeCGFloatForKey:@"CPTTextStyle.fontSize"];
         color    = [[coder decodeObjectOfClass:[CPTColor class]
                                         forKey:@"CPTTextStyle.color"] copy];
-        textAlignment = (CPTTextAlignment)[coder decodeIntegerForKey : @"CPTTextStyle.textAlignment"];
-        lineBreakMode = (NSLineBreakMode)[coder decodeIntegerForKey : @"CPTTextStyle.lineBreakMode"];
+        textAlignment = (CPTTextAlignment)[coder decodeIntegerForKey:@"CPTTextStyle.textAlignment"];
+        lineBreakMode = (NSLineBreakMode)[coder decodeIntegerForKey:@"CPTTextStyle.lineBreakMode"];
     }
     return self;
 }

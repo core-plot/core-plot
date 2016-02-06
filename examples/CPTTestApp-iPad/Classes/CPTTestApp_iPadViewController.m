@@ -1,8 +1,8 @@
 //
-//  CPTTestApp_iPadViewController.m
-//  CPTTestApp-iPad
+// CPTTestApp_iPadViewController.m
+// CPTTestApp-iPad
 //
-//  Created by Brad Larson on 4/1/2010.
+// Created by Brad Larson on 4/1/2010.
 //
 
 #import "CPTTestApp_iPadViewController.h"
@@ -386,7 +386,7 @@
             NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
             num = self.dataForPlot[index][key];
             // Green plot gets shifted above the blue
-            if ( [(NSString *)plot.identifier isEqualToString : @"Green Plot"] ) {
+            if ( [(NSString *) plot.identifier isEqualToString:@"Green Plot"] ) {
                 if ( fieldEnum == CPTScatterPlotFieldY ) {
                     num = @(num.doubleValue + 1.0);
                 }
