@@ -1,5 +1,7 @@
 #import "CPTScatterPlot.h"
 
+#import <UIKit/UIKit.h>
+#import <tgmath.h>
 #import "CPTExceptions.h"
 #import "CPTFill.h"
 #import "CPTLegend.h"
@@ -14,7 +16,6 @@
 #import "CPTXYPlotSpace.h"
 #import "NSCoderExtensions.h"
 #import "CPTCatmullRomInterpolation.h"
-#import <tgmath.h>
 
 /** @defgroup plotAnimationScatterPlot Scatter Plot
  *  @brief Scatter plot properties that can be animated using Core Animation.
