@@ -1,7 +1,6 @@
 #import "CPTScatterPlot.h"
 
-#import <UIKit/UIKit.h>
-#import <tgmath.h>
+#import "CPTCatmullRomInterpolation.h"
 #import "CPTExceptions.h"
 #import "CPTFill.h"
 #import "CPTLegend.h"
@@ -15,7 +14,8 @@
 #import "CPTUtilities.h"
 #import "CPTXYPlotSpace.h"
 #import "NSCoderExtensions.h"
-#import "CPTCatmullRomInterpolation.h"
+#import <UIKit/UIKit.h>
+#import <tgmath.h>
 
 /** @defgroup plotAnimationScatterPlot Scatter Plot
  *  @brief Scatter plot properties that can be animated using Core Animation.
@@ -1201,24 +1201,24 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 -(CGPathRef)newCatmullRomDataLinePathForViewPoints:(CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue
 {
-    CGMutablePathRef dataLinePath  = CGPathCreateMutable();
-    NSUInteger pointsSize = indexRange.length;
-    
+    CGMutablePathRef dataLinePath = CGPathCreateMutable();
+    NSUInteger pointsSize         = indexRange.length;
+
     if ( pointsSize >= 2 ) {
-        NSMutableArray * inputPoints = [NSMutableArray array];
-        
-        for( int i = (int)indexRange.location; i< (int)( indexRange.location + pointsSize ); i++ ){
+        NSMutableArray *inputPoints = [NSMutableArray array];
+
+        for ( int i = (int)indexRange.location; i < (int)(indexRange.location + pointsSize); i++ ) {
             CGPoint p = viewPoints[i];
             CGPoint q = CGPointMake(p.x, p.y);
             [inputPoints addObject:[NSValue valueWithCGPoint:q]];
         }
-        
-        UIBezierPath* bezierPath = [CPTCatmullRomInterpolation bezierPathFromPoints:inputPoints withGranularity:20];
+
+        UIBezierPath *bezierPath = [CPTCatmullRomInterpolation bezierPathFromPoints:inputPoints withGranularity:20];
         dataLinePath = CGPathCreateCopy(bezierPath.CGPath);
-        
+
         if ( !isnan(baselineYValue) ) {
             CGPoint firstPoint = viewPoints[0];
-            CGPoint lastPoint = viewPoints[pointsSize - 1];
+            CGPoint lastPoint  = viewPoints[pointsSize - 1];
             CGPathAddLineToPoint(dataLinePath, NULL, lastPoint.x, baselineYValue);
             CGPathAddLineToPoint(dataLinePath, NULL, firstPoint.x, baselineYValue);
             CGPathCloseSubpath(dataLinePath);
@@ -1226,8 +1226,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
     return dataLinePath;
 }
-
-
 
 -(void)drawSwatchForLegend:(CPTLegend *)legend atIndex:(NSUInteger)idx inRect:(CGRect)rect inContext:(CGContextRef)context
 {
