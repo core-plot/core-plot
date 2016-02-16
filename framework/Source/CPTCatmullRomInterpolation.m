@@ -1,8 +1,3 @@
-//
-// Created by Mikkel Gravgaard on 27/11/14.
-// From this post: http://stackoverflow.com/questions/9489736/catmull-rom-curve-with-no-cusps-and-no-self-intersections
-//
-
 #import "CPTCatmullRomInterpolation.h"
 
 @implementation CPTCatmullRomInterpolation
@@ -11,7 +6,7 @@
 {
     UIBezierPath __block *path = [[UIBezierPath alloc] init];
 
-    NSMutableArray *curve = [self interpolate:points withPointsPerSegment:granularity andType:CatmullRomTypeCentripetal];
+    NSMutableArray *curve = [self interpolate:points withPointsPerSegment:granularity andType:CPTCatmullRomTypeCentripetal];
 
     CGPoint __block p0 = [curve[0] CGPointValue];
 
@@ -27,7 +22,8 @@
     return path;
 }
 
-+(NSMutableArray *)interpolate:(NSArray *)coordinates withPointsPerSegment:(NSInteger)pointsPerSegment andType:(CatmullRomType)curveType
+// From this post: http://stackoverflow.com/questions/9489736/catmull-rom-curve-with-no-cusps-and-no-self-intersections
++(NSMutableArray *)interpolate:(NSArray *)coordinates withPointsPerSegment:(NSInteger)pointsPerSegment andType:(CPTCatmullRomType)curveType
 {
     NSMutableArray *vertices = [[NSMutableArray alloc] initWithArray:coordinates copyItems:YES];
 
@@ -84,7 +80,7 @@
     return C12;
 }
 
-+(NSMutableArray *)interpolate:(NSArray *)points forIndex:(NSInteger)index withPointsPerSegment:(NSInteger)pointsPerSegment andType:(CatmullRomType)curveType
++(NSMutableArray *)interpolate:(NSArray *)points forIndex:(NSInteger)index withPointsPerSegment:(NSInteger)pointsPerSegment andType:(CPTCatmullRomType)curveType
 {
     NSMutableArray *result = [NSMutableArray array];
 
@@ -101,14 +97,14 @@
     double tstart = 1;
     double tend   = 2;
 
-    if ( curveType != CatmullRomTypeUniform ) {
+    if ( curveType != CPTCatmullRomTypeUniform ) {
         double total = 0;
 
         for ( int i = 1; i < 4; i++ ) {
             double dx = x[i] - x[i - 1];
             double dy = y[i] - y[i - 1];
 
-            if ( curveType == CatmullRomTypeCentripetal ) {
+            if ( curveType == CPTCatmullRomTypeCentripetal ) {
                 total += pow(dx * dx + dy * dy, 0.25);
             }
             else {
