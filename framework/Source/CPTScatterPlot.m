@@ -1,6 +1,5 @@
 #import "CPTScatterPlot.h"
 
-#import "CPTCatmullRomInterpolation.h"
 #import "CPTExceptions.h"
 #import "CPTFill.h"
 #import "CPTLegend.h"
@@ -14,6 +13,7 @@
 #import "CPTUtilities.h"
 #import "CPTXYPlotSpace.h"
 #import "NSCoderExtensions.h"
+#import "_CPTCatmullRomInterpolation.h"
 #import <UIKit/UIKit.h>
 #import <tgmath.h>
 
@@ -1213,7 +1213,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
             [inputPoints addObject:[NSValue valueWithCGPoint:q]];
         }
 
-        UIBezierPath *bezierPath = [CPTCatmullRomInterpolation bezierPathFromPoints:inputPoints withGranularity:20];
+        UIBezierPath *bezierPath = [_CPTCatmullRomInterpolation bezierPathFromPoints:inputPoints withGranularity:20];
         dataLinePath = CGPathCreateCopy(bezierPath.CGPath);
 
         if ( !isnan(baselineYValue) ) {

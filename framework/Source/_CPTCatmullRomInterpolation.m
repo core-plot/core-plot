@@ -1,6 +1,6 @@
-#import "CPTCatmullRomInterpolation.h"
+#import "_CPTCatmullRomInterpolation.h"
 
-@implementation CPTCatmullRomInterpolation
+@implementation _CPTCatmullRomInterpolation
 
 +(UIBezierPath *)bezierPathFromPoints:(NSArray *)points withGranularity:(NSInteger)granularity
 {
