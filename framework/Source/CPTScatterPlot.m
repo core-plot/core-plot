@@ -13,6 +13,7 @@
 #import "CPTUtilities.h"
 #import "CPTXYPlotSpace.h"
 #import "NSCoderExtensions.h"
+#import "_CPTCatmullRomInterpolation.h"
 #import <tgmath.h>
 
 /** @defgroup plotAnimationScatterPlot Scatter Plot
@@ -449,7 +450,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
     CPTLineStyle *lineStyle = self.dataLineStyle;
 
-    if ( self.areaFill || self.areaFill2 || lineStyle.dashPattern || lineStyle.lineFill || (self.interpolation == CPTScatterPlotInterpolationCurved) ) {
+    if ( self.areaFill || self.areaFill2 || lineStyle.dashPattern || lineStyle.lineFill || (self.interpolation == CPTScatterPlotInterpolationCurved) || (self.interpolation == CPTScatterPlotInterpolationCatmullRom) ) {
         // show all points to preserve the line dash and area fills
         for ( NSUInteger i = 0; i < dataCount; i++ ) {
             pointDrawFlags[i] = YES;
@@ -527,6 +528,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         else {
             switch ( theInterpolation ) {
                 case CPTScatterPlotInterpolationCurved:
+                case CPTScatterPlotInterpolationCatmullRom:
                     // Keep 2 points outside of the visible area on each side to maintain the correct curvature of the line
                     if ( dataCount > 1 ) {
                         if ( !nanFlags[0] && !nanFlags[1] && ( (xRangeFlags[0] != xRangeFlags[1]) || (yRangeFlags[0] != yRangeFlags[1]) ) ) {
@@ -943,6 +945,9 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     if ( theInterpolation == CPTScatterPlotInterpolationCurved ) {
         return [self newCurvedDataLinePathForViewPoints:viewPoints indexRange:indexRange baselineYValue:baselineYValue];
     }
+    else if ( theInterpolation == CPTScatterPlotInterpolationCatmullRom ) {
+        return [self newCatmullRomDataLinePathForViewPoints:viewPoints indexRange:indexRange baselineYValue:baselineYValue];
+    }
 
     CGMutablePathRef dataLinePath  = CGPathCreateMutable();
     BOOL lastPointSkipped          = YES;
@@ -998,6 +1003,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                     break;
 
                     case CPTScatterPlotInterpolationCurved:
+                    case CPTScatterPlotInterpolationCatmullRom:
                         // Curved plot lines handled separately
                         break;
                 }
@@ -1208,6 +1214,28 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         free(b);
         free(c);
         free(r);
+    }
+}
+
+-(CGPathRef)newCatmullRomDataLinePathForViewPoints:(CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue
+{
+    NSUInteger pointsSize = indexRange.length;
+
+    if ( pointsSize >= 2 ) {
+        CGMutablePathRef dataLinePath = [_CPTCatmullRomInterpolation newPathForViewPoints:viewPoints indexRange:indexRange withGranularity:20];
+
+        if ( !isnan(baselineYValue) ) {
+            CGPoint firstPoint = viewPoints[0];
+            CGPoint lastPoint  = viewPoints[pointsSize - 1];
+            CGPathAddLineToPoint(dataLinePath, NULL, lastPoint.x, baselineYValue);
+            CGPathAddLineToPoint(dataLinePath, NULL, firstPoint.x, baselineYValue);
+            CGPathCloseSubpath(dataLinePath);
+        }
+
+        return dataLinePath;
+    }
+    else {
+        return CGPathCreateMutable();
     }
 }
 

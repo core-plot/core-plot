@@ -31,7 +31,8 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
     CPTScatterPlotInterpolationLinear,    ///< Linear interpolation.
     CPTScatterPlotInterpolationStepped,   ///< Steps beginning at data point.
     CPTScatterPlotInterpolationHistogram, ///< Steps centered at data point.
-    CPTScatterPlotInterpolationCurved     ///< Bezier curve interpolation.
+    CPTScatterPlotInterpolationCurved,    ///< Bezier curve interpolation.
+    CPTScatterPlotInterpolationCatmullRom ///< Catmull-Rom interpolation.
 };
 
 /**
