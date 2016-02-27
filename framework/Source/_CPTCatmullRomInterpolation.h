@@ -6,6 +6,6 @@ typedef NS_ENUM (NSInteger, CPTCatmullRomType) {
 
 @interface _CPTCatmullRomInterpolation : NSObject
 
-+(UIBezierPath *)bezierPathFromPoints:(NSArray *)points withGranularity:(NSInteger)granularity;
++(nonnull CGMutablePathRef)newPathForViewPoints:(nonnull const CGPoint *)viewPoints indexRange:(NSRange)indexRange withGranularity:(NSUInteger)granularity CF_RETURNS_RETAINED;
 
 @end

@@ -1200,20 +1200,10 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 -(CGPathRef)newCatmullRomDataLinePathForViewPoints:(CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue
 {
-    CGMutablePathRef dataLinePath = CGPathCreateMutable();
-    NSUInteger pointsSize         = indexRange.length;
+    NSUInteger pointsSize = indexRange.length;
 
     if ( pointsSize >= 2 ) {
-        NSMutableArray *inputPoints = [NSMutableArray array];
-
-        for ( int i = (int)indexRange.location; i < (int)(indexRange.location + pointsSize); i++ ) {
-            CGPoint p = viewPoints[i];
-            CGPoint q = CGPointMake(p.x, p.y);
-            [inputPoints addObject:[NSValue valueWithCGPoint:q]];
-        }
-
-        UIBezierPath *bezierPath = [_CPTCatmullRomInterpolation bezierPathFromPoints:inputPoints withGranularity:20];
-        dataLinePath = CGPathCreateCopy(bezierPath.CGPath);
+        CGMutablePathRef dataLinePath = [_CPTCatmullRomInterpolation newPathForViewPoints:viewPoints indexRange:indexRange withGranularity:20];
 
         if ( !isnan(baselineYValue) ) {
             CGPoint firstPoint = viewPoints[0];
@@ -1222,8 +1212,12 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
             CGPathAddLineToPoint(dataLinePath, NULL, firstPoint.x, baselineYValue);
             CGPathCloseSubpath(dataLinePath);
         }
+
+        return dataLinePath;
     }
-    return dataLinePath;
+    else {
+        return CGPathCreateMutable();
+    }
 }
 
 -(void)drawSwatchForLegend:(CPTLegend *)legend atIndex:(NSUInteger)idx inRect:(CGRect)rect inContext:(CGContextRef)context
