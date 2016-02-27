@@ -14,7 +14,6 @@
 #import "CPTXYPlotSpace.h"
 #import "NSCoderExtensions.h"
 #import "_CPTCatmullRomInterpolation.h"
-#import <UIKit/UIKit.h>
 #import <tgmath.h>
 
 /** @defgroup plotAnimationScatterPlot Scatter Plot
