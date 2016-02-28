@@ -107,6 +107,11 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  **/
 @synthesize areaFill2;
 
+/** @property NSUInteger curvedLineGranularity
+ *  @brief The number of smoothed points to interpolate between each view point when drawing a curved line with @ref interpolation of #CPTScatterPlotInterpolationCatmullRom.
+ **/
+@synthesize curvedLineGranularity;
+
 /** @property NSNumber *areaBaseValue
  *  @brief The Y coordinate of the straight boundary of the area fill.
  *  If not a number, the area is not filled.
@@ -205,6 +210,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  *  - @ref plotSymbol = @nil
  *  - @ref areaFill = @nil
  *  - @ref areaFill2 = @nil
+ *  - @ref curvedLineGranularity = @num{20}
  *  - @ref areaBaseValue = @NAN
  *  - @ref areaBaseValue2 = @NAN
  *  - @ref plotSymbolMarginForHitDetection = @num{0.0}
@@ -224,6 +230,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         plotSymbol                      = nil;
         areaFill                        = nil;
         areaFill2                       = nil;
+        curvedLineGranularity           = 20;
         areaBaseValue                   = @(NAN);
         areaBaseValue2                  = @(NAN);
         plotSymbolMarginForHitDetection = CPTFloat(0.0);
@@ -251,6 +258,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         plotSymbol                              = theLayer->plotSymbol;
         areaFill                                = theLayer->areaFill;
         areaFill2                               = theLayer->areaFill2;
+        curvedLineGranularity                   = theLayer->curvedLineGranularity;
         areaBaseValue                           = theLayer->areaBaseValue;
         areaBaseValue2                          = theLayer->areaBaseValue2;
         plotSymbolMarginForHitDetection         = theLayer->plotSymbolMarginForHitDetection;
@@ -282,6 +290,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     [coder encodeObject:self.plotSymbol forKey:@"CPTScatterPlot.plotSymbol"];
     [coder encodeObject:self.areaFill forKey:@"CPTScatterPlot.areaFill"];
     [coder encodeObject:self.areaFill2 forKey:@"CPTScatterPlot.areaFill2"];
+    [coder encodeInteger:(NSInteger)self.curvedLineGranularity forKey:@"CPTScatterPlot.curvedLineGranularity"];
     [coder encodeObject:self.mutableAreaFillBands forKey:@"CPTScatterPlot.mutableAreaFillBands"];
     [coder encodeObject:self.areaBaseValue forKey:@"CPTScatterPlot.areaBaseValue"];
     [coder encodeObject:self.areaBaseValue2 forKey:@"CPTScatterPlot.areaBaseValue2"];
@@ -307,8 +316,9 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                                         forKey:@"CPTScatterPlot.areaFill"] copy];
         areaFill2 = [[coder decodeObjectOfClass:[CPTFill class]
                                          forKey:@"CPTScatterPlot.areaFill2"] copy];
-        mutableAreaFillBands = [[coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [CPTLimitBand class]]]
-                                                      forKey:@"CPTScatterPlot.mutableAreaFillBands"] mutableCopy];
+        curvedLineGranularity = (NSUInteger)[coder decodeIntegerForKey:@"CPTScatterPlot.curvedLineGranularity"];
+        mutableAreaFillBands  = [[coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [CPTLimitBand class]]]
+                                                       forKey:@"CPTScatterPlot.mutableAreaFillBands"] mutableCopy];
         areaBaseValue = [coder decodeObjectOfClass:[NSNumber class]
                                             forKey:@"CPTScatterPlot.areaBaseValue"];
         areaBaseValue2 = [coder decodeObjectOfClass:[NSNumber class]
@@ -1222,7 +1232,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     NSUInteger pointsSize = indexRange.length;
 
     if ( pointsSize >= 2 ) {
-        CGMutablePathRef dataLinePath = [_CPTCatmullRomInterpolation newPathForViewPoints:viewPoints indexRange:indexRange withGranularity:20];
+        CGMutablePathRef dataLinePath = [_CPTCatmullRomInterpolation newPathForViewPoints:viewPoints indexRange:indexRange withGranularity:self.curvedLineGranularity];
 
         if ( !isnan(baselineYValue) ) {
             CGPoint firstPoint = viewPoints[0];
