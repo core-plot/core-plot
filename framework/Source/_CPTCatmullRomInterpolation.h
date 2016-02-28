@@ -1,7 +1,13 @@
+/// @file
+
+/**
+ *  @brief The type of knot parameterization to use for Catmull-Rom curve generation.
+ *  @see See the [Wikipedia article](https://en.wikipedia.org/wiki/Centripetal_Catmull–Rom_spline) on Catmull-Rom splines for details.
+ **/
 typedef NS_ENUM (NSInteger, CPTCatmullRomType) {
-    CPTCatmullRomTypeUniform,
-    CPTCatmullRomTypeChordal,
-    CPTCatmullRomTypeCentripetal
+    CPTCatmullRomTypeUniform,    ///< Uniform parameterization.
+    CPTCatmullRomTypeChordal,    ///< Chordal parameterization.
+    CPTCatmullRomTypeCentripetal ///< Centripetal parameterization.
 };
 
 @interface _CPTCatmullRomInterpolation : NSObject

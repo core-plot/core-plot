@@ -3,6 +3,7 @@
 #import "CPTDefinitions.h"
 #import "tgmath.h"
 
+/// @cond
 @interface _CPTCatmullRomInterpolation()
 
 +(void)interpolate:(nonnull CPTValueArray *)points forIndex:(NSUInteger)index withPointsPerSegment:(NSUInteger)pointsPerSegment andType:(CPTCatmullRomType)curveType intoPath:(CGMutablePathRef)dataLinePath;
@@ -11,13 +12,26 @@ CGFloat interpolate(const CGFloat *__nonnull const p, const CGFloat *__nonnull c
 
 @end
 
+/// @endcond
+
 #pragma mark -
 
+/** @internal
+ *  @brief Creates Catmull-Rom spline path for drawing curved scatter plot lines.
+ *  @see See the [Wikipedia article](https://en.wikipedia.org/wiki/Centripetal_Catmull–Rom_spline) on Catmull-Rom splines for details.
+ **/
 @implementation _CPTCatmullRomInterpolation
 
-// From this post: http://stackoverflow.com/questions/9489736/catmull-rom-curve-with-no-cusps-and-no-self-intersections
+/** @internal
+ *  @brief Creates a Catmull-Rom spline path through the given view points in the given index range.
+ *  @param viewPoints A c-style array of CGPoint structures representing view points.
+ *  @param indexRange The range of indices into the @par{viewPoints} array to use when creating the spline path.
+ *  @param granularity The number of smoothed points to interpolate between each view point.
+ *  @return A Catmull-Rom spline path through the given view points in the given index range.
+ **/
 +(CGMutablePathRef)newPathForViewPoints:(const CGPoint *)viewPoints indexRange:(NSRange)indexRange withGranularity:(NSUInteger)granularity
 {
+    // Based on code from this post: http://stackoverflow.com/questions/9489736/catmull-rom-curve-with-no-cusps-and-no-self-intersections
     CGMutablePathRef dataLinePath = CGPathCreateMutable();
 
     if ( indexRange.length > 2 ) {
@@ -87,6 +101,13 @@ CGFloat interpolate(const CGFloat *__nonnull const p, const CGFloat *__nonnull c
     return dataLinePath;
 }
 
+/** @internal
+ *  @brief Computes the interpolated spline value at the given control point.
+ *  @param p A four (4) element array of data values.
+ *  @param time A four (4) element array of knot positions.
+ *  @param t The control parameter.
+ *  @return The interpolated value.
+ **/
 CGFloat interpolate(const CGFloat *__nonnull const p, const CGFloat *__nonnull const time, CGFloat t)
 {
     CGFloat L01  = p[0] * (time[1] - t) / (time[1] - time[0]) + p[1] * (t - time[0]) / (time[1] - time[0]);
@@ -99,6 +120,14 @@ CGFloat interpolate(const CGFloat *__nonnull const p, const CGFloat *__nonnull c
     return C12;
 }
 
+/** @internal
+ *  @brief
+ *  @param points A c-style array of CGPoint structures representing view points.
+ *  @param index The starting index of the group of control points.
+ *  @param pointsPerSegment The number of smoothed points to interpolate between each view point.
+ *  @param curveType The type of knot parameterization.
+ *  @param dataLinePath The path to receive the spline segments.
+ **/
 +(void)interpolate:(CPTValueArray *)points forIndex:(NSUInteger)index withPointsPerSegment:(NSUInteger)pointsPerSegment andType:(CPTCatmullRomType)curveType intoPath:(CGMutablePathRef)dataLinePath
 {
     CGFloat x[4];
