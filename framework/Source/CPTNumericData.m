@@ -1021,7 +1021,7 @@
                             *toBytes++ = (double)[sample doubleValue];
                         }
                         else {
-                            *toBytes++ = NAN;
+                            *toBytes++ = (double)NAN;
                         }
                     }
                 }
@@ -1039,7 +1039,7 @@
                             *toBytes++ = (float complex)[sample floatValue];
                         }
                         else {
-                            *toBytes++ = NAN;
+                            *toBytes++ = CMPLXF(NAN, NAN);
                         }
                     }
                 }
@@ -1053,7 +1053,7 @@
                             *toBytes++ = (double complex)[sample doubleValue];
                         }
                         else {
-                            *toBytes++ = NAN;
+                            *toBytes++ = CMPLX(NAN, NAN);
                         }
                     }
                 }
