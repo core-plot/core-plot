@@ -145,11 +145,11 @@
 -(BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError *__autoreleasing *)outError
 {
     if ( [typeName isEqualToString:@"CSVDocument"] ) {
-        double minX = MAXFLOAT;
-        double maxX = -MAXFLOAT;
+        double minX = (double)INFINITY;
+        double maxX = -(double)INFINITY;
 
-        double minY = MAXFLOAT;
-        double maxY = -MAXFLOAT;
+        double minY = (double)INFINITY;
+        double maxY = -(double)INFINITY;
 
         NSMutableArray<NSDictionary *> *newData = [[NSMutableArray alloc] init];
 
@@ -263,11 +263,11 @@
 
 -(IBAction)zoomOut
 {
-    double minX = MAXFLOAT;
-    double maxX = -MAXFLOAT;
+    double minX = (double)INFINITY;
+    double maxX = -(double)INFINITY;
 
-    double minY = MAXFLOAT;
-    double maxY = -MAXFLOAT;
+    double minY = (double)INFINITY;
+    double maxY = -(double)INFINITY;
 
     // get the ful range min and max values
     for ( NSDictionary<NSString *, NSNumber *> *xyValues in self.dataPoints ) {
@@ -361,7 +361,7 @@
 #pragma mark -
 #pragma mark Plot Space Delegate Methods
 
--(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceDraggedEvent:(id)event atPoint:(CGPoint)interactionPoint
+-(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceDraggedEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     CPTPlotSpaceAnnotation *annotation = self.zoomAnnotation;
 
@@ -388,7 +388,7 @@
     return NO;
 }
 
--(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceDownEvent:(id)event atPoint:(CGPoint)interactionPoint
+-(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     if ( !self.zoomAnnotation ) {
         self.dragStart = interactionPoint;
@@ -429,14 +429,14 @@
     return NO;
 }
 
--(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceUpEvent:(id)event atPoint:(CGPoint)interactionPoint
+-(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     CPTPlotSpaceAnnotation *annotation = self.zoomAnnotation;
 
     if ( annotation ) {
         self.dragEnd = interactionPoint;
 
-// double-click to completely zoom out
+        // double-click to completely zoom out
         if ( [event clickCount] == 2 ) {
             CPTPlotArea *plotArea     = self.graph.plotAreaFrame.plotArea;
             CGPoint dragEndInPlotArea = [self.graph convertPoint:interactionPoint toLayer:plotArea];
@@ -446,11 +446,11 @@
             }
         }
         else if ( !CGPointEqualToPoint(self.dragStart, self.dragEnd) ) {
-// no accidental drag, so zoom in
+            // no accidental drag, so zoom in
             [self zoomIn];
         }
 
-// and we're done with the drag
+        // and we're done with the drag
         [self.graph.plotAreaFrame.plotArea removeAnnotation:annotation];
         self.zoomAnnotation = nil;
 
@@ -461,7 +461,7 @@
     return NO;
 }
 
--(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceCancelledEvent:(id)event atPoint:(CGPoint)interactionPoint
+-(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceCancelledEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     CPTPlotSpaceAnnotation *annotation = self.zoomAnnotation;
 

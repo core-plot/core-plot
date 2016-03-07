@@ -485,7 +485,7 @@
 
     if ( theCachedLayer ) {
         CGSize layerSize = CGLayerGetSize(theCachedLayer);
-        if ( scale != 1.0 ) {
+        if ( scale != CPTFloat(1.0) ) {
             layerSize.width  /= scale;
             layerSize.height /= scale;
         }
@@ -496,7 +496,7 @@
                                        center.y - layerSize.height * CPTFloat(0.5) - symbolSize.height * ( symbolAnchor.y - CPTFloat(0.5) ) );
 
         if ( alignToPixels ) {
-            if ( scale == 1.0 ) {
+            if ( scale == CPTFloat(1.0) ) {
                 origin.x = round(origin.x);
                 origin.y = round(origin.y);
             }

@@ -577,7 +577,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
         tickDirection               = CPTSignNone;
         axisTitle                   = nil;
         titleTextStyle              = [[CPTTextStyle alloc] init];
-        titleRotation               = NAN;
+        titleRotation               = CPTNAN;
         titleLocation               = @(NAN);
         needsRelabel                = YES;
         labelExclusionRanges        = nil;

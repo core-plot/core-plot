@@ -142,7 +142,7 @@
     CGSize theTitleSize = self.titleSize;
     if ( theTitleSize.height < textRect.size.height ) {
         CGFloat offset = (textRect.size.height - theTitleSize.height) / CPTFloat(2.0);
-        if ( scale == 1.0 ) {
+        if ( scale == CPTFloat(1.0) ) {
             offset = round(offset);
         }
         else {

@@ -731,7 +731,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
     CPTGradientElement removedElement = [newGradient removeElementAtPosition:position];
 
     if ( isnan(removedElement.position) ) {
-        [NSException raise:NSRangeException format:@"-[%@ removeColorStopAtPosition:]: no such colorStop at position (%g)", [self class], position];
+        [NSException raise:NSRangeException format:@"-[%@ removeColorStopAtPosition:]: no such colorStop at position (%g)", [self class], (double)position];
     }
 
     return newGradient;
@@ -1017,11 +1017,11 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
     // First Calculate where the beginning and ending points should be
     CGPoint startPoint, endPoint;
 
-    if ( self.angle == 0.0 ) {
+    if ( self.angle == CPTFloat(0.0) ) {
         startPoint = CPTPointMake( CGRectGetMinX(rect), CGRectGetMinY(rect) ); // right of rect
         endPoint   = CPTPointMake( CGRectGetMaxX(rect), CGRectGetMinY(rect) ); // left  of rect
     }
-    else if ( self.angle == 90.0 ) {
+    else if ( self.angle == CPTFloat(90.0) ) {
         startPoint = CPTPointMake( CGRectGetMinX(rect), CGRectGetMinY(rect) ); // bottom of rect
         endPoint   = CPTPointMake( CGRectGetMinX(rect), CGRectGetMaxY(rect) ); // top    of rect
     }
@@ -1206,7 +1206,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
     removedElement.color.green = CPTFloat(0.0);
     removedElement.color.blue  = CPTFloat(0.0);
     removedElement.color.alpha = CPTFloat(0.0);
-    removedElement.position    = NAN;
+    removedElement.position    = CPTNAN;
     removedElement.nextElement = NULL;
 
     return removedElement;
@@ -1247,7 +1247,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
     removedElement.color.green = CPTFloat(0.0);
     removedElement.color.blue  = CPTFloat(0.0);
     removedElement.color.alpha = CPTFloat(0.0);
-    removedElement.position    = NAN;
+    removedElement.position    = CPTNAN;
     removedElement.nextElement = NULL;
 
     return removedElement;
@@ -1519,7 +1519,7 @@ void CPTInverseChromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
 
 void CPTTransformRGB_HSV(CGFloat *components) // H,S,B -> R,G,B
 {
-    CGFloat H = NAN, S, V;
+    CGFloat H = CPTNAN, S, V;
     CGFloat R = components[0];
     CGFloat G = components[1];
     CGFloat B = components[2];

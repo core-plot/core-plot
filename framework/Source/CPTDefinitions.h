@@ -105,6 +105,13 @@
 #define CPTRectInset(rect, dx, dy) CGRectInset( rect, (CGFloat)(dx), (CGFloat)(dy) )
 
 /**
+ *  @def CPTNAN
+ *  @hideinitializer
+ *  @brief The not-a-number constant (@NAN), cast to @ref CGFloat.
+ **/
+#define CPTNAN ( (CGFloat)NAN )
+
+/**
  *  @brief Enumeration of numeric types
  **/
 typedef NS_ENUM (NSInteger, CPTNumericType) {

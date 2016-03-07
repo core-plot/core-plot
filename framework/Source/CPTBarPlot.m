@@ -938,7 +938,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         barRect.size.width  = round(barRect.size.width * roundingPrecision) / roundingPrecision;
         barRect.size.height = round(barRect.size.height * roundingPrecision) / roundingPrecision;
 
-        if ( self.lineStyle.lineWidth > 0.0 ) {
+        if ( self.lineStyle.lineWidth > CPTFloat(0.0) ) {
             barRect = CPTAlignRectToUserSpace(context, barRect);
         }
         else {
@@ -949,18 +949,18 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     CGFloat radius     = MIN( MIN( self.barCornerRadius, ABS(barRect.size.width) * CPTFloat(0.5) ), ABS(barRect.size.height) * CPTFloat(0.5) );
     CGFloat baseRadius = MIN( MIN( self.barBaseCornerRadius, ABS(barRect.size.width) * CPTFloat(0.5) ), ABS(barRect.size.height) * CPTFloat(0.5) );
 
-    if ( widthNegative && (barRect.size.width > 0.0) ) {
+    if ( widthNegative && ( barRect.size.width > CPTFloat(0.0) ) ) {
         barRect.origin.x  += barRect.size.width;
         barRect.size.width = -barRect.size.width;
     }
-    if ( heightNegative && (barRect.size.height > 0.0) ) {
+    if ( heightNegative && ( barRect.size.height > CPTFloat(0.0) ) ) {
         barRect.origin.y   += barRect.size.height;
         barRect.size.height = -barRect.size.height;
     }
 
     CGMutablePathRef path = CGPathCreateMutable();
-    if ( radius == 0.0 ) {
-        if ( baseRadius == 0.0 ) {
+    if ( radius == CPTFloat(0.0) ) {
+        if ( baseRadius == CPTFloat(0.0) ) {
             // square corners
             CGPathAddRect(path, NULL, barRect);
         }
@@ -988,7 +988,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         CGFloat tipX = barRect.origin.x + barRect.size.width;
         CGFloat tipY = barRect.origin.y + barRect.size.height;
 
-        if ( baseRadius == 0.0 ) {
+        if ( baseRadius == CPTFloat(0.0) ) {
             // rounded at tip end only
             CGPathMoveToPoint(path, NULL, barRect.origin.x, barRect.origin.y);
             if ( horizontalBars ) {

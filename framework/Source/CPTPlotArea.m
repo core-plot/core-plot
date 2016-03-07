@@ -160,7 +160,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         axisLabelGroup     = nil;
         axisTitleGroup     = nil;
         fill               = nil;
-        touchedPoint       = CGPointMake(NAN, NAN);
+        touchedPoint       = CPTPointMake(NAN, NAN);
         topDownLayerOrder  = nil;
         bottomUpLayerOrder = malloc( kCPTNumberOfLayers * sizeof(CPTGraphLayerType) );
         [self updateLayerOrder];
@@ -251,7 +251,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         bottomUpLayerOrder = malloc( kCPTNumberOfLayers * sizeof(CPTGraphLayerType) );
         [self updateLayerOrder];
 
-        touchedPoint = CGPointMake(NAN, NAN);
+        touchedPoint = CPTPointMake(NAN, NAN);
 
         CGSize boundsSize = self.bounds.size;
         widthDecimal  = CPTDecimalFromCGFloat(boundsSize.width);
@@ -730,7 +730,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     }
 
     CGPoint lastPoint = self.touchedPoint;
-    self.touchedPoint = CGPointMake(NAN, NAN);
+    self.touchedPoint = CPTPointMake(NAN, NAN);
 
     id<CPTPlotAreaDelegate> theDelegate = self.delegate;
     if ( [theDelegate respondsToSelector:@selector(plotAreaTouchUp:)] ||

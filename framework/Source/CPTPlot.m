@@ -1249,7 +1249,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
                 break;
         }
     }
-    return NAN;
+    return (double)NAN;
 }
 
 /** @brief Retrieves a single number from the cache.
@@ -1423,16 +1423,16 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         if ( self.doublePrecisionCache ) {
             const double *doubles = (const double *)numbers.bytes;
 
-            double min = INFINITY;
-            double max = -INFINITY;
+            double min = (double)INFINITY;
+            double max = -(double)INFINITY;
 
             vDSP_minvD(doubles, 1, &min, (vDSP_Length)numberOfSamples);
             vDSP_maxvD(doubles, 1, &max, (vDSP_Length)numberOfSamples);
 
             if ( isnan(min) || isnan(max) ) {
                 // vDSP functions may return NAN if any data in the array is NAN
-                min = INFINITY;
-                max = -INFINITY;
+                min = (double)INFINITY;
+                max = -(double)INFINITY;
 
                 const double *lastSample = doubles + numberOfSamples;
 

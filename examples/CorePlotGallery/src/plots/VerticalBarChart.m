@@ -243,7 +243,7 @@ static const BOOL kUseHorizontalBars = NO;
 {
     NSNumber *value = [self numberForPlot:plot field:CPTBarPlotFieldBarTip recordIndex:index];
 
-    NSLog(@"Bar for '%@' was selected at index %d. Value = %f", plot.identifier, (int)index, [value floatValue]);
+    NSLog(@"Bar for '%@' was selected at index %d. Value = %f", plot.identifier, (int)index, [value doubleValue]);
 
     CPTGraph *graph = (self.graphs)[0];
 

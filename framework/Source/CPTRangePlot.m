@@ -13,6 +13,7 @@
 #import "CPTUtilities.h"
 #import "CPTXYPlotSpace.h"
 #import "NSCoderExtensions.h"
+#import "tgmath.h"
 
 /** @defgroup plotAnimationRangePlot Range Plot
  *  @brief Range plot properties that can be animated using Core Animation.
@@ -327,8 +328,8 @@ typedef struct CGPointError CGPointError;
             const double left = leftBytes[i];
             const double right = rightBytes[i];
             if ( !drawPointFlags[i] || isnan(x) || isnan(y) ) {
-                viewPoints[i].x = NAN; // depending coordinates
-                viewPoints[i].y = NAN;
+                viewPoints[i].x = CPTNAN; // depending coordinates
+                viewPoints[i].y = CPTNAN;
             }
             else {
                 double plotPoint[2];
@@ -377,8 +378,8 @@ typedef struct CGPointError CGPointError;
             const NSDecimal right = rightBytes[i];
 
             if ( !drawPointFlags[i] || NSDecimalIsNotANumber(&x) || NSDecimalIsNotANumber(&y) ) {
-                viewPoints[i].x = NAN; // depending coordinates
-                viewPoints[i].y = NAN;
+                viewPoints[i].x = CPTNAN; // depending coordinates
+                viewPoints[i].y = CPTNAN;
             }
             else {
                 NSDecimal plotPoint[2];
@@ -397,7 +398,7 @@ typedef struct CGPointError CGPointError;
                     viewPoints[i].high = pos.y;
                 }
                 else {
-                    viewPoints[i].high = NAN;
+                    viewPoints[i].high = CPTNAN;
                 }
 
                 if ( !NSDecimalIsNotANumber(&low) ) {
@@ -409,7 +410,7 @@ typedef struct CGPointError CGPointError;
                     viewPoints[i].low = pos.y;
                 }
                 else {
-                    viewPoints[i].low = NAN;
+                    viewPoints[i].low = CPTNAN;
                 }
 
                 if ( !NSDecimalIsNotANumber(&left) ) {
@@ -421,7 +422,7 @@ typedef struct CGPointError CGPointError;
                     viewPoints[i].left = pos.x;
                 }
                 else {
-                    viewPoints[i].left = NAN;
+                    viewPoints[i].left = CPTNAN;
                 }
                 if ( !NSDecimalIsNotANumber(&right) ) {
                     NSDecimal xr;
@@ -432,7 +433,7 @@ typedef struct CGPointError CGPointError;
                     viewPoints[i].right = pos.x;
                 }
                 else {
-                    viewPoints[i].right = NAN;
+                    viewPoints[i].right = CPTNAN;
                 }
             }
         });
@@ -443,7 +444,7 @@ typedef struct CGPointError CGPointError;
 {
     // Align to device pixels if there is a data line.
     // Otherwise, align to view space, so fills are sharp at edges.
-    if ( self.barLineStyle.lineWidth > 0.0 ) {
+    if ( self.barLineStyle.lineWidth > CPTFloat(0.0) ) {
         dispatch_apply(dataCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
             if ( drawPointFlags[i] ) {
                 CGFloat x = viewPoints[i].x;
@@ -1049,7 +1050,7 @@ typedef struct CGPointError CGPointError;
     NSInteger result = [self extremeDrawnPointIndexForFlags:drawPointFlags numberOfPoints:dataCount extremeNumIsLowerBound:YES];
     if ( result != NSNotFound ) {
         CGPointError lastViewPoint;
-        CGFloat minimumDistanceSquared = NAN;
+        CGFloat minimumDistanceSquared = CPTNAN;
         for ( NSUInteger i = (NSUInteger)result; i < dataCount; ++i ) {
             if ( drawPointFlags[i] ) {
                 lastViewPoint = viewPoints[i];

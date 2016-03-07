@@ -92,7 +92,7 @@ static NSString *const outerChartName = @"Outer";
     // Add another pie chart
     piePlot                 = [[CPTPieChart alloc] init];
     piePlot.dataSource      = self;
-    piePlot.pieRadius       = CPTFloat( animated ? 0.0 : (innerRadius - 5.0) );
+    piePlot.pieRadius       = ( animated ? CPTFloat(0.0) : ( innerRadius - CPTFloat(5.0) ) );
     piePlot.identifier      = innerChartName;
     piePlot.borderLineStyle = whiteLineStyle;
     piePlot.startAngle      = CPTFloat(M_PI_4);
@@ -154,7 +154,7 @@ static NSString *const outerChartName = @"Outer";
             whiteText.fontSize = self.titleSize * CPTFloat(0.5);
         });
 
-        newLayer                 = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%.0f", [self.plotData[index] floatValue]] style:whiteText];
+        newLayer                 = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%.0f", [self.plotData[index] doubleValue]] style:whiteText];
         newLayer.fill            = [CPTFill fillWithColor:[CPTColor darkGrayColor]];
         newLayer.cornerRadius    = 5.0;
         newLayer.paddingLeft     = 3.0;

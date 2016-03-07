@@ -228,7 +228,7 @@ static const NSUInteger numberOfPoints = 11;
 
 -(double)doubleForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    double number = NAN;
+    double number = (double)NAN;
 
     switch ( fieldEnum ) {
         case CPTScatterPlotFieldX:
@@ -246,7 +246,7 @@ static const NSUInteger numberOfPoints = 11;
                         break;
 
                     case 2:
-                        number = NAN;
+                        number = (double)NAN;
                         break;
                 }
             }
@@ -268,7 +268,7 @@ static const NSUInteger numberOfPoints = 11;
                         break;
 
                     case 2:
-                        number = NAN;
+                        number = (double)NAN;
                         break;
 
                     case 3:
@@ -285,7 +285,7 @@ static const NSUInteger numberOfPoints = 11;
                         break;
 
                     case 2:
-                        number = NAN;
+                        number = (double)NAN;
                         break;
 
                     case 3:

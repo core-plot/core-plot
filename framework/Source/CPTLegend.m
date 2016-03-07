@@ -1306,7 +1306,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
     if ( CGSizeEqualToSize(theSwatchSize, CGSizeZero) ) {
         CPTTextStyle *theTextStyle = self.textStyle;
         CGFloat fontSize           = theTextStyle.fontSize;
-        if ( fontSize > 0.0 ) {
+        if ( fontSize > CPTFloat(0.0) ) {
             fontSize     *= CPTFloat(1.5);
             fontSize      = round(fontSize);
             theSwatchSize = CPTSizeMake(fontSize, fontSize);
