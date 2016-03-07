@@ -116,7 +116,7 @@
         whiteText.fontSize = self.titleSize * CPTFloat(0.5);
     });
 
-    CPTTextLayer *newLayer = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%1.0f", self.plotData[index].floatValue]
+    CPTTextLayer *newLayer = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%1.0f", self.plotData[index].doubleValue]
                                                           style:whiteText];
     return newLayer;
 }
@@ -131,7 +131,7 @@
 
 -(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)index
 {
-    NSLog(@"Slice was selected at index %d. Value = %f", (int)index, self.plotData[index].floatValue);
+    NSLog(@"Slice was selected at index %d. Value = %f", (int)index, self.plotData[index].doubleValue);
 
     self.offsetIndex = NSNotFound;
 
@@ -156,7 +156,7 @@
 
     [CPTAnimation animate:self
                  property:@"sliceOffset"
-                     from:(idx == self.offsetIndex ? NAN : 0.0)
+                     from:(idx == self.offsetIndex ? CPTNAN : 0.0)
                        to:(idx == self.offsetIndex ? 0.0 : 35.0)
                  duration:0.5
            animationCurve:CPTAnimationCurveCubicOut
@@ -224,7 +224,7 @@
 
         [self.graphs[0] reloadData];
 
-        if ( newOffset == 0.0 ) {
+        if ( newOffset == CPTFloat(0.0) ) {
             self.offsetIndex = NSNotFound;
         }
     }

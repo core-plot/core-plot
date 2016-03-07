@@ -284,7 +284,7 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
                 startTime    = currentTime;
             }
             else {
-                startTime = CPTFloat(NAN);
+                startTime = CPTNAN;
             }
         }
         else {
@@ -642,7 +642,7 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
 {
     return [NSString stringWithFormat:@"<%@ timeOffset: %g; %lu active and %lu running operations>",
             super.description,
-            self.timeOffset,
+            (double)self.timeOffset,
             (unsigned long)self.animationOperations.count,
             (unsigned long)self.runningAnimationOperations.count];
 }

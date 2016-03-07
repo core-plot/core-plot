@@ -646,7 +646,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 {
     // Align to device pixels if there is a data line.
     // Otherwise, align to view space, so fills are sharp at edges.
-    if ( self.dataLineStyle.lineWidth > 0.0 ) {
+    if ( self.dataLineStyle.lineWidth > CPTFloat(0.0) ) {
         dispatch_apply(dataCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
             if ( drawPointFlags[i] ) {
                 viewPoints[i] = CPTAlignPointToUserSpace(context, viewPoints[i]);
@@ -711,7 +711,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
     NSInteger result = [self extremeDrawnPointIndexForFlags:drawPointFlags numberOfPoints:dataCount extremeNumIsLowerBound:YES];
     if ( result != NSNotFound ) {
-        CGFloat minimumDistanceSquared = NAN;
+        CGFloat minimumDistanceSquared = CPTNAN;
         for ( NSUInteger i = (NSUInteger)result; i < dataCount; ++i ) {
             if ( drawPointFlags[i] ) {
                 CGFloat distanceSquared = squareOfDistanceBetweenPoints(viewPoint, viewPoints[i]);
@@ -898,7 +898,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
         // Draw line
         if ( theLineStyle ) {
-            CGPathRef dataLinePath = [self newDataLinePathForViewPoints:viewPoints indexRange:viewIndexRange baselineYValue:NAN];
+            CGPathRef dataLinePath = [self newDataLinePathForViewPoints:viewPoints indexRange:viewIndexRange baselineYValue:CPTNAN];
 
             // Give the delegate a chance to prepare for the drawing.
             id<CPTScatterPlotDelegate> theDelegate = self.delegate;
@@ -1339,7 +1339,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     // Create the path
     CGPathRef dataLinePath = [self newDataLinePathForViewPoints:viewPoints
                                                      indexRange:NSMakeRange(0, dataCount)
-                                                 baselineYValue:NAN];
+                                                 baselineYValue:CPTNAN];
 
     free(viewPoints);
     free(drawPointFlags);
@@ -1782,7 +1782,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
             NSInteger lastDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags numberOfPoints:dataCount extremeNumIsLowerBound:NO];
 
             NSRange viewIndexRange = NSMakeRange( (NSUInteger)firstDrawnPointIndex, (NSUInteger)(lastDrawnPointIndex - firstDrawnPointIndex + 1) );
-            CGPathRef dataLinePath = [self newDataLinePathForViewPoints:viewPoints indexRange:viewIndexRange baselineYValue:NAN];
+            CGPathRef dataLinePath = [self newDataLinePathForViewPoints:viewPoints indexRange:viewIndexRange baselineYValue:CPTNAN];
             CGPathRef path         = CGPathCreateCopyByStrokingPath( dataLinePath,
                                                                      NULL,
                                                                      self.plotLineMarginForHitDetection * CPTFloat(2.0),

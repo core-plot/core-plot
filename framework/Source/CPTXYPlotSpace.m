@@ -598,7 +598,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
 
             // decelerate at the global range
             if ( hasShift ) {
-                CGFloat brakingDelay = CPTFloat(NAN);
+                CGFloat brakingDelay = CPTNAN;
 
                 if ( [globalRange containsRange:oldRange] ) {
                     // momentum started inside the global range; coast until we hit the global range
@@ -706,7 +706,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
     point[orthogonalCoordinate] = CPTDecimalFromInteger(1);
 
     CGPoint viewPoint       = [self plotAreaViewPointForPlotPoint:point numberOfCoordinates:2];
-    CGFloat pointCoordinate = CPTFloat(NAN);
+    CGFloat pointCoordinate = CPTNAN;
 
     switch ( coordinate ) {
         case CPTCoordinateX:
@@ -727,7 +727,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
 // return NAN if no positive roots
 CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 {
-    CGFloat root = CPTFloat(NAN);
+    CGFloat root = CPTNAN;
 
     CGFloat discriminant = sqrt(b * b - CPTFloat(4.0) * a * c);
 
@@ -889,11 +889,11 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 
 -(double)doublePrecisionPlotCoordinateForViewLength:(CGFloat)viewLength linearPlotRange:(CPTPlotRange *)range boundsLength:(CGFloat)boundsLength
 {
-    if ( boundsLength == 0.0 ) {
+    if ( boundsLength == CPTFloat(0.0) ) {
         return 0.0;
     }
 
-    double coordinate = viewLength / boundsLength;
+    double coordinate = (double)viewLength / (double)boundsLength;
     coordinate *= range.lengthDouble;
     coordinate += range.locationDouble;
 
@@ -916,14 +916,14 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 
 -(double)doublePrecisionPlotCoordinateForViewLength:(CGFloat)viewLength logPlotRange:(CPTPlotRange *)range boundsLength:(CGFloat)boundsLength
 {
-    if ( boundsLength == 0.0 ) {
+    if ( boundsLength == CPTFloat(0.0) ) {
         return 0.0;
     }
 
     double logLoc = log10(range.locationDouble);
     double logEnd = log10(range.endDouble);
 
-    double coordinate = viewLength * (logEnd - logLoc) / boundsLength + logLoc;
+    double coordinate = (double)viewLength * (logEnd - logLoc) / (double)boundsLength + logLoc;
 
     return pow(10.0, coordinate);
 }
@@ -944,13 +944,13 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 
 -(double)doublePrecisionPlotCoordinateForViewLength:(CGFloat)viewLength logModulusPlotRange:(CPTPlotRange *)range boundsLength:(CGFloat)boundsLength
 {
-    if ( boundsLength == 0.0 ) {
+    if ( boundsLength == CPTFloat(0.0) ) {
         return 0.0;
     }
 
     double logLoc     = CPTLogModulus(range.locationDouble);
     double logEnd     = CPTLogModulus(range.endDouble);
-    double coordinate = viewLength * (logEnd - logLoc) / boundsLength + logLoc;
+    double coordinate = (double)viewLength * (logEnd - logLoc) / (double)boundsLength + logLoc;
 
     return CPTInverseLogModulus(coordinate);
 }
@@ -1378,7 +1378,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
     CPTGraph *theGraph    = self.graph;
     CPTPlotArea *plotArea = theGraph.plotAreaFrame.plotArea;
 
-    if ( !plotArea || (interactionScale <= 1.e-6) ) {
+    if ( !plotArea || ( interactionScale <= CPTFloat(1.e-6) ) ) {
         return;
     }
     if ( ![plotArea containsPoint:plotAreaPoint] ) {

@@ -45,7 +45,7 @@
         imageScale = MAX(imageScale, screen.scale);
     }
 
-    if ( imageScale > 1.0 ) {
+    if ( imageScale > CPTFloat(1.0) ) {
         NSMutableString *hiDpiPath = [path mutableCopy];
         NSUInteger replaceCount    = [hiDpiPath replaceOccurrencesOfString:@".png"
                                                                 withString:[NSString stringWithFormat:@"@%dx.png", (int)imageScale]

@@ -468,7 +468,7 @@ NSDecimal CPTDecimalFromFloat(float aFloat)
         return CPTDecimalNaN();
     }
     else {
-        NSString *stringValue = [[NSString alloc] initWithFormat:@"%f", aFloat];
+        NSString *stringValue = [[NSString alloc] initWithFormat:@"%f", (double)aFloat];
         NSDecimal result      = CPTDecimalFromString(stringValue);
 
         return result;
@@ -504,7 +504,7 @@ NSDecimal CPTDecimalFromCGFloat(CGFloat aCGFloat)
         return CPTDecimalNaN();
     }
     else {
-        NSString *stringValue = [[NSString alloc] initWithFormat:@"%f", aCGFloat];
+        NSString *stringValue = [[NSString alloc] initWithFormat:@"%f", (double)aCGFloat];
         NSDecimal result      = CPTDecimalFromString(stringValue);
 
         return result;
@@ -944,7 +944,7 @@ CGRect CPTAlignBorderedRectToUserSpace(CGContextRef context, CGRect rect, CPTLin
  **/
 NSString *CPTStringFromPoint(CGPoint point)
 {
-    return [NSString stringWithFormat:@"{%g, %g}", point.x, point.y];
+    return [NSString stringWithFormat:@"{%g, %g}", (double)point.x, (double)point.y];
 }
 
 /** @brief Creates a string representation of the given size.
@@ -953,7 +953,7 @@ NSString *CPTStringFromPoint(CGPoint point)
  **/
 NSString *CPTStringFromSize(CGSize size)
 {
-    return [NSString stringWithFormat:@"{%g, %g}", size.width, size.height];
+    return [NSString stringWithFormat:@"{%g, %g}", (double)size.width, (double)size.height];
 }
 
 /** @brief Creates a string representation of the given rectangle.
@@ -962,7 +962,7 @@ NSString *CPTStringFromSize(CGSize size)
  **/
 NSString *CPTStringFromRect(CGRect rect)
 {
-    return [NSString stringWithFormat:@"{{%g, %g}, {%g, %g}}", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height];
+    return [NSString stringWithFormat:@"{{%g, %g}, {%g, %g}}", (double)rect.origin.x, (double)rect.origin.y, (double)rect.size.width, (double)rect.size.height];
 }
 
 #pragma mark -

@@ -158,8 +158,8 @@
             break;
 
         default:
-            *lower = NAN;
-            *upper = NAN;
+            *lower = CPTNAN;
+            *upper = CPTNAN;
             break;
     }
 }
@@ -365,11 +365,11 @@
         if ( minCap || maxCap ) {
             switch ( self.coordinate ) {
                 case CPTCoordinateX:
-                    axisDirection = ( range.lengthDouble >= CPTFloat(0.0) ) ? CPTPointMake(1.0, 0.0) : CPTPointMake(-1.0, 0.0);
+                    axisDirection = (range.lengthDouble >= 0.0) ? CPTPointMake(1.0, 0.0) : CPTPointMake(-1.0, 0.0);
                     break;
 
                 case CPTCoordinateY:
-                    axisDirection = ( range.lengthDouble >= CPTFloat(0.0) ) ? CPTPointMake(0.0, 1.0) : CPTPointMake(0.0, -1.0);
+                    axisDirection = (range.lengthDouble >= 0.0) ? CPTPointMake(0.0, 1.0) : CPTPointMake(0.0, -1.0);
                     break;
 
                 default:

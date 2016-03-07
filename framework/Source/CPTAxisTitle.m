@@ -20,7 +20,7 @@
 {
     if ( layer ) {
         if ( (self = [super initWithContentLayer:layer]) ) {
-            self.rotation = NAN;
+            self.rotation = CPTNAN;
         }
     }
     else {

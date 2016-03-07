@@ -217,7 +217,7 @@
 
         for ( NSUInteger i = 0; i < keyCount; i++ ) {
             xpos = (float)i + (float)plotIndex / (plotCount);
-            [array addObject:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", xpos]]];
+            [array addObject:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", (double)xpos]]];
         }
     }
     else {

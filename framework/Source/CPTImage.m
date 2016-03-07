@@ -134,7 +134,7 @@ CPTImageSlices;
  **/
 -(instancetype)initWithCGImage:(CGImageRef)anImage scale:(CGFloat)newScale
 {
-    NSParameterAssert(newScale > 0.0);
+    NSParameterAssert( newScale > CPTFloat(0.0) );
 
     if ( (self = [super init]) ) {
         CGImageRetain(anImage);
@@ -565,7 +565,7 @@ CPTImageSlices;
 
 -(void)setScale:(CGFloat)newScale
 {
-    NSParameterAssert(newScale > 0.0);
+    NSParameterAssert( newScale > CPTFloat(0.0) );
 
     if ( newScale != scale ) {
         scale = newScale;

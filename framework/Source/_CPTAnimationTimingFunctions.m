@@ -393,7 +393,7 @@ CGFloat CPTAnimationTimingFunctionExponentialInOut(CGFloat elapsedTime, CGFloat 
     elapsedTime /= duration * CPTFloat(0.5);
     elapsedTime -= CPTFloat(1.0);
 
-    if ( elapsedTime >= 1.0 ) {
+    if ( elapsedTime >= CPTFloat(1.0) ) {
         return CPTFloat(1.0);
     }
 

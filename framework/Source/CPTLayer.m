@@ -872,10 +872,10 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
         CGRect currentFrame = self.frame;
         if ( !CGRectEqualToRect( currentFrame, CGRectIntegral(self.frame) ) ) {
             COREPLOT_LAYER_POSITION_CHANGE( (const char *)class_getName([self class]),
-                                            (int)lrint( ceil(currentFrame.origin.x * 1000.0) ),
-                                            (int)lrint( ceil(currentFrame.origin.y * 1000.0) ),
-                                            (int)lrint( ceil(currentFrame.size.width * 1000.0) ),
-                                            (int)lrint( ceil(currentFrame.size.height * 1000.0) ) );
+                                            (int)lrint( ceil( currentFrame.origin.x * CPTFloat(1000.0) ) ),
+                                            (int)lrint( ceil( currentFrame.origin.y * CPTFloat(1000.0) ) ),
+                                            (int)lrint( ceil( currentFrame.size.width * CPTFloat(1000.0) ) ),
+                                            (int)lrint( ceil( currentFrame.size.height * CPTFloat(1000.0) ) ) );
         }
     }
 }
@@ -892,7 +892,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 
 -(void)setContentsScale:(CGFloat)newContentsScale
 {
-    NSParameterAssert(newContentsScale > 0.0);
+    NSParameterAssert( newContentsScale > CPTFloat(0.0) );
 
     if ( self.contentsScale != newContentsScale ) {
         if ( [CALayer instancesRespondToSelector:@selector(setContentsScale:)] ) {

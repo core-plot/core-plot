@@ -46,9 +46,9 @@ null_values = { "int8_t" : "0",
               "uint32_t" : "0",
               "uint64_t" : "0",
                  "float" : "NAN",
-                "double" : "NAN",
-         "float complex" : "NAN",
-        "double complex" : "NAN",
+                "double" : "(double)NAN",
+         "float complex" : "CMPLXF(NAN, NAN)",
+        "double complex" : "CMPLX(NAN, NAN)",
              "NSDecimal" : "CPTDecimalNaN()"
 }
 

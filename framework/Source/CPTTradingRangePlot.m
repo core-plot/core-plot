@@ -12,6 +12,7 @@
 #import "CPTUtilities.h"
 #import "CPTXYPlotSpace.h"
 #import "NSCoderExtensions.h"
+#import "tgmath.h"
 
 /** @defgroup plotAnimationTradingRangePlot Trading Range Plot
  *  @brief Trading range plot properties that can be animated using Core Animation.
@@ -1274,7 +1275,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     CGFloat lastViewMax = CPTFloat(0.0);
 
     NSUInteger result              = NSNotFound;
-    CGFloat minimumDistanceSquared = NAN;
+    CGFloat minimumDistanceSquared = CPTNAN;
 
     if ( self.doublePrecisionCache ) {
         const double *locationBytes = (const double *)locations.data.bytes;
