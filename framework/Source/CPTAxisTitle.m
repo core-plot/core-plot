@@ -13,10 +13,9 @@
 #pragma mark -
 #pragma mark Init/Dealloc
 
-/// @name Initialization
-/// @{
+/// @cond
 
--(instancetype)initWithContentLayer:(CPTLayer *)layer
+-(nonnull instancetype)initWithContentLayer:(nonnull CPTLayer *)layer
 {
     if ( layer ) {
         if ( (self = [super initWithContentLayer:layer]) ) {
@@ -29,7 +28,7 @@
     return self;
 }
 
-/// @}
+/// @endcond
 
 #pragma mark -
 #pragma mark Label comparison
@@ -42,7 +41,7 @@
  *  @param object The object to be compared with the receiver.
  *  @return @YES if @par{object} is equal to the receiver, @NO otherwise.
  **/
--(BOOL)isEqual:(id)object
+-(BOOL)isEqual:(nullable id)object
 {
     if ( self == object ) {
         return YES;

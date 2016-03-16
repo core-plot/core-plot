@@ -20,13 +20,13 @@ extern NSString *__nonnull const kCPTStocksTheme;       ///< A graph theme with 
 /// @{
 +(void)registerTheme:(nonnull Class)themeClass;
 +(nullable NSArray<Class> *)themeClasses;
-+(nullable instancetype)themeNamed:(nullable NSString *)theme;
++(nullable instancetype)themeNamed:(nullable NSString *)themeName;
 +(nonnull NSString *)name;
 /// @}
 
 /// @name Theme Usage
 /// @{
--(void)applyThemeToGraph:(nullable CPTGraph *)graph;
+-(void)applyThemeToGraph:(nonnull CPTGraph *)graph;
 /// @}
 
 @end
@@ -40,9 +40,9 @@ extern NSString *__nonnull const kCPTStocksTheme;       ///< A graph theme with 
 /// @{
 -(nullable id)newGraph;
 
--(void)applyThemeToBackground:(nullable CPTGraph *)graph;
--(void)applyThemeToPlotArea:(nullable CPTPlotAreaFrame *)plotAreaFrame;
--(void)applyThemeToAxisSet:(nullable CPTAxisSet *)axisSet;
+-(void)applyThemeToBackground:(nonnull CPTGraph *)graph;
+-(void)applyThemeToPlotArea:(nonnull CPTPlotAreaFrame *)plotAreaFrame;
+-(void)applyThemeToAxisSet:(nonnull CPTAxisSet *)axisSet;
 /// @}
 
 @end

@@ -20,19 +20,19 @@ typedef NSMutableArray<CPTAnimationOperation *> *CPTMutableAnimationArray;
 @property (nonatomic, readwrite, assign) CGFloat timeOffset;
 @property (nonatomic, readwrite, strong, nonnull) CPTMutableAnimationArray animationOperations;
 @property (nonatomic, readwrite, strong, nonnull) CPTMutableAnimationArray runningAnimationOperations;
-@property (nonatomic, readwrite) dispatch_source_t timer;
-@property (nonatomic, readwrite) dispatch_queue_t animationQueue;
+@property (nonatomic, readwrite, nullable) dispatch_source_t timer;
+@property (nonatomic, readwrite, nonnull) dispatch_queue_t animationQueue;
 
 +(nonnull SEL)setterFromProperty:(nonnull NSString *)property;
 
--(CPTAnimationTimingFunction)timingFunctionForAnimationCurve:(CPTAnimationCurve)animationCurve;
+-(nullable CPTAnimationTimingFunction)timingFunctionForAnimationCurve:(CPTAnimationCurve)animationCurve;
 -(void)updateOnMainThreadWithParameters:(nonnull CPTDictionary)parameters;
 
 -(void)startTimer;
 -(void)cancelTimer;
 -(void)update;
 
-dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, dispatch_block_t block);
+dispatch_source_t __nonnull CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t __nonnull queue, dispatch_block_t __nonnull block);
 
 @end
 /// @endcond
@@ -61,20 +61,20 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
 @synthesize defaultAnimationCurve;
 
 /** @internal
- *  @property CPTMutableAnimationArray animationOperations
+ *  @property nonnull CPTMutableAnimationArray animationOperations
  *
  *  @brief The list of animation operations currently running or waiting to run.
  **/
 @synthesize animationOperations;
 
 /** @internal
- *  @property CPTMutableAnimationArray runningAnimationOperations
+ *  @property nonnull CPTMutableAnimationArray runningAnimationOperations
  *  @brief The list of running animation operations.
  **/
 @synthesize runningAnimationOperations;
 
 /** @internal
- *  @property dispatch_source_t timer
+ *  @property nullable dispatch_source_t timer
  *  @brief The animation timer. Each tick of the timer corresponds to one animation frame.
  **/
 @synthesize timer;
@@ -82,7 +82,7 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
 #pragma mark - Init/Dealloc
 
 /** @internal
- *  @property dispatch_queue_t animationQueue;
+ *  @property nonnull dispatch_queue_t animationQueue;
  *  @brief The serial dispatch queue used to synchronize animation updates.
  **/
 @synthesize animationQueue;
@@ -98,7 +98,7 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
  *
  *  @return The initialized object.
  **/
--(instancetype)init
+-(nonnull instancetype)init
 {
     if ( (self = [super init]) ) {
         animationOperations        = [[NSMutableArray alloc] init];
@@ -141,7 +141,7 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
 /** @brief A shared CPTAnimation instance responsible for scheduling and executing animations.
  *  @return The shared CPTAnimation instance.
  **/
-+(instancetype)sharedInstance
++(nonnull instancetype)sharedInstance
 {
     static dispatch_once_t once = 0;
     static CPTAnimation *shared;
@@ -163,7 +163,7 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
  *  @param delegate The animation delegate (can be @nil).
  *  @return The queued animation operation.
  **/
-+(CPTAnimationOperation *)animate:(id)object property:(NSString *)property period:(CPTAnimationPeriod *)period animationCurve:(CPTAnimationCurve)animationCurve delegate:(id<CPTAnimationDelegate>)delegate
++(CPTAnimationOperation *)animate:(nonnull id)object property:(nonnull NSString *)property period:(nonnull CPTAnimationPeriod *)period animationCurve:(CPTAnimationCurve)animationCurve delegate:(nullable id<CPTAnimationDelegate>)delegate
 {
     CPTAnimationOperation *animationOperation =
         [[CPTAnimationOperation alloc] initWithAnimationPeriod:period
@@ -181,7 +181,7 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
 
 /// @cond
 
-+(SEL)setterFromProperty:(NSString *)property
++(nonnull SEL)setterFromProperty:(nonnull NSString *)property
 {
     return NSSelectorFromString([NSString stringWithFormat:@"set%@:", [property stringByReplacingCharactersInRange:NSMakeRange(0, 1)
                                                                                                         withString:[[property substringToIndex:1] capitalizedString]]]);
@@ -195,7 +195,7 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
  *  @param animationOperation The animation operation to add.
  *  @return The queued animation operation.
  **/
--(CPTAnimationOperation *)addAnimationOperation:(CPTAnimationOperation *)animationOperation
+-(CPTAnimationOperation *)addAnimationOperation:(nonnull CPTAnimationOperation *)animationOperation
 {
     id boundObject             = animationOperation.boundObject;
     CPTAnimationPeriod *period = animationOperation.period;
@@ -215,7 +215,7 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
 /** @brief Removes an animation operation from the animation queue.
  *  @param animationOperation The animation operation to remove.
  **/
--(void)removeAnimationOperation:(CPTAnimationOperation *)animationOperation
+-(void)removeAnimationOperation:(nullable CPTAnimationOperation *)animationOperation
 {
     if ( animationOperation ) {
         dispatch_async(self.animationQueue, ^{
@@ -241,7 +241,7 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
  *  @param identifier An animation operation identifier.
  *  @return The animation operation with the given identifier or @nil if it was not found.
  **/
--(CPTAnimationOperation *)operationWithIdentifier:(id<NSCopying, NSObject>)identifier
+-(nullable CPTAnimationOperation *)operationWithIdentifier:(nullable id<NSCopying, NSObject>)identifier
 {
     for ( CPTAnimationOperation *operation in self.animationOperations ) {
         if ( [[operation identifier] isEqual:identifier] ) {
@@ -364,7 +364,7 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
 }
 
 // This method must be called from the main thread.
--(void)updateOnMainThreadWithParameters:(CPTDictionary)parameters
+-(void)updateOnMainThreadWithParameters:(nonnull CPTDictionary)parameters
 {
     CPTAnimationOperation *animationOperation = parameters[CPTAnimationOperationKey];
 
@@ -462,7 +462,7 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
     }
 }
 
-dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queue, dispatch_block_t block)
+dispatch_source_t __nonnull CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t __nonnull queue, dispatch_block_t __nonnull block)
 {
     dispatch_source_t newTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
 
@@ -480,7 +480,7 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
 
 /// @cond
 
--(CPTAnimationTimingFunction)timingFunctionForAnimationCurve:(CPTAnimationCurve)animationCurve
+-(nullable CPTAnimationTimingFunction)timingFunctionForAnimationCurve:(CPTAnimationCurve)animationCurve
 {
     CPTAnimationTimingFunction timingFunction;
 
@@ -627,7 +627,7 @@ dispatch_source_t CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t queu
 
 /// @cond
 
--(NSString *)description
+-(nullable NSString *)description
 {
     return [NSString stringWithFormat:@"<%@ timeOffset: %g; %lu active and %lu running operations>",
             [super description],

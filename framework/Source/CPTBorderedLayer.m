@@ -10,7 +10,7 @@
 
 @interface CPTBorderedLayer()
 
-@property (nonatomic, readonly) CPTLayer *borderLayer;
+@property (nonatomic, readonly, nullable) CPTLayer *borderLayer;
 
 -(void)updateOpacity;
 
@@ -27,14 +27,14 @@
  **/
 @implementation CPTBorderedLayer
 
-/** @property CPTLineStyle *borderLineStyle
+/** @property nullable CPTLineStyle *borderLineStyle
  *  @brief The line style for the layer border.
  *
  *  If @nil, the border is not drawn.
  **/
 @synthesize borderLineStyle;
 
-/** @property CPTFill *fill
+/** @property nullable CPTFill *fill
  *  @brief The fill for the layer background.
  *
  *  If @nil, the layer background is not filled.
@@ -66,7 +66,7 @@
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTBorderedLayer object.
  **/
--(instancetype)initWithFrame:(CGRect)newFrame
+-(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         borderLineStyle = nil;
@@ -82,7 +82,7 @@
 
 /// @cond
 
--(instancetype)initWithLayer:(id)layer
+-(nonnull instancetype)initWithLayer:(nonnull id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTBorderedLayer *theLayer = (CPTBorderedLayer *)layer;
@@ -101,7 +101,7 @@
 
 /// @cond
 
--(void)encodeWithCoder:(NSCoder *)coder
+-(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
     [super encodeWithCoder:coder];
 
@@ -112,7 +112,7 @@
     // inLayout
 }
 
--(instancetype)initWithCoder:(NSCoder *)coder
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         borderLineStyle = [[coder decodeObjectForKey:@"CPTBorderedLayer.borderLineStyle"] copy];
@@ -130,7 +130,7 @@
 
 /// @cond
 
--(void)renderAsVectorInContext:(CGContextRef)context
+-(void)renderAsVectorInContext:(nonnull CGContextRef)context
 {
     if ( self.hidden || self.masksToBorder ) {
         return;
@@ -145,7 +145,7 @@
 /** @brief Draws the fill and border of a CPTBorderedLayer into the given graphics context.
  *  @param context The graphics context to draw into.
  **/
--(void)renderBorderedLayerAsVectorInContext:(CGContextRef)context
+-(void)renderBorderedLayerAsVectorInContext:(nonnull CGContextRef)context
 {
     if ( !self.backgroundColor || !self.useFastRendering ) {
         CPTFill *theFill = self.fill;
@@ -192,7 +192,7 @@
  *  @param right The right margin.
  *  @param bottom The bottom margin.
  **/
--(void)sublayerMarginLeft:(CGFloat *)left top:(CGFloat *)top right:(CGFloat *)right bottom:(CGFloat *)bottom
+-(void)sublayerMarginLeft:(nonnull CGFloat *)left top:(nonnull CGFloat *)top right:(nonnull CGFloat *)right bottom:(nonnull CGFloat *)bottom
 {
     [super sublayerMarginLeft:left top:top right:right bottom:bottom];
 
@@ -224,7 +224,7 @@
 
 /// @cond
 
--(CGPathRef)maskingPath
+-(nullable CGPathRef)maskingPath
 {
     if ( self.masksToBounds ) {
         CGPathRef path = self.outerBorderPath;
@@ -246,7 +246,7 @@
     }
 }
 
--(CGPathRef)sublayerMaskingPath
+-(nullable CGPathRef)sublayerMaskingPath
 {
     if ( self.masksToBorder ) {
         CGPathRef path = self.innerBorderPath;
@@ -316,7 +316,7 @@
 
 /// @cond
 
--(void)setBorderLineStyle:(CPTLineStyle *)newLineStyle
+-(void)setBorderLineStyle:(nullable CPTLineStyle *)newLineStyle
 {
     if ( newLineStyle != borderLineStyle ) {
         if ( newLineStyle.lineWidth != borderLineStyle.lineWidth ) {
@@ -333,7 +333,7 @@
     }
 }
 
--(void)setFill:(CPTFill *)newFill
+-(void)setFill:(nullable CPTFill *)newFill
 {
     if ( newFill != fill ) {
         fill = [newFill copy];
@@ -381,7 +381,7 @@
     }
 }
 
--(CPTLayer *)borderLayer
+-(nullable CPTLayer *)borderLayer
 {
     CPTLayer *theBorderLayer   = nil;
     CPTBorderLayer *superLayer = (CPTBorderLayer *)self.superlayer;
@@ -485,7 +485,7 @@
     }
 }
 
--(void)setShadow:(CPTShadow *)newShadow
+-(void)setShadow:(nullable CPTShadow *)newShadow
 {
     if ( newShadow != self.shadow ) {
         [super setShadow:newShadow];
@@ -496,7 +496,7 @@
     }
 }
 
--(void)setBackgroundColor:(CGColorRef)newColor
+-(void)setBackgroundColor:(nullable CGColorRef)newColor
 {
     if ( self.masksToBorder ) {
         [self.borderLayer setBackgroundColor:newColor];

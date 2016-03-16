@@ -16,7 +16,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element);
  *  @param number The number to encode.
  *  @param key The key to associate with the number.
  **/
--(void)encodeCGFloat:(CGFloat)number forKey:(NSString *)key
+-(void)encodeCGFloat:(CGFloat)number forKey:(nonnull NSString *)key
 {
 #if CGFLOAT_IS_DOUBLE
     [self encodeDouble:number forKey:key];
@@ -29,7 +29,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element);
  *  @param point The point to encode.
  *  @param key The key to associate with the point.
  **/
--(void)encodeCPTPoint:(CGPoint)point forKey:(NSString *)key
+-(void)encodeCPTPoint:(CGPoint)point forKey:(nonnull NSString *)key
 {
     NSString *newKey = [[NSString alloc] initWithFormat:@"%@.x", key];
 
@@ -43,7 +43,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element);
  *  @param size The size to encode.
  *  @param key The key to associate with the size.
  **/
--(void)encodeCPTSize:(CGSize)size forKey:(NSString *)key
+-(void)encodeCPTSize:(CGSize)size forKey:(nonnull NSString *)key
 {
     NSString *newKey = [[NSString alloc] initWithFormat:@"%@.width", key];
 
@@ -57,7 +57,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element);
  *  @param rect The rectangle to encode.
  *  @param key The key to associate with the rectangle.
  **/
--(void)encodeCPTRect:(CGRect)rect forKey:(NSString *)key
+-(void)encodeCPTRect:(CGRect)rect forKey:(nonnull NSString *)key
 {
     NSString *newKey = [[NSString alloc] initWithFormat:@"%@.origin", key];
 
@@ -72,7 +72,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element);
  *  @param key The key to associate with the color space.
  *  @note The current implementation only works with named color spaces.
  **/
--(void)encodeCGColorSpace:(CGColorSpaceRef)colorSpace forKey:(NSString *)key
+-(void)encodeCGColorSpace:(nullable CGColorSpaceRef)colorSpace forKey:(nonnull NSString *)key
 {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     NSLog(@"Color space encoding is not supported on iOS. Decoding will return a generic RGB color space.");
@@ -87,7 +87,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element);
 
 /// @cond
 
-void CPTPathApplierFunc(void *info, const CGPathElement *element)
+void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull element)
 {
     NSMutableDictionary<NSString *, NSNumber *> *elementData = [[NSMutableDictionary alloc] init];
 
@@ -122,7 +122,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element)
  *  @param path The @ref CGPathRef to encode.
  *  @param key The key to associate with the path.
  **/
--(void)encodeCGPath:(CGPathRef)path forKey:(NSString *)key
+-(void)encodeCGPath:(nullable CGPathRef)path forKey:(nonnull NSString *)key
 {
     NSMutableArray<NSMutableDictionary<NSString *, NSNumber *> *> *pathData = [[NSMutableArray alloc] init];
 
@@ -175,7 +175,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element)
  *  @param image The @ref CGImageRef to encode.
  *  @param key The key to associate with the image.
  **/
--(void)encodeCGImage:(CGImageRef)image forKey:(NSString *)key
+-(void)encodeCGImage:(nullable CGImageRef)image forKey:(nonnull NSString *)key
 {
     NSString *newKey = [[NSString alloc] initWithFormat:@"%@.width", key];
 
@@ -235,7 +235,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element)
  *  @param number The number to encode.
  *  @param key The key to associate with the number.
  **/
--(void)encodeDecimal:(NSDecimal)number forKey:(NSString *)key
+-(void)encodeDecimal:(NSDecimal)number forKey:(nonnull NSString *)key
 {
     [self encodeObject:[NSDecimalNumber decimalNumberWithDecimal:number] forKey:key];
 }
@@ -249,7 +249,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element)
  *  @param key The key associated with the number.
  *  @return The number as a @ref CGFloat.
  **/
--(CGFloat)decodeCGFloatForKey:(NSString *)key
+-(CGFloat)decodeCGFloatForKey:(nonnull NSString *)key
 {
 #if CGFLOAT_IS_DOUBLE
     return [self decodeDoubleForKey:key];
@@ -265,7 +265,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element)
  *  @param key The key associated with the point.
  *  @return The point.
  **/
--(CGPoint)decodeCPTPointForKey:(NSString *)key
+-(CGPoint)decodeCPTPointForKey:(nonnull NSString *)key
 {
     CGPoint point;
 
@@ -285,7 +285,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element)
  *  @param key The key associated with the size.
  *  @return The size.
  **/
--(CGSize)decodeCPTSizeForKey:(NSString *)key
+-(CGSize)decodeCPTSizeForKey:(nonnull NSString *)key
 {
     CGSize size;
 
@@ -305,7 +305,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element)
  *  @param key The key associated with the rectangle.
  *  @return The rectangle.
  **/
--(CGRect)decodeCPTRectForKey:(NSString *)key
+-(CGRect)decodeCPTRectForKey:(nonnull NSString *)key
 {
     CGRect rect;
 
@@ -326,7 +326,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element)
  *  @return The new path.
  *  @note The current implementation only works with named color spaces.
  **/
--(CGColorSpaceRef)newCGColorSpaceDecodeForKey:(NSString *)key
+-(nullable CGColorSpaceRef)newCGColorSpaceDecodeForKey:(nonnull NSString *)key
 {
     CGColorSpaceRef colorSpace = NULL;
 
@@ -353,7 +353,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element)
  *  @param key The key associated with the path.
  *  @return The new path.
  **/
--(CGPathRef)newCGPathDecodeForKey:(NSString *)key
+-(nullable CGPathRef)newCGPathDecodeForKey:(nonnull NSString *)key
 {
     CGMutablePathRef newPath = CGPathCreateMutable();
 
@@ -421,7 +421,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element)
  *  @param key The key associated with the image.
  *  @return The new image.
  **/
--(CGImageRef)newCGImageDecodeForKey:(NSString *)key
+-(nullable CGImageRef)newCGImageDecodeForKey:(nonnull NSString *)key
 {
     NSString *newKey = [[NSString alloc] initWithFormat:@"%@.width", key];
     size_t width     = (size_t)[self decodeInt64ForKey:newKey];
@@ -497,7 +497,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element)
  *  @param key The key associated with the number.
  *  @return The number as an @ref NSDecimal.
  **/
--(NSDecimal)decodeDecimalForKey:(NSString *)key
+-(NSDecimal)decodeDecimalForKey:(nonnull NSString *)key
 {
     NSDecimal result;
 

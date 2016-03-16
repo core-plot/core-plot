@@ -4,8 +4,8 @@
 
 /// @name Range Limits
 /// @{
-@property (nonatomic, readwrite, strong) NSNumber *location;
-@property (nonatomic, readwrite, strong) NSNumber *length;
+@property (nonatomic, readwrite, strong, nonnull) NSNumber *location;
+@property (nonatomic, readwrite, strong, nonnull) NSNumber *length;
 @property (nonatomic, readwrite) NSDecimal locationDecimal;
 @property (nonatomic, readwrite) NSDecimal lengthDecimal;
 @property (nonatomic, readwrite) double locationDouble;
@@ -14,19 +14,19 @@
 
 /// @name Combining Ranges
 /// @{
--(void)unionPlotRange:(CPTPlotRange *)otherRange;
--(void)intersectionPlotRange:(CPTPlotRange *)otherRange;
+-(void)unionPlotRange:(nullable CPTPlotRange *)otherRange;
+-(void)intersectionPlotRange:(nullable CPTPlotRange *)otherRange;
 /// @}
 
 /// @name Shifting Ranges
 /// @{
--(void)shiftLocationToFitInRange:(CPTPlotRange *)otherRange;
--(void)shiftEndToFitInRange:(CPTPlotRange *)otherRange;
+-(void)shiftLocationToFitInRange:(nonnull CPTPlotRange *)otherRange;
+-(void)shiftEndToFitInRange:(nonnull CPTPlotRange *)otherRange;
 /// @}
 
 /// @name Expanding/Contracting Ranges
 /// @{
--(void)expandRangeByFactor:(NSNumber *)factor;
+-(void)expandRangeByFactor:(nonnull NSNumber *)factor;
 /// @}
 
 @end

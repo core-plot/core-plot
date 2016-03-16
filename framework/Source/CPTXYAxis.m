@@ -32,14 +32,14 @@
  **/
 @implementation CPTXYAxis
 
-/** @property NSNumber *orthogonalPosition
+/** @property nullable NSNumber *orthogonalPosition
  *  @brief The data coordinate value where the axis crosses the orthogonal axis.
  *  If the @ref axisConstraints is non-nil, the constraints take priority and this property is ignored.
  *  @see @ref axisConstraints
  **/
 @synthesize orthogonalPosition;
 
-/** @property CPTConstraints *axisConstraints
+/** @property nullable CPTConstraints *axisConstraints
  *  @brief The constraints used when positioning relative to the plot area.
  *  If @nil (the default), the axis is fixed relative to the plot space coordinates,
  *  crossing the orthogonal axis at @ref orthogonalPosition and moves only
@@ -63,7 +63,7 @@
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTXYAxis object.
  **/
--(instancetype)initWithFrame:(CGRect)newFrame
+-(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         orthogonalPosition = @0.0;
@@ -77,7 +77,7 @@
 
 /// @cond
 
--(instancetype)initWithLayer:(id)layer
+-(nonnull instancetype)initWithLayer:(nonnull id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTXYAxis *theLayer = (CPTXYAxis *)layer;
@@ -95,7 +95,7 @@
 
 /// @cond
 
--(void)encodeWithCoder:(NSCoder *)coder
+-(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
     [super encodeWithCoder:coder];
 
@@ -103,7 +103,7 @@
     [coder encodeObject:self.axisConstraints forKey:@"CPTXYAxis.axisConstraints"];
 }
 
--(instancetype)initWithCoder:(NSCoder *)coder
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         orthogonalPosition = [coder decodeObjectForKey:@"CPTXYAxis.orthogonalPosition"];
@@ -119,7 +119,7 @@
 
 /// @cond
 
--(void)orthogonalCoordinateViewLowerBound:(CGFloat *)lower upperBound:(CGFloat *)upper
+-(void)orthogonalCoordinateViewLowerBound:(nonnull CGFloat *)lower upperBound:(nonnull CGFloat *)upper
 {
     CPTCoordinate orthogonalCoordinate = CPTOrthogonalCoordinate(self.coordinate);
     CPTXYPlotSpace *xyPlotSpace        = (CPTXYPlotSpace *)self.plotSpace;
@@ -148,7 +148,7 @@
     }
 }
 
--(CGPoint)viewPointForOrthogonalCoordinate:(NSNumber *)orthogonalCoord axisCoordinate:(NSNumber *)coordinateValue
+-(CGPoint)viewPointForOrthogonalCoordinate:(nullable NSNumber *)orthogonalCoord axisCoordinate:(nullable NSNumber *)coordinateValue
 {
     CPTCoordinate myCoordinate         = self.coordinate;
     CPTCoordinate orthogonalCoordinate = CPTOrthogonalCoordinate(myCoordinate);
@@ -163,7 +163,7 @@
     return [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2] fromLayer:thePlotArea];
 }
 
--(CGPoint)viewPointForCoordinateValue:(NSNumber *)coordinateValue
+-(CGPoint)viewPointForCoordinateValue:(nullable NSNumber *)coordinateValue
 {
     CGPoint point = [self viewPointForOrthogonalCoordinate:self.orthogonalPosition
                                             axisCoordinate:coordinateValue];
@@ -210,7 +210,7 @@
 
 /// @cond
 
--(void)drawTicksInContext:(CGContextRef)context atLocations:(CPTNumberSet)locations withLength:(CGFloat)length inRange:(CPTPlotRange *)labeledRange isMajor:(BOOL)major
+-(void)drawTicksInContext:(nonnull CGContextRef)context atLocations:(nullable CPTNumberSet)locations withLength:(CGFloat)length inRange:(nullable CPTPlotRange *)labeledRange isMajor:(BOOL)major
 {
     CPTLineStyle *lineStyle = (major ? self.majorTickLineStyle : self.minorTickLineStyle);
 
@@ -284,7 +284,7 @@
     [lineStyle strokePathInContext:context];
 }
 
--(void)renderAsVectorInContext:(CGContextRef)context
+-(void)renderAsVectorInContext:(nonnull CGContextRef)context
 {
     if ( self.hidden ) {
         return;
@@ -380,7 +380,7 @@
 
 /// @cond
 
--(void)drawGridLinesInContext:(CGContextRef)context isMajor:(BOOL)major
+-(void)drawGridLinesInContext:(nonnull CGContextRef)context isMajor:(BOOL)major
 {
     CPTLineStyle *lineStyle = (major ? self.majorGridLineStyle : self.minorGridLineStyle);
 
@@ -478,7 +478,7 @@
 
 /// @cond
 
--(void)drawBackgroundBandsInContext:(CGContextRef)context
+-(void)drawBackgroundBandsInContext:(nonnull CGContextRef)context
 {
     CPTFillArray bandArray = self.alternatingBandFills;
     NSUInteger bandCount   = bandArray.count;
@@ -601,7 +601,7 @@
     }
 }
 
--(void)drawBackgroundLimitsInContext:(CGContextRef)context
+-(void)drawBackgroundLimitsInContext:(nonnull CGContextRef)context
 {
     CPTLimitBandArray limitArray = self.backgroundLimitBands;
 
@@ -666,7 +666,7 @@
 
 /// @cond
 
--(NSString *)description
+-(nullable NSString *)description
 {
     CPTPlotRange *range    = [self.plotSpace plotRangeForCoordinate:self.coordinate];
     CGPoint startViewPoint = [self viewPointForCoordinateValue:range.location];
@@ -687,7 +687,7 @@
 /// @cond
 
 // Center title in the plot range by default
--(NSNumber *)defaultTitleLocation
+-(nonnull NSNumber *)defaultTitleLocation
 {
     NSNumber *location;
 
@@ -746,7 +746,7 @@
 
 /// @cond
 
--(void)setAxisConstraints:(CPTConstraints *)newConstraints
+-(void)setAxisConstraints:(nullable CPTConstraints *)newConstraints
 {
     if ( ![axisConstraints isEqualToConstraint:newConstraints] ) {
         axisConstraints = newConstraints;
@@ -755,12 +755,13 @@
     }
 }
 
--(void)setOrthogonalPosition:(NSNumber *)newPosition
+-(void)setOrthogonalPosition:(nullable NSNumber *)newPosition
 {
     BOOL needsUpdate = YES;
 
     if ( newPosition ) {
-        needsUpdate = ![orthogonalPosition isEqualToNumber:newPosition];
+        NSNumber *position = newPosition;
+        needsUpdate = ![orthogonalPosition isEqualToNumber:position];
     }
 
     if ( needsUpdate ) {

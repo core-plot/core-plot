@@ -32,8 +32,8 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 
 @property (nonatomic, readwrite, strong, nonnull) CPTMutablePlotArray plots;
 @property (nonatomic, readwrite, strong, nonnull) CPTMutablePlotSpaceArray plotSpaces;
-@property (nonatomic, readwrite, strong) CPTLayerAnnotation *titleAnnotation;
-@property (nonatomic, readwrite, strong) CPTLayerAnnotation *legendAnnotation;
+@property (nonatomic, readwrite, strong, nullable) CPTLayerAnnotation *titleAnnotation;
+@property (nonatomic, readwrite, strong, nullable) CPTLayerAnnotation *legendAnnotation;
 @property (nonatomic, readwrite, assign) BOOL inTitleUpdate;
 
 -(void)plotSpaceMappingDidChange:(nonnull NSNotification *)notif;
@@ -66,54 +66,54 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
  **/
 @implementation CPTGraph
 
-/** @property cpt_weak CPTGraphHostingView *hostingView
+/** @property nullable cpt_weak CPTGraphHostingView *hostingView
  *  @brief The hosting view that contains the graph.
  **/
 @synthesize hostingView;
 
-/** @property CPTAxisSet *axisSet
+/** @property nullable CPTAxisSet *axisSet
  *  @brief The axis set.
  **/
 @dynamic axisSet;
 
-/** @property CPTPlotAreaFrame *plotAreaFrame
+/** @property nullable CPTPlotAreaFrame *plotAreaFrame
  *  @brief The plot area frame.
  **/
 @synthesize plotAreaFrame;
 
 /// @cond
 
-/** @property CPTMutablePlotArray plots
+/** @property nonnull CPTMutablePlotArray plots
  *  @brief An array of all plots associated with the graph.
  **/
 @synthesize plots;
 
-/** @property CPTMutablePlotSpaceArray plotSpaces
+/** @property nonnull CPTMutablePlotSpaceArray plotSpaces
  *  @brief An array of all plot spaces associated with the graph.
  **/
 @synthesize plotSpaces;
 
 /// @endcond
 
-/** @property CPTPlotSpace *defaultPlotSpace
+/** @property nullable CPTPlotSpace *defaultPlotSpace
  *  @brief The default plot space.
  **/
 @dynamic defaultPlotSpace;
 
-/** @property CPTNumberArray topDownLayerOrder
+/** @property nullable CPTNumberArray topDownLayerOrder
  *  @brief An array of graph layers to be drawn in an order other than the default.
  *  @see CPTPlotArea @link CPTPlotArea::topDownLayerOrder topDownLayerOrder @endlink property.
  **/
 @dynamic topDownLayerOrder;
 
-/** @property NSString *title
+/** @property nullable NSString *title
  *  @brief The title string.
  *
  *  Assigning a new value to this property also sets the value of the @ref attributedTitle property to @nil.
  **/
 @synthesize title;
 
-/** @property NSAttributedString *attributedTitle
+/** @property nullable NSAttributedString *attributedTitle
  *  @brief The styled title string.
  *
  *  Assigning a new value to this property also sets the value of the @ref title property to the
@@ -123,7 +123,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
  **/
 @synthesize attributedTitle;
 
-/** @property CPTTextStyle *titleTextStyle
+/** @property nullable CPTTextStyle *titleTextStyle
  *  @brief The text style of the title.
  *
  *  Assigning a new value to this property also sets the value of the @ref attributedTitle property to @nil.
@@ -142,7 +142,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
  **/
 @synthesize titleDisplacement;
 
-/** @property CPTLegend *legend
+/** @property nullable CPTLegend *legend
  *  @brief The graph legend.
  *  Setting this property will automatically anchor the legend to the graph and position it
  *  using the @ref legendAnchor and @ref legendDisplacement properties. This is a convenience property
@@ -198,7 +198,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTGraph object.
  **/
--(instancetype)initWithFrame:(CGRect)newFrame
+-(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         hostingView = nil;
@@ -248,7 +248,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 
 /// @cond
 
--(instancetype)initWithLayer:(id)layer
+-(nonnull instancetype)initWithLayer:(nonnull id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTGraph *theLayer = (CPTGraph *)layer;
@@ -284,7 +284,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 
 /// @cond
 
--(void)encodeWithCoder:(NSCoder *)coder
+-(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
     [super encodeWithCoder:coder];
 
@@ -307,7 +307,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
     // inTitleUpdate
 }
 
--(instancetype)initWithCoder:(NSCoder *)coder
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         hostingView   = [coder decodeObjectForKey:@"CPTGraph.hostingView"];
@@ -352,7 +352,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 
 /// @cond
 
--(void)layoutAndRenderInContext:(CGContextRef)context
+-(void)layoutAndRenderInContext:(nonnull CGContextRef)context
 {
     [self reloadDataIfNeeded];
     [self.axisSet.axes makeObjectsPerformSelector:@selector(relabel)];
@@ -366,7 +366,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 
 /// @cond
 
-+(BOOL)needsDisplayForKey:(NSString *)aKey
++(BOOL)needsDisplayForKey:(nonnull NSString *)aKey
 {
     static NSSet<NSString *> *keys   = nil;
     static dispatch_once_t onceToken = 0;
@@ -409,7 +409,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 /** @brief All plots associated with the graph.
  *  @return An array of all plots associated with the graph.
  **/
--(CPTPlotArray)allPlots
+-(nonnull CPTPlotArray)allPlots
 {
     return [NSArray arrayWithArray:self.plots];
 }
@@ -418,7 +418,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
  *  @param idx An index within the bounds of the plot array.
  *  @return The plot at the given index.
  **/
--(CPTPlot *)plotAtIndex:(NSUInteger)idx
+-(nullable CPTPlot *)plotAtIndex:(NSUInteger)idx
 {
     if ( idx < self.plots.count ) {
         return (self.plots)[idx];
@@ -432,7 +432,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
  *  @param identifier A plot identifier.
  *  @return The plot with the given identifier or @nil if it was not found.
  **/
--(CPTPlot *)plotWithIdentifier:(id<NSCopying>)identifier
+-(nullable CPTPlot *)plotWithIdentifier:(nullable id<NSCopying>)identifier
 {
     for ( CPTPlot *plot in self.plots ) {
         if ( [[plot identifier] isEqual:identifier] ) {
@@ -448,7 +448,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 /** @brief Add a plot to the default plot space.
  *  @param plot The plot.
  **/
--(void)addPlot:(CPTPlot *)plot
+-(void)addPlot:(nonnull CPTPlot *)plot
 {
     [self addPlot:plot toPlotSpace:self.defaultPlotSpace];
 }
@@ -457,7 +457,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
  *  @param plot The plot.
  *  @param space The plot space.
  **/
--(void)addPlot:(CPTPlot *)plot toPlotSpace:(CPTPlotSpace *)space
+-(void)addPlot:(nonnull CPTPlot *)plot toPlotSpace:(nullable CPTPlotSpace *)space
 {
     if ( plot ) {
         [self.plots addObject:plot];
@@ -470,16 +470,20 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 /** @brief Remove a plot from the graph.
  *  @param plot The plot to remove.
  **/
--(void)removePlot:(CPTPlot *)plot
+-(void)removePlot:(nullable CPTPlot *)plot
 {
-    if ( [self.plots containsObject:plot] ) {
-        plot.plotSpace = nil;
-        plot.graph     = nil;
-        [self.plotAreaFrame.plotGroup removePlot:plot];
-        [self.plots removeObject:plot];
-    }
-    else {
-        [NSException raise:CPTException format:@"Tried to remove CPTPlot which did not exist."];
+    if ( plot ) {
+        CPTPlot *thePlot = plot;
+
+        if ( [self.plots containsObject:thePlot] ) {
+            thePlot.plotSpace = nil;
+            thePlot.graph     = nil;
+            [self.plotAreaFrame.plotGroup removePlot:thePlot];
+            [self.plots removeObject:thePlot];
+        }
+        else {
+            [NSException raise:CPTException format:@"Tried to remove CPTPlot which did not exist."];
+        }
     }
 }
 
@@ -487,7 +491,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
  *  @param plot The plot.
  *  @param idx An index within the bounds of the plot array.
  **/
--(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)idx
+-(void)insertPlot:(nonnull CPTPlot *)plot atIndex:(NSUInteger)idx
 {
     [self insertPlot:plot atIndex:idx intoPlotSpace:self.defaultPlotSpace];
 }
@@ -497,7 +501,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
  *  @param idx An index within the bounds of the plot array.
  *  @param space The plot space.
  **/
--(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)idx intoPlotSpace:(CPTPlotSpace *)space
+-(void)insertPlot:(nonnull CPTPlot *)plot atIndex:(NSUInteger)idx intoPlotSpace:(nullable CPTPlotSpace *)space
 {
     if ( plot ) {
         [self.plots insertObject:plot atIndex:idx];
@@ -510,7 +514,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 /** @brief Remove a plot from the graph.
  *  @param identifier The identifier of the plot to remove.
  **/
--(void)removePlotWithIdentifier:(id<NSCopying>)identifier
+-(void)removePlotWithIdentifier:(nullable id<NSCopying>)identifier
 {
     CPTPlot *plotToRemove = [self plotWithIdentifier:identifier];
 
@@ -525,7 +529,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 #pragma mark -
 #pragma mark Retrieving Plot Spaces
 
--(CPTPlotSpace *)defaultPlotSpace
+-(nullable CPTPlotSpace *)defaultPlotSpace
 {
     return self.plotSpaces.count > 0 ? (self.plotSpaces)[0] : nil;
 }
@@ -533,7 +537,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 /** @brief All plot spaces associated with the graph.
  *  @return An array of all plot spaces associated with the graph.
  **/
--(CPTPlotSpaceArray)allPlotSpaces
+-(nonnull CPTPlotSpaceArray)allPlotSpaces
 {
     return [NSArray arrayWithArray:self.plotSpaces];
 }
@@ -542,7 +546,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
  *  @param idx An index within the bounds of the plot space array.
  *  @return The plot space at the given index.
  **/
--(CPTPlotSpace *)plotSpaceAtIndex:(NSUInteger)idx
+-(nullable CPTPlotSpace *)plotSpaceAtIndex:(NSUInteger)idx
 {
     return self.plotSpaces.count > idx ? (self.plotSpaces)[idx] : nil;
 }
@@ -551,7 +555,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
  *  @param identifier A plot space identifier.
  *  @return The plot space with the given identifier or @nil if it was not found.
  **/
--(CPTPlotSpace *)plotSpaceWithIdentifier:(id<NSCopying>)identifier
+-(nullable CPTPlotSpace *)plotSpaceWithIdentifier:(nullable id<NSCopying>)identifier
 {
     for ( CPTPlotSpace *plotSpace in self.plotSpaces ) {
         if ( [[plotSpace identifier] isEqual:identifier] ) {
@@ -566,14 +570,21 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 
 /// @cond
 
--(void)setPlotAreaFrame:(CPTPlotAreaFrame *)newArea
+-(void)setPlotAreaFrame:(nullable CPTPlotAreaFrame *)newArea
 {
     if ( plotAreaFrame != newArea ) {
         plotAreaFrame.graph = nil;
         [plotAreaFrame removeFromSuperlayer];
+
         plotAreaFrame = newArea;
-        [self addSublayer:newArea];
-        plotAreaFrame.graph = self;
+
+        if ( newArea ) {
+            CPTPlotAreaFrame *theFrame = newArea;
+
+            [self addSublayer:theFrame];
+            theFrame.graph = self;
+        }
+
         for ( CPTPlotSpace *space in self.plotSpaces ) {
             space.graph = self;
         }
@@ -588,7 +599,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 /** @brief Add a plot space to the graph.
  *  @param space The plot space.
  **/
--(void)addPlotSpace:(CPTPlotSpace *)space
+-(void)addPlotSpace:(nonnull CPTPlotSpace *)space
 {
     NSParameterAssert(space);
 
@@ -609,31 +620,35 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 /** @brief Remove a plot space from the graph.
  *  @param plotSpace The plot space.
  **/
--(void)removePlotSpace:(CPTPlotSpace *)plotSpace
+-(void)removePlotSpace:(nullable CPTPlotSpace *)plotSpace
 {
-    if ( [self.plotSpaces containsObject:plotSpace] ) {
-        [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                        name:CPTPlotSpaceCoordinateMappingDidChangeNotification
-                                                      object:plotSpace];
+    if ( plotSpace ) {
+        CPTPlotSpace *thePlotSpace = plotSpace;
 
-        // Remove space
-        plotSpace.graph = nil;
-        [self.plotSpaces removeObject:plotSpace];
+        if ( [self.plotSpaces containsObject:thePlotSpace] ) {
+            [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                            name:CPTPlotSpaceCoordinateMappingDidChangeNotification
+                                                          object:thePlotSpace];
 
-        // Update axes that referenced space
-        for ( CPTAxis *axis in self.axisSet.axes ) {
-            if ( axis.plotSpace == plotSpace ) {
-                axis.plotSpace = nil;
+            // Remove space
+            thePlotSpace.graph = nil;
+            [self.plotSpaces removeObject:thePlotSpace];
+
+            // Update axes that referenced space
+            for ( CPTAxis *axis in self.axisSet.axes ) {
+                if ( axis.plotSpace == thePlotSpace ) {
+                    axis.plotSpace = nil;
+                }
             }
-        }
 
-        [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphDidRemovePlotSpaceNotification
-                                                            object:self
-                                                          userInfo:@{ CPTGraphPlotSpaceNotificationKey: plotSpace }
-        ];
-    }
-    else {
-        [NSException raise:CPTException format:@"Tried to remove CPTPlotSpace which did not exist."];
+            [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphDidRemovePlotSpaceNotification
+                                                                object:self
+                                                              userInfo:@{ CPTGraphPlotSpaceNotificationKey: thePlotSpace }
+            ];
+        }
+        else {
+            [NSException raise:CPTException format:@"Tried to remove CPTPlotSpace which did not exist."];
+        }
     }
 }
 
@@ -642,7 +657,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 
 /// @cond
 
--(void)plotSpaceMappingDidChange:(NSNotification *)notif
+-(void)plotSpaceMappingDidChange:(nonnull NSNotification *)notif
 {
     CPTPlotSpace *plotSpace        = notif.object;
     BOOL backgroundBandsNeedRedraw = NO;
@@ -674,12 +689,12 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 
 /// @cond
 
--(CPTAxisSet *)axisSet
+-(nullable CPTAxisSet *)axisSet
 {
     return self.plotAreaFrame.axisSet;
 }
 
--(void)setAxisSet:(CPTAxisSet *)newSet
+-(void)setAxisSet:(nullable CPTAxisSet *)newSet
 {
     self.plotAreaFrame.axisSet = newSet;
 }
@@ -692,7 +707,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 /** @brief Apply a theme to style the graph.
  *  @param theme The theme object used to style the graph.
  **/
--(void)applyTheme:(CPTTheme *)theme
+-(void)applyTheme:(nullable CPTTheme *)theme
 {
     [theme applyThemeToGraph:self];
 }
@@ -702,7 +717,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 
 /// @cond
 
--(void)setLegend:(CPTLegend *)newLegend
+-(void)setLegend:(nullable CPTLegend *)newLegend
 {
     if ( newLegend != legend ) {
         legend = newLegend;
@@ -834,17 +849,17 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
     }
 }
 
--(CPTNumberArray)topDownLayerOrder
+-(nullable CPTNumberArray)topDownLayerOrder
 {
     return self.plotAreaFrame.plotArea.topDownLayerOrder;
 }
 
--(void)setTopDownLayerOrder:(CPTNumberArray)newArray
+-(void)setTopDownLayerOrder:(nullable CPTNumberArray)newArray
 {
     self.plotAreaFrame.plotArea.topDownLayerOrder = newArray;
 }
 
--(void)setTitle:(NSString *)newTitle
+-(void)setTitle:(nullable NSString *)newTitle
 {
     if ( newTitle != title ) {
         title = [newTitle copy];
@@ -884,7 +899,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
     }
 }
 
--(void)setAttributedTitle:(NSAttributedString *)newTitle
+-(void)setAttributedTitle:(nullable NSAttributedString *)newTitle
 {
     if ( newTitle != attributedTitle ) {
         attributedTitle = [newTitle copy];
@@ -931,7 +946,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
     }
 }
 
--(void)setTitleTextStyle:(CPTTextStyle *)newStyle
+-(void)setTitleTextStyle:(nullable CPTTextStyle *)newStyle
 {
     if ( newStyle != titleTextStyle ) {
         titleTextStyle = [newStyle copy];
@@ -999,7 +1014,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
  *  @param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDownEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     // Plots
     for ( CPTPlot *plot in [self.plots reverseObjectEnumerator] ) {
@@ -1060,7 +1075,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
  *  @param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceUpEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     BOOL handledEvent = NO;
 
@@ -1125,7 +1140,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
  *  @param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceDraggedEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDraggedEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     // Plots
     for ( CPTPlot *plot in [self.plots reverseObjectEnumerator] ) {
@@ -1186,7 +1201,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
  *  @param event The OS event.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceCancelledEvent:(CPTNativeEvent *)event
+-(BOOL)pointingDeviceCancelledEvent:(nonnull CPTNativeEvent *)event
 {
     // Plots
     for ( CPTPlot *plot in [self.plots reverseObjectEnumerator] ) {
@@ -1247,7 +1262,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
  *  @param toPoint The ending coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)scrollWheelEvent:(CPTNativeEvent *)event fromPoint:(CGPoint)fromPoint toPoint:(CGPoint)toPoint
+-(BOOL)scrollWheelEvent:(nonnull CPTNativeEvent *)event fromPoint:(CGPoint)fromPoint toPoint:(CGPoint)toPoint
 {
     // Plots
     for ( CPTPlot *plot in [self.plots reverseObjectEnumerator] ) {
@@ -1298,7 +1313,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 /** @brief Creates a new plot space for the graph.
  *  @return A new plot space.
  **/
--(CPTPlotSpace *)newPlotSpace
+-(nullable CPTPlotSpace *)newPlotSpace
 {
     return nil;
 }
@@ -1306,7 +1321,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 /** @brief Creates a new axis set for the graph.
  *  @return A new axis set.
  **/
--(CPTAxisSet *)newAxisSet
+-(nullable CPTAxisSet *)newAxisSet
 {
     return nil;
 }

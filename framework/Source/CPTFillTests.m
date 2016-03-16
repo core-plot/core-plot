@@ -10,7 +10,7 @@
 
 @interface _CPTFillColor()
 
-@property (nonatomic, readwrite, copy) CPTColor *fillColor;
+@property (nonatomic, readwrite, copy, nonnull) CPTColor *fillColor;
 
 @end
 
@@ -18,7 +18,7 @@
 
 @interface _CPTFillGradient()
 
-@property (nonatomic, readwrite, copy) CPTGradient *fillGradient;
+@property (nonatomic, readwrite, copy, nonnull) CPTGradient *fillGradient;
 
 @end
 
@@ -26,7 +26,7 @@
 
 @interface _CPTFillImage()
 
-@property (nonatomic, readwrite, copy) CPTImage *fillImage;
+@property (nonatomic, readwrite, copy, nonnull) CPTImage *fillImage;
 
 @end
 

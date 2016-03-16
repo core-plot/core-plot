@@ -10,18 +10,18 @@
 /// @cond
 @interface CPTGradient()
 
-@property (nonatomic, readwrite, strong) CPTColorSpace *colorspace;
+@property (nonatomic, readwrite, strong, nonnull) CPTColorSpace *colorspace;
 @property (nonatomic, readwrite, assign) CPTGradientBlendingMode blendingMode;
 @property (nonatomic, readwrite, assign) CPTGradientElement *elementList;
-@property (nonatomic, readwrite, assign) CGFunctionRef gradientFunction;
+@property (nonatomic, readwrite, assign, nonnull) CGFunctionRef gradientFunction;
 
 -(void)commonInit;
--(void)addElement:(CPTGradientElement *)newElement;
+-(void)addElement:(nonnull CPTGradientElement *)newElement;
 
--(CGShadingRef)newAxialGradientInRect:(CGRect)rect;
--(CGShadingRef)newRadialGradientInRect:(CGRect)rect context:(CGContextRef)context;
+-(nonnull CGShadingRef)newAxialGradientInRect:(CGRect)rect;
+-(nonnull CGShadingRef)newRadialGradientInRect:(CGRect)rect context:(nonnull CGContextRef)context;
 
--(CPTGradientElement *)elementAtIndex:(NSUInteger)idx;
+-(nullable CPTGradientElement *)elementAtIndex:(NSUInteger)idx;
 -(NSUInteger)elementCount;
 
 -(CPTGradientElement)removeElementAtIndex:(NSUInteger)idx;
@@ -31,12 +31,12 @@
 @end
 
 // C Functions for color blending
-static void CPTLinearEvaluation(void *info, const CGFloat *in, CGFloat *out);
-static void CPTChromaticEvaluation(void *info, const CGFloat *in, CGFloat *out);
-static void CPTInverseChromaticEvaluation(void *info, const CGFloat *in, CGFloat *out);
-static void CPTTransformRGB_HSV(CGFloat *components);
-static void CPTTransformHSV_RGB(CGFloat *components);
-static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
+static void CPTLinearEvaluation(void *__nullable info, const CGFloat *__nonnull in, CGFloat *__nonnull out);
+static void CPTChromaticEvaluation(void *__nullable info, const CGFloat *__nonnull in, CGFloat *__nonnull out);
+static void CPTInverseChromaticEvaluation(void *__nullable info, const CGFloat *__nonnull in, CGFloat *__nonnull out);
+static void CPTTransformRGB_HSV(CGFloat *__nonnull components);
+static void CPTTransformHSV_RGB(CGFloat *__nonnull components);
+static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
 
 /// @endcond
 
@@ -58,7 +58,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
 
 /// @cond
 
-/** @property CPTColorSpace *colorspace;
+/** @property nonnull CPTColorSpace *colorspace;
  *  @brief The colorspace for the gradient colors.
  **/
 @synthesize colorspace;
@@ -115,7 +115,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
  *
  *  @return The initialized object.
  **/
--(instancetype)init
+-(nonnull instancetype)init
 {
     if ( (self = [super init]) ) {
         [self commonInit];
@@ -153,7 +153,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
 
 /// @cond
 
--(id)copyWithZone:(NSZone *)zone
+-(nonnull id)copyWithZone:(nullable NSZone *)zone
 {
     CPTGradient *copy = [[[self class] allocWithZone:zone] init];
 
@@ -180,7 +180,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
 
 /// @cond
 
--(void)encodeWithCoder:(NSCoder *)coder
+-(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
     if ( [coder allowsKeyedCoding] ) {
         NSUInteger count                   = 0;
@@ -207,7 +207,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
     }
 }
 
--(instancetype)initWithCoder:(NSCoder *)coder
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         [self commonInit];
@@ -246,7 +246,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
  *  @param end The ending color.
  *  @return A new CPTGradient instance initialized with an axial linear gradient between the two given colors.
  **/
-+(instancetype)gradientWithBeginningColor:(CPTColor *)begin endingColor:(CPTColor *)end
++(nonnull instancetype)gradientWithBeginningColor:(nonnull CPTColor *)begin endingColor:(nonnull CPTColor *)end
 {
     return [self gradientWithBeginningColor:begin endingColor:end beginningPosition:CPTFloat(0.0) endingPosition:CPTFloat(1.0)];
 }
@@ -258,7 +258,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
  *  @param endingPosition The ending position (@num{0} ≤ @par{endingPosition} ≤ @num{1}).
  *  @return A new CPTGradient instance initialized with an axial linear gradient between the two given colors, at two given normalized positions.
  **/
-+(instancetype)gradientWithBeginningColor:(CPTColor *)begin endingColor:(CPTColor *)end beginningPosition:(CGFloat)beginningPosition endingPosition:(CGFloat)endingPosition
++(nonnull instancetype)gradientWithBeginningColor:(nonnull CPTColor *)begin endingColor:(nonnull CPTColor *)end beginningPosition:(CGFloat)beginningPosition endingPosition:(CGFloat)endingPosition
 {
     CPTGradient *newInstance = [[self alloc] init];
 
@@ -280,7 +280,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
 /** @brief Creates and returns a new CPTGradient instance initialized with the Aqua selected gradient.
  *  @return A new CPTGradient instance initialized with the Aqua selected gradient.
  **/
-+(instancetype)aquaSelectedGradient
++(nonnull instancetype)aquaSelectedGradient
 {
     CPTGradient *newInstance = [[self alloc] init];
 
@@ -324,7 +324,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
 /** @brief Creates and returns a new CPTGradient instance initialized with the Aqua normal gradient.
  *  @return A new CPTGradient instance initialized with the Aqua normal gradient.
  **/
-+(instancetype)aquaNormalGradient
++(nonnull instancetype)aquaNormalGradient
 {
     CPTGradient *newInstance = [[self alloc] init];
 
@@ -360,7 +360,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
 /** @brief Creates and returns a new CPTGradient instance initialized with the Aqua pressed gradient.
  *  @return A new CPTGradient instance initialized with the Aqua pressed gradient.
  **/
-+(instancetype)aquaPressedGradient
++(nonnull instancetype)aquaPressedGradient
 {
     CPTGradient *newInstance = [[self alloc] init];
 
@@ -396,7 +396,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
 /** @brief Creates and returns a new CPTGradient instance initialized with the unified selected gradient.
  *  @return A new CPTGradient instance initialized with the unified selected gradient.
  **/
-+(instancetype)unifiedSelectedGradient
++(nonnull instancetype)unifiedSelectedGradient
 {
     CPTGradient *newInstance = [[self alloc] init];
 
@@ -420,7 +420,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
 /** @brief Creates and returns a new CPTGradient instance initialized with the unified normal gradient.
  *  @return A new CPTGradient instance initialized with the unified normal gradient.
  **/
-+(instancetype)unifiedNormalGradient
++(nonnull instancetype)unifiedNormalGradient
 {
     CPTGradient *newInstance = [[self alloc] init];
 
@@ -444,7 +444,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
 /** @brief Creates and returns a new CPTGradient instance initialized with the unified pressed gradient.
  *  @return A new CPTGradient instance initialized with the unified pressed gradient.
  **/
-+(instancetype)unifiedPressedGradient
++(nonnull instancetype)unifiedPressedGradient
 {
     CPTGradient *newInstance = [[self alloc] init];
 
@@ -468,7 +468,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
 /** @brief Creates and returns a new CPTGradient instance initialized with the unified dark gradient.
  *  @return A new CPTGradient instance initialized with the unified dark gradient.
  **/
-+(instancetype)unifiedDarkGradient
++(nonnull instancetype)unifiedDarkGradient
 {
     CPTGradient *newInstance = [[self alloc] init];
 
@@ -492,7 +492,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
 /** @brief Creates and returns a new CPTGradient instance initialized with the source list selected gradient.
  *  @return A new CPTGradient instance initialized with the source list selected gradient.
  **/
-+(instancetype)sourceListSelectedGradient
++(nonnull instancetype)sourceListSelectedGradient
 {
     CPTGradient *newInstance = [[self alloc] init];
 
@@ -520,7 +520,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
 /** @brief Creates and returns a new CPTGradient instance initialized with the source list unselected gradient.
  *  @return A new CPTGradient instance initialized with the source list unselected gradient.
  **/
-+(instancetype)sourceListUnselectedGradient
++(nonnull instancetype)sourceListUnselectedGradient
 {
     CPTGradient *newInstance = [[self alloc] init];
 
@@ -548,7 +548,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
 /** @brief Creates and returns a new CPTGradient instance initialized with a rainbow gradient.
  *  @return A new CPTGradient instance initialized with a rainbow gradient.
  **/
-+(instancetype)rainbowGradient
++(nonnull instancetype)rainbowGradient
 {
     CPTGradient *newInstance = [[self alloc] init];
 
@@ -578,7 +578,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
 /** @brief Creates and returns a new CPTGradient instance initialized with a hydrogen spectrum gradient.
  *  @return A new CPTGradient instance initialized with a hydrogen spectrum gradient.
  **/
-+(instancetype)hydrogenSpectrumGradient
++(nonnull instancetype)hydrogenSpectrumGradient
 {
     CPTGradient *newInstance = [[self alloc] init];
 
@@ -706,7 +706,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
  *  @param position The color stop position (@num{0} ≤ @par{position} ≤ @num{1}).
  *  @return A copy of the current gradient with the new color stop.
  **/
--(CPTGradient *)addColorStop:(CPTColor *)color atPosition:(CGFloat)position
+-(CPTGradient *)addColorStop:(nonnull CPTColor *)color atPosition:(CGFloat)position
 {
     CPTGradient *newGradient = [self copy];
     CPTGradientElement newGradientElement;
@@ -819,7 +819,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
  *  @param rect The rectangle to draw into.
  *  @param context The graphics context to draw into.
  **/
--(void)drawSwatchInRect:(CGRect)rect inContext:(CGContextRef)context
+-(void)drawSwatchInRect:(CGRect)rect inContext:(nonnull CGContextRef)context
 {
     [self fillRect:rect inContext:context];
 }
@@ -828,7 +828,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
  *  @param rect The rectangle to draw into.
  *  @param context The graphics context to draw into.
  **/
--(void)fillRect:(CGRect)rect inContext:(CGContextRef)context
+-(void)fillRect:(CGRect)rect inContext:(nonnull CGContextRef)context
 {
     CGShadingRef myCGShading = NULL;
 
@@ -855,7 +855,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
 /** @brief Draws the gradient into the given graphics context clipped to the current drawing path.
  *  @param context The graphics context to draw into.
  **/
--(void)fillPathInContext:(CGContextRef)context
+-(void)fillPathInContext:(nonnull CGContextRef)context
 {
     if ( !CGContextIsPathEmpty(context) ) {
         CGShadingRef myCGShading = NULL;
@@ -885,6 +885,8 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
 #pragma mark -
 #pragma mark Opacity
 
+/// @cond
+
 -(BOOL)isOpaque
 {
     BOOL opaqueGradient = YES;
@@ -899,6 +901,8 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
     return opaqueGradient;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Gradient comparison
 
@@ -910,7 +914,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
  *  @param object The object to be compared with the receiver.
  *  @return @YES if @par{object} is equal to the receiver, @NO otherwise.
  **/
--(BOOL)isEqual:(id)object
+-(BOOL)isEqual:(nullable id)object
 {
     if ( self == object ) {
         return YES;
@@ -999,7 +1003,9 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
 #pragma mark -
 #pragma mark Accessors
 
--(void)setGradientFunction:(CGFunctionRef)newGradientFunction
+/// @cond
+
+-(void)setGradientFunction:(nonnull CGFunctionRef)newGradientFunction
 {
     if ( newGradientFunction != gradientFunction ) {
         CGFunctionRelease(gradientFunction);
@@ -1007,12 +1013,14 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
     }
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark Private Methods
 
 /// @cond
 
--(CGShadingRef)newAxialGradientInRect:(CGRect)rect
+-(nonnull CGShadingRef)newAxialGradientInRect:(CGRect)rect
 {
     // First Calculate where the beginning and ending points should be
     CGPoint startPoint, endPoint;
@@ -1072,7 +1080,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
     return myCGShading;
 }
 
--(CGShadingRef)newRadialGradientInRect:(CGRect)rect context:(CGContextRef)context
+-(nonnull CGShadingRef)newRadialGradientInRect:(CGRect)rect context:(nonnull CGContextRef)context
 {
     CGPoint startPoint, endPoint;
     CGFloat startRadius, endRadius;
@@ -1135,13 +1143,17 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
     static const CGFloat input_value_range[2]   = { 0, 1 };                   // range  for the evaluator input
     static const CGFloat output_value_ranges[8] = { 0, 1, 0, 1, 0, 1, 0, 1 }; // ranges for the evaluator output (4 returned values)
 
-    self.gradientFunction = CGFunctionCreate( (__bridge void *)(self),   // the two transition colors
-                                              1, input_value_range,      // number of inputs (just fraction of progression)
-                                              4, output_value_ranges,    // number of outputs (4 - RGBa)
-                                              &evaluationCallbackInfo ); // info for using the evaluator function
+    CGFunctionRef cgFunction = CGFunctionCreate( (__bridge void *)(self),   // the two transition colors
+                                                 1, input_value_range,      // number of inputs (just fraction of progression)
+                                                 4, output_value_ranges,    // number of outputs (4 - RGBa)
+                                                 &evaluationCallbackInfo ); // info for using the evaluator function
+
+    if ( cgFunction ) {
+        self.gradientFunction = cgFunction;
+    }
 }
 
--(void)addElement:(CPTGradientElement *)newElement
+-(void)addElement:(nonnull CPTGradientElement *)newElement
 {
     CPTGradientElement *curElement = self.elementList;
 
@@ -1266,7 +1278,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
     self.elementList = NULL;
 }
 
--(CPTGradientElement *)elementAtIndex:(NSUInteger)idx
+-(nullable CPTGradientElement *)elementAtIndex:(NSUInteger)idx
 {
     NSUInteger count                   = 0;
     CPTGradientElement *currentElement = self.elementList;
@@ -1303,7 +1315,7 @@ static void CPTResolveHSV(CGFloat *color1, CGFloat *color2);
 
 /// @cond
 
-void CPTLinearEvaluation(void *info, const CGFloat *in, CGFloat *out)
+void CPTLinearEvaluation(void *__nullable info, const CGFloat *__nonnull in, CGFloat *__nonnull out)
 {
     CGFloat position      = *in;
     CPTGradient *gradient = (__bridge CPTGradient *)info;
@@ -1369,7 +1381,7 @@ void CPTLinearEvaluation(void *info, const CGFloat *in, CGFloat *out)
 // this we will add to the hue's angle (if we subtract we'll be doing the inverse
 // chromatic...scroll down more for that). All we need to do is keep adding to the hue
 // until we wrap around the color wheel and get to color2.
-void CPTChromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
+void CPTChromaticEvaluation(void *__nullable info, const CGFloat *__nonnull in, CGFloat *__nonnull out)
 {
     CGFloat position      = *in;
     CPTGradient *gradient = (__bridge CPTGradient *)info;
@@ -1446,7 +1458,7 @@ void CPTChromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
 // is strictly decreasing, that is we need to get from color1 to color2 by decreasing
 // the 'angle' (i.e. 90º -> 180º would be done by subtracting 270º and getting -180º...
 // which is equivalent to 180º mod 360º
-void CPTInverseChromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
+void CPTInverseChromaticEvaluation(void *__nullable info, const CGFloat *__nonnull in, CGFloat *__nonnull out)
 {
     CGFloat position      = *in;
     CPTGradient *gradient = (__bridge CPTGradient *)info;
@@ -1517,7 +1529,7 @@ void CPTInverseChromaticEvaluation(void *info, const CGFloat *in, CGFloat *out)
     CPTTransformHSV_RGB(out);
 }
 
-void CPTTransformRGB_HSV(CGFloat *components) // H,S,B -> R,G,B
+void CPTTransformRGB_HSV(CGFloat *__nonnull components) // H,S,B -> R,G,B
 {
     CGFloat H = CPTNAN, S, V;
     CGFloat R = components[0];
@@ -1550,7 +1562,7 @@ void CPTTransformRGB_HSV(CGFloat *components) // H,S,B -> R,G,B
     components[2] = V;
 }
 
-void CPTTransformHSV_RGB(CGFloat *components) // H,S,B -> R,G,B
+void CPTTransformHSV_RGB(CGFloat *__nonnull components) // H,S,B -> R,G,B
 {
     CGFloat R = CPTFloat(0.0), G = CPTFloat(0.0), B = CPTFloat(0.0);
     CGFloat H = fmod( components[0], CPTFloat(360.0) ); // map to [0,360)
@@ -1609,8 +1621,8 @@ void CPTTransformHSV_RGB(CGFloat *components) // H,S,B -> R,G,B
     components[2] = B;
 }
 
-void CPTResolveHSV(CGFloat *color1, CGFloat *color2) // H value may be undefined (i.e. grayscale color)
-{                                                    // we want to fill it with a sensible value
+void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2) // H value may be undefined (i.e. grayscale color)
+{                                                                        // we want to fill it with a sensible value
     if ( isnan(color1[0]) && isnan(color2[0]) ) {
         color1[0] = color2[0] = 0;
     }
@@ -1629,7 +1641,7 @@ void CPTResolveHSV(CGFloat *color1, CGFloat *color2) // H value may be undefined
 
 /// @cond
 
--(id)debugQuickLookObject
+-(nullable id)debugQuickLookObject
 {
     const CGRect rect = CGRectMake(0.0, 0.0, 100.0, 100.0);
 

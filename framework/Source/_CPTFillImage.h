@@ -6,8 +6,8 @@
 
 /// @name Initialization
 /// @{
--(nonnull instancetype)initWithImage:(nullable CPTImage *)anImage NS_DESIGNATED_INITIALIZER;
--(nonnull instancetype)initWithCoder:(nonnull NSCoder *)coder NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype)initWithImage:(nonnull CPTImage *)anImage NS_DESIGNATED_INITIALIZER;
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder NS_DESIGNATED_INITIALIZER;
 /// @}
 
 /// @name Drawing

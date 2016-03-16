@@ -21,13 +21,13 @@
  **/
 @implementation CPTMutablePlotRange
 
-/** @property NSNumber *location
+/** @property nonnull NSNumber *location
  *  @brief The starting value of the range.
  *  @see @ref locationDecimal, @ref locationDouble
  **/
 @dynamic location;
 
-/** @property NSNumber *length
+/** @property nonnull NSNumber *length
  *  @brief The length of the range.
  *  @see @ref lengthDecimal, @ref lengthDouble
  **/
@@ -65,7 +65,7 @@
 /** @brief Extends the range to include another range. The sign of @ref length is unchanged.
  *  @param other The other plot range.
  **/
--(void)unionPlotRange:(CPTPlotRange *)other
+-(void)unionPlotRange:(nullable CPTPlotRange *)other
 {
     if ( !other ) {
         return;
@@ -96,7 +96,7 @@
 /** @brief Sets the messaged object to the intersection with another range. The sign of @ref length is unchanged.
  *  @param other The other plot range.
  **/
--(void)intersectionPlotRange:(CPTPlotRange *)other
+-(void)intersectionPlotRange:(nullable CPTPlotRange *)other
 {
     if ( !other ) {
         return;
@@ -136,7 +136,7 @@
  *  @param factor Factor used. A value of @num{1.0} gives no change.
  *  Less than @num{1.0} is a contraction, and greater than @num{1.0} is expansion.
  **/
--(void)expandRangeByFactor:(NSNumber *)factor
+-(void)expandRangeByFactor:(nonnull NSNumber *)factor
 {
     NSDecimal oldLength      = self.lengthDecimal;
     NSDecimal newLength      = CPTDecimalMultiply(oldLength, factor.decimalValue);
@@ -154,7 +154,7 @@
  *  @param otherRange Other range.
  *  The minimum possible shift is made. The range @ref length is unchanged.
  **/
--(void)shiftLocationToFitInRange:(CPTPlotRange *)otherRange
+-(void)shiftLocationToFitInRange:(nonnull CPTPlotRange *)otherRange
 {
     NSParameterAssert(otherRange);
 
@@ -177,7 +177,7 @@
  *  @param otherRange Other range.
  *  The minimum possible shift is made. The range @ref length is unchanged.
  **/
--(void)shiftEndToFitInRange:(CPTPlotRange *)otherRange
+-(void)shiftEndToFitInRange:(nonnull CPTPlotRange *)otherRange
 {
     NSParameterAssert(otherRange);
 

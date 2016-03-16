@@ -14,13 +14,13 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
 
 @interface CPTFunctionDataSource()
 
-@property (nonatomic, readwrite) CPTPlot *dataPlot;
+@property (nonatomic, readwrite, nonnull) CPTPlot *dataPlot;
 @property (nonatomic, readwrite) double cachedStep;
 @property (nonatomic, readwrite) NSUInteger dataCount;
 @property (nonatomic, readwrite) NSUInteger cachedCount;
-@property (nonatomic, readwrite, strong) CPTMutablePlotRange *cachedPlotRange;
+@property (nonatomic, readwrite, strong, nullable) CPTMutablePlotRange *cachedPlotRange;
 
--(instancetype)initForPlot:(CPTPlot *)plot NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype)initForPlot:(nonnull CPTPlot *)plot NS_DESIGNATED_INITIALIZER;
 -(void)plotBoundsChanged;
 -(void)plotSpaceChanged;
 
@@ -35,17 +35,17 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
  **/
 @implementation CPTFunctionDataSource
 
-/** @property CPTDataSourceFunction dataSourceFunction
+/** @property nullable CPTDataSourceFunction dataSourceFunction
  *  @brief The function used to generate plot data.
  **/
 @synthesize dataSourceFunction;
 
-/** @property CPTDataSourceBlock dataSourceBlock
+/** @property nullable CPTDataSourceBlock dataSourceBlock
  *  @brief The Objective-C block used to generate plot data.
  **/
 @synthesize dataSourceBlock;
 
-/** @property CPTPlot *dataPlot
+/** @property nonnull CPTPlot *dataPlot
  *  @brief The plot that will display the function values. Must be an instance of CPTScatterPlot.
  **/
 @synthesize dataPlot;
@@ -55,7 +55,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
  **/
 @synthesize resolution;
 
-/** @property CPTPlotRange *dataRange
+/** @property nullable CPTPlotRange *dataRange
  *  @brief The maximum range of x-values that will be plotted. If @nil (the default), the function will be plotted for all visible x-values.
  **/
 @synthesize dataRange;
@@ -73,7 +73,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
  *  @param function The function used to generate plot data.
  *  @return A new CPTFunctionDataSource instance initialized with the provided function and plot.
  **/
-+(instancetype)dataSourceForPlot:(CPTPlot *)plot withFunction:(CPTDataSourceFunction)function
++(nonnull instancetype)dataSourceForPlot:(nonnull CPTPlot *)plot withFunction:(nonnull CPTDataSourceFunction)function
 {
     return [[self alloc] initForPlot:plot withFunction:function];
 }
@@ -83,7 +83,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
  *  @param block The Objective-C block used to generate plot data.
  *  @return A new CPTFunctionDataSource instance initialized with the provided block and plot.
  **/
-+(instancetype)dataSourceForPlot:(CPTPlot *)plot withBlock:(CPTDataSourceBlock)block
++(nonnull instancetype)dataSourceForPlot:(nonnull CPTPlot *)plot withBlock:(nonnull CPTDataSourceBlock)block
 {
     return [[self alloc] initForPlot:plot withBlock:block];
 }
@@ -93,7 +93,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
  *  @param function The function used to generate plot data.
  *  @return The initialized CPTFunctionDataSource object.
  **/
--(instancetype)initForPlot:(CPTPlot *)plot withFunction:(CPTDataSourceFunction)function
+-(nonnull instancetype)initForPlot:(nonnull CPTPlot *)plot withFunction:(nonnull CPTDataSourceFunction)function
 {
     NSParameterAssert(function);
 
@@ -110,7 +110,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
  *  @param block The Objective-C block used to generate plot data.
  *  @return The initialized CPTFunctionDataSource object.
  **/
--(instancetype)initForPlot:(CPTPlot *)plot withBlock:(CPTDataSourceBlock)block
+-(nonnull instancetype)initForPlot:(nonnull CPTPlot *)plot withBlock:(nonnull CPTDataSourceBlock)block
 {
     NSParameterAssert(block);
 
@@ -124,7 +124,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
 
 /// @cond
 
--(instancetype)initForPlot:(CPTPlot *)plot
+-(nonnull instancetype)initForPlot:(nonnull CPTPlot *)plot
 {
     NSParameterAssert([plot isKindOfClass:[CPTScatterPlot class]]);
 
@@ -154,7 +154,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
 }
 
 // function and plot are required; this will fail the assertions in -initForPlot:withFunction:
--(instancetype)init
+-(nonnull instancetype)init
 {
     [NSException raise:CPTException format:@"%@ must be initialized with a function or a block.", NSStringFromClass([self class])];
     return [self initForPlot:[CPTScatterPlot layer] withFunction:sin];
@@ -188,7 +188,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
     }
 }
 
--(void)setDataRange:(CPTPlotRange *)newRange
+-(void)setDataRange:(nullable CPTPlotRange *)newRange
 {
     if ( newRange != dataRange ) {
         dataRange = newRange;
@@ -330,7 +330,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
 
 /// @cond
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *, CPTPlotSpace *> *)change context:(void *)context
+-(void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(NSDictionary<NSString *, CPTPlotSpace *> *)change context:(nullable void *)context
 {
     if ( (context == CPTFunctionDataSourceKVOContext) && [keyPath isEqualToString:@"plotSpace"] && [object isEqual:self.dataPlot] ) {
         CPTPlotSpace *oldSpace = change[NSKeyValueChangeOldKey];
@@ -364,7 +364,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
 
 /// @cond
 
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot
 {
     NSUInteger count = 0;
 
@@ -375,7 +375,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
     return count;
 }
 
--(CPTNumericData *)dataForPlot:(CPTPlot *)plot recordIndexRange:(NSRange)indexRange
+-(CPTNumericData *)dataForPlot:(nonnull CPTPlot *)plot recordIndexRange:(NSRange)indexRange
 {
     CPTNumericData *numericData = nil;
 

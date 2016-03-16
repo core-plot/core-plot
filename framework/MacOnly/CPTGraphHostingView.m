@@ -29,7 +29,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
  **/
 @implementation CPTGraphHostingView
 
-/** @property CPTGraph *hostedGraph
+/** @property nullable CPTGraph *hostedGraph
  *  @brief The CPTGraph hosted inside this view.
  **/
 @synthesize hostedGraph;
@@ -41,12 +41,12 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
  **/
 @synthesize printRect;
 
-/** @property NSCursor *closedHandCursor
+/** @property nullable NSCursor *closedHandCursor
  *  @brief The cursor displayed when the user is actively dragging any plot space.
  **/
 @synthesize closedHandCursor;
 
-/** @property NSCursor *openHandCursor
+/** @property nullable NSCursor *openHandCursor
  *  @brief The cursor displayed when the mouse pointer is over a plot area mapped to a plot space that allows user interaction, but not actively being dragged.
  **/
 @synthesize openHandCursor;
@@ -61,7 +61,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
 /// @cond
 
--(instancetype)initWithFrame:(NSRect)frame
+-(nonnull instancetype)initWithFrame:(NSRect)frame
 {
     if ( (self = [super initWithFrame:frame]) ) {
         hostedGraph = nil;
@@ -81,7 +81,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
     return self;
 }
 
--(CALayer *)makeBackingLayer
+-(nonnull CALayer *)makeBackingLayer
 {
     return [[CPTLayer alloc] initWithFrame:NSRectToCGRect(self.bounds)];
 }
@@ -107,7 +107,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
 /// @cond
 
--(void)encodeWithCoder:(NSCoder *)coder
+-(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
     [super encodeWithCoder:coder];
 
@@ -122,7 +122,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
     // scrollOffset
 }
 
--(instancetype)initWithCoder:(NSCoder *)coder
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         CPTLayer *mainLayer = [[CPTLayer alloc] initWithFrame:NSRectToCGRect(self.frame)];
@@ -202,7 +202,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
 /// @cond
 
--(BOOL)knowsPageRange:(NSRangePointer)rangePointer
+-(BOOL)knowsPageRange:(nonnull NSRangePointer)rangePointer
 {
     rangePointer->location = 1;
     rangePointer->length   = 1;
@@ -222,12 +222,12 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
 /// @cond
 
--(BOOL)acceptsFirstMouse:(NSEvent *)theEvent
+-(BOOL)acceptsFirstMouse:(nullable NSEvent *)theEvent
 {
     return YES;
 }
 
--(void)mouseDown:(NSEvent *)theEvent
+-(void)mouseDown:(nonnull NSEvent *)theEvent
 {
     [super mouseDown:theEvent];
 
@@ -245,7 +245,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
     }
 }
 
--(void)mouseDragged:(NSEvent *)theEvent
+-(void)mouseDragged:(nonnull NSEvent *)theEvent
 {
     CPTGraph *theGraph = self.hostedGraph;
     BOOL handled       = NO;
@@ -261,7 +261,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
     }
 }
 
--(void)mouseUp:(NSEvent *)theEvent
+-(void)mouseUp:(nonnull NSEvent *)theEvent
 {
     CPTGraph *theGraph = self.hostedGraph;
     BOOL handled       = NO;
@@ -284,7 +284,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
 /// @cond
 
--(void)magnifyWithEvent:(NSEvent *)event
+-(void)magnifyWithEvent:(nonnull NSEvent *)event
 {
     CPTGraph *theGraph = self.hostedGraph;
     BOOL handled       = NO;
@@ -309,7 +309,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
     }
 }
 
--(void)scrollWheel:(NSEvent *)theEvent
+-(void)scrollWheel:(nonnull NSEvent *)theEvent
 {
     CPTGraph *theGraph = self.hostedGraph;
     BOOL handled       = NO;
@@ -459,7 +459,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 /** @internal
  *  @brief Adds a KVO observer to a new plot space added to the hosted graph.
  **/
--(void)plotSpaceAdded:(NSNotification *)notification
+-(void)plotSpaceAdded:(nonnull NSNotification *)notification
 {
     CPTDictionary userInfo = notification.userInfo;
     CPTPlotSpace *space    = userInfo[CPTGraphPlotSpaceNotificationKey];
@@ -473,7 +473,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 /** @internal
  *  @brief Removes the KVO observer from a plot space removed from the hosted graph.
  **/
--(void)plotSpaceRemoved:(NSNotification *)notification
+-(void)plotSpaceRemoved:(nonnull NSNotification *)notification
 {
     CPTDictionary userInfo = notification.userInfo;
     CPTPlotSpace *space    = userInfo[CPTGraphPlotSpaceNotificationKey];
@@ -490,7 +490,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
     [self.window invalidateCursorRectsForView:self];
 }
 
--(void)viewWillMoveToSuperview:(NSView *)newSuperview
+-(void)viewWillMoveToSuperview:(nullable NSView *)newSuperview
 {
     if ( self.superview.wantsLayer != newSuperview.wantsLayer ) {
         self.wantsLayer = NO;
@@ -513,7 +513,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
 /// @cond
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(CPTDictionary)change context:(void *)context
+-(void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable CPTDictionary)change context:(nullable void *)context
 {
     if ( context == CPTGraphHostingViewKVOContext ) {
         CPTGraph *theGraph = self.hostedGraph;
@@ -566,7 +566,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
 /// @cond
 
--(void)setHostedGraph:(CPTGraph *)newGraph
+-(void)setHostedGraph:(nullable CPTGraph *)newGraph
 {
     NSParameterAssert( (newGraph == nil) || [newGraph isKindOfClass:[CPTGraph class]] );
 
@@ -592,21 +592,23 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
         hostedGraph = newGraph;
 
         if ( newGraph ) {
+            CPTGraph *theGraph = newGraph;
+
             newGraph.hostingView = self;
 
             [self viewDidChangeBackingProperties];
-            [self.layer addSublayer:newGraph];
+            [self.layer addSublayer:theGraph];
 
             [[NSNotificationCenter defaultCenter] addObserver:self
                                                      selector:@selector(plotSpaceAdded:)
                                                          name:CPTGraphDidAddPlotSpaceNotification
-                                                       object:newGraph];
+                                                       object:theGraph];
             [[NSNotificationCenter defaultCenter] addObserver:self
                                                      selector:@selector(plotSpaceRemoved:)
                                                          name:CPTGraphDidRemovePlotSpaceNotification
-                                                       object:newGraph];
+                                                       object:theGraph];
 
-            [newGraph addObserver:self
+            [theGraph addObserver:self
                        forKeyPath:@"plotAreaFrame"
                           options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionInitial
                           context:CPTGraphHostingViewKVOContext];
@@ -621,7 +623,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
     }
 }
 
--(void)setClosedHandCursor:(NSCursor *)newCursor
+-(void)setClosedHandCursor:(nullable NSCursor *)newCursor
 {
     if ( newCursor != closedHandCursor ) {
         closedHandCursor = newCursor;
@@ -630,7 +632,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
     }
 }
 
--(void)setOpenHandCursor:(NSCursor *)newCursor
+-(void)setOpenHandCursor:(nullable NSCursor *)newCursor
 {
     if ( newCursor != openHandCursor ) {
         openHandCursor = newCursor;

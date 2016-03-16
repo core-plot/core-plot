@@ -12,12 +12,12 @@
  **/
 @dynamic fontSize;
 
-/** @property NSString *fontName
+/** @property nullable NSString *fontName
  *  @brief The font name. Default is Helvetica.
  **/
 @dynamic fontName;
 
-/** @property CPTColor *color
+/** @property nullable CPTColor *color
  *  @brief The current text color. Default is solid black.
  **/
 @dynamic color;

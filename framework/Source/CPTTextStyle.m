@@ -31,12 +31,12 @@
  **/
 @synthesize fontSize;
 
-/** @property NSString *fontName
+/** @property nullable NSString *fontName
  *  @brief The font name. Default is Helvetica.
  **/
 @synthesize fontName;
 
-/** @property CPTColor *color
+/** @property nullable CPTColor *color
  *  @brief The current text color. Default is solid black.
  **/
 @synthesize color;
@@ -57,7 +57,7 @@
 /** @brief Creates and returns a new CPTTextStyle instance.
  *  @return A new CPTTextStyle instance.
  **/
-+(instancetype)textStyle
++(nonnull instancetype)textStyle
 {
     return [[self alloc] init];
 }
@@ -69,7 +69,7 @@
  *  @param textStyle An existing CPTTextStyle.
  *  @return A new text style instance.
  **/
-+(instancetype)textStyleWithStyle:(CPTTextStyle *)textStyle
++(nonnull instancetype)textStyleWithStyle:(nullable CPTTextStyle *)textStyle
 {
     CPTTextStyle *newTextStyle = [[self alloc] init];
 
@@ -99,7 +99,7 @@
  *
  *  @return The initialized object.
  **/
--(instancetype)init
+-(nonnull instancetype)init
 {
     if ( (self = [super init]) ) {
         fontName      = @"Helvetica";
@@ -118,7 +118,7 @@
 
 /// @cond
 
--(void)encodeWithCoder:(NSCoder *)coder
+-(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
     [coder encodeObject:self.fontName forKey:@"CPTTextStyle.fontName"];
     [coder encodeCGFloat:self.fontSize forKey:@"CPTTextStyle.fontSize"];
@@ -127,7 +127,7 @@
     [coder encodeInteger:(NSInteger)self.lineBreakMode forKey:@"CPTTextStyle.lineBreakMode"];
 }
 
--(instancetype)initWithCoder:(NSCoder *)coder
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         fontName      = [[coder decodeObjectForKey:@"CPTTextStyle.fontName"] copy];
@@ -146,7 +146,7 @@
 
 /// @cond
 
--(id)copyWithZone:(NSZone *)zone
+-(nonnull id)copyWithZone:(nullable NSZone *)zone
 {
     CPTTextStyle *newCopy = [[CPTTextStyle allocWithZone:zone] init];
 
@@ -166,7 +166,7 @@
 
 /// @cond
 
--(id)mutableCopyWithZone:(NSZone *)zone
+-(nonnull id)mutableCopyWithZone:(nullable NSZone *)zone
 {
     CPTTextStyle *newCopy = [[CPTMutableTextStyle allocWithZone:zone] init];
 
@@ -186,7 +186,7 @@
 
 /// @cond
 
--(id)debugQuickLookObject
+-(nullable id)debugQuickLookObject
 {
     NSString *lorem = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 

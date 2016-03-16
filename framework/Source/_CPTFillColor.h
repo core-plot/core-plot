@@ -4,8 +4,8 @@
 
 /// @name Initialization
 /// @{
--(nonnull instancetype)initWithColor:(nullable CPTColor *)aColor NS_DESIGNATED_INITIALIZER;
--(nonnull instancetype)initWithCoder:(nonnull NSCoder *)coder NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype)initWithColor:(nonnull CPTColor *)aColor NS_DESIGNATED_INITIALIZER;
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder NS_DESIGNATED_INITIALIZER;
 /// @}
 
 /// @name Drawing

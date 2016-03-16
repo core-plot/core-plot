@@ -5,7 +5,7 @@
 /// @cond
 @interface _CPTFillGradient()
 
-@property (nonatomic, readwrite, copy, nullable) CPTGradient *fillGradient;
+@property (nonatomic, readwrite, copy, nonnull) CPTGradient *fillGradient;
 
 @end
 
@@ -18,7 +18,7 @@
 
 @implementation _CPTFillGradient
 
-/** @property fillGradient
+/** @property nonnull CPTGradient *fillGradient
  *  @brief The fill gradient.
  **/
 @synthesize fillGradient;
@@ -30,7 +30,7 @@
  *  @param aGradient The gradient.
  *  @return The initialized _CPTFillGradient object.
  **/
--(instancetype)initWithGradient:(CPTGradient *)aGradient
+-(nonnull instancetype)initWithGradient:(nonnull CPTGradient *)aGradient
 {
     if ( (self = [super init]) ) {
         fillGradient = aGradient;
@@ -45,7 +45,7 @@
  *  @param rect The rectangle to draw into.
  *  @param context The graphics context to draw into.
  **/
--(void)fillRect:(CGRect)rect inContext:(CGContextRef)context
+-(void)fillRect:(CGRect)rect inContext:(nonnull CGContextRef)context
 {
     [self.fillGradient fillRect:rect inContext:context];
 }
@@ -53,7 +53,7 @@
 /** @brief Draws the gradient into the given graphics context clipped to the current drawing path.
  *  @param context The graphics context to draw into.
  **/
--(void)fillPathInContext:(CGContextRef)context
+-(void)fillPathInContext:(nonnull CGContextRef)context
 {
     [self.fillGradient fillPathInContext:context];
 }
@@ -71,7 +71,7 @@
 
 /// @cond
 
--(id)copyWithZone:(NSZone *)zone
+-(nonnull id)copyWithZone:(nullable NSZone *)zone
 {
     _CPTFillGradient *copy = [[[self class] allocWithZone:zone] init];
 
@@ -87,12 +87,12 @@
 
 /// @cond
 
--(Class)classForCoder
+-(nonnull Class)classForCoder
 {
     return [CPTFill class];
 }
 
--(void)encodeWithCoder:(NSCoder *)coder
+-(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
     [coder encodeObject:self.fillGradient forKey:@"_CPTFillGradient.fillGradient"];
 }
@@ -103,10 +103,17 @@
  *  @param coder An unarchiver object.
  *  @return An object initialized from data in a given unarchiver.
  */
--(instancetype)initWithCoder:(NSCoder *)coder
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        fillGradient = [coder decodeObjectForKey:@"_CPTFillGradient.fillGradient"];
+        CPTGradient *gradient = [coder decodeObjectForKey:@"_CPTFillGradient.fillGradient"];
+
+        if ( gradient ) {
+            fillGradient = gradient;
+        }
+        else {
+            self = nil;
+        }
     }
     return self;
 }

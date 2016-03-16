@@ -21,12 +21,14 @@
  **/
 @implementation CPTXYGraph
 
-/** @property CPTScaleType xScaleType
+/** @internal
+ *  @property CPTScaleType xScaleType
  *  @brief The scale type for the x-axis.
  **/
 @synthesize xScaleType;
 
-/** @property CPTScaleType yScaleType
+/** @internal
+ *  @property CPTScaleType yScaleType
  *  @brief The scale type for the y-axis.
  **/
 @synthesize yScaleType;
@@ -43,7 +45,7 @@
  *  @param newYScaleType The scale type for the y-axis.
  *  @return The initialized CPTXYGraph object.
  **/
--(instancetype)initWithFrame:(CGRect)newFrame xScaleType:(CPTScaleType)newXScaleType yScaleType:(CPTScaleType)newYScaleType
+-(nonnull instancetype)initWithFrame:(CGRect)newFrame xScaleType:(CPTScaleType)newXScaleType yScaleType:(CPTScaleType)newYScaleType
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         xScaleType = newXScaleType;
@@ -65,7 +67,7 @@
  *  @return The initialized CPTXYGraph object.
  *  @see @link CPTXYGraph::initWithFrame:xScaleType:yScaleType: -initWithFrame:xScaleType:yScaleType: @endlink
  **/
--(instancetype)initWithFrame:(CGRect)newFrame
+-(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
     return [self initWithFrame:newFrame xScaleType:CPTScaleTypeLinear yScaleType:CPTScaleTypeLinear];
 }
@@ -74,7 +76,7 @@
 
 /// @cond
 
--(instancetype)initWithLayer:(id)layer
+-(nonnull instancetype)initWithLayer:(nonnull id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTXYGraph *theLayer = (CPTXYGraph *)layer;
@@ -92,7 +94,7 @@
 
 /// @cond
 
--(void)encodeWithCoder:(NSCoder *)coder
+-(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
     [super encodeWithCoder:coder];
 
@@ -100,7 +102,7 @@
     [coder encodeInteger:self.yScaleType forKey:@"CPTXYGraph.yScaleType"];
 }
 
--(instancetype)initWithCoder:(NSCoder *)coder
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         xScaleType = (CPTScaleType)[coder decodeIntegerForKey:@"CPTXYGraph.xScaleType"];
@@ -116,7 +118,7 @@
 
 /// @cond
 
--(CPTPlotSpace *)newPlotSpace
+-(nullable CPTPlotSpace *)newPlotSpace
 {
     CPTXYPlotSpace *space = [[CPTXYPlotSpace alloc] init];
 
@@ -125,7 +127,7 @@
     return space;
 }
 
--(CPTAxisSet *)newAxisSet
+-(nullable CPTAxisSet *)newAxisSet
 {
     CPTXYAxisSet *newAxisSet = [[CPTXYAxisSet alloc] initWithFrame:self.bounds];
 

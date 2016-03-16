@@ -8,7 +8,7 @@
  *  @param cornerRadius The radius of the rounded corners.
  *  @return The new path. Caller is responsible for releasing this.
  **/
-CGPathRef CPTCreateRoundedRectPath(CGRect rect, CGFloat cornerRadius)
+__nonnull CGPathRef CPTCreateRoundedRectPath(CGRect rect, CGFloat cornerRadius)
 {
     if ( cornerRadius > CPTFloat(0.0) ) {
         cornerRadius = MIN( MIN( cornerRadius, rect.size.width * CPTFloat(0.5) ), rect.size.height * CPTFloat(0.5) );
@@ -52,7 +52,7 @@ CGPathRef CPTCreateRoundedRectPath(CGRect rect, CGFloat cornerRadius)
  *  @param rect The bounding rectangle for the path.
  *  @param cornerRadius The radius of the rounded corners.
  **/
-void CPTAddRoundedRectPath(CGContextRef context, CGRect rect, CGFloat cornerRadius)
+void CPTAddRoundedRectPath(__nonnull CGContextRef context, CGRect rect, CGFloat cornerRadius)
 {
     CGPathRef path = CPTCreateRoundedRectPath(rect, cornerRadius);
 

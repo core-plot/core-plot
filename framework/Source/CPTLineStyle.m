@@ -22,7 +22,7 @@
 @property (nonatomic, readwrite, strong, nullable) CPTFill *lineFill;
 @property (nonatomic, readwrite, strong, nullable) CPTGradient *lineGradient;
 
--(void)strokePathWithGradient:(CPTGradient *)gradient inContext:(CGContextRef)context;
+-(void)strokePathWithGradient:(nonnull CPTGradient *)gradient inContext:(nonnull CGContextRef)context;
 
 @end
 
@@ -65,7 +65,7 @@
  **/
 @synthesize lineWidth;
 
-/** @property CPTNumberArray dashPattern
+/** @property nullable CPTNumberArray dashPattern
  *  @brief The dash-and-space pattern for the line. Default is @nil.
  **/
 @synthesize dashPattern;
@@ -75,19 +75,19 @@
  **/
 @synthesize patternPhase;
 
-/** @property CPTColor *lineColor
+/** @property nullable CPTColor *lineColor
  *  @brief The current stroke color in a context. Default is solid black.
  **/
 @synthesize lineColor;
 
-/** @property CPTFill *lineFill
+/** @property nullable CPTFill *lineFill
  *  @brief The current line fill. Default is @nil.
  *
  *  If @nil, the line is drawn using the @ref lineGradient or @ref lineColor.
  **/
 @synthesize lineFill;
 
-/** @property CPTGradient *lineGradient
+/** @property nullable CPTGradient *lineGradient
  *  @brief The current line gradient fill. Default is @nil.
  *
  *  If @nil, the line is drawn using the @ref lineFill or @ref lineColor.
@@ -105,7 +105,7 @@
 /** @brief Creates and returns a new CPTLineStyle instance.
  *  @return A new CPTLineStyle instance.
  **/
-+(instancetype)lineStyle
++(nonnull instancetype)lineStyle
 {
     return [[self alloc] init];
 }
@@ -117,7 +117,7 @@
  *  @param lineStyle An existing CPTLineStyle.
  *  @return A new line style instance.
  **/
-+(instancetype)lineStyleWithStyle:(CPTLineStyle *)lineStyle
++(nonnull instancetype)lineStyleWithStyle:(nullable CPTLineStyle *)lineStyle
 {
     CPTLineStyle *newLineStyle = [[self alloc] init];
 
@@ -152,7 +152,7 @@
  *
  *  @return The initialized object.
  **/
--(instancetype)init
+-(nonnull instancetype)init
 {
     if ( (self = [super init]) ) {
         lineCap      = kCGLineCapButt;
@@ -175,7 +175,7 @@
 
 /// @cond
 
--(void)encodeWithCoder:(NSCoder *)coder
+-(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
     [coder encodeInt:self.lineCap forKey:@"CPTLineStyle.lineCap"];
     [coder encodeInt:self.lineJoin forKey:@"CPTLineStyle.lineJoin"];
@@ -188,7 +188,7 @@
     [coder encodeObject:self.lineGradient forKey:@"CPTLineStyle.lineGradient"];
 }
 
--(instancetype)initWithCoder:(NSCoder *)coder
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         lineCap      = (CGLineCap)[coder decodeIntForKey:@"CPTLineStyle.lineCap"];
@@ -212,7 +212,7 @@
 /** @brief Sets all of the line drawing properties in the given graphics context.
  *  @param context The graphics context.
  **/
--(void)setLineStyleInContext:(CGContextRef)context
+-(void)setLineStyleInContext:(nonnull CGContextRef)context
 {
     CGContextSetLineCap(context, self.lineCap);
     CGContextSetLineJoin(context, self.lineJoin);
@@ -244,7 +244,7 @@
  *
  *  @param context The graphics context.
  **/
--(void)strokePathInContext:(CGContextRef)context
+-(void)strokePathInContext:(nonnull CGContextRef)context
 {
     CPTGradient *gradient = self.lineGradient;
     CPTFill *fill         = self.lineFill;
@@ -267,7 +267,7 @@
  *  @param rect The rectangle to draw.
  *  @param context The graphics context.
  **/
--(void)strokeRect:(CGRect)rect inContext:(CGContextRef)context
+-(void)strokeRect:(CGRect)rect inContext:(nonnull CGContextRef)context
 {
     CPTGradient *gradient = self.lineGradient;
     CPTFill *fill         = self.lineFill;
@@ -290,7 +290,7 @@
 
 /// @cond
 
--(void)strokePathWithGradient:(CPTGradient *)gradient inContext:(CGContextRef)context
+-(void)strokePathWithGradient:(nonnull CPTGradient *)gradient inContext:(nonnull CGContextRef)context
 {
     if ( gradient ) {
         CGRect deviceRect = CGContextConvertRectToDeviceSpace( context, CPTRectMake(0.0, 0.0, 1.0, 1.0) );
@@ -325,6 +325,8 @@
 #pragma mark -
 #pragma mark Opacity
 
+/// @cond
+
 -(BOOL)isOpaque
 {
     BOOL opaqueLine = NO;
@@ -344,12 +346,14 @@
     return opaqueLine;
 }
 
+/// @endcond
+
 #pragma mark -
 #pragma mark NSCopying Methods
 
 /// @cond
 
--(id)copyWithZone:(NSZone *)zone
+-(nonnull id)copyWithZone:(nullable NSZone *)zone
 {
     CPTLineStyle *styleCopy = [[CPTLineStyle allocWithZone:zone] init];
 
@@ -373,7 +377,7 @@
 
 /// @cond
 
--(id)mutableCopyWithZone:(NSZone *)zone
+-(nonnull id)mutableCopyWithZone:(nullable NSZone *)zone
 {
     CPTLineStyle *styleCopy = [[CPTMutableLineStyle allocWithZone:zone] init];
 
@@ -397,7 +401,7 @@
 
 /// @cond
 
--(id)debugQuickLookObject
+-(nullable id)debugQuickLookObject
 {
     const CGRect rect = CGRectMake(0.0, 0.0, 100.0, 100.0);
 

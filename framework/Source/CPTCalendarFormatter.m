@@ -14,18 +14,18 @@
  **/
 @implementation CPTCalendarFormatter
 
-/** @property NSDateFormatter *dateFormatter
+/** @property nullable NSDateFormatter *dateFormatter
  *  @brief The date formatter used to generate strings from date calculations.
  **/
 @synthesize dateFormatter;
 
-/** @property NSDate *referenceDate
+/** @property nullable NSDate *referenceDate
  *  @brief Date from which time intervals are computed.
  *  If @nil, the standard reference date (1 January 2001, GMT) is used.
  **/
 @synthesize referenceDate;
 
-/** @property NSCalendar *referenceCalendar
+/** @property nullable NSCalendar *referenceCalendar
  *  @brief Calendar which is used for date calculations.
  *  If @nil, the current calendar is used.
  **/
@@ -47,7 +47,7 @@
  *  The default formatter uses @ref NSDateFormatterMediumStyle for dates and times.
  *  @return The initialized object.
  **/
--(instancetype)init
+-(nonnull instancetype)init
 {
     NSDateFormatter *newDateFormatter = [[NSDateFormatter alloc] init];
 
@@ -65,7 +65,7 @@
  *  @param aDateFormatter The date formatter.
  *  @return The new instance.
  **/
--(instancetype)initWithDateFormatter:(NSDateFormatter *)aDateFormatter
+-(nonnull instancetype)initWithDateFormatter:(nullable NSDateFormatter *)aDateFormatter
 {
     if ( (self = [super init]) ) {
         dateFormatter         = aDateFormatter;
@@ -81,7 +81,7 @@
 
 /// @cond
 
--(void)encodeWithCoder:(NSCoder *)coder
+-(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
     [super encodeWithCoder:coder];
 
@@ -97,7 +97,7 @@
  *  @param coder An unarchiver object.
  *  @return An object initialized from data in a given unarchiver.
  */
--(instancetype)initWithCoder:(NSCoder *)coder
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         dateFormatter         = [coder decodeObjectForKey:@"CPTCalendarFormatter.dateFormatter"];
@@ -113,7 +113,7 @@
 
 /// @cond
 
--(id)copyWithZone:(NSZone *)zone
+-(nonnull id)copyWithZone:(nullable NSZone *)zone
 {
     CPTCalendarFormatter *newFormatter = [[CPTCalendarFormatter allocWithZone:zone] init];
 
@@ -142,7 +142,7 @@
  *  @param coordinateValue The time value.
  *  @return The date string.
  **/
--(NSString *)stringForObjectValue:(id)coordinateValue
+-(nullable NSString *)stringForObjectValue:(nonnull id)coordinateValue
 {
     NSInteger componentIncrement = 0;
 

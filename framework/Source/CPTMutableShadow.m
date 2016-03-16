@@ -21,7 +21,7 @@
  **/
 @dynamic shadowBlurRadius;
 
-/** @property CPTColor *shadowColor
+/** @property nullable CPTColor *shadowColor
  *  @brief The shadow color. If @nil (the default), the shadow will not be drawn.
  **/
 @dynamic shadowColor;

@@ -9,8 +9,8 @@
 /// @cond
 @interface CPTLegendEntry()
 
-@property (nonatomic, readonly) NSString *title;
-@property (nonatomic, readonly) NSAttributedString *attributedTitle;
+@property (nonatomic, readonly, nullable) NSString *title;
+@property (nonatomic, readonly, nullable) NSAttributedString *attributedTitle;
 
 @end
 
@@ -23,7 +23,7 @@
  **/
 @implementation CPTLegendEntry
 
-/** @property cpt_weak CPTPlot *plot
+/** @property nullable cpt_weak CPTPlot *plot
  *  @brief The plot associated with this legend entry.
  **/
 @synthesize plot;
@@ -45,14 +45,19 @@
 
 /// @cond
 
-/** @property NSString *title
+/** @property nullable NSString *title
  *  @brief The legend entry title.
  **/
 @dynamic title;
 
+/** @property nullable NSAttributedString *attributedTitle
+ *  @brief The legend entry attributed title.
+ **/
+@dynamic attributedTitle;
+
 /// @endcond
 
-/** @property CPTTextStyle *textStyle
+/** @property nullable CPTTextStyle *textStyle
  *  @brief The text style used to draw the legend entry title.
  **/
 @synthesize textStyle;
@@ -79,7 +84,7 @@
  *
  *  @return The initialized object.
  **/
--(instancetype)init
+-(nonnull instancetype)init
 {
     if ( (self = [super init]) ) {
         plot      = nil;
@@ -98,7 +103,7 @@
 
 /// @cond
 
--(void)encodeWithCoder:(NSCoder *)coder
+-(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
     [coder encodeConditionalObject:self.plot forKey:@"CPTLegendEntry.plot"];
     [coder encodeInteger:(NSInteger)self.index forKey:@"CPTLegendEntry.index"];
@@ -107,7 +112,7 @@
     [coder encodeObject:self.textStyle forKey:@"CPTLegendEntry.textStyle"];
 }
 
--(instancetype)initWithCoder:(NSCoder *)coder
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         plot      = [coder decodeObjectForKey:@"CPTLegendEntry.plot"];
@@ -129,7 +134,7 @@
  *  @param context The graphics context to draw into.
  *  @param scale The drawing scale factor. Must be greater than zero (@num{0}).
  **/
--(void)drawTitleInRect:(CGRect)rect inContext:(CGContextRef)context scale:(CGFloat)scale
+-(void)drawTitleInRect:(CGRect)rect inContext:(nonnull CGContextRef)context scale:(CGFloat)scale
 {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     CGContextSaveGState(context);
@@ -180,14 +185,14 @@
 
 /// @cond
 
--(NSString *)title
+-(nullable NSString *)title
 {
     CPTPlot *thePlot = self.plot;
 
     return [thePlot titleForLegendEntryAtIndex:self.index];
 }
 
--(NSAttributedString *)attributedTitle
+-(nullable NSAttributedString *)attributedTitle
 {
     CPTPlot *thePlot = self.plot;
 

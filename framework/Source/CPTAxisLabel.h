@@ -22,13 +22,13 @@ typedef NSMutableSet<CPTAxisLabel *> *CPTMutableAxisLabelSet;
 @property (nonatomic, readwrite, assign) CGFloat offset;
 @property (nonatomic, readwrite, assign) CGFloat rotation;
 @property (nonatomic, readwrite, assign) CPTAlignment alignment;
-@property (nonatomic, readwrite, strong, nullable) NSNumber *tickLocation;
+@property (nonatomic, readwrite, strong, nonnull) NSNumber *tickLocation;
 
 /// @name Initialization
 /// @{
 -(nonnull instancetype)initWithText:(nullable NSString *)newText textStyle:(nullable CPTTextStyle *)style;
 -(nonnull instancetype)initWithContentLayer:(nonnull CPTLayer *)layer NS_DESIGNATED_INITIALIZER;
--(nonnull instancetype)initWithCoder:(nonnull NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
 /// @}
 
 /// @name Layout

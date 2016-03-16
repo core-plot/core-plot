@@ -2,9 +2,9 @@
 
 #import "complex.h"
 
-static CPTDataTypeFormat DataTypeForDataTypeString(NSString *dataTypeString);
-static size_t SampleBytesForDataTypeString(NSString *dataTypeString);
-static CFByteOrder ByteOrderForDataTypeString(NSString *dataTypeString);
+static CPTDataTypeFormat DataTypeForDataTypeString(NSString *__nonnull dataTypeString);
+static size_t SampleBytesForDataTypeString(NSString *__nonnull dataTypeString);
+static CFByteOrder ByteOrderForDataTypeString(NSString *__nonnull dataTypeString);
 
 #pragma mark -
 #pragma mark Data type utilities
@@ -30,7 +30,7 @@ CPTNumericDataType CPTDataType(CPTDataTypeFormat format, size_t sampleBytes, CFB
  *  @param dataTypeString The data type string.
  *  @return The initialized CPTNumericDataType struct.
  **/
-CPTNumericDataType CPTDataTypeWithDataTypeString(NSString *dataTypeString)
+CPTNumericDataType CPTDataTypeWithDataTypeString(NSString *__nonnull dataTypeString)
 {
     CPTNumericDataType type;
 
@@ -193,7 +193,7 @@ BOOL CPTDataTypeEqualToDataType(CPTNumericDataType dataType1, CPTNumericDataType
 #pragma mark -
 #pragma mark Private functions
 
-CPTDataTypeFormat DataTypeForDataTypeString(NSString *dataTypeString)
+CPTDataTypeFormat DataTypeForDataTypeString(NSString *__nonnull dataTypeString)
 {
     CPTDataTypeFormat result = CPTUndefinedDataType;
 
@@ -231,7 +231,7 @@ CPTDataTypeFormat DataTypeForDataTypeString(NSString *dataTypeString)
     return result;
 }
 
-size_t SampleBytesForDataTypeString(NSString *dataTypeString)
+size_t SampleBytesForDataTypeString(NSString *__nonnull dataTypeString)
 {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wnullable-to-nonnull-conversion"
@@ -243,7 +243,7 @@ size_t SampleBytesForDataTypeString(NSString *dataTypeString)
     return (size_t)result;
 }
 
-CFByteOrder ByteOrderForDataTypeString(NSString *dataTypeString)
+CFByteOrder ByteOrderForDataTypeString(NSString *__nonnull dataTypeString)
 {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wnullable-to-nonnull-conversion"

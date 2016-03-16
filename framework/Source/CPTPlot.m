@@ -51,12 +51,12 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 @interface CPTPlot()
 
 @property (nonatomic, readwrite, assign) BOOL dataNeedsReloading;
-@property (nonatomic, readwrite, strong) NSMutableDictionary *cachedData;
+@property (nonatomic, readwrite, strong, nonnull) NSMutableDictionary *cachedData;
 
 @property (nonatomic, readwrite, assign) BOOL needsRelabel;
 @property (nonatomic, readwrite, assign) NSRange labelIndexRange;
-@property (nonatomic, readwrite, strong) CPTMutableAnnotationArray labelAnnotations;
-@property (nonatomic, readwrite, copy) NSArray<CPTLayer *> *dataLabels;
+@property (nonatomic, readwrite, strong, nullable) CPTMutableAnnotationArray labelAnnotations;
+@property (nonatomic, readwrite, copy, nullable) NSArray<CPTLayer *> *dataLabels;
 
 @property (nonatomic, readwrite, assign) NSUInteger pointingDeviceDownLabelIndex;
 @property (nonatomic, readwrite, assign) NSUInteger cachedDataCount;
@@ -64,9 +64,9 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
 @property (nonatomic, readonly, assign) NSUInteger numberOfRecords;
 
--(CPTMutableNumericData *)numericDataForNumbers:(id)numbers;
+-(nonnull CPTMutableNumericData *)numericDataForNumbers:(nonnull id)numbers;
 -(void)setCachedDataType:(CPTNumericDataType)newDataType;
--(void)updateContentAnchorForLabel:(CPTPlotSpaceAnnotation *)label;
+-(void)updateContentAnchorForLabel:(nonnull CPTPlotSpaceAnnotation *)label;
 
 @end
 
@@ -104,19 +104,19 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
 @dynamic dataLabels;
 
-/** @property cpt_weak id<CPTPlotDataSource> dataSource
+/** @property nullable cpt_weak id<CPTPlotDataSource> dataSource
  *  @brief The data source for the plot.
  **/
 @synthesize dataSource;
 
-/** @property NSString *title
+/** @property nullable NSString *title
  *  @brief The title of the plot displayed in the legend.
  *
  *  Assigning a new value to this property also sets the value of the @ref attributedTitle property to @nil.
  **/
 @synthesize title;
 
-/** @property NSAttributedString *attributedTitle
+/** @property nullable NSAttributedString *attributedTitle
  *  @brief The styled title of the plot displayed in the legend.
  *
  *  Assigning a new value to this property also sets the value of the @ref title property to the
@@ -124,12 +124,12 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  **/
 @synthesize attributedTitle;
 
-/** @property CPTPlotSpace *plotSpace
+/** @property nullable CPTPlotSpace *plotSpace
  *  @brief The plot space for the plot.
  **/
 @synthesize plotSpace;
 
-/** @property CPTPlotArea *plotArea
+/** @property nullable CPTPlotArea *plotArea
  *  @brief The plot area for the plot.
  **/
 @dynamic plotArea;
@@ -199,13 +199,13 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  **/
 @synthesize labelField;
 
-/** @property CPTTextStyle *labelTextStyle
+/** @property nullable CPTTextStyle *labelTextStyle
  *  @brief The text style used to draw the data labels.
  *  Set this property to @nil to hide the data labels.
  **/
 @synthesize labelTextStyle;
 
-/** @property NSFormatter *labelFormatter
+/** @property nullable NSFormatter *labelFormatter
  *  @brief The number formatter used to format the data labels.
  *  Set this property to @nil to hide the data labels.
  *  If you need a non-numerical label, such as a date, you can use a formatter than turns
@@ -214,7 +214,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  **/
 @synthesize labelFormatter;
 
-/** @property CPTShadow *labelShadow
+/** @property nullable CPTShadow *labelShadow
  *  @brief The shadow applied to each data label.
  **/
 @synthesize labelShadow;
@@ -290,7 +290,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTPlot object.
  **/
--(instancetype)initWithFrame:(CGRect)newFrame
+-(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         cachedData           = [[NSMutableDictionary alloc] initWithCapacity:5];
@@ -328,7 +328,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
 /// @cond
 
--(instancetype)initWithLayer:(id)layer
+-(nonnull instancetype)initWithLayer:(nonnull id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTPlot *theLayer = (CPTPlot *)layer;
@@ -368,7 +368,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
 /// @cond
 
--(void)encodeWithCoder:(NSCoder *)coder
+-(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
     [super encodeWithCoder:coder];
 
@@ -402,7 +402,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     // pointingDeviceDownLabelIndex
 }
 
--(instancetype)initWithCoder:(NSCoder *)coder
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         dataSource           = [coder decodeObjectForKey:@"CPTPlot.dataSource"];
@@ -451,7 +451,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
 /// @cond
 
--(Class)valueClassForBinding:(NSString *)binding
+-(nullable Class)valueClassForBinding:(nonnull NSString *)binding
 {
     return [NSArray class];
 }
@@ -464,7 +464,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
 /// @cond
 
--(void)drawInContext:(CGContextRef)context
+-(void)drawInContext:(nonnull CGContextRef)context
 {
     [self reloadDataIfNeeded];
     [super drawInContext:context];
@@ -482,7 +482,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
 /// @cond
 
-+(BOOL)needsDisplayForKey:(NSString *)aKey
++(BOOL)needsDisplayForKey:(nonnull NSString *)aKey
 {
     static NSSet<NSString *> *keys   = nil;
     static dispatch_once_t onceToken = 0;
@@ -712,7 +712,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 /**
  *  @brief A unique marker object used in collections to indicate that the datasource returned @nil.
  **/
-+(id)nilData
++(nonnull id)nilData
 {
     static id nilObject              = nil;
     static dispatch_once_t onceToken = 0;
@@ -729,7 +729,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  @param indexRange The range of the data indexes of interest.
  *  @return An array of data points.
  **/
--(id)numbersFromDataSourceForField:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange
+-(nullable id)numbersFromDataSourceForField:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange
 {
     id numbers; // can be CPTNumericData, NSArray, or NSData
 
@@ -930,7 +930,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  @param numbers An array of numbers to cache. Can be a CPTNumericData, NSArray, or NSData (NSData is assumed to be a c-style array of type @double).
  *  @param fieldEnum The field enumerator identifying the field.
  **/
--(void)cacheNumbers:(id)numbers forField:(NSUInteger)fieldEnum
+-(void)cacheNumbers:(nullable id)numbers forField:(NSUInteger)fieldEnum
 {
     NSNumber *cacheKey = @(fieldEnum);
 
@@ -943,7 +943,8 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
             case CPTScaleTypeLog:
             case CPTScaleTypeLogModulus:
             {
-                CPTMutableNumericData *mutableNumbers = [self numericDataForNumbers:numbers];
+                id theNumbers                         = numbers;
+                CPTMutableNumericData *mutableNumbers = [self numericDataForNumbers:theNumbers];
 
                 NSUInteger sampleCount = mutableNumbers.numberOfSamples;
                 if ( sampleCount > 0 ) {
@@ -1022,7 +1023,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  @param fieldEnum The field enumerator identifying the field.
  *  @param idx The index of the first data point to replace.
  **/
--(void)cacheNumbers:(id)numbers forField:(NSUInteger)fieldEnum atRecordIndex:(NSUInteger)idx
+-(void)cacheNumbers:(nullable id)numbers forField:(NSUInteger)fieldEnum atRecordIndex:(NSUInteger)idx
 {
     if ( numbers ) {
         NSNumber *cacheKey     = @(fieldEnum);
@@ -1038,7 +1039,8 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
             case CPTScaleTypeLog:
             case CPTScaleTypeLogModulus:
             {
-                mutableNumbers = [self numericDataForNumbers:numbers];
+                id theNumbers = numbers;
+                mutableNumbers = [self numericDataForNumbers:theNumbers];
 
                 sampleCount = mutableNumbers.numberOfSamples;
                 if ( sampleCount > 0 ) {
@@ -1126,7 +1128,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
 /// @cond
 
--(CPTMutableNumericData *)numericDataForNumbers:(id)numbers
+-(nonnull CPTMutableNumericData *)numericDataForNumbers:(nonnull id)numbers
 {
     CPTMutableNumericData *mutableNumbers = nil;
     CPTNumericDataType loadedDataType;
@@ -1198,7 +1200,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  @param fieldEnum The field enumerator identifying the field.
  *  @return The array of cached numbers.
  **/
--(CPTMutableNumericData *)cachedNumbersForField:(NSUInteger)fieldEnum
+-(nullable CPTMutableNumericData *)cachedNumbersForField:(NSUInteger)fieldEnum
 {
     return (self.cachedData)[@(fieldEnum)];
 }
@@ -1208,7 +1210,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  @param idx The index of the desired data value.
  *  @return The cached number.
  **/
--(NSNumber *)cachedNumberForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx
+-(nullable NSNumber *)cachedNumberForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx
 {
     CPTMutableNumericData *numbers = [self cachedNumbersForField:fieldEnum];
 
@@ -1335,7 +1337,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  @param key The key identifying the field.
  *  @return The array of cached values.
  **/
--(NSArray *)cachedArrayForKey:(NSString *)key
+-(nullable NSArray *)cachedArrayForKey:(nonnull NSString *)key
 {
     return (self.cachedData)[key];
 }
@@ -1345,7 +1347,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  @param idx The index of the desired data value.
  *  @return The cached value or @nil if no data is cached for the requested key.
  **/
--(id)cachedValueForKey:(NSString *)key recordIndex:(NSUInteger)idx
+-(nullable id)cachedValueForKey:(nonnull NSString *)key recordIndex:(NSUInteger)idx
 {
     return [self cachedArrayForKey:key][idx];
 }
@@ -1354,7 +1356,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  @param array An array of arbitrary values to cache.
  *  @param key The key identifying the field.
  **/
--(void)cacheArray:(NSArray *)array forKey:(NSString *)key
+-(void)cacheArray:(nullable NSArray *)array forKey:(nonnull NSString *)key
 {
     if ( array ) {
         NSUInteger sampleCount = array.count;
@@ -1378,28 +1380,29 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  @param key The key identifying the field.
  *  @param idx The index of the first data point to replace.
  **/
--(void)cacheArray:(NSArray *)array forKey:(NSString *)key atRecordIndex:(NSUInteger)idx
+-(void)cacheArray:(nullable NSArray *)array forKey:(nonnull NSString *)key atRecordIndex:(NSUInteger)idx
 {
-    if ( array ) {
-        NSUInteger sampleCount = array.count;
-        if ( sampleCount > 0 ) {
-            // Ensure the data cache exists and is the right size
-            id<CPTPlotDataSource> theDataSource = self.dataSource;
-            NSUInteger numberOfRecords          = [theDataSource numberOfRecordsForPlot:self];
-            NSMutableArray *cachedValues        = (self.cachedData)[key];
-            if ( !cachedValues ) {
-                cachedValues = [NSMutableArray arrayWithCapacity:numberOfRecords];
-                NSNull *nullObject = [NSNull null];
-                for ( NSUInteger i = 0; i < numberOfRecords; i++ ) {
-                    [cachedValues addObject:nullObject];
-                }
-                (self.cachedData)[key] = cachedValues;
-            }
+    NSUInteger sampleCount = array.count;
 
-            // Update the cache
-            self.cachedDataCount = numberOfRecords;
-            [cachedValues replaceObjectsInRange:NSMakeRange(idx, sampleCount) withObjectsFromArray:array];
+    if ( sampleCount > 0 ) {
+        // Ensure the data cache exists and is the right size
+        id<CPTPlotDataSource> theDataSource = self.dataSource;
+        NSUInteger numberOfRecords          = [theDataSource numberOfRecordsForPlot:self];
+        NSMutableArray *cachedValues        = (self.cachedData)[key];
+        if ( !cachedValues ) {
+            cachedValues = [NSMutableArray arrayWithCapacity:numberOfRecords];
+            NSNull *nullObject = [NSNull null];
+            for ( NSUInteger i = 0; i < numberOfRecords; i++ ) {
+                [cachedValues addObject:nullObject];
+            }
+            (self.cachedData)[key] = cachedValues;
         }
+
+        // Update the cache
+        self.cachedDataCount = numberOfRecords;
+
+        NSArray *dataArray = array;
+        [cachedValues replaceObjectsInRange:NSMakeRange(idx, sampleCount) withObjectsFromArray:dataArray];
     }
 }
 
@@ -1410,7 +1413,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  @param fieldEnum The field enumerator identifying the field.
  *  @return The plot range enclosing the data.
  **/
--(CPTPlotRange *)plotRangeForField:(NSUInteger)fieldEnum
+-(nullable CPTPlotRange *)plotRangeForField:(NSUInteger)fieldEnum
 {
     if ( self.dataNeedsReloading ) {
         [self reloadData];
@@ -1485,7 +1488,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  @param coord The coordinate identifier.
  *  @return The plot range enclosing the data.
  **/
--(CPTPlotRange *)plotRangeForCoordinate:(CPTCoordinate)coord
+-(nullable CPTPlotRange *)plotRangeForCoordinate:(CPTCoordinate)coord
 {
     CPTNumberArray fields = [self fieldIdentifiersForCoordinate:coord];
 
@@ -1664,7 +1667,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
 /// @cond
 
--(void)updateContentAnchorForLabel:(CPTPlotSpaceAnnotation *)label
+-(void)updateContentAnchorForLabel:(nonnull CPTPlotSpaceAnnotation *)label
 {
     if ( label && self.adjustLabelAnchors ) {
         CGPoint displacement = label.displacement;
@@ -1723,7 +1726,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  @param idx The index of the desired title.
  *  @return The title of the legend entry at the requested index.
  **/
--(NSString *)titleForLegendEntryAtIndex:(NSUInteger)idx
+-(nullable NSString *)titleForLegendEntryAtIndex:(NSUInteger)idx
 {
     NSString *legendTitle = self.title;
 
@@ -1742,7 +1745,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  @param idx The index of the desired title.
  *  @return The styled title of the legend entry at the requested index.
  **/
--(NSAttributedString *)attributedTitleForLegendEntryAtIndex:(NSUInteger)idx
+-(nullable NSAttributedString *)attributedTitleForLegendEntryAtIndex:(NSUInteger)idx
 {
     NSAttributedString *legendTitle = self.attributedTitle;
 
@@ -1764,7 +1767,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  @param rect The bounding rectangle where the swatch should be drawn.
  *  @param context The graphics context to draw into.
  **/
--(void)drawSwatchForLegend:(CPTLegend *)legend atIndex:(NSUInteger)idx inRect:(CGRect)rect inContext:(CGContextRef)context
+-(void)drawSwatchForLegend:(nonnull CPTLegend *)legend atIndex:(NSUInteger)idx inRect:(CGRect)rect inContext:(nonnull CGContextRef)context
 {
     id<CPTLegendDelegate> theDelegate = (id<CPTLegendDelegate>)self.delegate;
 
@@ -1825,7 +1828,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  @param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDownEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     self.pointingDeviceDownLabelIndex = NSNotFound;
 
@@ -1901,7 +1904,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  @param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceUpEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     NSUInteger selectedDownIndex = self.pointingDeviceDownLabelIndex;
 
@@ -1974,18 +1977,18 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
 /// @cond
 
--(NSArray<CPTLayer *> *)dataLabels
+-(nullable NSArray<CPTLayer *> *)dataLabels
 {
     return [self cachedArrayForKey:CPTPlotBindingDataLabels];
 }
 
--(void)setDataLabels:(NSArray<CPTLayer *> *)newDataLabels
+-(void)setDataLabels:(nullable NSArray<CPTLayer *> *)newDataLabels
 {
     [self cacheArray:newDataLabels forKey:CPTPlotBindingDataLabels];
     [self setNeedsRelabel];
 }
 
--(void)setTitle:(NSString *)newTitle
+-(void)setTitle:(nullable NSString *)newTitle
 {
     if ( newTitle != title ) {
         title = [newTitle copy];
@@ -2000,7 +2003,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     }
 }
 
--(void)setAttributedTitle:(NSAttributedString *)newTitle
+-(void)setAttributedTitle:(nullable NSAttributedString *)newTitle
 {
     if ( newTitle != attributedTitle ) {
         attributedTitle = [newTitle copy];
@@ -2015,7 +2018,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     }
 }
 
--(void)setDataSource:(id<CPTPlotDataSource>)newSource
+-(void)setDataSource:(nullable id<CPTPlotDataSource>)newSource
 {
     if ( newSource != dataSource ) {
         dataSource = newSource;
@@ -2033,7 +2036,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     }
 }
 
--(CPTPlotArea *)plotArea
+-(nullable CPTPlotArea *)plotArea
 {
     CPTGraph *theGraph = self.graph;
 
@@ -2061,7 +2064,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     }
 }
 
--(void)setLabelTextStyle:(CPTTextStyle *)newStyle
+-(void)setLabelTextStyle:(nullable CPTTextStyle *)newStyle
 {
     if ( newStyle != labelTextStyle ) {
         labelTextStyle = [newStyle copy];
@@ -2101,7 +2104,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     }
 }
 
--(void)setLabelFormatter:(NSFormatter *)newTickLabelFormatter
+-(void)setLabelFormatter:(nullable NSFormatter *)newTickLabelFormatter
 {
     if ( newTickLabelFormatter != labelFormatter ) {
         labelFormatter    = newTickLabelFormatter;
@@ -2109,7 +2112,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     }
 }
 
--(void)setLabelShadow:(CPTShadow *)newLabelShadow
+-(void)setLabelShadow:(nullable CPTShadow *)newLabelShadow
 {
     if ( newLabelShadow != labelShadow ) {
         labelShadow = newLabelShadow;
@@ -2181,7 +2184,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 /** @brief Identifiers (enum values) identifying the fields.
  *  @return Array of NSNumber objects for the various field identifiers.
  **/
--(CPTNumberArray)fieldIdentifiers
+-(nonnull CPTNumberArray)fieldIdentifiers
 {
     return @[];
 }
@@ -2190,7 +2193,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  @param coord The coordinate for which the corresponding field identifiers are desired.
  *  @return Array of NSNumber objects for the field identifiers.
  **/
--(CPTNumberArray)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
+-(nonnull CPTNumberArray)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
 {
     return @[];
 }
@@ -2211,7 +2214,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
  *  @param label The annotation for the data label.
  *  @param idx The data index for the label.
  **/
--(void)positionLabelAnnotation:(CPTPlotSpaceAnnotation *)label forIndex:(NSUInteger)idx
+-(void)positionLabelAnnotation:(nonnull CPTPlotSpaceAnnotation *)label forIndex:(NSUInteger)idx
 {
     // do nothing--implementation provided by subclasses
 }

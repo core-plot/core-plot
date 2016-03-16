@@ -10,7 +10,7 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
 /// @cond
 @interface CPTDataSourceTestCase()
 
--(CPTMutablePlotRange *)plotRangeForData:(CPTNumberArray)dataArray;
+-(nonnull CPTMutablePlotRange *)plotRangeForData:(nonnull CPTNumberArray)dataArray;
 
 @end
 
@@ -56,7 +56,7 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
     self.yData = arr;
 }
 
--(void)addPlot:(CPTPlot *)newPlot
+-(void)addPlot:(nonnull CPTPlot *)newPlot
 {
     if ( nil == self.plots ) {
         self.plots = [NSMutableArray array];
@@ -65,16 +65,20 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
     [[self plots] addObject:newPlot];
 }
 
--(CPTPlotRange *)xRange
+-(nonnull CPTPlotRange *)xRange
 {
     [self buildData];
-    return [self plotRangeForData:self.xData];
+
+    CPTNumberArray data = self.xData;
+    return [self plotRangeForData:data];
 }
 
--(CPTPlotRange *)yRange
+-(nonnull CPTPlotRange *)yRange
 {
     [self buildData];
-    CPTMutablePlotRange *range = [self plotRangeForData:self.yData];
+
+    CPTNumberArray data        = self.yData;
+    CPTMutablePlotRange *range = [self plotRangeForData:data];
 
     if ( self.plots.count > 1 ) {
         range.lengthDecimal = CPTDecimalAdd( range.lengthDecimal, CPTDecimalFromUnsignedInteger(self.plots.count) );
@@ -83,7 +87,7 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
     return range;
 }
 
--(CPTMutablePlotRange *)plotRangeForData:(CPTNumberArray)dataArray
+-(nonnull CPTMutablePlotRange *)plotRangeForData:(nonnull CPTNumberArray)dataArray
 {
     double min   = [[dataArray valueForKeyPath:@"@min.doubleValue"] doubleValue];
     double max   = [[dataArray valueForKeyPath:@"@max.doubleValue"] doubleValue];
@@ -96,12 +100,12 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot
 {
     return self.nRecords;
 }
 
--(CPTNumberArray)numbersForPlot:(CPTPlot *)plot
+-(CPTNumberArray)numbersForPlot:(nonnull CPTPlot *)plot
                           field:(NSUInteger)fieldEnum
                recordIndexRange:(NSRange)indexRange
 {

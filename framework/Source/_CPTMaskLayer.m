@@ -16,7 +16,7 @@
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTMaskLayer object.
  **/
--(instancetype)initWithFrame:(CGRect)newFrame
+-(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         self.needsDisplayOnBoundsChange = YES;
@@ -29,7 +29,7 @@
 
 /// @cond
 
--(void)renderAsVectorInContext:(CGContextRef)context
+-(void)renderAsVectorInContext:(nonnull CGContextRef)context
 {
     [super renderAsVectorInContext:context];
 

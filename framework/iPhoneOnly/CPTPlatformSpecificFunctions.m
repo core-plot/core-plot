@@ -5,7 +5,7 @@
 #pragma mark -
 #pragma mark Context management
 
-void CPTPushCGContext(CGContextRef newContext)
+void CPTPushCGContext(__nonnull CGContextRef newContext)
 {
     UIGraphicsPushContext(newContext);
 }

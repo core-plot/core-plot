@@ -106,12 +106,12 @@ typedef NS_ENUM (NSInteger, CPTGraphLayerType) {
 
 /// @name Adding and Removing Plots
 /// @{
--(void)addPlot:(nullable CPTPlot *)plot;
--(void)addPlot:(nullable CPTPlot *)plot toPlotSpace:(nullable CPTPlotSpace *)space;
+-(void)addPlot:(nonnull CPTPlot *)plot;
+-(void)addPlot:(nonnull CPTPlot *)plot toPlotSpace:(nullable CPTPlotSpace *)space;
 -(void)removePlot:(nullable CPTPlot *)plot;
 -(void)removePlotWithIdentifier:(nullable id<NSCopying>)identifier;
--(void)insertPlot:(nullable CPTPlot *)plot atIndex:(NSUInteger)idx;
--(void)insertPlot:(nullable CPTPlot *)plot atIndex:(NSUInteger)idx intoPlotSpace:(nullable CPTPlotSpace *)space;
+-(void)insertPlot:(nonnull CPTPlot *)plot atIndex:(NSUInteger)idx;
+-(void)insertPlot:(nonnull CPTPlot *)plot atIndex:(NSUInteger)idx intoPlotSpace:(nullable CPTPlotSpace *)space;
 /// @}
 
 /// @name Retrieving Plot Spaces
