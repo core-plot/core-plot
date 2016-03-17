@@ -30,50 +30,50 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		C30B12431BCADD300084C567 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D4146F1A7D824700B6F5D6 /* CorePlot.framework */; };
 		C30B12441BCADD300084C567 /* CorePlot.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C3D4146F1A7D824700B6F5D6 /* CorePlot.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C30B12481BCADE170084C567 /* PlotItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FFAE12342DB1006BF615 /* PlotItem.m */; settings = {ASSET_TAGS = (); }; };
-		C30B12491BCADE170084C567 /* PlotGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FFAC12342DB1006BF615 /* PlotGallery.m */; settings = {ASSET_TAGS = (); }; };
-		C30B124A1BCADE170084C567 /* PiNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3457A4C17AD7C5D000880F3 /* PiNumberFormatter.m */; settings = {ASSET_TAGS = (); }; };
+		C30B12481BCADE170084C567 /* PlotItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FFAE12342DB1006BF615 /* PlotItem.m */; };
+		C30B12491BCADE170084C567 /* PlotGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FFAC12342DB1006BF615 /* PlotGallery.m */; };
+		C30B124A1BCADE170084C567 /* PiNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3457A4C17AD7C5D000880F3 /* PiNumberFormatter.m */; };
 		C3457A4D17AD7C5D000880F3 /* PiNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3457A4C17AD7C5D000880F3 /* PiNumberFormatter.m */; };
-		C34CB5461BC9A83C009270A0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34CB5451BC9A83C009270A0 /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
-		C34CB5541BC9A889009270A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C34CB5481BC9A889009270A0 /* AppDelegate.m */; settings = {ASSET_TAGS = (); }; };
-		C34CB5551BC9A889009270A0 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34CB54A1BC9A889009270A0 /* DetailViewController.m */; settings = {ASSET_TAGS = (); }; };
-		C34CB5561BC9A889009270A0 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C34CB54B1BC9A889009270A0 /* Launch Screen.xib */; settings = {ASSET_TAGS = (); }; };
-		C34CB5571BC9A889009270A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C34CB54C1BC9A889009270A0 /* main.m */; settings = {ASSET_TAGS = (); }; };
-		C34CB5581BC9A889009270A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C34CB54D1BC9A889009270A0 /* Main.storyboard */; settings = {ASSET_TAGS = (); }; };
-		C34CB55A1BC9A889009270A0 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34CB5511BC9A889009270A0 /* RootViewController.m */; settings = {ASSET_TAGS = (); }; };
-		C34CB55B1BC9A889009270A0 /* ThemeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34CB5531BC9A889009270A0 /* ThemeTableViewController.m */; settings = {ASSET_TAGS = (); }; };
+		C34CB5461BC9A83C009270A0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34CB5451BC9A83C009270A0 /* Images.xcassets */; };
+		C34CB5541BC9A889009270A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C34CB5481BC9A889009270A0 /* AppDelegate.m */; };
+		C34CB5551BC9A889009270A0 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34CB54A1BC9A889009270A0 /* DetailViewController.m */; };
+		C34CB5561BC9A889009270A0 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C34CB54B1BC9A889009270A0 /* Launch Screen.xib */; };
+		C34CB5571BC9A889009270A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C34CB54C1BC9A889009270A0 /* main.m */; };
+		C34CB5581BC9A889009270A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C34CB54D1BC9A889009270A0 /* Main.storyboard */; };
+		C34CB55A1BC9A889009270A0 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34CB5511BC9A889009270A0 /* RootViewController.m */; };
+		C34CB55B1BC9A889009270A0 /* ThemeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34CB5531BC9A889009270A0 /* ThemeTableViewController.m */; };
 		C34CB5601BC9AB7B009270A0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C34CB55F1BC9AB7B009270A0 /* Foundation.framework */; };
 		C34CB5621BC9AB85009270A0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C34CB5611BC9AB85009270A0 /* UIKit.framework */; };
 		C34CB5641BC9AB8C009270A0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C34CB5631BC9AB8C009270A0 /* CoreGraphics.framework */; };
 		C34CB5661BC9AB93009270A0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C34CB5651BC9AB93009270A0 /* QuartzCore.framework */; };
 		C34CB5681BC9AB9E009270A0 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C34CB5671BC9AB9E009270A0 /* Accelerate.framework */; };
-		C34CB57C1BC9B1C1009270A0 /* AxisDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E1CC112908B0000D2035F /* AxisDemo.m */; settings = {ASSET_TAGS = (); }; };
-		C34CB57D1BC9B1C1009270A0 /* CandlestickPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C360E1DF13B18CAE007994B6 /* CandlestickPlot.m */; settings = {ASSET_TAGS = (); }; };
-		C34CB57E1BC9B1C1009270A0 /* ColoredBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A31A5514DF782A00734AB7 /* ColoredBarChart.m */; settings = {ASSET_TAGS = (); }; };
-		C34CB57F1BC9B1C1009270A0 /* CompositePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FF9B12342D7C006BF615 /* CompositePlot.m */; settings = {ASSET_TAGS = (); }; };
-		C34CB5801BC9B1C1009270A0 /* ControlChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C35597951437E07800B41DA7 /* ControlChart.m */; settings = {ASSET_TAGS = (); }; };
-		C34CB5811BC9B1C1009270A0 /* CurvedScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F42A2714D3A75F0044B323 /* CurvedScatterPlot.m */; settings = {ASSET_TAGS = (); }; };
-		C34CB5821BC9B1C1009270A0 /* DatePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E1C13129077C200D2035F /* DatePlot.m */; settings = {ASSET_TAGS = (); }; };
-		C34CB5831BC9B1C1009270A0 /* DonutChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F34F1412AB2598008FBDC3 /* DonutChart.m */; settings = {ASSET_TAGS = (); }; };
-		C34CB5841BC9B1C1009270A0 /* FunctionPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F97F1817A9DE2000A52FF2 /* FunctionPlot.m */; settings = {ASSET_TAGS = (); }; };
-		C34CB5851BC9B1C1009270A0 /* GradientScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FF9D12342D7C006BF615 /* GradientScatterPlot.m */; settings = {ASSET_TAGS = (); }; };
-		C34CB5861BC9B1C1009270A0 /* ImageDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D70BA5175EB29E00F27173 /* ImageDemo.m */; settings = {ASSET_TAGS = (); }; };
-		C34CB5871BC9B1C1009270A0 /* LabelingPolicyDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C39C4E4013BFE1A900CD9194 /* LabelingPolicyDemo.m */; settings = {ASSET_TAGS = (); }; };
-		C34CB5881BC9B1C1009270A0 /* LineCapDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C367249213E103910070F47A /* LineCapDemo.m */; settings = {ASSET_TAGS = (); }; };
-		C34CB5891BC9B1C1009270A0 /* OHLCPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C360E1C513B18AAF007994B6 /* OHLCPlot.m */; settings = {ASSET_TAGS = (); }; };
-		C34CB58A1BC9B1C1009270A0 /* PlotSpaceDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C39C4E4313BFE1B400CD9194 /* PlotSpaceDemo.m */; settings = {ASSET_TAGS = (); }; };
-		C34CB58B1BC9B1C1009270A0 /* RangePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A14BEB13AEB7E700D103EA /* RangePlot.m */; settings = {ASSET_TAGS = (); }; };
-		C34CB58C1BC9B1C1009270A0 /* RealTimePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C354C0D613C7CDBE00DA8822 /* RealTimePlot.m */; settings = {ASSET_TAGS = (); }; };
-		C34CB58D1BC9B1C1009270A0 /* SteppedScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E1C85129083B000D2035F /* SteppedScatterPlot.m */; settings = {ASSET_TAGS = (); }; };
-		C34CB58E1BC9B1C1009270A0 /* SimplePieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FF9F12342D7C006BF615 /* SimplePieChart.m */; settings = {ASSET_TAGS = (); }; };
-		C34CB58F1BC9B1C1009270A0 /* SimpleScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FFA112342D7C006BF615 /* SimpleScatterPlot.m */; settings = {ASSET_TAGS = (); }; };
-		C34CB5901BC9B1C1009270A0 /* VerticalBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FFA312342D7C006BF615 /* VerticalBarChart.m */; settings = {ASSET_TAGS = (); }; };
+		C34CB57C1BC9B1C1009270A0 /* AxisDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E1CC112908B0000D2035F /* AxisDemo.m */; };
+		C34CB57D1BC9B1C1009270A0 /* CandlestickPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C360E1DF13B18CAE007994B6 /* CandlestickPlot.m */; };
+		C34CB57E1BC9B1C1009270A0 /* ColoredBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A31A5514DF782A00734AB7 /* ColoredBarChart.m */; };
+		C34CB57F1BC9B1C1009270A0 /* CompositePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FF9B12342D7C006BF615 /* CompositePlot.m */; };
+		C34CB5801BC9B1C1009270A0 /* ControlChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C35597951437E07800B41DA7 /* ControlChart.m */; };
+		C34CB5811BC9B1C1009270A0 /* CurvedScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F42A2714D3A75F0044B323 /* CurvedScatterPlot.m */; };
+		C34CB5821BC9B1C1009270A0 /* DatePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E1C13129077C200D2035F /* DatePlot.m */; };
+		C34CB5831BC9B1C1009270A0 /* DonutChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F34F1412AB2598008FBDC3 /* DonutChart.m */; };
+		C34CB5841BC9B1C1009270A0 /* FunctionPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F97F1817A9DE2000A52FF2 /* FunctionPlot.m */; };
+		C34CB5851BC9B1C1009270A0 /* GradientScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FF9D12342D7C006BF615 /* GradientScatterPlot.m */; };
+		C34CB5861BC9B1C1009270A0 /* ImageDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D70BA5175EB29E00F27173 /* ImageDemo.m */; };
+		C34CB5871BC9B1C1009270A0 /* LabelingPolicyDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C39C4E4013BFE1A900CD9194 /* LabelingPolicyDemo.m */; };
+		C34CB5881BC9B1C1009270A0 /* LineCapDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C367249213E103910070F47A /* LineCapDemo.m */; };
+		C34CB5891BC9B1C1009270A0 /* OHLCPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C360E1C513B18AAF007994B6 /* OHLCPlot.m */; };
+		C34CB58A1BC9B1C1009270A0 /* PlotSpaceDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C39C4E4313BFE1B400CD9194 /* PlotSpaceDemo.m */; };
+		C34CB58B1BC9B1C1009270A0 /* RangePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A14BEB13AEB7E700D103EA /* RangePlot.m */; };
+		C34CB58C1BC9B1C1009270A0 /* RealTimePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C354C0D613C7CDBE00DA8822 /* RealTimePlot.m */; };
+		C34CB58D1BC9B1C1009270A0 /* SteppedScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E1C85129083B000D2035F /* SteppedScatterPlot.m */; };
+		C34CB58E1BC9B1C1009270A0 /* SimplePieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FF9F12342D7C006BF615 /* SimplePieChart.m */; };
+		C34CB58F1BC9B1C1009270A0 /* SimpleScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FFA112342D7C006BF615 /* SimpleScatterPlot.m */; };
+		C34CB5901BC9B1C1009270A0 /* VerticalBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FFA312342D7C006BF615 /* VerticalBarChart.m */; };
 		C354C0D713C7CDBE00DA8822 /* RealTimePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C354C0D613C7CDBE00DA8822 /* RealTimePlot.m */; };
 		C35597961437E07800B41DA7 /* ControlChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C35597951437E07800B41DA7 /* ControlChart.m */; };
 		C360E1C613B18AAF007994B6 /* OHLCPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C360E1C513B18AAF007994B6 /* OHLCPlot.m */; };
 		C360E1E013B18CAF007994B6 /* CandlestickPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C360E1DF13B18CAE007994B6 /* CandlestickPlot.m */; };
 		C367249313E103910070F47A /* LineCapDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C367249213E103910070F47A /* LineCapDemo.m */; };
-		C367EEE21BCAEA9E00A21FE7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D2FE6219FF1D03002CD4D6 /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
+		C367EEE21BCAEA9E00A21FE7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D2FE6219FF1D03002CD4D6 /* Images.xcassets */; };
 		C39C4E4113BFE1A900CD9194 /* LabelingPolicyDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C39C4E4013BFE1A900CD9194 /* LabelingPolicyDemo.m */; };
 		C39C4E4413BFE1B400CD9194 /* PlotSpaceDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C39C4E4313BFE1B400CD9194 /* PlotSpaceDemo.m */; };
 		C3A14BEC13AEB7E700D103EA /* RangePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A14BEB13AEB7E700D103EA /* RangePlot.m */; };
@@ -84,6 +84,8 @@
 		C3EF42FD19FC75810060791A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3EF42FC19FC75810060791A /* Images.xcassets */; };
 		C3F34F1512AB2598008FBDC3 /* DonutChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F34F1412AB2598008FBDC3 /* DonutChart.m */; };
 		C3F97F1917A9DE2000A52FF2 /* FunctionPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F97F1817A9DE2000A52FF2 /* FunctionPlot.m */; };
+		E9595DFC1C9973B9004129DA /* CurvedInterpolationDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = E9595DFB1C9973B9004129DA /* CurvedInterpolationDemo.m */; };
+		E9AB989C1C9A903700D23875 /* CurvedInterpolationDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = E9595DFB1C9973B9004129DA /* CurvedInterpolationDemo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -266,6 +268,8 @@
 		C3F42A2714D3A75F0044B323 /* CurvedScatterPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 2; name = CurvedScatterPlot.m; path = src/plots/CurvedScatterPlot.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C3F97F1717A9DE2000A52FF2 /* FunctionPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FunctionPlot.h; path = src/plots/FunctionPlot.h; sourceTree = "<group>"; };
 		C3F97F1817A9DE2000A52FF2 /* FunctionPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = FunctionPlot.m; path = src/plots/FunctionPlot.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		E9595DFA1C9973B9004129DA /* CurvedInterpolationDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurvedInterpolationDemo.h; path = src/plots/CurvedInterpolationDemo.h; sourceTree = "<group>"; };
+		E9595DFB1C9973B9004129DA /* CurvedInterpolationDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CurvedInterpolationDemo.m; path = src/plots/CurvedInterpolationDemo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -396,6 +400,8 @@
 				C35597951437E07800B41DA7 /* ControlChart.m */,
 				C3F42A2614D3A75F0044B323 /* CurvedScatterPlot.h */,
 				C3F42A2714D3A75F0044B323 /* CurvedScatterPlot.m */,
+				E9595DFA1C9973B9004129DA /* CurvedInterpolationDemo.h */,
+				E9595DFB1C9973B9004129DA /* CurvedInterpolationDemo.m */,
 				4F8E1C12129077C200D2035F /* DatePlot.h */,
 				4F8E1C13129077C200D2035F /* DatePlot.m */,
 				C3F34F1312AB2598008FBDC3 /* DonutChart.h */,
@@ -675,6 +681,7 @@
 				C39C4E4113BFE1A900CD9194 /* LabelingPolicyDemo.m in Sources */,
 				C39C4E4413BFE1B400CD9194 /* PlotSpaceDemo.m in Sources */,
 				C354C0D713C7CDBE00DA8822 /* RealTimePlot.m in Sources */,
+				E9595DFC1C9973B9004129DA /* CurvedInterpolationDemo.m in Sources */,
 				C367249313E103910070F47A /* LineCapDemo.m in Sources */,
 				C35597961437E07800B41DA7 /* ControlChart.m in Sources */,
 				C3A31A5614DF782A00734AB7 /* ColoredBarChart.m in Sources */,
@@ -696,6 +703,7 @@
 				C34CB5871BC9B1C1009270A0 /* LabelingPolicyDemo.m in Sources */,
 				C34CB5801BC9B1C1009270A0 /* ControlChart.m in Sources */,
 				C34CB5831BC9B1C1009270A0 /* DonutChart.m in Sources */,
+				E9AB989C1C9A903700D23875 /* CurvedInterpolationDemo.m in Sources */,
 				C34CB5811BC9B1C1009270A0 /* CurvedScatterPlot.m in Sources */,
 				C34CB5861BC9B1C1009270A0 /* ImageDemo.m in Sources */,
 				C34CB5541BC9A889009270A0 /* AppDelegate.m in Sources */,
