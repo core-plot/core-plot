@@ -1251,9 +1251,9 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
             CGFloat d1_a = pow(d1,alpha);//d1^alpha
             CGFloat d2_a = pow(d2,alpha);//d2^alpha
             CGFloat d3_a = pow(d3,alpha);//d3^alpha
-            CGFloat d1_2a = pow(d1_a,2);//d1^alpha^2 = d1^2*alpha
-            CGFloat d2_2a = pow(d2_a,2);//d2^2alpha
-            CGFloat d3_2a = pow(d3_a,2);
+            CGFloat d1_2a = pow(d1_a,CPTFloat(2));//d1^alpha^2 = d1^2*alpha
+            CGFloat d2_2a = pow(d2_a,CPTFloat(2));//d2^2alpha
+            CGFloat d3_2a = pow(d3_a,CPTFloat(2));
             
             //calculate the control points
             //see : http://www.cemyuksel.com/research/catmullrom_param/catmullrom.pdf under point 3.
