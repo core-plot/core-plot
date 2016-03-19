@@ -36,7 +36,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
 @synthesize cachedImage;
 @dynamic titleSize;
 
-+(void)registerPlotItem:(id)item
++(void)registerPlotItem:(nonnull id)item
 {
     NSLog(@"registerPlotItem for class %@", [item class]);
 
@@ -51,7 +51,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
     }
 }
 
--(instancetype)init
+-(nonnull instancetype)init
 {
     if ( (self = [super init]) ) {
         defaultLayerHostingView = nil;
@@ -64,7 +64,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
     return self;
 }
 
--(void)addGraph:(CPTGraph *)graph toHostingView:(CPTGraphHostingView *)hostingView
+-(void)addGraph:(nonnull CPTGraph *)graph toHostingView:(nullable CPTGraphHostingView *)hostingView
 {
     [self.graphs addObject:graph];
 
@@ -73,7 +73,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
     }
 }
 
--(void)addGraph:(CPTGraph *)graph
+-(void)addGraph:(nonnull CPTGraph *)graph
 {
     [self addGraph:graph toHostingView:nil];
 }
@@ -106,7 +106,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
 {
 }
 
--(NSComparisonResult)titleCompare:(PlotItem *)other
+-(NSComparisonResult)titleCompare:(nonnull PlotItem *)other
 {
     NSComparisonResult comparisonResult = [self.section caseInsensitiveCompare:other.section];
 
@@ -142,7 +142,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
     return size;
 }
 
--(void)setPaddingDefaultsForGraph:(CPTGraph *)graph
+-(void)setPaddingDefaultsForGraph:(nonnull CPTGraph *)graph
 {
     CGFloat boundsPadding = self.titleSize;
 
@@ -240,7 +240,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 
--(UIImage *)image
+-(nonnull UIImage *)image
 {
     if ( self.cachedImage == nil ) {
         CGRect imageFrame = CGRectMake(0, 0, 400, 300);
@@ -285,7 +285,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
 
 #else // OSX
 
--(NSImage *)image
+-(nonnull NSImage *)image
 {
     if ( self.cachedImage == nil ) {
         CGRect imageFrame = CGRectMake(0, 0, 400, 300);
@@ -326,7 +326,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
 }
 #endif
 
--(void)applyTheme:(CPTTheme *)theme toGraph:(CPTGraph *)graph withDefault:(CPTTheme *)defaultTheme
+-(void)applyTheme:(nullable CPTTheme *)theme toGraph:(nonnull CPTGraph *)graph withDefault:(nullable CPTTheme *)defaultTheme
 {
     if ( theme == nil ) {
         [graph applyTheme:defaultTheme];
@@ -343,7 +343,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
 }
 #endif
 
--(void)renderInView:(PlotGalleryNativeView *)inView withTheme:(CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInView:(nonnull PlotGalleryNativeView *)inView withTheme:(nullable CPTTheme *)theme animated:(BOOL)animated
 {
     [self killGraph];
 
@@ -394,7 +394,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
     self.defaultLayerHostingView = hostingView;
 }
 
--(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInGraphHostingView:(nonnull CPTGraphHostingView *)hostingView withTheme:(nullable CPTTheme *)theme animated:(BOOL)animated
 {
     NSLog(@"PlotItem:renderInLayer: Override me");
 }

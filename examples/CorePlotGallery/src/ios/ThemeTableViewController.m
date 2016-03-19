@@ -15,7 +15,7 @@ NSString *const PlotGalleryThemeNameKey               = @"PlotGalleryThemeNameKe
 
 @interface ThemeTableViewController()
 
-@property (nonatomic, readwrite, strong) CPTMutableStringArray themes;
+@property (nonatomic, readwrite, strong, nonnull) CPTMutableStringArray themes;
 
 @end
 
@@ -44,7 +44,7 @@ NSString *const PlotGalleryThemeNameKey               = @"PlotGalleryThemeNameKe
     [self setupThemes];
 }
 
--(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+-(nonnull instancetype)initWithNibName:(nullable NSString *)nibNameOrNil bundle:(nullable NSBundle *)nibBundleOrNil
 {
     if ( (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) ) {
         [self setupThemes];
@@ -56,17 +56,17 @@ NSString *const PlotGalleryThemeNameKey               = @"PlotGalleryThemeNameKe
 #pragma mark -
 #pragma mark Table view data source
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+-(NSInteger)numberOfSectionsInTableView:(nonnull UITableView *)tableView
 {
     return 1;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+-(NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return (NSInteger)self.themes.count;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"ThemeCell";
 
@@ -84,7 +84,7 @@ NSString *const PlotGalleryThemeNameKey               = @"PlotGalleryThemeNameKe
 #pragma mark -
 #pragma mark Table view delegate
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     NSDictionary<NSString *, NSString *> *themeInfo = @{
         PlotGalleryThemeNameKey: self.themes[(NSUInteger)indexPath.row]

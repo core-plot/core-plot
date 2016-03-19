@@ -9,8 +9,8 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 
 @interface OHLCPlot()
 
-@property (nonatomic, readwrite, strong) CPTGraph *graph;
-@property (nonatomic, readwrite, strong) NSArray<NSDictionary *> *plotData;
+@property (nonatomic, readwrite, strong, nullable) CPTGraph *graph;
+@property (nonatomic, readwrite, strong, nonnull) NSArray<NSDictionary *> *plotData;
 
 @end
 
@@ -24,7 +24,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     [super registerPlotItem:self];
 }
 
--(instancetype)init
+-(nonnull instancetype)init
 {
     if ( (self = [super init]) ) {
         graph    = nil;
@@ -62,7 +62,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     }
 }
 
--(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInGraphHostingView:(nonnull CPTGraphHostingView *)hostingView withTheme:(nullable CPTTheme *)theme animated:(BOOL)animated
 {
     // If you make sure your dates are calculated at noon, you shouldn't have to
     // worry about daylight savings. If you use midnight, you will have to adjust
@@ -181,12 +181,12 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot
 {
     return self.plotData.count;
 }
 
--(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(nullable id)numberForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSDecimalNumber *num = [NSDecimalNumber zero];
 
@@ -213,7 +213,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 #pragma mark -
 #pragma mark Plot Delegate Methods
 
--(void)tradingRangePlot:(CPTTradingRangePlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index
+-(void)tradingRangePlot:(nonnull CPTTradingRangePlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index
 {
     NSLog(@"Bar for '%@' was selected at index %d.", plot.identifier, (int)index);
 }

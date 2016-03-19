@@ -2,6 +2,6 @@
 
 @interface NSDateFormatter(APExtensions)
 
-+(NSDateFormatter *)csvDateFormatter;
++(nonnull NSDateFormatter *)csvDateFormatter;
 
 @end

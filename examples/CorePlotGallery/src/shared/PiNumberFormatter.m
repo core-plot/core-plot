@@ -17,7 +17,7 @@ double gcd(double a, double b);
  *  @param coordinateValue The numeric value.
  *  @return The formatted string.
  **/
--(NSString *)stringForObjectValue:(id)coordinateValue
+-(nullable NSString *)stringForObjectValue:(nonnull id)coordinateValue
 {
     NSString *string = nil;
 

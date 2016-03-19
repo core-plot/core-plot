@@ -8,7 +8,7 @@
 @property (readwrite, assign) double inputStartAngle;
 @property (readwrite, assign) NSUInteger inputSliceDirection;
 @property (readwrite, assign) double inputBorderWidth;
-@property (readwrite, assign) CGColorRef inputBorderColor;
-@property (readwrite, assign) CGColorRef inputLabelColor;
+@property (readwrite, assign, nonnull) CGColorRef inputBorderColor;
+@property (readwrite, assign, nonnull) CGColorRef inputLabelColor;
 
 @end

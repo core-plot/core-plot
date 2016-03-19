@@ -11,7 +11,7 @@
 @interface RotationView : NSView
 
 @property (nonatomic, readwrite) CATransform3D rotationTransform;
-@property (nonatomic, readwrite, weak) id<CPTRotationDelegate> rotationDelegate;
+@property (nonatomic, readwrite, weak, nullable) id<CPTRotationDelegate> rotationDelegate;
 
 @end
 

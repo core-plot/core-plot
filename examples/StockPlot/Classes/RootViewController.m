@@ -11,8 +11,8 @@
 
 @interface RootViewController()
 
-@property (nonatomic, readwrite, strong) APYahooDataPullerGraph *graph;
-@property (nonatomic, readwrite, strong) NSMutableArray<APYahooDataPuller *> *stocks;
+@property (nonatomic, readwrite, strong, nonnull) APYahooDataPullerGraph *graph;
+@property (nonatomic, readwrite, strong, nonnull) NSMutableArray<APYahooDataPuller *> *stocks;
 
 @end
 
@@ -55,7 +55,7 @@
 
 #pragma mark Table view methods
 
--(void)inspectStock:(APYahooDataPuller *)aStock
+-(void)inspectStock:(nonnull APYahooDataPuller *)aStock
 {
     NSDecimalNumber *high = [aStock overallHigh];
     NSDecimalNumber *low  = [aStock overallLow];
@@ -78,7 +78,7 @@
 }
 
 // Override to support row selection in the table view.
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     APYahooDataPuller *dp = self.stocks[(NSUInteger)indexPath.row];
 
@@ -86,18 +86,18 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+-(NSInteger)numberOfSectionsInTableView:(nonnull UITableView *)tableView
 {
     return 1;
 }
 
 // Customize the number of rows in the table view.
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+-(NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return (NSInteger)self.stocks.count;
 }
 
--(void)setupCell:(UITableViewCell *)cell forStockAtIndex:(NSUInteger)row
+-(void)setupCell:(nonnull UITableViewCell *)cell forStockAtIndex:(NSUInteger)row
 {
     APYahooDataPuller *dp = self.stocks[row];
 
@@ -162,7 +162,7 @@
 }
 
 // Customize the appearance of table view cells.
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"UITableViewCellStyleSubtitle";
 
@@ -187,7 +187,7 @@
 #pragma mark -
 #pragma mark accessors
 
--(CPTStringArray)symbols
+-(nonnull CPTStringArray)symbols
 {
     // NSLog(@"in -symbols, returned symbols = %@", symbols);
     CPTMutableStringArray symbols = [NSMutableArray arrayWithCapacity:self.stocks.count];
@@ -198,7 +198,7 @@
     return [NSArray arrayWithArray:symbols];
 }
 
--(void)dataPuller:(APYahooDataPuller *)dp downloadDidFailWithError:(NSError *)error
+-(void)dataPuller:(nonnull APYahooDataPuller *)dp downloadDidFailWithError:(nonnull NSError *)error
 {
     NSLog(@"dataPuller:%@ downloadDidFailWithError:%@", dp, error);
     NSUInteger idx        = [self.stocks indexOfObject:dp];
@@ -208,7 +208,7 @@
     [self setupCell:cell forStockAtIndex:idx];
 }
 
--(void)dataPullerFinancialDataDidChange:(APYahooDataPuller *)dp
+-(void)dataPullerFinancialDataDidChange:(nonnull APYahooDataPuller *)dp
 {
     NSLog(@"dataPullerFinancialDataDidChange:%@", dp);
     NSUInteger idx        = [self.stocks indexOfObject:dp];
@@ -218,7 +218,7 @@
     [self setupCell:cell forStockAtIndex:idx];
 }
 
--(void)addSymbol:(NSString *)aSymbol
+-(void)addSymbol:(nonnull NSString *)aSymbol
 {
     NSTimeInterval secondsAgo = -fabs(60.0 * 60.0 * 24.0 * 7.0 * 12.0); // 12 weeks ago
     NSDate *start             = [NSDate dateWithTimeIntervalSinceNow:secondsAgo];
@@ -271,7 +271,7 @@
 
 /*
  * // Override to support row selection in the table view.
- * - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+ * - (void)tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
  *
  * // Navigation logic may go here -- for example, create and push another view controller.
  * // AnotherViewController *anotherViewController = [[AnotherViewController alloc] initWithNibName:@"AnotherView" bundle:nil];
@@ -282,7 +282,7 @@
 
 /*
  * // Override to support conditional editing of the table view.
- * - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+ * - (BOOL)tableView:(nonnull UITableView *)tableView canEditRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
  * // Return NO if you do not want the specified item to be editable.
  * return YES;
  * }
@@ -290,7 +290,7 @@
 
 /*
  * // Override to support editing the table view.
- * - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+ * - (void)tableView:(nonnull UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
  *
  * if (editingStyle == UITableViewCellEditingStyleDelete) {
  * // Delete the row from the data source.
@@ -304,13 +304,13 @@
 
 /*
  * // Override to support rearranging the table view.
- * - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+ * - (void)tableView:(nonnull UITableView *)tableView moveRowAtIndexPath:(nonnull NSIndexPath *)fromIndexPath toIndexPath:(nonnull NSIndexPath *)toIndexPath {
  * }
  */
 
 /*
  * // Override to support conditional rearranging of the table view.
- * - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+ * - (BOOL)tableView:(nonnull UITableView *)tableView canMoveRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
  * // Return NO if you do not want the item to be re-orderable.
  * return YES;
  * }

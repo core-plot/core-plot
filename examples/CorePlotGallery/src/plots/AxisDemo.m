@@ -12,7 +12,7 @@
     [super registerPlotItem:self];
 }
 
--(instancetype)init
+-(nonnull instancetype)init
 {
     if ( (self = [super init]) ) {
         self.title   = @"Axis Demo";
@@ -22,7 +22,7 @@
     return self;
 }
 
--(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInGraphHostingView:(nonnull CPTGraphHostingView *)hostingView withTheme:(nullable CPTTheme *)theme animated:(BOOL)animated
 {
 #if TARGET_OS_IPHONE
     CGRect bounds = hostingView.bounds;
@@ -146,7 +146,7 @@
 
 #pragma mark - Axis delegate
 
--(void)axis:(CPTAxis *)axis labelWasSelected:(CPTAxisLabel *)label
+-(void)axis:(nonnull CPTAxis *)axis labelWasSelected:(nonnull CPTAxisLabel *)label
 {
     NSLog(@"%@ label was selected at location %@", axis.title, label.tickLocation);
 }

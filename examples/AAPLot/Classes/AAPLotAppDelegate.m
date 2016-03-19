@@ -14,7 +14,7 @@
 @synthesize window;
 @synthesize rootViewController;
 
--(void)applicationDidFinishLaunching:(UIApplication *)application
+-(void)applicationDidFinishLaunching:(nonnull UIApplication *)application
 {
     self.window.rootViewController = self.rootViewController;
     [self.window makeKeyAndVisible];

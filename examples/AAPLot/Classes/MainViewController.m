@@ -6,8 +6,8 @@
 
 @interface MainViewController()
 
-@property (nonatomic, readwrite, strong) CPTXYGraph *graph;
-@property (nonatomic, readwrite, strong) APYahooDataPuller *datapuller;
+@property (nonatomic, readwrite, strong, nullable) CPTXYGraph *graph;
+@property (nonatomic, readwrite, strong, nonnull) APYahooDataPuller *datapuller;
 
 @end
 
@@ -125,7 +125,7 @@
     [super viewDidLoad];
 }
 
--(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+-(nonnull instancetype)initWithNibName:(nullable NSString *)nibNameOrNil bundle:(nullable NSBundle *)nibBundleOrNil
 {
     if ( (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) ) {
     }
@@ -135,14 +135,14 @@
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot
 {
     return self.datapuller.financialData.count;
 }
 
 #if ROWS_FIRST_DATA_ORDER
 
--(CPTNumericData *)dataForPlot:(CPTPlot *)plot recordIndexRange:(NSRange)indexRange
+-(nullable CPTNumericData *)dataForPlot:(nonnull CPTPlot *)plot recordIndexRange:(NSRange)indexRange
 {
     CPTFinancialDataArray financialData = self.datapuller.financialData;
     const NSUInteger financialDataCount = financialData.count;
@@ -363,7 +363,7 @@
 
 #else
 
--(CPTNumericData *)dataForPlot:(CPTPlot *)plot recordIndexRange:(NSRange)indexRange
+-(nullable CPTNumericData *)dataForPlot:(nonnull CPTPlot *)plot recordIndexRange:(NSRange)indexRange
 {
     CPTFinancialDataArray financialData = self.datapuller.financialData;
     const NSUInteger financialDataCount = financialData.count;
@@ -583,7 +583,7 @@
 }
 #endif
 
--(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index
+-(nullable CPTLayer *)dataLabelForPlot:(nonnull CPTPlot *)plot recordIndex:(NSUInteger)index
 {
     if ( ![(NSString *) plot.identifier isEqualToString:@"OHLC"] ) {
         return (id)[NSNull null]; // Don't show any label
@@ -596,7 +596,7 @@
     }
 }
 
--(void)dataPullerDidFinishFetch:(APYahooDataPuller *)dp
+-(void)dataPullerDidFinishFetch:(nonnull APYahooDataPuller *)dp
 {
     static CPTAnimationOperation *animationOperation = nil;
 
@@ -642,7 +642,6 @@
     NSDecimalNumber *volumeLengthDisplayLocation   = [volumeLength decimalNumberByAdding:volumeLengthDisplacementValue];
 
     volumePlotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@(thePuller.financialData.count + 1)];
-// volumePlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:volumeLowDisplayLocation length:volumeLengthDisplayLocation];
 
     if ( animationOperation ) {
         [[CPTAnimation sharedInstance] removeAnimationOperation:animationOperation];
@@ -656,6 +655,9 @@
                                        toPlotRange:[CPTPlotRange      plotRangeWithLocation:volumeLowDisplayLocation
                                                                                      length:volumeLengthDisplayLocation]
                                           duration:2.5];
+    }
+    else {
+        volumePlotSpace.yRange = [CPTPlotRange plotRangeWithLocation:volumeLowDisplayLocation length:volumeLengthDisplayLocation];
     }
 
     axisSet.xAxis.orthogonalPosition    = low;

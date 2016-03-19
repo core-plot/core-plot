@@ -13,7 +13,7 @@
 @synthesize window;
 @synthesize viewController;
 
--(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(CPTDictionary)launchOptions
+-(BOOL)application:(nonnull UIApplication *)application didFinishLaunchingWithOptions:(nullable CPTDictionary)launchOptions
 {
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];

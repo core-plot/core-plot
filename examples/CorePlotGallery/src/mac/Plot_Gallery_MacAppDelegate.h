@@ -7,6 +7,6 @@
 
 @interface Plot_Gallery_MacAppDelegate : NSObject<NSApplicationDelegate>
 
-@property (nonatomic, readwrite, strong) IBOutlet NSWindow *window;
+@property (nonatomic, readwrite, strong, nullable) IBOutlet NSWindow *window;
 
 @end

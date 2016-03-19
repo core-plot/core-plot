@@ -7,6 +7,6 @@
 
 @interface AppDelegate : UIResponder<UIApplicationDelegate>
 
-@property (nonatomic, readwrite, strong) UIWindow *window;
+@property (nonatomic, readwrite, strong, nullable) UIWindow *window;
 
 @end

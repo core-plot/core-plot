@@ -8,18 +8,18 @@
 
 @interface CorePlotQCPlugIn()
 
-@property (nonatomic, readwrite, strong) NSMutableData *imageData;
-@property (nonatomic, readwrite, assign) CGContextRef bitmapContext;
-@property (nonatomic, readwrite, strong) id<QCPlugInOutputImageProvider> imageProvider;
+@property (nonatomic, readwrite, strong, nullable) NSMutableData *imageData;
+@property (nonatomic, readwrite, assign, nullable) CGContextRef bitmapContext;
+@property (nonatomic, readwrite, strong, nonnull) id<QCPlugInOutputImageProvider> imageProvider;
 
-void drawErrorText(CGContextRef context, CGRect rect);
+void drawErrorText(CGContextRef __nonnull context, CGRect rect);
 
 @end
 
 #pragma mark -
 
 // Draws the string "ERROR" in the given context in big red letters
-void drawErrorText(CGContextRef context, CGRect rect)
+void drawErrorText(CGContextRef __nonnull context, CGRect rect)
 {
     CGContextSaveGState(context);
 
@@ -83,7 +83,7 @@ void drawErrorText(CGContextRef context, CGRect rect)
  */
 @synthesize numberOfPlots;
 
-+(NSDictionary<NSString *, NSString *> *)attributes
++(nonnull NSDictionary<NSString *, NSString *> *)attributes
 {
     /*
      * Return a dictionary of attributes describing the plug-in (QCPlugInAttributeNameKey, QCPlugInAttributeDescriptionKey...).
@@ -113,7 +113,7 @@ void drawErrorText(CGContextRef context, CGRect rect)
     return kQCPlugInTimeModeNone;
 }
 
--(instancetype)init
+-(nonnull instancetype)init
 {
     if ( (self = [super init]) ) {
         /*
@@ -149,7 +149,7 @@ void drawErrorText(CGContextRef context, CGRect rect)
     self.graph = nil;
 }
 
--(QCPlugInViewController *)createViewController
+-(nullable QCPlugInViewController *)createViewController
 {
     /*
      * Return a new QCPlugInViewController to edit the internal settings of this plug-in instance.
@@ -162,7 +162,7 @@ void drawErrorText(CGContextRef context, CGRect rect)
 #pragma mark -
 #pragma mark Input and output port configuration
 
-+(CPTStringArray)sortedPropertyPortKeys
++(nonnull CPTStringArray)sortedPropertyPortKeys
 {
     return @[@"inputPixelsWide",
              @"inputPixelsHigh",
@@ -186,7 +186,7 @@ void drawErrorText(CGContextRef context, CGRect rect)
              @"inputAxisMinorTickWidth"];
 }
 
-+(CPTDictionary)attributesForPropertyPortWithKey:(NSString *)key
++(nonnull CPTDictionary)attributesForPropertyPortWithKey:(nonnull NSString *)key
 {
     /*
      * Specify the optional attributes for property based ports (QCPortAttributeNameKey, QCPortAttributeDefaultValueKey...).
@@ -380,7 +380,7 @@ void drawErrorText(CGContextRef context, CGRect rect)
     }
 }
 
--(CGColorRef)newDefaultColorForPlot:(NSUInteger)index alpha:(CGFloat)alpha
+-(nonnull CGColorRef)newDefaultColorForPlot:(NSUInteger)index alpha:(CGFloat)alpha
 {
     CGColorRef color;
 
@@ -497,7 +497,7 @@ void drawErrorText(CGContextRef context, CGRect rect)
     return YES;
 }
 
--(CGColorRef)dataLineColor:(NSUInteger)index
+-(nonnull CGColorRef)dataLineColor:(NSUInteger)index
 {
     NSString *key = [NSString stringWithFormat:@"plotDataLineColor%lu", (unsigned long)index];
 
@@ -513,14 +513,14 @@ void drawErrorText(CGContextRef context, CGRect rect)
     return inputValue.doubleValue;
 }
 
--(CGColorRef)areaFillColor:(NSUInteger)index
+-(nonnull CGColorRef)areaFillColor:(NSUInteger)index
 {
     NSString *key = [NSString stringWithFormat:@"plotFillColor%lu", (unsigned long)index];
 
     return (__bridge CGColorRef)([self valueForInputKey:key]);
 }
 
--(CGImageRef)newAreaFillImage:(NSUInteger)index
+-(nonnull CGImageRef)newAreaFillImage:(NSUInteger)index
 {
     NSString *key = [NSString stringWithFormat:@"plotFillImage%lu", (unsigned long)index];
 
@@ -563,12 +563,12 @@ void drawErrorText(CGContextRef context, CGRect rect)
     return imageRef;
 }
 
-static void _BufferReleaseCallback(const void *address, void *context)
+static void _BufferReleaseCallback(const void *__nonnull address, void *__nonnull context)
 {
     // Don't do anything.  We release the buffer manually when it's recreated or during dealloc
 }
 
--(void)createImageResourcesWithContext:(id<QCPlugInContext>)context
+-(void)createImageResourcesWithContext:(nonnull id<QCPlugInContext>)context
 {
     // Create a CG bitmap for drawing.  The image data is released when QC calls _BufferReleaseCallback
     CGSize boundsSize           = self.graph.bounds.size;
@@ -639,12 +639,12 @@ static void _BufferReleaseCallback(const void *address, void *context)
 #pragma mark -
 #pragma mark Data source methods
 
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot
 {
     return 0;
 }
 
--(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(nullable id)numberForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     return @0;
 }
@@ -671,12 +671,12 @@ static void _BufferReleaseCallback(const void *address, void *context)
     numberOfPlots = number;
 }
 
-+(CPTStringArray)plugInKeys
++(nonnull CPTStringArray)plugInKeys
 {
     return @[@"numberOfPlots"];
 }
 
--(id)serializedValueForKey:(NSString *)key
+-(nonnull id)serializedValueForKey:(nonnull NSString *)key
 {
     /*
      * Provide custom serialization for the plug-in internal settings that are not values complying to the <NSCoding> protocol.
@@ -691,7 +691,7 @@ static void _BufferReleaseCallback(const void *address, void *context)
     }
 }
 
--(void)setSerializedValue:(id)serializedValue forKey:(NSString *)key
+-(void)setSerializedValue:(nonnull id)serializedValue forKey:(nonnull NSString *)key
 {
     /*
      * Provide deserialization for the plug-in internal settings that were custom serialized in -serializedValueForKey.
@@ -709,7 +709,7 @@ static void _BufferReleaseCallback(const void *address, void *context)
 #pragma mark -
 #pragma mark Accessors
 
--(void)setBitmapContext:(CGContextRef)newContext
+-(void)setBitmapContext:(nullable CGContextRef)newContext
 {
     if ( newContext != bitmapContext ) {
         CGContextRelease(bitmapContext);
@@ -795,7 +795,7 @@ static void _BufferReleaseCallback(const void *address, void *context)
 
 @implementation CorePlotQCPlugIn(Execution)
 
--(BOOL)execute:(id<QCPlugInContext>)context atTime:(NSTimeInterval)time withArguments:(CPTDictionary)arguments
+-(BOOL)execute:(nonnull id<QCPlugInContext>)context atTime:(NSTimeInterval)time withArguments:(nullable CPTDictionary)arguments
 {
     // Configure the plot for drawing
     BOOL configurationCheck = [self configureGraph];

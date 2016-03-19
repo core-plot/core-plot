@@ -2,7 +2,7 @@
 
 @implementation NSDateFormatter(APExtensions)
 
-+(NSDateFormatter *)csvDateFormatter
++(nonnull NSDateFormatter *)csvDateFormatter
 {
     static NSDateFormatter *df       = nil;
     static dispatch_once_t onceToken = 0;

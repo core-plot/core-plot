@@ -3,11 +3,11 @@
 // CorePlotGallery
 //
 
-extern NSString *const kThemeTableViewControllerNoTheme;
-extern NSString *const kThemeTableViewControllerDefaultTheme;
+extern NSString *__nonnull const kThemeTableViewControllerNoTheme;
+extern NSString *__nonnull const kThemeTableViewControllerDefaultTheme;
 
-extern NSString *const PlotGalleryThemeDidChangeNotification;
-extern NSString *const PlotGalleryThemeNameKey;
+extern NSString *__nonnull const PlotGalleryThemeDidChangeNotification;
+extern NSString *__nonnull const PlotGalleryThemeNameKey;
 
 #pragma mark -
 

@@ -172,7 +172,7 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource {
                     let newLabelLayer = CPTTextLayer(text: labelString, style: labelTextStyle)
 
                     let newLabel = CPTAxisLabel(contentLayer: newLabelLayer)
-                    newLabel.tickLocation = tickLocation as? NSNumber
+                    newLabel.tickLocation = tickLocation as! NSNumber
                     newLabel.offset       = labelOffset
                     
                     newLabels.insert(newLabel)

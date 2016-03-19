@@ -8,7 +8,7 @@
 
 @interface StockPlotAppDelegate : NSObject<UIApplicationDelegate>
 
-@property (nonatomic, strong) IBOutlet UIWindow *window;
-@property (nonatomic, strong) IBOutlet UINavigationController *navigationController;
+@property (nonatomic, strong, nullable) IBOutlet UIWindow *window;
+@property (nonatomic, strong, nullable) IBOutlet UINavigationController *navigationController;
 
 @end

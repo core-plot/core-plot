@@ -25,7 +25,7 @@
  */
 @dynamic inputPieRadius, inputSliceLabelOffset, inputStartAngle, inputSliceDirection;
 
-+(NSDictionary<NSString *, NSString *> *)attributes
++(nonnull NSDictionary<NSString *, NSString *> *)attributes
 {
     return @{
                QCPlugInAttributeNameKey: @"Core Plot Pie Chart",
@@ -55,19 +55,19 @@
 
 // Pie charts only support one layer so we override the createViewController method (to hide the number of charts button)
 
--(QCPlugInViewController *)createViewController
+-(nullable QCPlugInViewController *)createViewController
 {
     return nil;
 }
 
-+(CPTStringArray)sortedPropertyPortKeys
++(nonnull CPTStringArray)sortedPropertyPortKeys
 {
     CPTStringArray pieChartPropertyPortKeys = @[@"inputPieRadius", @"inputSliceLabelOffset", @"inputStartAngle", @"inputSliceDirection", @"inputBorderColor", @"inputBorderWidth"];
 
     return [[super sortedPropertyPortKeys] arrayByAddingObjectsFromArray:pieChartPropertyPortKeys];
 }
 
-+(CPTDictionary)attributesForPropertyPortWithKey:(NSString *)key
++(nonnull CPTDictionary)attributesForPropertyPortWithKey:(nonnull NSString *)key
 {
     // A few additional ports for the pie chart type ...
     if ( [key isEqualToString:@"inputPieRadius"] ) {
@@ -216,7 +216,7 @@
 #pragma mark -
 #pragma mark Data source methods
 
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot
 {
     NSUInteger plotIndex = [[self.graph allPlots] indexOfObject:plot];
     NSString *key        = [NSString stringWithFormat:@"plotNumbers%lu", (unsigned long)plotIndex];
@@ -224,7 +224,7 @@
     return [[self valueForInputKey:key] count];
 }
 
--(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(nullable id)numberForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSUInteger plotIndex = [[self.graph allPlots] indexOfObject:plot];
     NSString *key        = [NSString stringWithFormat:@"plotNumbers%lu", (unsigned long)plotIndex];
@@ -239,7 +239,7 @@
     }
 }
 
--(CPTFill *)sliceFillForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index
+-(nullable CPTFill *)sliceFillForPieChart:(nonnull CPTPieChart *)pieChart recordIndex:(NSUInteger)index
 {
     CGColorRef plotFillColor  = [[CPTPieChart defaultPieSliceColorForIndex:index] cgColor];
     CGColorRef inputFillColor = (CGColorRef)[self areaFillColor:0];
@@ -259,7 +259,7 @@
     return [[CPTFill alloc] initWithColor:fillCPColor];
 }
 
--(CPTTextLayer *)sliceLabelForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index
+-(nullable CPTTextLayer *)sliceLabelForPieChart:(nonnull CPTPieChart *)pieChart recordIndex:(NSUInteger)index
 {
     NSUInteger plotIndex = [[self.graph allPlots] indexOfObject:pieChart];
     NSString *key        = [NSString stringWithFormat:@"plotLabels%lu", (unsigned long)plotIndex];

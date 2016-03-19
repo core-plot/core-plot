@@ -9,14 +9,14 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 
 @interface Controller()
 
-@property (nonatomic, readwrite, strong) IBOutlet CPTGraphHostingView *hostView;
-@property (nonatomic, readwrite, weak) IBOutlet NSWindow *plotSymbolWindow;
-@property (nonatomic, readwrite, weak) IBOutlet NSWindow *axisDemoWindow;
-@property (nonatomic, readwrite, weak) IBOutlet NSWindow *selectionDemoWindow;
+@property (nonatomic, readwrite, strong, nullable) IBOutlet CPTGraphHostingView *hostView;
+@property (nonatomic, readwrite, weak, nullable) IBOutlet NSWindow *plotSymbolWindow;
+@property (nonatomic, readwrite, weak, nullable) IBOutlet NSWindow *axisDemoWindow;
+@property (nonatomic, readwrite, weak, nullable) IBOutlet NSWindow *selectionDemoWindow;
 
-@property (nonatomic, readwrite, strong) CPTXYGraph *graph;
-@property (nonatomic, readwrite, strong) RotationView *overlayRotationView;
-@property (nonatomic, readwrite, strong) CPTPlotSpaceAnnotation *symbolTextAnnotation;
+@property (nonatomic, readwrite, strong, nonnull) CPTXYGraph *graph;
+@property (nonatomic, readwrite, strong, nullable) RotationView *overlayRotationView;
+@property (nonatomic, readwrite, strong, nullable) CPTPlotSpaceAnnotation *symbolTextAnnotation;
 
 -(void)setupGraph;
 -(void)setupAxes;
@@ -364,14 +364,14 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 #pragma mark -
 #pragma mark Actions
 
--(IBAction)reloadDataSourcePlot:(id)sender
+-(IBAction)reloadDataSourcePlot:(nullable id)sender
 {
     CPTPlot *plot = [self.graph plotWithIdentifier:dataSourcePlot];
 
     [plot reloadData];
 }
 
--(IBAction)removeData:(id)sender
+-(IBAction)removeData:(nullable id)sender
 {
     NSUInteger index = self.selectionIndex;
 
@@ -383,7 +383,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     }
 }
 
--(IBAction)insertData:(id)sender
+-(IBAction)insertData:(nullable id)sender
 {
     NSUInteger index = self.selectionIndex;
 
@@ -399,7 +399,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot
 {
     if ( [plot isKindOfClass:[CPTBarPlot class]] ) {
         return 8;
@@ -409,7 +409,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     }
 }
 
--(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(nullable id)numberForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSNumber *num;
 
@@ -429,7 +429,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     return num;
 }
 
--(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index
+-(nullable CPTLayer *)dataLabelForPlot:(nonnull CPTPlot *)plot recordIndex:(NSUInteger)index
 {
     if ( [(NSString *) plot.identifier isEqualToString:barPlot2] ) {
         return (id)[NSNull null]; // Don't show any label
@@ -448,7 +448,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 #pragma mark -
 #pragma mark CPTScatterPlot delegate method
 
--(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index
+-(void)scatterPlot:(nonnull CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index
 {
     CPTPlotSpaceAnnotation *annotation = self.symbolTextAnnotation;
 
@@ -492,7 +492,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 #pragma mark -
 #pragma mark CPTBarPlot delegate method
 
--(void)barPlot:(CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index
+-(void)barPlot:(nonnull CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index
 {
     NSLog(@"barWasSelectedAtRecordIndex %u", (unsigned)index);
 
@@ -543,7 +543,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 #pragma mark -
 #pragma mark Plot area delegate method
 
--(void)plotAreaWasSelected:(CPTPlotArea *)plotArea
+-(void)plotAreaWasSelected:(nonnull CPTPlotArea *)plotArea
 {
     // Remove the annotation
     CPTPlotSpaceAnnotation *annotation = self.symbolTextAnnotation;
@@ -557,7 +557,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 #pragma mark -
 #pragma mark PDF / image export
 
--(IBAction)exportToPDF:(id)sender
+-(IBAction)exportToPDF:(nullable id)sender
 {
     NSSavePanel *pdfSavingDialog = [NSSavePanel savePanel];
 
@@ -573,7 +573,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     }
 }
 
--(IBAction)exportToPNG:(id)sender
+-(IBAction)exportToPNG:(nullable id)sender
 {
     NSSavePanel *pngSavingDialog = [NSSavePanel savePanel];
 
@@ -595,7 +595,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 #pragma mark -
 #pragma mark Printing
 
--(IBAction)printDocument:(id)sender
+-(IBAction)printDocument:(nullable id)sender
 {
     NSPrintInfo *printInfo = [NSPrintInfo sharedPrintInfo];
 
@@ -606,9 +606,10 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 
     self.hostView.printRect = printRect;
 
-    NSWindow *window = self.hostView.window;
+    CPTGraphHostingView *host = self.hostView;
+    NSWindow *window          = host.window;
     if ( window ) {
-        NSPrintOperation *printOperation = [NSPrintOperation printOperationWithView:self.hostView printInfo:printInfo];
+        NSPrintOperation *printOperation = [NSPrintOperation printOperationWithView:host printInfo:printInfo];
         [printOperation runOperationModalForWindow:window
                                           delegate:self
                                     didRunSelector:@selector(printOperationDidRun:success:contextInfo:)
@@ -616,7 +617,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     }
 }
 
--(void)printOperationDidRun:(NSPrintOperation *)printOperation success:(BOOL)success contextInfo:(void *)contextInfo
+-(void)printOperationDidRun:(nonnull NSPrintOperation *)printOperation success:(BOOL)success contextInfo:(nullable void *)contextInfo
 {
     // print delegate
 }
@@ -624,7 +625,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 #pragma mark -
 #pragma mark Layer exploding for illustration
 
--(IBAction)explodeLayers:(id)sender
+-(IBAction)explodeLayers:(nullable id)sender
 {
     CATransform3D perspectiveRotation = CATransform3DMakeRotation(-40.0 * M_PI / 180.0, 0.0, 1.0, 0.0);
 
@@ -651,7 +652,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     [CATransaction commit];
 }
 
-+(void)recursivelySplitSublayersInZForLayer:(CALayer *)layer depthLevel:(NSUInteger)depthLevel
++(void)recursivelySplitSublayersInZForLayer:(nonnull CALayer *)layer depthLevel:(NSUInteger)depthLevel
 {
     layer.zPosition   = kZDistanceBetweenLayers * (CGFloat)depthLevel;
     layer.borderColor = [CPTColor blueColor].cgColor;
@@ -663,7 +664,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     }
 }
 
--(IBAction)reassembleLayers:(id)sender
+-(IBAction)reassembleLayers:(nullable id)sender
 {
     [CATransaction begin];
     [CATransaction setValue:@1.0f forKey:kCATransactionAnimationDuration];
@@ -677,7 +678,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     self.overlayRotationView = nil;
 }
 
-+(void)recursivelyAssembleSublayersInZForLayer:(CALayer *)layer
++(void)recursivelyAssembleSublayersInZForLayer:(nonnull CALayer *)layer
 {
     layer.zPosition   = 0.0;
     layer.borderColor = [CPTColor clearColor].cgColor;
@@ -690,7 +691,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 #pragma mark -
 #pragma mark Demo windows
 
--(IBAction)plotSymbolDemo:(id)sender
+-(IBAction)plotSymbolDemo:(nullable id)sender
 {
     if ( !self.plotSymbolWindow ) {
         [NSBundle loadNibNamed:@"PlotSymbolDemo" owner:self];
@@ -700,7 +701,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     [window makeKeyAndOrderFront:sender];
 }
 
--(IBAction)axisDemo:(id)sender
+-(IBAction)axisDemo:(nullable id)sender
 {
     if ( !self.axisDemoWindow ) {
         [NSBundle loadNibNamed:@"AxisDemo" owner:self];
@@ -710,7 +711,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     [window makeKeyAndOrderFront:sender];
 }
 
--(IBAction)selectionDemo:(id)sender
+-(IBAction)selectionDemo:(nullable id)sender
 {
     if ( !self.selectionDemoWindow ) {
         [NSBundle loadNibNamed:@"SelectionDemo" owner:self];

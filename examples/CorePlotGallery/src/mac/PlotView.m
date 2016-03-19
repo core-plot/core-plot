@@ -9,7 +9,7 @@
 
 @synthesize delegate;
 
--(instancetype)initWithFrame:(NSRect)frame
+-(nonnull instancetype)initWithFrame:(NSRect)frame
 {
     if ( (self = [super initWithFrame:frame]) ) {
     }

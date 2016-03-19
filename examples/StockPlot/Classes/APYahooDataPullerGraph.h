@@ -12,7 +12,7 @@
 
 @interface APYahooDataPullerGraph : UIViewController<APYahooDataPullerDelegate, CPTPlotDataSource>
 
-@property (nonatomic, strong) IBOutlet CPTGraphHostingView *graphHost;
-@property (nonatomic, strong) APYahooDataPuller *dataPuller;
+@property (nonatomic, strong, nullable) IBOutlet CPTGraphHostingView *graphHost;
+@property (nonatomic, strong, nonnull) APYahooDataPuller *dataPuller;
 
 @end

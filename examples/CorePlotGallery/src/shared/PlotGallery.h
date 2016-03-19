@@ -9,15 +9,15 @@
 
 @property (nonatomic, readonly) NSUInteger count;
 @property (nonatomic, readonly) NSUInteger numberOfSections;
-@property (nonatomic, readonly, strong) CPTStringArray sectionTitles;
+@property (nonatomic, readonly, strong, nonnull) CPTStringArray sectionTitles;
 
-+(PlotGallery *)sharedPlotGallery;
++(nonnull PlotGallery *)sharedPlotGallery;
 
--(void)addPlotItem:(PlotItem *)plotItem;
+-(void)addPlotItem:(nonnull PlotItem *)plotItem;
 
 -(void)sortByTitle;
 
--(PlotItem *)objectInSection:(NSUInteger)section atIndex:(NSUInteger)index;
+-(nonnull PlotItem *)objectInSection:(NSUInteger)section atIndex:(NSUInteger)index;
 -(NSUInteger)numberOfRowsInSection:(NSUInteger)section;
 
 @end

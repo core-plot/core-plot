@@ -13,9 +13,9 @@
 
 @interface RootViewController()
 
-@property (nonatomic, copy) NSString *currentThemeName;
+@property (nonatomic, copy, nonnull) NSString *currentThemeName;
 
--(void)themeChanged:(NSNotification *)notification;
+-(void)themeChanged:(nonnull NSNotification *)notification;
 
 @end
 
@@ -47,7 +47,7 @@
 #pragma mark -
 #pragma mark Segues
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+-(void)prepareForSegue:(nonnull UIStoryboardSegue *)segue sender:(nullable id)sender
 {
     if ( [segue.identifier isEqualToString:@"showDetail"] ) {
         DetailViewController *controller = (DetailViewController *)[segue.destinationViewController topViewController];
@@ -69,27 +69,30 @@
 #pragma mark -
 #pragma mark Theme Selection
 
--(void)themeChanged:(NSNotification *)notification
+-(void)themeChanged:(nonnull NSNotification *)notification
 {
     NSDictionary<NSString *, NSString *> *themeInfo = notification.userInfo;
 
-    self.currentThemeName = themeInfo[PlotGalleryThemeNameKey];
+    NSString *themeName = themeInfo[PlotGalleryThemeNameKey];
+    if ( themeName ) {
+        self.currentThemeName = themeName;
+    }
 }
 
 #pragma mark -
 #pragma mark Table view data source
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tv
+-(NSInteger)numberOfSectionsInTableView:(nonnull UITableView *)tv
 {
     return (NSInteger)[[PlotGallery sharedPlotGallery] numberOfSections];
 }
 
--(NSInteger)tableView:(UITableView *)tv numberOfRowsInSection:(NSInteger)section
+-(NSInteger)tableView:(nonnull UITableView *)tv numberOfRowsInSection:(NSInteger)section
 {
     return (NSInteger)[[PlotGallery sharedPlotGallery] numberOfRowsInSection:(NSUInteger)section];
 }
 
--(UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(nonnull UITableViewCell *)tableView:(nonnull UITableView *)tv cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     static NSString *cellId = @"PlotCell";
 
@@ -108,7 +111,7 @@
     return cell;
 }
 
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+-(nullable NSString *)tableView:(nonnull UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     return [[PlotGallery sharedPlotGallery] sectionTitles][(NSUInteger)section];
 }

@@ -7,6 +7,6 @@
 
 @interface RealTimePlot : PlotItem<CPTPlotDataSource>
 
--(void)newData:(NSTimer *)theTimer;
+-(void)newData:(nonnull NSTimer *)theTimer;
 
 @end

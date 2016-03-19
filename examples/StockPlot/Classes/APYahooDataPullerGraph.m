@@ -119,7 +119,7 @@
     return self.dataPuller.financialData.count;
 }
 
--(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(nullable id)numberForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSNumber *num = @0;
 
@@ -137,14 +137,14 @@
     return num;
 }
 
--(void)dataPullerFinancialDataDidChange:(APYahooDataPuller *)dp
+-(void)dataPullerFinancialDataDidChange:(nonnull APYahooDataPuller *)dp
 {
     [self reloadData];
 }
 
 #pragma mark accessors
 
--(void)setDataPuller:(APYahooDataPuller *)aDataPuller
+-(void)setDataPuller:(nonnull APYahooDataPuller *)aDataPuller
 {
     // NSLog(@"in -setDataPuller:, old value of dataPuller: %@, changed to: %@", dataPuller, aDataPuller);
 
@@ -162,7 +162,7 @@
     }
 }
 
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot
 {
     return [self numberOfRecords];
 }
