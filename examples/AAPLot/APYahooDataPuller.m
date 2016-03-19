@@ -182,7 +182,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     NSDateComponents *compsStart = [gregorian components:unitFlags fromDate:self.targetStartDate];
     NSDateComponents *compsEnd   = [gregorian components:unitFlags fromDate:self.targetEndDate];
 
-    NSString *url = [NSString stringWithFormat:@"http://ichart.yahoo.com/table.csv?s=%@&", [self targetSymbol]];
+    NSString *url = [NSString stringWithFormat:@"https://ichart.yahoo.com/table.csv?s=%@&", [self targetSymbol]];
 
     url = [url stringByAppendingFormat:@"a=%ld&", (long)[compsStart month] - 1];
     url = [url stringByAppendingFormat:@"b=%ld&", (long)[compsStart day]];
