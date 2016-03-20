@@ -121,6 +121,7 @@
 		C3D70BA6175EB29E00F27173 /* ImageDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D70BA5175EB29E00F27173 /* ImageDemo.m */; };
 		C3EF42FD19FC75810060791A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3EF42FC19FC75810060791A /* Images.xcassets */; };
 		C3F34F1512AB2598008FBDC3 /* DonutChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F34F1412AB2598008FBDC3 /* DonutChart.m */; };
+		C3F6216C1C9F365100301061 /* CurvedInterpolationDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = E9595DFB1C9973B9004129DA /* CurvedInterpolationDemo.m */; };
 		C3F97F1917A9DE2000A52FF2 /* FunctionPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F97F1817A9DE2000A52FF2 /* FunctionPlot.m */; };
 		E9595DFC1C9973B9004129DA /* CurvedInterpolationDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = E9595DFB1C9973B9004129DA /* CurvedInterpolationDemo.m */; };
 		E9AB989C1C9A903700D23875 /* CurvedInterpolationDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = E9595DFB1C9973B9004129DA /* CurvedInterpolationDemo.m */; };
@@ -869,6 +870,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3F6216C1C9F365100301061 /* CurvedInterpolationDemo.m in Sources */,
 				C30D8B301BCAFDE20003BB70 /* LabelingPolicyDemo.m in Sources */,
 				C30D8B291BCAFDE20003BB70 /* ControlChart.m in Sources */,
 				C30D8B2B1BCAFDE20003BB70 /* DatePlot.m in Sources */,
