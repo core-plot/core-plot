@@ -233,7 +233,7 @@
     CPTNumberArray customTickLocations  = @[@1, @5, @10, @15];
     CPTStringArray xAxisLabels          = @[@"Label A", @"Label B", @"Label C", @"Label D"];
     NSUInteger labelLocation            = 0;
-    CPTMutableAxisLabelSet customLabels = [NSMutableSet setWithCapacity:[xAxisLabels count]];
+    CPTMutableAxisLabelSet customLabels = [NSMutableSet setWithCapacity:xAxisLabels.count];
     for ( NSNumber *tickLocation in customTickLocations ) {
         CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:xAxisLabels[labelLocation++] textStyle:x.labelTextStyle];
         newLabel.tickLocation = tickLocation;
@@ -346,7 +346,7 @@
     NSNumber *num = nil;
 
     if ( [plot isKindOfClass:[CPTPieChart class]] ) {
-        if ( index >= [self.dataForChart count] ) {
+        if ( index >= self.dataForChart.count ) {
             return nil;
         }
 
@@ -388,7 +388,7 @@
             // Green plot gets shifted above the blue
             if ( [(NSString *) plot.identifier isEqualToString:@"Green Plot"] ) {
                 if ( fieldEnum == CPTScatterPlotFieldY ) {
-                    num = @([num doubleValue] + 1.0);
+                    num = @(num.doubleValue + 1.0);
                 }
             }
         }

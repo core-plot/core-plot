@@ -82,7 +82,7 @@
             break;
 
         case CPTScatterPlotFieldY:
-            num = @([(NSString *) plot.identifier integerValue]);
+            num = @( ( (NSString *)plot.identifier ).integerValue );
             break;
 
         default:
@@ -103,7 +103,7 @@
     symbolShadow.shadowColor      = [CPTColor blackColor];
 
     CPTPlotSymbol *symbol = [[CPTPlotSymbol alloc] init];
-    symbol.symbolType = (CPTPlotSymbolType)[(NSString *) plot.identifier intValue];
+    symbol.symbolType = (CPTPlotSymbolType)( (NSString *)plot.identifier ).intValue;
     symbol.fill       = [CPTFill fillWithGradient:gradientFill];
     symbol.shadow     = symbolShadow;
 

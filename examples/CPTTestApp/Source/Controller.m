@@ -423,7 +423,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
         NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
         num = (self.arrangedObjects)[index][key];
         if ( fieldEnum == CPTScatterPlotFieldY ) {
-            num = @([num doubleValue] + 1.0);
+            num = @(num.doubleValue + 1.0);
         }
     }
     return num;
@@ -474,7 +474,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     // Add annotation
     // First make a string for the y value
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    [formatter setMaximumFractionDigits:2];
+    formatter.maximumFractionDigits = 2;
     NSString *yString = [formatter stringFromNumber:y];
 
     // Now add the annotation to the plot area
@@ -517,7 +517,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     // Add annotation
     // First make a string for the y value
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    [formatter setMaximumFractionDigits:2];
+    formatter.maximumFractionDigits = 2;
     NSString *yString = [formatter stringFromNumber:y];
 
     // Now add the annotation to the plot area
@@ -561,12 +561,12 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 {
     NSSavePanel *pdfSavingDialog = [NSSavePanel savePanel];
 
-    [pdfSavingDialog setAllowedFileTypes:@[@"pdf"]];
+    pdfSavingDialog.allowedFileTypes = @[@"pdf"];
 
     if ( [pdfSavingDialog runModal] == NSOKButton ) {
         NSData *dataForPDF = [self.graph dataForPDFRepresentationOfLayer];
 
-        NSURL *url = [pdfSavingDialog URL];
+        NSURL *url = pdfSavingDialog.URL;
         if ( url ) {
             [dataForPDF writeToURL:url atomically:NO];
         }
@@ -577,15 +577,15 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 {
     NSSavePanel *pngSavingDialog = [NSSavePanel savePanel];
 
-    [pngSavingDialog setAllowedFileTypes:@[@"png"]];
+    pngSavingDialog.allowedFileTypes = @[@"png"];
 
     if ( [pngSavingDialog runModal] == NSOKButton ) {
         NSImage *image            = [self.graph imageOfLayer];
-        NSData *tiffData          = [image TIFFRepresentation];
+        NSData *tiffData          = image.TIFFRepresentation;
         NSBitmapImageRep *tiffRep = [NSBitmapImageRep imageRepWithData:tiffData];
-        NSData *pngData           = [tiffRep representationUsingType:NSPNGFileType properties:[NSDictionary dictionary]];
+        NSData *pngData           = [tiffRep representationUsingType:NSPNGFileType properties:@{}];
 
-        NSURL *url = [pngSavingDialog URL];
+        NSURL *url = pngSavingDialog.URL;
         if ( url ) {
             [pngData writeToURL:url atomically:NO];
         }
@@ -639,8 +639,8 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     RotationView *overlayView = [[RotationView alloc] initWithFrame:self.hostView.frame];
     overlayView.rotationDelegate  = self;
     overlayView.rotationTransform = perspectiveRotation;
-    [overlayView setAutoresizingMask:[self.hostView autoresizingMask]];
-    [[self.hostView superview] addSubview:overlayView positioned:NSWindowAbove relativeTo:self.hostView];
+    overlayView.autoresizingMask  = self.hostView.autoresizingMask;
+    [(self.hostView).superview addSubview:overlayView positioned:NSWindowAbove relativeTo:self.hostView];
     self.overlayRotationView = overlayView;
 
     [CATransaction begin];

@@ -37,12 +37,12 @@ static const CGFloat kMouseMovementScaleFactorForRotation = 1.0;
 
 -(void)mouseDown:(nonnull NSEvent *)theEvent
 {
-    self.previousLocation = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    self.previousLocation = [self convertPoint:theEvent.locationInWindow fromView:nil];
 }
 
 -(void)mouseDragged:(nonnull NSEvent *)theEvent
 {
-    NSPoint currentLocation = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    NSPoint currentLocation = [self convertPoint:theEvent.locationInWindow fromView:nil];
 
     CGFloat displacementInX = kMouseMovementScaleFactorForRotation * (currentLocation.x - self.previousLocation.x);
     CGFloat displacementInY = kMouseMovementScaleFactorForRotation * (self.previousLocation.y - currentLocation.y);
@@ -59,12 +59,12 @@ static const CGFloat kMouseMovementScaleFactorForRotation = 1.0;
     [theDelegate rotateObjectUsingTransform:newTransform];
 
     self.rotationTransform = newTransform;
-    self.previousLocation  = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    self.previousLocation  = [self convertPoint:theEvent.locationInWindow fromView:nil];
 }
 
 -(void)mouseUp:(nonnull NSEvent *)theEvent
 {
-    self.previousLocation = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    self.previousLocation = [self convertPoint:theEvent.locationInWindow fromView:nil];
 }
 
 #pragma mark -
