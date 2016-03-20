@@ -171,11 +171,8 @@
 		93961BE61C71ACFD002F5A58 /* _CPTCatmullRomInterpolation.h in Headers */ = {isa = PBXBuildFile; fileRef = 93961BE51C71ACFD002F5A58 /* _CPTCatmullRomInterpolation.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		93961BE71C71ACFD002F5A58 /* _CPTCatmullRomInterpolation.h in Headers */ = {isa = PBXBuildFile; fileRef = 93961BE51C71ACFD002F5A58 /* _CPTCatmullRomInterpolation.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		93961BE91C71AD57002F5A58 /* _CPTCatmullRomInterpolation.m in Sources */ = {isa = PBXBuildFile; fileRef = 93961BE81C71AD57002F5A58 /* _CPTCatmullRomInterpolation.m */; };
-		93961BEA1C71AD57002F5A58 /* _CPTCatmullRomInterpolation.m in Sources */ = {isa = PBXBuildFile; fileRef = 93961BE81C71AD57002F5A58 /* _CPTCatmullRomInterpolation.m */; };
 		93961BEB1C71AD57002F5A58 /* _CPTCatmullRomInterpolation.m in Sources */ = {isa = PBXBuildFile; fileRef = 93961BE81C71AD57002F5A58 /* _CPTCatmullRomInterpolation.m */; };
-		93961BEC1C71AD57002F5A58 /* _CPTCatmullRomInterpolation.m in Sources */ = {isa = PBXBuildFile; fileRef = 93961BE81C71AD57002F5A58 /* _CPTCatmullRomInterpolation.m */; };
 		93961BED1C71AD57002F5A58 /* _CPTCatmullRomInterpolation.m in Sources */ = {isa = PBXBuildFile; fileRef = 93961BE81C71AD57002F5A58 /* _CPTCatmullRomInterpolation.m */; };
-		93961BEE1C71AD57002F5A58 /* _CPTCatmullRomInterpolation.m in Sources */ = {isa = PBXBuildFile; fileRef = 93961BE81C71AD57002F5A58 /* _CPTCatmullRomInterpolation.m */; };
 		A92C00498745CB844AF563E0 /* _CPTAnimationCGRectPeriod.h in Headers */ = {isa = PBXBuildFile; fileRef = A92C0E876AE37EB30019586B /* _CPTAnimationCGRectPeriod.h */; };
 		A92C02A48B4FBD94D718ECF8 /* _CPTAnimationCGSizePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = A92C087BF0913A6BA2363E40 /* _CPTAnimationCGSizePeriod.m */; };
 		A92C02FFEE33F8D28665257B /* _CPTAnimationNSDecimalPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = A92C00B71DCB2085A92BE0A9 /* _CPTAnimationNSDecimalPeriod.m */; };
@@ -469,7 +466,6 @@
 		C37EA6B11BC83F2D0091C8F7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3226A571A69F6FA00F77249 /* CoreGraphics.framework */; };
 		C38274C51C9EE6A400F4E5C6 /* _CPTCatmullRomInterpolation.h in Headers */ = {isa = PBXBuildFile; fileRef = 93961BE51C71ACFD002F5A58 /* _CPTCatmullRomInterpolation.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C38274C61C9EE6AE00F4E5C6 /* _CPTCatmullRomInterpolation.m in Sources */ = {isa = PBXBuildFile; fileRef = 93961BE81C71AD57002F5A58 /* _CPTCatmullRomInterpolation.m */; };
-		C38274C71C9EE6AF00F4E5C6 /* _CPTCatmullRomInterpolation.m in Sources */ = {isa = PBXBuildFile; fileRef = 93961BE81C71AD57002F5A58 /* _CPTCatmullRomInterpolation.m */; };
 		C38A09831A46185300D45436 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C38A09781A46185200D45436 /* CorePlot.framework */; };
 		C38A09C51A4619A900D45436 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C38A09BA1A4619A900D45436 /* libCorePlot-CocoaTouch.a */; };
 		C38A09D11A461C1100D45436 /* CPTTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0730F64D109494D100E95162 /* CPTTestCase.m */; };
@@ -2681,7 +2677,6 @@
 				C3392A481225FB68008DA6BD /* CPTMutableNumericDataTests.m in Sources */,
 				C3392A491225FB69008DA6BD /* CPTNumericDataTests.m in Sources */,
 				C3BFFD1112274CB500DE22AC /* CPTNumericDataTypeConversionTests.m in Sources */,
-				93961BEA1C71AD57002F5A58 /* _CPTCatmullRomInterpolation.m in Sources */,
 				C3CB561C122A9E9F00FBFB61 /* CPTMutableNumericDataTypeConversionTests.m in Sources */,
 				C3D979A413D2136700145DFF /* CPTPlotSpaceTests.m in Sources */,
 				C3D979A913D2328000145DFF /* CPTTimeFormatterTests.m in Sources */,
@@ -2911,7 +2906,6 @@
 				C37EA6991BC83F2D0091C8F7 /* CPTColorSpaceTests.m in Sources */,
 				C37EA69A1BC83F2D0091C8F7 /* CPTFillTests.m in Sources */,
 				C37EA69B1BC83F2D0091C8F7 /* CPTUtilitiesTests.m in Sources */,
-				C38274C71C9EE6AF00F4E5C6 /* _CPTCatmullRomInterpolation.m in Sources */,
 				C37EA69C1BC83F2D0091C8F7 /* CPTGradientTests.m in Sources */,
 				C37EA69D1BC83F2D0091C8F7 /* CPTDarkGradientThemeTests.m in Sources */,
 				C37EA69E1BC83F2D0091C8F7 /* CPTAxisLabelTests.m in Sources */,
@@ -3057,7 +3051,6 @@
 				C38A09D31A461C1800D45436 /* CPTDataSourceTestCase.m in Sources */,
 				C38A09E81A461CB600D45436 /* CPTNumericDataTests.m in Sources */,
 				C38A0B141A46261F00D45436 /* CPTDerivedXYGraph.m in Sources */,
-				93961BEC1C71AD57002F5A58 /* _CPTCatmullRomInterpolation.m in Sources */,
 				C38A0ABD1A46250B00D45436 /* CPTXYPlotSpaceTests.m in Sources */,
 				C38A09D11A461C1100D45436 /* CPTTestCase.m in Sources */,
 				C38A0A011A461D2E00D45436 /* CPTPlotRangeTests.m in Sources */,
@@ -3193,7 +3186,6 @@
 				C38A0A911A46210A00D45436 /* CPTLineStyleTests.m in Sources */,
 				C38A0A021A461D2E00D45436 /* CPTPlotRangeTests.m in Sources */,
 				C38A0B171A46262000D45436 /* CPTDerivedXYGraph.m in Sources */,
-				93961BEE1C71AD57002F5A58 /* _CPTCatmullRomInterpolation.m in Sources */,
 				C38A09E71A461CB300D45436 /* CPTMutableNumericDataTypeConversionTests.m in Sources */,
 				C38A0A8E1A46210A00D45436 /* CPTFillTests.m in Sources */,
 				C38A09E91A461CB700D45436 /* CPTNumericDataTests.m in Sources */,
