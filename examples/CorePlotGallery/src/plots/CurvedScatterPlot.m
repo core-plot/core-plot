@@ -83,13 +83,13 @@ static NSString *const kSecond = @"Second Derivative";
             NSDictionary<NSString *, NSNumber *> *point1 = dataArray[i - 1];
             NSDictionary<NSString *, NSNumber *> *point2 = dataArray[i];
 
-            double x1   = (point1[@"x"]).doubleValue;
-            double x2   = (point2[@"x"]).doubleValue;
+            double x1   = point1[@"x"].doubleValue;
+            double x2   = point2[@"x"].doubleValue;
             double dx   = x2 - x1;
             double xLoc = (x1 + x2) * 0.5;
 
-            double y1 = (point1[@"y"]).doubleValue;
-            double y2 = (point2[@"y"]).doubleValue;
+            double y1 = point1[@"y"].doubleValue;
+            double y2 = point2[@"y"].doubleValue;
             double dy = y2 - y1;
 
             [contentArray addObject:
@@ -110,13 +110,13 @@ static NSString *const kSecond = @"Second Derivative";
             NSDictionary<NSString *, NSNumber *> *point1 = dataArray[i - 1];
             NSDictionary<NSString *, NSNumber *> *point2 = dataArray[i];
 
-            double x1   = (point1[@"x"]).doubleValue;
-            double x2   = (point2[@"x"]).doubleValue;
+            double x1   = point1[@"x"].doubleValue;
+            double x2   = point2[@"x"].doubleValue;
             double dx   = x2 - x1;
             double xLoc = (x1 + x2) * 0.5;
 
-            double y1 = (point1[@"y"]).doubleValue;
-            double y2 = (point2[@"y"]).doubleValue;
+            double y1 = point1[@"y"].doubleValue;
+            double y2 = point2[@"y"].doubleValue;
             double dy = y2 - y1;
 
             [contentArray addObject:

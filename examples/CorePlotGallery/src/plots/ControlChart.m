@@ -255,7 +255,7 @@ static const NSUInteger numberOfPoints = 11;
 
         case CPTScatterPlotFieldY:
             if ( plot.identifier == kDataLine ) {
-                number = (self.plotData[index]).doubleValue;
+                number = self.plotData[index].doubleValue;
             }
             else if ( plot.identifier == kCenterLine ) {
                 number = self.meanValue;

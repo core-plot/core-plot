@@ -78,7 +78,7 @@
                                                          shape:nil];
 
     NSUInteger expected = 10 * sizeof(float);
-    NSUInteger actual   = (nd.data).length;
+    NSUInteger actual   = nd.data.length;
 
     XCTAssertEqual(expected, actual, @"data length");
 }
