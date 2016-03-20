@@ -13,7 +13,6 @@
 #import "CPTUtilities.h"
 #import "CPTXYPlotSpace.h"
 #import "NSCoderExtensions.h"
-#import "_CPTCatmullRomInterpolation.h"
 #import <tgmath.h>
 
 /** @defgroup plotAnimationScatterPlot Scatter Plot
@@ -50,7 +49,9 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 -(nonnull CGPathRef)newDataLinePathForViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue;
 -(nonnull CGPathRef)newCurvedDataLinePathForViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue;
--(void)computeControlPoints:(nonnull CGPoint *)cp1 points2:(nonnull CGPoint *)cp2 forViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange;
+-(void)computeBezierControlPoints:(nonnull CGPoint *)cp1 points2:(nonnull CGPoint *)cp2 forViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange;
+-(void)computeCatmullRomControlPoints:(nonnull CGPoint *)points points2:(nonnull CGPoint *)points2 withAlpha:(CGFloat)alpha forViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange;
+-(void)computeHermiteControlPoints:(nonnull CGPoint *)points points2:(nonnull CGPoint *)points2 forViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange;
 
 @end
 
@@ -82,6 +83,19 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  *  Default is #CPTScatterPlotHistogramNormal.
  **/
 @synthesize histogramOption;
+
+/** @property CPTScatterPlotCurvedInterpolationOption curvedInterpolationOption
+ *  @brief The interpolation method used to generate the curved plot line (@ref interpolation = #CPTScatterPlotInterpolationCurved)
+ *  Default is #CPTScatterPlotCurvedInterpolationNormal
+ **/
+@synthesize curvedInterpolationOption;
+
+/** @property CGFloat curvedInterpolationCustomAlpha
+ *  @brief The custom alpha value used when the #CPTScatterPlotCurvedInterpolationCatmullCustomAlpha interpolation is selected.
+ *  Default is @num{0.5}.
+ *  @warning Must be between @num{0.0} and @num{1.0}.
+ **/
+@synthesize curvedInterpolationCustomAlpha;
 
 /** @property nullable CPTLineStyle *dataLineStyle
  *  @brief The line style for the data line.
@@ -237,6 +251,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         plotLineMarginForHitDetection   = CPTFloat(4.0);
         interpolation                   = CPTScatterPlotInterpolationLinear;
         histogramOption                 = CPTScatterPlotHistogramNormal;
+        curvedInterpolationOption       = CPTScatterPlotCurvedInterpolationNormal;
         pointingDeviceDownIndex         = NSNotFound;
         pointingDeviceDownOnLine        = NO;
         mutableAreaFillBands            = nil;
@@ -266,6 +281,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         allowSimultaneousSymbolAndPlotSelection = theLayer->allowSimultaneousSymbolAndPlotSelection;
         interpolation                           = theLayer->interpolation;
         histogramOption                         = theLayer->histogramOption;
+        curvedInterpolationOption               = theLayer->curvedInterpolationOption;
         mutableAreaFillBands                    = theLayer->mutableAreaFillBands;
         pointingDeviceDownIndex                 = NSNotFound;
         pointingDeviceDownOnLine                = NO;
@@ -286,6 +302,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
     [coder encodeInteger:self.interpolation forKey:@"CPTScatterPlot.interpolation"];
     [coder encodeInteger:self.histogramOption forKey:@"CPTScatterPlot.histogramOption"];
+    [coder encodeInteger:self.curvedInterpolationOption forKey:@"CPTScatterPlot.curvedInterpolationOption"];
     [coder encodeObject:self.dataLineStyle forKey:@"CPTScatterPlot.dataLineStyle"];
     [coder encodeObject:self.plotSymbol forKey:@"CPTScatterPlot.plotSymbol"];
     [coder encodeObject:self.areaFill forKey:@"CPTScatterPlot.areaFill"];
@@ -306,10 +323,11 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        interpolation   = (CPTScatterPlotInterpolation)[coder decodeIntegerForKey:@"CPTScatterPlot.interpolation"];
-        histogramOption = (CPTScatterPlotHistogramOption)[coder decodeIntegerForKey:@"CPTScatterPlot.histogramOption"];
-        dataLineStyle   = [[coder decodeObjectOfClass:[CPTLineStyle class]
-                                               forKey:@"CPTScatterPlot.dataLineStyle"] copy];
+        interpolation             = (CPTScatterPlotInterpolation)[coder decodeIntegerForKey:@"CPTScatterPlot.interpolation"];
+        histogramOption           = (CPTScatterPlotHistogramOption)[coder decodeIntegerForKey:@"CPTScatterPlot.histogramOption"];
+        curvedInterpolationOption = (CPTScatterPlotCurvedInterpolationOption)[coder decodeIntegerForKey:@"CPTScatterPlot.curvedInterpolationOption"];
+        dataLineStyle             = [[coder decodeObjectOfClass:[CPTLineStyle class]
+                                                         forKey:@"CPTScatterPlot.dataLineStyle"] copy];
         plotSymbol = [[coder decodeObjectOfClass:[CPTPlotSymbol class]
                                           forKey:@"CPTScatterPlot.plotSymbol"] copy];
         areaFill = [[coder decodeObjectOfClass:[CPTFill class]
@@ -460,7 +478,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
     CPTLineStyle *lineStyle = self.dataLineStyle;
 
-    if ( self.areaFill || self.areaFill2 || lineStyle.dashPattern || lineStyle.lineFill || (self.interpolation == CPTScatterPlotInterpolationCurved) || (self.interpolation == CPTScatterPlotInterpolationCatmullRom) ) {
+    if ( self.areaFill || self.areaFill2 || lineStyle.dashPattern || lineStyle.lineFill || (self.interpolation == CPTScatterPlotInterpolationCurved) ) {
         // show all points to preserve the line dash and area fills
         for ( NSUInteger i = 0; i < dataCount; i++ ) {
             pointDrawFlags[i] = YES;
@@ -538,7 +556,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         else {
             switch ( theInterpolation ) {
                 case CPTScatterPlotInterpolationCurved:
-                case CPTScatterPlotInterpolationCatmullRom:
                     // Keep 2 points outside of the visible area on each side to maintain the correct curvature of the line
                     if ( dataCount > 1 ) {
                         if ( !nanFlags[0] && !nanFlags[1] && ( (xRangeFlags[0] != xRangeFlags[1]) || (yRangeFlags[0] != yRangeFlags[1]) ) ) {
@@ -955,9 +972,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     if ( theInterpolation == CPTScatterPlotInterpolationCurved ) {
         return [self newCurvedDataLinePathForViewPoints:viewPoints indexRange:indexRange baselineYValue:baselineYValue];
     }
-    else if ( theInterpolation == CPTScatterPlotInterpolationCatmullRom ) {
-        return [self newCatmullRomDataLinePathForViewPoints:viewPoints indexRange:indexRange baselineYValue:baselineYValue];
-    }
 
     CGMutablePathRef dataLinePath  = CGPathCreateMutable();
     BOOL lastPointSkipped          = YES;
@@ -1013,7 +1027,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                     break;
 
                     case CPTScatterPlotInterpolationCurved:
-                    case CPTScatterPlotInterpolationCatmullRom:
                         // Curved plot lines handled separately
                         break;
                 }
@@ -1040,6 +1053,8 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     NSUInteger firstIndex          = indexRange.location;
     NSUInteger lastDrawnPointIndex = NSMaxRange(indexRange);
 
+    CPTScatterPlotCurvedInterpolationOption interpolationOption = self.curvedInterpolationOption;
+
     if ( lastDrawnPointIndex > 0 ) {
         CGPoint *controlPoints1 = calloc( lastDrawnPointIndex, sizeof(CGPoint) );
         CGPoint *controlPoints2 = calloc( lastDrawnPointIndex, sizeof(CGPoint) );
@@ -1052,10 +1067,54 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
             if ( isnan(viewPoint.x) || isnan(viewPoint.y) ) {
                 if ( !lastPointSkipped ) {
-                    [self computeControlPoints:controlPoints1
-                                       points2:controlPoints2
-                                 forViewPoints:viewPoints
-                                    indexRange:NSMakeRange(firstIndex, i - firstIndex)];
+                    switch ( interpolationOption ) {
+                        case CPTScatterPlotCurvedInterpolationNormal:
+                            [self computeBezierControlPoints:controlPoints1
+                                                     points2:controlPoints2
+                                               forViewPoints:viewPoints
+                                                  indexRange:NSMakeRange(firstIndex, i - firstIndex)];
+                            break;
+
+                        case CPTScatterPlotCurvedInterpolationCatmullRomUniform:
+                            [self computeCatmullRomControlPoints:controlPoints1
+                                                         points2:controlPoints2
+                                                       withAlpha:CPTFloat(0.0)
+                                                   forViewPoints:viewPoints
+                                                      indexRange:NSMakeRange(firstIndex, i - firstIndex)];
+                            break;
+
+                        case CPTScatterPlotCurvedInterpolationCatmullRomCentripetal:
+                            [self computeCatmullRomControlPoints:controlPoints1
+                                                         points2:controlPoints2
+                                                       withAlpha:CPTFloat(0.5)
+                                                   forViewPoints:viewPoints
+                                                      indexRange:NSMakeRange(firstIndex, i - firstIndex)];
+                            break;
+
+                        case CPTScatterPlotCurvedInterpolationCatmullRomChordal:
+                            [self computeCatmullRomControlPoints:controlPoints1
+                                                         points2:controlPoints2
+                                                       withAlpha:CPTFloat(1.0)
+                                                   forViewPoints:viewPoints
+                                                      indexRange:NSMakeRange(firstIndex, i - firstIndex)];
+
+                            break;
+
+                        case CPTScatterPlotCurvedInterpolationHermiteCubic:
+                            [self computeHermiteControlPoints:controlPoints1
+                                                      points2:controlPoints2
+                                                forViewPoints:viewPoints
+                                                   indexRange:NSMakeRange(firstIndex, i - firstIndex)];
+                            break;
+
+                        case CPTScatterPlotCurvedInterpolationCatmullCustomAlpha:
+                            [self computeCatmullRomControlPoints:controlPoints1
+                                                         points2:controlPoints2
+                                                       withAlpha:self.curvedInterpolationCustomAlpha
+                                                   forViewPoints:viewPoints
+                                                      indexRange:NSMakeRange(firstIndex, i - firstIndex)];
+                            break;
+                    }
 
                     lastPointSkipped = YES;
                 }
@@ -1069,10 +1128,55 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         }
 
         if ( !lastPointSkipped ) {
-            [self computeControlPoints:controlPoints1
-                               points2:controlPoints2
-                         forViewPoints:viewPoints
-                            indexRange:NSMakeRange(firstIndex, NSMaxRange(indexRange) - firstIndex)];
+            switch ( interpolationOption ) {
+                case CPTScatterPlotCurvedInterpolationNormal:
+                    [self computeBezierControlPoints:controlPoints1
+                                             points2:controlPoints2
+                                       forViewPoints:viewPoints
+                                          indexRange:NSMakeRange(firstIndex, NSMaxRange(indexRange) - firstIndex)];
+                    break;
+
+                case CPTScatterPlotCurvedInterpolationCatmullRomUniform:
+                    [self computeCatmullRomControlPoints:controlPoints1
+                                                 points2:controlPoints2
+                                               withAlpha:CPTFloat(0.0)
+                                           forViewPoints:viewPoints
+                                              indexRange:NSMakeRange(firstIndex, NSMaxRange(indexRange) - firstIndex)];
+
+                    break;
+
+                case CPTScatterPlotCurvedInterpolationCatmullRomCentripetal:
+                    [self computeCatmullRomControlPoints:controlPoints1
+                                                 points2:controlPoints2
+                                               withAlpha:CPTFloat(0.5)
+                                           forViewPoints:viewPoints
+                                              indexRange:NSMakeRange(firstIndex, NSMaxRange(indexRange) - firstIndex)];
+                    break;
+
+                case CPTScatterPlotCurvedInterpolationCatmullRomChordal:
+                    [self computeCatmullRomControlPoints:controlPoints1
+                                                 points2:controlPoints2
+                                               withAlpha:CPTFloat(1.0)
+                                           forViewPoints:viewPoints
+                                              indexRange:NSMakeRange(firstIndex, NSMaxRange(indexRange) - firstIndex)];
+
+                    break;
+
+                case CPTScatterPlotCurvedInterpolationHermiteCubic:
+                    [self computeHermiteControlPoints:controlPoints1
+                                              points2:controlPoints2
+                                        forViewPoints:viewPoints
+                                           indexRange:NSMakeRange(firstIndex, NSMaxRange(indexRange) - firstIndex)];
+                    break;
+
+                case CPTScatterPlotCurvedInterpolationCatmullCustomAlpha:
+                    [self computeCatmullRomControlPoints:controlPoints1
+                                                 points2:controlPoints2
+                                               withAlpha:self.curvedInterpolationCustomAlpha
+                                           forViewPoints:viewPoints
+                                              indexRange:NSMakeRange(firstIndex, NSMaxRange(indexRange) - firstIndex)];
+                    break;
+            }
         }
 
         // Build the path
@@ -1140,9 +1244,138 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     return dataLinePath;
 }
 
+/** @brief Compute the control points using a catmull-rom spline.
+ *  @param points A pointer to the array which should hold the first control points.
+ *  @param points2 A pointer to the array which should hold the second control points.
+ *  @param alpha The alpha value used for the catmull-rom interpolation.
+ *  @param viewPoints A pointer to the array which holds all view points for which the interpolation should be calculated.
+ *  @param indexRange The range in which the interpolation should occur.
+ *  @warning The indexRange must be valid for all passed arrays otherwise this method crashes.
+ **/
+-(void)computeCatmullRomControlPoints:(nonnull CGPoint *)points points2:(nonnull CGPoint *)points2 withAlpha:(CGFloat)alpha forViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange
+{
+    if ( indexRange.length >= 2 ) {
+        NSUInteger startIndex   = indexRange.location;
+        NSUInteger endIndex     = NSMaxRange(indexRange) - 1; // the index starts at zero
+        NSUInteger segmentCount = endIndex - 1;               // there are n - 1 segments
+
+        CGFloat epsilon = CPTFloat(1.0e-5); // the minimum point distance. below that no interpolation happens.
+
+        for ( NSUInteger index = startIndex; index <= segmentCount; index++ ) {
+            // calculate the control for the segment from index -> index + 1
+            CGPoint p0, p1, p2, p3; // the view point
+
+            // the internal points are always valid
+            p1 = viewPoints[index];
+            p2 = viewPoints[index + 1];
+            // account for first and last segment
+            if ( index == startIndex ) {
+                p0 = CGPointMake(CGRectGetMinX(self.bounds), p1.y); // guess first point
+            }
+            else {
+                p0 = viewPoints[index - 1];
+            }
+            if ( index == segmentCount ) {
+                p3 = CGPointMake(CGRectGetMaxX(self.bounds), p2.y); // guess end point
+            }
+            else {
+                p3 = viewPoints[index + 2];
+            }
+
+            // distance between the points
+            CGFloat d1 = hypot(p1.x - p0.x, p1.y - p0.y);
+            CGFloat d2 = hypot(p2.x - p1.x, p2.y - p1.y);
+            CGFloat d3 = hypot(p3.x - p2.x, p3.y - p2.y);
+            // constants
+            CGFloat d1_a  = pow(d1, alpha);             // d1^alpha
+            CGFloat d2_a  = pow(d2, alpha);             // d2^alpha
+            CGFloat d3_a  = pow(d3, alpha);             // d3^alpha
+            CGFloat d1_2a = pow( d1_a, CPTFloat(2.0) ); // d1^alpha^2 = d1^2*alpha
+            CGFloat d2_2a = pow( d2_a, CPTFloat(2.0) ); // d2^alpha^2 = d2^2*alpha
+            CGFloat d3_2a = pow( d3_a, CPTFloat(2.0) ); // d3^alpha^2 = d3^2*alpha
+
+            // calculate the control points
+            // see : http://www.cemyuksel.com/research/catmullrom_param/catmullrom.pdf under point 3.
+            CGPoint cp1, cp2; // the calculated view points;
+            if ( fabs(d1) <= epsilon ) {
+                cp1 = p1;
+            }
+            else {
+                CGFloat divisor = 3 * d1_a * (d1_a + d2_a);
+                cp1 = CPTPointMake( (p2.x * d1_2a - p0.x * d2_2a + (2 * d1_2a + 3 * d1_a * d2_a + d2_2a) * p1.x) / divisor,
+                                    (p2.y * d1_2a - p0.y * d2_2a + (2 * d1_2a + 3 * d1_a * d2_a + d2_2a) * p1.y) / divisor
+                                     );
+            }
+
+            if ( fabs(d3) <= epsilon ) {
+                cp2 = p2;
+            }
+            else {
+                CGFloat divisor = 3 * d3_a * (d3_a + d2_a);
+                cp2 = CPTPointMake( (d3_2a * p1.x - d2_2a * p3.x + (2 * d3_2a + 3 * d3_a * d2_a + d2_2a) * p2.x) / divisor,
+                                    (d3_2a * p1.y - d2_2a * p3.y + (2 * d3_2a + 3 * d3_a * d2_a + d2_2a) * p2.y) / divisor );
+            }
+
+            points[index + 1]  = cp1;
+            points2[index + 1] = cp2;
+        }
+    }
+}
+
+/** @brief Compute the control points using a hermite cubic spline. Taken from https://en.wikipedia.org/wiki/Cubic_Hermite_spline (see representations).
+ *  @param points A pointer to the array which should hold the first control points.
+ *  @param points2 A pointer to the array which should hold the second control points.
+ *  @param viewPoints A pointer to the array which holds all view points for which the interpolation should be calculated.
+ *  @param indexRange The range in which the interpolation should occur.
+ *  @warning The indexRange must be valid for all passed arrays otherwise this method crashes.
+ **/
+-(void)computeHermiteControlPoints:(nonnull CGPoint *)points points2:(nonnull CGPoint *)points2 forViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange
+{
+    if ( indexRange.length >= 2 ) {
+        NSUInteger startIndex     = indexRange.location;
+        NSUInteger numberOfPoints = NSMaxRange(indexRange) - 1; // last accessible element in view points
+        for ( NSUInteger index = indexRange.location; index <= numberOfPoints; index++ ) {
+            CGPoint p0, p1, p2, lhsControlPoint, rhsControlPoint;
+
+            p1 = viewPoints[index]; // is always valid
+
+            CGFloat mx, my;
+            if ( index == startIndex ) {
+                p2 = viewPoints[index + 1];
+                mx = (p2.x - p1.x) * CPTFloat(0.5);
+                my = (p2.y - p1.y) * CPTFloat(0.5);
+            }
+            else if ( index == numberOfPoints ) {
+                p0 = viewPoints[index - 1];
+                mx = (p1.x - p0.x) * CPTFloat(0.5);
+                my = (p1.y - p0.y) * CPTFloat(0.5);
+            }
+            else { // index > startIndex && index < numberOfPoints
+                p2 = viewPoints[index + 1];
+                p0 = viewPoints[index - 1];
+
+                mx = (p2.x - p1.x) * CPTFloat(0.5) + (p1.x - p0.x) * CPTFloat(0.5);
+                my = (p2.y - p1.y) * CPTFloat(0.5) + (p1.y - p0.y) * CPTFloat(0.5);
+            }
+            // get control points
+            mx             /= CPTFloat(3.0);
+            my             /= CPTFloat(3.0);
+            rhsControlPoint = CPTPointMake(p1.x + mx, p1.y + my);
+            lhsControlPoint = CPTPointMake(p1.x - mx, p1.y - my);
+
+            // We calculated the lhs & rhs control point.  the rhs control point is the first control point for the curve to the next point. the lhs control point is the second control point for the curve to the current point.
+
+            points2[index] = lhsControlPoint;
+            if ( index + 1 <= numberOfPoints ) {
+                points[index + 1] = rhsControlPoint;
+            }
+        }
+    }
+}
+
 // Compute the control points using the algorithm described at http://www.particleincell.com/blog/2012/bezier-splines/
 // cp1, cp2, and viewPoints should point to arrays of points with at least NSMaxRange(indexRange) elements each.
--(void)computeControlPoints:(nonnull CGPoint *)cp1 points2:(nonnull CGPoint *)cp2 forViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange
+-(void)computeBezierControlPoints:(nonnull CGPoint *)cp1 points2:(nonnull CGPoint *)cp2 forViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange
 {
     if ( indexRange.length == 2 ) {
         NSUInteger rangeEnd = NSMaxRange(indexRange) - 1;
@@ -1224,28 +1457,6 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         free(b);
         free(c);
         free(r);
-    }
-}
-
--(CGPathRef)newCatmullRomDataLinePathForViewPoints:(CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue
-{
-    NSUInteger pointsSize = indexRange.length;
-
-    if ( pointsSize >= 2 ) {
-        CGMutablePathRef dataLinePath = [_CPTCatmullRomInterpolation newPathForViewPoints:viewPoints indexRange:indexRange withGranularity:self.curvedLineGranularity];
-
-        if ( !isnan(baselineYValue) ) {
-            CGPoint firstPoint = viewPoints[0];
-            CGPoint lastPoint  = viewPoints[pointsSize - 1];
-            CGPathAddLineToPoint(dataLinePath, NULL, lastPoint.x, baselineYValue);
-            CGPathAddLineToPoint(dataLinePath, NULL, firstPoint.x, baselineYValue);
-            CGPathCloseSubpath(dataLinePath);
-        }
-
-        return dataLinePath;
-    }
-    else {
-        return CGPathCreateMutable();
     }
 }
 
@@ -1826,6 +2037,29 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 {
     if ( newHistogramOption != histogramOption ) {
         histogramOption = newHistogramOption;
+        [self setNeedsDisplay];
+    }
+}
+
+-(void)setCurvedInterpolationOption:(CPTScatterPlotCurvedInterpolationOption)newCurvedInterpolationOption
+{
+    if ( newCurvedInterpolationOption != curvedInterpolationOption ) {
+        curvedInterpolationOption = newCurvedInterpolationOption;
+        [self setNeedsDisplay];
+    }
+}
+
+-(void)setCurvedInterpolationCustomAlpha:(CGFloat)newCurvedInterpolationCustomAlpha
+{
+    if ( newCurvedInterpolationCustomAlpha > 1.0 ) {
+        newCurvedInterpolationCustomAlpha = 1.0;
+    }
+    if ( newCurvedInterpolationCustomAlpha < 0 ) {
+        newCurvedInterpolationCustomAlpha = 0.0;
+    }
+
+    if ( newCurvedInterpolationCustomAlpha != curvedInterpolationCustomAlpha ) {
+        curvedInterpolationCustomAlpha = newCurvedInterpolationCustomAlpha;
         [self setNeedsDisplay];
     }
 }

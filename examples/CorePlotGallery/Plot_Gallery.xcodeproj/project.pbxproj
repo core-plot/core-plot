@@ -122,6 +122,8 @@
 		C3EF42FD19FC75810060791A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3EF42FC19FC75810060791A /* Images.xcassets */; };
 		C3F34F1512AB2598008FBDC3 /* DonutChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F34F1412AB2598008FBDC3 /* DonutChart.m */; };
 		C3F97F1917A9DE2000A52FF2 /* FunctionPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F97F1817A9DE2000A52FF2 /* FunctionPlot.m */; };
+		E9595DFC1C9973B9004129DA /* CurvedInterpolationDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = E9595DFB1C9973B9004129DA /* CurvedInterpolationDemo.m */; };
+		E9AB989C1C9A903700D23875 /* CurvedInterpolationDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = E9595DFB1C9973B9004129DA /* CurvedInterpolationDemo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -343,6 +345,8 @@
 		C3F42A2714D3A75F0044B323 /* CurvedScatterPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 2; name = CurvedScatterPlot.m; path = src/plots/CurvedScatterPlot.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C3F97F1717A9DE2000A52FF2 /* FunctionPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FunctionPlot.h; path = src/plots/FunctionPlot.h; sourceTree = "<group>"; };
 		C3F97F1817A9DE2000A52FF2 /* FunctionPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = FunctionPlot.m; path = src/plots/FunctionPlot.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		E9595DFA1C9973B9004129DA /* CurvedInterpolationDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurvedInterpolationDemo.h; path = src/plots/CurvedInterpolationDemo.h; sourceTree = "<group>"; };
+		E9595DFB1C9973B9004129DA /* CurvedInterpolationDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CurvedInterpolationDemo.m; path = src/plots/CurvedInterpolationDemo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -493,6 +497,8 @@
 				C35597951437E07800B41DA7 /* ControlChart.m */,
 				C3F42A2614D3A75F0044B323 /* CurvedScatterPlot.h */,
 				C3F42A2714D3A75F0044B323 /* CurvedScatterPlot.m */,
+				E9595DFA1C9973B9004129DA /* CurvedInterpolationDemo.h */,
+				E9595DFB1C9973B9004129DA /* CurvedInterpolationDemo.m */,
 				4F8E1C12129077C200D2035F /* DatePlot.h */,
 				4F8E1C13129077C200D2035F /* DatePlot.m */,
 				C3F34F1312AB2598008FBDC3 /* DonutChart.h */,
@@ -848,6 +854,7 @@
 				C39C4E4113BFE1A900CD9194 /* LabelingPolicyDemo.m in Sources */,
 				C39C4E4413BFE1B400CD9194 /* PlotSpaceDemo.m in Sources */,
 				C354C0D713C7CDBE00DA8822 /* RealTimePlot.m in Sources */,
+				E9595DFC1C9973B9004129DA /* CurvedInterpolationDemo.m in Sources */,
 				C367249313E103910070F47A /* LineCapDemo.m in Sources */,
 				C35597961437E07800B41DA7 /* ControlChart.m in Sources */,
 				C3A31A5614DF782A00734AB7 /* ColoredBarChart.m in Sources */,
@@ -905,6 +912,7 @@
 				C34CB5871BC9B1C1009270A0 /* LabelingPolicyDemo.m in Sources */,
 				C34CB5801BC9B1C1009270A0 /* ControlChart.m in Sources */,
 				C34CB5831BC9B1C1009270A0 /* DonutChart.m in Sources */,
+				E9AB989C1C9A903700D23875 /* CurvedInterpolationDemo.m in Sources */,
 				C34CB5811BC9B1C1009270A0 /* CurvedScatterPlot.m in Sources */,
 				C34CB5861BC9B1C1009270A0 /* ImageDemo.m in Sources */,
 				C34CB5541BC9A889009270A0 /* AppDelegate.m in Sources */,
