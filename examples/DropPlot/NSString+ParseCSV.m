@@ -13,7 +13,7 @@
 
     BOOL inField = NO;
 
-    for ( NSUInteger i = 0; i < [theFields count]; i++ ) {
+    for ( NSUInteger i = 0; i < theFields.count; i++ ) {
         NSString *theField = theFields[i];
         switch ( inField ) {
             case NO:
