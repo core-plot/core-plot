@@ -200,7 +200,7 @@ typedef NSMutableArray<__kindof CPTAxis *> CPTMutableAxisArray;
 /// @{
 @property (nonatomic, readwrite, copy, nullable) CPTLineStyle *axisLineStyle;
 @property (nonatomic, readwrite, assign) CPTCoordinate coordinate;
-@property (nonatomic, readwrite, strong, nullable) NSNumber *labelingOrigin;
+@property (nonatomic, readwrite, strong, nonnull) NSNumber *labelingOrigin;
 @property (nonatomic, readwrite, assign) CPTSign tickDirection;
 @property (nonatomic, readwrite, copy, nullable) CPTPlotRange *visibleRange;
 @property (nonatomic, readwrite, copy, nullable) CPTPlotRange *visibleAxisRange;

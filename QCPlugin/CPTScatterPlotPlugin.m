@@ -22,7 +22,7 @@
 @dynamic inputXMin, inputXMax, inputYMin, inputYMax;
 @dynamic inputXMajorIntervals, inputYMajorIntervals, inputXMinorIntervals, inputYMinorIntervals;
 
-+(NSDictionary<NSString *, NSString *> *)attributes
++(nonnull NSDictionary<NSString *, NSString *> *)attributes
 {
     return @{
                QCPlugInAttributeNameKey: @"Core Plot Scatter Plot",
@@ -127,7 +127,7 @@
     }
 }
 
--(CPTPlotSymbol *)plotSymbol:(NSUInteger)index
+-(nullable CPTPlotSymbol *)plotSymbol:(NSUInteger)index
 {
     NSString *key    = [NSString stringWithFormat:@"plotDataSymbols%lu", (unsigned long)index];
     NSUInteger value = [[self valueForInputKey:key] unsignedIntegerValue];
@@ -168,7 +168,7 @@
     }
 }
 
--(CGColorRef)dataSymbolColor:(NSUInteger)index
+-(nonnull CGColorRef)dataSymbolColor:(NSUInteger)index
 {
     NSString *key = [NSString stringWithFormat:@"plotDataSymbolColor%lu", (unsigned long)index];
 
@@ -204,7 +204,7 @@
 #pragma mark -
 #pragma mark Data source methods
 
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot
 {
     NSUInteger plotIndex = [[self.graph allPlots] indexOfObject:plot];
     NSString *xKey       = [NSString stringWithFormat:@"plotXNumbers%lu", (unsigned long)plotIndex];
@@ -223,7 +223,7 @@
     return xVals.count;
 }
 
--(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(nullable id)numberForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSUInteger plotIndex = [[self.graph allPlots] indexOfObject:plot];
     NSString *xKey       = [NSString stringWithFormat:@"plotXNumbers%lu", (unsigned long)plotIndex];

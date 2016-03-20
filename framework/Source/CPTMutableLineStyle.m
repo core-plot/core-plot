@@ -29,7 +29,7 @@
  **/
 @dynamic lineWidth;
 
-/** @property CPTNumberArray *dashPattern
+/** @property nullable CPTNumberArray *dashPattern
  *  @brief The dash-and-space pattern for the line. Default is @nil.
  **/
 @dynamic dashPattern;
@@ -39,19 +39,19 @@
  **/
 @dynamic patternPhase;
 
-/** @property CPTColor *lineColor
+/** @property nullable CPTColor *lineColor
  *  @brief The current stroke color in a context. Default is solid black.
  **/
 @dynamic lineColor;
 
-/** @property CPTFill *lineFill
+/** @property nullable CPTFill *lineFill
  *  @brief The current line fill. Default is @nil.
  *
  *  If @nil, the line is drawn using the @ref lineGradient or @ref lineColor.
  **/
 @dynamic lineFill;
 
-/** @property CPTGradient *lineGradient
+/** @property nullable CPTGradient *lineGradient
  *  @brief The current line gradient fill. Default is @nil.
  *
  *  If @nil, the line is drawn using the @ref lineFill or @ref lineColor.

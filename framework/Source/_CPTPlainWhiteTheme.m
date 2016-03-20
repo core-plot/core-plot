@@ -23,19 +23,19 @@ NSString *const kCPTPlainWhiteTheme = @"Plain White";
     [self registerTheme:self];
 }
 
-+(NSString *)name
++(nonnull NSString *)name
 {
     return kCPTPlainWhiteTheme;
 }
 
 #pragma mark -
 
--(void)applyThemeToBackground:(CPTGraph *)graph
+-(void)applyThemeToBackground:(nonnull CPTGraph *)graph
 {
     graph.fill = [CPTFill fillWithColor:[CPTColor whiteColor]];
 }
 
--(void)applyThemeToPlotArea:(CPTPlotAreaFrame *)plotAreaFrame
+-(void)applyThemeToPlotArea:(nonnull CPTPlotAreaFrame *)plotAreaFrame
 {
     plotAreaFrame.fill = [CPTFill fillWithColor:[CPTColor whiteColor]];
 
@@ -47,7 +47,7 @@ NSString *const kCPTPlainWhiteTheme = @"Plain White";
     plotAreaFrame.cornerRadius    = CPTFloat(0.0);
 }
 
--(void)applyThemeToAxisSet:(CPTAxisSet *)axisSet
+-(void)applyThemeToAxisSet:(nonnull CPTAxisSet *)axisSet
 {
     CPTXYAxisSet *xyAxisSet             = (CPTXYAxisSet *)axisSet;
     CPTMutableLineStyle *majorLineStyle = [CPTMutableLineStyle lineStyle];
@@ -103,7 +103,7 @@ NSString *const kCPTPlainWhiteTheme = @"Plain White";
 #pragma mark -
 #pragma mark NSCoding Methods
 
--(Class)classForCoder
+-(nonnull Class)classForCoder
 {
     return [CPTTheme class];
 }

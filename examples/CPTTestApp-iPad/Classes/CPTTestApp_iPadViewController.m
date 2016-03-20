@@ -10,15 +10,15 @@
 
 @interface CPTTestApp_iPadViewController()
 
-@property (nonatomic, readwrite, strong) IBOutlet CPTGraphHostingView *scatterPlotView;
-@property (nonatomic, readwrite, strong) IBOutlet CPTGraphHostingView *barChartView;
-@property (nonatomic, readwrite, strong) IBOutlet CPTGraphHostingView *pieChartView;
+@property (nonatomic, readwrite, strong, nullable) IBOutlet CPTGraphHostingView *scatterPlotView;
+@property (nonatomic, readwrite, strong, nullable) IBOutlet CPTGraphHostingView *barChartView;
+@property (nonatomic, readwrite, strong, nullable) IBOutlet CPTGraphHostingView *pieChartView;
 
-@property (nonatomic, readwrite, strong) CPTXYGraph *graph;
-@property (nonatomic, readwrite, strong) CPTXYGraph *barChart;
-@property (nonatomic, readwrite, strong) CPTXYGraph *pieGraph;
+@property (nonatomic, readwrite, strong, nonnull) CPTXYGraph *graph;
+@property (nonatomic, readwrite, strong, nonnull) CPTXYGraph *barChart;
+@property (nonatomic, readwrite, strong, nonnull) CPTXYGraph *pieGraph;
 
-@property (nonatomic, readwrite, strong) CPTPieChart *piePlot;
+@property (nonatomic, readwrite, strong, nonnull) CPTPieChart *piePlot;
 @property (nonatomic, readwrite, assign) BOOL piePlotIsRotating;
 
 @end
@@ -320,7 +320,7 @@
 #pragma mark -
 #pragma mark CPTBarPlot delegate method
 
--(void)barPlot:(CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index
+-(void)barPlot:(nonnull CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index
 {
     NSLog(@"barWasSelectedAtRecordIndex %lu", (unsigned long)index);
 }
@@ -328,7 +328,7 @@
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot
 {
     if ( [plot isKindOfClass:[CPTPieChart class]] ) {
         return self.dataForChart.count;
@@ -341,7 +341,7 @@
     }
 }
 
--(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(nullable id)numberForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSNumber *num = nil;
 
@@ -400,7 +400,7 @@
     return num;
 }
 
--(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index
+-(nullable CPTLayer *)dataLabelForPlot:(nonnull CPTPlot *)plot recordIndex:(NSUInteger)index
 {
     if ( self.piePlotIsRotating ) {
         return nil;

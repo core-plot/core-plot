@@ -2,7 +2,7 @@
 
 @interface ColoredBarChart()
 
-@property (nonatomic, readwrite, strong) CPTNumberArray *plotData;
+@property (nonatomic, readwrite, strong, nonnull) CPTNumberArray *plotData;
 
 @end
 
@@ -15,7 +15,7 @@
     [super registerPlotItem:self];
 }
 
--(instancetype)init
+-(nonnull instancetype)init
 {
     if ( (self = [super init]) ) {
         self.title   = @"Colored Bar Chart";
@@ -36,7 +36,7 @@
     }
 }
 
--(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInGraphHostingView:(nonnull CPTGraphHostingView *)hostingView withTheme:(nullable CPTTheme *)theme animated:(BOOL)animated
 {
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     CGRect bounds = hostingView.bounds;
@@ -139,12 +139,12 @@
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot
 {
     return self.plotData.count;
 }
 
--(NSArray *)numbersForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange
+-(nullable NSArray *)numbersForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange
 {
     CPTNumberArray *nums = nil;
 
@@ -167,7 +167,7 @@
     return nums;
 }
 
--(CPTFill *)barFillForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index
+-(nullable CPTFill *)barFillForBarPlot:(nonnull CPTBarPlot *)barPlot recordIndex:(NSUInteger)index
 {
     CPTColor *color = nil;
 
@@ -214,7 +214,7 @@
     return [CPTFill fillWithGradient:fillGradient];
 }
 
--(NSString *)legendTitleForBarPlot:(CPTBarPlot *)barPlot recordIndex:(NSUInteger)index
+-(nullable NSString *)legendTitleForBarPlot:(nonnull CPTBarPlot *)barPlot recordIndex:(NSUInteger)index
 {
     return [NSString stringWithFormat:@"Bar %lu", (unsigned long)(index + 1)];
 }

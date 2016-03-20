@@ -6,11 +6,13 @@
 
 @property (nonatomic, readwrite, strong) NSMutableSet<CPTFunctionDataSource *> *dataSources;
 
-#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
--(UIFont *)italicFontForFont:(UIFont *)oldFont;
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+typedef UIFont CPTFont;
 #else
--(NSFont *)italicFontForFont:(NSFont *)oldFont;
+typedef NSFont CPTFont;
 #endif
+
+-(nullable CPTFont *)italicFontForFont:(nonnull CPTFont *)oldFont;
 
 @end
 
@@ -29,7 +31,7 @@
 
 #pragma mark -
 
--(instancetype)init
+-(nonnull instancetype)init
 {
     if ( (self = [super init]) ) {
         dataSources = [[NSMutableSet alloc] init];
@@ -48,7 +50,7 @@
     [super killGraph];
 }
 
--(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInGraphHostingView:(nonnull CPTGraphHostingView *)hostingView withTheme:(nullable CPTTheme *)theme animated:(BOOL)animated
 {
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     CGRect bounds = hostingView.bounds;
@@ -144,24 +146,19 @@
         NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:titleString
                                                                                   attributes:textAttributes];
 
-#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
-        UIFont *italicFont = [self italicFontForFont:textAttributes[NSFontAttributeName]];
-#else
-        NSFont *italicFont = [self italicFontForFont:textAttributes[NSFontAttributeName]];
-#endif
+        CPTFont *fontAttribute = textAttributes[NSFontAttributeName];
+        if ( fontAttribute ) {
+            CPTFont *italicFont = [self italicFontForFont:fontAttribute];
 
-        [title addAttribute:NSFontAttributeName
-                      value:italicFont
-                      range:NSMakeRange(0, 1)];
-        [title addAttribute:NSFontAttributeName
-                      value:italicFont
-                      range:NSMakeRange(8, 1)];
+            [title addAttribute:NSFontAttributeName
+                          value:italicFont
+                          range:NSMakeRange(0, 1)];
+            [title addAttribute:NSFontAttributeName
+                          value:italicFont
+                          range:NSMakeRange(8, 1)];
+        }
 
-#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
-        UIFont *labelFont = [UIFont fontWithName:@"Helvetica" size:self.titleSize * CPTFloat(0.5)];
-#else
-        NSFont *labelFont = [NSFont fontWithName:@"Helvetica" size:self.titleSize * CPTFloat(0.5)];
-#endif
+        CPTFont *labelFont = [CPTFont fontWithName:@"Helvetica" size:self.titleSize * CPTFloat(0.5)];
         [title addAttribute:NSFontAttributeName
                       value:labelFont
                       range:NSMakeRange(0, title.length)];
@@ -207,8 +204,8 @@
     graph.legendDisplacement     = CGPointMake( 0.0, self.titleSize * CPTFloat(1.25) );
 }
 
-#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
--(UIFont *)italicFontForFont:(UIFont *)oldFont
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+-(nullable UIFont *)italicFontForFont:(nonnull UIFont *)oldFont
 {
     NSString *italicName = nil;
 
@@ -240,7 +237,7 @@
 }
 
 #else
--(NSFont *)italicFontForFont:(NSFont *)oldFont
+-(nullable NSFont *)italicFontForFont:(nonnull NSFont *)oldFont
 {
     return [[NSFontManager sharedFontManager] convertFont:oldFont
                                               toHaveTrait:NSFontItalicTrait];
@@ -249,7 +246,7 @@
 
 #pragma mark - Legend delegate
 
--(void)legend:(CPTLegend *)legend legendEntryForPlot:(CPTPlot *)plot wasSelectedAtIndex:(NSUInteger)idx
+-(void)legend:(nonnull CPTLegend *)legend legendEntryForPlot:(nonnull CPTPlot *)plot wasSelectedAtIndex:(NSUInteger)idx
 {
     plot.hidden = !plot.hidden;
 }

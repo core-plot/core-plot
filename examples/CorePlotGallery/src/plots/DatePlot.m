@@ -15,8 +15,8 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 
 @interface DatePlot()
 
-@property (nonatomic, readwrite, strong) CPTPlotDataArray *plotData;
-@property (nonatomic, readwrite, strong) CPTPlotSpaceAnnotation *markerAnnotation;
+@property (nonatomic, readwrite, strong, nonnull) CPTPlotDataArray *plotData;
+@property (nonatomic, readwrite, strong, nullable) CPTPlotSpaceAnnotation *markerAnnotation;
 
 @end
 
@@ -32,7 +32,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     [super registerPlotItem:self];
 }
 
--(instancetype)init
+-(nonnull instancetype)init
 {
     if ( (self = [super init]) ) {
         self.title   = @"Date Plot";
@@ -63,7 +63,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     }
 }
 
--(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInGraphHostingView:(nonnull CPTGraphHostingView *)hostingView withTheme:(nullable CPTTheme *)theme animated:(BOOL)animated
 {
     // If you make sure your dates are calculated at noon, you shouldn't have to
     // worry about daylight savings. If you use midnight, you will have to adjust
@@ -181,12 +181,12 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot
 {
     return self.plotData.count;
 }
 
--(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(nullable id)numberForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     return self.plotData[index][@(fieldEnum)];
 }

@@ -7,7 +7,7 @@
 
 @interface SimplePieChart()
 
-@property (nonatomic, readwrite, strong) CPTNumberArray *plotData;
+@property (nonatomic, readwrite, strong, nonnull) CPTNumberArray *plotData;
 @property (nonatomic, readwrite) NSUInteger offsetIndex;
 @property (nonatomic, readwrite) CGFloat sliceOffset;
 
@@ -24,7 +24,7 @@
     [super registerPlotItem:self];
 }
 
--(instancetype)init
+-(nonnull instancetype)init
 {
     if ( (self = [super init]) ) {
         self.title   = @"Simple Pie Chart";
@@ -43,7 +43,7 @@
     }
 }
 
--(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInGraphHostingView:(nonnull CPTGraphHostingView *)hostingView withTheme:(nullable CPTTheme *)theme animated:(BOOL)animated
 {
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     CGRect bounds = hostingView.bounds;
@@ -105,7 +105,7 @@
     graph.legendDisplacement = CGPointMake(-graph.paddingRight - CPTFloat(10.0), 0.0);
 }
 
--(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index
+-(nullable CPTLayer *)dataLabelForPlot:(nonnull CPTPlot *)plot recordIndex:(NSUInteger)index
 {
     static CPTMutableTextStyle *whiteText = nil;
     static dispatch_once_t onceToken      = 0;
@@ -124,12 +124,12 @@
 #pragma mark -
 #pragma mark CPTPieChartDelegate Methods
 
--(void)plot:(CPTPlot *)plot dataLabelWasSelectedAtRecordIndex:(NSUInteger)index
+-(void)Plot:(nonnull CPTPlot *)plot dataLabelWasSelectedAtRecordIndex:(NSUInteger)index
 {
     NSLog(@"Data label for '%@' was selected at index %d.", plot.identifier, (int)index);
 }
 
--(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)index
+-(void)pieChart:(nonnull CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)index
 {
     NSLog(@"Slice was selected at index %d. Value = %f", (int)index, self.plotData[index].doubleValue);
 
@@ -150,14 +150,14 @@
 #pragma mark -
 #pragma mark CPTLegendDelegate Methods
 
--(void)legend:(CPTLegend *)legend legendEntryForPlot:(CPTPlot *)plot wasSelectedAtIndex:(NSUInteger)idx
+-(void)legend:(nonnull CPTLegend *)legend legendEntryForPlot:(nonnull CPTPlot *)plot wasSelectedAtIndex:(NSUInteger)idx
 {
     NSLog(@"Legend entry for '%@' was selected at index %lu.", plot.identifier, (unsigned long)idx);
 
     [CPTAnimation animate:self
                  property:@"sliceOffset"
-                     from:(idx == self.offsetIndex ? CPTNAN : 0.0)
-                       to:(idx == self.offsetIndex ? 0.0 : 35.0)
+                     from:CPTFloat(idx == self.offsetIndex ? NAN : 0.0)
+                       to:CPTFloat(idx == self.offsetIndex ? 0.0 : 35.0)
                  duration:0.5
            animationCurve:CPTAnimationCurveCubicOut
                  delegate:nil];
@@ -168,12 +168,12 @@
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot
 {
     return self.plotData.count;
 }
 
--(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(nullable id)numberForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSNumber *num;
 
@@ -187,7 +187,7 @@
     return num;
 }
 
--(NSAttributedString *)attributedLegendTitleForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index
+-(NSAttributedString *)attributedLegendTitleForPieChart:(nonnull CPTPieChart *)pieChart recordIndex:(NSUInteger)index
 {
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     UIColor *sliceColor = [CPTPieChart defaultPieSliceColorForIndex:index].uiColor;
@@ -209,7 +209,7 @@
     return title;
 }
 
--(CGFloat)radialOffsetForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index
+-(CGFloat)radialOffsetForPieChart:(nonnull CPTPieChart *)pieChart recordIndex:(NSUInteger)index
 {
     return index == self.offsetIndex ? self.sliceOffset : 0.0;
 }

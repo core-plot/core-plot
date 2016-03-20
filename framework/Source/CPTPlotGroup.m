@@ -12,7 +12,7 @@
 
 /// @cond
 
--(instancetype)initWithCoder:(NSCoder *)coder
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         // support old archives
@@ -44,7 +44,7 @@
 /** @brief Add a plot to this plot group.
  *  @param plot The plot.
  **/
--(void)addPlot:(CPTPlot *)plot
+-(void)addPlot:(nonnull CPTPlot *)plot
 {
     NSParameterAssert(plot);
 
@@ -55,7 +55,7 @@
  *  @param plot The plot.
  *  @param idx The index at which to insert the plot. This value must not be greater than the count of elements in the sublayer array.
  **/
--(void)insertPlot:(CPTPlot *)plot atIndex:(NSUInteger)idx
+-(void)insertPlot:(nonnull CPTPlot *)plot atIndex:(NSUInteger)idx
 {
     NSParameterAssert(plot);
     NSParameterAssert(idx <= [[self sublayers] count]);
@@ -66,7 +66,7 @@
 /** @brief Remove a plot from this plot group.
  *  @param plot The plot to remove.
  **/
--(void)removePlot:(CPTPlot *)plot
+-(void)removePlot:(nullable CPTPlot *)plot
 {
     if ( self == plot.superlayer ) {
         [plot removeFromSuperlayer];
@@ -83,7 +83,7 @@
     // nothing to draw
 }
 
--(void)renderAsVectorInContext:(CGContextRef)context
+-(void)renderAsVectorInContext:(nonnull CGContextRef)context
 {
     // nothing to draw
 }

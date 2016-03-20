@@ -24,7 +24,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
  **/
 @implementation CPTTextLayer
 
-/** @property NSString *text
+/** @property nullable NSString *text
  *  @brief The text to display.
  *
  *  Assigning a new value to this property also sets the value of the @ref attributedText property to @nil.
@@ -32,14 +32,14 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
  **/
 @synthesize text;
 
-/** @property CPTTextStyle *textStyle
+/** @property nullable CPTTextStyle *textStyle
  *  @brief The text style used to draw the text.
  *
  *  Assigning a new value to this property also sets the value of the @ref attributedText property to @nil.
  **/
 @synthesize textStyle;
 
-/** @property NSAttributedString *attributedText
+/** @property nullable NSAttributedString *attributedText
  *  @brief The styled text to display.
  *
  *  Assigning a new value to this property also sets the value of the @ref text property to the
@@ -69,7 +69,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
  *  @param newStyle The text style used to draw the text.
  *  @return The initialized CPTTextLayer object.
  **/
--(instancetype)initWithText:(NSString *)newText style:(CPTTextStyle *)newStyle
+-(nonnull instancetype)initWithText:(nullable NSString *)newText style:(nullable CPTTextStyle *)newStyle
 {
     if ( (self = [super initWithFrame:CGRectZero]) ) {
         textStyle      = newStyle;
@@ -89,7 +89,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
  *  @param newText The text to display.
  *  @return The initialized CPTTextLayer object.
  **/
--(instancetype)initWithText:(NSString *)newText
+-(nonnull instancetype)initWithText:(nullable NSString *)newText
 {
     return [self initWithText:newText style:[CPTTextStyle textStyle]];
 }
@@ -98,7 +98,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
  *  @param newText The styled text to display.
  *  @return The initialized CPTTextLayer object.
  **/
--(instancetype)initWithAttributedText:(NSAttributedString *)newText
+-(nonnull instancetype)initWithAttributedText:(nullable NSAttributedString *)newText
 {
     CPTTextStyle *newStyle = [CPTTextStyle textStyleWithAttributes:[newText attributesAtIndex:0 effectiveRange:NULL]];
 
@@ -113,7 +113,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
 
 /// @cond
 
--(instancetype)initWithLayer:(id)layer
+-(nonnull instancetype)initWithLayer:(nonnull id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTTextLayer *theLayer = (CPTTextLayer *)layer;
@@ -141,7 +141,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTTextLayer object.
  **/
--(instancetype)initWithFrame:(CGRect)newFrame
+-(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
     return [self initWithText:nil style:nil];
 }
@@ -153,7 +153,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
 
 /// @cond
 
--(void)encodeWithCoder:(NSCoder *)coder
+-(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
     [super encodeWithCoder:coder];
 
@@ -165,7 +165,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
     // inTextUpdate
 }
 
--(instancetype)initWithCoder:(NSCoder *)coder
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         textStyle = [coder decodeObjectOfClass:[CPTTextStyle class]
@@ -199,7 +199,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
 
 /// @cond
 
--(void)setText:(NSString *)newValue
+-(void)setText:(nullable NSString *)newValue
 {
     if ( text != newValue ) {
         text = [newValue copy];
@@ -214,7 +214,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
     }
 }
 
--(void)setTextStyle:(CPTTextStyle *)newStyle
+-(void)setTextStyle:(nullable CPTTextStyle *)newStyle
 {
     if ( textStyle != newStyle ) {
         textStyle = newStyle;
@@ -229,7 +229,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
     }
 }
 
--(void)setAttributedText:(NSAttributedString *)newValue
+-(void)setAttributedText:(nullable NSAttributedString *)newValue
 {
     if ( attributedText != newValue ) {
         attributedText = [newValue copy];
@@ -261,7 +261,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
     }
 }
 
--(void)setShadow:(CPTShadow *)newShadow
+-(void)setShadow:(nullable CPTShadow *)newShadow
 {
     if ( newShadow != self.shadow ) {
         super.shadow = newShadow;
@@ -372,7 +372,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
 
 /// @cond
 
--(void)renderAsVectorInContext:(CGContextRef)context
+-(void)renderAsVectorInContext:(nonnull CGContextRef)context
 {
     if ( self.hidden ) {
         return;
@@ -422,7 +422,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
 
 /// @cond
 
--(NSString *)description
+-(nullable NSString *)description
 {
     return [NSString stringWithFormat:@"<%@ \"%@\">", super.description, self.text];
 }

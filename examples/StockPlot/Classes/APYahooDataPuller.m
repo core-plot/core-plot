@@ -3,17 +3,28 @@
 
 @interface APYahooDataPuller()
 
-@property (nonatomic, readwrite, copy) NSString *csvString;
+@property (nonatomic, readwrite, copy, nonnull) NSString *csvString;
 
-@property (nonatomic, readwrite, strong) NSDecimalNumber *overallHigh;
-@property (nonatomic, readwrite, strong) NSDecimalNumber *overallLow;
-@property (nonatomic, readwrite, strong) CPTFinancialDataArray *financialData;
+@property (nonatomic, readwrite, strong, nonnull) NSDecimalNumber *overallHigh;
+@property (nonatomic, readwrite, strong, nonnull) NSDecimalNumber *overallLow;
+@property (nonatomic, readwrite, strong, nonnull) CPTFinancialDataArray *financialData;
 
 @property (nonatomic, readwrite, assign) BOOL loadingData;
-@property (nonatomic, readwrite, strong) NSMutableData *receivedData;
-@property (nonatomic, readwrite, strong) NSURLConnection *connection;
+@property (nonatomic, readwrite, strong, nullable) NSMutableData *receivedData;
+@property (nonatomic, readwrite, strong, nullable) NSURLConnection *connection;
 
 NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks);
+
+-(nonnull CPTDictionary *)sanitizedFinancialLine:(nonnull CPTDictionary *)theFinancialLine;
+
+-(nonnull instancetype)initWithDictionary:(nonnull CPTDictionary *)aDict targetSymbol:(nonnull NSString *)aSymbol targetStartDate:(nonnull NSDate *)aStartDate targetEndDate:(nonnull NSDate *)anEndDate;
+
+-(nonnull CPTDictionary *)plistRep;
+-(BOOL)writeToFile:(nonnull NSString *)path atomically:(BOOL)flag;
+-(nonnull NSString *)URL;
+-(nonnull NSString *)pathForSymbol:(nonnull NSString *)aSymbol;
+-(nonnull NSString *)faultTolerantPathForSymbol:(nonnull NSString *)aSymbol;
+-(nonnull CPTDictionary *)dictionaryForSymbol:(nonnull NSString *)aSymbol;
 
 @end
 
@@ -47,7 +58,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 @synthesize delegate;
 
 // convert any NSNumber in financial line to NSDecimalNumber
--(CPTDictionary *)sanitizedFinancialLine:(CPTDictionary *)theFinancialLine
+-(nonnull CPTDictionary *)sanitizedFinancialLine:(nonnull CPTDictionary *)theFinancialLine
 {
     CPTMutableDictionary *aFinancialLine = [NSMutableDictionary dictionaryWithDictionary:theFinancialLine];
 
@@ -61,7 +72,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     return [NSDictionary dictionaryWithDictionary:aFinancialLine];
 }
 
--(void)setFinancialData:(NSArray *)aFinancialData
+-(void)setFinancialData:(nonnull NSArray *)aFinancialData
 {
     // NSLog(@"in -setFinancialData:, old value of financialData: %@, changed to: %@", financialData, aFinancialData);
 
@@ -84,7 +95,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     }
 }
 
--(CPTDictionary *)plistRep
+-(nonnull CPTDictionary *)plistRep
 {
     CPTMutableDictionary *rep = [NSMutableDictionary dictionaryWithCapacity:7];
 
@@ -98,32 +109,40 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     return [NSDictionary dictionaryWithDictionary:rep];
 }
 
--(BOOL)writeToFile:(NSString *)path atomically:(BOOL)flag
+-(BOOL)writeToFile:(nonnull NSString *)path atomically:(BOOL)flag
 {
     NSLog(@"writeToFile:%@", path);
     BOOL success = [[self plistRep] writeToFile:path atomically:flag];
     return success;
 }
 
--(instancetype)initWithDictionary:(CPTDictionary *)aDict targetSymbol:(NSString *)aSymbol targetStartDate:(NSDate *)aStartDate targetEndDate:(NSDate *)anEndDate
+-(nonnull instancetype)initWithDictionary:(nonnull CPTDictionary *)aDict targetSymbol:(nonnull NSString *)aSymbol targetStartDate:(nonnull NSDate *)aStartDate targetEndDate:(nonnull NSDate *)anEndDate
 {
     self = [super init];
     if ( self != nil ) {
-        self.symbol        = aDict[@"symbol"];
-        self.startDate     = aDict[@"startDate"];
-        self.overallLow    = [NSDecimalNumber decimalNumberWithDecimal:[aDict[@"overallLow"] decimalValue]];
-        self.overallHigh   = [NSDecimalNumber decimalNumberWithDecimal:[aDict[@"overallHigh"] decimalValue]];
-        self.endDate       = aDict[@"endDate"];
-        self.financialData = aDict[@"financialData"];
+        NSString *theSymbol = aDict[@"symbol"];
+        self.symbol = theSymbol ? theSymbol : @"";
+        NSDate *theStartDate = aDict[@"startDate"];
+        self.startDate = theStartDate ? theStartDate : [NSDate date];
+        NSDate *theEndDate = aDict[@"endDate"];
+        self.endDate = theEndDate ? theEndDate : [NSDate date];
+        NSNumber *low = aDict[@"overallLow"];
+        self.overallLow = low ? [NSDecimalNumber decimalNumberWithDecimal:low.decimalValue] : [NSDecimalNumber notANumber];
+        NSNumber *high = aDict[@"overallHigh"];
+        self.overallHigh = high ? [NSDecimalNumber decimalNumberWithDecimal:high.decimalValue] : [NSDecimalNumber notANumber];
+        CPTFinancialDataArray *dataArray = aDict[@"financialData"];
+        self.financialData = dataArray ? dataArray : [[NSArray alloc] init];
 
         self.targetSymbol    = aSymbol;
         self.targetStartDate = aStartDate;
         self.targetEndDate   = anEndDate;
+
+        self.csvString = @"";
     }
     return self;
 }
 
--(NSString *)pathForSymbol:(NSString *)aSymbol
+-(nonnull NSString *)pathForSymbol:(nonnull NSString *)aSymbol
 {
     CPTStringArray *paths        = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = paths[0];
@@ -132,7 +151,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     return docPath;
 }
 
--(NSString *)faultTolerantPathForSymbol:(NSString *)aSymbol
+-(nonnull NSString *)faultTolerantPathForSymbol:(nonnull NSString *)aSymbol
 {
     NSString *docPath = [self pathForSymbol:aSymbol];
 
@@ -144,7 +163,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 }
 
 // Always returns *something*
--(CPTDictionary *)dictionaryForSymbol:(NSString *)aSymbol
+-(nonnull CPTDictionary *)dictionaryForSymbol:(nonnull NSString *)aSymbol
 {
     NSString *path = [self faultTolerantPathForSymbol:aSymbol];
 
@@ -153,7 +172,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     return localPlistDict;
 }
 
--(instancetype)initWithTargetSymbol:(NSString *)aSymbol targetStartDate:(NSDate *)aStartDate targetEndDate:(NSDate *)anEndDate
+-(nonnull instancetype)initWithTargetSymbol:(nonnull NSString *)aSymbol targetStartDate:(nonnull NSDate *)aStartDate targetEndDate:(nonnull NSDate *)anEndDate
 {
     CPTDictionary *cachedDictionary = [self dictionaryForSymbol:aSymbol];
 
@@ -172,7 +191,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     return [self initWithDictionary:rep targetSymbol:aSymbol targetStartDate:aStartDate targetEndDate:anEndDate];
 }
 
--(instancetype)init
+-(nonnull instancetype)init
 {
     NSTimeInterval secondsAgo = -timeIntervalForNumberOfWeeks(14.0); // 12 weeks ago
     NSDate *start             = [NSDate dateWithTimeIntervalSinceNow:secondsAgo];
@@ -188,35 +207,45 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
 }
 
 // http://www.goldb.org/ystockquote.html
--(NSString *)URL
+-(nonnull NSString *)URL
 {
-    unsigned int unitFlags = NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitYear;
+    NSUInteger unitFlags = NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitYear;
 
     NSCalendar *gregorian = [[NSCalendar alloc]
                              initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
 
-    NSDateComponents *compsStart = [gregorian components:unitFlags fromDate:self.targetStartDate];
-    NSDateComponents *compsEnd   = [gregorian components:unitFlags fromDate:self.targetEndDate];
+    NSString *url = [NSString stringWithFormat:@"https://ichart.yahoo.com/table.csv?s=%@&", self.targetSymbol];
 
-    NSString *url = [NSString stringWithFormat:@"http://ichart.yahoo.com/table.csv?s=%@&", self.targetSymbol];
+    NSDate *tStartDate = self.targetStartDate;
 
-    url = [url stringByAppendingFormat:@"a=%ld&", (long)compsStart.month - 1];
-    url = [url stringByAppendingFormat:@"b=%ld&", (long)compsStart.day];
-    url = [url stringByAppendingFormat:@"c=%ld&", (long)compsStart.year];
+    if ( tStartDate ) {
+        NSDateComponents *compsStart = [gregorian components:unitFlags fromDate:tStartDate];
 
-    url = [url stringByAppendingFormat:@"d=%ld&", (long)compsEnd.month - 1];
-    url = [url stringByAppendingFormat:@"e=%ld&", (long)compsEnd.day];
-    url = [url stringByAppendingFormat:@"f=%ld&", (long)compsEnd.year];
+        url = [url stringByAppendingFormat:@"a=%ld&", (long)compsStart.month - 1];
+        url = [url stringByAppendingFormat:@"b=%ld&", (long)compsStart.day];
+        url = [url stringByAppendingFormat:@"c=%ld&", (long)compsStart.year];
+    }
+
+    NSDate *tEndDate = self.targetEndDate;
+    if ( tEndDate ) {
+        NSDateComponents *compsEnd = [gregorian components:unitFlags fromDate:tEndDate];
+
+        url = [url stringByAppendingFormat:@"d=%ld&", (long)compsEnd.month - 1];
+        url = [url stringByAppendingFormat:@"e=%ld&", (long)compsEnd.day];
+        url = [url stringByAppendingFormat:@"f=%ld&", (long)compsEnd.year];
+    }
+
     url = [url stringByAppendingString:@"g=d&"];
 
     url = [url stringByAppendingString:@"ignore=.csv"];
     url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
     return url;
 }
 
 -(void)notifyFinancesChanged
 {
-    id theDelegate = self.delegate;
+    id<APYahooDataPullerDelegate> theDelegate = self.delegate;
 
     if ( [theDelegate respondsToSelector:@selector(dataPullerFinancialDataDidChange:)] ) {
         [theDelegate performSelector:@selector(dataPullerFinancialDataDidChange:) withObject:self];
@@ -264,13 +293,13 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     }
 }
 
--(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+-(void)connection:(nonnull NSURLConnection *)connection didReceiveData:(nonnull NSData *)data
 {
     // append the new data to the receivedData
     [self.receivedData appendData:data];
 }
 
--(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+-(void)connection:(nonnull NSURLConnection *)connection didReceiveResponse:(nonnull NSURLResponse *)response
 {
     // this method is called when the server has determined that it
     // has enough information to create the NSURLResponse
@@ -290,7 +319,7 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     }
 }
 
--(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+-(void)connection:(nonnull NSURLConnection *)connection didFailWithError:(nonnull NSError *)error
 {
     self.loadingData  = NO;
     self.receivedData = nil;
@@ -298,19 +327,25 @@ NSTimeInterval timeIntervalForNumberOfWeeks(double numberOfWeeks)
     NSLog(@"err = %@", error.localizedDescription);
     self.connection = nil;
 
-    id theDelegate = self.delegate;
+    id<APYahooDataPullerDelegate> theDelegate = self.delegate;
     if ( [theDelegate respondsToSelector:@selector(dataPuller:downloadDidFailWithError:)] ) {
         [theDelegate performSelector:@selector(dataPuller:downloadDidFailWithError:) withObject:self withObject:error];
     }
 }
 
--(void)connectionDidFinishLoading:(NSURLConnection *)connection
+-(void)connectionDidFinishLoading:(nonnull NSURLConnection *)connection
 {
     self.loadingData = NO;
     self.connection  = nil;
 
-    NSString *csv = [[NSString alloc] initWithData:self.receivedData encoding:NSUTF8StringEncoding];
-    [self populateWithString:csv];
+    NSMutableData *data = self.receivedData;
+    if ( data ) {
+        NSString *csv = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        [self populateWithString:csv];
+    }
+    else {
+        [self populateWithString:@""];
+    }
 
     self.receivedData = nil;
     [self writeToFile:[self pathForSymbol:self.symbol] atomically:YES];

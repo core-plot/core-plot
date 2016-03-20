@@ -9,7 +9,7 @@
 
 @implementation CPTColorSpace
 
-/** @property CGColorSpaceRef cgColorSpace
+/** @property nonnull CGColorSpaceRef cgColorSpace
  *  @brief The @ref CGColorSpaceRef to wrap around.
  **/
 @synthesize cgColorSpace;
@@ -25,7 +25,7 @@
  *
  *  @return A shared CPTColorSpace object initialized with the standard RGB colorspace.
  **/
-+(instancetype)genericRGBSpace
++(nonnull instancetype)genericRGBSpace
 {
     static CPTColorSpace *space      = nil;
     static dispatch_once_t onceToken = 0;
@@ -53,7 +53,7 @@
  *  @param colorSpace The color space.
  *  @return The initialized CPTColorSpace object.
  **/
--(instancetype)initWithCGColorSpace:(CGColorSpaceRef)colorSpace
+-(nonnull instancetype)initWithCGColorSpace:(nonnull CGColorSpaceRef)colorSpace
 {
     if ( (self = [super init]) ) {
         CGColorSpaceRetain(colorSpace);
@@ -64,7 +64,7 @@
 
 /// @cond
 
--(instancetype)init
+-(nonnull instancetype)init
 {
     CGColorSpaceRef cgSpace = NULL;
 
@@ -93,7 +93,7 @@
 
 /// @cond
 
--(void)encodeWithCoder:(NSCoder *)coder
+-(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
     [coder encodeCGColorSpace:self.cgColorSpace forKey:@"CPTColorSpace.cgColorSpace"];
 }
@@ -104,10 +104,17 @@
  *  @param coder An unarchiver object.
  *  @return An object initialized from data in a given unarchiver.
  */
--(instancetype)initWithCoder:(NSCoder *)coder
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        cgColorSpace = [coder newCGColorSpaceDecodeForKey:@"CPTColorSpace.cgColorSpace"];
+        CGColorSpaceRef colorSpace = [coder newCGColorSpaceDecodeForKey:@"CPTColorSpace.cgColorSpace"];
+
+        if ( colorSpace ) {
+            cgColorSpace = colorSpace;
+        }
+        else {
+            self = nil;
+        }
     }
     return self;
 }

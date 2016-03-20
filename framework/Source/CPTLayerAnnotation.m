@@ -26,7 +26,7 @@
  **/
 @implementation CPTLayerAnnotation
 
-/** @property cpt_weak CPTLayer *anchorLayer
+/** @property nullable cpt_weak CPTLayer *anchorLayer
  *  @brief The reference layer.
  **/
 @synthesize anchorLayer;
@@ -53,7 +53,7 @@
  *  @param newAnchorLayer The reference layer. Must be non-@nil.
  *  @return The initialized CPTLayerAnnotation object.
  **/
--(instancetype)initWithAnchorLayer:(CPTLayer *)newAnchorLayer
+-(nonnull instancetype)initWithAnchorLayer:(nonnull CPTLayer *)newAnchorLayer
 {
     NSParameterAssert(newAnchorLayer);
 
@@ -77,7 +77,7 @@
 /// @cond
 
 // anchorLayer is required
--(instancetype)init
+-(nonnull instancetype)init
 {
     [NSException raise:CPTException format:@"%@ must be initialized with an anchor layer.", NSStringFromClass([self class])];
     return [self initWithAnchorLayer:[CPTLayer layer]];
@@ -96,7 +96,7 @@
 
 /// @cond
 
--(void)encodeWithCoder:(NSCoder *)coder
+-(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
     [super encodeWithCoder:coder];
 
@@ -112,7 +112,7 @@
  *  @param coder An unarchiver object.
  *  @return An object initialized from data in a given unarchiver.
  */
--(instancetype)initWithCoder:(NSCoder *)coder
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         anchorLayer = [coder decodeObjectOfClass:[CPTLayer class]

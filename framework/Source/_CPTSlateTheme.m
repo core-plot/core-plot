@@ -17,7 +17,7 @@ NSString *const kCPTSlateTheme = @"Slate";
 /// @cond
 @interface _CPTSlateTheme()
 
--(void)applyThemeToAxis:(CPTXYAxis *)axis usingMajorLineStyle:(CPTLineStyle *)majorLineStyle minorLineStyle:(CPTLineStyle *)minorLineStyle textStyle:(CPTMutableTextStyle *)textStyle minorTickTextStyle:(CPTMutableTextStyle *)minorTickTextStyle;
+-(void)applyThemeToAxis:(CPTXYAxis *)axis usingMajorLineStyle:(nonnull CPTLineStyle *)majorLineStyle minorLineStyle:(nonnull CPTLineStyle *)minorLineStyle textStyle:(nonnull CPTMutableTextStyle *)textStyle minorTickTextStyle:(nonnull CPTMutableTextStyle *)minorTickTextStyle;
 
 @end
 
@@ -35,14 +35,14 @@ NSString *const kCPTSlateTheme = @"Slate";
     [self registerTheme:self];
 }
 
-+(NSString *)name
++(nonnull NSString *)name
 {
     return kCPTSlateTheme;
 }
 
 #pragma mark -
 
--(void)applyThemeToAxis:(CPTXYAxis *)axis usingMajorLineStyle:(CPTLineStyle *)majorLineStyle minorLineStyle:(CPTLineStyle *)minorLineStyle textStyle:(CPTMutableTextStyle *)textStyle minorTickTextStyle:(CPTMutableTextStyle *)minorTickTextStyle
+-(void)applyThemeToAxis:(CPTXYAxis *)axis usingMajorLineStyle:(nonnull CPTLineStyle *)majorLineStyle minorLineStyle:(nonnull CPTLineStyle *)minorLineStyle textStyle:(nonnull CPTMutableTextStyle *)textStyle minorTickTextStyle:(nonnull CPTMutableTextStyle *)minorTickTextStyle
 {
     axis.labelingPolicy          = CPTAxisLabelingPolicyFixedInterval;
     axis.majorIntervalLength     = @0.5;
@@ -59,7 +59,7 @@ NSString *const kCPTSlateTheme = @"Slate";
     axis.titleTextStyle          = textStyle;
 }
 
--(void)applyThemeToBackground:(CPTGraph *)graph
+-(void)applyThemeToBackground:(nonnull CPTGraph *)graph
 {
     CPTGradient *gradient = [CPTGradient gradientWithBeginningColor:[CPTColor colorWithComponentRed:CPTFloat(0.43) green:CPTFloat(0.51) blue:CPTFloat(0.63) alpha:CPTFloat(1.0)]
                                                         endingColor:[CPTColor colorWithComponentRed:CPTFloat(0.70) green:CPTFloat(0.73) blue:CPTFloat(0.80) alpha:CPTFloat(1.0)]];
@@ -69,7 +69,7 @@ NSString *const kCPTSlateTheme = @"Slate";
     graph.fill = [CPTFill fillWithGradient:gradient];
 }
 
--(void)applyThemeToPlotArea:(CPTPlotAreaFrame *)plotAreaFrame
+-(void)applyThemeToPlotArea:(nonnull CPTPlotAreaFrame *)plotAreaFrame
 {
     CPTGradient *gradient = [CPTGradient gradientWithBeginningColor:[CPTColor colorWithComponentRed:CPTFloat(0.43) green:CPTFloat(0.51) blue:CPTFloat(0.63) alpha:CPTFloat(1.0)]
                                                         endingColor:[CPTColor colorWithComponentRed:CPTFloat(0.70) green:CPTFloat(0.73) blue:CPTFloat(0.80) alpha:CPTFloat(1.0)]];
@@ -85,7 +85,7 @@ NSString *const kCPTSlateTheme = @"Slate";
     plotAreaFrame.cornerRadius    = CPTFloat(5.0);
 }
 
--(void)applyThemeToAxisSet:(CPTAxisSet *)axisSet
+-(void)applyThemeToAxisSet:(nonnull CPTAxisSet *)axisSet
 {
     CPTMutableLineStyle *majorLineStyle = [CPTMutableLineStyle lineStyle];
 
@@ -114,7 +114,7 @@ NSString *const kCPTSlateTheme = @"Slate";
 #pragma mark -
 #pragma mark NSCoding Methods
 
--(Class)classForCoder
+-(nonnull Class)classForCoder
 {
     return [CPTTheme class];
 }

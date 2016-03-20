@@ -2,8 +2,8 @@
 
 @interface CPTPlotSymbolTestController()
 
-@property (nonatomic, readwrite, strong) IBOutlet CPTGraphHostingView *hostView;
-@property (nonatomic, readwrite, strong) CPTXYGraph *graph;
+@property (nonatomic, readwrite, strong, nullable) IBOutlet CPTGraphHostingView *hostView;
+@property (nonatomic, readwrite, strong, nonnull) CPTXYGraph *graph;
 
 @end
 
@@ -67,12 +67,12 @@
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot
 {
     return 10;
 }
 
--(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(nullable id)numberForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSNumber *num;
 
@@ -91,7 +91,7 @@
     return num;
 }
 
--(CPTPlotSymbol *)symbolForScatterPlot:(CPTScatterPlot *)plot recordIndex:(NSUInteger)index
+-(nullable CPTPlotSymbol *)symbolForScatterPlot:(nonnull CPTScatterPlot *)plot recordIndex:(NSUInteger)index
 {
     CPTGradient *gradientFill = [CPTGradient rainbowGradient];
 

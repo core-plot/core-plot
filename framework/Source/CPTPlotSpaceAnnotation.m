@@ -28,12 +28,12 @@
  **/
 @implementation CPTPlotSpaceAnnotation
 
-/** @property CPTNumberArray *anchorPlotPoint
+/** @property nullable CPTNumberArray *anchorPlotPoint
  *  @brief An array of NSDecimalNumber objects giving the anchor plot coordinates.
  **/
 @synthesize anchorPlotPoint;
 
-/** @property CPTPlotSpace *plotSpace
+/** @property nonnull CPTPlotSpace *plotSpace
  *  @brief The plot space which the anchor is defined in.
  **/
 @synthesize plotSpace;
@@ -56,7 +56,7 @@
  *  @param newPlotPoint An array of NSDecimalNumber objects giving the anchor plot coordinates.
  *  @return The initialized CPTPlotSpaceAnnotation object.
  **/
--(instancetype)initWithPlotSpace:(CPTPlotSpace *)newPlotSpace anchorPlotPoint:(CPTNumberArray *)newPlotPoint
+-(nonnull instancetype)initWithPlotSpace:(nonnull CPTPlotSpace *)newPlotSpace anchorPlotPoint:(nullable CPTNumberArray *)newPlotPoint
 {
     NSParameterAssert(newPlotSpace);
 
@@ -77,7 +77,7 @@
 /// @cond
 
 // plotSpace is required
--(instancetype)init
+-(nonnull instancetype)init
 {
     [NSException raise:CPTException format:@"%@ must be initialized with a plot space.", NSStringFromClass([self class])];
     return [self initWithPlotSpace:[[CPTPlotSpace alloc] init] anchorPlotPoint:nil];
@@ -96,7 +96,7 @@
 
 /// @cond
 
--(void)encodeWithCoder:(NSCoder *)coder
+-(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
     [super encodeWithCoder:coder];
 
@@ -110,7 +110,7 @@
  *  @param coder An unarchiver object.
  *  @return An object initialized from data in a given unarchiver.
  */
--(instancetype)initWithCoder:(NSCoder *)coder
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         anchorPlotPoint = [[coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [NSNumber class]]]
@@ -189,7 +189,7 @@
 
 /// @cond
 
--(void)setAnchorPlotPoint:(CPTNumberArray *)newPlotPoint
+-(void)setAnchorPlotPoint:(nullable CPTNumberArray *)newPlotPoint
 {
     if ( anchorPlotPoint != newPlotPoint ) {
         anchorPlotPoint = [newPlotPoint copy];
@@ -206,7 +206,7 @@
     }
 }
 
--(void)setDecimalAnchor:(NSDecimal *)newAnchor
+-(void)setDecimalAnchor:(nonnull NSDecimal *)newAnchor
 {
     if ( decimalAnchor != newAnchor ) {
         free(decimalAnchor);

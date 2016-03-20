@@ -12,7 +12,7 @@
  **/
 @implementation CPTGridLineGroup
 
-/** @property cpt_weak CPTPlotArea *plotArea
+/** @property nullable cpt_weak CPTPlotArea *plotArea
  *  @brief The plot area that this grid line group belongs to.
  **/
 @synthesize plotArea;
@@ -38,7 +38,7 @@
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTGridLineGroup object.
  **/
--(instancetype)initWithFrame:(CGRect)newFrame
+-(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         plotArea = nil;
@@ -53,7 +53,7 @@
 
 /// @cond
 
--(instancetype)initWithLayer:(id)layer
+-(nonnull instancetype)initWithLayer:(nonnull id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTGridLineGroup *theLayer = (CPTGridLineGroup *)layer;
@@ -71,7 +71,7 @@
 
 /// @cond
 
--(void)encodeWithCoder:(NSCoder *)coder
+-(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
     [super encodeWithCoder:coder];
 
@@ -79,7 +79,7 @@
     [coder encodeBool:self.major forKey:@"CPTGridLineGroup.major"];
 }
 
--(instancetype)initWithCoder:(NSCoder *)coder
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         plotArea = [coder decodeObjectOfClass:[CPTPlotArea class]
@@ -108,7 +108,7 @@
 
 /// @cond
 
--(void)renderAsVectorInContext:(CGContextRef)context
+-(void)renderAsVectorInContext:(nonnull CGContextRef)context
 {
     if ( self.hidden ) {
         return;
@@ -129,7 +129,7 @@
 
 /// @cond
 
--(void)setPlotArea:(CPTPlotArea *)newPlotArea
+-(void)setPlotArea:(nullable CPTPlotArea *)newPlotArea
 {
     if ( newPlotArea != plotArea ) {
         plotArea = newPlotArea;

@@ -6,7 +6,7 @@
 **/
 @implementation CPTAnimationOperation
 
-/** @property CPTAnimationPeriod *period
+/** @property nonnull CPTAnimationPeriod *period
  *  @brief The start value, end value, and duration of this animation operation.
  **/
 @synthesize period;
@@ -16,7 +16,7 @@
  **/
 @synthesize animationCurve;
 
-/** @property id boundObject
+/** @property nonnull id boundObject
  *  @brief The object to update for each animation frame.
  **/
 @synthesize boundObject;
@@ -31,7 +31,7 @@
  **/
 @synthesize boundSetter;
 
-/** @property cpt_weak id<CPTAnimationDelegate>delegate
+/** @property nullable cpt_weak id<CPTAnimationDelegate>delegate
  *  @brief The animation delegate.
  **/
 @synthesize delegate;
@@ -41,12 +41,12 @@
  **/
 @synthesize canceled;
 
-/** @property id<NSCopying, NSObject> identifier
+/** @property nullable id<NSCopying, NSObject> identifier
  *  @brief An object used to identify the animation operation in collections.
  **/
 @synthesize identifier;
 
-/** @property NSDictionary *userInfo
+/** @property nullable NSDictionary *userInfo
  *  @brief Application-specific user info that can be attached to the operation.
  **/
 @synthesize userInfo;
@@ -96,7 +96,7 @@
 
 /// @cond
 
--(instancetype)init
+-(nonnull instancetype)init
 {
     NSAssert(NO, @"Must call -initWithAnimationPeriod:animationCurve:object:getter:setter: to initialize a CPTAnimationOperation.");
 
@@ -114,7 +114,7 @@
 
 /// @cond
 
--(NSString *)description
+-(nullable NSString *)description
 {
     return [NSString stringWithFormat:@"<%@ animate %@ %@ with period %@>", super.description, self.boundObject, NSStringFromSelector(self.boundGetter), self.period];
 }

@@ -9,7 +9,7 @@
 /**
  *  @brief Used to show QuickLook previews of objects in the Xcode debugger and Swift playgrounds.
  **/
--(id)debugQuickLookObject;
+-(nullable id)debugQuickLookObject;
 
 /// @}
 

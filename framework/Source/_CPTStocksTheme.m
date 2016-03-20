@@ -24,19 +24,19 @@ NSString *const kCPTStocksTheme = @"Stocks";
     [self registerTheme:self];
 }
 
-+(NSString *)name
++(nonnull NSString *)name
 {
     return kCPTStocksTheme;
 }
 
 #pragma mark -
 
--(void)applyThemeToBackground:(CPTGraph *)graph
+-(void)applyThemeToBackground:(nonnull CPTGraph *)graph
 {
     graph.fill = [CPTFill fillWithColor:[CPTColor blackColor]];
 }
 
--(void)applyThemeToPlotArea:(CPTPlotAreaFrame *)plotAreaFrame
+-(void)applyThemeToPlotArea:(nonnull CPTPlotAreaFrame *)plotAreaFrame
 {
     CPTGradient *stocksBackgroundGradient = [[CPTGradient alloc] init];
 
@@ -60,7 +60,7 @@ NSString *const kCPTStocksTheme = @"Stocks";
     plotAreaFrame.cornerRadius    = CPTFloat(14.0);
 }
 
--(void)applyThemeToAxisSet:(CPTAxisSet *)axisSet
+-(void)applyThemeToAxisSet:(nonnull CPTAxisSet *)axisSet
 {
     CPTXYAxisSet *xyAxisSet             = (CPTXYAxisSet *)axisSet;
     CPTMutableLineStyle *majorLineStyle = [CPTMutableLineStyle lineStyle];
@@ -115,7 +115,7 @@ NSString *const kCPTStocksTheme = @"Stocks";
 #pragma mark -
 #pragma mark NSCoding Methods
 
--(Class)classForCoder
+-(nonnull Class)classForCoder
 {
     return [CPTTheme class];
 }

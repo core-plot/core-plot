@@ -7,7 +7,7 @@
 -(IBAction)zoomOut;
 
 // PDF / image export
--(IBAction)exportToPDF:(id)sender;
--(IBAction)exportToPNG:(id)sender;
+-(IBAction)exportToPDF:(nullable id)sender;
+-(IBAction)exportToPNG:(nullable id)sender;
 
 @end

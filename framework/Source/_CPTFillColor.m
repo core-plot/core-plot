@@ -5,7 +5,7 @@
 /// @cond
 @interface _CPTFillColor()
 
-@property (nonatomic, readwrite, copy, nullable) CPTColor *fillColor;
+@property (nonatomic, readwrite, copy, nonnull) CPTColor *fillColor;
 
 @end
 
@@ -18,7 +18,7 @@
 
 @implementation _CPTFillColor
 
-/** @property CPTColor *fillColor
+/** @property nonnull CPTColor *fillColor
  *  @brief The fill color.
  **/
 @synthesize fillColor;
@@ -30,7 +30,7 @@
  *  @param aColor The color.
  *  @return The initialized _CPTFillColor object.
  **/
--(instancetype)initWithColor:(CPTColor *)aColor
+-(nonnull instancetype)initWithColor:(nonnull CPTColor *)aColor
 {
     if ( (self = [super init]) ) {
         fillColor = aColor;
@@ -45,7 +45,7 @@
  *  @param rect The rectangle to draw into.
  *  @param context The graphics context to draw into.
  **/
--(void)fillRect:(CGRect)rect inContext:(CGContextRef)context
+-(void)fillRect:(CGRect)rect inContext:(nonnull CGContextRef)context
 {
     CGContextSaveGState(context);
     CGContextSetFillColorWithColor(context, self.fillColor.cgColor);
@@ -56,7 +56,7 @@
 /** @brief Draws the color into the given graphics context clipped to the current drawing path.
  *  @param context The graphics context to draw into.
  **/
--(void)fillPathInContext:(CGContextRef)context
+-(void)fillPathInContext:(nonnull CGContextRef)context
 {
     CGContextSaveGState(context);
     CGContextSetFillColorWithColor(context, self.fillColor.cgColor);
@@ -85,7 +85,7 @@
 
 /// @cond
 
--(id)copyWithZone:(NSZone *)zone
+-(nonnull id)copyWithZone:(nullable NSZone *)zone
 {
     _CPTFillColor *copy = [[[self class] allocWithZone:zone] init];
 
@@ -101,12 +101,12 @@
 
 /// @cond
 
--(Class)classForCoder
+-(nonnull Class)classForCoder
 {
     return [CPTFill class];
 }
 
--(void)encodeWithCoder:(NSCoder *)coder
+-(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
     [coder encodeObject:self.fillColor forKey:@"_CPTFillColor.fillColor"];
 }
@@ -117,11 +117,18 @@
  *  @param coder An unarchiver object.
  *  @return An object initialized from data in a given unarchiver.
  */
--(instancetype)initWithCoder:(NSCoder *)coder
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        fillColor = [coder decodeObjectOfClass:[CPTColor class]
-                                        forKey:@"_CPTFillColor.fillColor"];
+        CPTColor *color = [coder decodeObjectOfClass:[CPTColor class]
+                                              forKey:@"_CPTFillColor.fillColor"];
+
+        if ( color ) {
+            fillColor = color;
+        }
+        else {
+            self = nil;
+        }
     }
     return self;
 }

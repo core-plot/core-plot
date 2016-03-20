@@ -13,9 +13,9 @@
 @interface PlotGalleryController : NSObject<NSSplitViewDelegate,
                                             PlotViewDelegate>
 
-@property (nonatomic, strong) PlotItem *plotItem;
-@property (nonatomic, copy) NSString *currentThemeName;
+@property (nonatomic, strong, nullable) PlotItem *plotItem;
+@property (nonatomic, copy, nullable) NSString *currentThemeName;
 
--(IBAction)themeSelectionDidChange:(id)sender;
+-(IBAction)themeSelectionDidChange:(nonnull id)sender;
 
 @end

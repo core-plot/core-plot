@@ -11,7 +11,7 @@
 
 @interface CPTTestApp_iPadAppDelegate : NSObject<UIApplicationDelegate>
 
-@property (nonatomic, readwrite, strong) IBOutlet UIWindow *window;
-@property (nonatomic, readwrite, strong) IBOutlet CPTTestApp_iPadViewController *viewController;
+@property (nonatomic, readwrite, strong, nullable) IBOutlet UIWindow *window;
+@property (nonatomic, readwrite, strong, nullable) IBOutlet CPTTestApp_iPadViewController *viewController;
 
 @end

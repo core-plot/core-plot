@@ -19,19 +19,19 @@
  *  @brief The class of the value returned for a forward transformation.
  *  @return Transformed values will be instances of NSNumber.
  **/
-+(Class)transformedValueClass
++(nonnull Class)transformedValueClass
 {
     return [NSNumber class];
 }
 
 /// @cond
 
--(id)transformedValue:(id)value
+-(nullable id)transformedValue:(nullable id)value
 {
     return [value copy];
 }
 
--(id)reverseTransformedValue:(id)value
+-(nullable id)reverseTransformedValue:(nullable id)value
 {
     return [value decimalNumber];
 }

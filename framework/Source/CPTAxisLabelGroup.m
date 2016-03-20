@@ -15,7 +15,7 @@
     // nothing to draw
 }
 
--(void)renderAsVectorInContext:(CGContextRef)context
+-(void)renderAsVectorInContext:(nonnull CGContextRef)context
 {
     // nothing to draw
 }

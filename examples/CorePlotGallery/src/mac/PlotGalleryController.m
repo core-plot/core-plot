@@ -15,12 +15,12 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 
 @interface PlotGalleryController()
 
-@property (nonatomic, readwrite, strong) IBOutlet NSSplitView *splitView;
-@property (nonatomic, readwrite, strong) IBOutlet NSScrollView *scrollView;
-@property (nonatomic, readwrite, strong) IBOutlet IKImageBrowserView *imageBrowser;
-@property (nonatomic, readwrite, strong) IBOutlet NSPopUpButton *themePopUpButton;
+@property (nonatomic, readwrite, strong, nullable) IBOutlet NSSplitView *splitView;
+@property (nonatomic, readwrite, strong, nullable) IBOutlet NSScrollView *scrollView;
+@property (nonatomic, readwrite, strong, nullable) IBOutlet IKImageBrowserView *imageBrowser;
+@property (nonatomic, readwrite, strong, nullable) IBOutlet NSPopUpButton *themePopUpButton;
 
-@property (nonatomic, readwrite, strong) IBOutlet PlotView *hostingView;
+@property (nonatomic, readwrite, strong, nullable) IBOutlet PlotView *hostingView;
 
 @end
 
@@ -110,7 +110,7 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 #pragma mark -
 #pragma mark Theme Selection
 
--(CPTTheme *)currentTheme
+-(nullable CPTTheme *)currentTheme
 {
     CPTTheme *theme;
 
@@ -127,10 +127,14 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
     return theme;
 }
 
--(IBAction)themeSelectionDidChange:(id)sender
+-(IBAction)themeSelectionDidChange:(nonnull id)sender
 {
     self.currentThemeName = [sender titleOfSelectedItem];
-    [self.plotItem renderInView:self.hostingView withTheme:[self currentTheme] animated:YES];
+
+    PlotView *hostView = self.hostingView;
+    if ( hostView ) {
+        [self.plotItem renderInView:hostView withTheme:[self currentTheme] animated:YES];
+    }
 }
 
 #pragma mark -
@@ -244,36 +248,39 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 #pragma mark -
 #pragma mark PlotItem Property
 
--(void)setPlotItem:(PlotItem *)item
+-(void)setPlotItem:(nullable PlotItem *)item
 {
     if ( plotItem != item ) {
         [plotItem killGraph];
 
         plotItem = item;
 
-        [plotItem renderInView:self.hostingView withTheme:[self currentTheme] animated:YES];
+        PlotView *hostView = self.hostingView;
+        if ( hostView ) {
+            [plotItem renderInView:hostView withTheme:[self currentTheme] animated:YES];
+        }
     }
 }
 
 #pragma mark -
 #pragma mark IKImageBrowserViewDataSource methods
 
--(NSUInteger)numberOfItemsInImageBrowser:(IKImageBrowserView *)browser
+-(NSUInteger)numberOfItemsInImageBrowser:(nonnull IKImageBrowserView *)browser
 {
     return [PlotGallery sharedPlotGallery].count;
 }
 
--(id)imageBrowser:(IKImageBrowserView *)browser itemAtIndex:(NSUInteger)index
+-(nonnull id)imageBrowser:(nonnull IKImageBrowserView *)browser itemAtIndex:(NSUInteger)index
 {
     return [[PlotGallery sharedPlotGallery] objectInSection:0 atIndex:index];
 }
 
--(NSUInteger)numberOfGroupsInImageBrowser:(IKImageBrowserView *)aBrowser
+-(NSUInteger)numberOfGroupsInImageBrowser:(nonnull IKImageBrowserView *)aBrowser
 {
     return [PlotGallery sharedPlotGallery].numberOfSections;
 }
 
--(CPTDictionary *)imageBrowser:(IKImageBrowserView *)aBrowser groupAtIndex:(NSUInteger)index
+-(nonnull CPTDictionary *)imageBrowser:(nonnull IKImageBrowserView *)aBrowser groupAtIndex:(NSUInteger)index
 {
     NSString *groupTitle = [PlotGallery sharedPlotGallery].sectionTitles[index];
 
@@ -295,7 +302,7 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 #pragma mark -
 #pragma mark IKImageBrowserViewDelegate methods
 
--(void)imageBrowserSelectionDidChange:(IKImageBrowserView *)browser
+-(void)imageBrowserSelectionDidChange:(nonnull IKImageBrowserView *)browser
 {
     NSUInteger index = [browser selectionIndexes].firstIndex;
 
@@ -308,17 +315,17 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 #pragma mark -
 #pragma mark NSSplitViewDelegate methods
 
--(CGFloat)splitView:(NSSplitView *)sv constrainMinCoordinate:(CGFloat)coord ofSubviewAt:(NSInteger)index
+-(CGFloat)splitView:(nonnull NSSplitView *)sv constrainMinCoordinate:(CGFloat)coord ofSubviewAt:(NSInteger)index
 {
     return coord + CPT_SPLIT_VIEW_MIN_LHS_WIDTH;
 }
 
--(CGFloat)splitView:(NSSplitView *)sv constrainMaxCoordinate:(CGFloat)coord ofSubviewAt:(NSInteger)index
+-(CGFloat)splitView:(nonnull NSSplitView *)sv constrainMaxCoordinate:(CGFloat)coord ofSubviewAt:(NSInteger)index
 {
     return coord - CPT_SPLIT_VIEW_MIN_LHS_WIDTH;
 }
 
--(void)splitView:(NSSplitView *)sender resizeSubviewsWithOldSize:(NSSize)oldSize
+-(void)splitView:(nonnull NSSplitView *)sender resizeSubviewsWithOldSize:(NSSize)oldSize
 {
     // Lock the LHS width
     NSRect frame   = sender.frame;

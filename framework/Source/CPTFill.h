@@ -19,16 +19,16 @@ typedef NSMutableArray<CPTFill *> CPTMutableFillArray;
 
 /// @name Factory Methods
 /// @{
-+(nonnull instancetype)fillWithColor:(nullable CPTColor *)aColor;
-+(nonnull instancetype)fillWithGradient:(nullable CPTGradient *)aGradient;
-+(nonnull instancetype)fillWithImage:(nullable CPTImage *)anImage;
++(nonnull instancetype)fillWithColor:(nonnull CPTColor *)aColor;
++(nonnull instancetype)fillWithGradient:(nonnull CPTGradient *)aGradient;
++(nonnull instancetype)fillWithImage:(nonnull CPTImage *)anImage;
 /// @}
 
 /// @name Initialization
 /// @{
--(nonnull instancetype)initWithColor:(nullable CPTColor *)aColor;
--(nonnull instancetype)initWithGradient:(nullable CPTGradient *)aGradient;
--(nonnull instancetype)initWithImage:(nullable CPTImage *)anImage;
+-(nonnull instancetype)initWithColor:(nonnull CPTColor *)aColor;
+-(nonnull instancetype)initWithGradient:(nonnull CPTGradient *)aGradient;
+-(nonnull instancetype)initWithImage:(nonnull CPTImage *)anImage;
 /// @}
 
 @end

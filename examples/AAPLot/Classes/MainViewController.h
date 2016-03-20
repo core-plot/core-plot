@@ -8,6 +8,6 @@
 
 @interface MainViewController : UIViewController<APYahooDataPullerDelegate, CPTPlotDataSource>
 
-@property (nonatomic, readwrite, strong) IBOutlet CPTGraphHostingView *graphHost;
+@property (nonatomic, readwrite, strong, nullable) IBOutlet CPTGraphHostingView *graphHost;
 
 @end

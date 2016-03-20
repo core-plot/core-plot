@@ -3,7 +3,7 @@
 /// @cond
 @interface _CPTAnimationCGSizePeriod()
 
-CGSize CPTCurrentSizeValue(id boundObject, SEL boundGetter);
+CGSize CPTCurrentSizeValue(id __nonnull boundObject, SEL __nonnull boundGetter);
 
 @end
 /// @endcond
@@ -12,7 +12,7 @@ CGSize CPTCurrentSizeValue(id boundObject, SEL boundGetter);
 
 @implementation _CPTAnimationCGSizePeriod
 
-CGSize CPTCurrentSizeValue(id boundObject, SEL boundGetter)
+CGSize CPTCurrentSizeValue(id __nonnull boundObject, SEL __nonnull boundGetter)
 {
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[boundObject methodSignatureForSelector:boundGetter]];
 
@@ -27,14 +27,14 @@ CGSize CPTCurrentSizeValue(id boundObject, SEL boundGetter)
     return value;
 }
 
--(void)setStartValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
+-(void)setStartValueFromObject:(nonnull id)boundObject propertyGetter:(nonnull SEL)boundGetter
 {
     CGSize start = CPTCurrentSizeValue(boundObject, boundGetter);
 
     self.startValue = [NSValue valueWithBytes:&start objCType:@encode(CGSize)];
 }
 
--(BOOL)canStartWithValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
+-(BOOL)canStartWithValueFromObject:(nonnull id)boundObject propertyGetter:(nonnull SEL)boundGetter
 {
     CGSize current = CPTCurrentSizeValue(boundObject, boundGetter);
     CGSize start;
@@ -51,7 +51,7 @@ CGSize CPTCurrentSizeValue(id boundObject, SEL boundGetter)
            ( ( (current.height >= start.height) && (current.height <= end.height) ) || ( (current.height >= end.height) && (current.height <= start.height) ) );
 }
 
--(NSValue *)tweenedValueForProgress:(CGFloat)progress
+-(nonnull NSValue *)tweenedValueForProgress:(CGFloat)progress
 {
     CGSize start;
     CGSize end;

@@ -17,7 +17,7 @@
 #pragma mark -
 #pragma mark Application lifecycle
 
--(void)applicationDidFinishLaunching:(UIApplication *)application
+-(void)applicationDidFinishLaunching:(nonnull UIApplication *)application
 {
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
 
@@ -25,7 +25,7 @@
     [self.window makeKeyAndVisible];
 }
 
--(void)applicationWillTerminate:(UIApplication *)application
+-(void)applicationWillTerminate:(nonnull UIApplication *)application
 {
     // Save data if appropriate
 }

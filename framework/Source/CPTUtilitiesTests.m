@@ -609,7 +609,7 @@
 
 /// @cond
 
--(void)setContext:(CGContextRef)newContext
+-(void)setContext:(nonnull CGContextRef)newContext
 {
     if ( context != newContext ) {
         CGContextRetain(newContext);

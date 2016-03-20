@@ -33,7 +33,7 @@
  *  @param newOffset The offset.
  *  @return The initialized CPTConstraints object.
  **/
--(instancetype)initWithRelativeOffset:(CGFloat)newOffset
+-(nonnull instancetype)initWithRelativeOffset:(CGFloat)newOffset
 {
     if ( (self = [super init]) ) {
         offset = newOffset;
@@ -45,7 +45,7 @@
 #pragma mark -
 #pragma mark Comparison
 
--(BOOL)isEqualToConstraint:(CPTConstraints *)otherConstraint
+-(BOOL)isEqualToConstraint:(nullable CPTConstraints *)otherConstraint
 {
     if ( [self class] != [otherConstraint class] ) {
         return NO;
@@ -75,7 +75,7 @@
 
 /// @cond
 
--(id)copyWithZone:(NSZone *)zone
+-(nonnull id)copyWithZone:(nullable NSZone *)zone
 {
     _CPTConstraintsRelative *copy = [[[self class] allocWithZone:zone] init];
 
@@ -91,12 +91,12 @@
 
 /// @cond
 
--(Class)classForCoder
+-(nonnull Class)classForCoder
 {
     return [CPTConstraints class];
 }
 
--(void)encodeWithCoder:(NSCoder *)coder
+-(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
     [coder encodeCGFloat:self.offset forKey:@"_CPTConstraintsRelative.offset"];
 }
@@ -107,7 +107,7 @@
  *  @param coder An unarchiver object.
  *  @return An object initialized from data in a given unarchiver.
  */
--(instancetype)initWithCoder:(NSCoder *)coder
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         offset = [coder decodeCGFloatForKey:@"_CPTConstraintsRelative.offset"];

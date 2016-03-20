@@ -12,7 +12,7 @@
 
 @interface AAPLotAppDelegate : NSObject<UIApplicationDelegate>
 
-@property (nonatomic, strong) IBOutlet UIWindow *window;
-@property (nonatomic, strong) IBOutlet RootViewController *rootViewController;
+@property (nonatomic, strong, nullable) IBOutlet UIWindow *window;
+@property (nonatomic, strong, nullable) IBOutlet RootViewController *rootViewController;
 
 @end

@@ -10,11 +10,11 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 -(void)setupScatterPlots;
 -(void)initializeData;
 
-@property (nonatomic, readwrite, strong) IBOutlet CPTGraphHostingView *hostView;
+@property (nonatomic, readwrite, strong, nullable) IBOutlet CPTGraphHostingView *hostView;
 
-@property (nonatomic, readwrite, strong) CPTXYGraph *graph;
+@property (nonatomic, readwrite, strong, nonnull) CPTXYGraph *graph;
 
-@property (nonatomic, readwrite, strong) NSMutableArray<NSDictionary *> *dataForPlot;
+@property (nonatomic, readwrite, strong, nonnull) NSMutableArray<NSDictionary *> *dataForPlot;
 @property (nonatomic, readwrite) NSUInteger selectedIndex;
 
 @end
@@ -182,7 +182,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 #pragma mark -
 #pragma mark Plot datasource methods
 
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot
 {
     NSUInteger count = 0;
 
@@ -198,7 +198,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
     return count;
 }
 
--(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(nullable id)numberForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSNumber *num = nil;
 
@@ -260,7 +260,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
     return num;
 }
 
--(CPTPlotSymbol *)symbolForScatterPlot:(CPTScatterPlot *)plot recordIndex:(NSUInteger)index
+-(nullable CPTPlotSymbol *)symbolForScatterPlot:(nonnull CPTScatterPlot *)plot recordIndex:(NSUInteger)index
 {
     static CPTPlotSymbol *redDot = nil;
 
@@ -282,7 +282,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 #pragma mark -
 #pragma mark CPTScatterPlot delegate methods
 
--(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index
+-(void)scatterPlot:(nonnull CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index
 {
     self.selectedIndex = index;
 }
@@ -291,7 +291,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 #pragma mark Plot space delegate methods
 
 #ifdef REMOVE_SELECTION_ON_CLICK
--(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceDownEvent:(id)event atPoint:(CGPoint)point
+-(BOOL)plotSpace:(nonnull CPTPlotSpace *)space shouldHandlePointingDeviceDownEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)point
 {
     self.selectedIndex = NSUIntegerMax;
     return YES;

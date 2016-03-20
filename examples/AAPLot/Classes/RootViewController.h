@@ -13,10 +13,10 @@
 
 @interface RootViewController : UIViewController
 
-@property (nonatomic, strong) IBOutlet UIButton *infoButton;
-@property (nonatomic, strong) MainViewController *mainViewController;
-@property (nonatomic, strong) UINavigationBar *flipsideNavigationBar;
-@property (nonatomic, strong) FlipsideViewController *flipsideViewController;
+@property (nonatomic, strong, nullable) IBOutlet UIButton *infoButton;
+@property (nonatomic, strong, nonnull) MainViewController *mainViewController;
+@property (nonatomic, strong, nonnull) UINavigationBar *flipsideNavigationBar;
+@property (nonatomic, strong, nonnull) FlipsideViewController *flipsideViewController;
 
 -(IBAction)toggleView;
 

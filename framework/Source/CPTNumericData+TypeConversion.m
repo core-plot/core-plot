@@ -11,9 +11,9 @@
  *  @param newByteOrder The new byte order.
  *  @return A copy of the current numeric data converted to the new data type.
  **/
--(CPTNumericData *)dataByConvertingToType:(CPTDataTypeFormat)newDataType
-                              sampleBytes:(size_t)newSampleBytes
-                                byteOrder:(CFByteOrder)newByteOrder
+-(nonnull CPTNumericData *)dataByConvertingToType:(CPTDataTypeFormat)newDataType
+                                      sampleBytes:(size_t)newSampleBytes
+                                        byteOrder:(CFByteOrder)newByteOrder
 {
     return [self dataByConvertingToDataType:CPTDataType(newDataType, newSampleBytes, newByteOrder)];
 }
@@ -22,7 +22,7 @@
  *  @param newDataType The new data type.
  *  @return A copy of the current numeric data converted to the new data type.
  **/
--(CPTNumericData *)dataByConvertingToDataType:(CPTNumericDataType)newDataType
+-(nonnull CPTNumericData *)dataByConvertingToDataType:(CPTNumericDataType)newDataType
 {
     CPTNumericDataType myDataType = self.dataType;
 
@@ -80,10 +80,10 @@
  *  @param destData The destination data buffer.
  *  @param destDataType The new data type.
  **/
--(void)convertData:(NSData *)sourceData
-          dataType:(CPTNumericDataType *)sourceDataType
-            toData:(NSMutableData *)destData
-          dataType:(CPTNumericDataType *)destDataType
+-(void)convertData:(nonnull NSData *)sourceData
+          dataType:(nonnull CPTNumericDataType *)sourceDataType
+            toData:(nonnull NSMutableData *)destData
+          dataType:(nonnull CPTNumericDataType *)destDataType
 {
     NSUInteger sampleCount = sourceData.length / sourceDataType->sampleBytes;
 
@@ -2268,7 +2268,7 @@
  *  @param sourceData The data buffer.
  *  @param sampleSize The number of bytes in each sample stored in sourceData.
  **/
--(void)swapByteOrderForData:(NSMutableData *)sourceData sampleSize:(size_t)sampleSize
+-(void)swapByteOrderForData:(nonnull NSMutableData *)sourceData sampleSize:(size_t)sampleSize
 {
     NSUInteger sampleCount;
 

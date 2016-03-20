@@ -10,10 +10,10 @@
 
 @interface DetailViewController()
 
--(CPTTheme *)currentTheme;
+-(nullable CPTTheme *)currentTheme;
 
 -(void)setupView;
--(void)themeChanged:(NSNotification *)notification;
+-(void)themeChanged:(nonnull NSNotification *)notification;
 
 @end
 
@@ -36,7 +36,10 @@
                                                  name:PlotGalleryThemeDidChangeNotification
                                                object:nil];
 
-    [self.detailItem renderInView:self.hostingView withTheme:[self currentTheme] animated:YES];
+    UIView *hostView = self.hostingView;
+    if ( hostView ) {
+        [self.detailItem renderInView:hostView withTheme:[self currentTheme] animated:YES];
+    }
 }
 
 -(void)awakeFromNib
@@ -44,7 +47,7 @@
     [self setupView];
 }
 
--(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+-(nonnull instancetype)initWithNibName:(nullable NSString *)nibNameOrNil bundle:(nullable NSBundle *)nibBundleOrNil
 {
     if ( (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) ) {
         [self setupView];
@@ -61,15 +64,16 @@
 #pragma mark -
 #pragma mark Managing the detail item
 
--(void)setDetailItem:(PlotItem *)newDetailItem
+-(void)setDetailItem:(nonnull PlotItem *)newDetailItem
 {
     if ( detailItem != newDetailItem ) {
         [detailItem killGraph];
 
         detailItem = newDetailItem;
 
-        if ( self.hostingView ) {
-            [detailItem renderInView:self.hostingView withTheme:[self currentTheme] animated:YES];
+        UIView *hostView = self.hostingView;
+        if ( hostView ) {
+            [detailItem renderInView:hostView withTheme:[self currentTheme] animated:YES];
         }
     }
 }
@@ -87,7 +91,7 @@
 #pragma mark -
 #pragma mark Theme Selection
 
--(void)setCurrentThemeName:(NSString *)newThemeName
+-(void)setCurrentThemeName:(nonnull NSString *)newThemeName
 {
     if ( newThemeName != currentThemeName ) {
         currentThemeName = [newThemeName copy];
@@ -96,7 +100,7 @@
     }
 }
 
--(CPTTheme *)currentTheme
+-(nullable CPTTheme *)currentTheme
 {
     CPTTheme *theme;
 
@@ -113,18 +117,24 @@
     return theme;
 }
 
--(void)themeSelectedWithName:(NSString *)themeName
+-(void)themeSelectedWithName:(nonnull NSString *)themeName
 {
     self.currentThemeName = themeName;
 
-    [self.detailItem renderInView:self.hostingView withTheme:[self currentTheme] animated:YES];
+    UIView *hostView = self.hostingView;
+    if ( hostView ) {
+        [self.detailItem renderInView:hostView withTheme:[self currentTheme] animated:YES];
+    }
 }
 
--(void)themeChanged:(NSNotification *)notification
+-(void)themeChanged:(nonnull NSNotification *)notification
 {
     NSDictionary<NSString *, NSString *> *themeInfo = notification.userInfo;
 
-    [self themeSelectedWithName:themeInfo[PlotGalleryThemeNameKey]];
+    NSString *themeName = themeInfo[PlotGalleryThemeNameKey];
+    if ( themeName ) {
+        [self themeSelectedWithName:themeName];
+    }
 }
 
 @end

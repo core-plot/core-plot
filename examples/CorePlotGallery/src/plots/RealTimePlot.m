@@ -13,9 +13,9 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
 
 @interface RealTimePlot()
 
-@property (nonatomic, readwrite, strong) CPTMutableNumberArray *plotData;
+@property (nonatomic, readwrite, strong, nonnull) CPTMutableNumberArray *plotData;
 @property (nonatomic, readwrite, assign) NSUInteger currentIndex;
-@property (nonatomic, readwrite, strong) NSTimer *dataTimer;
+@property (nonatomic, readwrite, strong, nullable) NSTimer *dataTimer;
 
 @end
 
@@ -30,7 +30,7 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
     [super registerPlotItem:self];
 }
 
--(instancetype)init
+-(nonnull instancetype)init
 {
     if ( (self = [super init]) ) {
         plotData  = [[NSMutableArray alloc] initWithCapacity:kMaxDataPoints];
@@ -57,7 +57,7 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
     self.currentIndex = 0;
 }
 
--(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInGraphHostingView:(nonnull CPTGraphHostingView *)hostingView withTheme:(nullable CPTTheme *)theme animated:(BOOL)animated
 {
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     CGRect bounds = hostingView.bounds;
@@ -137,12 +137,13 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
     [self.dataTimer invalidate];
 
     if ( animated ) {
-        self.dataTimer = [NSTimer timerWithTimeInterval:1.0 / kFrameRate
-                                                 target:self
-                                               selector:@selector(newData:)
-                                               userInfo:nil
-                                                repeats:YES];
-        [[NSRunLoop mainRunLoop] addTimer:self.dataTimer forMode:NSRunLoopCommonModes];
+        NSTimer *newTimer = [NSTimer timerWithTimeInterval:1.0 / kFrameRate
+                                                    target:self
+                                                  selector:@selector(newData:)
+                                                  userInfo:nil
+                                                   repeats:YES];
+        self.dataTimer = newTimer;
+        [[NSRunLoop mainRunLoop] addTimer:newTimer forMode:NSRunLoopCommonModes];
     }
     else {
         self.dataTimer = nil;
@@ -157,7 +158,7 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
 #pragma mark -
 #pragma mark Timer callback
 
--(void)newData:(NSTimer *)theTimer
+-(void)newData:(nonnull NSTimer *)theTimer
 {
     CPTGraph *theGraph = (self.graphs)[0];
     CPTPlot *thePlot   = [theGraph plotWithIdentifier:kPlotIdentifier];
@@ -191,12 +192,12 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot
 {
     return self.plotData.count;
 }
 
--(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(nullable id)numberForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSNumber *num = nil;
 

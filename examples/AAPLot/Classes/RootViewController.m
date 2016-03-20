@@ -23,7 +23,10 @@
     MainViewController *viewController = [[MainViewController alloc] initWithNibName:@"MainView" bundle:nil];
     self.mainViewController = viewController;
 
-    [self.view insertSubview:self.mainViewController.view belowSubview:self.infoButton];
+    UIButton *button = self.infoButton;
+    if ( button ) {
+        [self.view insertSubview:viewController.view belowSubview:button];
+    }
     self.mainViewController.view.frame = self.view.bounds;
 }
 
@@ -82,7 +85,10 @@
         [flipsideView removeFromSuperview];
         [self.flipsideNavigationBar removeFromSuperview];
         [self.view addSubview:mainView];
-        [self.view insertSubview:self.infoButton aboveSubview:self.mainViewController.view];
+        UIButton *button = self.infoButton;
+        if ( button ) {
+            [self.view insertSubview:button aboveSubview:self.mainViewController.view];
+        }
         [self.flipsideViewController viewDidDisappear:YES];
         [self.mainViewController viewDidAppear:YES];
     }

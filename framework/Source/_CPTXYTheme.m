@@ -13,7 +13,7 @@
 /// @name Initialization
 /// @{
 
--(instancetype)init
+-(nonnull instancetype)init
 {
     if ( (self = [super init]) ) {
         self.graphClass = [CPTXYGraph class];
@@ -23,7 +23,7 @@
 
 /// @}
 
--(id)newGraph
+-(nullable id)newGraph
 {
     CPTXYGraph *graph;
 
@@ -50,7 +50,7 @@
 #pragma mark -
 #pragma mark NSCoding Methods
 
--(Class)classForCoder
+-(nonnull Class)classForCoder
 {
     return [CPTTheme class];
 }

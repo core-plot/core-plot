@@ -51,7 +51,7 @@
 -(nonnull instancetype)initWithArray:(nonnull CPTNumberArray *)newData dataType:(CPTNumericDataType)newDataType shape:(nullable CPTNumberArray *)shapeArray dataOrder:(CPTDataOrder)order;
 -(nonnull instancetype)initWithArray:(nonnull CPTNumberArray *)newData dataTypeString:(nonnull NSString *)newDataTypeString shape:(nullable CPTNumberArray *)shapeArray dataOrder:(CPTDataOrder)order;
 
--(nonnull instancetype)initWithCoder:(nonnull NSCoder *)coder NS_DESIGNATED_INITIALIZER;
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder NS_DESIGNATED_INITIALIZER;
 /// @}
 
 /// @name Samples

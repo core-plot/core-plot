@@ -10,7 +10,7 @@
 
 @implementation FlipsideView
 
--(instancetype)initWithFrame:(CGRect)frame
+-(nonnull instancetype)initWithFrame:(CGRect)frame
 {
     if ( (self = [super initWithFrame:frame]) ) {
         // Initialization code

@@ -5,6 +5,8 @@
 
 #import "PlotItem.h"
 
-@interface CandlestickPlot : PlotItem<CPTPlotSpaceDelegate, CPTTradingRangePlotDelegate, CPTPlotDataSource>
+@interface CandlestickPlot : PlotItem<CPTPlotSpaceDelegate,
+                                      CPTTradingRangePlotDelegate,
+                                      CPTPlotDataSource>
 
 @end

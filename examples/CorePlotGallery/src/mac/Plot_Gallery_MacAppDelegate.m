@@ -9,7 +9,7 @@
 
 @synthesize window;
 
--(void)applicationDidFinishLaunching:(NSNotification *)aNotification
+-(void)applicationDidFinishLaunching:(nonnull NSNotification *)aNotification
 {
 }
 

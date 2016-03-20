@@ -191,7 +191,7 @@ typedef NSMutableArray<__kindof CPTPlotSpace *> CPTMutablePlotSpaceArray;
 /// @name Initialization
 /// @{
 -(nonnull instancetype)init NS_DESIGNATED_INITIALIZER;
--(nonnull instancetype)initWithCoder:(nonnull NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
 /// @}
 
 @end

@@ -27,7 +27,7 @@
  */
 @dynamic inputBaseValue, inputBarOffset, inputBarWidth, inputHorizontalBars;
 
-+(NSDictionary<NSString *, NSString *> *)attributes
++(nonnull NSDictionary<NSString *, NSString *> *)attributes
 {
     return @{
                QCPlugInAttributeNameKey: @"Core Plot Bar Chart",
@@ -35,7 +35,7 @@
     };
 }
 
-+(CPTDictionary *)attributesForPropertyPortWithKey:(NSString *)key
++(nonnull CPTDictionary *)attributesForPropertyPortWithKey:(nonnull NSString *)key
 {
     // A few additional ports for the bar plot chart type ...
 
@@ -177,7 +177,7 @@
         plot.barWidth          = @(barWidth);
         plot.barOffset         = @(self.inputBarOffset);
         plot.barsAreHorizontal = self.inputHorizontalBars;
-        plot.fill              = [CPTFill fillWithColor:[CPTColor colorWithCGColor:(CGColorRef)[self areaFillColor:index]]];
+        plot.fill              = [CPTFill fillWithColor:[CPTColor colorWithCGColor:[self areaFillColor:index]]];
 
         [plot reloadData];
     }
@@ -188,7 +188,7 @@
 #pragma mark -
 #pragma mark Data source methods
 
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot
 {
     NSUInteger plotIndex = [[self.graph allPlots] indexOfObject:plot];
     NSString *key        = [NSString stringWithFormat:@"plotNumbers%lu", (unsigned long)plotIndex];
@@ -196,7 +196,7 @@
     return [[self valueForInputKey:key] count];
 }
 
--(NSArray *)numbersForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange
+-(nullable NSArray *)numbersForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange
 {
     NSUInteger plotIndex = [[self.graph allPlots] indexOfObject:plot];
     NSString *key        = [NSString stringWithFormat:@"plotNumbers%lu", (unsigned long)plotIndex];

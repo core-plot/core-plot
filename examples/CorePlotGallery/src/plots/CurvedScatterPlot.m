@@ -12,11 +12,11 @@ static NSString *const kSecond = @"Second Derivative";
 
 @interface CurvedScatterPlot()
 
-@property (nonatomic, readwrite, strong) CPTPlotSpaceAnnotation *symbolTextAnnotation;
+@property (nonatomic, readwrite, strong, nullable) CPTPlotSpaceAnnotation *symbolTextAnnotation;
 
-@property (nonatomic, readwrite, strong) NSArray<NSDictionary<NSString *, NSNumber *> *> *plotData;
-@property (nonatomic, readwrite, strong) NSArray<NSDictionary<NSString *, NSNumber *> *> *plotData1;
-@property (nonatomic, readwrite, strong) NSArray<NSDictionary<NSString *, NSNumber *> *> *plotData2;
+@property (nonatomic, readwrite, strong, nonnull) NSArray<NSDictionary<NSString *, NSNumber *> *> *plotData;
+@property (nonatomic, readwrite, strong, nonnull) NSArray<NSDictionary<NSString *, NSNumber *> *> *plotData1;
+@property (nonatomic, readwrite, strong, nonnull) NSArray<NSDictionary<NSString *, NSNumber *> *> *plotData2;
 
 @end
 
@@ -32,7 +32,7 @@ static NSString *const kSecond = @"Second Derivative";
     [super registerPlotItem:self];
 }
 
--(instancetype)init
+-(nonnull instancetype)init
 {
     if ( (self = [super init]) ) {
         self.title   = @"Curved Scatter Plot";
@@ -129,7 +129,7 @@ static NSString *const kSecond = @"Second Derivative";
     }
 }
 
--(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInGraphHostingView:(nonnull CPTGraphHostingView *)hostingView withTheme:(nullable CPTTheme *)theme animated:(BOOL)animated
 {
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     CGRect bounds = hostingView.bounds;
@@ -182,8 +182,11 @@ static NSString *const kSecond = @"Second Derivative";
     x.axisConstraints       = [CPTConstraints constraintWithRelativeOffset:0.5];
 
     lineCap.lineStyle = x.axisLineStyle;
-    lineCap.fill      = [CPTFill fillWithColor:lineCap.lineStyle.lineColor];
-    x.axisLineCapMax  = lineCap;
+    CPTColor *lineColor = lineCap.lineStyle.lineColor;
+    if ( lineColor ) {
+        lineCap.fill = [CPTFill fillWithColor:lineColor];
+    }
+    x.axisLineCapMax = lineCap;
 
     x.title       = @"X Axis";
     x.titleOffset = self.titleSize * CPTFloat(1.25);
@@ -201,9 +204,12 @@ static NSString *const kSecond = @"Second Derivative";
     y.alternatingBandAnchor       = @0.0;
 
     lineCap.lineStyle = y.axisLineStyle;
-    lineCap.fill      = [CPTFill fillWithColor:lineCap.lineStyle.lineColor];
-    y.axisLineCapMax  = lineCap;
-    y.axisLineCapMin  = lineCap;
+    lineColor         = lineCap.lineStyle.lineColor;
+    if ( lineColor ) {
+        lineCap.fill = [CPTFill fillWithColor:lineColor];
+    }
+    y.axisLineCapMax = lineCap;
+    y.axisLineCapMin = lineCap;
 
     y.title       = @"Y Axis";
     y.titleOffset = self.titleSize * CPTFloat(1.25);
@@ -296,7 +302,7 @@ static NSString *const kSecond = @"Second Derivative";
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot
 {
     NSUInteger numRecords = 0;
     NSString *identifier  = (NSString *)plot.identifier;
@@ -314,7 +320,7 @@ static NSString *const kSecond = @"Second Derivative";
     return numRecords;
 }
 
--(id)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(nullable id)numberForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSNumber *num        = nil;
     NSString *identifier = (NSString *)plot.identifier;
@@ -335,7 +341,7 @@ static NSString *const kSecond = @"Second Derivative";
 #pragma mark -
 #pragma mark Plot Space Delegate Methods
 
--(CPTPlotRange *)plotSpace:(CPTPlotSpace *)space willChangePlotRangeTo:(CPTPlotRange *)newRange forCoordinate:(CPTCoordinate)coordinate
+-(nullable CPTPlotRange *)plotSpace:(nonnull CPTPlotSpace *)space willChangePlotRangeTo:(nonnull CPTPlotRange *)newRange forCoordinate:(CPTCoordinate)coordinate
 {
     CPTGraph *theGraph    = space.graph;
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)theGraph.axisSet;
@@ -364,7 +370,7 @@ static NSString *const kSecond = @"Second Derivative";
 #pragma mark -
 #pragma mark CPTScatterPlot delegate methods
 
--(void)scatterPlot:(CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index
+-(void)scatterPlot:(nonnull CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index
 {
     CPTXYGraph *graph = (self.graphs)[0];
 
@@ -414,17 +420,17 @@ static NSString *const kSecond = @"Second Derivative";
     }
 }
 
--(void)scatterPlotDataLineWasSelected:(CPTScatterPlot *)plot
+-(void)scatterPlotDataLineWasSelected:(nonnull CPTScatterPlot *)plot
 {
     NSLog(@"scatterPlotDataLineWasSelected: %@", plot);
 }
 
--(void)scatterPlotDataLineTouchDown:(CPTScatterPlot *)plot
+-(void)scatterPlotDataLineTouchDown:(nonnull CPTScatterPlot *)plot
 {
     NSLog(@"scatterPlotDataLineTouchDown: %@", plot);
 }
 
--(void)scatterPlotDataLineTouchUp:(CPTScatterPlot *)plot
+-(void)scatterPlotDataLineTouchUp:(nonnull CPTScatterPlot *)plot
 {
     NSLog(@"scatterPlotDataLineTouchUp: %@", plot);
 }
@@ -432,7 +438,7 @@ static NSString *const kSecond = @"Second Derivative";
 #pragma mark -
 #pragma mark Plot area delegate method
 
--(void)plotAreaWasSelected:(CPTPlotArea *)plotArea
+-(void)plotAreaWasSelected:(nonnull CPTPlotArea *)plotArea
 {
     // Remove the annotation
     CPTPlotSpaceAnnotation *annotation = self.symbolTextAnnotation;

@@ -5,6 +5,7 @@
 
 #import "PlotItem.h"
 
-@interface OHLCPlot : PlotItem<CPTPlotDataSource, CPTTradingRangePlotDelegate>
+@interface OHLCPlot : PlotItem<CPTPlotDataSource,
+                               CPTTradingRangePlotDelegate>
 
 @end

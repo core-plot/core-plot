@@ -35,22 +35,22 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 /// @cond
 @interface CPTScatterPlot()
 
-@property (nonatomic, readwrite, copy) CPTNumberArray *xValues;
-@property (nonatomic, readwrite, copy) CPTNumberArray *yValues;
-@property (nonatomic, readwrite, strong) CPTPlotSymbolArray *plotSymbols;
+@property (nonatomic, readwrite, copy, nullable) CPTNumberArray *xValues;
+@property (nonatomic, readwrite, copy, nullable) CPTNumberArray *yValues;
+@property (nonatomic, readwrite, strong, nullable) CPTPlotSymbolArray *plotSymbols;
 @property (nonatomic, readwrite, assign) NSUInteger pointingDeviceDownIndex;
 @property (nonatomic, readwrite, assign) BOOL pointingDeviceDownOnLine;
 @property (nonatomic, readwrite, strong) CPTMutableLimitBandArray *mutableAreaFillBands;
 
--(void)calculatePointsToDraw:(BOOL *)pointDrawFlags forPlotSpace:(CPTXYPlotSpace *)xyPlotSpace includeVisiblePointsOnly:(BOOL)visibleOnly numberOfPoints:(NSUInteger)dataCount;
--(void)calculateViewPoints:(CGPoint *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags numberOfPoints:(NSUInteger)dataCount;
--(void)alignViewPointsToUserSpace:(CGPoint *)viewPoints withContent:(CGContextRef)context drawPointFlags:(BOOL *)drawPointFlags numberOfPoints:(NSUInteger)dataCount;
+-(void)calculatePointsToDraw:(nonnull BOOL *)pointDrawFlags forPlotSpace:(nonnull CPTXYPlotSpace *)xyPlotSpace includeVisiblePointsOnly:(BOOL)visibleOnly numberOfPoints:(NSUInteger)dataCount;
+-(void)calculateViewPoints:(nonnull CGPoint *)viewPoints withDrawPointFlags:(nonnull BOOL *)drawPointFlags numberOfPoints:(NSUInteger)dataCount;
+-(void)alignViewPointsToUserSpace:(nonnull CGPoint *)viewPoints withContext:(nonnull CGContextRef)context drawPointFlags:(nonnull BOOL *)drawPointFlags numberOfPoints:(NSUInteger)dataCount;
 
--(NSInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags numberOfPoints:(NSUInteger)dataCount extremeNumIsLowerBound:(BOOL)isLowerBound;
+-(NSInteger)extremeDrawnPointIndexForFlags:(nonnull BOOL *)pointDrawFlags numberOfPoints:(NSUInteger)dataCount extremeNumIsLowerBound:(BOOL)isLowerBound;
 
--(CGPathRef)newDataLinePathForViewPoints:(CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue;
--(CGPathRef)newCurvedDataLinePathForViewPoints:(CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue;
--(void)computeControlPoints:(CGPoint *)cp1 points2:(CGPoint *)cp2 forViewPoints:(CGPoint *)viewPoints indexRange:(NSRange)indexRange;
+-(nonnull CGPathRef)newDataLinePathForViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue;
+-(nonnull CGPathRef)newCurvedDataLinePathForViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue;
+-(void)computeControlPoints:(nonnull CGPoint *)cp1 points2:(nonnull CGPoint *)cp2 forViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange;
 
 @end
 
@@ -83,25 +83,25 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  **/
 @synthesize histogramOption;
 
-/** @property CPTLineStyle *dataLineStyle
+/** @property nullable CPTLineStyle *dataLineStyle
  *  @brief The line style for the data line.
  *  If @nil, the line is not drawn.
  **/
 @synthesize dataLineStyle;
 
-/** @property CPTPlotSymbol *plotSymbol
+/** @property nullable CPTPlotSymbol *plotSymbol
  *  @brief The plot symbol drawn at each point if the data source does not provide symbols.
  *  If @nil, no symbol is drawn.
  **/
 @synthesize plotSymbol;
 
-/** @property CPTFill *areaFill
+/** @property nullable CPTFill *areaFill
  *  @brief The fill style for the area underneath the data line.
  *  If @nil, the area is not filled.
  **/
 @synthesize areaFill;
 
-/** @property CPTFill *areaFill2
+/** @property nullable CPTFill *areaFill2
  *  @brief The fill style for the area above the data line.
  *  If @nil, the area is not filled.
  **/
@@ -112,7 +112,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  **/
 @synthesize curvedLineGranularity;
 
-/** @property NSNumber *areaBaseValue
+/** @property nullable NSNumber *areaBaseValue
  *  @brief The Y coordinate of the straight boundary of the area fill.
  *  If not a number, the area is not filled.
  *
@@ -122,7 +122,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  **/
 @synthesize areaBaseValue;
 
-/** @property NSNumber *areaBaseValue2
+/** @property nullable NSNumber *areaBaseValue2
  *  @brief The Y coordinate of the straight boundary of the secondary area fill.
  *  If not a number, the area is not filled.
  *
@@ -139,7 +139,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  **/
 @synthesize plotSymbolMarginForHitDetection;
 
-/** @property CGPathRef newDataLinePath
+/** @property nonnull CGPathRef newDataLinePath
  *  @brief The path used to draw the data line. The caller must release the returned path.
  **/
 @dynamic newDataLinePath;
@@ -172,7 +172,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  **/
 @synthesize pointingDeviceDownOnLine;
 
-/** @property CPTLimitBandArray *areaFillBands
+/** @property nullable CPTLimitBandArray *areaFillBands
  *  @brief An array of CPTLimitBand objects.
  *
  *  The limit bands are drawn between the plot line and areaBaseValue and on top of the areaFill.
@@ -223,7 +223,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTScatterPlot object.
  **/
--(instancetype)initWithFrame:(CGRect)newFrame
+-(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         dataLineStyle                   = [[CPTLineStyle alloc] init];
@@ -249,7 +249,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 /// @cond
 
--(instancetype)initWithLayer:(id)layer
+-(nonnull instancetype)initWithLayer:(nonnull id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTScatterPlot *theLayer = (CPTScatterPlot *)layer;
@@ -280,7 +280,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 /// @cond
 
--(void)encodeWithCoder:(NSCoder *)coder
+-(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
     [super encodeWithCoder:coder];
 
@@ -303,7 +303,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     // pointingDeviceDownOnLine
 }
 
--(instancetype)initWithCoder:(NSCoder *)coder
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         interpolation   = (CPTScatterPlotInterpolation)[coder decodeIntegerForKey:@"CPTScatterPlot.interpolation"];
@@ -436,7 +436,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  *  @param idx The index of the record.
  *  @return The plot symbol to use, or @nil if no plot symbol should be drawn.
  **/
--(CPTPlotSymbol *)plotSymbolForRecordIndex:(NSUInteger)idx
+-(nullable CPTPlotSymbol *)plotSymbolForRecordIndex:(NSUInteger)idx
 {
     CPTPlotSymbol *symbol = [self cachedValueForKey:CPTScatterPlotBindingPlotSymbols recordIndex:idx];
 
@@ -452,7 +452,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 /// @cond
 
--(void)calculatePointsToDraw:(BOOL *)pointDrawFlags forPlotSpace:(CPTXYPlotSpace *)xyPlotSpace includeVisiblePointsOnly:(BOOL)visibleOnly numberOfPoints:(NSUInteger)dataCount
+-(void)calculatePointsToDraw:(nonnull BOOL *)pointDrawFlags forPlotSpace:(nonnull CPTXYPlotSpace *)xyPlotSpace includeVisiblePointsOnly:(BOOL)visibleOnly numberOfPoints:(NSUInteger)dataCount
 {
     if ( dataCount == 0 ) {
         return;
@@ -594,7 +594,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 }
 
--(void)calculateViewPoints:(CGPoint *)viewPoints withDrawPointFlags:(BOOL *)drawPointFlags numberOfPoints:(NSUInteger)dataCount
+-(void)calculateViewPoints:(nonnull CGPoint *)viewPoints withDrawPointFlags:(nonnull BOOL *)drawPointFlags numberOfPoints:(NSUInteger)dataCount
 {
     CPTPlotSpace *thePlotSpace = self.plotSpace;
 
@@ -642,7 +642,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 }
 
--(void)alignViewPointsToUserSpace:(CGPoint *)viewPoints withContent:(CGContextRef)context drawPointFlags:(BOOL *)drawPointFlags numberOfPoints:(NSUInteger)dataCount
+-(void)alignViewPointsToUserSpace:(nonnull CGPoint *)viewPoints withContext:(nonnull CGContextRef)context drawPointFlags:(nonnull BOOL *)drawPointFlags numberOfPoints:(NSUInteger)dataCount
 {
     // Align to device pixels if there is a data line.
     // Otherwise, align to view space, so fills are sharp at edges.
@@ -662,7 +662,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 }
 
--(NSInteger)extremeDrawnPointIndexForFlags:(BOOL *)pointDrawFlags numberOfPoints:(NSUInteger)dataCount extremeNumIsLowerBound:(BOOL)isLowerBound
+-(NSInteger)extremeDrawnPointIndexForFlags:(nonnull BOOL *)pointDrawFlags numberOfPoints:(NSUInteger)dataCount extremeNumIsLowerBound:(BOOL)isLowerBound
 {
     NSInteger result = NSNotFound;
     NSInteger delta  = (isLowerBound ? 1 : -1);
@@ -763,7 +763,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 /// @cond
 
--(void)renderAsVectorInContext:(CGContextRef)context
+-(void)renderAsVectorInContext:(nonnull CGContextRef)context
 {
     if ( self.hidden ) {
         return;
@@ -798,7 +798,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
     BOOL pixelAlign = self.alignsPointsToPixels;
     if ( pixelAlign ) {
-        [self alignViewPointsToUserSpace:viewPoints withContent:context drawPointFlags:drawPointFlags numberOfPoints:dataCount];
+        [self alignViewPointsToUserSpace:viewPoints withContext:context drawPointFlags:drawPointFlags numberOfPoints:dataCount];
     }
 
     // Get extreme points
@@ -948,7 +948,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     free(drawPointFlags);
 }
 
--(CGPathRef)newDataLinePathForViewPoints:(CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue
+-(nonnull CGPathRef)newDataLinePathForViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue
 {
     CPTScatterPlotInterpolation theInterpolation = self.interpolation;
 
@@ -1031,7 +1031,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     return dataLinePath;
 }
 
--(CGPathRef)newCurvedDataLinePathForViewPoints:(CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue
+-(nonnull CGPathRef)newCurvedDataLinePathForViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue
 {
     CGMutablePathRef dataLinePath  = CGPathCreateMutable();
     BOOL lastPointSkipped          = YES;
@@ -1142,7 +1142,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 // Compute the control points using the algorithm described at http://www.particleincell.com/blog/2012/bezier-splines/
 // cp1, cp2, and viewPoints should point to arrays of points with at least NSMaxRange(indexRange) elements each.
--(void)computeControlPoints:(CGPoint *)cp1 points2:(CGPoint *)cp2 forViewPoints:(CGPoint *)viewPoints indexRange:(NSRange)indexRange
+-(void)computeControlPoints:(nonnull CGPoint *)cp1 points2:(nonnull CGPoint *)cp2 forViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange
 {
     if ( indexRange.length == 2 ) {
         NSUInteger rangeEnd = NSMaxRange(indexRange) - 1;
@@ -1249,7 +1249,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 }
 
--(void)drawSwatchForLegend:(CPTLegend *)legend atIndex:(NSUInteger)idx inRect:(CGRect)rect inContext:(CGContextRef)context
+-(void)drawSwatchForLegend:(nonnull CPTLegend *)legend atIndex:(NSUInteger)idx inRect:(CGRect)rect inContext:(nonnull CGContextRef)context
 {
     [super drawSwatchForLegend:legend atIndex:idx inRect:rect inContext:context];
 
@@ -1317,7 +1317,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 }
 
--(CGPathRef)newDataLinePath
+-(nonnull CGPathRef)newDataLinePath
 {
     [self reloadDataIfNeeded];
 
@@ -1354,7 +1354,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 /// @cond
 
-+(BOOL)needsDisplayForKey:(NSString *)aKey
++(BOOL)needsDisplayForKey:(nonnull NSString *)aKey
 {
     static NSSet<NSString *> *keys = nil;
     static dispatch_once_t onceToken;
@@ -1384,12 +1384,12 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     return 2;
 }
 
--(CPTNumberArray *)fieldIdentifiers
+-(nonnull CPTNumberArray *)fieldIdentifiers
 {
     return @[@(CPTScatterPlotFieldX), @(CPTScatterPlotFieldY)];
 }
 
--(CPTNumberArray *)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
+-(nonnull CPTNumberArray *)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
 {
     CPTNumberArray *result = nil;
 
@@ -1436,7 +1436,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 /// @cond
 
--(void)positionLabelAnnotation:(CPTPlotSpaceAnnotation *)label forIndex:(NSUInteger)idx
+-(void)positionLabelAnnotation:(nonnull CPTPlotSpaceAnnotation *)label forIndex:(NSUInteger)idx
 {
     NSNumber *xValue = [self cachedNumberForField:CPTScatterPlotFieldX recordIndex:idx];
     NSNumber *yValue = [self cachedNumberForField:CPTScatterPlotFieldY recordIndex:idx];
@@ -1470,14 +1470,15 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  *
  *  @param limitBand The new limit band.
  **/
--(void)addAreaFillBand:(CPTLimitBand *)limitBand
+-(void)addAreaFillBand:(nullable CPTLimitBand *)limitBand
 {
     if ( [limitBand isKindOfClass:[CPTLimitBand class]] ) {
         if ( !self.mutableAreaFillBands ) {
             self.mutableAreaFillBands = [NSMutableArray array];
         }
 
-        [self.mutableAreaFillBands addObject:limitBand];
+        CPTLimitBand *band = limitBand;
+        [self.mutableAreaFillBands addObject:band];
 
         [self setNeedsDisplay];
     }
@@ -1486,12 +1487,14 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 /** @brief Remove an area fill limit band.
  *  @param limitBand The limit band to be removed.
  **/
--(void)removeAreaFillBand:(CPTLimitBand *)limitBand
+-(void)removeAreaFillBand:(nullable CPTLimitBand *)limitBand
 {
     if ( limitBand ) {
         CPTMutableLimitBandArray *fillBands = self.mutableAreaFillBands;
 
-        [fillBands removeObject:limitBand];
+        CPTLimitBand *band = limitBand;
+        [fillBands removeObject:band];
+
         if ( fillBands.count == 0 ) {
             self.mutableAreaFillBands = nil;
         }
@@ -1535,7 +1538,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  *  @param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDownEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     self.pointingDeviceDownIndex  = NSNotFound;
     self.pointingDeviceDownOnLine = NO;
@@ -1650,7 +1653,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  *  @param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceUpEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     NSUInteger selectedDownIndex = self.pointingDeviceDownIndex;
 
@@ -1827,7 +1830,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 }
 
--(void)setPlotSymbol:(CPTPlotSymbol *)aSymbol
+-(void)setPlotSymbol:(nullable CPTPlotSymbol *)aSymbol
 {
     if ( aSymbol != plotSymbol ) {
         plotSymbol = [aSymbol copy];
@@ -1836,7 +1839,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 }
 
--(void)setDataLineStyle:(CPTLineStyle *)newLineStyle
+-(void)setDataLineStyle:(nullable CPTLineStyle *)newLineStyle
 {
     if ( dataLineStyle != newLineStyle ) {
         dataLineStyle = [newLineStyle copy];
@@ -1845,7 +1848,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 }
 
--(void)setAreaFill:(CPTFill *)newFill
+-(void)setAreaFill:(nullable CPTFill *)newFill
 {
     if ( newFill != areaFill ) {
         areaFill = [newFill copy];
@@ -1854,7 +1857,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 }
 
--(void)setAreaFill2:(CPTFill *)newFill
+-(void)setAreaFill2:(nullable CPTFill *)newFill
 {
     if ( newFill != areaFill2 ) {
         areaFill2 = [newFill copy];
@@ -1863,17 +1866,18 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 }
 
--(CPTLimitBandArray *)areaFillBands
+-(nullable CPTLimitBandArray *)areaFillBands
 {
     return [self.mutableAreaFillBands copy];
 }
 
--(void)setAreaBaseValue:(NSNumber *)newAreaBaseValue
+-(void)setAreaBaseValue:(nullable NSNumber *)newAreaBaseValue
 {
     BOOL needsUpdate = YES;
 
     if ( newAreaBaseValue ) {
-        needsUpdate = ![areaBaseValue isEqualToNumber:newAreaBaseValue];
+        NSNumber *baseValue = newAreaBaseValue;
+        needsUpdate = ![areaBaseValue isEqualToNumber:baseValue];
     }
 
     if ( needsUpdate ) {
@@ -1883,12 +1887,13 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 }
 
--(void)setAreaBaseValue2:(NSNumber *)newAreaBaseValue
+-(void)setAreaBaseValue2:(nullable NSNumber *)newAreaBaseValue
 {
     BOOL needsUpdate = YES;
 
     if ( newAreaBaseValue ) {
-        needsUpdate = ![areaBaseValue2 isEqualToNumber:newAreaBaseValue];
+        NSNumber *baseValue = newAreaBaseValue;
+        needsUpdate = ![areaBaseValue2 isEqualToNumber:baseValue];
     }
 
     if ( needsUpdate ) {
@@ -1898,33 +1903,33 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 }
 
--(void)setXValues:(CPTNumberArray *)newValues
+-(void)setXValues:(nullable CPTNumberArray *)newValues
 {
     [self cacheNumbers:newValues forField:CPTScatterPlotFieldX];
 }
 
--(CPTNumberArray *)xValues
+-(nullable CPTNumberArray *)xValues
 {
     return [[self cachedNumbersForField:CPTScatterPlotFieldX] sampleArray];
 }
 
--(void)setYValues:(CPTNumberArray *)newValues
+-(void)setYValues:(nullable CPTNumberArray *)newValues
 {
     [self cacheNumbers:newValues forField:CPTScatterPlotFieldY];
 }
 
--(CPTNumberArray *)yValues
+-(nullable CPTNumberArray *)yValues
 {
     return [[self cachedNumbersForField:CPTScatterPlotFieldY] sampleArray];
 }
 
--(void)setPlotSymbols:(CPTPlotSymbolArray *)newSymbols
+-(void)setPlotSymbols:(nullable CPTPlotSymbolArray *)newSymbols
 {
     [self cacheArray:newSymbols forKey:CPTScatterPlotBindingPlotSymbols];
     [self setNeedsDisplay];
 }
 
--(CPTPlotSymbolArray *)plotSymbols
+-(nullable CPTPlotSymbolArray *)plotSymbols
 {
     return [self cachedArrayForKey:CPTScatterPlotBindingPlotSymbols];
 }

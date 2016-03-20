@@ -3,18 +3,18 @@
 
 @interface CorePlotQCPlugIn : QCPlugIn<CPTPlotDataSource>
 
-@property (readwrite, strong) CPTGraph *graph;
+@property (readwrite, strong, nullable) CPTGraph *graph;
 
-@property (readwrite, assign) id<QCPlugInOutputImageProvider> outputImage;
+@property (readwrite, assign, nonnull) id<QCPlugInOutputImageProvider> outputImage;
 
 @property (readwrite, assign) NSUInteger numberOfPlots;
 
 @property (readwrite, assign) NSUInteger inputPixelsWide;
 @property (readwrite, assign) NSUInteger inputPixelsHigh;
 
-@property (readwrite, assign) CGColorRef inputPlotAreaColor;
+@property (readwrite, assign, nonnull) CGColorRef inputPlotAreaColor;
 
-@property (readwrite, assign) CGColorRef inputAxisColor;
+@property (readwrite, assign, nonnull) CGColorRef inputAxisColor;
 @property (readwrite, assign) double inputAxisLineWidth;
 @property (readwrite, assign) double inputAxisMajorTickWidth;
 @property (readwrite, assign) double inputAxisMinorTickWidth;
@@ -41,14 +41,14 @@
 -(BOOL)configurePlots;
 -(BOOL)configureAxis;
 
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot;
--(CGColorRef)newDefaultColorForPlot:(NSUInteger)index alpha:(CGFloat)alpha;
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot;
+-(nonnull CGColorRef)newDefaultColorForPlot:(NSUInteger)index alpha:(CGFloat)alpha;
 
 -(void)freeResources;
 
--(CGColorRef)dataLineColor:(NSUInteger)index;
+-(nonnull CGColorRef)dataLineColor:(NSUInteger)index;
 -(CGFloat)dataLineWidth:(NSUInteger)index;
--(CGColorRef)areaFillColor:(NSUInteger)index;
--(CGImageRef)newAreaFillImage:(NSUInteger)index;
+-(nonnull CGColorRef)areaFillColor:(NSUInteger)index;
+-(nonnull CGImageRef)newAreaFillImage:(NSUInteger)index;
 
 @end

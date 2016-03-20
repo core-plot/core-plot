@@ -14,7 +14,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 /// @cond
 @interface CPTPlotArea()
 
-@property (nonatomic, readwrite, assign) CPTGraphLayerType *bottomUpLayerOrder;
+@property (nonatomic, readwrite, assign, nonnull) CPTGraphLayerType *bottomUpLayerOrder;
 @property (nonatomic, readwrite, assign, getter = isUpdatingLayers) BOOL updatingLayers;
 @property (nonatomic, readwrite) CGPoint touchedPoint;
 @property (nonatomic, readwrite) NSDecimal widthDecimal;
@@ -44,37 +44,37 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
  **/
 @implementation CPTPlotArea
 
-/** @property CPTGridLineGroup *minorGridLineGroup
+/** @property nullable CPTGridLineGroup *minorGridLineGroup
  *  @brief The parent layer for all minor grid lines.
  **/
 @synthesize minorGridLineGroup;
 
-/** @property CPTGridLineGroup *majorGridLineGroup
+/** @property nullable CPTGridLineGroup *majorGridLineGroup
  *  @brief The parent layer for all major grid lines.
  **/
 @synthesize majorGridLineGroup;
 
-/** @property CPTAxisSet *axisSet
+/** @property nullable CPTAxisSet *axisSet
  *  @brief The axis set.
  **/
 @synthesize axisSet;
 
-/** @property CPTPlotGroup *plotGroup
+/** @property nullable CPTPlotGroup *plotGroup
  *  @brief The plot group.
  **/
 @synthesize plotGroup;
 
-/** @property CPTAxisLabelGroup *axisLabelGroup
+/** @property nullable CPTAxisLabelGroup *axisLabelGroup
  *  @brief The parent layer for all axis labels.
  **/
 @synthesize axisLabelGroup;
 
-/** @property CPTAxisLabelGroup *axisTitleGroup
+/** @property nullable CPTAxisLabelGroup *axisTitleGroup
  *  @brief The parent layer for all axis titles.
  **/
 @synthesize axisTitleGroup;
 
-/** @property CPTNumberArray *topDownLayerOrder
+/** @property nullable  CPTNumberArray *topDownLayerOrder
  *  @brief An array of graph layers to be drawn in an order other than the default.
  *
  *  The array should reference the layers using the constants defined in #CPTGraphLayerType.
@@ -100,13 +100,13 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
  **/
 @synthesize topDownLayerOrder;
 
-/** @property CPTLineStyle *borderLineStyle
+/** @property nullable CPTLineStyle *borderLineStyle
  *  @brief The line style for the layer border.
  *  If @nil, the border is not drawn.
  **/
 @dynamic borderLineStyle;
 
-/** @property CPTFill *fill
+/** @property nullable CPTFill *fill
  *  @brief The fill for the layer background.
  *  If @nil, the layer background is not filled.
  **/
@@ -150,7 +150,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTPlotArea object.
  **/
--(instancetype)initWithFrame:(CGRect)newFrame
+-(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         minorGridLineGroup = nil;
@@ -181,7 +181,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 
 /// @cond
 
--(instancetype)initWithLayer:(id)layer
+-(nonnull instancetype)initWithLayer:(nonnull id)layer
 {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTPlotArea *theLayer = (CPTPlotArea *)layer;
@@ -215,7 +215,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 
 /// @cond
 
--(void)encodeWithCoder:(NSCoder *)coder
+-(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
     [super encodeWithCoder:coder];
 
@@ -236,7 +236,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     // heightDecimal
 }
 
--(instancetype)initWithCoder:(NSCoder *)coder
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
         minorGridLineGroup = [coder decodeObjectOfClass:[CPTGridLineGroup class]
@@ -287,7 +287,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 
 /// @cond
 
--(void)renderAsVectorInContext:(CGContextRef)context
+-(void)renderAsVectorInContext:(nonnull CGContextRef)context
 {
     if ( self.hidden ) {
         return;
@@ -373,7 +373,11 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     }
 }
 
--(CPTSublayerSet *)sublayersExcludedFromAutomaticLayout
+/// @}
+
+/// @cond
+
+-(nullable CPTSublayerSet *)sublayersExcludedFromAutomaticLayout
 {
     CPTGridLineGroup *minorGrid = self.minorGridLineGroup;
     CPTGridLineGroup *majorGrid = self.majorGridLineGroup;
@@ -414,7 +418,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     }
 }
 
-/// @}
+/// @endcond
 
 #pragma mark -
 #pragma mark Layer ordering
@@ -626,7 +630,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
  *  @param layerType The layer type being updated.
  *  @return The sublayer index for the given layer type.
  **/
--(unsigned)sublayerIndexForAxis:(CPTAxis *)axis layerType:(CPTGraphLayerType)layerType
+-(unsigned)sublayerIndexForAxis:(nonnull CPTAxis *)axis layerType:(CPTGraphLayerType)layerType
 {
     unsigned idx = 0;
 
@@ -690,7 +694,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
  *  @param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceDownEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceDownEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     CPTGraph *theGraph = self.graph;
 
@@ -741,7 +745,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
  *  @param interactionPoint The coordinates of the interaction.
  *  @return Whether the event was handled or not.
  **/
--(BOOL)pointingDeviceUpEvent:(CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+-(BOOL)pointingDeviceUpEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     CPTGraph *theGraph = self.graph;
 
@@ -794,17 +798,17 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 
 /// @cond
 
--(CPTLineStyle *)borderLineStyle
+-(nullable CPTLineStyle *)borderLineStyle
 {
     return self.axisSet.borderLineStyle;
 }
 
--(void)setBorderLineStyle:(CPTLineStyle *)newLineStyle
+-(void)setBorderLineStyle:(nullable CPTLineStyle *)newLineStyle
 {
     self.axisSet.borderLineStyle = newLineStyle;
 }
 
--(void)setFill:(CPTFill *)newFill
+-(void)setFill:(nullable CPTFill *)newFill
 {
     if ( newFill != fill ) {
         fill = [newFill copy];
@@ -812,35 +816,39 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     }
 }
 
--(void)setMinorGridLineGroup:(CPTGridLineGroup *)newGridLines
+-(void)setMinorGridLineGroup:(nullable CPTGridLineGroup *)newGridLines
 {
     if ( (newGridLines != minorGridLineGroup) || self.isUpdatingLayers ) {
         [minorGridLineGroup removeFromSuperlayer];
         minorGridLineGroup = newGridLines;
         if ( newGridLines ) {
-            newGridLines.plotArea = self;
-            newGridLines.major    = NO;
-            [self insertSublayer:newGridLines atIndex:[self indexForLayerType:CPTGraphLayerTypeMinorGridLines]];
+            CPTGridLineGroup *gridLines = newGridLines;
+
+            gridLines.plotArea = self;
+            gridLines.major    = NO;
+            [self insertSublayer:gridLines atIndex:[self indexForLayerType:CPTGraphLayerTypeMinorGridLines]];
         }
         [self setNeedsLayout];
     }
 }
 
--(void)setMajorGridLineGroup:(CPTGridLineGroup *)newGridLines
+-(void)setMajorGridLineGroup:(nullable CPTGridLineGroup *)newGridLines
 {
     if ( (newGridLines != majorGridLineGroup) || self.isUpdatingLayers ) {
         [majorGridLineGroup removeFromSuperlayer];
         majorGridLineGroup = newGridLines;
         if ( newGridLines ) {
-            newGridLines.plotArea = self;
-            newGridLines.major    = YES;
-            [self insertSublayer:newGridLines atIndex:[self indexForLayerType:CPTGraphLayerTypeMajorGridLines]];
+            CPTGridLineGroup *gridLines = newGridLines;
+
+            gridLines.plotArea = self;
+            gridLines.major    = YES;
+            [self insertSublayer:gridLines atIndex:[self indexForLayerType:CPTGraphLayerTypeMajorGridLines]];
         }
         [self setNeedsLayout];
     }
 }
 
--(void)setAxisSet:(CPTAxisSet *)newAxisSet
+-(void)setAxisSet:(nullable CPTAxisSet *)newAxisSet
 {
     if ( (newAxisSet != axisSet) || self.isUpdatingLayers ) {
         [axisSet removeFromSuperlayer];
@@ -855,9 +863,11 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         [self updateAxisSetLayersForType:CPTGraphLayerTypeAxisTitles];
 
         if ( newAxisSet ) {
-            CPTGraph *theGraph = self.graph;
-            [self insertSublayer:newAxisSet atIndex:[self indexForLayerType:CPTGraphLayerTypeAxisLines]];
-            for ( CPTAxis *axis in newAxisSet.axes ) {
+            CPTGraph *theGraph     = self.graph;
+            CPTAxisSet *theAxisSet = newAxisSet;
+
+            [self insertSublayer:theAxisSet atIndex:[self indexForLayerType:CPTGraphLayerTypeAxisLines]];
+            for ( CPTAxis *axis in theAxisSet.axes ) {
                 axis.plotArea = self;
                 axis.graph    = theGraph;
             }
@@ -866,43 +876,49 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     }
 }
 
--(void)setPlotGroup:(CPTPlotGroup *)newPlotGroup
+-(void)setPlotGroup:(nullable CPTPlotGroup *)newPlotGroup
 {
     if ( (newPlotGroup != plotGroup) || self.isUpdatingLayers ) {
         [plotGroup removeFromSuperlayer];
         plotGroup = newPlotGroup;
         if ( newPlotGroup ) {
-            [self insertSublayer:newPlotGroup atIndex:[self indexForLayerType:CPTGraphLayerTypePlots]];
+            CPTPlotGroup *group = newPlotGroup;
+
+            [self insertSublayer:group atIndex:[self indexForLayerType:CPTGraphLayerTypePlots]];
         }
         [self setNeedsLayout];
     }
 }
 
--(void)setAxisLabelGroup:(CPTAxisLabelGroup *)newAxisLabelGroup
+-(void)setAxisLabelGroup:(nullable CPTAxisLabelGroup *)newAxisLabelGroup
 {
     if ( (newAxisLabelGroup != axisLabelGroup) || self.isUpdatingLayers ) {
         [axisLabelGroup removeFromSuperlayer];
         axisLabelGroup = newAxisLabelGroup;
         if ( newAxisLabelGroup ) {
-            [self insertSublayer:newAxisLabelGroup atIndex:[self indexForLayerType:CPTGraphLayerTypeAxisLabels]];
+            CPTAxisLabelGroup *group = newAxisLabelGroup;
+
+            [self insertSublayer:group atIndex:[self indexForLayerType:CPTGraphLayerTypeAxisLabels]];
         }
         [self setNeedsLayout];
     }
 }
 
--(void)setAxisTitleGroup:(CPTAxisLabelGroup *)newAxisTitleGroup
+-(void)setAxisTitleGroup:(nullable CPTAxisLabelGroup *)newAxisTitleGroup
 {
     if ( (newAxisTitleGroup != axisTitleGroup) || self.isUpdatingLayers ) {
         [axisTitleGroup removeFromSuperlayer];
         axisTitleGroup = newAxisTitleGroup;
         if ( newAxisTitleGroup ) {
-            [self insertSublayer:newAxisTitleGroup atIndex:[self indexForLayerType:CPTGraphLayerTypeAxisTitles]];
+            CPTAxisLabelGroup *group = newAxisTitleGroup;
+
+            [self insertSublayer:group atIndex:[self indexForLayerType:CPTGraphLayerTypeAxisTitles]];
         }
         [self setNeedsLayout];
     }
 }
 
--(void)setTopDownLayerOrder:(CPTNumberArray *)newArray
+-(void)setTopDownLayerOrder:(nullable CPTNumberArray *)newArray
 {
     if ( newArray != topDownLayerOrder ) {
         topDownLayerOrder = newArray;
@@ -910,7 +926,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     }
 }
 
--(void)setGraph:(CPTGraph *)newGraph
+-(void)setGraph:(nullable CPTGraph *)newGraph
 {
     if ( newGraph != self.graph ) {
         super.graph = newGraph;

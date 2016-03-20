@@ -11,12 +11,12 @@
  **/
 @implementation CPTAnnotation
 
-/** @property CPTLayer *contentLayer
+/** @property nullable CPTLayer *contentLayer
  *  @brief The annotation content.
  **/
 @synthesize contentLayer;
 
-/** @property cpt_weak CPTAnnotationHostLayer *annotationHostLayer
+/** @property nullable cpt_weak CPTAnnotationHostLayer *annotationHostLayer
  *  @brief The host layer for the annotation content.
  **/
 @synthesize annotationHostLayer;
@@ -53,7 +53,7 @@
  *
  *  @return The initialized object.
  **/
--(instancetype)init
+-(nonnull instancetype)init
 {
     if ( (self = [super init]) ) {
         annotationHostLayer = nil;
@@ -72,7 +72,7 @@
 
 /// @cond
 
--(void)encodeWithCoder:(NSCoder *)coder
+-(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
     [coder encodeConditionalObject:self.annotationHostLayer forKey:@"CPTAnnotation.annotationHostLayer"];
     [coder encodeObject:self.contentLayer forKey:@"CPTAnnotation.contentLayer"];
@@ -81,7 +81,7 @@
     [coder encodeCGFloat:self.rotation forKey:@"CPTAnnotation.rotation"];
 }
 
--(instancetype)initWithCoder:(NSCoder *)coder
+-(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super init]) ) {
         annotationHostLayer = [coder decodeObjectOfClass:[CPTAnnotationHostLayer class]
@@ -114,7 +114,7 @@
 
 /// @cond
 
--(NSString *)description
+-(nullable NSString *)description
 {
     return [NSString stringWithFormat:@"<%@ {%@}>", super.description, self.contentLayer];
 }
@@ -126,19 +126,21 @@
 
 /// @cond
 
--(void)setContentLayer:(CPTLayer *)newLayer
+-(void)setContentLayer:(nullable CPTLayer *)newLayer
 {
     if ( newLayer != contentLayer ) {
         [contentLayer removeFromSuperlayer];
         contentLayer = newLayer;
         if ( newLayer ) {
+            CPTLayer *layer = newLayer;
+
             CPTAnnotationHostLayer *hostLayer = self.annotationHostLayer;
-            [hostLayer addSublayer:newLayer];
+            [hostLayer addSublayer:layer];
         }
     }
 }
 
--(void)setAnnotationHostLayer:(CPTAnnotationHostLayer *)newLayer
+-(void)setAnnotationHostLayer:(nullable CPTAnnotationHostLayer *)newLayer
 {
     if ( newLayer != annotationHostLayer ) {
         CPTLayer *myContent = self.contentLayer;

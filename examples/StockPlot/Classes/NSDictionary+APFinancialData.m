@@ -2,13 +2,15 @@
 
 @interface NSDateFormatter(yahooCSVDateFormatter)
 
-+(NSDateFormatter *)yahooCSVDateFormatter;
++(nonnull NSDateFormatter *)yahooCSVDateFormatter;
 
 @end
 
+#pragma mark -
+
 @implementation NSDateFormatter(yahooCSVDateFormatter)
 
-+(NSDateFormatter *)yahooCSVDateFormatter
++(nonnull NSDateFormatter *)yahooCSVDateFormatter
 {
     static NSDateFormatter *df       = nil;
     static dispatch_once_t onceToken = 0;
@@ -23,9 +25,11 @@
 
 @end
 
+#pragma mark -
+
 @implementation NSDictionary(APFinancialData)
 
-+(CPTDictionary *)dictionaryWithCSVLine:(NSString *)csvLine
++(nonnull CPTDictionary *)dictionaryWithCSVLine:(nonnull NSString *)csvLine
 {
     CPTStringArray *csvChunks = [csvLine componentsSeparatedByString:@","];
 

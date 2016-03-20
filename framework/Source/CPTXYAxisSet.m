@@ -10,12 +10,12 @@
  **/
 @implementation CPTXYAxisSet
 
-/** @property CPTXYAxis *xAxis
+/** @property nullable CPTXYAxis *xAxis
  *  @brief The x-axis.
  **/
 @dynamic xAxis;
 
-/** @property CPTXYAxis *yAxis
+/** @property nullable CPTXYAxis *yAxis
  *  @brief The y-axis.
  **/
 @dynamic yAxis;
@@ -40,7 +40,7 @@
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTXYAxisSet object.
  **/
--(instancetype)initWithFrame:(CGRect)newFrame
+-(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         CPTXYAxis *xAxis = [[CPTXYAxis alloc] initWithFrame:newFrame];
@@ -63,7 +63,7 @@
 
 /// @cond
 
--(void)renderAsVectorInContext:(CGContextRef)context
+-(void)renderAsVectorInContext:(nonnull CGContextRef)context
 {
     if ( self.hidden ) {
         return;
@@ -97,6 +97,9 @@
 #pragma mark -
 #pragma mark Layout
 
+/// @name Layout
+/// @{
+
 /**
  *  @brief Updates the layout of all sublayers. Sublayers (the axes) fill the plot area frame&rsquo;s bounds.
  *
@@ -128,17 +131,19 @@
     }
 }
 
+/// @}
+
 #pragma mark -
 #pragma mark Accessors
 
 /// @cond
 
--(CPTXYAxis *)xAxis
+-(nullable CPTXYAxis *)xAxis
 {
     return (CPTXYAxis *)[self axisForCoordinate:CPTCoordinateX atIndex:0];
 }
 
--(CPTXYAxis *)yAxis
+-(nullable CPTXYAxis *)yAxis
 {
     return (CPTXYAxis *)[self axisForCoordinate:CPTCoordinateY atIndex:0];
 }

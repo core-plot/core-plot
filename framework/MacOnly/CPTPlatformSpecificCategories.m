@@ -9,7 +9,7 @@
 /** @brief Gets an image of the layer contents.
  *  @return A native image representation of the layer content.
  **/
--(CPTNativeImage *)imageOfLayer
+-(nonnull CPTNativeImage *)imageOfLayer
 {
     CGSize boundsSize = self.bounds.size;
 
@@ -50,7 +50,7 @@
  **/
 @dynamic nsColor;
 
--(NSColor *)nsColor
+-(nonnull NSColor *)nsColor
 {
     return [NSColor colorWithCIColor:[CIColor colorWithCGColor:self.cgColor]];
 }
@@ -65,7 +65,7 @@
  *  @param rect The bounding rectangle in which to draw the text.
  *  @param context The graphics context to draw into.
  **/
--(void)drawInRect:(CGRect)rect inContext:(CGContextRef)context
+-(void)drawInRect:(CGRect)rect inContext:(nonnull CGContextRef)context
 {
     CPTPushCGContext(context);
 
