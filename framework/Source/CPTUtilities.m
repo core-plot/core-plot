@@ -588,7 +588,18 @@ NSDecimal CPTDecimalDivide(NSDecimal numerator, NSDecimal denominator)
 {
     NSDecimal result;
 
-    NSDecimalDivide(&result, &numerator, &denominator, NSRoundBankers);
+    NSCalculationError calcError = NSDecimalDivide(&result, &numerator, &denominator, NSRoundBankers);
+
+    switch ( calcError ) {
+        case NSCalculationUnderflow:
+        case NSCalculationDivideByZero:
+            result = CPTDecimalFromInteger(0);
+            break;
+
+        default:
+            // no error--return the result of the division
+            break;
+    }
     return result;
 }
 
