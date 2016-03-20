@@ -1049,7 +1049,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                         case CPTScatterPlotCurvedInterpolationCatmullRomUniform:
                             [self computeCatmullRomControlPoints:controlPoints1
                                                          points2:controlPoints2
-                                                       withAlpha:CPTFloat(0)
+                                                       withAlpha:CPTFloat(0.0)
                                                    forViewPoints:viewPoints
                                                       indexRange:NSMakeRange(firstIndex, i - firstIndex)];
                             break;
@@ -1065,7 +1065,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                         case CPTScatterPlotCurvedInterpolationCatmullRomChordal:
                             [self computeCatmullRomControlPoints:controlPoints1
                                                          points2:controlPoints2
-                                                       withAlpha:CPTFloat(1)
+                                                       withAlpha:CPTFloat(1.0)
                                                    forViewPoints:viewPoints
                                                       indexRange:NSMakeRange(firstIndex, i - firstIndex)];
 
@@ -1110,7 +1110,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                 case CPTScatterPlotCurvedInterpolationCatmullRomUniform:
                     [self computeCatmullRomControlPoints:controlPoints1
                                                  points2:controlPoints2
-                                               withAlpha:CPTFloat(0)
+                                               withAlpha:CPTFloat(0.0)
                                            forViewPoints:viewPoints
                                               indexRange:NSMakeRange(firstIndex, NSMaxRange(indexRange) - firstIndex)];
 
@@ -1127,7 +1127,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                 case CPTScatterPlotCurvedInterpolationCatmullRomChordal:
                     [self computeCatmullRomControlPoints:controlPoints1
                                                  points2:controlPoints2
-                                               withAlpha:CPTFloat(1)
+                                               withAlpha:CPTFloat(1.0)
                                            forViewPoints:viewPoints
                                               indexRange:NSMakeRange(firstIndex, NSMaxRange(indexRange) - firstIndex)];
 
@@ -1221,7 +1221,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  *  @param alpha The alpha value used for the catmull-rom interpolation.
  *  @param viewPoints A pointer to the array which holds all view points for which the interpolation should be calculated.
  *  @param indexRange The range in which the interpolation should occur.
- *  @warning The indexRange must be valid for all passed array's otherwise this method crashes.
+ *  @warning The indexRange must be valid for all passed arrays otherwise this method crashes.
  **/
 -(void)computeCatmullRomControlPoints:(nonnull CGPoint *)points points2:(nonnull CGPoint *)points2 withAlpha:(CGFloat)alpha forViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange
 {
@@ -1230,7 +1230,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         NSUInteger endIndex     = NSMaxRange(indexRange) - 1; // the index starts at zero
         NSUInteger segmentCount = endIndex - 1;               // there are n - 1 segments
 
-        CGFloat epsilon = CPTFloat(1e-5); // the minimum point distance. below that no interpolation happens.
+        CGFloat epsilon = CPTFloat(1.0e-5); // the minimum point distance. below that no interpolation happens.
 
         for ( NSUInteger index = startIndex; index <= segmentCount; index++ ) {
             // calculate the control for the segment from index -> index + 1
@@ -1258,12 +1258,12 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
             CGFloat d2 = hypot(p2.x - p1.x, p2.y - p1.y);
             CGFloat d3 = hypot(p3.x - p2.x, p3.y - p2.y);
             // constants
-            CGFloat d1_a  = pow(d1, alpha);           // d1^alpha
-            CGFloat d2_a  = pow(d2, alpha);           // d2^alpha
-            CGFloat d3_a  = pow(d3, alpha);           // d3^alpha
-            CGFloat d1_2a = pow( d1_a, CPTFloat(2) ); // d1^alpha^2 = d1^2*alpha
-            CGFloat d2_2a = pow( d2_a, CPTFloat(2) ); // d2^2alpha
-            CGFloat d3_2a = pow( d3_a, CPTFloat(2) );
+            CGFloat d1_a  = pow(d1, alpha);             // d1^alpha
+            CGFloat d2_a  = pow(d2, alpha);             // d2^alpha
+            CGFloat d3_a  = pow(d3, alpha);             // d3^alpha
+            CGFloat d1_2a = pow( d1_a, CPTFloat(2.0) ); // d1^alpha^2 = d1^2*alpha
+            CGFloat d2_2a = pow( d2_a, CPTFloat(2.0) ); // d2^alpha^2 = d2^2*alpha
+            CGFloat d3_2a = pow( d3_a, CPTFloat(2.0) ); // d3^alpha^2 = d3^2*alpha
 
             // calculate the control points
             // see : http://www.cemyuksel.com/research/catmullrom_param/catmullrom.pdf under point 3.
@@ -1298,7 +1298,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  *  @param points2 A pointer to the array which should hold the second control points.
  *  @param viewPoints A pointer to the array which holds all view points for which the interpolation should be calculated.
  *  @param indexRange The range in which the interpolation should occur.
- *  @warning The indexRange must be valid for all passed array's otherwise this method crashes.
+ *  @warning The indexRange must be valid for all passed arrays otherwise this method crashes.
  **/
 -(void)computeHermiteControlPoints:(nonnull CGPoint *)points points2:(nonnull CGPoint *)points2 forViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange
 {
