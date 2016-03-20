@@ -93,7 +93,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 /** @property CGFloat curvedInterpolationCustomAlpha
  *  @brief The custom alpha value used when the #CPTScatterPlotCurvedInterpolationCatmullCustomAlpha interpolation is selected.
  *  Default is @num{0.5}.
- *  @warning Must be between @num{0.0} and @num{1.0}.
+ *  @note Must be between @num{0.0} and @num{1.0}.
  **/
 @synthesize curvedInterpolationCustomAlpha;
 
@@ -232,6 +232,8 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  *  - @ref allowSimultaneousSymbolAndPlotSelection = NO
  *  - @ref interpolation = #CPTScatterPlotInterpolationLinear
  *  - @ref histogramOption = #CPTScatterPlotHistogramNormal
+ *  - @ref curvedInterpolationOption = #CPTScatterPlotCurvedInterpolationNormal
+ *  - @ref curvedInterpolationCustomAlpha = @num{0.5}
  *  - @ref labelField = #CPTScatterPlotFieldY
  *
  *  @param newFrame The frame rectangle.
@@ -252,6 +254,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         interpolation                   = CPTScatterPlotInterpolationLinear;
         histogramOption                 = CPTScatterPlotHistogramNormal;
         curvedInterpolationOption       = CPTScatterPlotCurvedInterpolationNormal;
+        curvedInterpolationCustomAlpha  = CPTFloat(0.5);
         pointingDeviceDownIndex         = NSNotFound;
         pointingDeviceDownOnLine        = NO;
         mutableAreaFillBands            = nil;
@@ -282,6 +285,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         interpolation                           = theLayer->interpolation;
         histogramOption                         = theLayer->histogramOption;
         curvedInterpolationOption               = theLayer->curvedInterpolationOption;
+        curvedInterpolationCustomAlpha          = theLayer->curvedInterpolationCustomAlpha;
         mutableAreaFillBands                    = theLayer->mutableAreaFillBands;
         pointingDeviceDownIndex                 = NSNotFound;
         pointingDeviceDownOnLine                = NO;
@@ -303,6 +307,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     [coder encodeInteger:self.interpolation forKey:@"CPTScatterPlot.interpolation"];
     [coder encodeInteger:self.histogramOption forKey:@"CPTScatterPlot.histogramOption"];
     [coder encodeInteger:self.curvedInterpolationOption forKey:@"CPTScatterPlot.curvedInterpolationOption"];
+    [coder encodeCGFloat:self.curvedInterpolationCustomAlpha forKey:@"CPTScatterPlot.curvedInterpolationCustomAlpha"];
     [coder encodeObject:self.dataLineStyle forKey:@"CPTScatterPlot.dataLineStyle"];
     [coder encodeObject:self.plotSymbol forKey:@"CPTScatterPlot.plotSymbol"];
     [coder encodeObject:self.areaFill forKey:@"CPTScatterPlot.areaFill"];
@@ -323,11 +328,12 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        interpolation             = (CPTScatterPlotInterpolation)[coder decodeIntegerForKey:@"CPTScatterPlot.interpolation"];
-        histogramOption           = (CPTScatterPlotHistogramOption)[coder decodeIntegerForKey:@"CPTScatterPlot.histogramOption"];
-        curvedInterpolationOption = (CPTScatterPlotCurvedInterpolationOption)[coder decodeIntegerForKey:@"CPTScatterPlot.curvedInterpolationOption"];
-        dataLineStyle             = [[coder decodeObjectOfClass:[CPTLineStyle class]
-                                                         forKey:@"CPTScatterPlot.dataLineStyle"] copy];
+        interpolation                  = (CPTScatterPlotInterpolation)[coder decodeIntegerForKey:@"CPTScatterPlot.interpolation"];
+        histogramOption                = (CPTScatterPlotHistogramOption)[coder decodeIntegerForKey:@"CPTScatterPlot.histogramOption"];
+        curvedInterpolationOption      = (CPTScatterPlotCurvedInterpolationOption)[coder decodeIntegerForKey:@"CPTScatterPlot.curvedInterpolationOption"];
+        curvedInterpolationCustomAlpha = [coder decodeCGFloatForKey:@"CPTScatterPlot.curvedInterpolationCustomAlpha"];
+        dataLineStyle                  = [[coder decodeObjectOfClass:[CPTLineStyle class]
+                                                              forKey:@"CPTScatterPlot.dataLineStyle"] copy];
         plotSymbol = [[coder decodeObjectOfClass:[CPTPlotSymbol class]
                                           forKey:@"CPTScatterPlot.plotSymbol"] copy];
         areaFill = [[coder decodeObjectOfClass:[CPTFill class]
