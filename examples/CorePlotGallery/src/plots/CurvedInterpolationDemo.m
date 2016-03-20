@@ -119,8 +119,11 @@ static NSString *const hermiteCubicIdentifier          = @"Hermite Cubic";
     x.axisConstraints       = [CPTConstraints constraintWithRelativeOffset:0.5];
 
     lineCap.lineStyle = x.axisLineStyle;
-    lineCap.fill      = [CPTFill fillWithColor:lineCap.lineStyle.lineColor];
-    x.axisLineCapMax  = lineCap;
+    CPTColor *lineColor = lineCap.lineStyle.lineColor;
+    if ( lineColor ) {
+        lineCap.fill = [CPTFill fillWithColor:lineColor];
+    }
+    x.axisLineCapMax = lineCap;
 
     x.title       = @"X Axis";
     x.titleOffset = self.titleSize * CPTFloat(1.25);
@@ -136,9 +139,12 @@ static NSString *const hermiteCubicIdentifier          = @"Hermite Cubic";
     y.labelOffset                 = self.titleSize * CPTFloat(0.25);
 
     lineCap.lineStyle = y.axisLineStyle;
-    lineCap.fill      = [CPTFill fillWithColor:lineCap.lineStyle.lineColor];
-    y.axisLineCapMax  = lineCap;
-    y.axisLineCapMin  = lineCap;
+    lineColor         = lineCap.lineStyle.lineColor;
+    if ( lineColor ) {
+        lineCap.fill = [CPTFill fillWithColor:lineColor];
+    }
+    y.axisLineCapMax = lineCap;
+    y.axisLineCapMin = lineCap;
 
     y.title       = @"Y Axis";
     y.titleOffset = self.titleSize * CPTFloat(1.25);
