@@ -163,7 +163,7 @@ dispatch_source_t __nonnull CPTCreateDispatchTimer(CGFloat interval, dispatch_qu
  *  @param delegate The animation delegate (can be @nil).
  *  @return The queued animation operation.
  **/
-+(CPTAnimationOperation *)animate:(nonnull id)object property:(nonnull NSString *)property period:(nonnull CPTAnimationPeriod *)period animationCurve:(CPTAnimationCurve)animationCurve delegate:(nullable id<CPTAnimationDelegate>)delegate
++(nonnull CPTAnimationOperation *)animate:(nonnull id)object property:(nonnull NSString *)property period:(nonnull CPTAnimationPeriod *)period animationCurve:(CPTAnimationCurve)animationCurve delegate:(nullable id<CPTAnimationDelegate>)delegate
 {
     CPTAnimationOperation *animationOperation =
         [[CPTAnimationOperation alloc] initWithAnimationPeriod:period
