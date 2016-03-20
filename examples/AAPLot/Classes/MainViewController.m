@@ -19,7 +19,7 @@
 
 -(void)setView:(UIView *)aView
 {
-    [super setView:aView];
+    super.view = aView;
     if ( nil == aView ) {
         self.graph     = nil;
         self.graphHost = nil;
@@ -119,8 +119,8 @@
     NSDate *start         = [NSDate dateWithTimeIntervalSinceNow:-60.0 * 60.0 * 24.0 * 7.0 * 12.0]; // 12 weeks ago
     NSDate *end           = [NSDate date];
     APYahooDataPuller *dp = [[APYahooDataPuller alloc] initWithTargetSymbol:@"AAPL" targetStartDate:start targetEndDate:end];
-    [self setDatapuller:dp];
-    [dp setDelegate:self];
+    self.datapuller = dp;
+    dp.delegate     = self;
 
     [super viewDidLoad];
 }
@@ -176,7 +176,7 @@
                         case CPTScatterPlotFieldY:
                             value = fData[@"close"];
                             NSAssert(value, @"Close value was nil");
-                            *nextValue++ = [value doubleValue];
+                            *nextValue++ = value.doubleValue;
                             break;
 
                         default:
@@ -201,7 +201,7 @@
                         case CPTScatterPlotFieldY:
                             value = fData[@"close"];
                             NSAssert(value, @"Close value was nil");
-                            *nextValue++ = [value decimalValue];
+                            *nextValue++ = value.decimalValue;
                             break;
 
                         default:
@@ -228,7 +228,7 @@
                         case CPTBarPlotFieldBarTip:
                             value = fData[@"volume"];
                             NSAssert(value, @"Volume value was nil");
-                            *nextValue++ = [value doubleValue];
+                            *nextValue++ = value.doubleValue;
                             break;
 
                         default:
@@ -253,7 +253,7 @@
                         case CPTBarPlotFieldBarTip:
                             value = fData[@"volume"];
                             NSAssert(value, @"Volume value was nil");
-                            *nextValue++ = [value decimalValue];
+                            *nextValue++ = value.decimalValue;
                             break;
 
                         default:
@@ -280,25 +280,25 @@
                         case CPTTradingRangePlotFieldOpen:
                             value = fData[@"open"];
                             NSAssert(value, @"Open value was nil");
-                            *nextValue++ = [value doubleValue];
+                            *nextValue++ = value.doubleValue;
                             break;
 
                         case CPTTradingRangePlotFieldHigh:
                             value = fData[@"high"];
                             NSAssert(value, @"High value was nil");
-                            *nextValue++ = [value doubleValue];
+                            *nextValue++ = value.doubleValue;
                             break;
 
                         case CPTTradingRangePlotFieldLow:
                             value = fData[@"low"];
                             NSAssert(value, @"Low value was nil");
-                            *nextValue++ = [value doubleValue];
+                            *nextValue++ = value.doubleValue;
                             break;
 
                         case CPTTradingRangePlotFieldClose:
                             value = fData[@"close"];
                             NSAssert(value, @"Close value was nil");
-                            *nextValue++ = [value doubleValue];
+                            *nextValue++ = value.doubleValue;
                             break;
 
                         default:
@@ -323,25 +323,25 @@
                         case CPTTradingRangePlotFieldOpen:
                             value = fData[@"open"];
                             NSAssert(value, @"Open value was nil");
-                            *nextValue++ = [value decimalValue];
+                            *nextValue++ = value.decimalValue;
                             break;
 
                         case CPTTradingRangePlotFieldHigh:
                             value = fData[@"high"];
                             NSAssert(value, @"High value was nil");
-                            *nextValue++ = [value decimalValue];
+                            *nextValue++ = value.decimalValue;
                             break;
 
                         case CPTTradingRangePlotFieldLow:
                             value = fData[@"low"];
                             NSAssert(value, @"Low value was nil");
-                            *nextValue++ = [value decimalValue];
+                            *nextValue++ = value.decimalValue;
                             break;
 
                         case CPTTradingRangePlotFieldClose:
                             value = fData[@"close"];
                             NSAssert(value, @"Close value was nil");
-                            *nextValue++ = [value decimalValue];
+                            *nextValue++ = value.decimalValue;
                             break;
 
                         default:
@@ -650,8 +650,8 @@
     if ( volumeLowDisplayLocation && volumeLengthDisplayLocation ) {
         animationOperation = [CPTAnimation animate:volumePlotSpace
                                           property:@"yRange"
-                                     fromPlotRange:[CPTPlotRange      plotRangeWithLocationDecimal:[volumeLowDisplayLocation decimalValue]
-                                                                                     lengthDecimal:CPTDecimalMultiply( [volumeLengthDisplayLocation decimalValue], CPTDecimalFromInteger(10) )]
+                                     fromPlotRange:[CPTPlotRange      plotRangeWithLocationDecimal:volumeLowDisplayLocation.decimalValue
+                                                                                     lengthDecimal:CPTDecimalMultiply( volumeLengthDisplayLocation.decimalValue, CPTDecimalFromInteger(10) )]
                                        toPlotRange:[CPTPlotRange      plotRangeWithLocation:volumeLowDisplayLocation
                                                                                      length:volumeLengthDisplayLocation]
                                           duration:2.5];
