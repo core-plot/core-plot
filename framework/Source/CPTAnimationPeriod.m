@@ -209,7 +209,7 @@
  *  @param aDelay The starting delay in seconds.
  *  @return The initialized object.
  **/
-+(instancetype)periodWithStartNumber:(NSNumber *)aStartNumber endNumber:(NSNumber *)anEndNumber duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
++(nonnull instancetype)periodWithStartNumber:(nullable NSNumber *)aStartNumber endNumber:(nonnull NSNumber *)anEndNumber duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
     return [_CPTAnimationNSNumberPeriod periodWithStartValue:aStartNumber
                                                     endValue:anEndNumber
@@ -402,7 +402,7 @@
  *  @param aDelay The starting delay in seconds.
  *  @return The initialized object.
  **/
--(instancetype)initWithStartNumber:(NSNumber *)aStartNumber endNumber:(NSNumber *)anEndNumber duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
+-(nonnull instancetype)initWithStartNumber:(nullable NSNumber *)aStartNumber endNumber:(nonnull NSNumber *)anEndNumber duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
     self = [[_CPTAnimationNSNumberPeriod alloc] initWithStartValue:aStartNumber
                                                           endValue:anEndNumber
