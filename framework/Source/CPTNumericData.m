@@ -576,7 +576,7 @@
 
 /** @brief Gets the offset of a given sample in the data buffer.
  *  @param idx The zero-based indices into a multi-dimensional sample array. Each index should of type @ref NSUInteger and the number of indices
- *  (including @par{index}) should match the @ref numberOfDimensions.
+ *  (including @par{idx}) should match the @ref numberOfDimensions.
  *  @return The sample offset in the data buffer. To get the byte offset, multiply this value by
  *  @ref sampleBytes. If any index is greater than or equal to the corresponding
  *  dimension of the data buffer, this method returns @ref NSNotFound.
@@ -696,7 +696,7 @@
 
 /** @brief Gets the value of a given sample in the data buffer.
  *  @param idx The zero-based indices into a multi-dimensional sample array. Each index should of type @ref NSUInteger and the number of indices
- *  (including @par{index}) should match the @ref numberOfDimensions.
+ *  (including @par{idx}) should match the @ref numberOfDimensions.
  *  @return The sample value wrapped in an instance of NSNumber or @nil if any of the sample indices are out of bounds.
  *
  *  @note NSNumber does not support complex numbers. Complex number types will be cast to
@@ -737,7 +737,7 @@
 
 /** @brief Gets a pointer to a given sample in the data buffer.
  *  @param idx The zero-based indices into a multi-dimensional sample array. Each index should of type @ref NSUInteger and the number of indices
- *  (including @par{index}) should match the @ref numberOfDimensions.
+ *  (including @par{idx}) should match the @ref numberOfDimensions.
  *  @return A pointer to the sample or @NULL if any of the sample indices are out of bounds.
  **/
 -(nullable const void *)samplePointerAtIndex:(NSUInteger)idx, ...
@@ -789,7 +789,7 @@
  *  @brief Gets the offset of a given sample in the data buffer. This method does not call @par{va_end()}
  *  on the @par{indexList}.
  *  @param idx The zero-based indices into a multi-dimensional sample array. Each index should of type @ref NSUInteger and the number of indices
- *  (including @par{index}) should match the @ref numberOfDimensions.
+ *  (including @par{idx}) should match the @ref numberOfDimensions.
  *  @param indexList A @par{va_list} of the additional indices.
  *  @return The sample offset in the data buffer. To get the byte offset, multiply this value by
  *  @ref sampleBytes. If any index is greater than or equal to the corresponding

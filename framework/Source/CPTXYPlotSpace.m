@@ -1701,6 +1701,8 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
     return NO;
 }
 
+/// @cond
+
 -(nullable CPTPlotRange *)shiftRange:(nonnull CPTPlotRange *)oldRange by:(NSDecimal)shift usingMomentum:(BOOL)momentum inGlobalRange:(nullable CPTPlotRange *)globalRange withDisplacement:(CGFloat *)displacement
 {
     CPTMutablePlotRange *newRange = [oldRange mutableCopy];
@@ -1732,6 +1734,8 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 
     return newRange;
 }
+
+/// @endcond
 
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
 #else

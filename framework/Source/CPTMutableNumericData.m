@@ -58,7 +58,7 @@
 
 /** @brief Gets a pointer to a given sample in the data buffer.
  *  @param idx The zero-based indices into a multi-dimensional sample array. Each index should of type @ref NSUInteger and the number of indices
- *  (including @par{index}) should match the @ref numberOfDimensions.
+ *  (including @par{idx}) should match the @ref numberOfDimensions.
  *  @return A pointer to the sample or @NULL if any of the sample indices are out of bounds.
  **/
 -(nullable void *)mutableSamplePointerAtIndex:(NSUInteger)idx, ...
