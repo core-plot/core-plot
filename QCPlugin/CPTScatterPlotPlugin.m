@@ -123,7 +123,7 @@
         [self removeInputPortForKey:[NSString stringWithFormat:@"plotDataSymbols%lu", (unsigned long)(i - 1)]];
         [self removeInputPortForKey:[NSString stringWithFormat:@"plotDataSymbolColor%lu", (unsigned long)(i - 1)]];
 
-        [theGraph removePlot:[[theGraph allPlots] lastObject]];
+        [theGraph removePlot:[theGraph allPlots].lastObject];
     }
 }
 
