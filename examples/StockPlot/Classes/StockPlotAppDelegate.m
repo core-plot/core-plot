@@ -19,7 +19,7 @@
 
 -(void)applicationDidFinishLaunching:(nonnull UIApplication *)application
 {
-    [[self.navigationController navigationBar] setTintColor:[UIColor blackColor]];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
 
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];

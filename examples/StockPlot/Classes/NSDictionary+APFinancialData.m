@@ -17,7 +17,7 @@
 
     dispatch_once(&onceToken, ^{
         df = [[NSDateFormatter alloc] init];
-        [df setDateFormat:@"yyyy-MM-dd"];
+        df.dateFormat = @"yyyy-MM-dd";
     });
 
     return df;
