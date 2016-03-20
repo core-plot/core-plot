@@ -6,7 +6,7 @@
 /// @cond
 @interface _CPTCatmullRomInterpolation()
 
-+(void)interpolate:(nonnull CPTValueArray *)points forIndex:(NSUInteger)index withPointsPerSegment:(NSUInteger)pointsPerSegment andType:(CPTCatmullRomType)curveType intoPath:(CGMutablePathRef)dataLinePath;
++(void)interpolate:(nonnull CPTValueArray *)points forIndex:(NSUInteger)index withPointsPerSegment:(NSUInteger)pointsPerSegment andType:(CPTCatmullRomType)curveType intoPath:(nonnull CGMutablePathRef)dataLinePath;
 
 CGFloat interpolate(const CGFloat *__nonnull const p, const CGFloat *__nonnull const time, CGFloat t);
 
@@ -29,7 +29,7 @@ CGFloat interpolate(const CGFloat *__nonnull const p, const CGFloat *__nonnull c
  *  @param granularity The number of smoothed points to interpolate between each view point.
  *  @return A Catmull-Rom spline path through the given view points in the given index range.
  **/
-+(CGMutablePathRef)newPathForViewPoints:(const CGPoint *)viewPoints indexRange:(NSRange)indexRange withGranularity:(NSUInteger)granularity
++(nonnull CGMutablePathRef)newPathForViewPoints:(nonnull const CGPoint *)viewPoints indexRange:(NSRange)indexRange withGranularity:(NSUInteger)granularity
 {
     // Based on code from this post: http://stackoverflow.com/questions/9489736/catmull-rom-curve-with-no-cusps-and-no-self-intersections
     CGMutablePathRef dataLinePath = CGPathCreateMutable();
@@ -128,7 +128,7 @@ CGFloat interpolate(const CGFloat *__nonnull const p, const CGFloat *__nonnull c
  *  @param curveType The type of knot parameterization.
  *  @param dataLinePath The path to receive the spline segments.
  **/
-+(void)interpolate:(CPTValueArray *)points forIndex:(NSUInteger)index withPointsPerSegment:(NSUInteger)pointsPerSegment andType:(CPTCatmullRomType)curveType intoPath:(CGMutablePathRef)dataLinePath
++(void)interpolate:(nonnull CPTValueArray *)points forIndex:(NSUInteger)index withPointsPerSegment:(NSUInteger)pointsPerSegment andType:(CPTCatmullRomType)curveType intoPath:(nonnull CGMutablePathRef)dataLinePath
 {
     CGFloat x[4];
     CGFloat y[4];
