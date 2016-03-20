@@ -467,6 +467,9 @@
 		C37EA6AE1BC83F2D0091C8F7 /* CPTLayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C1C07F1790D3B400E8B1B7 /* CPTLayerTests.m */; };
 		C37EA6AF1BC83F2D0091C8F7 /* CPTScatterPlotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FEBD61110B7E8B00E44D37 /* CPTScatterPlotTests.m */; };
 		C37EA6B11BC83F2D0091C8F7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3226A571A69F6FA00F77249 /* CoreGraphics.framework */; };
+		C38274C51C9EE6A400F4E5C6 /* _CPTCatmullRomInterpolation.h in Headers */ = {isa = PBXBuildFile; fileRef = 93961BE51C71ACFD002F5A58 /* _CPTCatmullRomInterpolation.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C38274C61C9EE6AE00F4E5C6 /* _CPTCatmullRomInterpolation.m in Sources */ = {isa = PBXBuildFile; fileRef = 93961BE81C71AD57002F5A58 /* _CPTCatmullRomInterpolation.m */; };
+		C38274C71C9EE6AF00F4E5C6 /* _CPTCatmullRomInterpolation.m in Sources */ = {isa = PBXBuildFile; fileRef = 93961BE81C71AD57002F5A58 /* _CPTCatmullRomInterpolation.m */; };
 		C38A09831A46185300D45436 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C38A09781A46185200D45436 /* CorePlot.framework */; };
 		C38A09C51A4619A900D45436 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C38A09BA1A4619A900D45436 /* libCorePlot-CocoaTouch.a */; };
 		C38A09D11A461C1100D45436 /* CPTTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0730F64D109494D100E95162 /* CPTTestCase.m */; };
@@ -2164,6 +2167,7 @@
 				C37EA64F1BC83F2A0091C8F7 /* CPTResponder.h in Headers */,
 				C37EA6501BC83F2A0091C8F7 /* CPTLayer.h in Headers */,
 				C37EA6511BC83F2A0091C8F7 /* CPTPlotAreaFrame.h in Headers */,
+				C38274C51C9EE6A400F4E5C6 /* _CPTCatmullRomInterpolation.h in Headers */,
 				C37EA6521BC83F2A0091C8F7 /* CPTXYAxis.h in Headers */,
 				C37EA6531BC83F2A0091C8F7 /* _CPTStocksTheme.h in Headers */,
 				C37EA6541BC83F2A0091C8F7 /* CPTImage.h in Headers */,
@@ -2870,6 +2874,7 @@
 				C37EA60D1BC83F2A0091C8F7 /* CPTAxisLabelGroup.m in Sources */,
 				C37EA60E1BC83F2A0091C8F7 /* CPTFill.m in Sources */,
 				C37EA60F1BC83F2A0091C8F7 /* CPTMutableNumericData+TypeConversion.m in Sources */,
+				C38274C61C9EE6AE00F4E5C6 /* _CPTCatmullRomInterpolation.m in Sources */,
 				C37EA6101BC83F2A0091C8F7 /* CPTRangePlot.m in Sources */,
 				C37EA6111BC83F2A0091C8F7 /* CPTGraph.m in Sources */,
 				C37EA6121BC83F2A0091C8F7 /* CPTMutablePlotRange.m in Sources */,
@@ -2906,6 +2911,7 @@
 				C37EA6991BC83F2D0091C8F7 /* CPTColorSpaceTests.m in Sources */,
 				C37EA69A1BC83F2D0091C8F7 /* CPTFillTests.m in Sources */,
 				C37EA69B1BC83F2D0091C8F7 /* CPTUtilitiesTests.m in Sources */,
+				C38274C71C9EE6AF00F4E5C6 /* _CPTCatmullRomInterpolation.m in Sources */,
 				C37EA69C1BC83F2D0091C8F7 /* CPTGradientTests.m in Sources */,
 				C37EA69D1BC83F2D0091C8F7 /* CPTDarkGradientThemeTests.m in Sources */,
 				C37EA69E1BC83F2D0091C8F7 /* CPTAxisLabelTests.m in Sources */,
