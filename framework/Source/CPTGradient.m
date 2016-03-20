@@ -737,7 +737,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
     return newGradient;
 }
 
-/** @brief Copies the current gradient and removes the color stop at @par{index} from the list of color stops.
+/** @brief Copies the current gradient and removes the color stop at @par{idx} from the list of color stops.
  *  @param idx The color stop index.
  *  @return A copy of the current gradient with the color stop removed.
  **/
@@ -756,9 +756,9 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
 #pragma mark -
 #pragma mark Information
 
-/** @brief Gets the color at color stop @par{index} from the list of color stops.
+/** @brief Gets the color at color stop @par{idx} from the list of color stops.
  *  @param idx The color stop index.
- *  @return The color at color stop @par{index}.
+ *  @return The color at color stop @par{idx}.
  **/
 -(CGColorRef)newColorStopAtIndex:(NSUInteger)idx
 {

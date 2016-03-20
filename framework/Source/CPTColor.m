@@ -391,10 +391,14 @@
 #pragma mark -
 #pragma mark Opacity
 
+/// @cond
+
 -(BOOL)isOpaque
 {
     return CGColorGetAlpha(self.cgColor) >= CPTFloat(1.0);
 }
+
+/// @endcond
 
 #pragma mark -
 #pragma mark NSCoding Methods
