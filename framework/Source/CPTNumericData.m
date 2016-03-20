@@ -725,7 +725,7 @@
  *  @param sample The zero-based index into the sample array. The array is treated as if it only has one dimension.
  *  @return A pointer to the sample or @NULL if the sample index is out of bounds.
  **/
--(const void *)samplePointer:(NSUInteger)sample
+-(nullable const void *)samplePointer:(NSUInteger)sample
 {
     if ( sample < self.numberOfSamples ) {
         return (const void *)( (const char *)self.bytes + sample * self.sampleBytes );
@@ -740,7 +740,7 @@
  *  (including @par{index}) should match the @ref numberOfDimensions.
  *  @return A pointer to the sample or @NULL if any of the sample indices are out of bounds.
  **/
--(const void *)samplePointerAtIndex:(NSUInteger)idx, ...
+-(nullable const void *)samplePointerAtIndex:(NSUInteger)idx, ...
  {
     NSUInteger newIndex;
 
