@@ -22,7 +22,7 @@ double gcd(double a, double b);
     NSString *string = nil;
 
     if ( [coordinateValue respondsToSelector:@selector(doubleValue)] ) {
-        double value = [(NSNumber *) coordinateValue doubleValue] / M_PI;
+        double value = ( (NSNumber *)coordinateValue ).doubleValue / M_PI;
 
         double factor = round(self.multiplier.doubleValue);
         if ( factor == 0.0 ) {

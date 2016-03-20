@@ -53,7 +53,7 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 {
     [[PlotGallery sharedPlotGallery] sortByTitle];
 
-    [self.splitView setDelegate:self];
+    (self.splitView).delegate = self;
 
     [self.imageBrowser setDelegate:self];
     [self.imageBrowser setDataSource:self];
@@ -61,7 +61,7 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 
     [self.imageBrowser reloadData];
 
-    [self.hostingView setDelegate:self];
+    (self.hostingView).delegate = self;
 
     [self setupThemes];
 
@@ -159,7 +159,7 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 
 -(NSUInteger)numberOfItemsInImageBrowser:(nonnull IKImageBrowserView *)browser
 {
-    return [[PlotGallery sharedPlotGallery] count];
+    return [PlotGallery sharedPlotGallery].count;
 }
 
 -(nonnull id)imageBrowser:(nonnull IKImageBrowserView *)browser itemAtIndex:(NSUInteger)index
@@ -169,12 +169,12 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 
 -(NSUInteger)numberOfGroupsInImageBrowser:(nonnull IKImageBrowserView *)aBrowser
 {
-    return [[PlotGallery sharedPlotGallery] numberOfSections];
+    return [PlotGallery sharedPlotGallery].numberOfSections;
 }
 
 -(nonnull CPTDictionary)imageBrowser:(nonnull IKImageBrowserView *)aBrowser groupAtIndex:(NSUInteger)index
 {
-    NSString *groupTitle = [[PlotGallery sharedPlotGallery] sectionTitles][index];
+    NSString *groupTitle = [PlotGallery sharedPlotGallery].sectionTitles[index];
 
     NSUInteger offset = 0;
 
@@ -196,7 +196,7 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 
 -(void)imageBrowserSelectionDidChange:(nonnull IKImageBrowserView *)browser
 {
-    NSUInteger index = [[browser selectionIndexes] firstIndex];
+    NSUInteger index = [browser selectionIndexes].firstIndex;
 
     if ( index != NSNotFound ) {
         PlotItem *item = [[PlotGallery sharedPlotGallery] objectInSection:0 atIndex:index];
@@ -220,13 +220,13 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 -(void)splitView:(nonnull NSSplitView *)sender resizeSubviewsWithOldSize:(NSSize)oldSize
 {
     // Lock the LHS width
-    NSRect frame   = [sender frame];
-    NSView *lhs    = [sender subviews][0];
-    NSRect lhsRect = [lhs frame];
-    NSView *rhs    = [sender subviews][1];
-    NSRect rhsRect = [rhs frame];
+    NSRect frame   = sender.frame;
+    NSView *lhs    = sender.subviews[0];
+    NSRect lhsRect = lhs.frame;
+    NSView *rhs    = sender.subviews[1];
+    NSRect rhsRect = rhs.frame;
 
-    CGFloat dividerThickness = [sender dividerThickness];
+    CGFloat dividerThickness = sender.dividerThickness;
 
     lhsRect.size.height = frame.size.height;
 
@@ -234,8 +234,8 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
     rhsRect.size.height = frame.size.height;
     rhsRect.origin.x    = lhsRect.size.width + dividerThickness;
 
-    [lhs setFrame:lhsRect];
-    [rhs setFrame:rhsRect];
+    lhs.frame = lhsRect;
+    rhs.frame = rhsRect;
 }
 
 @end

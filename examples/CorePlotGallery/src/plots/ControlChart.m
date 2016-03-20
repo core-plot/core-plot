@@ -55,7 +55,7 @@ static const NSUInteger numberOfPoints = 11;
 
         sum = 0.0;
         for ( NSNumber *value in contentArray ) {
-            double error = [value doubleValue] - self.meanValue;
+            double error = value.doubleValue - self.meanValue;
             sum += error * error;
         }
         double stdDev = sqrt( ( 1.0 / (numberOfPoints - 1) ) * sum );
@@ -255,7 +255,7 @@ static const NSUInteger numberOfPoints = 11;
 
         case CPTScatterPlotFieldY:
             if ( plot.identifier == kDataLine ) {
-                number = [self.plotData[index] doubleValue];
+                number = (self.plotData[index]).doubleValue;
             }
             else if ( plot.identifier == kCenterLine ) {
                 number = self.meanValue;

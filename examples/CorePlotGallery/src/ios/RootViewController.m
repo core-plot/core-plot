@@ -50,14 +50,14 @@
 -(void)prepareForSegue:(nonnull UIStoryboardSegue *)segue sender:(nullable id)sender
 {
     if ( [segue.identifier isEqualToString:@"showDetail"] ) {
-        DetailViewController *controller = (DetailViewController *)[segue.destinationViewController topViewController];
+        DetailViewController *controller = (DetailViewController *)( (UINavigationController *)segue.destinationViewController ).topViewController;
 
         controller.navigationItem.leftBarButtonItem             = self.splitViewController.displayModeButtonItem;
         controller.navigationItem.leftItemsSupplementBackButton = YES;
 
         controller.currentThemeName = self.currentThemeName;
 
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
 
         PlotItem *plotItem = [[PlotGallery sharedPlotGallery] objectInSection:[indexPath indexAtPosition:0]
                                                                       atIndex:[indexPath indexAtPosition:1]];
@@ -84,7 +84,7 @@
 
 -(NSInteger)numberOfSectionsInTableView:(nonnull UITableView *)tv
 {
-    return (NSInteger)[[PlotGallery sharedPlotGallery] numberOfSections];
+    return (NSInteger)[PlotGallery sharedPlotGallery].numberOfSections;
 }
 
 -(NSInteger)tableView:(nonnull UITableView *)tv numberOfRowsInSection:(NSInteger)section
@@ -113,7 +113,7 @@
 
 -(nullable NSString *)tableView:(nonnull UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return [[PlotGallery sharedPlotGallery] sectionTitles][(NSUInteger)section];
+    return [PlotGallery sharedPlotGallery].sectionTitles[(NSUInteger)section];
 }
 
 @end

@@ -116,7 +116,7 @@
         whiteText.fontSize = self.titleSize * CPTFloat(0.5);
     });
 
-    CPTTextLayer *newLayer = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%1.0f", [self.plotData[index] doubleValue]]
+    CPTTextLayer *newLayer = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%1.0f", (self.plotData[index]).doubleValue]
                                                           style:whiteText];
     return newLayer;
 }
@@ -131,7 +131,7 @@
 
 -(void)pieChart:(nonnull CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)index
 {
-    NSLog(@"Slice was selected at index %d. Value = %f", (int)index, [self.plotData[index] doubleValue]);
+    NSLog(@"Slice was selected at index %d. Value = %f", (int)index, (self.plotData[index]).doubleValue);
 
     self.offsetIndex = NSNotFound;
 

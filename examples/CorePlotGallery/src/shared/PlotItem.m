@@ -310,7 +310,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
                                                     bitsPerPixel:32];
 
         NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:layerImage];
-        CGContextRef context             = (CGContextRef)[bitmapContext graphicsPort];
+        CGContextRef context             = (CGContextRef)bitmapContext.graphicsPort;
 
         CGContextClearRect( context, CGRectMake(0.0, 0.0, boundsSize.width, boundsSize.height) );
         CGContextSetAllowsAntialiasing(context, true);
@@ -382,7 +382,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
                                                       multiplier:1.0
                                                         constant:0.0]];
 #else
-    [hostingView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+    hostingView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     [hostingView setAutoresizesSubviews:YES];
 #endif
 

@@ -83,13 +83,13 @@ static NSString *const kSecond = @"Second Derivative";
             NSDictionary<NSString *, NSNumber *> *point1 = dataArray[i - 1];
             NSDictionary<NSString *, NSNumber *> *point2 = dataArray[i];
 
-            double x1   = [point1[@"x"] doubleValue];
-            double x2   = [point2[@"x"] doubleValue];
+            double x1   = (point1[@"x"]).doubleValue;
+            double x2   = (point2[@"x"]).doubleValue;
             double dx   = x2 - x1;
             double xLoc = (x1 + x2) * 0.5;
 
-            double y1 = [point1[@"y"] doubleValue];
-            double y2 = [point2[@"y"] doubleValue];
+            double y1 = (point1[@"y"]).doubleValue;
+            double y2 = (point2[@"y"]).doubleValue;
             double dy = y2 - y1;
 
             [contentArray addObject:
@@ -110,13 +110,13 @@ static NSString *const kSecond = @"Second Derivative";
             NSDictionary<NSString *, NSNumber *> *point1 = dataArray[i - 1];
             NSDictionary<NSString *, NSNumber *> *point2 = dataArray[i];
 
-            double x1   = [point1[@"x"] doubleValue];
-            double x2   = [point2[@"x"] doubleValue];
+            double x1   = (point1[@"x"]).doubleValue;
+            double x2   = (point2[@"x"]).doubleValue;
             double dx   = x2 - x1;
             double xLoc = (x1 + x2) * 0.5;
 
-            double y1 = [point1[@"y"] doubleValue];
-            double y2 = [point2[@"y"] doubleValue];
+            double y1 = (point1[@"y"]).doubleValue;
+            double y2 = (point2[@"y"]).doubleValue;
             double dy = y2 - y1;
 
             [contentArray addObject:
@@ -395,7 +395,7 @@ static NSString *const kSecond = @"Second Derivative";
     // Add annotation
     // First make a string for the y value
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    [formatter setMaximumFractionDigits:2];
+    formatter.maximumFractionDigits = 2;
     NSString *yString = [formatter stringFromNumber:y];
 
     // Now add the annotation to the plot area
@@ -442,7 +442,7 @@ static NSString *const kSecond = @"Second Derivative";
     CPTPlotSpaceAnnotation *annotation = self.symbolTextAnnotation;
 
     if ( annotation ) {
-        CPTXYGraph *graph = [self.graphs objectAtIndex:0];
+        CPTXYGraph *graph = (self.graphs)[0];
 
         [graph.plotAreaFrame.plotArea removeAnnotation:annotation];
         self.symbolTextAnnotation = nil;

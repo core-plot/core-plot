@@ -5,7 +5,7 @@
 
 #import "PlotItem.h"
 
-@interface PlotGallery : NSObject
+@interface PlotGallery : NSObject<NSCopying>
 
 @property (nonatomic, readonly) NSUInteger count;
 @property (nonatomic, readonly) NSUInteger numberOfSections;
