@@ -184,7 +184,7 @@ dispatch_source_t __nonnull CPTCreateDispatchTimer(CGFloat interval, dispatch_qu
 +(nonnull SEL)setterFromProperty:(nonnull NSString *)property
 {
     return NSSelectorFromString([NSString stringWithFormat:@"set%@:", [property stringByReplacingCharactersInRange:NSMakeRange(0, 1)
-                                                                                                        withString:[[property substringToIndex:1] capitalizedString]]]);
+                                                                                                        withString:[property substringToIndex:1].capitalizedString]]);
 }
 
 /// @endcond
@@ -244,7 +244,7 @@ dispatch_source_t __nonnull CPTCreateDispatchTimer(CGFloat interval, dispatch_qu
 -(nullable CPTAnimationOperation *)operationWithIdentifier:(nullable id<NSCopying, NSObject>)identifier
 {
     for ( CPTAnimationOperation *operation in self.animationOperations ) {
-        if ( [[operation identifier] isEqual:identifier] ) {
+        if ( [operation.identifier isEqual:identifier] ) {
             return operation;
         }
     }
@@ -394,7 +394,7 @@ dispatch_source_t __nonnull CPTCreateDispatchTimer(CGFloat interval, dispatch_qu
             id tweenedValue = parameters[CPTAnimationValueKey];
 
             if ( [tweenedValue isKindOfClass:[NSDecimalNumber class]] ) {
-                NSDecimal buffer = [(NSDecimalNumber *) tweenedValue decimalValue];
+                NSDecimal buffer = ( (NSDecimalNumber *)tweenedValue ).decimalValue;
 
                 typedef void (*SetterType)(id, SEL, NSDecimal);
                 SetterType setterMethod = (SetterType)[boundObject methodForSelector:boundSetter];
@@ -407,8 +407,8 @@ dispatch_source_t __nonnull CPTCreateDispatchTimer(CGFloat interval, dispatch_qu
                 NSGetSizeAndAlignment(value.objCType, &bufferSize, NULL);
 
                 NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[boundObject methodSignatureForSelector:boundSetter]];
-                [invocation setTarget:boundObject];
-                [invocation setSelector:boundSetter];
+                invocation.target   = boundObject;
+                invocation.selector = boundSetter;
 
                 void *buffer = malloc(bufferSize);
                 [value getValue:buffer];
@@ -630,7 +630,7 @@ dispatch_source_t __nonnull CPTCreateDispatchTimer(CGFloat interval, dispatch_qu
 -(nullable NSString *)description
 {
     return [NSString stringWithFormat:@"<%@ timeOffset: %g; %lu active and %lu running operations>",
-            [super description],
+            super.description,
             (double)self.timeOffset,
             (unsigned long)self.animationOperations.count,
             (unsigned long)self.runningAnimationOperations.count];

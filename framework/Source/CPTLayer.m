@@ -634,7 +634,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
         subLayerFrame.origin = CGPointMake( round(leftPadding), round(bottomPadding) );
         subLayerFrame.size   = subLayerSize;
 
-        CPTSublayerSet excludedSublayers = [self sublayersExcludedFromAutomaticLayout];
+        CPTSublayerSet excludedSublayers = self.sublayersExcludedFromAutomaticLayout;
         Class layerClass                 = [CPTLayer class];
         for ( CALayer *subLayer in mySublayers ) {
             if ( [subLayer isKindOfClass:layerClass] && ![excludedSublayers containsObject:subLayer] ) {
@@ -676,7 +676,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 
 -(void)setSublayers:(nullable CPTSublayerArray)sublayers
 {
-    [super setSublayers:sublayers];
+    super.sublayers = sublayers;
 
     Class layerClass = [CPTLayer class];
     CGFloat scale    = self.contentsScale;
@@ -860,7 +860,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 
 -(void)setPosition:(CGPoint)newPosition
 {
-    [super setPosition:newPosition];
+    super.position = newPosition;
     if ( COREPLOT_LAYER_POSITION_CHANGE_ENABLED() ) {
         CGRect currentFrame = self.frame;
         if ( !CGRectEqualToRect( currentFrame, CGRectIntegral(self.frame) ) ) {
@@ -876,7 +876,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 -(void)setHidden:(BOOL)newHidden
 {
     if ( newHidden != self.hidden ) {
-        [super setHidden:newHidden];
+        super.hidden = newHidden;
         if ( !newHidden ) {
             [self setNeedsDisplay];
         }
@@ -967,7 +967,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
             newBounds.size.height += sizeOffset.height * CPTFloat(2.0);
         }
 
-        [super setBounds:newBounds];
+        super.bounds = newBounds;
 
         self.outerBorderPath = NULL;
         self.innerBorderPath = NULL;
@@ -1014,7 +1014,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
         }
     }
 
-    [super setAnchorPoint:newAnchorPoint];
+    super.anchorPoint = newAnchorPoint;
 }
 
 -(void)setCornerRadius:(CGFloat)newRadius
@@ -1038,7 +1038,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
 
 -(nullable NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@ bounds: %@>", [super description], CPTStringFromRect(self.bounds)];
+    return [NSString stringWithFormat:@"<%@ bounds: %@>", super.description, CPTStringFromRect(self.bounds)];
 }
 
 /// @endcond
@@ -1060,7 +1060,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
     for ( NSUInteger i = 0; i < idx; i++ ) {
         [result appendString:@".   "];
     }
-    [result appendString:[self description]];
+    [result appendString:self.description];
 
     for ( CPTLayer *sublayer in self.sublayers ) {
         [result appendString:@"\n"];
@@ -1069,7 +1069,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
             [result appendString:[sublayer subLayersAtIndex:idx + 1]];
         }
         else {
-            [result appendString:[sublayer description]];
+            [result appendString:sublayer.description];
         }
     }
 

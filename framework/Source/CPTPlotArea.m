@@ -367,7 +367,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     CPTAxisLabelGroup *titles   = self.axisTitleGroup;
 
     if ( minorGrid || majorGrid || theAxisSet || thePlotGroup || labels || titles ) {
-        CPTMutableSublayerSet excludedSublayers = [[super sublayersExcludedFromAutomaticLayout] mutableCopy];
+        CPTMutableSublayerSet excludedSublayers = [super.sublayersExcludedFromAutomaticLayout mutableCopy];
         if ( !excludedSublayers ) {
             excludedSublayers = [NSMutableSet set];
         }
@@ -394,7 +394,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         return excludedSublayers;
     }
     else {
-        return [super sublayersExcludedFromAutomaticLayout];
+        return super.sublayersExcludedFromAutomaticLayout;
     }
 }
 
@@ -417,8 +417,8 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     if ( tdLayerOrder ) {
         buLayerOrder = self.bottomUpLayerOrder;
 
-        for ( NSUInteger layerIndex = 0; layerIndex < [tdLayerOrder count]; layerIndex++ ) {
-            CPTGraphLayerType layerType = (CPTGraphLayerType)[tdLayerOrder[layerIndex] intValue];
+        for ( NSUInteger layerIndex = 0; layerIndex < tdLayerOrder.count; layerIndex++ ) {
+            CPTGraphLayerType layerType = (CPTGraphLayerType)(tdLayerOrder[layerIndex]).intValue;
             NSUInteger i                = kCPTNumberOfLayers - layerIndex - 1;
             while ( buLayerOrder[i] != layerType ) {
                 if ( i == 0 ) {
@@ -909,7 +909,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 -(void)setGraph:(nullable CPTGraph *)newGraph
 {
     if ( newGraph != self.graph ) {
-        [super setGraph:newGraph];
+        super.graph = newGraph;
 
         for ( CPTAxis *axis in self.axisSet.axes ) {
             axis.graph = newGraph;
@@ -923,7 +923,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         self.widthDecimal  = CPTDecimalFromCGFloat(newBounds.size.width);
         self.heightDecimal = CPTDecimalFromCGFloat(newBounds.size.height);
 
-        [super setBounds:newBounds];
+        super.bounds = newBounds;
     }
 }
 

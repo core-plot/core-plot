@@ -972,18 +972,18 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
     switch ( self.xScaleType ) {
         case CPTScaleTypeLinear:
         case CPTScaleTypeCategory:
-            viewPoint.x = [self viewCoordinateForViewLength:plotArea.widthDecimal linearPlotRange:self.xRange plotCoordinateValue:[plotPoint[CPTCoordinateX] decimalValue]];
+            viewPoint.x = [self viewCoordinateForViewLength:plotArea.widthDecimal linearPlotRange:self.xRange plotCoordinateValue:plotPoint[CPTCoordinateX].decimalValue];
             break;
 
         case CPTScaleTypeLog:
         {
-            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logPlotRange:self.xRange doublePrecisionPlotCoordinateValue:[plotPoint[CPTCoordinateX] doubleValue]];
+            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logPlotRange:self.xRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateX].doubleValue];
         }
         break;
 
         case CPTScaleTypeLogModulus:
         {
-            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logModulusPlotRange:self.xRange doublePrecisionPlotCoordinateValue:[plotPoint[CPTCoordinateX] doubleValue]];
+            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logModulusPlotRange:self.xRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateX].doubleValue];
         }
         break;
 
@@ -994,18 +994,18 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
     switch ( self.yScaleType ) {
         case CPTScaleTypeLinear:
         case CPTScaleTypeCategory:
-            viewPoint.y = [self viewCoordinateForViewLength:plotArea.heightDecimal linearPlotRange:self.yRange plotCoordinateValue:[plotPoint[CPTCoordinateY] decimalValue]];
+            viewPoint.y = [self viewCoordinateForViewLength:plotArea.heightDecimal linearPlotRange:self.yRange plotCoordinateValue:plotPoint[CPTCoordinateY].decimalValue];
             break;
 
         case CPTScaleTypeLog:
         {
-            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logPlotRange:self.yRange doublePrecisionPlotCoordinateValue:[plotPoint[CPTCoordinateY] doubleValue]];
+            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logPlotRange:self.yRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY].doubleValue];
         }
         break;
 
         case CPTScaleTypeLogModulus:
         {
-            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logModulusPlotRange:self.yRange doublePrecisionPlotCoordinateValue:[plotPoint[CPTCoordinateY] doubleValue]];
+            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logModulusPlotRange:self.yRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY].doubleValue];
         }
         break;
 
@@ -1328,7 +1328,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
             plotAreaViewPoint = [theHostingView.layer convertPoint:interactionPoint toLayer:thePlotArea];
         }
 #else
-        CGPoint interactionPoint = NSPointToCGPoint([theHostingView convertPoint:[event locationInWindow] fromView:nil]);
+        CGPoint interactionPoint = NSPointToCGPoint([theHostingView convertPoint:event.locationInWindow fromView:nil]);
         plotAreaViewPoint = [theHostingView.layer convertPoint:interactionPoint toLayer:thePlotArea];
 #endif
     }

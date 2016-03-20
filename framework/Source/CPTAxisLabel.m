@@ -293,7 +293,7 @@
 
 -(nullable NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@ {%@}>", [super description], self.contentLayer];
+    return [NSString stringWithFormat:@"<%@ {%@}>", super.description, self.contentLayer];
 }
 
 /// @endcond

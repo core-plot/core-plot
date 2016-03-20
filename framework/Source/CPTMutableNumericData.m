@@ -87,7 +87,7 @@
 
 -(nonnull void *)mutableBytes
 {
-    return [(NSMutableData *) self.data mutableBytes];
+    return ( (NSMutableData *)self.data ).mutableBytes;
 }
 
 /// @endcond

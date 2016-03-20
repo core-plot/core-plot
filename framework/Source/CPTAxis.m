@@ -1538,7 +1538,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
         return;
     }
 
-    CPTDictionary textAttributes = [theLabelTextStyle attributes];
+    CPTDictionary textAttributes = theLabelTextStyle.attributes;
     BOOL hasAttributedFormatter  = ([theLabelFormatter attributedStringForObjectValue:[NSDecimalNumber zero]
                                                                 withDefaultAttributes:textAttributes] != nil);
 
@@ -2309,7 +2309,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
         for ( CPTAxisLabel *axisLabel in self.axisLabels ) {
             CPTLayer *contentLayer = axisLabel.contentLayer;
             if ( [contentLayer isKindOfClass:textLayerClass] ) {
-                [(CPTTextLayer *) contentLayer setTextStyle:labelTextStyle];
+                ( (CPTTextLayer *)contentLayer ).textStyle = labelTextStyle;
             }
         }
 
@@ -2326,7 +2326,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
         for ( CPTAxisLabel *axisLabel in self.minorTickAxisLabels ) {
             CPTLayer *contentLayer = axisLabel.contentLayer;
             if ( [contentLayer isKindOfClass:textLayerClass] ) {
-                [(CPTTextLayer *) contentLayer setTextStyle:minorTickLabelTextStyle];
+                ( (CPTTextLayer *)contentLayer ).textStyle = minorTickLabelTextStyle;
             }
         }
 
@@ -3158,7 +3158,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
 -(void)setHidden:(BOOL)newHidden
 {
     if ( newHidden != self.hidden ) {
-        [super setHidden:newHidden];
+        super.hidden = newHidden;
         [self setNeedsRelabel];
     }
 }

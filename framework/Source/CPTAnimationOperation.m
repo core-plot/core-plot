@@ -116,7 +116,7 @@
 
 -(nullable NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@ animate %@ %@ with period %@>", [super description], self.boundObject, NSStringFromSelector(self.boundGetter), self.period];
+    return [NSString stringWithFormat:@"<%@ animate %@ %@ with period %@>", super.description, self.boundObject, NSStringFromSelector(self.boundGetter), self.period];
 }
 
 /// @endcond

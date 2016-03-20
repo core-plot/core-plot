@@ -17,7 +17,7 @@
 -(CGFloat)cgFloatValue
 {
 #if CGFLOAT_IS_DOUBLE
-    return [self doubleValue];
+    return self.doubleValue;
 
 #else
     return [self floatValue];
@@ -46,7 +46,7 @@
     if ( [self isMemberOfClass:[NSDecimalNumber class]] ) {
         return (NSDecimalNumber *)self;
     }
-    return [NSDecimalNumber decimalNumberWithDecimal:[self decimalValue]];
+    return [NSDecimalNumber decimalNumberWithDecimal:self.decimalValue];
 }
 
 @end

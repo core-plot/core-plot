@@ -435,7 +435,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 -(nullable CPTPlot *)plotWithIdentifier:(nullable id<NSCopying>)identifier
 {
     for ( CPTPlot *plot in self.plots ) {
-        if ( [[plot identifier] isEqual:identifier] ) {
+        if ( [plot.identifier isEqual:identifier] ) {
             return plot;
         }
     }
@@ -558,7 +558,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 -(nullable CPTPlotSpace *)plotSpaceWithIdentifier:(nullable id<NSCopying>)identifier
 {
     for ( CPTPlotSpace *plotSpace in self.plotSpaces ) {
-        if ( [[plotSpace identifier] isEqual:identifier] ) {
+        if ( [plotSpace.identifier isEqual:identifier] ) {
             return plotSpace;
         }
     }
@@ -820,7 +820,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 -(void)setPaddingLeft:(CGFloat)newPadding
 {
     if ( newPadding != self.paddingLeft ) {
-        [super setPaddingLeft:newPadding];
+        super.paddingLeft = newPadding;
         [self.axisSet.axes makeObjectsPerformSelector:@selector(setNeedsDisplay)];
     }
 }
@@ -828,7 +828,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 -(void)setPaddingRight:(CGFloat)newPadding
 {
     if ( newPadding != self.paddingRight ) {
-        [super setPaddingRight:newPadding];
+        super.paddingRight = newPadding;
         [self.axisSet.axes makeObjectsPerformSelector:@selector(setNeedsDisplay)];
     }
 }
@@ -836,7 +836,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 -(void)setPaddingTop:(CGFloat)newPadding
 {
     if ( newPadding != self.paddingTop ) {
-        [super setPaddingTop:newPadding];
+        super.paddingTop = newPadding;
         [self.axisSet.axes makeObjectsPerformSelector:@selector(setNeedsDisplay)];
     }
 }
@@ -844,7 +844,7 @@ NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNoti
 -(void)setPaddingBottom:(CGFloat)newPadding
 {
     if ( newPadding != self.paddingBottom ) {
-        [super setPaddingBottom:newPadding];
+        super.paddingBottom = newPadding;
         [self.axisSet.axes makeObjectsPerformSelector:@selector(setNeedsDisplay)];
     }
 }

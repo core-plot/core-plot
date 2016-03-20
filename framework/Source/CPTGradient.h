@@ -90,8 +90,8 @@ typedef NS_ENUM (NSInteger, CPTGradientType) {
 
 /// @name Information
 /// @{
--(nullable CGColorRef)newColorStopAtIndex:(NSUInteger)idx;
--(nonnull CGColorRef)newColorAtPosition:(CGFloat)position;
+-(nullable CGColorRef)newColorStopAtIndex:(NSUInteger)idx CF_RETURNS_RETAINED;
+-(nonnull CGColorRef)newColorAtPosition:(CGFloat)position CF_RETURNS_RETAINED;
 /// @}
 
 /// @name Drawing

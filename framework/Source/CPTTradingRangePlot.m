@@ -1212,7 +1212,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
                                [self cachedNumberForField:CPTTradingRangePlotFieldLow recordIndex:idx]];
     CPTNumberArray yValuesSorted = [yValues sortedArrayUsingSelector:@selector(compare:)];
     if ( positiveDirection ) {
-        yValue = [yValuesSorted lastObject];
+        yValue = yValuesSorted.lastObject;
     }
     else {
         yValue = yValuesSorted[0];

@@ -1014,7 +1014,7 @@ typedef struct CGPointError CGPointError;
     CPTNumberArray yValues       = @[[self cachedNumberForField:CPTRangePlotFieldY recordIndex:idx]];
     CPTNumberArray yValuesSorted = [yValues sortedArrayUsingSelector:@selector(compare:)];
     if ( positiveDirection ) {
-        yValue = [yValuesSorted lastObject];
+        yValue = yValuesSorted.lastObject;
     }
     else {
         yValue = yValuesSorted[0];

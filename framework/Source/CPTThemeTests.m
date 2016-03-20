@@ -15,7 +15,7 @@
 {
     CPTTheme *theme = [[CPTTheme alloc] init];
 
-    [theme setGraphClass:[CPTXYGraph class]];
+    theme.graphClass = [CPTXYGraph class];
     XCTAssertEqual([CPTXYGraph class], theme.graphClass, @"graphClass should be CPTXYGraph");
 }
 
@@ -23,7 +23,7 @@
 {
     CPTTheme *theme = [[CPTTheme alloc] init];
 
-    [theme setGraphClass:[CPTDerivedXYGraph class]];
+    theme.graphClass = [CPTDerivedXYGraph class];
     XCTAssertEqual([CPTDerivedXYGraph class], theme.graphClass, @"graphClass should be CPTDerivedXYGraph");
 }
 

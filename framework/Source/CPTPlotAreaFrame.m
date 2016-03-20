@@ -235,7 +235,7 @@
 -(void)setGraph:(nullable CPTGraph *)newGraph
 {
     if ( newGraph != self.graph ) {
-        [super setGraph:newGraph];
+        super.graph = newGraph;
 
         self.plotArea.graph = newGraph;
     }

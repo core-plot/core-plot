@@ -135,7 +135,7 @@
     CPTBorderedLayer *excludedLayer = self.maskedLayer;
 
     if ( excludedLayer ) {
-        CPTMutableSublayerSet excludedSublayers = [[super sublayersExcludedFromAutomaticLayout] mutableCopy];
+        CPTMutableSublayerSet excludedSublayers = [super.sublayersExcludedFromAutomaticLayout mutableCopy];
         if ( !excludedSublayers ) {
             excludedSublayers = [NSMutableSet set];
         }
@@ -143,7 +143,7 @@
         return excludedSublayers;
     }
     else {
-        return [super sublayersExcludedFromAutomaticLayout];
+        return super.sublayersExcludedFromAutomaticLayout;
     }
 }
 
@@ -165,7 +165,7 @@
 -(void)setBounds:(CGRect)newBounds
 {
     if ( !CGRectEqualToRect(newBounds, self.bounds) ) {
-        [super setBounds:newBounds];
+        super.bounds = newBounds;
         [self setNeedsLayout];
     }
 }

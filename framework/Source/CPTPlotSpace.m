@@ -284,7 +284,7 @@ typedef NSMutableOrderedSet<NSString *> *CPTMutableCategorySet;
 {
     CPTMutableCategorySet categories = [self orderedSetForCoordinate:coordinate];
 
-    return [categories array];
+    return categories.array;
 }
 
 /**

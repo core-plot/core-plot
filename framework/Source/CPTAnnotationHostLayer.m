@@ -164,7 +164,7 @@
     CPTMutableAnnotationArray annotations = self.mutableAnnotations;
 
     if ( annotations.count > 0 ) {
-        CPTMutableSublayerSet excludedSublayers = [[super sublayersExcludedFromAutomaticLayout] mutableCopy];
+        CPTMutableSublayerSet excludedSublayers = [super.sublayersExcludedFromAutomaticLayout mutableCopy];
 
         if ( !excludedSublayers ) {
             excludedSublayers = [NSMutableSet set];
@@ -180,7 +180,7 @@
         return excludedSublayers;
     }
     else {
-        return [super sublayersExcludedFromAutomaticLayout];
+        return super.sublayersExcludedFromAutomaticLayout;
     }
 }
 

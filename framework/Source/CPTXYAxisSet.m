@@ -121,7 +121,7 @@
         sublayerPosition = CGPointMake(-sublayerPosition.x, -sublayerPosition.y);
         CGRect subLayerFrame = CGRectMake(sublayerPosition.x, sublayerPosition.y, sublayerBounds.size.width, sublayerBounds.size.height);
 
-        CPTSublayerSet excludedSublayers = [self sublayersExcludedFromAutomaticLayout];
+        CPTSublayerSet excludedSublayers = self.sublayersExcludedFromAutomaticLayout;
         Class layerClass                 = [CPTLayer class];
         for ( CALayer *subLayer in self.sublayers ) {
             if ( [subLayer isKindOfClass:layerClass] && ![excludedSublayers containsObject:subLayer] ) {

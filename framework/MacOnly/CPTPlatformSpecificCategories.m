@@ -25,7 +25,7 @@
                                                                          bitsPerPixel:32];
 
     NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:layerImage];
-    CGContextRef context             = (CGContextRef)[bitmapContext graphicsPort];
+    CGContextRef context             = (CGContextRef)bitmapContext.graphicsPort;
 
     CGContextClearRect( context, CPTRectMake(0.0, 0.0, boundsSize.width, boundsSize.height) );
     CGContextSetAllowsAntialiasing(context, true);

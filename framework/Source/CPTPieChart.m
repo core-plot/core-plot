@@ -1463,7 +1463,7 @@ static const CGFloat colorLookupTable[10][3] =
 -(void)setLabelRotation:(CGFloat)newRotation
 {
     if ( newRotation != self.labelRotation ) {
-        [super setLabelRotation:newRotation];
+        super.labelRotation = newRotation;
         if ( self.labelRotationRelativeToRadius ) {
             [self repositionAllLabelAnnotations];
         }

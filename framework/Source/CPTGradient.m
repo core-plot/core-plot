@@ -21,7 +21,7 @@
 -(nonnull CGShadingRef)newAxialGradientInRect:(CGRect)rect;
 -(nonnull CGShadingRef)newRadialGradientInRect:(CGRect)rect context:(nonnull CGContextRef)context;
 
--(nullable CPTGradientElement *)elementAtIndex:(NSUInteger)idx;
+-(nullable CPTGradientElement *)elementAtIndex:(NSUInteger)idx NS_RETURNS_INNER_POINTER;
 -(NSUInteger)elementCount;
 
 -(CPTGradientElement)removeElementAtIndex:(NSUInteger)idx;
@@ -182,7 +182,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
 
 -(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
-    if ( [coder allowsKeyedCoding] ) {
+    if ( coder.allowsKeyedCoding ) {
         NSUInteger count                   = 0;
         CPTGradientElement *currentElement = self.elementList;
         while ( currentElement != NULL ) {

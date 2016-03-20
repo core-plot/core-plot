@@ -184,7 +184,7 @@
 
         NSDecimal *decimalPoint = malloc(sizeof(NSDecimal) * self.anchorCount);
         for ( NSUInteger i = 0; i < self.anchorCount; i++ ) {
-            decimalPoint[i] = [anchorPlotPoint[i] decimalValue];
+            decimalPoint[i] = anchorPlotPoint[i].decimalValue;
         }
         self.decimalAnchor = decimalPoint;
 

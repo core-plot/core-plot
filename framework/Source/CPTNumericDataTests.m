@@ -15,7 +15,7 @@
     NSUInteger expected = 1;
 
     XCTAssertEqual(actual, expected, @"numberOfDimensions == 1");
-    expected = [nd.shape count];
+    expected = nd.shape.count;
     XCTAssertEqual(actual, expected, @"numberOfDimensions == 1");
 }
 
@@ -46,7 +46,7 @@
 
     NSUInteger prod = 1;
     for ( NSNumber *num in nd.shape ) {
-        prod *= [num unsignedIntValue];
+        prod *= num.unsignedIntValue;
     }
 
     XCTAssertEqual(prod, nElems, @"prod == nElems");
@@ -78,7 +78,7 @@
                                                          shape:nil];
 
     NSUInteger expected = 10 * sizeof(float);
-    NSUInteger actual   = [nd.data length];
+    NSUInteger actual   = (nd.data).length;
 
     XCTAssertEqual(expected, actual, @"data length");
 }
@@ -87,7 +87,7 @@
 {
     NSUInteger nElements = 10;
     NSMutableData *data  = [NSMutableData dataWithLength:nElements * sizeof(NSInteger)];
-    NSInteger *intData   = (NSInteger *)[data mutableBytes];
+    NSInteger *intData   = (NSInteger *)data.mutableBytes;
 
     for ( NSUInteger i = 0; i < nElements; i++ ) {
         intData[i] = (NSInteger)i;
@@ -106,7 +106,7 @@
 {
     NSUInteger nElems   = 10;
     NSMutableData *data = [NSMutableData dataWithLength:nElems * sizeof(float)];
-    float *samples      = (float *)[data mutableBytes];
+    float *samples      = (float *)data.mutableBytes;
 
     for ( NSUInteger i = 0; i < nElems; i++ ) {
         samples[i] = sinf(i);
@@ -133,7 +133,7 @@
 {
     NSUInteger nElems   = 10;
     NSMutableData *data = [NSMutableData dataWithLength:nElems * sizeof(float)];
-    float *samples      = (float *)[data mutableBytes];
+    float *samples      = (float *)data.mutableBytes;
 
     for ( NSUInteger i = 0; i < nElems; i++ ) {
         samples[i] = sinf(i);
@@ -160,7 +160,7 @@
 {
     NSUInteger nElems   = 10;
     NSMutableData *data = [NSMutableData dataWithLength:nElems * sizeof(float)];
-    float *samples      = (float *)[data mutableBytes];
+    float *samples      = (float *)data.mutableBytes;
 
     for ( NSUInteger i = 0; i < nElems; i++ ) {
         samples[i] = sinf(i);
@@ -174,7 +174,7 @@
 
     nElems = 10;
     data   = [NSMutableData dataWithLength:nElems * sizeof(char)];
-    char *charSamples = (char *)[data mutableBytes];
+    char *charSamples = (char *)data.mutableBytes;
     for ( NSUInteger i = 0; i < nElems; i++ ) {
         charSamples[i] = (char)lrint(sin(i) * 100.0);
     }
@@ -190,7 +190,7 @@
 {
     NSUInteger nElems   = 10;
     NSMutableData *data = [NSMutableData dataWithLength:nElems * sizeof(float)];
-    float *samples      = (float *)[data mutableBytes];
+    float *samples      = (float *)data.mutableBytes;
 
     for ( NSUInteger i = 0; i < nElems; i++ ) {
         samples[i] = sinf(i);
@@ -209,7 +209,7 @@
 {
     NSUInteger numberOfSamples = 10;
     NSMutableData *data        = [NSMutableData dataWithLength:numberOfSamples * sizeof(float)];
-    float *samples             = (float *)[data mutableBytes];
+    float *samples             = (float *)data.mutableBytes;
 
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         samples[i] = sinf(i);
@@ -223,7 +223,7 @@
                                         sampleBytes:sizeof(double)
                                           byteOrder:NSHostByteOrder()];
 
-    const double *doubleSamples = (const double *)[dd.data bytes];
+    const double *doubleSamples = (const double *)dd.data.bytes;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         XCTAssertTrue(samples[i] == doubleSamples[i], @"(float)%g != (double)%g", samples[i], doubleSamples[i]);
     }
@@ -233,7 +233,7 @@
 {
     NSUInteger nElems   = 10;
     NSMutableData *data = [NSMutableData dataWithLength:nElems * sizeof(float)];
-    float *samples      = (float *)[data mutableBytes];
+    float *samples      = (float *)data.mutableBytes;
 
     for ( NSUInteger i = 0; i < nElems; i++ ) {
         samples[i] = sinf(i);
@@ -253,7 +253,7 @@
 {
     NSUInteger nElems   = 10;
     NSMutableData *data = [NSMutableData dataWithLength:nElems * sizeof(float)];
-    float *samples      = (float *)[data mutableBytes];
+    float *samples      = (float *)data.mutableBytes;
 
     for ( NSUInteger i = 0; i < nElems; i++ ) {
         samples[i] = sinf(i);
@@ -273,7 +273,7 @@
     const NSUInteger cols = 4;
 
     NSMutableData *data = [NSMutableData dataWithLength:rows * cols * sizeof(NSUInteger)];
-    NSUInteger *samples = (NSUInteger *)[data mutableBytes];
+    NSUInteger *samples = (NSUInteger *)data.mutableBytes;
 
     for ( NSUInteger i = 0; i < rows * cols; i++ ) {
         samples[i] = i;
@@ -300,7 +300,7 @@
     const NSUInteger cols = 4;
 
     NSMutableData *data = [NSMutableData dataWithLength:rows * cols * sizeof(NSUInteger)];
-    NSUInteger *samples = (NSUInteger *)[data mutableBytes];
+    NSUInteger *samples = (NSUInteger *)data.mutableBytes;
 
     for ( NSUInteger i = 0; i < rows * cols; i++ ) {
         samples[i] = i;

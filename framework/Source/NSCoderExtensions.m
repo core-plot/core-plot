@@ -138,7 +138,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
     for ( NSUInteger i = 0; i < dataCount; i++ ) {
         NSDictionary<NSString *, NSNumber *> *elementData = pathData[i];
 
-        CGPathElementType type = (CGPathElementType)[elementData[@"type"] intValue];
+        CGPathElementType type = (CGPathElementType)(elementData[@"type"]).intValue;
         newKey = [[NSString alloc] initWithFormat:@"%@[%lu].type", key, (unsigned long)i];
         [self encodeInt:type forKey:newKey];
 
@@ -504,7 +504,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
     NSNumber *number = [self decodeObjectForKey:key];
 
     if ( [number respondsToSelector:@selector(decimalValue)] ) {
-        result = [number decimalValue];
+        result = number.decimalValue;
     }
     else {
         result = CPTDecimalNaN();

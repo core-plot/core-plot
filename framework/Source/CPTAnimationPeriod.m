@@ -440,7 +440,7 @@
 
 -(nullable NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@ from: %@; to: %@; duration: %g, delay: %g>", [super description], self.startValue, self.endValue, (double)self.duration, (double)self.delay];
+    return [NSString stringWithFormat:@"<%@ from: %@; to: %@; duration: %g, delay: %g>", super.description, self.startValue, self.endValue, (double)self.duration, (double)self.delay];
 }
 
 /// @endcond

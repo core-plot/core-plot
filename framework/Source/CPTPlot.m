@@ -582,7 +582,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     NSParameterAssert(idx <= self.cachedDataCount);
     Class numericClass = [CPTNumericData class];
 
-    for ( id data in [self.cachedData allValues] ) {
+    for ( id data in (self.cachedData).allValues ) {
         if ( [data isKindOfClass:numericClass] ) {
             CPTMutableNumericData *numericData = (CPTMutableNumericData *)data;
             size_t sampleSize                  = numericData.sampleBytes;
@@ -618,7 +618,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     NSParameterAssert(NSMaxRange(indexRange) <= self.cachedDataCount);
     Class numericClass = [CPTNumericData class];
 
-    for ( id data in [self.cachedData allValues] ) {
+    for ( id data in (self.cachedData).allValues ) {
         if ( [data isKindOfClass:numericClass] ) {
             CPTMutableNumericData *numericData = (CPTMutableNumericData *)data;
             size_t sampleSize                  = numericData.sampleBytes;
@@ -757,7 +757,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         else if ( [theDataSource respondsToSelector:@selector(doubleForPlot:field:recordIndex:)] ) {
             NSUInteger recordIndex;
             NSMutableData *fieldData = [NSMutableData dataWithLength:sizeof(double) * indexRange.length];
-            double *fieldValues      = [fieldData mutableBytes];
+            double *fieldValues      = fieldData.mutableBytes;
             for ( recordIndex = indexRange.location; recordIndex < indexRange.location + indexRange.length; ++recordIndex ) {
                 double number = [theDataSource doubleForPlot:self field:fieldEnum recordIndex:recordIndex];
                 *fieldValues++ = number;
@@ -814,8 +814,8 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
             if ( (sampleCount > 0) && (data.numberOfDimensions == 2) ) {
                 CPTNumberArray theShape     = data.shape;
-                const NSUInteger rowCount   = [theShape[0] unsignedIntegerValue];
-                const NSUInteger fieldCount = [theShape[1] unsignedIntegerValue];
+                const NSUInteger rowCount   = theShape[0].unsignedIntegerValue;
+                const NSUInteger fieldCount = theShape[1].unsignedIntegerValue;
 
                 if ( fieldCount > 0 ) {
                     // convert data type if needed
@@ -1176,9 +1176,9 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         {
             NSMutableDictionary<NSString *, CPTNumericData *> *dataCache = self.cachedData;
             Class numberClass                                            = [NSNumber class];
-            for ( id key in [dataCache allKeys] ) {
+            for ( id key in dataCache.allKeys ) {
                 if ( [key isKindOfClass:numberClass] ) {
-                    result = CPTDataTypeEqualToDataType([(CPTMutableNumericData *) dataCache[key] dataType], self.doubleDataType);
+                    result = CPTDataTypeEqualToDataType( ( (CPTMutableNumericData *)dataCache[key] ).dataType, self.doubleDataType );
                     break;
                 }
             }
@@ -1299,7 +1299,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
     NSMutableDictionary<NSString *, CPTMutableNumericData *> *dataDictionary = self.cachedData;
 
-    for ( id key in [dataDictionary allKeys] ) {
+    for ( id key in dataDictionary.allKeys ) {
         if ( [key isKindOfClass:numberClass] ) {
             CPTMutableNumericData *numericData = dataDictionary[key];
             numericData.dataType = newDataType;
@@ -1458,8 +1458,8 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
             }
         }
         else {
-            NSDecimal min = [[NSDecimalNumber maximumDecimalNumber] decimalValue];
-            NSDecimal max = [[NSDecimalNumber minimumDecimalNumber] decimalValue];
+            NSDecimal min = [NSDecimalNumber maximumDecimalNumber].decimalValue;
+            NSDecimal max = [NSDecimalNumber minimumDecimalNumber].decimalValue;
 
             const NSDecimal *decimals   = (const NSDecimal *)numbers.bytes;
             const NSDecimal *lastSample = decimals + numberOfSamples;
@@ -1561,7 +1561,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         return;
     }
 
-    CPTDictionary textAttributes = [dataLabelTextStyle attributes];
+    CPTDictionary textAttributes = dataLabelTextStyle.attributes;
     BOOL hasAttributedFormatter  = ([dataLabelFormatter attributedStringForObjectValue:[NSDecimalNumber zero]
                                                                  withDefaultAttributes:textAttributes] != nil);
 
@@ -2157,7 +2157,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 -(void)setHidden:(BOOL)newHidden
 {
     if ( newHidden != self.hidden ) {
-        [super setHidden:newHidden];
+        super.hidden = newHidden;
         [self setNeedsRelabel];
     }
 }

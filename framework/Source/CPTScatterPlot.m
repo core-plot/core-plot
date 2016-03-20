@@ -811,7 +811,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
                     NSNumber *xValue = [xValueData sampleValue:(NSUInteger)firstDrawnPointIndex];
                     NSDecimal plotPoint[2];
-                    plotPoint[CPTCoordinateX] = [xValue decimalValue];
+                    plotPoint[CPTCoordinateX] = xValue.decimalValue;
                     plotPoint[CPTCoordinateY] = theAreaBaseValue;
                     CGPoint baseLinePoint = [self convertPoint:[thePlotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2] fromLayer:thePlotArea];
                     if ( pixelAlign ) {

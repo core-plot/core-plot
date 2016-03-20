@@ -55,7 +55,7 @@
  **/
 -(void)removePlot:(nullable CPTPlot *)plot
 {
-    if ( self == [plot superlayer] ) {
+    if ( self == plot.superlayer ) {
         [plot removeFromSuperlayer];
     }
 }
