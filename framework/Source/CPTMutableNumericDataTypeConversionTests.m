@@ -25,7 +25,7 @@ static const double precision           = 1.0e-6;
 
     const double *doubleSamples = (const double *)numericData.data.bytes;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        XCTAssertEqualWithAccuracy( (double)samples[i], doubleSamples[i], precision, @"(float)%g != (double)%g", samples[i], doubleSamples[i] );
+        XCTAssertEqualWithAccuracy( (double)samples[i], doubleSamples[i], precision, @"(float)%g != (double)%g", (double)samples[i], doubleSamples[i] );
     }
 }
 
@@ -46,7 +46,7 @@ static const double precision           = 1.0e-6;
 
     const float *floatSamples = (const float *)numericData.data.bytes;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        XCTAssertEqualWithAccuracy( (double)floatSamples[i], samples[i], precision, @"(float)%g != (double)%g", floatSamples[i], samples[i] );
+        XCTAssertEqualWithAccuracy( (double)floatSamples[i], samples[i], precision, @"(float)%g != (double)%g", (double)floatSamples[i], samples[i] );
     }
 }
 
@@ -67,7 +67,7 @@ static const double precision           = 1.0e-6;
 
     const NSInteger *intSamples = (const NSInteger *)numericData.data.bytes;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        XCTAssertEqualWithAccuracy( (NSInteger)samples[i], intSamples[i], precision, @"(float)%g != (NSInteger)%ld", samples[i], (long)intSamples[i] );
+        XCTAssertEqualWithAccuracy( (NSInteger)samples[i], intSamples[i], precision, @"(float)%g != (NSInteger)%ld", (double)samples[i], (long)intSamples[i] );
     }
 }
 
@@ -88,7 +88,7 @@ static const double precision           = 1.0e-6;
 
     const float *floatSamples = (const float *)numericData.data.bytes;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        XCTAssertEqualWithAccuracy(floatSamples[i], (float)samples[i], precision, @"(float)%g != (NSInteger)%ld", floatSamples[i], (long)samples[i]);
+        XCTAssertEqualWithAccuracy(floatSamples[i], (float)samples[i], (float)precision, @"(float)%g != (NSInteger)%ld", (double)floatSamples[i], (long)samples[i]);
     }
 }
 
