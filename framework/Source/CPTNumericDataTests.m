@@ -225,7 +225,7 @@
 
     const double *doubleSamples = (const double *)dd.data.bytes;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        XCTAssertTrue(samples[i] == doubleSamples[i], @"(float)%g != (double)%g", samples[i], doubleSamples[i]);
+        XCTAssertTrue( (double)samples[i] == doubleSamples[i], @"(float)%g != (double)%g", (double)samples[i], doubleSamples[i] );
     }
 }
 
