@@ -2057,11 +2057,11 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 
 -(void)setCurvedInterpolationCustomAlpha:(CGFloat)newCurvedInterpolationCustomAlpha
 {
-    if ( newCurvedInterpolationCustomAlpha > 1.0 ) {
-        newCurvedInterpolationCustomAlpha = 1.0;
+    if ( newCurvedInterpolationCustomAlpha > CPTFloat(1.0) ) {
+        newCurvedInterpolationCustomAlpha = CPTFloat(1.0);
     }
-    if ( newCurvedInterpolationCustomAlpha < 0 ) {
-        newCurvedInterpolationCustomAlpha = 0.0;
+    if ( newCurvedInterpolationCustomAlpha < CPTFloat(0.0) ) {
+        newCurvedInterpolationCustomAlpha = CPTFloat(0.0);
     }
 
     if ( newCurvedInterpolationCustomAlpha != curvedInterpolationCustomAlpha ) {
