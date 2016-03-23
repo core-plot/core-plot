@@ -8,11 +8,11 @@
 
 #import "CurvedInterpolationDemo.h"
 
-static const CGFloat bezierYShift                = -1.0;
-static const CGFloat catmullRomUniformPlotYShift = 0.0;
-static const CGFloat catmullRomCentripetalYShift = 1.0;
-static const CGFloat catmullRomChordalYShift     = 2.0;
-static const CGFloat hermiteCubicYShift          = -2.0;
+static const double bezierYShift                = -1.0;
+static const double catmullRomUniformPlotYShift = 0.0;
+static const double catmullRomCentripetalYShift = 1.0;
+static const double catmullRomChordalYShift     = 2.0;
+static const double hermiteCubicYShift          = -2.0;
 
 static NSString *const bezierCurveIdentifier           = @"Bezier";
 static NSString *const catmullRomUniformIdentifier     = @"Catmull-Rom Uniform";
@@ -263,7 +263,7 @@ static NSString *const hermiteCubicIdentifier          = @"Hermite Cubic";
     }
     else {
         NSNumber *baseY = self.plotData[index][@"y"];
-        CGFloat shift   = 0;
+        double shift    = 0.0;
         if ( [identifier isEqualToString:catmullRomUniformIdentifier] ) {
             shift = catmullRomUniformPlotYShift;
         }
