@@ -32,8 +32,6 @@ typedef NSMutableArray<CPTAnimationOperation *> *CPTMutableAnimationArray;
 -(void)cancelTimer;
 -(void)update;
 
-dispatch_source_t __nonnull CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t __nonnull queue, dispatch_block_t __nonnull block);
-
 @end
 /// @endcond
 
@@ -447,9 +445,17 @@ dispatch_source_t __nonnull CPTCreateDispatchTimer(CGFloat interval, dispatch_qu
 
 -(void)startTimer
 {
-    self.timer = CPTCreateDispatchTimer(kCPTAnimationFrameRate, self.animationQueue, ^{
-        [self update];
-    });
+    dispatch_source_t newTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, self.animationQueue);
+
+    if ( newTimer ) {
+        dispatch_source_set_timer(newTimer, dispatch_time(DISPATCH_TIME_NOW, 0), (uint64_t)(kCPTAnimationFrameRate * NSEC_PER_SEC), 0);
+        dispatch_source_set_event_handler(newTimer, ^{
+            [self update];
+        });
+        dispatch_resume(newTimer);
+
+        self.timer = newTimer;
+    }
 }
 
 -(void)cancelTimer
@@ -460,18 +466,6 @@ dispatch_source_t __nonnull CPTCreateDispatchTimer(CGFloat interval, dispatch_qu
         dispatch_source_cancel(theTimer);
         self.timer = NULL;
     }
-}
-
-dispatch_source_t __nonnull CPTCreateDispatchTimer(CGFloat interval, dispatch_queue_t __nonnull queue, dispatch_block_t __nonnull block)
-{
-    dispatch_source_t newTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-
-    if ( newTimer ) {
-        dispatch_source_set_timer(newTimer, dispatch_time(DISPATCH_TIME_NOW, 0), (uint64_t)(interval * NSEC_PER_SEC), 0);
-        dispatch_source_set_event_handler(newTimer, block);
-        dispatch_resume(newTimer);
-    }
-    return newTimer;
 }
 
 /// @endcond
