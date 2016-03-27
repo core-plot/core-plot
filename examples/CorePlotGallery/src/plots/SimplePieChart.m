@@ -156,8 +156,8 @@
 
     [CPTAnimation animate:self
                  property:@"sliceOffset"
-                     from:CPTFloat(idx == self.offsetIndex ? CPTNAN : 0.0)
-                       to:CPTFloat(idx == self.offsetIndex ? 0.0 : 35.0)
+                     from:( idx == self.offsetIndex ? CPTNAN : CPTFloat(0.0) )
+                       to:( idx == self.offsetIndex ? CPTFloat(0.0) : CPTFloat(35.0) )
                  duration:0.5
            animationCurve:CPTAnimationCurveCubicOut
                  delegate:nil];
