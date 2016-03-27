@@ -56,8 +56,8 @@
  *  Nonetheless, in a project like Core Plot, with many developers contributing, it is worthwhile
  *  defining a set of basic coding standards to prevent a mishmash of different styles which can
  *  become frustrating when navigating the code base. See the file
- *  <a href="https://github.com/core-plot/core-plot/blob/master/documentation/Coding%20Style.markdown">Coding Style.markdown</a>
- *  found in the <a href="https://github.com/core-plot/core-plot/tree/master/documentation">documentation</a>
+ *  <a href="https://github.com/core-plot/core-plot/blob/master/.github/CONTRIBUTING.md">CONTRIBUTING.md</a>
+ *  found in the <a href="https://github.com/core-plot/core-plot/tree/master/.github">.github</a>
  *  directory of the project source for specific guidelines.
  *
  *  Core Plot includes a <a href="https://github.com/core-plot/core-plot/blob/master/scripts/format_core_plot.sh">script</a>

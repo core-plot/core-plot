@@ -32,10 +32,10 @@
 @interface CPTAxis()
 
 @property (nonatomic, readwrite, assign) BOOL needsRelabel;
-@property (nonatomic, readwrite, cpt_weak_property, nullable) cpt_weak CPTGridLines *minorGridLines;
-@property (nonatomic, readwrite, cpt_weak_property, nullable) cpt_weak CPTGridLines *majorGridLines;
-@property (nonatomic, readwrite, cpt_weak_property, nullable) cpt_weak CPTAxisLabel *pointingDeviceDownLabel;
-@property (nonatomic, readwrite, cpt_weak_property, nullable) cpt_weak CPTAxisLabel *pointingDeviceDownTickLabel;
+@property (nonatomic, readwrite, cpt_weak_property, nullable) CPTGridLines *minorGridLines;
+@property (nonatomic, readwrite, cpt_weak_property, nullable) CPTGridLines *majorGridLines;
+@property (nonatomic, readwrite, cpt_weak_property, nullable) CPTAxisLabel *pointingDeviceDownLabel;
+@property (nonatomic, readwrite, cpt_weak_property, nullable) CPTAxisLabel *pointingDeviceDownTickLabel;
 @property (nonatomic, readwrite, assign) BOOL labelFormatterChanged;
 @property (nonatomic, readwrite, assign) BOOL minorLabelFormatterChanged;
 @property (nonatomic, readwrite, strong, nullable) CPTMutableLimitBandArray *mutableBackgroundLimitBands;
@@ -438,17 +438,17 @@ NSDecimal CPTNiceLength(NSDecimal length);
  **/
 @synthesize separateLayers;
 
-/** @property nullable cpt_weak CPTPlotArea *plotArea
+/** @property nullable CPTPlotArea *plotArea
  *  @brief The plot area that the axis belongs to.
  **/
 @synthesize plotArea;
 
-/** @property nullable cpt_weak CPTGridLines *minorGridLines
+/** @property nullable CPTGridLines *minorGridLines
  *  @brief The layer that draws the minor grid lines.
  **/
 @synthesize minorGridLines;
 
-/** @property nullable cpt_weak CPTGridLines *majorGridLines
+/** @property nullable CPTGridLines *majorGridLines
  *  @brief The layer that draws the major grid lines.
  **/
 @synthesize majorGridLines;
@@ -459,13 +459,13 @@ NSDecimal CPTNiceLength(NSDecimal length);
 @dynamic axisSet;
 
 /** @internal
- *  @property nullable cpt_weak CPTAxisLabel *pointingDeviceDownLabel
+ *  @property nullable CPTAxisLabel *pointingDeviceDownLabel
  *  @brief The label that was selected on the pointing device down event.
  **/
 @synthesize pointingDeviceDownLabel;
 
 /** @internal
- *  @property nullable cpt_weak CPTAxisLabel *pointingDeviceDownTickLabel
+ *  @property nullable CPTAxisLabel *pointingDeviceDownTickLabel
  *  @brief The tick label that was selected on the pointing device down event.
  **/
 @synthesize pointingDeviceDownTickLabel;

@@ -10,7 +10,7 @@
 @interface CPTGraphHostingView()
 
 #if (TARGET_OS_SIMULATOR || TARGET_OS_IPHONE) && !TARGET_OS_TV
-@property (nonatomic, readwrite, nullable, cpt_weak_property) cpt_weak UIPinchGestureRecognizer *pinchGestureRecognizer;
+@property (nonatomic, readwrite, nullable, cpt_weak_property) UIPinchGestureRecognizer *pinchGestureRecognizer;
 
 -(void)handlePinchGesture:(nonnull UIPinchGestureRecognizer *)aPinchGestureRecognizer;
 #endif
@@ -50,7 +50,7 @@
 #if (TARGET_OS_SIMULATOR || TARGET_OS_IPHONE) && !TARGET_OS_TV
 
 /** @internal
- *  @property nullable cpt_weak UIPinchGestureRecognizer *pinchGestureRecognizer
+ *  @property nullable UIPinchGestureRecognizer *pinchGestureRecognizer
  *  @brief The pinch gesture recognizer for this view.
  *  @since Not available on tvOS.
  **/

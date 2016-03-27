@@ -16,7 +16,7 @@
  **/
 @synthesize contentLayer;
 
-/** @property nullable cpt_weak CPTAnnotationHostLayer *annotationHostLayer
+/** @property nullable CPTAnnotationHostLayer *annotationHostLayer
  *  @brief The host layer for the annotation content.
  **/
 @synthesize annotationHostLayer;

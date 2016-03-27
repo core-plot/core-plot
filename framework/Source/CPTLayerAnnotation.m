@@ -26,7 +26,7 @@
  **/
 @implementation CPTLayerAnnotation
 
-/** @property nullable cpt_weak CPTLayer *anchorLayer
+/** @property nullable CPTLayer *anchorLayer
  *  @brief The reference layer.
  **/
 @synthesize anchorLayer;

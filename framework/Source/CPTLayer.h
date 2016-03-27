@@ -41,7 +41,7 @@ typedef NSMutableSet<CALayer *> CPTMutableSublayerSet;
 
 /// @name Graph
 /// @{
-@property (nonatomic, readwrite, cpt_weak_property, nullable) cpt_weak CPTGraph *graph;
+@property (nonatomic, readwrite, cpt_weak_property, nullable) CPTGraph *graph;
 /// @}
 
 /// @name Padding

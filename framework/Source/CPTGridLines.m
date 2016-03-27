@@ -7,7 +7,7 @@
  **/
 @implementation CPTGridLines
 
-/** @property nullable cpt_weak CPTAxis *axis
+/** @property nullable CPTAxis *axis
  *  @brief The axis.
  **/
 @synthesize axis;
