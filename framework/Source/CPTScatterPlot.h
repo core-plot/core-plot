@@ -261,7 +261,6 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotHistogramOption) {
 @property (nonatomic, readwrite, copy, nullable) CPTPlotSymbol *plotSymbol;
 @property (nonatomic, readwrite, copy, nullable) CPTFill *areaFill;
 @property (nonatomic, readwrite, copy, nullable) CPTFill *areaFill2;
-@property (nonatomic, readwrite) NSUInteger curvedLineGranularity;
 /// @}
 
 /// @name Data Line
