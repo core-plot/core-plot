@@ -50,12 +50,12 @@ typedef NSMutableOrderedSet<NSString *> *CPTMutableCategorySet;
  **/
 @synthesize isDragging;
 
-/** @property nullable cpt_weak CPTGraph *graph
+/** @property nullable CPTGraph *graph
  *  @brief The graph of the space.
  **/
 @synthesize graph;
 
-/** @property nullable cpt_weak id<CPTPlotSpaceDelegate> delegate
+/** @property nullable id<CPTPlotSpaceDelegate> delegate
  *  @brief The plot space delegate.
  **/
 @synthesize delegate;

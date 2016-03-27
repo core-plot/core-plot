@@ -9,7 +9,7 @@
 /// @cond
 @interface CPTGraphHostingView()
 
-@property (nonatomic, readwrite, nullable, cpt_weak_property) cpt_weak UIPinchGestureRecognizer *pinchGestureRecognizer;
+@property (nonatomic, readwrite, nullable, cpt_weak_property) UIPinchGestureRecognizer *pinchGestureRecognizer;
 
 -(void)graphNeedsRedraw:(nonnull NSNotification *)notification;
 -(void)handlePinchGesture:(nonnull UIPinchGestureRecognizer *)aPinchGestureRecognizer;
@@ -45,7 +45,7 @@
 /// @cond
 
 /** @internal
- *  @property nullable cpt_weak UIPinchGestureRecognizer *pinchGestureRecognizer
+ *  @property nullable UIPinchGestureRecognizer *pinchGestureRecognizer
  *  @brief The pinch gesture recognizer for this view.
  **/
 @synthesize pinchGestureRecognizer;

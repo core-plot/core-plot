@@ -104,7 +104,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
 @dynamic dataLabels;
 
-/** @property nullable cpt_weak id<CPTPlotDataSource> dataSource
+/** @property nullable id<CPTPlotDataSource> dataSource
  *  @brief The data source for the plot.
  **/
 @synthesize dataSource;

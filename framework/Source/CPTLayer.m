@@ -51,7 +51,7 @@ NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeN
  **/
 @implementation CPTLayer
 
-/** @property nullable cpt_weak CPTGraph *graph
+/** @property nullable CPTGraph *graph
  *  @brief The graph for the layer.
  **/
 @synthesize graph;

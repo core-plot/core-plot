@@ -170,8 +170,8 @@ typedef NSMutableArray<__kindof CPTPlotSpace *> *CPTMutablePlotSpaceArray;
 @property (nonatomic, readwrite, copy, nullable) id<NSCopying, NSCoding, NSObject> identifier;
 @property (nonatomic, readwrite) BOOL allowsUserInteraction;
 @property (nonatomic, readonly) BOOL isDragging;
-@property (nonatomic, readwrite, cpt_weak_property, nullable) cpt_weak CPTGraph *graph;
-@property (nonatomic, readwrite, cpt_weak_property, nullable) cpt_weak id<CPTPlotSpaceDelegate> delegate;
+@property (nonatomic, readwrite, cpt_weak_property, nullable) CPTGraph *graph;
+@property (nonatomic, readwrite, cpt_weak_property, nullable) id<CPTPlotSpaceDelegate> delegate;
 
 @property (nonatomic, readonly) NSUInteger numberOfCoordinates;
 
