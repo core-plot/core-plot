@@ -47,7 +47,7 @@
 
     NSUInteger prod = 1;
     for ( NSNumber *num in nd.shape ) {
-        prod *= num.unsignedIntValue;
+        prod *= num.unsignedIntegerValue;
     }
 
     XCTAssertEqual(prod, nElems, @"prod == nElems");

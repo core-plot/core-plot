@@ -1520,12 +1520,12 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
     CPTMutablePlotRange *unionRange = nil;
     for ( NSNumber *field in fields ) {
-        CPTPlotRange *currentRange = [self plotRangeForField:field.unsignedIntValue];
+        CPTPlotRange *currentRange = [self plotRangeForField:field.unsignedIntegerValue];
         if ( !unionRange ) {
             unionRange = [currentRange mutableCopy];
         }
         else {
-            [unionRange unionPlotRange:[self plotRangeForField:field.unsignedIntValue]];
+            [unionRange unionPlotRange:[self plotRangeForField:field.unsignedIntegerValue]];
         }
     }
 
