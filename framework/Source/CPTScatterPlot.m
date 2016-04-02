@@ -1266,13 +1266,13 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
             p2 = viewPoints[index + 1];
             // account for first and last segment
             if ( index == startIndex ) {
-                p0 = CGPointMake(CGRectGetMinX(self.bounds), p1.y); // guess first point
+                p0 = p1;
             }
             else {
                 p0 = viewPoints[index - 1];
             }
             if ( index == segmentCount ) {
-                p3 = CGPointMake(CGRectGetMaxX(self.bounds), p2.y); // guess end point
+                p3 = p2;
             }
             else {
                 p3 = viewPoints[index + 2];
@@ -1297,7 +1297,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                 cp1 = p1;
             }
             else {
-                CGFloat divisor = 3 * d1_a * (d1_a + d2_a);
+                CGFloat divisor = CPTFloat(3.0) * d1_a * (d1_a + d2_a);
                 cp1 = CPTPointMake( (p2.x * d1_2a - p0.x * d2_2a + (2 * d1_2a + 3 * d1_a * d2_a + d2_2a) * p1.x) / divisor,
                                     (p2.y * d1_2a - p0.y * d2_2a + (2 * d1_2a + 3 * d1_a * d2_a + d2_2a) * p1.y) / divisor
                                      );
