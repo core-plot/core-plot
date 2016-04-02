@@ -357,6 +357,8 @@ typedef NSMutableArray<__kindof CPTPlot *> CPTMutablePlotArray;
 /// @{
 -(nullable CPTPlotRange *)plotRangeForField:(NSUInteger)fieldEnum;
 -(nullable CPTPlotRange *)plotRangeForCoordinate:(CPTCoordinate)coord;
+-(nullable CPTPlotRange *)plotRangeEnclosingField:(NSUInteger)fieldEnum;
+-(nullable CPTPlotRange *)plotRangeEnclosingCoordinate:(CPTCoordinate)coord;
 /// @}
 
 /// @name Legends

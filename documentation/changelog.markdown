@@ -12,6 +12,7 @@ To be determined.
 - **New**: Added support for `NSSecureCoding`.
 - **New**: Added an option to draw legend swatches to the left or right side of the title.
 - **New**: Added an option to use the Catmull-Rom algorithm to draw curved scatter plot lines.
+- **New**: Added a method to automatically scale the plot space to fit the entire plot.
 - **Changed**: Changed the annotated type definitions to exclude the pointer star ("*").
 - **Changed**: Miscellaneous bug fixes and cleanup.
 

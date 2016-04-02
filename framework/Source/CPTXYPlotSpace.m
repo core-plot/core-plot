@@ -802,6 +802,44 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
     }
 }
 
+-(void)scaleToFitEntirePlots:(nullable CPTPlotArray *)plots
+{
+    if ( plots.count == 0 ) {
+        return;
+    }
+
+    // Determine union of ranges
+    CPTMutablePlotRange *unionXRange = nil;
+    CPTMutablePlotRange *unionYRange = nil;
+    for ( CPTPlot *plot in plots ) {
+        CPTPlotRange *currentXRange = [plot plotRangeEnclosingCoordinate:CPTCoordinateX];
+        CPTPlotRange *currentYRange = [plot plotRangeEnclosingCoordinate:CPTCoordinateY];
+        if ( !unionXRange ) {
+            unionXRange = [currentXRange mutableCopy];
+        }
+        if ( !unionYRange ) {
+            unionYRange = [currentYRange mutableCopy];
+        }
+        [unionXRange unionPlotRange:currentXRange];
+        [unionYRange unionPlotRange:currentYRange];
+    }
+
+    // Set range
+    NSDecimal zero = CPTDecimalFromInteger(0);
+    if ( unionXRange ) {
+        if ( CPTDecimalEquals(unionXRange.lengthDecimal, zero) ) {
+            [unionXRange unionPlotRange:self.xRange];
+        }
+        self.xRange = unionXRange;
+    }
+    if ( unionYRange ) {
+        if ( CPTDecimalEquals(unionYRange.lengthDecimal, zero) ) {
+            [unionYRange unionPlotRange:self.yRange];
+        }
+        self.yRange = unionYRange;
+    }
+}
+
 -(void)setXScaleType:(CPTScaleType)newScaleType
 {
     if ( newScaleType != xScaleType ) {

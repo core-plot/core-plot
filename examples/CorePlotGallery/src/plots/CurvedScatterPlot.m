@@ -252,16 +252,11 @@ static NSString *const kSecond = @"Second Derivative";
 // [graph addPlot:secondPlot];
 
     // Auto scale the plot space to fit the plot data
-    [plotSpace scaleToFitPlots:[graph allPlots]];
+    [plotSpace scaleToFitEntirePlots:[graph allPlots]];
     CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
     CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
 
     // Expand the ranges to put some space around the plot
-    [xRange expandRangeByFactor:@1.2];
-    [yRange expandRangeByFactor:@1.2];
-    plotSpace.xRange = xRange;
-    plotSpace.yRange = yRange;
-
     [xRange expandRangeByFactor:@1.025];
     xRange.location = plotSpace.xRange.location;
     [yRange expandRangeByFactor:@1.05];

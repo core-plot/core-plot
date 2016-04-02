@@ -743,6 +743,27 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     return range;
 }
 
+-(nullable CPTPlotRange *)plotRangeEnclosingField:(NSUInteger)fieldEnum
+{
+    CPTPlotRange *range = nil;
+
+    switch ( fieldEnum ) {
+        case CPTBarPlotFieldBarLocation:
+            range = [self plotRangeEnclosingBars];
+            break;
+
+        case CPTBarPlotFieldBarTip:
+        case CPTBarPlotFieldBarBase:
+            range = [self plotRangeForField:fieldEnum];
+            break;
+
+        default:
+            break;
+    }
+
+    return range;
+}
+
 /// @endcond
 
 /** @brief Computes a plot range that completely encloses all of the bars.

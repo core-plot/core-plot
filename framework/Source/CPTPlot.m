@@ -1532,6 +1532,41 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     return unionRange;
 }
 
+/** @brief Determines the smallest plot range that fully encloses the entire plot for a particular field.
+ *  @param fieldEnum The field enumerator identifying the field.
+ *  @return The plot range enclosing the data.
+ **/
+-(nullable CPTPlotRange *)plotRangeEnclosingField:(NSUInteger)fieldEnum
+{
+    return [self plotRangeForField:fieldEnum];
+}
+
+/** @brief Determines the smallest plot range that fully encloses the entire plot for a particular coordinate.
+ *  @param coord The coordinate identifier.
+ *  @return The plot range enclosing the data.
+ **/
+-(nullable CPTPlotRange *)plotRangeEnclosingCoordinate:(CPTCoordinate)coord
+{
+    CPTNumberArray *fields = [self fieldIdentifiersForCoordinate:coord];
+
+    if ( fields.count == 0 ) {
+        return nil;
+    }
+
+    CPTMutablePlotRange *unionRange = nil;
+    for ( NSNumber *field in fields ) {
+        CPTPlotRange *currentRange = [self plotRangeEnclosingField:field.unsignedIntegerValue];
+        if ( !unionRange ) {
+            unionRange = [currentRange mutableCopy];
+        }
+        else {
+            [unionRange unionPlotRange:[self plotRangeEnclosingField:field.unsignedIntegerValue]];
+        }
+    }
+
+    return unionRange;
+}
+
 #pragma mark -
 #pragma mark Data Labels
 

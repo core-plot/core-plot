@@ -672,6 +672,42 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
     }
 }
 
+/** @brief Scales the plot ranges so that the plots just fit in the visible space.
+ *  @param plots An array of the plots that have to fit in the visible area.
+ **/
+-(void)scaleToFitEntirePlots:(nullable CPTPlotArray *)plots
+{
+}
+
+/** @brief Scales the plot range for the given coordinate so that the plots just fit in the visible space.
+ *  @param plots An array of the plots that have to fit in the visible area.
+ *  @param coordinate The axis coordinate.
+ **/
+-(void)scaleToFitEntirePlots:(nullable CPTPlotArray *)plots forCoordinate:(CPTCoordinate)coordinate
+{
+    if ( plots.count == 0 ) {
+        return;
+    }
+
+    // Determine union of ranges
+    CPTMutablePlotRange *unionRange = nil;
+    for ( CPTPlot *plot in plots ) {
+        CPTPlotRange *currentRange = [plot plotRangeForCoordinate:coordinate];
+        if ( !unionRange ) {
+            unionRange = [currentRange mutableCopy];
+        }
+        [unionRange unionPlotRange:currentRange];
+    }
+
+    // Set range
+    if ( unionRange ) {
+        if ( CPTDecimalEquals( unionRange.lengthDecimal, CPTDecimalFromInteger(0) ) ) {
+            [unionRange unionPlotRange:[self plotRangeForCoordinate:coordinate]];
+        }
+        [self setPlotRange:unionRange forCoordinate:coordinate];
+    }
+}
+
 /** @brief Zooms the plot space equally in each dimension.
  *  @param interactionScale The scaling factor. One (@num{1}) gives no scaling.
  *  @param interactionPoint The plot area view point about which the scaling occurs.

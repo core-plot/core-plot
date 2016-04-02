@@ -236,6 +236,8 @@ typedef NSMutableArray<__kindof CPTPlotSpace *> CPTMutablePlotSpaceArray;
 /// @{
 -(void)scaleToFitPlots:(nullable CPTPlotArray *)plots;
 -(void)scaleToFitPlots:(nullable CPTPlotArray *)plots forCoordinate:(CPTCoordinate)coordinate;
+-(void)scaleToFitEntirePlots:(nullable CPTPlotArray *)plots;
+-(void)scaleToFitEntirePlots:(nullable CPTPlotArray *)plots forCoordinate:(CPTCoordinate)coordinate;
 -(void)scaleBy:(CGFloat)interactionScale aboutPoint:(CGPoint)interactionPoint;
 /// @}
 

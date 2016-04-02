@@ -1582,6 +1582,61 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 /// @endcond
 
 #pragma mark -
+#pragma mark Data Ranges
+
+/// @cond
+
+-(nullable CPTPlotRange *)plotRangeEnclosingField:(NSUInteger)fieldEnum
+{
+    CPTPlotRange *range = [self plotRangeForField:fieldEnum];
+
+    if ( self.interpolation == CPTScatterPlotInterpolationCurved ) {
+        CPTPlotSpace *space = self.plotSpace;
+
+        if ( space ) {
+            CGPathRef dataLinePath = self.newDataLinePath;
+
+            CGRect boundingBox = CGPathGetBoundingBox(dataLinePath);
+
+            CGPathRelease(dataLinePath);
+
+            CPTNumberArray *lowerLeft  = [space plotPointForPlotAreaViewPoint:boundingBox.origin];
+            CPTNumberArray *upperRight = [space plotPointForPlotAreaViewPoint:CGPointMake( CGRectGetMaxX(boundingBox),
+                                                                                           CGRectGetMaxY(boundingBox) )];
+
+            switch ( fieldEnum ) {
+                case CPTScatterPlotFieldX:
+                {
+                    NSNumber *length = [NSDecimalNumber decimalNumberWithDecimal:
+                                        CPTDecimalSubtract(upperRight[CPTCoordinateX].decimalValue,
+                                                           lowerLeft[CPTCoordinateX].decimalValue)];
+                    range = [CPTPlotRange plotRangeWithLocation:lowerLeft[CPTCoordinateX]
+                                                         length:length];
+                }
+                break;
+
+                case CPTScatterPlotFieldY:
+                {
+                    NSNumber *length = [NSDecimalNumber decimalNumberWithDecimal:
+                                        CPTDecimalSubtract(upperRight[CPTCoordinateY].decimalValue,
+                                                           lowerLeft[CPTCoordinateY].decimalValue)];
+                    range = [CPTPlotRange plotRangeWithLocation:lowerLeft[CPTCoordinateY]
+                                                         length:length];
+                }
+                break;
+
+                default:
+                    break;
+            }
+        }
+    }
+
+    return range;
+}
+
+/// @endcond
+
+#pragma mark -
 #pragma mark Fields
 
 /// @cond
