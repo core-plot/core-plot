@@ -39,9 +39,9 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
  **/
 typedef NS_ENUM (NSInteger, CPTScatterPlotCurvedInterpolationOption) {
     CPTScatterPlotCurvedInterpolationNormal,                ///< Standard Curved Interpolation (Bezier Curve)
-    CPTScatterPlotCurvedInterpolationCatmullRomUniform,     ///< Catmull-Rom Spline Interpolation with alpha = 0.0.
-    CPTScatterPlotCurvedInterpolationCatmullRomCentripetal, ///< Catmull-Rom Spline Interpolation with alpha = 0.5.
-    CPTScatterPlotCurvedInterpolationCatmullRomChordal,     ///< Catmull-Rom Spline Interpolation with alpha = 1.0.
+    CPTScatterPlotCurvedInterpolationCatmullRomUniform,     ///< Catmull-Rom Spline Interpolation with alpha = @num{0.0}.
+    CPTScatterPlotCurvedInterpolationCatmullRomCentripetal, ///< Catmull-Rom Spline Interpolation with alpha = @num{0.5}.
+    CPTScatterPlotCurvedInterpolationCatmullRomChordal,     ///< Catmull-Rom Spline Interpolation with alpha = @num{1.0}.
     CPTScatterPlotCurvedInterpolationCatmullCustomAlpha,    ///< Catmull-Rom Spline Interpolation with a custom alpha value.
     CPTScatterPlotCurvedInterpolationHermiteCubic           ///< Hermite Cubic Spline Interpolation
 };
