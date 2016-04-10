@@ -52,6 +52,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
 -(void)computeBezierControlPoints:(nonnull CGPoint *)cp1 points2:(nonnull CGPoint *)cp2 forViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange;
 -(void)computeCatmullRomControlPoints:(nonnull CGPoint *)points points2:(nonnull CGPoint *)points2 withAlpha:(CGFloat)alpha forViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange;
 -(void)computeHermiteControlPoints:(nonnull CGPoint *)points points2:(nonnull CGPoint *)points2 forViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange;
+-(BOOL)monotonicViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange;
 
 @end
 
@@ -1246,7 +1247,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  *  @param alpha The alpha value used for the catmull-rom interpolation.
  *  @param viewPoints A pointer to the array which holds all view points for which the interpolation should be calculated.
  *  @param indexRange The range in which the interpolation should occur.
- *  @warning The indexRange must be valid for all passed arrays otherwise this method crashes.
+ *  @warning The @par{indexRange} must be valid for all passed arrays otherwise this method crashes.
  **/
 -(void)computeCatmullRomControlPoints:(nonnull CGPoint *)points points2:(nonnull CGPoint *)points2 withAlpha:(CGFloat)alpha forViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange
 {
@@ -1318,55 +1319,155 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     }
 }
 
-/** @brief Compute the control points using a hermite cubic spline. Taken from https://en.wikipedia.org/wiki/Cubic_Hermite_spline (see representations).
+/** @brief Compute the control points using a hermite cubic spline.
+ *
+ *  If the view points are monotonically increasing or decreasing in both @par{x} and @par{y},
+ *  the smoothed curve will be also.
+ *
  *  @param points A pointer to the array which should hold the first control points.
  *  @param points2 A pointer to the array which should hold the second control points.
  *  @param viewPoints A pointer to the array which holds all view points for which the interpolation should be calculated.
  *  @param indexRange The range in which the interpolation should occur.
- *  @warning The indexRange must be valid for all passed arrays otherwise this method crashes.
+ *  @warning The @par{indexRange} must be valid for all passed arrays otherwise this method crashes.
  **/
 -(void)computeHermiteControlPoints:(nonnull CGPoint *)points points2:(nonnull CGPoint *)points2 forViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange
 {
+    // See https://en.wikipedia.org/wiki/Cubic_Hermite_spline and https://en.m.wikipedia.org/wiki/Monotone_cubic_interpolation for a discussion of algorithms used.
     if ( indexRange.length >= 2 ) {
-        NSUInteger startIndex     = indexRange.location;
-        NSUInteger numberOfPoints = NSMaxRange(indexRange) - 1; // last accessible element in view points
-        for ( NSUInteger index = indexRange.location; index <= numberOfPoints; index++ ) {
-            CGPoint p0, p1, p2, lhsControlPoint, rhsControlPoint;
+        NSUInteger startIndex = indexRange.location;
+        NSUInteger lastIndex  = NSMaxRange(indexRange) - 1; // last accessible element in view points
 
-            p1 = viewPoints[index]; // is always valid
+        BOOL monotonic = [self monotonicViewPoints:viewPoints indexRange:indexRange];
 
-            CGFloat mx, my;
+        for ( NSUInteger index = startIndex; index <= lastIndex; index++ ) {
+            CGVector m;
+            CGPoint p1 = viewPoints[index];
+
             if ( index == startIndex ) {
-                p2 = viewPoints[index + 1];
-                mx = (p2.x - p1.x) * CPTFloat(0.5);
-                my = (p2.y - p1.y) * CPTFloat(0.5);
+                CGPoint p2 = viewPoints[index + 1];
+
+                m.dx = p2.x - p1.x;
+                m.dy = p2.y - p1.y;
             }
-            else if ( index == numberOfPoints ) {
-                p0 = viewPoints[index - 1];
-                mx = (p1.x - p0.x) * CPTFloat(0.5);
-                my = (p1.y - p0.y) * CPTFloat(0.5);
+            else if ( index == lastIndex ) {
+                CGPoint p0 = viewPoints[index - 1];
+
+                m.dx = p1.x - p0.x;
+                m.dy = p1.y - p0.y;
             }
             else { // index > startIndex && index < numberOfPoints
-                p2 = viewPoints[index + 1];
-                p0 = viewPoints[index - 1];
+                CGPoint p0 = viewPoints[index - 1];
+                CGPoint p2 = viewPoints[index + 1];
 
-                mx = (p2.x - p1.x) * CPTFloat(0.5) + (p1.x - p0.x) * CPTFloat(0.5);
-                my = (p2.y - p1.y) * CPTFloat(0.5) + (p1.y - p0.y) * CPTFloat(0.5);
+                m.dx = p2.x - p0.x;
+                m.dy = p2.y - p0.y;
+
+                if ( monotonic ) {
+                    if ( m.dx > CPTFloat(0.0) ) {
+                        m.dx = MIN(p2.x - p1.x, p1.x - p0.x);
+                    }
+                    else if ( m.dx < CPTFloat(0.0) ) {
+                        m.dx = MAX(p2.x - p1.x, p1.x - p0.x);
+                    }
+
+                    if ( m.dy > CPTFloat(0.0) ) {
+                        m.dy = MIN(p2.y - p1.y, p1.y - p0.y);
+                    }
+                    else if ( m.dy < CPTFloat(0.0) ) {
+                        m.dy = MAX(p2.y - p1.y, p1.y - p0.y);
+                    }
+                }
             }
-            // get control points
-            mx             /= CPTFloat(3.0);
-            my             /= CPTFloat(3.0);
-            rhsControlPoint = CPTPointMake(p1.x + mx, p1.y + my);
-            lhsControlPoint = CPTPointMake(p1.x - mx, p1.y - my);
 
-            // We calculated the lhs & rhs control point.  the rhs control point is the first control point for the curve to the next point. the lhs control point is the second control point for the curve to the current point.
+            // get control points
+            m.dx /= CPTFloat(6.0);
+            m.dy /= CPTFloat(6.0);
+
+            CGPoint rhsControlPoint = CPTPointMake(p1.x + m.dx, p1.y + m.dy);
+            CGPoint lhsControlPoint = CPTPointMake(p1.x - m.dx, p1.y - m.dy);
+
+            // We calculated the lhs & rhs control point. The rhs control point is the first control point for the curve to the next point. The lhs control point is the second control point for the curve to the current point.
 
             points2[index] = lhsControlPoint;
-            if ( index + 1 <= numberOfPoints ) {
+            if ( index + 1 <= lastIndex ) {
                 points[index + 1] = rhsControlPoint;
             }
         }
     }
+}
+
+/** @brief Determine whether the plot points form a monotonic series.
+ *  @param viewPoints A pointer to the array which holds all view points for which the interpolation should be calculated.
+ *  @param indexRange The range in which the interpolation should occur.
+ *  @return Returns @YES if the viewpoints are monotonically increasing or decreasing in both @par{x} and @par{y}.
+ *  @warning The @par{indexRange} must be valid for all passed arrays otherwise this method crashes.
+ **/
+-(BOOL)monotonicViewPoints:(nonnull CGPoint *)viewPoints indexRange:(NSRange)indexRange
+{
+    if ( indexRange.length < 2 ) {
+        return YES;
+    }
+
+    NSUInteger startIndex = indexRange.location;
+    NSUInteger lastIndex  = NSMaxRange(indexRange) - 2;
+
+    BOOL foundTrendX   = NO;
+    BOOL foundTrendY   = NO;
+    BOOL isIncreasingX = NO;
+    BOOL isIncreasingY = NO;
+
+    for ( NSUInteger index = startIndex; index <= lastIndex; index++ ) {
+        CGPoint p1 = viewPoints[index];
+        CGPoint p2 = viewPoints[index + 1];
+
+        if ( !foundTrendX ) {
+            if ( p2.x > p1.x ) {
+                isIncreasingX = YES;
+                foundTrendX   = YES;
+            }
+            else if ( p2.x < p1.x ) {
+                foundTrendX = YES;
+            }
+        }
+
+        if ( foundTrendX ) {
+            if ( isIncreasingX ) {
+                if ( p2.x < p1.x ) {
+                    return NO;
+                }
+            }
+            else {
+                if ( p2.x > p1.x ) {
+                    return NO;
+                }
+            }
+        }
+
+        if ( !foundTrendY ) {
+            if ( p2.y > p1.y ) {
+                isIncreasingY = YES;
+                foundTrendY   = YES;
+            }
+            else if ( p2.y < p1.y ) {
+                foundTrendY = YES;
+            }
+        }
+
+        if ( foundTrendY ) {
+            if ( isIncreasingY ) {
+                if ( p2.y < p1.y ) {
+                    return NO;
+                }
+            }
+            else {
+                if ( p2.y > p1.y ) {
+                    return NO;
+                }
+            }
+        }
+    }
+
+    return YES;
 }
 
 // Compute the control points using the algorithm described at http://www.particleincell.com/blog/2012/bezier-splines/
