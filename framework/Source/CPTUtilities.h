@@ -133,6 +133,7 @@ CGRect CPTAlignBorderedRectToUserSpace(__nonnull CGContextRef context, CGRect re
 NSString *__nonnull CPTStringFromPoint(CGPoint point);
 NSString *__nonnull CPTStringFromSize(CGSize size);
 NSString *__nonnull CPTStringFromRect(CGRect rect);
+NSString *__nonnull CPTStringFromVector(CGVector vector);
 
 /// @}
 
