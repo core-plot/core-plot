@@ -1,7 +1,7 @@
 #import "CPTDefinitions.h"
 #import "CPTPlatformSpecificDefines.h"
 
-@interface CPTImage : NSObject<NSCoding, NSCopying>
+@interface CPTImage : NSObject<NSCopying, NSCoding, NSSecureCoding>
 
 @property (nonatomic, readwrite, copy, nullable) CPTNativeImage *nativeImage;
 @property (nonatomic, readwrite, assign, nullable) CGImageRef image;

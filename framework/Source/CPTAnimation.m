@@ -7,26 +7,27 @@
 
 static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames per second
 
-static NSString *const CPTAnimationOperationKey = @"CPTAnimationOperationKey";
-static NSString *const CPTAnimationValueKey     = @"CPTAnimationValueKey";
-static NSString *const CPTAnimationStartedKey   = @"CPTAnimationStartedKey";
-static NSString *const CPTAnimationFinishedKey  = @"CPTAnimationFinishedKey";
+static NSString *const CPTAnimationOperationKey  = @"CPTAnimationOperationKey";
+static NSString *const CPTAnimationValueKey      = @"CPTAnimationValueKey";
+static NSString *const CPTAnimationValueClassKey = @"CPTAnimationValueClassKey";
+static NSString *const CPTAnimationStartedKey    = @"CPTAnimationStartedKey";
+static NSString *const CPTAnimationFinishedKey   = @"CPTAnimationFinishedKey";
 
 /// @cond
-typedef NSMutableArray<CPTAnimationOperation *> *CPTMutableAnimationArray;
+typedef NSMutableArray<CPTAnimationOperation *> CPTMutableAnimationArray;
 
 @interface CPTAnimation()
 
 @property (nonatomic, readwrite, assign) CGFloat timeOffset;
-@property (nonatomic, readwrite, strong, nonnull) CPTMutableAnimationArray animationOperations;
-@property (nonatomic, readwrite, strong, nonnull) CPTMutableAnimationArray runningAnimationOperations;
+@property (nonatomic, readwrite, strong, nonnull) CPTMutableAnimationArray *animationOperations;
+@property (nonatomic, readwrite, strong, nonnull) CPTMutableAnimationArray *runningAnimationOperations;
 @property (nonatomic, readwrite, nullable) dispatch_source_t timer;
 @property (nonatomic, readwrite, nonnull) dispatch_queue_t animationQueue;
 
 +(nonnull SEL)setterFromProperty:(nonnull NSString *)property;
 
 -(nullable CPTAnimationTimingFunction)timingFunctionForAnimationCurve:(CPTAnimationCurve)animationCurve;
--(void)updateOnMainThreadWithParameters:(nonnull CPTDictionary)parameters;
+-(void)updateOnMainThreadWithParameters:(nonnull CPTDictionary *)parameters;
 
 -(void)startTimer;
 -(void)cancelTimer;
@@ -59,14 +60,14 @@ typedef NSMutableArray<CPTAnimationOperation *> *CPTMutableAnimationArray;
 @synthesize defaultAnimationCurve;
 
 /** @internal
- *  @property nonnull CPTMutableAnimationArray animationOperations
+ *  @property nonnull CPTMutableAnimationArray *animationOperations
  *
  *  @brief The list of animation operations currently running or waiting to run.
  **/
 @synthesize animationOperations;
 
 /** @internal
- *  @property nonnull CPTMutableAnimationArray runningAnimationOperations
+ *  @property nonnull CPTMutableAnimationArray *runningAnimationOperations
  *  @brief The list of running animation operations.
  **/
 @synthesize runningAnimationOperations;
@@ -257,12 +258,12 @@ typedef NSMutableArray<CPTAnimationOperation *> *CPTMutableAnimationArray;
 {
     self.timeOffset += kCPTAnimationFrameRate;
 
-    CPTMutableAnimationArray theAnimationOperations = self.animationOperations;
-    CPTMutableAnimationArray runningOperations      = self.runningAnimationOperations;
-    CPTMutableAnimationArray expiredOperations      = [[NSMutableArray alloc] init];
+    CPTMutableAnimationArray *theAnimationOperations = self.animationOperations;
+    CPTMutableAnimationArray *runningOperations      = self.runningAnimationOperations;
+    CPTMutableAnimationArray *expiredOperations      = [[NSMutableArray alloc] init];
 
-    CGFloat currentTime     = self.timeOffset;
-    CPTStringArray runModes = @[NSRunLoopCommonModes];
+    CGFloat currentTime      = self.timeOffset;
+    CPTStringArray *runModes = @[NSRunLoopCommonModes];
 
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
 
@@ -328,11 +329,13 @@ typedef NSMutableArray<CPTAnimationOperation *> *CPTMutableAnimationArray;
                         [period setStartValueFromObject:animationOperation.boundObject propertyGetter:animationOperation.boundGetter];
                     }
 
+                    Class valueClass = period.valueClass;
                     CGFloat progress = timingFunction(currentTime - startTime, duration);
 
-                    CPTDictionary parameters = @{
+                    CPTDictionary *parameters = @{
                         CPTAnimationOperationKey: animationOperation,
                         CPTAnimationValueKey: [period tweenedValueForProgress:progress],
+                        CPTAnimationValueClassKey: valueClass ? valueClass : [NSNull null],
                         CPTAnimationStartedKey: @(started),
                         CPTAnimationFinishedKey: @(currentTime >= endTime)
                     };
@@ -362,7 +365,7 @@ typedef NSMutableArray<CPTAnimationOperation *> *CPTMutableAnimationArray;
 }
 
 // This method must be called from the main thread.
--(void)updateOnMainThreadWithParameters:(nonnull CPTDictionary)parameters
+-(void)updateOnMainThreadWithParameters:(nonnull CPTDictionary *)parameters
 {
     CPTAnimationOperation *animationOperation = parameters[CPTAnimationOperationKey];
 
@@ -374,6 +377,11 @@ typedef NSMutableArray<CPTAnimationOperation *> *CPTMutableAnimationArray;
 
     if ( !canceled ) {
         @try {
+            Class valueClass = parameters[CPTAnimationValueClassKey];
+            if ( [valueClass isKindOfClass:[NSNull class]] ) {
+                valueClass = Nil;
+            }
+
             id<CPTAnimationDelegate> delegate = animationOperation.delegate;
 
             NSNumber *started = parameters[CPTAnimationStartedKey];
@@ -398,7 +406,8 @@ typedef NSMutableArray<CPTAnimationOperation *> *CPTMutableAnimationArray;
                 SetterType setterMethod = (SetterType)[boundObject methodForSelector:boundSetter];
                 setterMethod(boundObject, boundSetter, buffer);
             }
-            else if ( [tweenedValue isKindOfClass:[NSValue class]] ) {
+            else {
+                // wrapped scalars and structs
                 NSValue *value = (NSValue *)tweenedValue;
 
                 NSUInteger bufferSize = 0;
@@ -414,13 +423,6 @@ typedef NSMutableArray<CPTAnimationOperation *> *CPTMutableAnimationArray;
                 free(buffer);
 
                 [invocation invoke];
-            }
-            else {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                id<NSObject> theObject = boundObject;
-                [theObject performSelector:boundSetter withObject:tweenedValue];
-#pragma clang diagnostic pop
             }
 
             if ( [delegate respondsToSelector:@selector(animationDidUpdate:)] ) {

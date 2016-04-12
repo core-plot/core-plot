@@ -106,7 +106,8 @@
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        CPTGradient *gradient = [coder decodeObjectForKey:@"_CPTFillGradient.fillGradient"];
+        CPTGradient *gradient = [coder decodeObjectOfClass:[CPTGradient class]
+                                                    forKey:@"_CPTFillGradient.fillGradient"];
 
         if ( gradient ) {
             fillGradient = gradient;
@@ -117,5 +118,17 @@
     }
     return self;
 }
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
+/// @endcond
 
 @end

@@ -52,7 +52,7 @@ typedef NSFont CPTFont;
 
 -(void)renderInGraphHostingView:(nonnull CPTGraphHostingView *)hostingView withTheme:(nullable CPTTheme *)theme animated:(BOOL)animated
 {
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     CGRect bounds = hostingView.bounds;
 #else
     CGRect bounds = NSRectToCGRect(hostingView.bounds);
@@ -141,7 +141,7 @@ typedef NSFont CPTFont;
         CPTScatterPlot *linePlot = [[CPTScatterPlot alloc] init];
         linePlot.identifier = [NSString stringWithFormat:@"Function Plot %lu", (unsigned long)(plotNum + 1)];
 
-        CPTDictionary textAttributes = x.titleTextStyle.attributes;
+        CPTDictionary *textAttributes = x.titleTextStyle.attributes;
 
         NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:titleString
                                                                                   attributes:textAttributes];
@@ -209,7 +209,7 @@ typedef NSFont CPTFont;
 {
     NSString *italicName = nil;
 
-    CPTStringArray fontNames = [UIFont fontNamesForFamilyName:oldFont.familyName];
+    CPTStringArray *fontNames = [UIFont fontNamesForFamilyName:oldFont.familyName];
 
     for ( NSString *fontName in fontNames ) {
         NSString *upperCaseFontName = fontName.uppercaseString;

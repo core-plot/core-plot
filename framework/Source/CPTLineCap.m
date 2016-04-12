@@ -125,16 +125,30 @@
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        size                = [coder decodeCPTSizeForKey:@"CPTLineCap.size"];
-        lineCapType         = (CPTLineCapType)[coder decodeIntegerForKey:@"CPTLineCap.lineCapType"];
-        lineStyle           = [coder decodeObjectForKey:@"CPTLineCap.lineStyle"];
-        fill                = [coder decodeObjectForKey:@"CPTLineCap.fill"];
+        size        = [coder decodeCPTSizeForKey:@"CPTLineCap.size"];
+        lineCapType = (CPTLineCapType)[coder decodeIntegerForKey:@"CPTLineCap.lineCapType"];
+        lineStyle   = [coder decodeObjectOfClass:[CPTLineStyle class]
+                                          forKey:@"CPTLineCap.lineStyle"];
+        fill = [coder decodeObjectOfClass:[CPTFill class]
+                                   forKey:@"CPTLineCap.fill"];
         customLineCapPath   = [coder newCGPathDecodeForKey:@"CPTLineCap.customLineCapPath"];
         usesEvenOddClipRule = [coder decodeBoolForKey:@"CPTLineCap.usesEvenOddClipRule"];
 
         cachedLineCapPath = NULL;
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

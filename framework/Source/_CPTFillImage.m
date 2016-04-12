@@ -112,7 +112,8 @@
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        CPTImage *image = [coder decodeObjectForKey:@"_CPTFillImage.fillImage"];
+        CPTImage *image = [coder decodeObjectOfClass:[CPTImage class]
+                                              forKey:@"_CPTFillImage.fillImage"];
 
         if ( image ) {
             fillImage = image;
@@ -123,5 +124,17 @@
     }
     return self;
 }
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
+/// @endcond
 
 @end

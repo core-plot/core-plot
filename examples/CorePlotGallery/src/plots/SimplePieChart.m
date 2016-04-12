@@ -7,7 +7,7 @@
 
 @interface SimplePieChart()
 
-@property (nonatomic, readwrite, strong, nonnull) CPTNumberArray plotData;
+@property (nonatomic, readwrite, strong, nonnull) CPTNumberArray *plotData;
 @property (nonatomic, readwrite) NSUInteger offsetIndex;
 @property (nonatomic, readwrite) CGFloat sliceOffset;
 
@@ -45,7 +45,7 @@
 
 -(void)renderInGraphHostingView:(nonnull CPTGraphHostingView *)hostingView withTheme:(nullable CPTTheme *)theme animated:(BOOL)animated
 {
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     CGRect bounds = hostingView.bounds;
 #else
     CGRect bounds = NSRectToCGRect(hostingView.bounds);
@@ -135,8 +135,8 @@
 
     self.offsetIndex = NSNotFound;
 
-    CPTMutableNumberArray newData = [[NSMutableArray alloc] init];
-    NSUInteger dataCount          = (NSUInteger)lrint( ceil(10.0 * arc4random() / (double)UINT32_MAX) ) + 1;
+    CPTMutableNumberArray *newData = [[NSMutableArray alloc] init];
+    NSUInteger dataCount           = (NSUInteger)lrint( ceil(10.0 * arc4random() / (double)UINT32_MAX) ) + 1;
     for ( NSUInteger i = 1; i < dataCount; i++ ) {
         [newData addObject:@(100.0 * arc4random() / (double)UINT32_MAX)];
     }
@@ -189,7 +189,7 @@
 
 -(NSAttributedString *)attributedLegendTitleForPieChart:(nonnull CPTPieChart *)pieChart recordIndex:(NSUInteger)index
 {
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     UIColor *sliceColor = [CPTPieChart defaultPieSliceColorForIndex:index].uiColor;
     UIFont *labelFont   = [UIFont fontWithName:@"Helvetica" size:self.titleSize * CPTFloat(0.5)];
 #else

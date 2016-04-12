@@ -31,7 +31,19 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
     CPTScatterPlotInterpolationLinear,    ///< Linear interpolation.
     CPTScatterPlotInterpolationStepped,   ///< Steps beginning at data point.
     CPTScatterPlotInterpolationHistogram, ///< Steps centered at data point.
-    CPTScatterPlotInterpolationCurved     ///< Bezier curve interpolation.
+    CPTScatterPlotInterpolationCurved     ///< Curved interpolation.
+};
+
+/**
+ *  @brief Enumration of scatter plot curved interpolation style options
+ **/
+typedef NS_ENUM (NSInteger, CPTScatterPlotCurvedInterpolationOption) {
+    CPTScatterPlotCurvedInterpolationNormal,                ///< Standard Curved Interpolation (Bezier Curve)
+    CPTScatterPlotCurvedInterpolationCatmullRomUniform,     ///< Catmull-Rom Spline Interpolation with alpha = @num{0.0}.
+    CPTScatterPlotCurvedInterpolationCatmullRomCentripetal, ///< Catmull-Rom Spline Interpolation with alpha = @num{0.5}.
+    CPTScatterPlotCurvedInterpolationCatmullRomChordal,     ///< Catmull-Rom Spline Interpolation with alpha = @num{1.0}.
+    CPTScatterPlotCurvedInterpolationCatmullCustomAlpha,    ///< Catmull-Rom Spline Interpolation with a custom alpha value.
+    CPTScatterPlotCurvedInterpolationHermiteCubic           ///< Hermite Cubic Spline Interpolation
 };
 
 /**
@@ -61,7 +73,7 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotHistogramOption) {
  *  @param indexRange The range of the data indexes of interest.
  *  @return An array of plot symbols.
  **/
--(nullable CPTPlotSymbolArray)symbolsForScatterPlot:(nonnull CPTScatterPlot *)plot recordIndexRange:(NSRange)indexRange;
+-(nullable CPTPlotSymbolArray *)symbolsForScatterPlot:(nonnull CPTScatterPlot *)plot recordIndexRange:(NSRange)indexRange;
 
 /** @brief @optional Gets a single plot symbol for the given scatter plot.
  *  This method will not be called if
@@ -234,11 +246,13 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotHistogramOption) {
 @property (nonatomic, readwrite, strong, nullable) NSNumber *areaBaseValue2;
 @property (nonatomic, readwrite, assign) CPTScatterPlotInterpolation interpolation;
 @property (nonatomic, readwrite, assign) CPTScatterPlotHistogramOption histogramOption;
+@property (nonatomic, readwrite, assign) CPTScatterPlotCurvedInterpolationOption curvedInterpolationOption;
+@property (nonatomic, readwrite, assign) CGFloat curvedInterpolationCustomAlpha;
 /// @}
 
 /// @name Area Fill Bands
 /// @{
-@property (nonatomic, readonly, nullable) CPTLimitBandArray areaFillBands;
+@property (nonatomic, readonly, nullable) CPTLimitBandArray *areaFillBands;
 /// @}
 
 /// @name Drawing

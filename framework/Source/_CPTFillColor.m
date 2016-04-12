@@ -120,7 +120,8 @@
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        CPTColor *color = [coder decodeObjectForKey:@"_CPTFillColor.fillColor"];
+        CPTColor *color = [coder decodeObjectOfClass:[CPTColor class]
+                                              forKey:@"_CPTFillColor.fillColor"];
 
         if ( color ) {
             fillColor = color;
@@ -131,5 +132,17 @@
     }
     return self;
 }
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
+/// @endcond
 
 @end

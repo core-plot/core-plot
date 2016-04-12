@@ -29,6 +29,16 @@ extern NSString *__nonnull const CPTLegendNeedsReloadEntriesForPlotNotification;
 /// @}
 
 /**
+ *  @brief Enumeration of legend layout options.
+ **/
+typedef NS_ENUM (NSInteger, CPTLegendSwatchLayout) {
+    CPTLegendSwatchLayoutLeft, ///< Lay out the swatch to the left side of the title.
+    CPTLegendSwatchLayoutRight ///< Lay out the swatch to the right side of the title.
+};
+
+#pragma mark -
+
+/**
  *  @brief Legend delegate.
  **/
 @protocol CPTLegendDelegate<NSObject>
@@ -190,30 +200,31 @@ extern NSString *__nonnull const CPTLegendNeedsReloadEntriesForPlotNotification;
 @property (nonatomic, readwrite, assign) NSUInteger numberOfColumns;
 @property (nonatomic, readwrite, assign) BOOL equalRows;
 @property (nonatomic, readwrite, assign) BOOL equalColumns;
-@property (nonatomic, readwrite, copy, nullable) CPTNumberArray rowHeights;
-@property (nonatomic, readonly, nullable) CPTNumberArray rowHeightsThatFit;
-@property (nonatomic, readwrite, copy, nullable) CPTNumberArray columnWidths;
-@property (nonatomic, readonly, nullable) CPTNumberArray columnWidthsThatFit;
+@property (nonatomic, readwrite, copy, nullable) CPTNumberArray *rowHeights;
+@property (nonatomic, readonly, nullable) CPTNumberArray *rowHeightsThatFit;
+@property (nonatomic, readwrite, copy, nullable) CPTNumberArray *columnWidths;
+@property (nonatomic, readonly, nullable) CPTNumberArray *columnWidthsThatFit;
 @property (nonatomic, readwrite, assign) CGFloat columnMargin;
 @property (nonatomic, readwrite, assign) CGFloat rowMargin;
 @property (nonatomic, readwrite, assign) CGFloat titleOffset;
+@property (nonatomic, readwrite, assign) CPTLegendSwatchLayout swatchLayout;
 /// @}
 
 /// @name Factory Methods
 /// @{
-+(nonnull instancetype)legendWithPlots:(nullable CPTPlotArray)newPlots;
++(nonnull instancetype)legendWithPlots:(nullable CPTPlotArray *)newPlots;
 +(nonnull instancetype)legendWithGraph:(nullable __kindof CPTGraph *)graph;
 /// @}
 
 /// @name Initialization
 /// @{
--(nonnull instancetype)initWithPlots:(nullable CPTPlotArray)newPlots;
+-(nonnull instancetype)initWithPlots:(nullable CPTPlotArray *)newPlots;
 -(nonnull instancetype)initWithGraph:(nullable __kindof CPTGraph *)graph;
 /// @}
 
 /// @name Plots
 /// @{
--(nonnull CPTPlotArray)allPlots;
+-(nonnull CPTPlotArray *)allPlots;
 -(nullable CPTPlot *)plotAtIndex:(NSUInteger)idx;
 -(nullable CPTPlot *)plotWithIdentifier:(nullable id<NSCopying>)identifier;
 

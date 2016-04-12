@@ -1,6 +1,7 @@
 #import "CPTFill.h"
 
 #import "CPTColor.h"
+#import "CPTGradient.h"
 #import "CPTImage.h"
 #import "CPTPlatformSpecificFunctions.h"
 #import "_CPTFillColor.h"
@@ -104,23 +105,38 @@
 
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    id fill = [coder decodeObjectForKey:@"_CPTFillColor.fillColor"];
+    id fill = [coder decodeObjectOfClass:[CPTColor class]
+                                  forKey:@"_CPTFillColor.fillColor"];
 
     if ( fill ) {
         return [self initWithColor:fill];
     }
 
-    id gradient = [coder decodeObjectForKey:@"_CPTFillGradient.fillGradient"];
+    id gradient = [coder decodeObjectOfClass:[CPTGradient class]
+                                      forKey:@"_CPTFillGradient.fillGradient"];
     if ( gradient ) {
         return [self initWithGradient:gradient];
     }
 
-    id image = [coder decodeObjectForKey:@"_CPTFillImage.fillImage"];
+    id image = [coder decodeObjectOfClass:[CPTImage class]
+                                   forKey:@"_CPTFillImage.fillImage"];
     if ( image ) {
         return [self initWithImage:image];
     }
 
     return nil;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

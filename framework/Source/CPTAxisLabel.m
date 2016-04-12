@@ -106,15 +106,29 @@
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        contentLayer = [coder decodeObjectForKey:@"CPTAxisLabel.contentLayer"];
-        offset       = [coder decodeCGFloatForKey:@"CPTAxisLabel.offset"];
-        rotation     = [coder decodeCGFloatForKey:@"CPTAxisLabel.rotation"];
-        alignment    = (CPTAlignment)[coder decodeIntegerForKey:@"CPTAxisLabel.alignment"];
-        NSNumber *location = [coder decodeObjectForKey:@"CPTAxisLabel.tickLocation"];
+        contentLayer = [coder decodeObjectOfClass:[CPTLayer class]
+                                           forKey:@"CPTAxisLabel.contentLayer"];
+        offset    = [coder decodeCGFloatForKey:@"CPTAxisLabel.offset"];
+        rotation  = [coder decodeCGFloatForKey:@"CPTAxisLabel.rotation"];
+        alignment = (CPTAlignment)[coder decodeIntegerForKey:@"CPTAxisLabel.alignment"];
+        NSNumber *location = [coder decodeObjectOfClass:[NSNumber class]
+                                                 forKey:@"CPTAxisLabel.tickLocation"];
         tickLocation = location ? location : @0.0;
     }
     return self;
 }
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
+/// @endcond
 
 #pragma mark -
 #pragma mark Layout

@@ -17,7 +17,7 @@
 #import <tgmath.h>
 
 /// @cond
-typedef NSMutableArray<CPTAnimationOperation *> *CPTMutableAnimationArray;
+typedef NSMutableArray<CPTAnimationOperation *> CPTMutableAnimationArray;
 
 @interface CPTXYPlotSpace()
 
@@ -48,7 +48,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
 @property (nonatomic, readwrite) CGPoint lastDisplacement;
 @property (nonatomic, readwrite) NSTimeInterval lastDragTime;
 @property (nonatomic, readwrite) NSTimeInterval lastDeltaTime;
-@property (nonatomic, readwrite, retain, nonnull) CPTMutableAnimationArray animations;
+@property (nonatomic, readwrite, retain, nonnull) CPTMutableAnimationArray *animations;
 
 @end
 
@@ -258,18 +258,22 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        CPTPlotRange *range = [coder decodeObjectForKey:@"CPTXYPlotSpace.xRange"];
+        CPTPlotRange *range = [coder decodeObjectOfClass:[CPTPlotRange class]
+                                                  forKey:@"CPTXYPlotSpace.xRange"];
         if ( range ) {
             xRange = [range copy];
         }
-        range = [coder decodeObjectForKey:@"CPTXYPlotSpace.yRange"];
+        range = [coder decodeObjectOfClass:[CPTPlotRange class]
+                                    forKey:@"CPTXYPlotSpace.yRange"];
         if ( range ) {
             yRange = [range copy];
         }
-        globalXRange = [[coder decodeObjectForKey:@"CPTXYPlotSpace.globalXRange"] copy];
-        globalYRange = [[coder decodeObjectForKey:@"CPTXYPlotSpace.globalYRange"] copy];
-        xScaleType   = (CPTScaleType)[coder decodeIntegerForKey:@"CPTXYPlotSpace.xScaleType"];
-        yScaleType   = (CPTScaleType)[coder decodeIntegerForKey:@"CPTXYPlotSpace.yScaleType"];
+        globalXRange = [[coder decodeObjectOfClass:[CPTPlotRange class]
+                                            forKey:@"CPTXYPlotSpace.globalXRange"] copy];
+        globalYRange = [[coder decodeObjectOfClass:[CPTPlotRange class]
+                                            forKey:@"CPTXYPlotSpace.globalYRange"] copy];
+        xScaleType = (CPTScaleType)[coder decodeIntegerForKey:@"CPTXYPlotSpace.xScaleType"];
+        yScaleType = (CPTScaleType)[coder decodeIntegerForKey:@"CPTXYPlotSpace.yScaleType"];
 
         if ( [coder containsValueForKey:@"CPTXYPlotSpace.allowsMomentum"] ) {
             self.allowsMomentum = [coder decodeBoolForKey:@"CPTXYPlotSpace.allowsMomentum"];
@@ -291,6 +295,18 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
         animations       = [[NSMutableArray alloc] init];
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond
@@ -528,7 +544,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
 
 -(void)animateRangeForCoordinate:(CPTCoordinate)coordinate shift:(NSDecimal)shift momentumTime:(CGFloat)momentumTime speed:(CGFloat)speed acceleration:(CGFloat)acceleration
 {
-    CPTMutableAnimationArray animationArray = self.animations;
+    CPTMutableAnimationArray *animationArray = self.animations;
     CPTAnimationOperation *op;
 
     NSString *property        = nil;
@@ -748,7 +764,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
     }
 }
 
--(void)scaleToFitPlots:(nullable CPTPlotArray)plots
+-(void)scaleToFitPlots:(nullable CPTPlotArray *)plots
 {
     if ( plots.count == 0 ) {
         return;
@@ -760,6 +776,44 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
     for ( CPTPlot *plot in plots ) {
         CPTPlotRange *currentXRange = [plot plotRangeForCoordinate:CPTCoordinateX];
         CPTPlotRange *currentYRange = [plot plotRangeForCoordinate:CPTCoordinateY];
+        if ( !unionXRange ) {
+            unionXRange = [currentXRange mutableCopy];
+        }
+        if ( !unionYRange ) {
+            unionYRange = [currentYRange mutableCopy];
+        }
+        [unionXRange unionPlotRange:currentXRange];
+        [unionYRange unionPlotRange:currentYRange];
+    }
+
+    // Set range
+    NSDecimal zero = CPTDecimalFromInteger(0);
+    if ( unionXRange ) {
+        if ( CPTDecimalEquals(unionXRange.lengthDecimal, zero) ) {
+            [unionXRange unionPlotRange:self.xRange];
+        }
+        self.xRange = unionXRange;
+    }
+    if ( unionYRange ) {
+        if ( CPTDecimalEquals(unionYRange.lengthDecimal, zero) ) {
+            [unionYRange unionPlotRange:self.yRange];
+        }
+        self.yRange = unionYRange;
+    }
+}
+
+-(void)scaleToFitEntirePlots:(nullable CPTPlotArray *)plots
+{
+    if ( plots.count == 0 ) {
+        return;
+    }
+
+    // Determine union of ranges
+    CPTMutablePlotRange *unionXRange = nil;
+    CPTMutablePlotRange *unionYRange = nil;
+    for ( CPTPlot *plot in plots ) {
+        CPTPlotRange *currentXRange = [plot plotRangeEnclosingCoordinate:CPTCoordinateX];
+        CPTPlotRange *currentYRange = [plot plotRangeEnclosingCoordinate:CPTCoordinateY];
         if ( !unionXRange ) {
             unionXRange = [currentXRange mutableCopy];
         }
@@ -954,7 +1008,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 }
 
 // Plot area view point for plot point
--(CGPoint)plotAreaViewPointForPlotPoint:(nonnull CPTNumberArray)plotPoint
+-(CGPoint)plotAreaViewPointForPlotPoint:(nonnull CPTNumberArray *)plotPoint
 {
     CGPoint viewPoint = [super plotAreaViewPointForPlotPoint:plotPoint];
 
@@ -1137,9 +1191,9 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 }
 
 // Plot point for view point
--(nullable CPTNumberArray)plotPointForPlotAreaViewPoint:(CGPoint)point
+-(nullable CPTNumberArray *)plotPointForPlotAreaViewPoint:(CGPoint)point
 {
-    CPTMutableNumberArray plotPoint = [[super plotPointForPlotAreaViewPoint:point] mutableCopy];
+    CPTMutableNumberArray *plotPoint = [[super plotPointForPlotAreaViewPoint:point] mutableCopy];
 
     CGSize boundsSize;
     CPTGraph *theGraph    = self.graph;
@@ -1318,7 +1372,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
     CPTPlotArea *thePlotArea            = theGraph.plotAreaFrame.plotArea;
 
     if ( theHostingView && thePlotArea ) {
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
         CGPoint interactionPoint = [[[event touchesForView:theHostingView] anyObject] locationInView:theHostingView];
         if ( theHostingView.collapsesLayers ) {
             interactionPoint.y = theHostingView.frame.size.height - interactionPoint.y;
@@ -1337,7 +1391,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 }
 
 // Plot point for event
--(nullable CPTNumberArray)plotPointForEvent:(nonnull CPTNativeEvent *)event
+-(nullable CPTNumberArray *)plotPointForEvent:(nonnull CPTNativeEvent *)event
 {
     return [self plotPointForPlotAreaViewPoint:[self plotAreaViewPointForEvent:event]];
 }
@@ -1486,7 +1540,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         self.lastDeltaTime    = 0.0;
 
         // Clear any previous animations
-        CPTMutableAnimationArray animationArray = self.animations;
+        CPTMutableAnimationArray *animationArray = self.animations;
         for ( CPTAnimationOperation *op in animationArray ) {
             [[CPTAnimation sharedInstance] removeAnimationOperation:op];
         }

@@ -9,7 +9,7 @@
 
 @property (nonatomic, readonly) NSUInteger count;
 @property (nonatomic, readonly) NSUInteger numberOfSections;
-@property (nonatomic, readonly, strong, nonnull) CPTStringArray sectionTitles;
+@property (nonatomic, readonly, strong, nonnull) CPTStringArray *sectionTitles;
 
 +(nonnull PlotGallery *)sharedPlotGallery;
 

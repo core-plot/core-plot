@@ -6,7 +6,7 @@
 
 # Introduction
 
-Core Plot is a 2D plotting framework for Mac OS X and iOS. It is highly customizable and capable of drawing many types of plots. See the  [Example Graphs](https://github.com/core-plot/core-plot/wiki/Example-Graphs) wiki page and the [example applications](https://github.com/core-plot/core-plot/tree/master/examples) for examples of some of its capabilities.
+Core Plot is a 2D plotting framework for Mac OS X, iOS, and tvOS. It is highly customizable and capable of drawing many types of plots. See the  [Example Graphs](https://github.com/core-plot/core-plot/wiki/Example-Graphs) wiki page and the [example applications](https://github.com/core-plot/core-plot/tree/master/examples) for examples of some of its capabilities.
 
 # Getting Started
 
@@ -18,7 +18,7 @@ Documentation of the Core Plot API and high-level architecture can be found in t
 
   * [Change log](https://github.com/core-plot/core-plot/blob/master/documentation/changelog.markdown)
   * [API documentation](http://core-plot.github.io/MacOS/index.html) for Mac
-  * [API documentation](http://core-plot.github.io/iOS/index.html) for iOS
+  * [API documentation](http://core-plot.github.io/iOS/index.html) for iOS and tvOS
   * API documentation built with [Doxygen](http://www.doxygen.org/) and installed locally in Xcode (see the  [instructions](https://github.com/core-plot/core-plot/blob/master/READMEs/README%20for%20Docs%20Install.md) in the **READMEs** folder for details)
   * [Project Wiki](https://github.com/core-plot/core-plot/wiki) on GitHub
   * [Documentation](https://github.com/core-plot/core-plot/tree/master/documentation) folder in the code repository

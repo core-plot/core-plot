@@ -8,14 +8,14 @@
 /**
  *  @brief An array of fills.
  **/
-typedef NSArray<CPTFill *> *CPTFillArray;
+typedef NSArray<CPTFill *> CPTFillArray;
 
 /**
  *  @brief A mutable array of fills.
  **/
-typedef NSMutableArray<CPTFill *> *CPTMutableFillArray;
+typedef NSMutableArray<CPTFill *> CPTMutableFillArray;
 
-@interface CPTFill : NSObject<NSCopying, NSCoding>
+@interface CPTFill : NSObject<NSCopying, NSCoding, NSSecureCoding>
 
 /// @name Factory Methods
 /// @{

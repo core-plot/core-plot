@@ -1,3 +1,23 @@
+# Release 2.1 (TBD)
+
+## Release Notes
+
+To be determined.
+
+## Details
+- **New**: Increased the Mac deployment target to OS X 10.8.
+- **New**: Added a tvOS framework.
+- **New**: Added an option to anchor alternating band fills to a specific starting value.
+- **New**: Added support for animating `NSNumber` properties with `CPTAnimation`.
+- **New**: Added support for `NSSecureCoding`.
+- **New**: Added an option to draw legend swatches to the left or right side of the title.
+- **New**: Added an option to use the Catmull-Rom algorithm to draw curved scatter plot lines.
+- **New**: Added a method to automatically scale the plot space to fit the entire plot.
+- **Changed**: Changed the annotated type definitions to exclude the pointer star ("*").
+- **Changed**: Miscellaneous bug fixes and cleanup.
+
+
+
 # Release 2.0 (October 4, 2015)
 
 ## Release Notes

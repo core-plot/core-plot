@@ -10,7 +10,7 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
 /// @cond
 @interface CPTDataSourceTestCase()
 
--(nonnull CPTMutablePlotRange *)plotRangeForData:(nonnull CPTNumberArray)dataArray;
+-(nonnull CPTMutablePlotRange *)plotRangeForData:(nonnull CPTNumberArray *)dataArray;
 
 @end
 
@@ -42,7 +42,7 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
 {
     NSUInteger recordCount = self.nRecords;
 
-    CPTMutableNumberArray arr = [NSMutableArray arrayWithCapacity:recordCount];
+    CPTMutableNumberArray *arr = [NSMutableArray arrayWithCapacity:recordCount];
 
     for ( NSUInteger i = 0; i < recordCount; i++ ) {
         [arr insertObject:@(i) atIndex:i];
@@ -69,7 +69,7 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
 {
     [self buildData];
 
-    CPTNumberArray data = self.xData;
+    CPTNumberArray *data = self.xData;
     return [self plotRangeForData:data];
 }
 
@@ -77,7 +77,7 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
 {
     [self buildData];
 
-    CPTNumberArray data        = self.yData;
+    CPTNumberArray *data       = self.yData;
     CPTMutablePlotRange *range = [self plotRangeForData:data];
 
     if ( self.plots.count > 1 ) {
@@ -87,7 +87,7 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
     return range;
 }
 
--(nonnull CPTMutablePlotRange *)plotRangeForData:(nonnull CPTNumberArray)dataArray
+-(nonnull CPTMutablePlotRange *)plotRangeForData:(nonnull CPTNumberArray *)dataArray
 {
     double min   = [[dataArray valueForKeyPath:@"@min.doubleValue"] doubleValue];
     double max   = [[dataArray valueForKeyPath:@"@max.doubleValue"] doubleValue];
@@ -105,11 +105,11 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
     return self.nRecords;
 }
 
--(CPTNumberArray)numbersForPlot:(nonnull CPTPlot *)plot
-                          field:(NSUInteger)fieldEnum
-               recordIndexRange:(NSRange)indexRange
+-(nullable CPTNumberArray *)numbersForPlot:(nonnull CPTPlot *)plot
+                                     field:(NSUInteger)fieldEnum
+                          recordIndexRange:(NSRange)indexRange
 {
-    CPTNumberArray result;
+    CPTNumberArray *result;
 
     switch ( fieldEnum ) {
         case CPTScatterPlotFieldX:
@@ -120,7 +120,7 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
             result = [self.yData objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:indexRange]];
             if ( self.plots.count > 1 ) {
                 XCTAssertTrue([[self plots] containsObject:plot], @"Plot missing");
-                CPTMutableNumberArray shiftedResult = [NSMutableArray arrayWithCapacity:result.count];
+                CPTMutableNumberArray *shiftedResult = [NSMutableArray arrayWithCapacity:result.count];
                 for ( NSDecimalNumber *d in result ) {
                     [shiftedResult addObject:[d decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromDouble( CPTDataSourceTestCasePlotOffset * ([self.plots indexOfObject:plot] + 1) )]]];
                 }

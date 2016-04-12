@@ -82,10 +82,23 @@
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        plotArea = [coder decodeObjectForKey:@"CPTGridLineGroup.plotArea"];
-        major    = [coder decodeBoolForKey:@"CPTGridLineGroup.major"];
+        plotArea = [coder decodeObjectOfClass:[CPTPlotArea class]
+                                       forKey:@"CPTGridLineGroup.plotArea"];
+        major = [coder decodeBoolForKey:@"CPTGridLineGroup.major"];
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

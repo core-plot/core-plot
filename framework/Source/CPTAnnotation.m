@@ -84,13 +84,27 @@
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        annotationHostLayer = [coder decodeObjectForKey:@"CPTAnnotation.annotationHostLayer"];
-        contentLayer        = [coder decodeObjectForKey:@"CPTAnnotation.contentLayer"];
-        contentAnchorPoint  = [coder decodeCPTPointForKey:@"CPTAnnotation.contentAnchorPoint"];
-        displacement        = [coder decodeCPTPointForKey:@"CPTAnnotation.displacement"];
-        rotation            = [coder decodeCGFloatForKey:@"CPTAnnotation.rotation"];
+        annotationHostLayer = [coder decodeObjectOfClass:[CPTAnnotationHostLayer class]
+                                                  forKey:@"CPTAnnotation.annotationHostLayer"];
+        contentLayer = [coder decodeObjectOfClass:[CPTLayer class]
+                                           forKey:@"CPTAnnotation.contentLayer"];
+        contentAnchorPoint = [coder decodeCPTPointForKey:@"CPTAnnotation.contentAnchorPoint"];
+        displacement       = [coder decodeCPTPointForKey:@"CPTAnnotation.displacement"];
+        rotation           = [coder decodeCGFloatForKey:@"CPTAnnotation.rotation"];
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

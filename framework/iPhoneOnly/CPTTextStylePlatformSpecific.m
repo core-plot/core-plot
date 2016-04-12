@@ -8,7 +8,7 @@
 
 @implementation CPTTextStyle(CPTPlatformSpecificTextStyleExtensions)
 
-/** @property nonnull CPTDictionary attributes
+/** @property nonnull CPTDictionary *attributes
  *  @brief A dictionary of standard text attributes suitable for formatting an NSAttributedString.
  *
  *  The dictionary will contain values for the following keys that represent the receiver's text style:
@@ -34,7 +34,7 @@
  *  @param attributes A dictionary of standard text attributes.
  *  @return A new CPTTextStyle instance.
  **/
-+(nonnull instancetype)textStyleWithAttributes:(nullable CPTDictionary)attributes
++(nonnull instancetype)textStyleWithAttributes:(nullable CPTDictionary *)attributes
 {
     CPTMutableTextStyle *newStyle = [CPTMutableTextStyle textStyle];
 
@@ -67,9 +67,9 @@
 
 /// @cond
 
--(nonnull CPTDictionary)attributes
+-(nonnull CPTDictionary *)attributes
 {
-    CPTMutableDictionary myAttributes = [NSMutableDictionary dictionary];
+    CPTMutableDictionary *myAttributes = [NSMutableDictionary dictionary];
 
     // Font
     UIFont *styleFont  = nil;
@@ -124,7 +124,7 @@
  *  @param attributes A dictionary of standard text attributes.
  *  @return A new CPTMutableTextStyle instance.
  **/
-+(nonnull instancetype)textStyleWithAttributes:(nullable CPTDictionary)attributes
++(nonnull instancetype)textStyleWithAttributes:(nullable CPTDictionary *)attributes
 {
     CPTMutableTextStyle *newStyle = [CPTMutableTextStyle textStyle];
 
@@ -171,6 +171,15 @@
 {
     CGSize textSize;
 
+#if TARGET_OS_SIMULATOR || TARGET_OS_TV
+    CGRect rect = [self boundingRectWithSize:CPTSizeMake(10000.0, 10000.0)
+                                     options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine
+                                  attributes:style.attributes
+                                     context:nil];
+    textSize        = rect.size;
+    textSize.width  = ceil(textSize.width);
+    textSize.height = ceil(textSize.height);
+#else
     // -boundingRectWithSize:options:attributes:context: is available in iOS 7.0 and later
     if ( [self respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)] ) {
         CGRect rect = [self boundingRectWithSize:CPTSizeMake(10000.0, 10000.0)
@@ -194,6 +203,7 @@
         textSize = [self sizeWithFont:theFont constrainedToSize:CPTSizeMake(10000.0, 10000.0)];
 #pragma clang diagnostic pop
     }
+#endif
 
     return textSize;
 }
@@ -220,6 +230,12 @@
 
     CPTPushCGContext(context);
 
+#if TARGET_OS_SIMULATOR || TARGET_OS_TV
+    [self drawWithRect:rect
+               options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine
+            attributes:style.attributes
+               context:nil];
+#else
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
     // -drawWithRect:options:attributes:context: method is available in iOS 7.0 and later
     if ( [self respondsToSelector:@selector(drawWithRect:options:attributes:context:)] ) {
@@ -257,6 +273,7 @@
             withFont:theFont
        lineBreakMode:style.lineBreakMode
            alignment:(NSTextAlignment)style.textAlignment];
+#endif
 #endif
 
     CGContextRestoreGState(context);

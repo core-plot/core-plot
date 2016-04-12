@@ -976,6 +976,15 @@ NSString *__nonnull CPTStringFromRect(CGRect rect)
     return [NSString stringWithFormat:@"{{%g, %g}, {%g, %g}}", (double)rect.origin.x, (double)rect.origin.y, (double)rect.size.width, (double)rect.size.height];
 }
 
+/** @brief Creates a string representation of the given vector.
+ *  @param vector The vector.
+ *  @return A string with the format <code> {dx, dy}</code>.
+ **/
+NSString *__nonnull CPTStringFromVector(CGVector vector)
+{
+    return [NSString stringWithFormat:@"{%g, %g}", (double)vector.dx, (double)vector.dy];
+}
+
 #pragma mark -
 #pragma mark CGPoint utilities
 

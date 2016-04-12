@@ -28,7 +28,7 @@
  **/
 @implementation CPTPlotSpaceAnnotation
 
-/** @property nullable CPTNumberArray anchorPlotPoint
+/** @property nullable CPTNumberArray *anchorPlotPoint
  *  @brief An array of NSDecimalNumber objects giving the anchor plot coordinates.
  **/
 @synthesize anchorPlotPoint;
@@ -56,7 +56,7 @@
  *  @param newPlotPoint An array of NSDecimalNumber objects giving the anchor plot coordinates.
  *  @return The initialized CPTPlotSpaceAnnotation object.
  **/
--(nonnull instancetype)initWithPlotSpace:(nonnull CPTPlotSpace *)newPlotSpace anchorPlotPoint:(nullable CPTNumberArray)newPlotPoint
+-(nonnull instancetype)initWithPlotSpace:(nonnull CPTPlotSpace *)newPlotSpace anchorPlotPoint:(nullable CPTNumberArray *)newPlotPoint
 {
     NSParameterAssert(newPlotSpace);
 
@@ -112,16 +112,30 @@
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
-        anchorPlotPoint = [[coder decodeObjectForKey:@"CPTPlotSpaceAnnotation.anchorPlotPoint"] copy];
+    if ( (self = [super initWithCoder:coder]) ) {
+        anchorPlotPoint = [[coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [NSNumber class]]]
+                                                 forKey:@"CPTPlotSpaceAnnotation.anchorPlotPoint"] copy];
 
-        CPTPlotSpace *thePlotSpace = [coder decodeObjectForKey:@"CPTPlotSpaceAnnotation.plotSpace"];
+        CPTPlotSpace *thePlotSpace = [coder decodeObjectOfClass:[CPTPlotSpace class]
+                                                         forKey:@"CPTPlotSpaceAnnotation.plotSpace"];
         if ( thePlotSpace ) {
             plotSpace = thePlotSpace;
         }
     }
     return self;
 }
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
+/// @endcond
 
 #pragma mark -
 #pragma mark Layout
@@ -140,7 +154,7 @@
     if ( content ) {
         CPTLayer *hostLayer = self.annotationHostLayer;
         if ( hostLayer ) {
-            CPTNumberArray plotAnchor = self.anchorPlotPoint;
+            CPTNumberArray *plotAnchor = self.anchorPlotPoint;
             if ( plotAnchor ) {
                 // Get plot area point
                 CPTPlotSpace *thePlotSpace      = self.plotSpace;
@@ -175,7 +189,7 @@
 
 /// @cond
 
--(void)setAnchorPlotPoint:(nullable CPTNumberArray)newPlotPoint
+-(void)setAnchorPlotPoint:(nullable CPTNumberArray *)newPlotPoint
 {
     if ( anchorPlotPoint != newPlotPoint ) {
         anchorPlotPoint = [newPlotPoint copy];

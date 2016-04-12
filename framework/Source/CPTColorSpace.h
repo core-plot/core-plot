@@ -1,4 +1,4 @@
-@interface CPTColorSpace : NSObject<NSCoding>
+@interface CPTColorSpace : NSObject<NSCoding, NSSecureCoding>
 
 @property (nonatomic, readonly, nonnull) CGColorSpaceRef cgColorSpace;
 

@@ -17,10 +17,23 @@
     if ( (self = [super initWithCoder:coder]) ) {
         // support old archives
         if ( [coder containsValueForKey:@"CPTPlotGroup.identifier"] ) {
-            self.identifier = [coder decodeObjectForKey:@"CPTPlotGroup.identifier"];
+            self.identifier = [coder decodeObjectOfClass:[NSObject class]
+                                                  forKey:@"CPTPlotGroup.identifier"];
         }
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

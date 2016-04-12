@@ -131,7 +131,7 @@ static NSString *const kSecond = @"Second Derivative";
 
 -(void)renderInGraphHostingView:(nonnull CPTGraphHostingView *)hostingView withTheme:(nullable CPTTheme *)theme animated:(BOOL)animated
 {
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     CGRect bounds = hostingView.bounds;
 #else
     CGRect bounds = NSRectToCGRect(hostingView.bounds);
@@ -200,6 +200,8 @@ static NSString *const kSecond = @"Second Derivative";
     y.minorGridLineStyle          = minorGridLineStyle;
     y.axisConstraints             = [CPTConstraints constraintWithLowerOffset:0.0];
     y.labelOffset                 = self.titleSize * CPTFloat(0.25);
+    y.alternatingBandFills        = @[[[CPTColor whiteColor] colorWithAlphaComponent:CPTFloat(0.1)], [NSNull null]];
+    y.alternatingBandAnchor       = @0.0;
 
     lineCap.lineStyle = y.axisLineStyle;
     lineColor         = lineCap.lineStyle.lineColor;
@@ -250,16 +252,11 @@ static NSString *const kSecond = @"Second Derivative";
 // [graph addPlot:secondPlot];
 
     // Auto scale the plot space to fit the plot data
-    [plotSpace scaleToFitPlots:[graph allPlots]];
+    [plotSpace scaleToFitEntirePlots:[graph allPlots]];
     CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
     CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
 
     // Expand the ranges to put some space around the plot
-    [xRange expandRangeByFactor:@1.2];
-    [yRange expandRangeByFactor:@1.2];
-    plotSpace.xRange = xRange;
-    plotSpace.yRange = yRange;
-
     [xRange expandRangeByFactor:@1.025];
     xRange.location = plotSpace.xRange.location;
     [yRange expandRangeByFactor:@1.05];
@@ -390,7 +387,7 @@ static NSString *const kSecond = @"Second Derivative";
     NSNumber *x = dataPoint[@"x"];
     NSNumber *y = dataPoint[@"y"];
 
-    CPTNumberArray anchorPoint = @[x, y];
+    CPTNumberArray *anchorPoint = @[x, y];
 
     // Add annotation
     // First make a string for the y value

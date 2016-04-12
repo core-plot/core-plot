@@ -36,7 +36,7 @@ typedef NS_ENUM (NSInteger, CPTGradientType) {
 @class CPTColorSpace;
 @class CPTColor;
 
-@interface CPTGradient : NSObject<NSCopying, NSCoding>
+@interface CPTGradient : NSObject<NSCopying, NSCoding, NSSecureCoding>
 
 @property (nonatomic, readonly, getter = isOpaque) BOOL opaque;
 

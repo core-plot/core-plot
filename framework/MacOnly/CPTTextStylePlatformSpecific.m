@@ -6,7 +6,7 @@
 
 @implementation CPTTextStyle(CPTPlatformSpecificTextStyleExtensions)
 
-/** @property nonnull CPTDictionary attributes
+/** @property nonnull CPTDictionary *attributes
  *  @brief A dictionary of standard text attributes suitable for formatting an NSAttributedString.
  *
  *  The dictionary will contain values for the following keys that represent the receiver's text style:
@@ -32,7 +32,7 @@
  *  @param attributes A dictionary of standard text attributes.
  *  @return A new CPTTextStyle instance.
  **/
-+(nonnull instancetype)textStyleWithAttributes:(nullable CPTDictionary)attributes
++(nonnull instancetype)textStyleWithAttributes:(nullable CPTDictionary *)attributes
 {
     CPTMutableTextStyle *newStyle = [CPTMutableTextStyle textStyle];
 
@@ -82,9 +82,9 @@
 
 /// @cond
 
--(nonnull CPTDictionary)attributes
+-(nonnull CPTDictionary *)attributes
 {
-    CPTMutableDictionary myAttributes = [NSMutableDictionary dictionary];
+    CPTMutableDictionary *myAttributes = [NSMutableDictionary dictionary];
 
     // Font
     NSFont *styleFont  = nil;
@@ -138,7 +138,7 @@
  *  @param attributes A dictionary of standard text attributes.
  *  @return A new CPTMutableTextStyle instance.
  **/
-+(nonnull instancetype)textStyleWithAttributes:(nullable CPTDictionary)attributes
++(nonnull instancetype)textStyleWithAttributes:(nullable CPTDictionary *)attributes
 {
     CPTMutableTextStyle *newStyle = [CPTMutableTextStyle textStyle];
 
@@ -208,7 +208,7 @@
     CGSize textSize;
 
     if ( theFont ) {
-        CPTDictionary attributes = @{
+        CPTDictionary *attributes = @{
             NSFontAttributeName: theFont
         };
 
@@ -255,7 +255,7 @@
         paragraphStyle.alignment     = (NSTextAlignment)style.textAlignment;
         paragraphStyle.lineBreakMode = style.lineBreakMode;
 
-        CPTDictionary attributes = @{
+        CPTDictionary *attributes = @{
             NSFontAttributeName: theFont,
             NSForegroundColorAttributeName: foregroundColor,
             NSParagraphStyleAttributeName: paragraphStyle

@@ -182,29 +182,27 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
 
 -(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
-    if ( coder.allowsKeyedCoding ) {
-        NSUInteger count                   = 0;
-        CPTGradientElement *currentElement = self.elementList;
-        while ( currentElement != NULL ) {
-            [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.red)];
-            [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.green)];
-            [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.blue)];
-            [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->color.alpha)];
-            [coder encodeValueOfObjCType:@encode(CGFloat) at:&(currentElement->position)];
+    NSUInteger count = 0;
 
-            count++;
-            currentElement = currentElement->nextElement;
-        }
-        [coder encodeInteger:(NSInteger)count forKey:@"CPTGradient.elementCount"];
-        [coder encodeInteger:self.blendingMode forKey:@"CPTGradient.blendingMode"];
-        [coder encodeCGFloat:self.angle forKey:@"CPTGradient.angle"];
-        [coder encodeInteger:self.gradientType forKey:@"CPTGradient.type"];
-        [coder encodeCPTPoint:self.startAnchor forKey:@"CPTPlotSymbol.startAnchor"];
-        [coder encodeCPTPoint:self.endAnchor forKey:@"CPTPlotSymbol.endAnchor"];
+    CPTGradientElement *currentElement = self.elementList;
+
+    while ( currentElement != NULL ) {
+        [coder encodeCGFloat:currentElement->color.red forKey:[NSString stringWithFormat:@"red%lu", (unsigned long)count]];
+        [coder encodeCGFloat:currentElement->color.green forKey:[NSString stringWithFormat:@"green%lu", (unsigned long)count]];
+        [coder encodeCGFloat:currentElement->color.blue forKey:[NSString stringWithFormat:@"blue%lu", (unsigned long)count]];
+        [coder encodeCGFloat:currentElement->color.alpha forKey:[NSString stringWithFormat:@"alpha%lu", (unsigned long)count]];
+        [coder encodeCGFloat:currentElement->position forKey:[NSString stringWithFormat:@"position%lu", (unsigned long)count]];
+
+        count++;
+        currentElement = currentElement->nextElement;
     }
-    else {
-        [NSException raise:NSInvalidArchiveOperationException format:@"Only supports NSKeyedArchiver coders"];
-    }
+
+    [coder encodeInteger:(NSInteger)count forKey:@"CPTGradient.elementCount"];
+    [coder encodeInteger:self.blendingMode forKey:@"CPTGradient.blendingMode"];
+    [coder encodeCGFloat:self.angle forKey:@"CPTGradient.angle"];
+    [coder encodeInteger:self.gradientType forKey:@"CPTGradient.type"];
+    [coder encodeCPTPoint:self.startAnchor forKey:@"CPTPlotSymbol.startAnchor"];
+    [coder encodeCPTPoint:self.endAnchor forKey:@"CPTPlotSymbol.endAnchor"];
 }
 
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
@@ -220,20 +218,31 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
 
         NSUInteger count = (NSUInteger)[coder decodeIntegerForKey:@"CPTGradient.elementCount"];
 
-        while ( count != 0 ) {
+        for ( NSUInteger i = 0; i < count; i++ ) {
             CPTGradientElement newElement;
 
-            [coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.color.red)];
-            [coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.color.green)];
-            [coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.color.blue)];
-            [coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.color.alpha)];
-            [coder decodeValueOfObjCType:@encode(CGFloat) at:&(newElement.position)];
+            newElement.color.red   = [coder decodeCGFloatForKey:[NSString stringWithFormat:@"red%lu", (unsigned long)i]];
+            newElement.color.green = [coder decodeCGFloatForKey:[NSString stringWithFormat:@"green%lu", (unsigned long)i]];
+            newElement.color.blue  = [coder decodeCGFloatForKey:[NSString stringWithFormat:@"blue%lu", (unsigned long)i]];
+            newElement.color.alpha = [coder decodeCGFloatForKey:[NSString stringWithFormat:@"alpha%lu", (unsigned long)i]];
+            newElement.position    = [coder decodeCGFloatForKey:[NSString stringWithFormat:@"position%lu", (unsigned long)i]];
 
-            count--;
             [self addElement:&newElement];
         }
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond
@@ -765,7 +774,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
     CPTGradientElement *element = [self elementAtIndex:idx];
 
     if ( element != NULL ) {
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
         CGFloat colorComponents[4] = { element->color.red, element->color.green, element->color.blue, element->color.alpha };
         return CGColorCreate(self.colorspace.cgColorSpace, colorComponents);
 
@@ -802,7 +811,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
             break;
     }
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     CGFloat colorComponents[4] = { components[0], components[1], components[2], components[3] };
     gradientColor = CGColorCreate(self.colorspace.cgColorSpace, colorComponents);
 #else

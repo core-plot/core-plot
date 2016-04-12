@@ -11,12 +11,12 @@
 
 @property (nonatomic, readwrite, copy, nonnull) NSData *data;
 @property (nonatomic, readwrite, assign) CPTNumericDataType dataType;
-@property (nonatomic, readwrite, copy, nonnull) CPTNumberArray shape;
+@property (nonatomic, readwrite, copy, nonnull) CPTNumberArray *shape;
 @property (nonatomic, readwrite, assign) CPTDataOrder dataOrder;
 
--(void)commonInitWithData:(nonnull NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(nullable CPTNumberArray)shapeArray dataOrder:(CPTDataOrder)order;
+-(void)commonInitWithData:(nonnull NSData *)newData dataType:(CPTNumericDataType)newDataType shape:(nullable CPTNumberArray *)shapeArray dataOrder:(CPTDataOrder)order;
 -(NSUInteger)sampleIndex:(NSUInteger)idx indexList:(va_list)indexList;
--(nonnull NSData *)dataFromArray:(nonnull CPTNumberArray)newData dataType:(CPTNumericDataType)newDataType;
+-(nonnull NSData *)dataFromArray:(nonnull CPTNumberArray *)newData dataType:(CPTNumericDataType)newDataType;
 
 @end
 
@@ -81,7 +81,7 @@
  **/
 @dynamic byteOrder;
 
-/** @property nonnull CPTNumberArray shape
+/** @property nonnull CPTNumberArray *shape
  *  @brief The shape of the data buffer array.
  *
  *  The shape describes the dimensions of the sample array stored in
@@ -117,7 +117,7 @@
  **/
 +(nonnull instancetype)numericDataWithData:(nonnull NSData *)newData
                                   dataType:(CPTNumericDataType)newDataType
-                                     shape:(nullable CPTNumberArray)shapeArray
+                                     shape:(nullable CPTNumberArray *)shapeArray
 {
     return [[self alloc] initWithData:newData
                              dataType:newDataType
@@ -132,7 +132,7 @@
  **/
 +(nonnull instancetype)numericDataWithData:(nonnull NSData *)newData
                             dataTypeString:(nonnull NSString *)newDataTypeString
-                                     shape:(nullable CPTNumberArray)shapeArray
+                                     shape:(nullable CPTNumberArray *)shapeArray
 {
     return [[self alloc] initWithData:newData
                              dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
@@ -149,9 +149,9 @@
  *  @param shapeArray The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
  *  @return A new CPTNumericData instance.
  **/
-+(nonnull instancetype)numericDataWithArray:(nonnull CPTNumberArray)newData
++(nonnull instancetype)numericDataWithArray:(nonnull CPTNumberArray *)newData
                                    dataType:(CPTNumericDataType)newDataType
-                                      shape:(nullable CPTNumberArray)shapeArray
+                                      shape:(nullable CPTNumberArray *)shapeArray
 {
     return [[self alloc] initWithArray:newData
                               dataType:newDataType
@@ -168,9 +168,9 @@
  *  @param shapeArray The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
  *  @return A new CPTNumericData instance.
  **/
-+(nonnull instancetype)numericDataWithArray:(nonnull CPTNumberArray)newData
++(nonnull instancetype)numericDataWithArray:(nonnull CPTNumberArray *)newData
                              dataTypeString:(nonnull NSString *)newDataTypeString
-                                      shape:(nullable CPTNumberArray)shapeArray
+                                      shape:(nullable CPTNumberArray *)shapeArray
 {
     return [[self alloc] initWithArray:newData
                               dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
@@ -186,7 +186,7 @@
  **/
 +(nonnull instancetype)numericDataWithData:(nonnull NSData *)newData
                                   dataType:(CPTNumericDataType)newDataType
-                                     shape:(nullable CPTNumberArray)shapeArray
+                                     shape:(nullable CPTNumberArray *)shapeArray
                                  dataOrder:(CPTDataOrder)order
 {
     return [[self alloc] initWithData:newData
@@ -204,7 +204,7 @@
  **/
 +(nonnull instancetype)numericDataWithData:(nonnull NSData *)newData
                             dataTypeString:(nonnull NSString *)newDataTypeString
-                                     shape:(nullable CPTNumberArray)shapeArray
+                                     shape:(nullable CPTNumberArray *)shapeArray
                                  dataOrder:(CPTDataOrder)order
 {
     return [[self alloc] initWithData:newData
@@ -224,9 +224,9 @@
  *  @param order The data order for a multi-dimensional data array (row-major or column-major).
  *  @return A new CPTNumericData instance.
  **/
-+(nonnull instancetype)numericDataWithArray:(nonnull CPTNumberArray)newData
++(nonnull instancetype)numericDataWithArray:(nonnull CPTNumberArray *)newData
                                    dataType:(CPTNumericDataType)newDataType
-                                      shape:(nullable CPTNumberArray)shapeArray
+                                      shape:(nullable CPTNumberArray *)shapeArray
                                   dataOrder:(CPTDataOrder)order
 {
     return [[self alloc] initWithArray:newData
@@ -246,9 +246,9 @@
  *  @param order The data order for a multi-dimensional data array (row-major or column-major).
  *  @return A new CPTNumericData instance.
  **/
-+(nonnull instancetype)numericDataWithArray:(nonnull CPTNumberArray)newData
++(nonnull instancetype)numericDataWithArray:(nonnull CPTNumberArray *)newData
                              dataTypeString:(nonnull NSString *)newDataTypeString
-                                      shape:(nullable CPTNumberArray)shapeArray
+                                      shape:(nullable CPTNumberArray *)shapeArray
                                   dataOrder:(CPTDataOrder)order
 {
     return [[self alloc] initWithArray:newData
@@ -268,7 +268,7 @@
  **/
 -(nonnull instancetype)initWithData:(nonnull NSData *)newData
                            dataType:(CPTNumericDataType)newDataType
-                              shape:(nullable CPTNumberArray)shapeArray
+                              shape:(nullable CPTNumberArray *)shapeArray
 {
     return [self initWithData:newData
                      dataType:newDataType
@@ -284,7 +284,7 @@
  **/
 -(nonnull instancetype)initWithData:(nonnull NSData *)newData
                      dataTypeString:(nonnull NSString *)newDataTypeString
-                              shape:(nullable CPTNumberArray)shapeArray
+                              shape:(nullable CPTNumberArray *)shapeArray
 {
     return [self initWithData:newData
                      dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
@@ -301,9 +301,9 @@
  *  @param shapeArray The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
  *  @return The initialized CPTNumericData instance.
  **/
--(nonnull instancetype)initWithArray:(nonnull CPTNumberArray)newData
+-(nonnull instancetype)initWithArray:(nonnull CPTNumberArray *)newData
                             dataType:(CPTNumericDataType)newDataType
-                               shape:(nullable CPTNumberArray)shapeArray
+                               shape:(nullable CPTNumberArray *)shapeArray
 {
     return [self initWithData:[self dataFromArray:newData dataType:newDataType]
                      dataType:newDataType
@@ -320,9 +320,9 @@
  *  @param shapeArray The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
  *  @return The initialized CPTNumericData instance.
  **/
--(nonnull instancetype)initWithArray:(nonnull CPTNumberArray)newData
+-(nonnull instancetype)initWithArray:(nonnull CPTNumberArray *)newData
                       dataTypeString:(nonnull NSString *)newDataTypeString
-                               shape:(nullable CPTNumberArray)shapeArray
+                               shape:(nullable CPTNumberArray *)shapeArray
 {
     return [self initWithArray:newData
                       dataType:CPTDataTypeWithDataTypeString(newDataTypeString)
@@ -338,7 +338,7 @@
  **/
 -(nonnull instancetype)initWithData:(nonnull NSData *)newData
                            dataType:(CPTNumericDataType)newDataType
-                              shape:(nullable CPTNumberArray)shapeArray
+                              shape:(nullable CPTNumberArray *)shapeArray
                           dataOrder:(CPTDataOrder)order
 {
     if ( (self = [super init]) ) {
@@ -360,7 +360,7 @@
  **/
 -(nonnull instancetype)initWithData:(nonnull NSData *)newData
                      dataTypeString:(nonnull NSString *)newDataTypeString
-                              shape:(nullable CPTNumberArray)shapeArray
+                              shape:(nullable CPTNumberArray *)shapeArray
                           dataOrder:(CPTDataOrder)order
 {
     return [self initWithData:newData
@@ -380,9 +380,9 @@
  *  @param order The data order for a multi-dimensional data array (row-major or column-major).
  *  @return The initialized CPTNumericData instance.
  **/
--(nonnull instancetype)initWithArray:(nonnull CPTNumberArray)newData
+-(nonnull instancetype)initWithArray:(nonnull CPTNumberArray *)newData
                             dataType:(CPTNumericDataType)newDataType
-                               shape:(nullable CPTNumberArray)shapeArray
+                               shape:(nullable CPTNumberArray *)shapeArray
                            dataOrder:(CPTDataOrder)order
 {
     return [self initWithData:[self dataFromArray:newData dataType:newDataType]
@@ -402,9 +402,9 @@
  *  @param order The data order for a multi-dimensional data array (row-major or column-major).
  *  @return The initialized CPTNumericData instance.
  **/
--(nonnull instancetype)initWithArray:(nonnull CPTNumberArray)newData
+-(nonnull instancetype)initWithArray:(nonnull CPTNumberArray *)newData
                       dataTypeString:(nonnull NSString *)newDataTypeString
-                               shape:(nullable CPTNumberArray)shapeArray
+                               shape:(nullable CPTNumberArray *)shapeArray
                            dataOrder:(CPTDataOrder)order
 {
     return [self initWithArray:newData
@@ -424,7 +424,7 @@
 
 -(void)commonInitWithData:(nonnull NSData *)newData
                  dataType:(CPTNumericDataType)newDataType
-                    shape:(nullable CPTNumberArray)shapeArray
+                    shape:(nullable CPTNumberArray *)shapeArray
                 dataOrder:(CPTDataOrder)order
 {
     NSParameterAssert( CPTDataTypeIsSupported(newDataType) );
@@ -433,7 +433,7 @@
     self.dataType  = newDataType;
     self.dataOrder = order;
 
-    CPTNumberArray theShape = shapeArray;
+    CPTNumberArray *theShape = shapeArray;
 
     if ( theShape == nil ) {
         self.shape = @[@(self.numberOfSamples)];
@@ -551,7 +551,7 @@
     }
 }
 
--(void)setShape:(nonnull CPTNumberArray)newShape
+-(void)setShape:(nonnull CPTNumberArray *)newShape
 {
     if ( newShape != shape ) {
         shape = [newShape copy];
@@ -765,11 +765,11 @@
  *  @note NSNumber does not support complex numbers. Complex number types will be cast to
  *  @float or @double before being wrapped in an instance of NSNumber.
  **/
--(nonnull CPTNumberArray)sampleArray
+-(nonnull CPTNumberArray *)sampleArray
 {
     NSUInteger sampleCount = self.numberOfSamples;
 
-    CPTMutableNumberArray samples = [[NSMutableArray alloc] initWithCapacity:sampleCount];
+    CPTMutableNumberArray *samples = [[NSMutableArray alloc] initWithCapacity:sampleCount];
 
     for ( NSUInteger i = 0; i < sampleCount; i++ ) {
         NSNumber *sampleValue = [self sampleValue:i];
@@ -778,7 +778,7 @@
         }
     }
 
-    CPTNumberArray result = [NSArray arrayWithArray:samples];
+    CPTNumberArray *result = [NSArray arrayWithArray:samples];
 
     return result;
 }
@@ -797,9 +797,9 @@
  **/
 -(NSUInteger)sampleIndex:(NSUInteger)idx indexList:(va_list)indexList
 {
-    CPTNumberArray theShape = self.shape;
-    NSUInteger numDims      = theShape.count;
-    NSUInteger newIndex     = 0;
+    CPTNumberArray *theShape = self.shape;
+    NSUInteger numDims       = theShape.count;
+    NSUInteger newIndex      = 0;
 
     if ( numDims > 1 ) {
         NSUInteger *dims        = calloc( numDims, sizeof(NSUInteger) );
@@ -863,7 +863,7 @@
     return newIndex;
 }
 
--(nonnull NSData *)dataFromArray:(nonnull CPTNumberArray)newData dataType:(CPTNumericDataType)newDataType
+-(nonnull NSData *)dataFromArray:(nonnull CPTNumberArray *)newData dataType:(CPTNumericDataType)newDataType
 {
     NSParameterAssert( CPTDataTypeIsSupported(newDataType) );
     NSParameterAssert(newDataType.dataTypeFormat != CPTUndefinedDataType);
@@ -1137,7 +1137,7 @@
 /// @endcond
 
 #pragma mark -
-#pragma mark NSCoding Methods
+#pragma mark NSCopying Methods
 
 /// @cond
 
@@ -1152,36 +1152,21 @@
 /// @endcond
 
 #pragma mark -
-#pragma mark NSCopying Methods
+#pragma mark NSCoding Methods
 
 /// @cond
 
 -(void)encodeWithCoder:(nonnull NSCoder *)encoder
 {
-    if ( encoder.allowsKeyedCoding ) {
-        [encoder encodeObject:self.data forKey:@"CPTNumericData.data"];
+    [encoder encodeObject:self.data forKey:@"CPTNumericData.data"];
 
-        CPTNumericDataType selfDataType = self.dataType;
-        [encoder encodeInteger:selfDataType.dataTypeFormat forKey:@"CPTNumericData.dataType.dataTypeFormat"];
-        [encoder encodeInt64:(int64_t)selfDataType.sampleBytes forKey:@"CPTNumericData.dataType.sampleBytes"];
-        [encoder encodeInt64:selfDataType.byteOrder forKey:@"CPTNumericData.dataType.byteOrder"];
+    CPTNumericDataType selfDataType = self.dataType;
+    [encoder encodeInteger:selfDataType.dataTypeFormat forKey:@"CPTNumericData.dataType.dataTypeFormat"];
+    [encoder encodeInt64:(int64_t)selfDataType.sampleBytes forKey:@"CPTNumericData.dataType.sampleBytes"];
+    [encoder encodeInt64:selfDataType.byteOrder forKey:@"CPTNumericData.dataType.byteOrder"];
 
-        [encoder encodeObject:self.shape forKey:@"CPTNumericData.shape"];
-        [encoder encodeInteger:self.dataOrder forKey:@"CPTNumericData.dataOrder"];
-    }
-    else {
-        [encoder encodeObject:self.data];
-
-        CPTNumericDataType selfDataType = self.dataType;
-        [encoder encodeValueOfObjCType:@encode(CPTDataTypeFormat) at:&(selfDataType.dataTypeFormat)];
-        [encoder encodeValueOfObjCType:@encode(size_t) at:&(selfDataType.sampleBytes)];
-        [encoder encodeValueOfObjCType:@encode(CFByteOrder) at:&(selfDataType.byteOrder)];
-
-        [encoder encodeObject:self.shape];
-
-        CPTDataOrder order = self.dataOrder;
-        [encoder encodeValueOfObjCType:@encode(CPTDataOrder) at:&order];
-    }
+    [encoder encodeObject:self.shape forKey:@"CPTNumericData.shape"];
+    [encoder encodeInteger:self.dataOrder forKey:@"CPTNumericData.dataOrder"];
 }
 
 /// @endcond
@@ -1195,34 +1180,37 @@
     if ( (self = [super init]) ) {
         NSData *newData;
         CPTNumericDataType newDataType;
-        CPTNumberArray shapeArray;
+        CPTNumberArray *shapeArray;
         CPTDataOrder order;
 
-        if ( decoder.allowsKeyedCoding ) {
-            newData = [decoder decodeObjectForKey:@"CPTNumericData.data"];
+        newData = [decoder decodeObjectOfClass:[NSData class]
+                                        forKey:@"CPTNumericData.data"];
 
-            newDataType = CPTDataType( (CPTDataTypeFormat)[decoder decodeIntegerForKey:@"CPTNumericData.dataType.dataTypeFormat"],
-                                       (size_t)[decoder decodeInt64ForKey:@"CPTNumericData.dataType.sampleBytes"],
-                                       (CFByteOrder)[decoder decodeInt64ForKey:@"CPTNumericData.dataType.byteOrder"] );
+        newDataType = CPTDataType( (CPTDataTypeFormat)[decoder decodeIntegerForKey:@"CPTNumericData.dataType.dataTypeFormat"],
+                                   (size_t)[decoder decodeInt64ForKey:@"CPTNumericData.dataType.sampleBytes"],
+                                   (CFByteOrder)[decoder decodeInt64ForKey:@"CPTNumericData.dataType.byteOrder"] );
 
-            shapeArray = [decoder decodeObjectForKey:@"CPTNumericData.shape"];
-            order      = (CPTDataOrder)[decoder decodeIntegerForKey:@"CPTNumericData.dataOrder"];
-        }
-        else {
-            newData = [decoder decodeObject];
+        shapeArray = [decoder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [NSNumber class]]]
+                                             forKey:@"CPTNumericData.shape"];
 
-            [decoder decodeValueOfObjCType:@encode(CPTDataTypeFormat) at:&(newDataType.dataTypeFormat)];
-            [decoder decodeValueOfObjCType:@encode(size_t) at:&(newDataType.sampleBytes)];
-            [decoder decodeValueOfObjCType:@encode(CFByteOrder) at:&(newDataType.byteOrder)];
-
-            shapeArray = [decoder decodeObject];
-            [decoder decodeValueOfObjCType:@encode(CPTDataOrder) at:&order];
-        }
+        order = (CPTDataOrder)[decoder decodeIntegerForKey:@"CPTNumericData.dataOrder"];
 
         [self commonInitWithData:newData dataType:newDataType shape:shapeArray dataOrder:order];
     }
 
     return self;
 }
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
+/// @endcond
 
 @end

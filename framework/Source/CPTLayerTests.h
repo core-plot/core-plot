@@ -7,6 +7,6 @@
 @interface CPTLayerTests : CPTTestCase
 
 @property (nonatomic, readwrite, strong, nonnull) CPTLayer *layer;
-@property (nonatomic, readwrite, strong, nonnull) CPTNumberArray positions;
+@property (nonatomic, readwrite, strong, nonnull) CPTNumberArray *positions;
 
 @end

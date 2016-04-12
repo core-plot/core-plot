@@ -162,7 +162,7 @@ void drawErrorText(CGContextRef __nonnull context, CGRect rect)
 #pragma mark -
 #pragma mark Input and output port configuration
 
-+(nonnull CPTStringArray)sortedPropertyPortKeys
++(nonnull CPTStringArray *)sortedPropertyPortKeys
 {
     return @[@"inputPixelsWide",
              @"inputPixelsHigh",
@@ -186,7 +186,7 @@ void drawErrorText(CGContextRef __nonnull context, CGRect rect)
              @"inputAxisMinorTickWidth"];
 }
 
-+(nonnull CPTDictionary)attributesForPropertyPortWithKey:(nonnull NSString *)key
++(nonnull CPTDictionary *)attributesForPropertyPortWithKey:(nonnull NSString *)key
 {
     /*
      * Specify the optional attributes for property based ports (QCPortAttributeNameKey, QCPortAttributeDefaultValueKey...).
@@ -253,8 +253,8 @@ void drawErrorText(CGContextRef __nonnull context, CGRect rect)
     }
 
     if ( [key isEqualToString:@"inputAxisColor"] ) {
-        CGColorRef axisColor = CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0);
-        CPTDictionary result = @{
+        CGColorRef axisColor  = CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0);
+        CPTDictionary *result = @{
             QCPortAttributeNameKey: @"Axis Color",
             QCPortAttributeDefaultValueKey: CFBridgingRelease(axisColor)
         };
@@ -319,7 +319,7 @@ void drawErrorText(CGContextRef __nonnull context, CGRect rect)
 
     if ( [key isEqualToString:@"inputPlotAreaColor"] ) {
         CGColorRef plotAreaColor = CGColorCreateGenericRGB(0.0, 0.0, 0.0, 0.4);
-        CPTDictionary result     = @{
+        CPTDictionary *result    = @{
             QCPortAttributeNameKey: @"Plot Area Color",
             QCPortAttributeDefaultValueKey: CFBridgingRelease(plotAreaColor)
         };
@@ -671,7 +671,7 @@ static void _BufferReleaseCallback(const void *__nonnull address, void *__nonnul
     numberOfPlots = number;
 }
 
-+(nonnull CPTStringArray)plugInKeys
++(nonnull CPTStringArray *)plugInKeys
 {
     return @[@"numberOfPlots"];
 }
@@ -795,7 +795,7 @@ static void _BufferReleaseCallback(const void *__nonnull address, void *__nonnul
 
 @implementation CorePlotQCPlugIn(Execution)
 
--(BOOL)execute:(nonnull id<QCPlugInContext>)context atTime:(NSTimeInterval)time withArguments:(nullable CPTDictionary)arguments
+-(BOOL)execute:(nonnull id<QCPlugInContext>)context atTime:(NSTimeInterval)time withArguments:(nullable CPTDictionary *)arguments
 {
     // Configure the plot for drawing
     BOOL configurationCheck = [self configureGraph];

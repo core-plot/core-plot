@@ -47,7 +47,7 @@
 
     NSUInteger prod = 1;
     for ( NSNumber *num in nd.shape ) {
-        prod *= num.unsignedIntValue;
+        prod *= num.unsignedIntegerValue;
     }
 
     XCTAssertEqual(prod, nElems, @"prod == nElems");
@@ -116,7 +116,7 @@
                                                                    dataType:CPTDataType( CPTFloatingPointDataType, sizeof(float), NSHostByteOrder() )
                                                                       shape:nil];
 
-    CPTMutableNumericData *nd2 = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:nd]];
+    CPTMutableNumericData *nd2 = [self archiveRoundTrip:nd];
 
     XCTAssertTrue([nd.data isEqualToData:nd2.data], @"equal data");
 

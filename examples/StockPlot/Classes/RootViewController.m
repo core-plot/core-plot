@@ -187,10 +187,10 @@
 #pragma mark -
 #pragma mark accessors
 
--(nonnull CPTStringArray)symbols
+-(nonnull CPTStringArray *)symbols
 {
     // NSLog(@"in -symbols, returned symbols = %@", symbols);
-    CPTMutableStringArray symbols = [NSMutableArray arrayWithCapacity:self.stocks.count];
+    CPTMutableStringArray *symbols = [NSMutableArray arrayWithCapacity:self.stocks.count];
 
     for ( APYahooDataPuller *dp in self.stocks ) {
         [symbols addObject:dp.symbol];

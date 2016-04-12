@@ -53,7 +53,7 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 {
     [[PlotGallery sharedPlotGallery] sortByTitle];
 
-    (self.splitView).delegate = self;
+    self.splitView.delegate = self;
 
     [self.imageBrowser setDelegate:self];
     [self.imageBrowser setDataSource:self];
@@ -61,7 +61,7 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 
     [self.imageBrowser reloadData];
 
-    (self.hostingView).delegate = self;
+    self.hostingView.delegate = self;
 
     [self setupThemes];
 
@@ -138,6 +138,114 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 }
 
 #pragma mark -
+#pragma mark Export Images
+
+-(void)exportTVImageWithSize:(CGSize)size toURL:(NSURL *)url showPlots:(BOOL)showPlots showBackground:(BOOL)showBackground
+{
+    if ( url ) {
+        CGRect imageFrame = CGRectMake(0.0, 0.0, size.width, size.height);
+
+        NSView *imageView = [[NSView alloc] initWithFrame:NSRectFromCGRect(imageFrame)];
+        [imageView setWantsLayer:YES];
+
+        [self.plotItem renderInView:imageView withTheme:nil animated:NO];
+
+        if ( !showBackground ) {
+            for ( CPTGraphHostingView *view in imageView.subviews ) {
+                CPTGraph *graph = view.hostedGraph;
+
+                graph.fill    = [CPTFill fillWithColor:[CPTColor clearColor]];
+                graph.axisSet = nil;
+
+                graph.plotAreaFrame.fill            = [CPTFill fillWithColor:[CPTColor clearColor]];
+                graph.plotAreaFrame.borderLineStyle = nil;
+
+                graph.plotAreaFrame.plotArea.fill            = [CPTFill fillWithColor:[CPTColor clearColor]];
+                graph.plotAreaFrame.plotArea.borderLineStyle = nil;
+            }
+        }
+
+        if ( !showPlots ) {
+            for ( CPTGraphHostingView *view in imageView.subviews ) {
+                for ( CPTPlot *plot in view.hostedGraph.allPlots ) {
+                    plot.hidden = YES;
+                }
+            }
+        }
+
+        CGSize boundsSize = imageFrame.size;
+
+        NSBitmapImageRep *layerImage = [[NSBitmapImageRep alloc]
+                                        initWithBitmapDataPlanes:NULL
+                                                      pixelsWide:(NSInteger)boundsSize.width
+                                                      pixelsHigh:(NSInteger)boundsSize.height
+                                                   bitsPerSample:8
+                                                 samplesPerPixel:4
+                                                        hasAlpha:YES
+                                                        isPlanar:NO
+                                                  colorSpaceName:NSCalibratedRGBColorSpace
+                                                     bytesPerRow:(NSInteger)boundsSize.width * 4
+                                                    bitsPerPixel:32];
+
+        NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:layerImage];
+        CGContextRef context             = (CGContextRef)bitmapContext.graphicsPort;
+
+        CGContextClearRect( context, CGRectMake(0.0, 0.0, boundsSize.width, boundsSize.height) );
+        CGContextSetAllowsAntialiasing(context, true);
+        CGContextSetShouldSmoothFonts(context, false);
+        [imageView.layer renderInContext:context];
+        CGContextFlush(context);
+
+        NSImage *image = [[NSImage alloc] initWithSize:NSSizeFromCGSize(boundsSize)];
+        [image addRepresentation:layerImage];
+
+        NSData *tiffData          = image.TIFFRepresentation;
+        NSBitmapImageRep *tiffRep = [NSBitmapImageRep imageRepWithData:tiffData];
+        NSData *pngData           = [tiffRep representationUsingType:NSPNGFileType properties:@{}];
+
+        [pngData writeToURL:url atomically:NO];
+    }
+}
+
+-(IBAction)exportTVImagesToPNG:(id)sender
+{
+    NSOpenPanel *pngSavingDialog = [NSOpenPanel openPanel];
+
+    pngSavingDialog.canChooseFiles          = NO;
+    pngSavingDialog.canChooseDirectories    = YES;
+    pngSavingDialog.allowsMultipleSelection = NO;
+
+    if ( [pngSavingDialog runModal] == NSOKButton ) {
+        NSURL *url = pngSavingDialog.URL;
+        if ( url ) {
+            // top image
+            CGSize topShelfSize = CGSizeMake(1920.0, 720.0);
+
+            NSURL *topURL = [NSURL URLWithString:@"PlotGalleryTopShelf.png" relativeToURL:url];
+            [self exportTVImageWithSize:topShelfSize toURL:topURL showPlots:YES showBackground:YES];
+
+            // large icon image
+            CGSize largeIconSize = CGSizeMake(1280.0, 768.0);
+
+            NSURL *largeBackURL = [NSURL URLWithString:@"PlotGalleryLargeIconBack.png" relativeToURL:url];
+            [self exportTVImageWithSize:largeIconSize toURL:largeBackURL showPlots:NO showBackground:YES];
+
+            NSURL *largeFrontURL = [NSURL URLWithString:@"PlotGalleryLargeIconFront.png" relativeToURL:url];
+            [self exportTVImageWithSize:largeIconSize toURL:largeFrontURL showPlots:YES showBackground:NO];
+
+            // small icon image
+            CGSize smallIconSize = CGSizeMake(400.0, 240.0);
+
+            NSURL *smallBackURL = [NSURL URLWithString:@"PlotGallerySmallIconBack.png" relativeToURL:url];
+            [self exportTVImageWithSize:smallIconSize toURL:smallBackURL showPlots:NO showBackground:YES];
+
+            NSURL *smallFrontURL = [NSURL URLWithString:@"PlotGallerySmallIconFront.png" relativeToURL:url];
+            [self exportTVImageWithSize:smallIconSize toURL:smallFrontURL showPlots:YES showBackground:NO];
+        }
+    }
+}
+
+#pragma mark -
 #pragma mark PlotItem Property
 
 -(void)setPlotItem:(nullable PlotItem *)item
@@ -172,7 +280,7 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
     return [PlotGallery sharedPlotGallery].numberOfSections;
 }
 
--(nonnull CPTDictionary)imageBrowser:(nonnull IKImageBrowserView *)aBrowser groupAtIndex:(NSUInteger)index
+-(nonnull CPTDictionary *)imageBrowser:(nonnull IKImageBrowserView *)aBrowser groupAtIndex:(NSUInteger)index
 {
     NSString *groupTitle = [PlotGallery sharedPlotGallery].sectionTitles[index];
 

@@ -10,7 +10,7 @@
                                     CPTScatterPlotDelegate,
                                     CPTBarPlotDelegate>
 
-@property (readwrite, strong, nonatomic, nonnull) CPTMutableNumberArray dataForChart;
+@property (readwrite, strong, nonatomic, nonnull) CPTMutableNumberArray *dataForChart;
 @property (readwrite, strong, nonatomic, nonnull) NSMutableArray<NSDictionary *> *dataForPlot;
 
 -(void)renderScatterPlotInHostingView:(nonnull CPTGraphHostingView *)hostingView withTheme:(nullable CPTTheme *)theme;

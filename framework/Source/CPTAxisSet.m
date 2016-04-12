@@ -9,7 +9,7 @@
  **/
 @implementation CPTAxisSet
 
-/** @property nullable CPTAxisArray axes
+/** @property nullable CPTAxisArray *axes
  *  @brief The axes in the axis set.
  **/
 @synthesize axes;
@@ -80,10 +80,24 @@
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        axes            = [[coder decodeObjectForKey:@"CPTAxisSet.axes"] copy];
-        borderLineStyle = [[coder decodeObjectForKey:@"CPTAxisSet.borderLineStyle"] copy];
+        axes = [[coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [CPTAxis class]]]
+                                      forKey:@"CPTAxisSet.axes"] copy];
+        borderLineStyle = [[coder decodeObjectOfClass:[CPTLineStyle class]
+                                               forKey:@"CPTAxisSet.borderLineStyle"] copy];
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond
@@ -110,7 +124,7 @@
  **/
 -(void)relabelAxes
 {
-    CPTAxisArray theAxes = self.axes;
+    CPTAxisArray *theAxes = self.axes;
 
     [theAxes makeObjectsPerformSelector:@selector(setNeedsLayout)];
     [theAxes makeObjectsPerformSelector:@selector(setNeedsRelabel)];
@@ -210,7 +224,7 @@
 
 /// @cond
 
--(void)setAxes:(nullable CPTAxisArray)newAxes
+-(void)setAxes:(nullable CPTAxisArray *)newAxes
 {
     if ( newAxes != axes ) {
         for ( CPTAxis *axis in axes ) {

@@ -53,7 +53,7 @@
 #pragma mark -
 #pragma mark Plot construction methods
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
 #else
 
 -(void)setFrameSize:(NSSize)newSize
@@ -87,7 +87,7 @@
     CPTGraphHostingView *barView     = [[CPTGraphHostingView alloc] init];
     CPTGraphHostingView *pieView     = [[CPTGraphHostingView alloc] init];
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     for ( UIView *view in @[scatterView, barView, pieView] ) {
         view.translatesAutoresizingMaskIntoConstraints = NO;
         [hostingView addSubview:view];
@@ -224,7 +224,7 @@
 -(void)renderScatterPlotInHostingView:(nonnull CPTGraphHostingView *)hostingView withTheme:(nullable CPTTheme *)theme
 {
     // Create graph from theme
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
     CGRect bounds = self.scatterPlotView.bounds;
 #else
     CGRect bounds = NSRectToCGRect(self.scatterPlotView.bounds);
@@ -250,9 +250,9 @@
     x.majorIntervalLength   = @0.5;
     x.orthogonalPosition    = @2.0;
     x.minorTicksPerInterval = 2;
-    CPTPlotRangeArray exclusionRanges = @[[CPTPlotRange plotRangeWithLocation:@1.99 length:@0.02],
-                                          [CPTPlotRange plotRangeWithLocation:@0.99 length:@0.02],
-                                          [CPTPlotRange plotRangeWithLocation:@2.99 length:@0.02]];
+    CPTPlotRangeArray *exclusionRanges = @[[CPTPlotRange plotRangeWithLocation:@1.99 length:@0.02],
+                                           [CPTPlotRange plotRangeWithLocation:@0.99 length:@0.02],
+                                           [CPTPlotRange plotRangeWithLocation:@2.99 length:@0.02]];
     x.labelExclusionRanges = exclusionRanges;
 
     CPTXYAxis *y = axisSet.yAxis;
@@ -331,7 +331,7 @@
 
 -(void)renderBarPlotInHostingView:(nonnull CPTGraphHostingView *)hostingView withTheme:(nullable CPTTheme *)theme
 {
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     CGRect bounds = hostingView.bounds;
 #else
     CGRect bounds = NSRectToCGRect(hostingView.bounds);
@@ -361,10 +361,10 @@
     x.labelOffset    = 2.0;
     x.labelRotation  = CPTFloat(M_PI_4);
     x.labelingPolicy = CPTAxisLabelingPolicyNone;
-    CPTNumberArray customTickLocations  = @[@1, @5, @10, @15];
-    CPTStringArray xAxisLabels          = @[@"Label A", @"Label B", @"Label C", @"Label D"];
-    NSUInteger labelLocation            = 0;
-    CPTMutableAxisLabelSet customLabels = [NSMutableSet setWithCapacity:xAxisLabels.count];
+    CPTNumberArray *customTickLocations  = @[@1, @5, @10, @15];
+    CPTStringArray *xAxisLabels          = @[@"Label A", @"Label B", @"Label C", @"Label D"];
+    NSUInteger labelLocation             = 0;
+    CPTMutableAxisLabelSet *customLabels = [NSMutableSet setWithCapacity:xAxisLabels.count];
     for ( NSNumber *tickLocation in customTickLocations ) {
         CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:xAxisLabels[labelLocation++] textStyle:x.labelTextStyle];
         newLabel.tickLocation = tickLocation;
@@ -401,7 +401,7 @@
 
 -(void)renderPieChartInHostingView:(nonnull CPTGraphHostingView *)hostingView withTheme:(nullable CPTTheme *)theme
 {
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     [hostingView layoutIfNeeded];
 
     CGRect bounds = hostingView.bounds;

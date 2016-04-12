@@ -2,7 +2,7 @@
 
 @class CPTImage;
 
-@interface _CPTFillImage : CPTFill<NSCopying, NSCoding>
+@interface _CPTFillImage : CPTFill<NSCopying, NSCoding, NSSecureCoding>
 
 /// @name Initialization
 /// @{

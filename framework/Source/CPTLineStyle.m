@@ -16,7 +16,7 @@
 @property (nonatomic, readwrite, assign) CGLineJoin lineJoin;
 @property (nonatomic, readwrite, assign) CGFloat miterLimit;
 @property (nonatomic, readwrite, assign) CGFloat lineWidth;
-@property (nonatomic, readwrite, strong, nullable) CPTNumberArray dashPattern;
+@property (nonatomic, readwrite, strong, nullable) CPTNumberArray *dashPattern;
 @property (nonatomic, readwrite, assign) CGFloat patternPhase;
 @property (nonatomic, readwrite, strong, nullable) CPTColor *lineColor;
 @property (nonatomic, readwrite, strong, nullable) CPTFill *lineFill;
@@ -65,7 +65,7 @@
  **/
 @synthesize lineWidth;
 
-/** @property nullable CPTNumberArray dashPattern
+/** @property nullable CPTNumberArray *dashPattern
  *  @brief The dash-and-space pattern for the line. Default is @nil.
  **/
 @synthesize dashPattern;
@@ -191,17 +191,33 @@
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        lineCap      = (CGLineCap)[coder decodeIntForKey:@"CPTLineStyle.lineCap"];
-        lineJoin     = (CGLineJoin)[coder decodeIntForKey:@"CPTLineStyle.lineJoin"];
-        miterLimit   = [coder decodeCGFloatForKey:@"CPTLineStyle.miterLimit"];
-        lineWidth    = [coder decodeCGFloatForKey:@"CPTLineStyle.lineWidth"];
-        dashPattern  = [coder decodeObjectForKey:@"CPTLineStyle.dashPattern"];
+        lineCap     = (CGLineCap)[coder decodeIntForKey:@"CPTLineStyle.lineCap"];
+        lineJoin    = (CGLineJoin)[coder decodeIntForKey:@"CPTLineStyle.lineJoin"];
+        miterLimit  = [coder decodeCGFloatForKey:@"CPTLineStyle.miterLimit"];
+        lineWidth   = [coder decodeCGFloatForKey:@"CPTLineStyle.lineWidth"];
+        dashPattern = [coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [NSNumber class]]]
+                                            forKey:@"CPTLineStyle.dashPattern"];
         patternPhase = [coder decodeCGFloatForKey:@"CPTLineStyle.patternPhase"];
-        lineColor    = [coder decodeObjectForKey:@"CPTLineStyle.lineColor"];
-        lineFill     = [coder decodeObjectForKey:@"CPTLineStyle.lineFill"];
-        lineGradient = [coder decodeObjectForKey:@"CPTLineStyle.lineGradient"];
+        lineColor    = [coder decodeObjectOfClass:[CPTColor class]
+                                           forKey:@"CPTLineStyle.lineColor"];
+        lineFill = [coder decodeObjectOfClass:[CPTFill class]
+                                       forKey:@"CPTLineStyle.lineFill"];
+        lineGradient = [coder decodeObjectOfClass:[CPTGradient class]
+                                           forKey:@"CPTLineStyle.lineGradient"];
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond
@@ -219,7 +235,7 @@
     CGContextSetMiterLimit(context, self.miterLimit);
     CGContextSetLineWidth(context, self.lineWidth);
 
-    CPTNumberArray myDashPattern = self.dashPattern;
+    CPTNumberArray *myDashPattern = self.dashPattern;
 
     NSUInteger dashCount = myDashPattern.count;
     if ( dashCount > 0 ) {

@@ -2,7 +2,7 @@
 
 @class CPTGraph;
 
-@interface CPTGraphHostingView : NSView
+@interface CPTGraphHostingView : NSView<NSCoding, NSSecureCoding>
 
 /// @name Hosted graph
 /// @{

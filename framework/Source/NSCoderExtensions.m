@@ -74,7 +74,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element);
  **/
 -(void)encodeCGColorSpace:(nullable CGColorSpaceRef)colorSpace forKey:(nonnull NSString *)key
 {
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     NSLog(@"Color space encoding is not supported on iOS. Decoding will return a generic RGB color space.");
 #else
     if ( colorSpace ) {
@@ -138,7 +138,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
     for ( NSUInteger i = 0; i < dataCount; i++ ) {
         NSDictionary<NSString *, NSNumber *> *elementData = pathData[i];
 
-        CGPathElementType type = (CGPathElementType)(elementData[@"type"]).intValue;
+        CGPathElementType type = (CGPathElementType)elementData[@"type"].intValue;
         newKey = [[NSString alloc] initWithFormat:@"%@[%lu].type", key, (unsigned long)i];
         [self encodeInt:type forKey:newKey];
 
@@ -330,11 +330,12 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 {
     CGColorSpaceRef colorSpace = NULL;
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     NSLog(@"Color space decoding is not supported on iOS. Using generic RGB color space.");
     colorSpace = CGColorSpaceCreateDeviceRGB();
 #else
-    NSData *iccProfile = [self decodeObjectForKey:key];
+    NSData *iccProfile = [self decodeObjectOfClass:[NSData class]
+                                            forKey:key];
     if ( iccProfile ) {
         colorSpace = CGColorSpaceCreateWithICCProfile( (__bridge CFDataRef)iccProfile );
     }
@@ -446,7 +447,8 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
     const CGBitmapInfo *bitmapInfo = (const void *)[self decodeBytesForKey:newKey returnedLength:&length];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.provider", key];
-    CGDataProviderRef provider = CGDataProviderCreateWithCFData( (__bridge CFDataRef)[self decodeObjectForKey:newKey] );
+    CGDataProviderRef provider = CGDataProviderCreateWithCFData( (__bridge CFDataRef)[self decodeObjectOfClass:[NSData class]
+                                                                                                        forKey:newKey] );
 
     newKey = [[NSString alloc] initWithFormat:@"%@.numberOfComponents", key];
     size_t numberOfComponents = (size_t)[self decodeInt64ForKey:newKey];
@@ -501,7 +503,8 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 {
     NSDecimal result;
 
-    NSNumber *number = [self decodeObjectForKey:key];
+    NSNumber *number = [self decodeObjectOfClass:[NSDecimalNumber class]
+                                          forKey:key];
 
     if ( [number respondsToSelector:@selector(decimalValue)] ) {
         result = number.decimalValue;

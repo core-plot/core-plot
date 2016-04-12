@@ -1,5 +1,6 @@
 #import "CPTImage.h"
 
+#import "CPTPlatformSpecificDefines.h"
 #import "CPTUtilities.h"
 #import "NSCoderExtensions.h"
 
@@ -215,7 +216,8 @@ CPTImageSlices;
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        nativeImage           = [[coder decodeObjectForKey:@"CPTImage.nativeImage"] copy];
+        nativeImage = [[coder decodeObjectOfClass:[CPTNativeImage class]
+                                           forKey:@"CPTImage.nativeImage"] copy];
         image                 = [coder newCGImageDecodeForKey:@"CPTImage.image"];
         scale                 = [coder decodeCGFloatForKey:@"CPTImage.scale"];
         tiled                 = [coder decodeBoolForKey:@"CPTImage.tiled"];
@@ -229,6 +231,18 @@ CPTImageSlices;
     }
     return self;
 }
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
+/// @endcond
 
 #pragma mark -
 #pragma mark NSCopying Methods
@@ -509,7 +523,7 @@ CPTImageSlices;
     if ( !nativeImage ) {
         CGImageRef imageRef = self.image;
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
         CGFloat theScale = self.scale;
 
         if ( imageRef && ( theScale > CPTFloat(0.0) ) ) {
@@ -719,7 +733,7 @@ CPTImageSlices;
         CPTNativeImage *theNativeImage = self.nativeImage;
 
         if ( theNativeImage ) {
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
             theImage   = theNativeImage.CGImage;
             self.scale = theNativeImage.scale;
 #else

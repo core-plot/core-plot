@@ -115,13 +115,27 @@
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        plot      = [coder decodeObjectForKey:@"CPTLegendEntry.plot"];
+        plot = [coder decodeObjectOfClass:[CPTPlot class]
+                                   forKey:@"CPTLegendEntry.plot"];
         index     = (NSUInteger)[coder decodeIntegerForKey:@"CPTLegendEntry.index"];
         row       = (NSUInteger)[coder decodeIntegerForKey:@"CPTLegendEntry.row"];
         column    = (NSUInteger)[coder decodeIntegerForKey:@"CPTLegendEntry.column"];
-        textStyle = [coder decodeObjectForKey:@"CPTLegendEntry.textStyle"];
+        textStyle = [coder decodeObjectOfClass:[CPTTextStyle class]
+                                        forKey:@"CPTLegendEntry.textStyle"];
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond
@@ -136,7 +150,7 @@
  **/
 -(void)drawTitleInRect:(CGRect)rect inContext:(nonnull CGContextRef)context scale:(CGFloat)scale
 {
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     CGContextSaveGState(context);
     CGContextTranslateCTM(context, CPTFloat(0.0), rect.origin.y);
     CGContextScaleCTM( context, CPTFloat(1.0), CPTFloat(-1.0) );
@@ -175,7 +189,7 @@
                    inContext:context];
     }
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     CGContextRestoreGState(context);
 #endif
 }
@@ -206,7 +220,7 @@
     NSAttributedString *styledTitle = self.attributedTitle;
 
     if ( (styledTitle.length > 0) && [styledTitle respondsToSelector:@selector(size)] ) {
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
         theTitleSize = styledTitle.size;
 #else
         theTitleSize = NSSizeToCGSize(styledTitle.size);

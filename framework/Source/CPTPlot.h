@@ -31,12 +31,12 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
 /**
  *  @brief An array of plots.
  **/
-typedef NSArray<__kindof CPTPlot *> *CPTPlotArray;
+typedef NSArray<__kindof CPTPlot *> CPTPlotArray;
 
 /**
  *  @brief A mutable array of plots.
  **/
-typedef NSMutableArray<__kindof CPTPlot *> *CPTMutablePlotArray;
+typedef NSMutableArray<__kindof CPTPlot *> CPTMutablePlotArray;
 
 #pragma mark -
 
@@ -357,6 +357,8 @@ typedef NSMutableArray<__kindof CPTPlot *> *CPTMutablePlotArray;
 /// @{
 -(nullable CPTPlotRange *)plotRangeForField:(NSUInteger)fieldEnum;
 -(nullable CPTPlotRange *)plotRangeForCoordinate:(CPTCoordinate)coord;
+-(nullable CPTPlotRange *)plotRangeEnclosingField:(NSUInteger)fieldEnum;
+-(nullable CPTPlotRange *)plotRangeEnclosingCoordinate:(CPTCoordinate)coord;
 /// @}
 
 /// @name Legends
@@ -379,8 +381,8 @@ typedef NSMutableArray<__kindof CPTPlot *> *CPTMutablePlotArray;
 /// @name Fields
 /// @{
 -(NSUInteger)numberOfFields;
--(nonnull CPTNumberArray)fieldIdentifiers;
--(nonnull CPTNumberArray)fieldIdentifiersForCoordinate:(CPTCoordinate)coord;
+-(nonnull CPTNumberArray *)fieldIdentifiers;
+-(nonnull CPTNumberArray *)fieldIdentifiersForCoordinate:(CPTCoordinate)coord;
 -(CPTCoordinate)coordinateForFieldIdentifier:(NSUInteger)field;
 /// @}
 

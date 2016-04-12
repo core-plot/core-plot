@@ -130,13 +130,27 @@
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super init]) ) {
-        fontName      = [[coder decodeObjectForKey:@"CPTTextStyle.fontName"] copy];
-        fontSize      = [coder decodeCGFloatForKey:@"CPTTextStyle.fontSize"];
-        color         = [[coder decodeObjectForKey:@"CPTTextStyle.color"] copy];
+        fontName = [[coder decodeObjectOfClass:[NSString class]
+                                        forKey:@"CPTTextStyle.fontName"] copy];
+        fontSize = [coder decodeCGFloatForKey:@"CPTTextStyle.fontSize"];
+        color    = [[coder decodeObjectOfClass:[CPTColor class]
+                                        forKey:@"CPTTextStyle.color"] copy];
         textAlignment = (CPTTextAlignment)[coder decodeIntegerForKey:@"CPTTextStyle.textAlignment"];
         lineBreakMode = (NSLineBreakMode)[coder decodeIntegerForKey:@"CPTTextStyle.lineBreakMode"];
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

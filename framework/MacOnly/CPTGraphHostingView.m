@@ -128,11 +128,14 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
         CPTLayer *mainLayer = [[CPTLayer alloc] initWithFrame:NSRectToCGRect(self.frame)];
         self.layer = mainLayer;
 
-        hostedGraph           = nil;
-        self.hostedGraph      = [coder decodeObjectForKey:@"CPTLayerHostingView.hostedGraph"]; // setup layers
+        hostedGraph      = nil;
+        self.hostedGraph = [coder decodeObjectOfClass:[CPTGraph class]
+                                               forKey:@"CPTLayerHostingView.hostedGraph"]; // setup layers
         self.printRect        = [coder decodeRectForKey:@"CPTLayerHostingView.printRect"];
-        self.closedHandCursor = [coder decodeObjectForKey:@"CPTLayerHostingView.closedHandCursor"];
-        self.openHandCursor   = [coder decodeObjectForKey:@"CPTLayerHostingView.openHandCursor"];
+        self.closedHandCursor = [coder decodeObjectOfClass:[NSCursor class]
+                                                    forKey:@"CPTLayerHostingView.closedHandCursor"];
+        self.openHandCursor = [coder decodeObjectOfClass:[NSCursor class]
+                                                  forKey:@"CPTLayerHostingView.openHandCursor"];
 
         if ( [coder containsValueForKey:@"CPTLayerHostingView.allowPinchScaling"] ) {
             self.allowPinchScaling = [coder decodeBoolForKey:@"CPTLayerHostingView.allowPinchScaling"];
@@ -145,6 +148,18 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
         self.scrollOffset     = CGPointZero;
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond
@@ -461,8 +476,8 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
  **/
 -(void)plotSpaceAdded:(nonnull NSNotification *)notification
 {
-    CPTDictionary userInfo = notification.userInfo;
-    CPTPlotSpace *space    = userInfo[CPTGraphPlotSpaceNotificationKey];
+    CPTDictionary *userInfo = notification.userInfo;
+    CPTPlotSpace *space     = userInfo[CPTGraphPlotSpaceNotificationKey];
 
     [space addObserver:self
             forKeyPath:@"isDragging"
@@ -475,8 +490,8 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
  **/
 -(void)plotSpaceRemoved:(nonnull NSNotification *)notification
 {
-    CPTDictionary userInfo = notification.userInfo;
-    CPTPlotSpace *space    = userInfo[CPTGraphPlotSpaceNotificationKey];
+    CPTDictionary *userInfo = notification.userInfo;
+    CPTPlotSpace *space     = userInfo[CPTGraphPlotSpaceNotificationKey];
 
     [space removeObserver:self forKeyPath:@"isDragging" context:CPTGraphHostingViewKVOContext];
     [self.window invalidateCursorRectsForView:self];
@@ -503,6 +518,11 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
             self.layer      = [self makeBackingLayer];
             self.wantsLayer = YES;
         }
+
+        CPTGraph *theGraph = self.hostedGraph;
+        if ( theGraph ) {
+            [self.layer addSublayer:theGraph];
+        }
     }
 }
 
@@ -513,7 +533,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
 /// @cond
 
--(void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable CPTDictionary)change context:(nullable void *)context
+-(void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable CPTDictionary *)change context:(nullable void *)context
 {
     if ( context == CPTGraphHostingViewKVOContext ) {
         CPTGraph *theGraph = self.hostedGraph;

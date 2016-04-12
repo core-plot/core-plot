@@ -7,7 +7,7 @@
 
 /// @name Axes
 /// @{
-@property (nonatomic, readwrite, strong, nullable) CPTAxisArray axes;
+@property (nonatomic, readwrite, strong, nullable) CPTAxisArray *axes;
 /// @}
 
 /// @name Drawing

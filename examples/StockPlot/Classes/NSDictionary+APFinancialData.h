@@ -2,6 +2,6 @@
 
 @interface NSDictionary(APFinancialData)
 
-+(nonnull CPTDictionary)dictionaryWithCSVLine:(nonnull NSString *)csvLine;
++(nonnull CPTDictionary *)dictionaryWithCSVLine:(nonnull NSString *)csvLine;
 
 @end

@@ -145,9 +145,9 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     x.minorTicksPerInterval = 2;
     x.majorGridLineStyle    = majorGridLineStyle;
     x.minorGridLineStyle    = minorGridLineStyle;
-    CPTPlotRangeArray exclusionRanges = @[[CPTPlotRange plotRangeWithLocation:@1.99 length:@0.02],
-                                          [CPTPlotRange plotRangeWithLocation:@0.99 length:@0.02],
-                                          [CPTPlotRange plotRangeWithLocation:@2.99 length:@0.02]];
+    CPTPlotRangeArray *exclusionRanges = @[[CPTPlotRange plotRangeWithLocation:@1.99 length:@0.02],
+                                           [CPTPlotRange plotRangeWithLocation:@0.99 length:@0.02],
+                                           [CPTPlotRange plotRangeWithLocation:@2.99 length:@0.02]];
     x.labelExclusionRanges = exclusionRanges;
 
     NSMutableAttributedString *xTitle = [[NSMutableAttributedString alloc] initWithString:@"X Axis\nLine 2"];
@@ -469,7 +469,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     NSNumber *x = dataPoint[@"x"];
     NSNumber *y = dataPoint[@"y"];
 
-    CPTNumberArray anchorPoint = @[x, y];
+    CPTNumberArray *anchorPoint = @[x, y];
 
     // Add annotation
     // First make a string for the y value
@@ -510,9 +510,9 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 
     // Determine point of symbol in plot coordinates
 
-    NSNumber *x                = @0;
-    NSNumber *y                = [self numberForPlot:plot field:0 recordIndex:index];
-    CPTNumberArray anchorPoint = @[x, @(index)];
+    NSNumber *x                 = @0;
+    NSNumber *y                 = [self numberForPlot:plot field:0 recordIndex:index];
+    CPTNumberArray *anchorPoint = @[x, @(index)];
 
     // Add annotation
     // First make a string for the y value
@@ -531,13 +531,28 @@ static NSString *const barPlot2       = @"Bar Plot 2";
         self.symbolTextAnnotation = annotation;
     }
 
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"barWidth"];
-    animation.duration            = 0.25;
-    animation.toValue             = @0.0;
-    animation.repeatCount         = 1;
-    animation.autoreverses        = YES;
-    animation.removedOnCompletion = YES;
-    [plot addAnimation:animation forKey:@"barWidth"];
+    const CGFloat duration = 0.25;
+    NSNumber *barWidth     = plot.barWidth;
+
+    if ( barWidth ) {
+        [CPTAnimation animate:plot
+                     property:@"barWidth"
+                   fromNumber:plot.barWidth
+                     toNumber:@0.0
+                     duration:duration
+                    withDelay:0.0
+               animationCurve:CPTAnimationCurveDefault
+                     delegate:nil];
+
+        [CPTAnimation animate:plot
+                     property:@"barWidth"
+                   fromNumber:nil
+                     toNumber:barWidth
+                     duration:duration
+                    withDelay:duration
+               animationCurve:CPTAnimationCurveDefault
+                     delegate:nil];
+    }
 }
 
 #pragma mark -
@@ -640,7 +655,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     overlayView.rotationDelegate  = self;
     overlayView.rotationTransform = perspectiveRotation;
     overlayView.autoresizingMask  = self.hostView.autoresizingMask;
-    [(self.hostView).superview addSubview:overlayView positioned:NSWindowAbove relativeTo:self.hostView];
+    [self.hostView.superview addSubview:overlayView positioned:NSWindowAbove relativeTo:self.hostView];
     self.overlayRotationView = overlayView;
 
     [CATransaction begin];
@@ -694,7 +709,9 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 -(IBAction)plotSymbolDemo:(nullable id)sender
 {
     if ( !self.plotSymbolWindow ) {
-        [NSBundle loadNibNamed:@"PlotSymbolDemo" owner:self];
+        [[NSBundle mainBundle] loadNibNamed:@"PlotSymbolDemo"
+                                      owner:self
+                            topLevelObjects:nil];
     }
 
     NSWindow *window = self.plotSymbolWindow;
@@ -704,7 +721,9 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 -(IBAction)axisDemo:(nullable id)sender
 {
     if ( !self.axisDemoWindow ) {
-        [NSBundle loadNibNamed:@"AxisDemo" owner:self];
+        [[NSBundle mainBundle] loadNibNamed:@"AxisDemo"
+                                      owner:self
+                            topLevelObjects:nil];
     }
 
     NSWindow *window = self.axisDemoWindow;
@@ -714,7 +733,9 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 -(IBAction)selectionDemo:(nullable id)sender
 {
     if ( !self.selectionDemoWindow ) {
-        [NSBundle loadNibNamed:@"SelectionDemo" owner:self];
+        [[NSBundle mainBundle] loadNibNamed:@"SelectionDemo"
+                                      owner:self
+                            topLevelObjects:nil];
     }
 
     NSWindow *window = self.selectionDemoWindow;

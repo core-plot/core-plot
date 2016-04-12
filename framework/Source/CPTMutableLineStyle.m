@@ -29,7 +29,7 @@
  **/
 @dynamic lineWidth;
 
-/** @property nullable CPTNumberArray dashPattern
+/** @property nullable CPTNumberArray *dashPattern
  *  @brief The dash-and-space pattern for the line. Default is @nil.
  **/
 @dynamic dashPattern;

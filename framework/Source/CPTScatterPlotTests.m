@@ -7,8 +7,8 @@
 @interface CPTScatterPlot(Testing)
 
 -(void)calculatePointsToDraw:(nonnull BOOL *)pointDrawFlags forPlotSpace:(nonnull CPTXYPlotSpace *)xyPlotSpace includeVisiblePointsOnly:(BOOL)visibleOnly numberOfPoints:(NSUInteger)dataCount;
--(void)setXValues:(nullable CPTNumberArray)newValues;
--(void)setYValues:(nullable CPTNumberArray)newValues;
+-(void)setXValues:(nullable CPTNumberArray *)newValues;
+-(void)setYValues:(nullable CPTNumberArray *)newValues;
 
 @end
 
@@ -19,7 +19,7 @@
 
 -(void)setUp
 {
-    CPTNumberArray yValues = @[@0.5, @0.5, @0.5, @0.5, @0.5];
+    CPTNumberArray *yValues = @[@0.5, @0.5, @0.5, @0.5, @0.5];
 
     self.plot = [CPTScatterPlot new];
     [self.plot setYValues:yValues];
@@ -40,7 +40,7 @@
 
 -(void)testCalculatePointsToDrawAllInRange
 {
-    CPTNumberArray inRangeValues = @[@0.1, @0.2, @0.15, @0.6, @0.9];
+    CPTNumberArray *inRangeValues = @[@0.1, @0.2, @0.15, @0.6, @0.9];
 
     BOOL *drawFlags = malloc(sizeof(BOOL) * inRangeValues.count);
 
@@ -58,7 +58,7 @@
 
 -(void)testCalculatePointsToDrawAllInRangeVisibleOnly
 {
-    CPTNumberArray inRangeValues = @[@0.1, @0.2, @0.15, @0.6, @0.9];
+    CPTNumberArray *inRangeValues = @[@0.1, @0.2, @0.15, @0.6, @0.9];
 
     BOOL *drawFlags = malloc(sizeof(BOOL) * inRangeValues.count);
 
@@ -76,7 +76,7 @@
 
 -(void)testCalculatePointsToDrawNoneInRange
 {
-    CPTNumberArray inRangeValues = @[@(-0.1), @(-0.2), @(-0.15), @(-0.6), @(-0.9)];
+    CPTNumberArray *inRangeValues = @[@(-0.1), @(-0.2), @(-0.15), @(-0.6), @(-0.9)];
 
     BOOL *drawFlags = malloc(sizeof(BOOL) * inRangeValues.count);
 
@@ -94,7 +94,7 @@
 
 -(void)testCalculatePointsToDrawNoneInRangeVisibleOnly
 {
-    CPTNumberArray inRangeValues = @[@(-0.1), @(-0.2), @(-0.15), @(-0.6), @(-0.9)];
+    CPTNumberArray *inRangeValues = @[@(-0.1), @(-0.2), @(-0.15), @(-0.6), @(-0.9)];
 
     BOOL *drawFlags = malloc(sizeof(BOOL) * inRangeValues.count);
 
@@ -112,7 +112,7 @@
 
 -(void)testCalculatePointsToDrawNoneInRangeDifferentRegions
 {
-    CPTNumberArray inRangeValues = @[@(-0.1), @2, @(-0.15), @3, @(-0.9)];
+    CPTNumberArray *inRangeValues = @[@(-0.1), @2, @(-0.15), @3, @(-0.9)];
 
     BOOL *drawFlags = malloc(sizeof(BOOL) * inRangeValues.count);
 
@@ -130,7 +130,7 @@
 
 -(void)testCalculatePointsToDrawNoneInRangeDifferentRegionsVisibleOnly
 {
-    CPTNumberArray inRangeValues = @[@(-0.1), @2, @(-0.15), @3, @(-0.9)];
+    CPTNumberArray *inRangeValues = @[@(-0.1), @2, @(-0.15), @3, @(-0.9)];
 
     BOOL *drawFlags = malloc(sizeof(BOOL) * inRangeValues.count);
 
@@ -148,8 +148,8 @@
 
 -(void)testCalculatePointsToDrawSomeInRange
 {
-    CPTNumberArray inRangeValues = @[@(-0.1), @0.1, @0.2, @1.2, @1.5];
-    BOOL expected[5]             = { YES, YES, YES, YES, NO };
+    CPTNumberArray *inRangeValues = @[@(-0.1), @0.1, @0.2, @1.2, @1.5];
+    BOOL expected[5]              = { YES, YES, YES, YES, NO };
 
     BOOL *drawFlags = malloc(sizeof(BOOL) * inRangeValues.count);
 
@@ -171,7 +171,7 @@
 
 -(void)testCalculatePointsToDrawSomeInRangeVisibleOnly
 {
-    CPTNumberArray inRangeValues = @[@(-0.1), @0.1, @0.2, @1.2, @1.5];
+    CPTNumberArray *inRangeValues = @[@(-0.1), @0.1, @0.2, @1.2, @1.5];
 
     BOOL *drawFlags = malloc(sizeof(BOOL) * inRangeValues.count);
 
@@ -194,7 +194,7 @@
 
 -(void)testCalculatePointsToDrawSomeInRangeCrossing
 {
-    CPTNumberArray inRangeValues = @[@(-0.1), @1.1, @0.9, @(-0.1), @(-0.2)];
+    CPTNumberArray *inRangeValues = @[@(-0.1), @1.1, @0.9, @(-0.1), @(-0.2)];
 
     BOOL *drawFlags = malloc(sizeof(BOOL) * inRangeValues.count);
     BOOL *expected  = malloc(sizeof(BOOL) * inRangeValues.count);
@@ -224,7 +224,7 @@
 
 -(void)testCalculatePointsToDrawSomeInRangeCrossingVisibleOnly
 {
-    CPTNumberArray inRangeValues = @[@(-0.1), @1.1, @0.9, @(-0.1), @(-0.2)];
+    CPTNumberArray *inRangeValues = @[@(-0.1), @1.1, @0.9, @(-0.1), @(-0.2)];
 
     BOOL *drawFlags = malloc(sizeof(BOOL) * inRangeValues.count);
 

@@ -463,6 +463,15 @@
         <filename>https://developer.apple.com/library/ios/#documentation/UIKit/Reference/UIResponder_Class/Reference/Reference.html#//apple_ref/occ/cl/UIResponder</filename>
         <base>NSObject</base>
     </compound>
+    <compound kind="protocol" objc="yes">
+        <name>NSSecureCoding</name>
+        <filename>https://developer.apple.com/library/ios/documentation/Foundation/Reference/NSSecureCoding_Protocol_Ref/</filename>
+        <member kind="function" static="yes">
+            <type>BOOL</type>
+            <name>supportsSecureCoding:</name>
+            <anchor>//apple_ref/occ/intfcm/NSSecureCoding/supportsSecureCoding</anchor>
+        </member>
+    </compound>
     <compound kind="class" objc="yes">
         <name>NSString</name>
         <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html</filename>

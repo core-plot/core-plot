@@ -77,10 +77,23 @@
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        axis  = [coder decodeObjectForKey:@"CPTGridLines.axis"];
+        axis = [coder decodeObjectOfClass:[CPTAxis class]
+                                   forKey:@"CPTGridLines.axis"];
         major = [coder decodeBoolForKey:@"CPTGridLines.major"];
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

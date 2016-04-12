@@ -72,9 +72,22 @@
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        maskedLayer = [coder decodeObjectForKey:@"CPTBorderLayer.maskedLayer"];
+        maskedLayer = [coder decodeObjectOfClass:[CPTBorderedLayer class]
+                                          forKey:@"CPTBorderLayer.maskedLayer"];
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond
@@ -130,12 +143,12 @@
     }
 }
 
--(nullable CPTSublayerSet)sublayersExcludedFromAutomaticLayout
+-(nullable CPTSublayerSet *)sublayersExcludedFromAutomaticLayout
 {
     CPTBorderedLayer *excludedLayer = self.maskedLayer;
 
     if ( excludedLayer ) {
-        CPTMutableSublayerSet excludedSublayers = [super.sublayersExcludedFromAutomaticLayout mutableCopy];
+        CPTMutableSublayerSet *excludedSublayers = [super.sublayersExcludedFromAutomaticLayout mutableCopy];
         if ( !excludedSublayers ) {
             excludedSublayers = [NSMutableSet set];
         }

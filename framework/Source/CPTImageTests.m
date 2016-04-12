@@ -14,7 +14,7 @@
 
     size_t bytesPerRow = (4 * width + 15) & ~15ul;
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
 #else
     CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
@@ -30,7 +30,7 @@
     CGColorSpaceRelease(colorSpace);
     CGImageRelease(cgImage);
 
-    CPTImage *newImage = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:image]];
+    CPTImage *newImage = [self archiveRoundTrip:image];
 
     XCTAssertEqualObjects(image, newImage, @"Images not equal");
 }

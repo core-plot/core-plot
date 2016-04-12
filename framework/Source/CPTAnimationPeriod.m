@@ -8,14 +8,15 @@
 #import "_CPTAnimationCGRectPeriod.h"
 #import "_CPTAnimationCGSizePeriod.h"
 #import "_CPTAnimationNSDecimalPeriod.h"
+#import "_CPTAnimationNSNumberPeriod.h"
 #import "_CPTAnimationPlotRangePeriod.h"
 
 /// @cond
 @interface CPTAnimationPeriod()
 
-+(nonnull instancetype)periodWithStartValue:(nullable NSValue *)aStartValue endValue:(nullable NSValue *)anEndValue duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay;
++(nonnull instancetype)periodWithStartValue:(nullable NSValue *)aStartValue endValue:(nullable NSValue *)anEndValue ofClass:(nullable Class)class duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay;
 
--(nonnull instancetype)initWithStartValue:(nullable NSValue *)aStartValue endValue:(nullable NSValue *)anEndValue duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay;
+-(nonnull instancetype)initWithStartValue:(nullable NSValue *)aStartValue endValue:(nullable NSValue *)anEndValue ofClass:(nullable Class)class duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay;
 
 @property (nonatomic, readwrite) CGFloat startOffset;
 
@@ -33,6 +34,7 @@
  *  - @ref CGSize
  *  - @ref CGRect
  *  - @ref NSDecimal
+ *  - @ref NSNumber
  *  - @ref CPTPlotRange (NSValue wrapper not used)
  *  @note The starting and ending values must be the same type.
  **/
@@ -49,6 +51,11 @@
  *  @brief The ending value of the animation.
  **/
 @synthesize endValue;
+
+/** @property Class valueClass
+ *  @brief The Objective-C class of the animated object. If @nil, the value is a scalar or struct wrapped in an NSValue object.
+ **/
+@synthesize valueClass;
 
 /** @property CGFloat duration
  *  @brief The duration of the animation, in seconds.
@@ -75,13 +82,14 @@
  *  @brief Creates and returns a new CPTAnimationPeriod instance initialized with the provided start and end values and duration.
  *  @param aStartValue The starting value. If @nil, the animation starts from the current value of the animated property.
  *  @param anEndValue The ending value.
+ *  @param class The Objective-C class of the animated object. If @Nil, the value is a scalar or struct wrapped in an NSValue object.
  *  @param aDuration The animation duration in seconds.
  *  @param aDelay The starting delay in seconds.
  *  @return The initialized object.
  **/
-+(nonnull instancetype)periodWithStartValue:(NSValue *)aStartValue endValue:(NSValue *)anEndValue duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
++(instancetype)periodWithStartValue:(NSValue *)aStartValue endValue:(NSValue *)anEndValue ofClass:(Class)class duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
-    return [[self alloc] initWithStartValue:aStartValue endValue:anEndValue duration:aDuration withDelay:aDelay];
+    return [[self alloc] initWithStartValue:aStartValue endValue:anEndValue ofClass:class duration:aDuration withDelay:aDelay];
 }
 
 /// @endcond
@@ -100,6 +108,7 @@
 
     return [_CPTAnimationCGFloatPeriod periodWithStartValue:start
                                                    endValue:@(anEnd)
+                                                    ofClass:Nil
                                                    duration:aDuration
                                                   withDelay:aDelay];
 }
@@ -122,6 +131,7 @@
 
     return [_CPTAnimationCGPointPeriod periodWithStartValue:start
                                                    endValue:[NSValue valueWithBytes:&anEndPoint objCType:@encode(CGPoint)]
+                                                    ofClass:Nil
                                                    duration:aDuration
                                                   withDelay:aDelay];
 }
@@ -144,6 +154,7 @@
 
     return [_CPTAnimationCGSizePeriod periodWithStartValue:start
                                                   endValue:[NSValue valueWithBytes:&anEndSize objCType:@encode(CGSize)]
+                                                   ofClass:Nil
                                                   duration:aDuration
                                                  withDelay:aDelay];
 }
@@ -166,6 +177,7 @@
 
     return [_CPTAnimationCGRectPeriod periodWithStartValue:start
                                                   endValue:[NSValue valueWithBytes:&anEndRect objCType:@encode(CGRect)]
+                                                   ofClass:Nil
                                                   duration:aDuration
                                                  withDelay:aDelay];
 }
@@ -184,8 +196,26 @@
 
     return [_CPTAnimationNSDecimalPeriod periodWithStartValue:start
                                                      endValue:[NSDecimalNumber decimalNumberWithDecimal:anEndDecimal]
+                                                      ofClass:Nil
                                                      duration:aDuration
                                                     withDelay:aDelay];
+}
+
+/**
+ *  @brief Creates and returns a new CPTAnimationPeriod instance initialized with the provided start and end values and duration.
+ *  @param aStartNumber The starting value. If @NAN or @nil, the animation starts from the current value of the animated property.
+ *  @param anEndNumber The ending value.
+ *  @param aDuration The animation duration in seconds.
+ *  @param aDelay The starting delay in seconds.
+ *  @return The initialized object.
+ **/
++(nonnull instancetype)periodWithStartNumber:(nullable NSNumber *)aStartNumber endNumber:(nonnull NSNumber *)anEndNumber duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
+{
+    return [_CPTAnimationNSNumberPeriod periodWithStartValue:aStartNumber
+                                                    endValue:anEndNumber
+                                                     ofClass:[NSNumber class]
+                                                    duration:aDuration
+                                                   withDelay:aDelay];
 }
 
 /**
@@ -206,6 +236,7 @@
 
     return [_CPTAnimationPlotRangePeriod periodWithStartValue:(NSValue *)startRange
                                                      endValue:(NSValue *)anEndPlotRange
+                                                      ofClass:[CPTPlotRange class]
                                                      duration:aDuration
                                                     withDelay:aDelay];
 }
@@ -218,21 +249,24 @@
  *  This is the designated initializer. The initialized object will have the following properties:
  *  - @ref startValue = @par{aStartValue}
  *  - @ref endValue = @par{anEndValue}
+ *  - @ref class = @par{class}
  *  - @ref duration = @par{aDuration}
  *  - @ref delay = @par{aDelay}
  *  - @ref startOffset = The animation time clock offset when this method is called.
  *
  *  @param aStartValue The starting value. If @nil, the animation starts from the current value of the animated property.
  *  @param anEndValue The ending value.
+ *  @param class The Objective-C class of the animated object. If @Nil, the value is a scalar or struct wrapped in an NSValue object.
  *  @param aDuration The animation duration in seconds.
  *  @param aDelay The starting delay in seconds.
  *  @return The initialized object.
  **/
--(nonnull instancetype)initWithStartValue:(NSValue *)aStartValue endValue:(NSValue *)anEndValue duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
+-(instancetype)initWithStartValue:(NSValue *)aStartValue endValue:(NSValue *)anEndValue ofClass:(Class)class duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
     if ( (self = [super init]) ) {
         startValue  = [aStartValue copy];
         endValue    = [anEndValue copy];
+        valueClass  = class;
         duration    = aDuration;
         delay       = aDelay;
         startOffset = [CPTAnimation sharedInstance].timeOffset;
@@ -257,6 +291,7 @@
 
     self = [[_CPTAnimationCGFloatPeriod alloc] initWithStartValue:start
                                                          endValue:@(anEnd)
+                                                          ofClass:Nil
                                                          duration:aDuration
                                                         withDelay:aDelay];
 
@@ -281,6 +316,7 @@
 
     self = [[_CPTAnimationCGPointPeriod alloc] initWithStartValue:start
                                                          endValue:[NSValue valueWithBytes:&anEndPoint objCType:@encode(CGPoint)]
+                                                          ofClass:Nil
                                                          duration:aDuration
                                                         withDelay:aDelay];
 
@@ -305,6 +341,7 @@
 
     self = [[_CPTAnimationCGSizePeriod alloc] initWithStartValue:start
                                                         endValue:[NSValue valueWithBytes:&anEndSize objCType:@encode(CGSize)]
+                                                         ofClass:Nil
                                                         duration:aDuration
                                                        withDelay:aDelay];
 
@@ -329,6 +366,7 @@
 
     self = [[_CPTAnimationCGRectPeriod alloc] initWithStartValue:start
                                                         endValue:[NSValue valueWithBytes:&anEndRect objCType:@encode(CGRect)]
+                                                         ofClass:Nil
                                                         duration:aDuration
                                                        withDelay:aDelay];
 
@@ -349,8 +387,28 @@
 
     self = [[_CPTAnimationNSDecimalPeriod alloc] initWithStartValue:start
                                                            endValue:[NSDecimalNumber decimalNumberWithDecimal:anEndDecimal]
+                                                            ofClass:Nil
                                                            duration:aDuration
                                                           withDelay:aDelay];
+
+    return self;
+}
+
+/**
+ *  @brief Initializes a newly allocated CPTAnimationPeriod object with the provided start and end values and duration.
+ *  @param aStartNumber The starting value. If @NAN or @nil, the animation starts from the current value of the animated property.
+ *  @param anEndNumber The ending value.
+ *  @param aDuration The animation duration in seconds.
+ *  @param aDelay The starting delay in seconds.
+ *  @return The initialized object.
+ **/
+-(nonnull instancetype)initWithStartNumber:(nullable NSNumber *)aStartNumber endNumber:(nonnull NSNumber *)anEndNumber duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
+{
+    self = [[_CPTAnimationNSNumberPeriod alloc] initWithStartValue:aStartNumber
+                                                          endValue:anEndNumber
+                                                           ofClass:[NSNumber class]
+                                                          duration:aDuration
+                                                         withDelay:aDelay];
 
     return self;
 }
@@ -373,6 +431,7 @@
 
     self = [[_CPTAnimationPlotRangePeriod alloc] initWithStartValue:(NSValue *)startRange
                                                            endValue:(NSValue *)anEndPlotRange
+                                                            ofClass:[CPTPlotRange class]
                                                            duration:aDuration
                                                           withDelay:aDelay];
 
@@ -386,7 +445,7 @@
  **/
 -(nonnull instancetype)init
 {
-    return [self initWithStartValue:nil endValue:nil duration:CPTFloat(0.0) withDelay:CPTFloat(0.0)];
+    return [self initWithStartValue:nil endValue:@0.0 ofClass:Nil duration:CPTFloat(0.0) withDelay:CPTFloat(0.0)];
 }
 
 /// @endcond
@@ -818,6 +877,81 @@
                                                                  endDecimal:to
                                                                    duration:duration
                                                                   withDelay:CPTFloat(0.0)];
+
+    return [self animate:object
+                property:property
+                  period:period
+          animationCurve:CPTAnimationCurveDefault
+                delegate:nil];
+}
+
+// NSNumber
+
+/** @brief Creates an animation operation with the given properties and adds it to the animation queue.
+ *  @param object The object to animate.
+ *  @param property The name of the property of @par{object} to animate. The property must have both getter and setter methods.
+ *  @param from The starting value. If @NAN or @nil, the animation starts from the current value of the animated property.
+ *  @param to The ending value.
+ *  @param duration The duration of the animation.
+ *  @param delay The starting delay of the animation in seconds.
+ *  @param animationCurve The animation curve used to animate the new operation.
+ *  @param delegate The animation delegate (can be @nil).
+ *  @return The queued animation operation.
+ **/
++(nonnull CPTAnimationOperation *)animate:(nonnull id)object property:(nonnull NSString *)property fromNumber:(nullable NSNumber *)from toNumber:(nonnull NSNumber *)to duration:(CGFloat)duration withDelay:(CGFloat)delay animationCurve:(CPTAnimationCurve)animationCurve delegate:(nullable id<CPTAnimationDelegate>)delegate
+{
+    CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStartNumber:from
+                                                                 endNumber:to
+                                                                  duration:duration
+                                                                 withDelay:delay];
+
+    return [self animate:object
+                property:property
+                  period:period
+          animationCurve:animationCurve
+                delegate:delegate
+    ];
+}
+
+/** @brief Creates an animation operation with the given properties and adds it to the animation queue.
+ *  @param object The object to animate.
+ *  @param property The name of the property of @par{object} to animate. The property must have both getter and setter methods.
+ *  @param from The starting value. If @NAN or @nil, the animation starts from the current value of the animated property.
+ *  @param to The ending value.
+ *  @param duration The duration of the animation.
+ *  @param animationCurve The animation curve used to animate the new operation.
+ *  @param delegate The animation delegate (can be @nil).
+ *  @return The queued animation operation.
+ **/
++(nonnull CPTAnimationOperation *)animate:(nonnull id)object property:(nonnull NSString *)property fromNumber:(nullable NSNumber *)from toNumber:(nonnull NSNumber *)to duration:(CGFloat)duration animationCurve:(CPTAnimationCurve)animationCurve delegate:(nullable id<CPTAnimationDelegate>)delegate
+{
+    CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStartNumber:from
+                                                                 endNumber:to
+                                                                  duration:duration
+                                                                 withDelay:CPTFloat(0.0)];
+
+    return [self animate:object
+                property:property
+                  period:period
+          animationCurve:animationCurve
+                delegate:delegate
+    ];
+}
+
+/** @brief Creates an animation operation with the given properties and adds it to the animation queue.
+ *  @param object The object to animate.
+ *  @param property The name of the property of @par{object} to animate. The property must have both getter and setter methods.
+ *  @param from The starting value. If @NAN or @nil, the animation starts from the current value of the animated property.
+ *  @param to The ending value.
+ *  @param duration The duration of the animation.
+ *  @return The queued animation operation.
+ **/
++(nonnull CPTAnimationOperation *)animate:(nonnull id)object property:(nonnull NSString *)property fromNumber:(nullable NSNumber *)from toNumber:(nonnull NSNumber *)to duration:(CGFloat)duration
+{
+    CPTAnimationPeriod *period = [CPTAnimationPeriod periodWithStartNumber:from
+                                                                 endNumber:to
+                                                                  duration:duration
+                                                                 withDelay:CPTFloat(0.0)];
 
     return [self animate:object
                 property:property

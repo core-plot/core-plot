@@ -7,14 +7,14 @@
 /**
  *  @brief An array of text styles.
  **/
-typedef NSArray<CPTTextStyle *> *CPTTextStyleArray;
+typedef NSArray<CPTTextStyle *> CPTTextStyleArray;
 
 /**
  *  @brief A mutable array of text styles.
  **/
-typedef NSMutableArray<CPTTextStyle *> *CPTMutableTextStyleArray;
+typedef NSMutableArray<CPTTextStyle *> CPTMutableTextStyleArray;
 
-@interface CPTTextStyle : NSObject<NSCoding, NSCopying, NSMutableCopying>
+@interface CPTTextStyle : NSObject<NSCopying, NSMutableCopying, NSCoding, NSSecureCoding>
 
 @property (readonly, copy, nonatomic, nullable) NSString *fontName;
 @property (readonly, nonatomic) CGFloat fontSize;
@@ -37,11 +37,11 @@ typedef NSMutableArray<CPTTextStyle *> *CPTMutableTextStyleArray;
  **/
 @interface CPTTextStyle(CPTPlatformSpecificTextStyleExtensions)
 
-@property (readonly, nonatomic, nonnull) CPTDictionary attributes;
+@property (readonly, nonatomic, nonnull) CPTDictionary *attributes;
 
 /// @name Factory Methods
 /// @{
-+(nonnull instancetype)textStyleWithAttributes:(nullable CPTDictionary)attributes;
++(nonnull instancetype)textStyleWithAttributes:(nullable CPTDictionary *)attributes;
 /// @}
 
 @end

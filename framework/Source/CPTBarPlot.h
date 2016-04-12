@@ -47,7 +47,7 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
  *  @param indexRange The range of the data indexes of interest.
  *  @return An array of bar fills.
  **/
--(nullable CPTFillArray)barFillsForBarPlot:(nonnull CPTBarPlot *)barPlot recordIndexRange:(NSRange)indexRange;
+-(nullable CPTFillArray *)barFillsForBarPlot:(nonnull CPTBarPlot *)barPlot recordIndexRange:(NSRange)indexRange;
 
 /** @brief @optional Gets a bar fill for the given bar plot.
  *  This method will not be called if
@@ -65,7 +65,7 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
  *  @param indexRange The range of the data indexes of interest.
  *  @return An array of line styles.
  **/
--(nullable CPTLineStyleArray)barLineStylesForBarPlot:(nonnull CPTBarPlot *)barPlot recordIndexRange:(NSRange)indexRange;
+-(nullable CPTLineStyleArray *)barLineStylesForBarPlot:(nonnull CPTBarPlot *)barPlot recordIndexRange:(NSRange)indexRange;
 
 /** @brief @optional Gets a bar line style for the given bar plot.
  *  This method will not be called if

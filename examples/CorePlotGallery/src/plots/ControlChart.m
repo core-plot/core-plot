@@ -9,7 +9,7 @@ static const NSUInteger numberOfPoints = 11;
 
 @interface ControlChart()
 
-@property (nonatomic, readwrite, strong, nonnull) CPTNumberArray plotData;
+@property (nonatomic, readwrite, strong, nonnull) CPTNumberArray *plotData;
 @property (nonatomic, readwrite, assign) double meanValue;
 @property (nonatomic, readwrite, assign) double standardError;
 
@@ -39,7 +39,7 @@ static const NSUInteger numberOfPoints = 11;
 -(void)generateData
 {
     if ( self.plotData == nil ) {
-        CPTMutableNumberArray contentArray = [NSMutableArray array];
+        CPTMutableNumberArray *contentArray = [NSMutableArray array];
 
         double sum = 0.0;
 
@@ -65,7 +65,7 @@ static const NSUInteger numberOfPoints = 11;
 
 -(void)renderInGraphHostingView:(nonnull CPTGraphHostingView *)hostingView withTheme:(nullable CPTTheme *)theme animated:(BOOL)animated
 {
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     CGRect bounds = hostingView.bounds;
 #else
     CGRect bounds = NSRectToCGRect(hostingView.bounds);

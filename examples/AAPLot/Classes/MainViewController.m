@@ -144,8 +144,8 @@
 
 -(nullable CPTNumericData *)dataForPlot:(nonnull CPTPlot *)plot recordIndexRange:(NSRange)indexRange
 {
-    CPTFinancialDataArray financialData = self.datapuller.financialData;
-    const NSUInteger financialDataCount = financialData.count;
+    CPTFinancialDataArray *financialData = self.datapuller.financialData;
+    const NSUInteger financialDataCount  = financialData.count;
 
     const BOOL useDoubles = plot.doublePrecisionCache;
 
@@ -164,7 +164,7 @@
             double *nextValue = data.mutableBytes;
 
             for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                CPTDictionary fData = financialData[financialDataCount - i - 1];
+                CPTDictionary *fData = financialData[financialDataCount - i - 1];
                 NSNumber *value;
 
                 for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
@@ -189,7 +189,7 @@
             NSDecimal *nextValue = data.mutableBytes;
 
             for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                CPTDictionary fData = financialData[financialDataCount - i - 1];
+                CPTDictionary *fData = financialData[financialDataCount - i - 1];
                 NSNumber *value;
 
                 for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
@@ -216,7 +216,7 @@
             double *nextValue = data.mutableBytes;
 
             for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                CPTDictionary fData = financialData[financialDataCount - i - 1];
+                CPTDictionary *fData = financialData[financialDataCount - i - 1];
                 NSNumber *value;
 
                 for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
@@ -241,7 +241,7 @@
             NSDecimal *nextValue = data.mutableBytes;
 
             for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                CPTDictionary fData = financialData[financialDataCount - i - 1];
+                CPTDictionary *fData = financialData[financialDataCount - i - 1];
                 NSNumber *value;
 
                 for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
@@ -268,7 +268,7 @@
             double *nextValue = data.mutableBytes;
 
             for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                CPTDictionary fData = financialData[financialDataCount - i - 1];
+                CPTDictionary *fData = financialData[financialDataCount - i - 1];
                 NSNumber *value;
 
                 for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
@@ -311,7 +311,7 @@
             NSDecimal *nextValue = data.mutableBytes;
 
             for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                CPTDictionary fData = financialData[financialDataCount - i - 1];
+                CPTDictionary *fData = financialData[financialDataCount - i - 1];
                 NSNumber *value;
 
                 for ( NSUInteger fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
@@ -365,8 +365,8 @@
 
 -(nullable CPTNumericData *)dataForPlot:(nonnull CPTPlot *)plot recordIndexRange:(NSRange)indexRange
 {
-    CPTFinancialDataArray financialData = self.datapuller.financialData;
-    const NSUInteger financialDataCount = financialData.count;
+    CPTFinancialDataArray *financialData = self.datapuller.financialData;
+    const NSUInteger financialDataCount  = financialData.count;
 
     const BOOL useDoubles = plot.doublePrecisionCache;
 
@@ -386,7 +386,7 @@
 
             for ( int fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
                 for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                    CPTDictionary fData = (CPTDictionary)[financialData objectAtIndex:financialDataCount - i - 1];
+                    CPTDictionary *fData = (CPTDictionary *)[financialData objectAtIndex:financialDataCount - i - 1];
                     NSNumber *value;
 
                     switch ( fieldEnum ) {
@@ -411,7 +411,7 @@
 
             for ( int fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
                 for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                    CPTDictionary fData = (CPTDictionary)[financialData objectAtIndex:financialDataCount - i - 1];
+                    CPTDictionary *fData = (CPTDictionary *)[financialData objectAtIndex:financialDataCount - i - 1];
                     NSNumber *value;
 
                     switch ( fieldEnum ) {
@@ -438,7 +438,7 @@
 
             for ( int fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
                 for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                    CPTDictionary fData = (CPTDictionary)[financialData objectAtIndex:financialDataCount - i - 1];
+                    CPTDictionary *fData = (CPTDictionary *)[financialData objectAtIndex:financialDataCount - i - 1];
                     NSNumber *value;
 
                     switch ( fieldEnum ) {
@@ -463,7 +463,7 @@
 
             for ( int fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
                 for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                    CPTDictionary fData = (CPTDictionary)[financialData objectAtIndex:financialDataCount - i - 1];
+                    CPTDictionary *fData = (CPTDictionary *)[financialData objectAtIndex:financialDataCount - i - 1];
                     NSNumber *value;
 
                     switch ( fieldEnum ) {
@@ -490,7 +490,7 @@
 
             for ( int fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
                 for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                    CPTDictionary fData = (CPTDictionary)[financialData objectAtIndex:financialDataCount - i - 1];
+                    CPTDictionary *fData = (CPTDictionary *)[financialData objectAtIndex:financialDataCount - i - 1];
                     NSNumber *value;
 
                     switch ( fieldEnum ) {
@@ -533,7 +533,7 @@
 
             for ( int fieldEnum = 0; fieldEnum < numFields; fieldEnum++ ) {
                 for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
-                    CPTDictionary fData = (CPTDictionary)[financialData objectAtIndex:financialDataCount - i - 1];
+                    CPTDictionary *fData = (CPTDictionary *)[financialData objectAtIndex:financialDataCount - i - 1];
                     NSNumber *value;
 
                     switch ( fieldEnum ) {
@@ -664,7 +664,7 @@
     axisSet.yAxis.majorIntervalLength   = @50.0;
     axisSet.yAxis.minorTicksPerInterval = 4;
     axisSet.yAxis.orthogonalPosition    = @1.0;
-    CPTPlotRangeArray exclusionRanges = @[[CPTPlotRange plotRangeWithLocation:@0.0 length:low]];
+    CPTPlotRangeArray *exclusionRanges = @[[CPTPlotRange plotRangeWithLocation:@0.0 length:low]];
 
     axisSet.yAxis.labelExclusionRanges = exclusionRanges;
 

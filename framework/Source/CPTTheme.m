@@ -65,15 +65,29 @@ static NSMutableSet<Class> *themes = nil;
 
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    self = [CPTTheme themeNamed:[coder decodeObjectForKey:@"CPTTheme.name"]];
+    self = [CPTTheme themeNamed:[coder decodeObjectOfClass:[NSString class]
+                                                    forKey:@"CPTTheme.name"]];
 
     if ( self ) {
-        NSString *className = [coder decodeObjectForKey:@"CPTTheme.graphClass"];
+        NSString *className = [coder decodeObjectOfClass:[NSString class]
+                                                  forKey:@"CPTTheme.graphClass"];
         if ( className ) {
             self.graphClass = NSClassFromString(className);
         }
     }
     return self;
+}
+
+/// @endcond
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
 }
 
 /// @endcond

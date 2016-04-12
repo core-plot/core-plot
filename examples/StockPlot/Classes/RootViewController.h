@@ -12,7 +12,7 @@
 
 @interface RootViewController : UITableViewController<APYahooDataPullerDelegate>
 
-@property (nonatomic, readonly, strong, nonnull) CPTStringArray symbols;
+@property (nonatomic, readonly, strong, nonnull) CPTStringArray *symbols;
 
 -(void)addSymbol:(nonnull NSString *)aSymbol;
 

@@ -79,14 +79,8 @@
 
 -(void)encodeWithCoder:(nonnull NSCoder *)encoder
 {
-    if ( encoder.allowsKeyedCoding ) {
-        [encoder encodeObject:self.range forKey:@"CPTLimitBand.range"];
-        [encoder encodeObject:self.fill forKey:@"CPTLimitBand.fill"];
-    }
-    else {
-        [encoder encodeObject:self.range];
-        [encoder encodeObject:self.fill];
-    }
+    [encoder encodeObject:self.range forKey:@"CPTLimitBand.range"];
+    [encoder encodeObject:self.fill forKey:@"CPTLimitBand.fill"];
 }
 
 /// @endcond
@@ -98,17 +92,25 @@
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)decoder
 {
     if ( (self = [super init]) ) {
-        if ( decoder.allowsKeyedCoding ) {
-            range = [decoder decodeObjectForKey:@"CPTLimitBand.range"];
-            fill  = [decoder decodeObjectForKey:@"CPTLimitBand.fill"];
-        }
-        else {
-            range = [decoder decodeObject];
-            fill  = [decoder decodeObject];
-        }
+        range = [decoder decodeObjectOfClass:[CPTPlotRange class]
+                                      forKey:@"CPTLimitBand.range"];
+        fill = [decoder decodeObjectOfClass:[CPTFill class]
+                                     forKey:@"CPTLimitBand.fill"];
     }
     return self;
 }
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
+/// @endcond
 
 #pragma mark -
 #pragma mark Description

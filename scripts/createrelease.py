@@ -58,8 +58,10 @@ copy('License.txt', sourceDir)
 binariesDir = join(releaseRootDir, 'Binaries')
 macosDir = join(binariesDir, 'MacOS')
 iosDir = join(binariesDir, 'iOS')
+tvosDir = join(binariesDir, 'tvOS')
 makedirs(macosDir)
 mkdir(iosDir)
+mkdir(tvosDir)
 
 # Build Mac Framework
 chdir('framework')
@@ -80,6 +82,12 @@ iOSLibFile = join(join(projectRoot, 'build/Release-universal'), 'libCorePlot-Coc
 copy(iOSLibFile, iosDir)
 iOSHeaderFile = join(join(projectRoot, 'build/Release-universal'), 'CorePlotHeaders')
 copytree(iOSHeaderFile, join(iosDir, 'CorePlotHeaders'))
+
+# Build tvOS Framework
+RunXcode('CorePlot.xcodeproj', 'Universal tvOS Framework')
+tvOSProductsDir = join(projectRoot, 'build/Release-appletvuniversal')
+tvOSFramework = join(tvOSProductsDir, 'CorePlot.framework')
+copytree(tvOSFramework, join(tvosDir, 'CorePlot.framework'), symlinks=True)
 
 # Build Docs
 RunXcode('CorePlot.xcodeproj', 'Documentation-Mac')

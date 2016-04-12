@@ -4,6 +4,8 @@ ARCHS = $(ARCHS_STANDARD)
 VALID_ARCHS[sdk=iphoneos*] = arm64 armv7 armv7s
 VALID_ARCHS[sdk=iphonesimulator*] = i386 x86_64
 VALID_ARCHS[sdk=macosx*] = i386 x86_64
+VALID_ARCHS[sdk=appletvos*] = arm64
+VALID_ARCHS[sdk=appletvsimulator*] = i386 x86_64
 
 SYMROOT = $(PROJECT_DIR)/../build
 DEBUG_INFORMATION_FORMAT = dwarf-with-dsym

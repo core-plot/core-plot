@@ -5,7 +5,7 @@
 /// @cond
 @interface CPTAnnotationHostLayer()
 
-@property (nonatomic, readwrite, strong, nonnull) CPTMutableAnnotationArray mutableAnnotations;
+@property (nonatomic, readwrite, strong, nonnull) CPTMutableAnnotationArray *mutableAnnotations;
 
 @end
 
@@ -20,7 +20,7 @@
  **/
 @implementation CPTAnnotationHostLayer
 
-/** @property nonnull CPTAnnotationArray annotations
+/** @property nonnull CPTAnnotationArray *annotations
  *  @brief An array of annotations attached to this layer.
  **/
 @dynamic annotations;
@@ -80,7 +80,8 @@
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        CPTAnnotationArray annotations = [coder decodeObjectForKey:@"CPTAnnotationHostLayer.mutableAnnotations"];
+        CPTAnnotationArray *annotations = [coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [CPTAnnotation class]]]
+                                                                forKey:@"CPTAnnotationHostLayer.mutableAnnotations"];
         if ( annotations ) {
             mutableAnnotations = [annotations mutableCopy];
         }
@@ -94,11 +95,23 @@
 /// @endcond
 
 #pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
+/// @endcond
+
+#pragma mark -
 #pragma mark Annotations
 
 /// @cond
 
--(nonnull CPTAnnotationArray)annotations
+-(nonnull CPTAnnotationArray *)annotations
 {
     return [self.mutableAnnotations copy];
 }
@@ -113,7 +126,7 @@
     if ( annotation ) {
         CPTAnnotation *theAnnotation = annotation;
 
-        CPTMutableAnnotationArray annotationArray = self.mutableAnnotations;
+        CPTMutableAnnotationArray *annotationArray = self.mutableAnnotations;
         if ( ![annotationArray containsObject:theAnnotation] ) {
             [annotationArray addObject:theAnnotation];
         }
@@ -146,7 +159,7 @@
  **/
 -(void)removeAllAnnotations
 {
-    CPTMutableAnnotationArray allAnnotations = self.mutableAnnotations;
+    CPTMutableAnnotationArray *allAnnotations = self.mutableAnnotations;
 
     for ( CPTAnnotation *annotation in allAnnotations ) {
         annotation.annotationHostLayer = nil;
@@ -159,12 +172,12 @@
 
 /// @cond
 
--(nullable CPTSublayerSet)sublayersExcludedFromAutomaticLayout
+-(nullable CPTSublayerSet *)sublayersExcludedFromAutomaticLayout
 {
-    CPTMutableAnnotationArray annotations = self.mutableAnnotations;
+    CPTMutableAnnotationArray *annotations = self.mutableAnnotations;
 
     if ( annotations.count > 0 ) {
-        CPTMutableSublayerSet excludedSublayers = [super.sublayersExcludedFromAutomaticLayout mutableCopy];
+        CPTMutableSublayerSet *excludedSublayers = [super.sublayersExcludedFromAutomaticLayout mutableCopy];
 
         if ( !excludedSublayers ) {
             excludedSublayers = [NSMutableSet set];
