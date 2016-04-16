@@ -8,10 +8,10 @@
 
 # To Build the Documentation From Source
 
-1. Install [Doxygen]([http://www.stack.nl/~dimitri/doxygen/download.html#latestsrc) in **/Applications**. Core Plot requires Doxygen 1.8.6 or later.
+1. Install [Doxygen]([http://www.stack.nl/~dimitri/doxygen/download.html#latestsrc) in **/Applications**. Core Plot requires Doxygen 1.8.11 or later.
 
-2. Install [Graphviz](http://www.graphviz.org/Download_macos.php). Core Plot requires Graphviz 2.34.0 or later.
+2. Install [Graphviz](http://www.graphviz.org/Download_macos.php). Core Plot requires Graphviz 2.36.0 or later.
 
-3. Open the **CorePlot** or **CorePlot-CocoaTouch** project in Xcode.
+3. Open the **CorePlot** project in Xcode.
 
-4. Build the "Documentation" target.
+4. Build the "Documentation-Mac" and/or "Documentation-iOS" targets.
