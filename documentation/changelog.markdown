@@ -1,8 +1,12 @@
-# Release 2.1 (TBD)
+# Release 2.1 (April 16, 2016)
 
 ## Release Notes
 
-To be determined.
+This release adds a tvOS framework and removes the deprecated `CorePlot-CocoaTouch.xcodeproj` project file. All Core Plot build targets for Mac, iOS, tvOS, and the documentation are in the `CorePlot.xcodeproj` project file. Annotated type definitions (e.g., `CPTNumberArray`) were changed to exclude the pointer star ("*") so they can be used interchangeably with class names.
+
+Curved scatter plots received several improvements. This release adds options to use Catmull-Rom and Hermite cubic splines to draw curved scatter plot lines. When a Hermite spline is used to draw a monotonic data series, the curved line will be monotonic as well. Plot spaces have new methods to scale the plot space to fit entire plots.
+
+The Mac deployment target has increased to OS X 10.8. The iOS deployment target remains iOS 6.0 for the static library and iOS 8.0 for the framework. The tvOS deployment target is tvOS 9.0.
 
 ## Details
 - **New**: Increased the Mac deployment target to OS X 10.8.
@@ -11,10 +15,11 @@ To be determined.
 - **New**: Added support for animating `NSNumber` properties with `CPTAnimation`.
 - **New**: Added support for `NSSecureCoding`.
 - **New**: Added an option to draw legend swatches to the left or right side of the title.
-- **New**: Added an option to use the Catmull-Rom algorithm to draw curved scatter plot lines.
+- **New**: Added options to use Catmull-Rom and Hermite cubic splines to draw curved scatter plot lines.
 - **New**: Added a method to automatically scale the plot space to fit the entire plot.
 - **Changed**: Changed the annotated type definitions to exclude the pointer star ("*").
 - **Changed**: Miscellaneous bug fixes and cleanup.
+- **Removed**: Removed the deprecated `CorePlot-CocoaTouch.xcodeproj` project file.
 
 
 
