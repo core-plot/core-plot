@@ -3,6 +3,7 @@
 #import "CPTAnimationOperation.h"
 #import "CPTAnimationPeriod.h"
 #import "CPTDefinitions.h"
+#import "CPTPlotRange.h"
 #import "_CPTAnimationTimingFunctions.h"
 
 static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames per second
@@ -405,6 +406,13 @@ typedef NSMutableArray<CPTAnimationOperation *> CPTMutableAnimationArray;
                 typedef void (*SetterType)(id, SEL, NSDecimal);
                 SetterType setterMethod = (SetterType)[boundObject methodForSelector:boundSetter];
                 setterMethod(boundObject, boundSetter, buffer);
+            }
+            else if ( [tweenedValue isKindOfClass:[CPTPlotRange class]] ) {
+                CPTPlotRange *range = (CPTPlotRange *)tweenedValue;
+
+                typedef void (*RangeSetterType)(id, SEL, CPTPlotRange *);
+                RangeSetterType setterMethod = (RangeSetterType)[boundObject methodForSelector:boundSetter];
+                setterMethod(boundObject, boundSetter, range);
             }
             else {
                 // wrapped scalars and structs
