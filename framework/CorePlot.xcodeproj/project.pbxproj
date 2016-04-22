@@ -3253,7 +3253,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "$(SRCROOT)/Info/CorePlot-Info.plist";
 				INSTALL_PATH = "@rpath";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CorePlot;
 				SDKROOT = macosx;
@@ -3272,7 +3272,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "$(SRCROOT)/Info/CorePlot-Info.plist";
 				INSTALL_PATH = "@rpath";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CorePlot;
 				SDKROOT = macosx;
