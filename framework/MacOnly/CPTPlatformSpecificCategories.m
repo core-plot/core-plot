@@ -12,30 +12,40 @@
 -(nonnull CPTNativeImage *)imageOfLayer
 {
     CGSize boundsSize = self.bounds.size;
-
-    NSBitmapImageRep *layerImage = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
-                                                                           pixelsWide:(NSInteger)boundsSize.width
-                                                                           pixelsHigh:(NSInteger)boundsSize.height
-                                                                        bitsPerSample:8
-                                                                      samplesPerPixel:4
-                                                                             hasAlpha:YES
-                                                                             isPlanar:NO
-                                                                       colorSpaceName:NSCalibratedRGBColorSpace
-                                                                          bytesPerRow:(NSInteger)boundsSize.width * 4
-                                                                         bitsPerPixel:32];
-
+    
+    // Figure out the scale of pixels to points
+    CGFloat scale = [[NSScreen mainScreen] backingScaleFactor];
+    
+    NSBitmapImageRep *layerImage = [[NSBitmapImageRep alloc]
+                                    initWithBitmapDataPlanes:NULL
+                                    pixelsWide:(NSInteger)(boundsSize.width * scale)
+                                    pixelsHigh:(NSInteger)(boundsSize.height * scale)
+                                    bitsPerSample:8
+                                    samplesPerPixel:4
+                                    hasAlpha:YES
+                                    isPlanar:NO
+                                    colorSpaceName:NSCalibratedRGBColorSpace
+                                    bitmapFormat:NSAlphaFirstBitmapFormat
+                                    bytesPerRow:0
+                                    bitsPerPixel:0
+                                    ];
+    
+    
+    // Setting the size communicates the dpi; enables proper scaling for Retina screens
+    [layerImage setSize:NSMakeSize(boundsSize.width, boundsSize.height)];
+    
     NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:layerImage];
     CGContextRef context             = (CGContextRef)bitmapContext.graphicsPort;
-
+    
     CGContextClearRect( context, CPTRectMake(0.0, 0.0, boundsSize.width, boundsSize.height) );
     CGContextSetAllowsAntialiasing(context, true);
     CGContextSetShouldSmoothFonts(context, false);
     [self layoutAndRenderInContext:context];
     CGContextFlush(context);
-
+    
     NSImage *image = [[NSImage alloc] initWithSize:NSSizeFromCGSize(boundsSize)];
     [image addRepresentation:layerImage];
-
+    
     return image;
 }
 
