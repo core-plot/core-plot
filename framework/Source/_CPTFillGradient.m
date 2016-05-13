@@ -58,6 +58,11 @@
     [self.fillGradient fillPathInContext:context];
 }
 
+-(void)fillPathInContext:(nonnull CGContextRef)context withBounds:(CGRect) bounds
+{
+    [self.fillGradient fillPathInContext:context withBounds:bounds];
+}
+
 #pragma mark -
 #pragma mark Opacity
 

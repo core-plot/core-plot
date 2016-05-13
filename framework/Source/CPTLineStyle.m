@@ -277,6 +277,23 @@
     }
 }
 
+-(void)strokePathInContext:(nonnull CGContextRef)context withBounds:(CGRect)bounds
+{
+    CPTGradient *gradient = self.lineGradient;
+    CPTFill *fill         = self.lineFill;
+    
+    if ( gradient ) {
+        [self strokePathWithGradient:gradient inContext:context];
+    }
+    else if ( fill ) {
+        CGContextReplacePathWithStrokedPath(context);
+        [fill fillPathInContext:context withBounds:bounds];
+    }
+    else {
+        CGContextStrokePath(context);
+    }
+}
+
 /** @brief Stroke a rectangular path in the given graphics context.
  *  Call @link CPTLineStyle::setLineStyleInContext: -setLineStyleInContext: @endlink first to set up the drawing properties.
  *
