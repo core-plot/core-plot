@@ -1600,7 +1600,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     BOOL plotProvidesLabels          = dataLabelTextStyle && dataLabelFormatter;
 
     BOOL hasCachedLabels                     = NO;
-    NSMutableArray<CPTLayer *> *cachedLabels = (NSMutableArray<CPTLayer *> *)[self cachedArrayForKey: CPTPlotBindingDataLabels];
+    NSMutableArray<CPTLayer *> *cachedLabels = (NSMutableArray<CPTLayer *> *)[self cachedArrayForKey:CPTPlotBindingDataLabels];
     for ( CPTLayer *label in cachedLabels ) {
         if ( ![label isKindOfClass:nullClass] ) {
             hasCachedLabels = YES;

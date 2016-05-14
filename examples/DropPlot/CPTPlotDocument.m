@@ -156,7 +156,7 @@
         NSString *fileContents = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
 
         // Parse CSV
-        NSUInteger length    = fileContents.length;
+        NSUInteger length = fileContents.length;
         NSUInteger lineStart = 0, lineEnd = 0, contentsEnd = 0;
         NSRange currentRange;
 

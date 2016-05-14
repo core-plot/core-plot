@@ -656,8 +656,8 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     double length;
 
     if ( self.barWidthsAreInViewCoordinates ) {
-        CGFloat floatLength        = CPTDecimalCGFloatValue(decimalLength);
-        CGPoint originViewPoint    = CGPointZero;
+        CGFloat floatLength = CPTDecimalCGFloatValue(decimalLength);
+        CGPoint originViewPoint = CGPointZero;
         CGPoint displacedViewPoint = CPTPointMake(floatLength, floatLength);
         double originPlotPoint[2], displacedPlotPoint[2];
         CPTPlotSpace *thePlotSpace = self.plotSpace;
@@ -681,8 +681,8 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     NSDecimal length;
 
     if ( self.barWidthsAreInViewCoordinates ) {
-        CGFloat floatLength        = CPTDecimalCGFloatValue(decimalLength);
-        CGPoint originViewPoint    = CGPointZero;
+        CGFloat floatLength = CPTDecimalCGFloatValue(decimalLength);
+        CGPoint originViewPoint = CGPointZero;
         CGPoint displacedViewPoint = CPTPointMake(floatLength, floatLength);
         NSDecimal originPlotPoint[2], displacedPlotPoint[2];
         CPTPlotSpace *thePlotSpace = self.plotSpace;
