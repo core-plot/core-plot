@@ -1,3 +1,15 @@
+# Release 2.2 (TBD)
+
+## Release Notes
+
+To be determined.
+
+## Details
+- **New**: Increased the iOS deployment target to iOS 8.
+- **Changed**: Miscellaneous bug fixes and cleanup.
+
+
+
 # Release 2.1 (April 16, 2016)
 
 ## Release Notes
