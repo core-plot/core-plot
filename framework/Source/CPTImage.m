@@ -19,7 +19,7 @@ typedef NS_ENUM (NSInteger, CPTSlice) {
 };
 
 typedef struct _CPTImageSlices {
-    CGImageRef slice[9]; ///< The image slices used to render a stretchable image.
+    __nonnull CGImageRef slice[9]; ///< The image slices used to render a stretchable image.
 }
 CPTImageSlices;
 
@@ -592,7 +592,10 @@ CPTImageSlices;
     for ( NSUInteger i = 0; i < 9; i++ ) {
         CGImageRelease(slices.slice[i]);
 
-        slices.slice[i] = CGImageRetain(newSlices.slice[i]);
+        CGImageRef slice = CGImageRetain(newSlices.slice[i]);
+        if ( slice ) {
+            slices.slice[i] = slice;
+        }
     }
 }
 
@@ -630,45 +633,54 @@ CPTImageSlices;
     // top row
     if ( capTop > CPTFloat(0.0) ) {
         if ( capLeft > CPTFloat(0.0) ) {
-            imageSlices.slice[CPTSliceTopLeft] = CGImageCreateWithImageInRect( theImage, CPTRectMake(0.0, 0.0, capLeft, capTop) );
+            CGImageRef sliceImage = CGImageCreateWithImageInRect( theImage, CPTRectMake(0.0, 0.0, capLeft, capTop) );
+            imageSlices.slice[CPTSliceTopLeft] = sliceImage;
         }
 
         if ( centerSize.width > CPTFloat(0.0) ) {
-            imageSlices.slice[CPTSliceTop] = CGImageCreateWithImageInRect( theImage, CPTRectMake(capLeft, 0.0, centerSize.width, capTop) );
+            CGImageRef sliceImage = CGImageCreateWithImageInRect( theImage, CPTRectMake(capLeft, 0.0, centerSize.width, capTop) );
+            imageSlices.slice[CPTSliceTop] = sliceImage;
         }
 
         if ( capRight > CPTFloat(0.0) ) {
-            imageSlices.slice[CPTSliceTopRight] = CGImageCreateWithImageInRect( theImage, CPTRectMake(width - capRight, 0.0, capRight, capTop) );
+            CGImageRef sliceImage = CGImageCreateWithImageInRect( theImage, CPTRectMake(width - capRight, 0.0, capRight, capTop) );
+            imageSlices.slice[CPTSliceTopRight] = sliceImage;
         }
     }
 
     // middle row
     if ( centerSize.height > CPTFloat(0.0) ) {
         if ( capLeft > CPTFloat(0.0) ) {
-            imageSlices.slice[CPTSliceLeft] = CGImageCreateWithImageInRect( theImage, CPTRectMake(0.0, capTop, capLeft, centerSize.height) );
+            CGImageRef sliceImage = CGImageCreateWithImageInRect( theImage, CPTRectMake(0.0, capTop, capLeft, centerSize.height) );
+            imageSlices.slice[CPTSliceLeft] = sliceImage;
         }
 
         if ( centerSize.width > CPTFloat(0.0) ) {
-            imageSlices.slice[CPTSliceMiddle] = CGImageCreateWithImageInRect( theImage, CPTRectMake(capLeft, capTop, centerSize.width, centerSize.height) );
+            CGImageRef sliceImage = CGImageCreateWithImageInRect( theImage, CPTRectMake(capLeft, capTop, centerSize.width, centerSize.height) );
+            imageSlices.slice[CPTSliceMiddle] = sliceImage;
         }
 
         if ( capRight > CPTFloat(0.0) ) {
-            imageSlices.slice[CPTSliceRight] = CGImageCreateWithImageInRect( theImage, CPTRectMake(width - capRight, capTop, capRight, centerSize.height) );
+            CGImageRef sliceImage = CGImageCreateWithImageInRect( theImage, CPTRectMake(width - capRight, capTop, capRight, centerSize.height) );
+            imageSlices.slice[CPTSliceRight] = sliceImage;
         }
     }
 
     // bottom row
     if ( capBottom > CPTFloat(0.0) ) {
         if ( capLeft > CPTFloat(0.0) ) {
-            imageSlices.slice[CPTSliceBottomLeft] = CGImageCreateWithImageInRect( theImage, CPTRectMake(0.0, height - capBottom, capLeft, capBottom) );
+            CGImageRef sliceImage = CGImageCreateWithImageInRect( theImage, CPTRectMake(0.0, height - capBottom, capLeft, capBottom) );
+            imageSlices.slice[CPTSliceBottomLeft] = sliceImage;
         }
 
         if ( centerSize.width > CPTFloat(0.0) ) {
-            imageSlices.slice[CPTSliceBottom] = CGImageCreateWithImageInRect( theImage, CPTRectMake(capLeft, height - capBottom, centerSize.width, capBottom) );
+            CGImageRef sliceImage = CGImageCreateWithImageInRect( theImage, CPTRectMake(capLeft, height - capBottom, centerSize.width, capBottom) );
+            imageSlices.slice[CPTSliceBottom] = sliceImage;
         }
 
         if ( capRight > CPTFloat(0.0) ) {
-            imageSlices.slice[CPTSliceBottomRight] = CGImageCreateWithImageInRect( theImage, CPTRectMake(width - capRight, height - capBottom, capRight, capBottom) );
+            CGImageRef sliceImage = CGImageCreateWithImageInRect( theImage, CPTRectMake(width - capRight, height - capBottom, capRight, capBottom) );
+            imageSlices.slice[CPTSliceBottomRight] = sliceImage;
         }
     }
 
@@ -750,6 +762,10 @@ CPTImageSlices;
 #endif
             self.image = theImage;
         }
+    }
+
+    if ( !theImage ) {
+        return;
     }
 
     // draw the image

@@ -44,7 +44,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 @property (nonatomic, readwrite, assign) NSUInteger pointingDeviceDownIndex;
 
 -(BOOL)barAtRecordIndex:(NSUInteger)idx basePoint:(nonnull CGPoint *)basePoint tipPoint:(nonnull CGPoint *)tipPoint;
--(nonnull CGMutablePathRef)newBarPathWithContext:(nullable CGContextRef)context recordIndex:(NSUInteger)recordIndex;
+-(nullable CGMutablePathRef)newBarPathWithContext:(nullable CGContextRef)context recordIndex:(NSUInteger)recordIndex;
 -(nonnull CGMutablePathRef)newBarPathWithContext:(nullable CGContextRef)context basePoint:(CGPoint)basePoint tipPoint:(CGPoint)tipPoint;
 -(nullable CPTFill *)barFillForIndex:(NSUInteger)idx;
 -(nullable CPTLineStyle *)barLineStyleForIndex:(NSUInteger)idx;
@@ -934,7 +934,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     return YES;
 }
 
--(nonnull CGMutablePathRef)newBarPathWithContext:(nullable CGContextRef)context recordIndex:(NSUInteger)recordIndex
+-(nullable CGMutablePathRef)newBarPathWithContext:(nullable CGContextRef)context recordIndex:(NSUInteger)recordIndex
 {
     // Get base and tip points
     CGPoint basePoint, tipPoint;

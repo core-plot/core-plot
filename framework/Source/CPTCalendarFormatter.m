@@ -142,7 +142,7 @@
  *  @param coordinateValue The time value.
  *  @return The date string.
  **/
--(nullable NSString *)stringForObjectValue:(id)coordinateValue
+-(nullable NSString *)stringForObjectValue:(nullable id)coordinateValue
 {
     NSInteger componentIncrement = 0;
 
