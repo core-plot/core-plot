@@ -67,7 +67,7 @@
     return [[super sortedPropertyPortKeys] arrayByAddingObjectsFromArray:pieChartPropertyPortKeys];
 }
 
-+(nonnull CPTDictionary *)attributesForPropertyPortWithKey:(nonnull NSString *)key
++(nullable CPTDictionary *)attributesForPropertyPortWithKey:(nullable NSString *)key
 {
     // A few additional ports for the pie chart type ...
     if ( [key isEqualToString:@"inputPieRadius"] ) {

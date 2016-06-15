@@ -9,7 +9,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 
 @interface CandlestickPlot()
 
-@property (nonatomic, readwrite, strong, nonnull) CPTGraph *graph;
+@property (nonatomic, readwrite, strong, nullable) CPTGraph *graph;
 @property (nonatomic, readwrite, strong, nonnull) NSArray<NSDictionary *> *plotData;
 
 @end
@@ -28,7 +28,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 {
     if ( (self = [super init]) ) {
         graph    = nil;
-        plotData = nil;
+        plotData = @[];
 
         self.title   = @"Candlestick Plot";
         self.section = kFinancialPlots;

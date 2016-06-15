@@ -40,6 +40,8 @@
 
 -(void)awakeFromNib
 {
+    [super awakeFromNib];
+
     [self setupView];
 }
 

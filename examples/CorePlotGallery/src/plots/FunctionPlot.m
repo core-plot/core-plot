@@ -118,13 +118,13 @@ typedef NSFont CPTFont;
 
         switch ( plotNum ) {
             case 0:
-                titleString = @"y = sin(x)";
+                titleString = NSLocalizedString(@"y = sin(x)", @"y = sin(x)");
                 function    = &sin;
                 lineColor   = [CPTColor redColor];
                 break;
 
             case 1:
-                titleString = @"y = cos(x)";
+                titleString = NSLocalizedString(@"y = cos(x)", @"y = cos(x)");
                 block       = ^(double xVal) {
                     return cos(xVal);
                 };
@@ -132,7 +132,7 @@ typedef NSFont CPTFont;
                 break;
 
             case 2:
-                titleString = @"y = tan(x)";
+                titleString = NSLocalizedString(@"y = tan(x)", @"y = tan(x)");
                 function    = &tan;
                 lineColor   = [CPTColor blueColor];
                 break;

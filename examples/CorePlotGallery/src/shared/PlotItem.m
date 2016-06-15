@@ -57,8 +57,8 @@ NSString *const kFinancialPlots = @"Financial Plots";
         defaultLayerHostingView = nil;
 
         graphs  = [[NSMutableArray alloc] init];
-        section = nil;
-        title   = nil;
+        section = @"";
+        title   = @"";
     }
 
     return self;

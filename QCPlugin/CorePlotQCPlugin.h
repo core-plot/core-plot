@@ -48,7 +48,7 @@
 
 -(nonnull CGColorRef)dataLineColor:(NSUInteger)index;
 -(CGFloat)dataLineWidth:(NSUInteger)index;
--(nonnull CGColorRef)areaFillColor:(NSUInteger)index;
--(nonnull CGImageRef)newAreaFillImage:(NSUInteger)index;
+-(nullable CGColorRef)areaFillColor:(NSUInteger)index;
+-(nullable CGImageRef)newAreaFillImage:(NSUInteger)index;
 
 @end

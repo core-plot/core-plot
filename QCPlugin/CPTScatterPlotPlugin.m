@@ -193,8 +193,11 @@
         plot.plotSymbol.lineStyle = lineStyle;
         plot.plotSymbol.fill      = [CPTFill fillWithColor:[CPTColor colorWithCGColor:[self dataSymbolColor:index]]];
         plot.plotSymbol.size      = CGSizeMake(10.0, 10.0);
-        plot.areaFill             = [CPTFill fillWithColor:[CPTColor colorWithCGColor:[self areaFillColor:index]]];
-        plot.areaBaseValue        = @( MAX( self.inputYMin, MIN(self.inputYMax, 0.0) ) );
+        CGColorRef fillColor = [self areaFillColor:index];
+        if ( fillColor ) {
+            plot.areaFill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:fillColor]];
+        }
+        plot.areaBaseValue = @( MAX( self.inputYMin, MIN(self.inputYMax, 0.0) ) );
 
         [plot reloadData];
     }

@@ -41,6 +41,8 @@ NSString *const PlotGalleryThemeNameKey               = @"PlotGalleryThemeNameKe
 
 -(void)awakeFromNib
 {
+    [super awakeFromNib];
+
     [self setupThemes];
 }
 
