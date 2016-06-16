@@ -5,13 +5,13 @@ class BarChartController : UIViewController, CPTBarPlotDataSource {
 
     // MARK: Initialization
 
-    override func viewDidAppear(animated : Bool)
+    override func viewDidAppear(_ animated : Bool)
     {
         super.viewDidAppear(animated)
 
         // Create graph from theme
-        let newGraph = CPTXYGraph(frame: CGRectZero)
-        newGraph.applyTheme(CPTTheme(named: kCPTDarkGradientTheme))
+        let newGraph = CPTXYGraph(frame: .zero)
+        newGraph.apply(CPTTheme(named: kCPTDarkGradientTheme))
 
         let hostingView = self.view as! CPTGraphHostingView
         hostingView.hostedGraph = newGraph
@@ -36,7 +36,7 @@ class BarChartController : UIViewController, CPTBarPlotDataSource {
 
         // Graph title
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .Center
+        paragraphStyle.alignment = .center
 
         let lineOne = "Graph Title"
         let lineTwo = "Line 2"
@@ -49,8 +49,8 @@ class BarChartController : UIViewController, CPTBarPlotDataSource {
         let titleRange1 = NSRange(location: 0, length: lineOne.utf16.count)
         let titleRange2 = NSRange(location: lineOne.utf16.count + 1, length: lineTwo.utf16.count)
 
-        graphTitle.addAttribute(NSForegroundColorAttributeName, value:UIColor.whiteColor(), range:titleRange1)
-        graphTitle.addAttribute(NSForegroundColorAttributeName, value:UIColor.grayColor(), range:titleRange2)
+        graphTitle.addAttribute(NSForegroundColorAttributeName, value:UIColor.white(), range:titleRange1)
+        graphTitle.addAttribute(NSForegroundColorAttributeName, value:UIColor.gray(), range:titleRange2)
         graphTitle.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSRange(location: 0, length: graphTitle.length))
         graphTitle.addAttribute(NSFontAttributeName, value:line1Font!, range:titleRange1)
         graphTitle.addAttribute(NSFontAttributeName, value:line2Font!, range:titleRange2)
@@ -58,7 +58,7 @@ class BarChartController : UIViewController, CPTBarPlotDataSource {
         newGraph.attributedTitle = graphTitle
 
         newGraph.titleDisplacement        = CGPoint(x: 0.0, y:-20.0)
-        newGraph.titlePlotAreaFrameAnchor = .Top
+        newGraph.titlePlotAreaFrameAnchor = .top
 
         // Plot space
         let plotSpace = newGraph.defaultPlotSpace as! CPTXYPlotSpace
@@ -79,7 +79,7 @@ class BarChartController : UIViewController, CPTBarPlotDataSource {
 
             // Custom labels
             x.labelRotation  = CGFloat(M_PI_4)
-            x.labelingPolicy = .None
+            x.labelingPolicy = .none
 
             let customTickLocations = [1, 5, 10, 15]
             let xAxisLabels         = ["Label A", "Label B", "Label C", "Label D"]
@@ -110,41 +110,41 @@ class BarChartController : UIViewController, CPTBarPlotDataSource {
         }
 
         // First bar plot
-        let barPlot1        = CPTBarPlot.tubularBarPlotWithColor(CPTColor.darkGrayColor(), horizontalBars:false)
+        let barPlot1        = CPTBarPlot.tubularBarPlot(with: .darkGray(), horizontalBars:false)
         barPlot1.baseValue  = 0.0
         barPlot1.dataSource = self
         barPlot1.barOffset  = -0.2
         barPlot1.identifier = "Bar Plot 1"
-        newGraph.addPlot(barPlot1, toPlotSpace:plotSpace)
+        newGraph.add(barPlot1, to:plotSpace)
 
         // Second bar plot
-        let barPlot2             = CPTBarPlot.tubularBarPlotWithColor(CPTColor.blueColor(), horizontalBars:false)
+        let barPlot2             = CPTBarPlot.tubularBarPlot(with: .blue(), horizontalBars:false)
         barPlot2.dataSource      = self
         barPlot2.baseValue       = 0.0
         barPlot2.barOffset       = 0.25
         barPlot2.barCornerRadius = 2.0
         barPlot2.identifier      = "Bar Plot 2"
-        newGraph.addPlot(barPlot2, toPlotSpace:plotSpace)
+        newGraph.add(barPlot2, to:plotSpace)
 
         self.barGraph = newGraph
     }
 
     // MARK: - Plot Data Source Methods
 
-    func numberOfRecordsForPlot(plot: CPTPlot) -> UInt
+    func numberOfRecords(for plot: CPTPlot) -> UInt
     {
         return 16
     }
 
-    func numberForPlot(plot: CPTPlot, field: UInt, recordIndex: UInt) -> AnyObject?
+    func number(for plot: CPTPlot, field: UInt, record: UInt) -> AnyObject?
     {
         switch CPTBarPlotField(rawValue: Int(field))! {
-        case .BarLocation:
-            return recordIndex as NSNumber
+        case .barLocation:
+            return record as NSNumber
             
-        case .BarTip:
+        case .barTip:
             let plotID = plot.identifier as! String
-            return (plotID == "Bar Plot 2" ? recordIndex : ((recordIndex + 1) * (recordIndex + 1)) ) as NSNumber
+            return (plotID == "Bar Plot 2" ? record : ((record + 1) * (record + 1)) ) as NSNumber
             
         default:
             return nil

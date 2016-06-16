@@ -13,7 +13,7 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		90AF4F440F36CF1800753D26 /* DatePlot.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90AF4F430F36CF1800753D26 /* DatePlot.xib */; };
 		BC8E737D0FC0B3CF00DF8511 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8E737C0FC0B3CF00DF8511 /* QuartzCore.framework */; };
-		C33E19A8198330CA00182AF2 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33E19A7198330CA00182AF2 /* main.swift */; };
+		C33E19A8198330CA00182AF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33E19A7198330CA00182AF2 /* AppDelegate.swift */; };
 		C3A14440197DE35F0048F1FF /* DateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A1443F197DE35F0048F1FF /* DateController.swift */; };
 		C3D3937419FD6E3500148319 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D3937319FD6E3500148319 /* Images.xcassets */; };
 /* End PBXBuildFile section */
@@ -111,7 +111,7 @@
 		8D1107320486CEB800E47090 /* DatePlot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DatePlot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90AF4F430F36CF1800753D26 /* DatePlot.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DatePlot.xib; sourceTree = "<group>"; };
 		BC8E737C0FC0B3CF00DF8511 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		C33E19A7198330CA00182AF2 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = main.swift; path = Source/main.swift; sourceTree = "<group>"; };
+		C33E19A7198330CA00182AF2 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Source/AppDelegate.swift; sourceTree = "<group>"; };
 		C3A1443E197DE35F0048F1FF /* DatePlot-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DatePlot-Bridging-Header.h"; sourceTree = "<group>"; };
 		C3A1443F197DE35F0048F1FF /* DateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateController.swift; path = Source/DateController.swift; sourceTree = "<group>"; };
 		C3C3CBBF19EA07F600A0296A /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/xcconfig/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
@@ -151,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				C3A1443E197DE35F0048F1FF /* DatePlot-Bridging-Header.h */,
+				C33E19A7198330CA00182AF2 /* AppDelegate.swift */,
 				C3A1443F197DE35F0048F1FF /* DateController.swift */,
 			);
 			name = Classes;
@@ -224,7 +225,6 @@
 		C33E19A219832EEA00182AF2 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				C33E19A7198330CA00182AF2 /* main.swift */,
 				C3C3CBBF19EA07F600A0296A /* CorePlotWarnings.xcconfig */,
 			);
 			name = "Other Sources";
@@ -365,7 +365,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C33E19A8198330CA00182AF2 /* main.swift in Sources */,
+				C33E19A8198330CA00182AF2 /* AppDelegate.swift in Sources */,
 				C3A14440197DE35F0048F1FF /* DateController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
