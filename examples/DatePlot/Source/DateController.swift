@@ -44,7 +44,7 @@ class DateController : NSObject, CPTPlotDataSource {
             x.orthogonalPosition    = 2.0
             x.minorTicksPerInterval = 0;
             let dateFormatter = DateFormatter()
-            dateFormatter.dateStyle = .shortStyle
+            dateFormatter.dateStyle = .short
             let timeFormatter = CPTTimeFormatter(dateFormatter:dateFormatter)
             timeFormatter.referenceDate = refDate;
             x.labelFormatter            = timeFormatter;
