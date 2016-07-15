@@ -41,7 +41,7 @@ typedef NS_ENUM (NSInteger, CPTLegendSwatchLayout) {
 /**
  *  @brief Legend delegate.
  **/
-@protocol CPTLegendDelegate<NSObject>
+@protocol CPTLegendDelegate<CPTLayerDelegate>
 
 @optional
 

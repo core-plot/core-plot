@@ -162,7 +162,7 @@ typedef NSMutableArray<__kindof CPTPlot *> CPTMutablePlotArray;
 /**
  *  @brief Plot delegate.
  **/
-@protocol CPTPlotDelegate<NSObject>
+@protocol CPTPlotDelegate<CPTLayerDelegate>
 
 @optional
 

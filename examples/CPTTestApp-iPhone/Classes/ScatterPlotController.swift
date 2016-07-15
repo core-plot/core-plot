@@ -1,6 +1,6 @@
 import UIKit
 
-class ScatterPlotController : UIViewController, CPTScatterPlotDataSource {
+class ScatterPlotController : UIViewController, CPTScatterPlotDataSource, CPTAxisDelegate {
     private var scatterGraph : CPTXYGraph? = nil
 
     typealias plotDataType = [CPTScatterPlotField : Double]
@@ -151,7 +151,7 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource {
 
     // MARK: - Axis Delegate Methods
 
-    func axis(axis: CPTAxis, shouldUpdateAxisLabelsAtLocations locations: NSSet!) -> Bool
+    private func axis(axis: CPTAxis, shouldUpdateAxisLabelsAtLocations locations: NSSet!) -> Bool
     {
         if let formatter = axis.labelFormatter {
             let labelOffset = axis.labelOffset

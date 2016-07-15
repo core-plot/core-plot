@@ -1397,7 +1397,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         return NO;
     }
 
-    id<CPTBarPlotDelegate> theDelegate = self.delegate;
+    id<CPTBarPlotDelegate> theDelegate = (id<CPTBarPlotDelegate>)self.delegate;
     if ( [theDelegate respondsToSelector:@selector(barPlot:barTouchDownAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(barPlot:barTouchDownAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(barPlot:barWasSelectedAtRecordIndex:)] ||
@@ -1466,7 +1466,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         return NO;
     }
 
-    id<CPTBarPlotDelegate> theDelegate = self.delegate;
+    id<CPTBarPlotDelegate> theDelegate = (id<CPTBarPlotDelegate>)self.delegate;
     if ( [theDelegate respondsToSelector:@selector(barPlot:barTouchUpAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(barPlot:barTouchUpAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(barPlot:barWasSelectedAtRecordIndex:)] ||

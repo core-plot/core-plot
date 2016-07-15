@@ -1519,7 +1519,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         return NO;
     }
 
-    id<CPTTradingRangePlotDelegate> theDelegate = self.delegate;
+    id<CPTTradingRangePlotDelegate> theDelegate = (id<CPTTradingRangePlotDelegate>)self.delegate;
     if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchDownAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchDownAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(tradingRangePlot:barWasSelectedAtRecordIndex:)] ||
@@ -1588,7 +1588,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         return NO;
     }
 
-    id<CPTTradingRangePlotDelegate> theDelegate = self.delegate;
+    id<CPTTradingRangePlotDelegate> theDelegate = (id<CPTTradingRangePlotDelegate>)self.delegate;
     if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchUpAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchUpAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(tradingRangePlot:barWasSelectedAtRecordIndex:)] ||

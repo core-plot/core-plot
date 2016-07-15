@@ -1133,7 +1133,7 @@ typedef struct CGPointError CGPointError;
         return NO;
     }
 
-    id<CPTRangePlotDelegate> theDelegate = self.delegate;
+    id<CPTRangePlotDelegate> theDelegate = (id<CPTRangePlotDelegate>)self.delegate;
     if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchDownAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchDownAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:)] ||
@@ -1202,7 +1202,7 @@ typedef struct CGPointError CGPointError;
         return NO;
     }
 
-    id<CPTRangePlotDelegate> theDelegate = self.delegate;
+    id<CPTRangePlotDelegate> theDelegate = (id<CPTRangePlotDelegate>)self.delegate;
     if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchUpAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchUpAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:)] ||

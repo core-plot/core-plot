@@ -1095,7 +1095,7 @@ static const CGFloat colorLookupTable[10][3] =
         return NO;
     }
 
-    id<CPTPieChartDelegate> theDelegate = self.delegate;
+    id<CPTPieChartDelegate> theDelegate = (id<CPTPieChartDelegate>)self.delegate;
     if ( [theDelegate respondsToSelector:@selector(pieChart:sliceTouchDownAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(pieChart:sliceTouchDownAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:)] ||
@@ -1164,7 +1164,7 @@ static const CGFloat colorLookupTable[10][3] =
         return NO;
     }
 
-    id<CPTPieChartDelegate> theDelegate = self.delegate;
+    id<CPTPieChartDelegate> theDelegate = (id<CPTPieChartDelegate>)self.delegate;
     if ( [theDelegate respondsToSelector:@selector(pieChart:sliceTouchUpAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(pieChart:sliceTouchUpAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:)] ||

@@ -8,7 +8,10 @@
 #import "CorePlot-CocoaTouch.h"
 #import <UIKit/UIKit.h>
 
-@interface CPTTestApp_iPadViewController : UIViewController<CPTBarPlotDataSource, CPTPieChartDataSource, CPTBarPlotDelegate>
+@interface CPTTestApp_iPadViewController : UIViewController<CPTBarPlotDataSource,
+                                                            CPTPieChartDataSource,
+                                                            CPTBarPlotDelegate,
+                                                            CPTAnimationDelegate>
 
 @property (nonatomic, readwrite, strong, nonnull) CPTNumberArray *dataForChart;
 @property (nonatomic, readwrite, strong, nonnull) NSArray<NSDictionary *> *dataForPlot;

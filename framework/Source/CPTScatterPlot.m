@@ -915,7 +915,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
             CGPathRef dataLinePath = [self newDataLinePathForViewPoints:viewPoints indexRange:viewIndexRange baselineYValue:CPTNAN];
 
             // Give the delegate a chance to prepare for the drawing.
-            id<CPTScatterPlotDelegate> theDelegate = self.delegate;
+            id<CPTScatterPlotDelegate> theDelegate = (id<CPTScatterPlotDelegate>)self.delegate;
             if ( [theDelegate respondsToSelector:@selector(scatterPlot:prepareForDrawingPlotLine:inContext:)] ) {
                 [theDelegate scatterPlot:self prepareForDrawingPlotLine:dataLinePath inContext:context];
             }
@@ -1913,7 +1913,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         return NO;
     }
 
-    id<CPTScatterPlotDelegate> theDelegate = self.delegate;
+    id<CPTScatterPlotDelegate> theDelegate = (id<CPTScatterPlotDelegate>)self.delegate;
     BOOL symbolTouchUpHandled              = NO;
 
     if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolTouchDownAtRecordIndex:)] ||
@@ -2030,7 +2030,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         return NO;
     }
 
-    id<CPTScatterPlotDelegate> theDelegate = self.delegate;
+    id<CPTScatterPlotDelegate> theDelegate = (id<CPTScatterPlotDelegate>)self.delegate;
     BOOL symbolSelectHandled               = NO;
 
     if ( [theDelegate respondsToSelector:@selector(scatterPlot:plotSymbolTouchUpAtRecordIndex:)] ||

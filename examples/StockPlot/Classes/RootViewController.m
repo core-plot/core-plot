@@ -179,11 +179,6 @@
     return cell;
 }
 
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    self.graph.view.frame = self.view.bounds;
-}
-
 #pragma mark -
 #pragma mark accessors
 

@@ -702,7 +702,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         return NO;
     }
 
-    id<CPTPlotAreaDelegate> theDelegate = self.delegate;
+    id<CPTPlotAreaDelegate> theDelegate = (id<CPTPlotAreaDelegate>)self.delegate;
     if ( [theDelegate respondsToSelector:@selector(plotAreaTouchDown:)] ||
          [theDelegate respondsToSelector:@selector(plotAreaTouchDown:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(plotAreaWasSelected:)] ||
@@ -756,7 +756,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     CGPoint lastPoint = self.touchedPoint;
     self.touchedPoint = CPTPointMake(NAN, NAN);
 
-    id<CPTPlotAreaDelegate> theDelegate = self.delegate;
+    id<CPTPlotAreaDelegate> theDelegate = (id<CPTPlotAreaDelegate>)self.delegate;
     if ( [theDelegate respondsToSelector:@selector(plotAreaTouchUp:)] ||
          [theDelegate respondsToSelector:@selector(plotAreaTouchUp:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(plotAreaWasSelected:)] ||

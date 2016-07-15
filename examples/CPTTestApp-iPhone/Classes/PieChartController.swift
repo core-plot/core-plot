@@ -1,6 +1,6 @@
 import UIKit
 
-class PieChartController : UIViewController, CPTPieChartDataSource {
+class PieChartController : UIViewController, CPTPieChartDataSource, CPTPieChartDelegate {
     private var pieGraph : CPTXYGraph? = nil
 
     let dataForChart = [20.0, 30.0, 60.0]
@@ -96,7 +96,7 @@ class PieChartController : UIViewController, CPTPieChartDataSource {
 
     // MARK: - Delegate Methods
     
-    func pieChart(plot: CPTPlot, sliceWasSelectedAtRecordIndex recordIndex: UInt)
+    private func pieChart(plot: CPTPlot, sliceWasSelectedAtRecordIndex recordIndex: UInt)
     {
         self.pieGraph?.title = "Selected index: \(recordIndex)"
     }

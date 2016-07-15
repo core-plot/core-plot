@@ -1895,7 +1895,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         return NO;
     }
 
-    id<CPTPlotDelegate> theDelegate = self.delegate;
+    id<CPTPlotDelegate> theDelegate = (id<CPTPlotDelegate>)self.delegate;
     if ( [theDelegate respondsToSelector:@selector(plot:dataLabelTouchDownAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(plot:dataLabelTouchDownAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(plot:dataLabelWasSelectedAtRecordIndex:)] ||
@@ -1973,7 +1973,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         return NO;
     }
 
-    id<CPTPlotDelegate> theDelegate = self.delegate;
+    id<CPTPlotDelegate> theDelegate = (id<CPTPlotDelegate>)self.delegate;
     if ( [theDelegate respondsToSelector:@selector(plot:dataLabelTouchUpAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(plot:dataLabelTouchUpAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(plot:dataLabelWasSelectedAtRecordIndex:)] ||
