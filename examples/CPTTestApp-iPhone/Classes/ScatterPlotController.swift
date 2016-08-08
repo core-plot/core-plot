@@ -151,7 +151,7 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource, CPTAxi
 
     // MARK: - Axis Delegate Methods
 
-    private func axis(axis: CPTAxis, shouldUpdateAxisLabelsAtLocations locations: NSSet!) -> Bool
+    private func axis(_ axis: CPTAxis, shouldUpdateAxisLabelsAtLocations locations: NSSet!) -> Bool
     {
         if let formatter = axis.labelFormatter {
             let labelOffset = axis.labelOffset

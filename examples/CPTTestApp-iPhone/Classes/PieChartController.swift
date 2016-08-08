@@ -83,7 +83,7 @@ class PieChartController : UIViewController, CPTPieChartDataSource, CPTPieChartD
         return label
     }
 
-    func radialOffsetForPieChart(piePlot: CPTPieChart, recordIndex: UInt) -> CGFloat
+    func radialOffset(for piePlot: CPTPieChart, record recordIndex: UInt) -> CGFloat
     {
         var offset: CGFloat = 0.0
 
@@ -96,7 +96,7 @@ class PieChartController : UIViewController, CPTPieChartDataSource, CPTPieChartD
 
     // MARK: - Delegate Methods
     
-    private func pieChart(plot: CPTPlot, sliceWasSelectedAtRecordIndex recordIndex: UInt)
+    private func pieChart(_ plot: CPTPlot, sliceWasSelectedAtRecordIndex recordIndex: UInt)
     {
         self.pieGraph?.title = "Selected index: \(recordIndex)"
     }
