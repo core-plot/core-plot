@@ -89,7 +89,7 @@ class BarChartController : UIViewController, CPTBarPlotDataSource {
             for tickLocation in customTickLocations {
                 let newLabel = CPTAxisLabel(text:xAxisLabels[labelLocation], textStyle:x.labelTextStyle)
                 labelLocation += 1
-                newLabel.tickLocation = tickLocation
+                newLabel.tickLocation = NSNumber.init(value: tickLocation)
                 newLabel.offset       = x.labelOffset + x.majorTickLength
                 newLabel.rotation     = CGFloat(M_PI_4)
                 customLabels.insert(newLabel)
@@ -114,7 +114,7 @@ class BarChartController : UIViewController, CPTBarPlotDataSource {
         barPlot1.baseValue  = 0.0
         barPlot1.dataSource = self
         barPlot1.barOffset  = -0.2
-        barPlot1.identifier = "Bar Plot 1"
+        barPlot1.identifier = NSString.init(string: "Bar Plot 1")
         newGraph.add(barPlot1, to:plotSpace)
 
         // Second bar plot
@@ -123,7 +123,7 @@ class BarChartController : UIViewController, CPTBarPlotDataSource {
         barPlot2.baseValue       = 0.0
         barPlot2.barOffset       = 0.25
         barPlot2.barCornerRadius = 2.0
-        barPlot2.identifier      = "Bar Plot 2"
+        barPlot2.identifier      = NSString.init(string: "Bar Plot 2")
         newGraph.add(barPlot2, to:plotSpace)
 
         self.barGraph = newGraph
@@ -136,7 +136,7 @@ class BarChartController : UIViewController, CPTBarPlotDataSource {
         return 16
     }
 
-    func number(for plot: CPTPlot, field: UInt, record: UInt) -> AnyObject?
+    func number(for plot: CPTPlot, field: UInt, record: UInt) -> Any?
     {
         switch CPTBarPlotField(rawValue: Int(field))! {
         case .barLocation:

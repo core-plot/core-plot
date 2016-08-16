@@ -64,7 +64,7 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource, CPTAxi
         blueLineStyle.lineWidth     = 3.0
         blueLineStyle.lineColor     = .blue()
         boundLinePlot.dataLineStyle = blueLineStyle
-        boundLinePlot.identifier    = "Blue Plot"
+        boundLinePlot.identifier    = NSString.init(string: "Blue Plot")
         boundLinePlot.dataSource    = self
         newGraph.add(boundLinePlot)
 
@@ -89,7 +89,7 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource, CPTAxi
         greenLineStyle.lineColor         = .green()
         greenLineStyle.dashPattern       = [5.0, 5.0]
         dataSourceLinePlot.dataLineStyle = greenLineStyle
-        dataSourceLinePlot.identifier    = "Green Plot"
+        dataSourceLinePlot.identifier    = NSString.init(string: "Green Plot")
         dataSourceLinePlot.dataSource    = self
 
         // Put an area gradient under the plot above
@@ -131,7 +131,7 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource, CPTAxi
         return UInt(self.dataForPlot.count)
     }
 
-    func number(for plot: CPTPlot, field: UInt, record: UInt) -> AnyObject?
+    func number(for plot: CPTPlot, field: UInt, record: UInt) -> Any?
     {
         let plotField = CPTScatterPlotField(rawValue: Int(field))
 
@@ -158,24 +158,25 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource, CPTAxi
 
             var newLabels = Set<CPTAxisLabel>()
 
-            for tickLocation in locations {
-                if let labelTextStyle = axis.labelTextStyle?.mutableCopy() as? CPTMutableTextStyle {
+            if let labelTextStyle = axis.labelTextStyle?.mutableCopy() as? CPTMutableTextStyle {
+                for location in locations {
+                    if let tickLocation = location as? NSNumber {
+                        if tickLocation.doubleValue >= 0.0 {
+                            labelTextStyle.color = .green()
+                        }
+                        else {
+                            labelTextStyle.color = .red()
+                        }
 
-                    if tickLocation.doubleValue >= 0.0 {
-                        labelTextStyle.color = .green()
+                        let labelString   = formatter.string(for:tickLocation)
+                        let newLabelLayer = CPTTextLayer(text: labelString, style: labelTextStyle)
+
+                        let newLabel = CPTAxisLabel(contentLayer: newLabelLayer)
+                        newLabel.tickLocation = tickLocation
+                        newLabel.offset       = labelOffset
+
+                        newLabels.insert(newLabel)
                     }
-                    else {
-                        labelTextStyle.color = .red()
-                    }
-
-                    let labelString   = formatter.string(for:tickLocation)
-                    let newLabelLayer = CPTTextLayer(text: labelString, style: labelTextStyle)
-
-                    let newLabel = CPTAxisLabel(contentLayer: newLabelLayer)
-                    newLabel.tickLocation = tickLocation as! NSNumber
-                    newLabel.offset       = labelOffset
-                    
-                    newLabels.insert(newLabel)
                 }
                 
                 axis.axisLabels = newLabels

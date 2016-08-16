@@ -34,13 +34,13 @@ class DateController : NSObject, CPTPlotDataSource {
         // Setup scatter plot space
         let plotSpace = newGraph.defaultPlotSpace as! CPTXYPlotSpace
 
-        plotSpace.xRange = CPTPlotRange(location:0.0, length:oneDay * 5.0)
+        plotSpace.xRange = CPTPlotRange(location:0.0, length:NSNumber.init(value: oneDay * 5.0))
         plotSpace.yRange = CPTPlotRange(location:1.0, length:3.0)
 
         // Axes
         let axisSet = newGraph.axisSet as! CPTXYAxisSet
         if let x = axisSet.xAxis {
-            x.majorIntervalLength   = oneDay
+            x.majorIntervalLength   = NSNumber.init(value: oneDay)
             x.orthogonalPosition    = 2.0
             x.minorTicksPerInterval = 0;
             let dateFormatter = DateFormatter()
@@ -91,7 +91,7 @@ class DateController : NSObject, CPTPlotDataSource {
         return UInt(self.plotData.count)
     }
 
-    func number(for plot: CPTPlot, field: UInt, record: UInt) -> AnyObject?
+    func number(for plot: CPTPlot, field: UInt, record: UInt) -> Any?
     {
         switch CPTScatterPlotField(rawValue: Int(field))! {
         case .X:
