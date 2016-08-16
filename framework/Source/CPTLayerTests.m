@@ -4,7 +4,7 @@
 #import "CPTUtilities.h"
 #import "NSNumberExtensions.h"
 
-static const double precision = 1.0e-6;
+static const CGFloat precision = CPTFloat(1.0e-6);
 
 @interface CPTLayerTests()
 
@@ -152,10 +152,10 @@ static const double precision = 1.0e-6;
         CGFloat expected     = ( (NSNumber *)(expectedValues[i]) ).cgFloatValue;
 
         NSString *errMessage;
-        errMessage = [NSString stringWithFormat:@"pixelAlign at x = %g with scale %g and anchor %@", position, scale, CPTStringFromPoint(anchor)];
+        errMessage = [NSString stringWithFormat:@"pixelAlign at x = %g with scale %g and anchor %@", (double)position, (double)scale, CPTStringFromPoint(anchor)];
         XCTAssertEqualWithAccuracy(alignedPoint.x, expected, precision, @"%@", errMessage);
 
-        errMessage = [NSString stringWithFormat:@"pixelAlign at y = %g with scale %g and anchor %@", position, scale, CPTStringFromPoint(anchor)];
+        errMessage = [NSString stringWithFormat:@"pixelAlign at y = %g with scale %g and anchor %@", (double)position, (double)scale, CPTStringFromPoint(anchor)];
         XCTAssertEqualWithAccuracy(alignedPoint.y, expected, precision, @"%@", errMessage);
     }
 }
