@@ -53,14 +53,14 @@ class DateController : NSObject, CPTPlotDataSource {
         if let y = axisSet.yAxis {
             y.majorIntervalLength   = 0.5
             y.minorTicksPerInterval = 5
-            y.orthogonalPosition    = oneDay
+            y.orthogonalPosition    = NSNumber.init(value: oneDay)
 
             y.labelingPolicy = .none
         }
 
         // Create a plot that uses the data source method
         let dataSourceLinePlot = CPTScatterPlot(frame: .zero)
-        dataSourceLinePlot.identifier = "Date Plot"
+        dataSourceLinePlot.identifier = NSString.init(string: "Date Plot")
 
         if let lineStyle = dataSourceLinePlot.dataLineStyle?.mutableCopy() as? CPTMutableLineStyle {
             lineStyle.lineWidth              = 3.0
