@@ -327,8 +327,10 @@ typedef NSMutableArray<__kindof CPTPlot *> CPTMutablePlotArray;
 -(void)reloadDataInIndexRange:(NSRange)indexRange;
 -(void)insertDataAtIndex:(NSUInteger)idx numberOfRecords:(NSUInteger)numberOfRecords;
 -(void)deleteDataInIndexRange:(NSRange)indexRange;
--(void)reloadPlotData;
--(void)reloadPlotDataInIndexRange:(NSRange)indexRange;
+-(void)reloadPlotData NS_SWIFT_NAME( CPTPlot.reloadPlotData() );
+
+-(void)reloadPlotDataInIndexRange:(NSRange)indexRange NS_SWIFT_NAME( CPTPlot.reloadPlotData(inIndexRange:) );
+
 /// @}
 
 /// @name Plot Data
