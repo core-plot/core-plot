@@ -139,7 +139,7 @@ typedef NSMutableArray<__kindof CPTPlot *> CPTMutablePlotArray;
  *  @param indexRange The range of the data indexes of interest.
  *  @return An array of data labels.
  **/
--(nullable NSArray<CPTLayer *> *)dataLabelsForPlot:(nonnull CPTPlot *)plot recordIndexRange:(NSRange)indexRange;
+-(nullable CPTLayerArray *)dataLabelsForPlot:(nonnull CPTPlot *)plot recordIndexRange:(NSRange)indexRange;
 
 /** @brief @optional Gets a data label for the given plot.
  *  This method will not be called if

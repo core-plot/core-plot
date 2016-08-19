@@ -56,7 +56,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 @property (nonatomic, readwrite, assign) BOOL needsRelabel;
 @property (nonatomic, readwrite, assign) NSRange labelIndexRange;
 @property (nonatomic, readwrite, strong, nullable) CPTMutableAnnotationArray *labelAnnotations;
-@property (nonatomic, readwrite, copy, nullable) NSArray<CPTLayer *> *dataLabels;
+@property (nonatomic, readwrite, copy, nullable) CPTLayerArray *dataLabels;
 
 @property (nonatomic, readwrite, assign) NSUInteger pointingDeviceDownLabelIndex;
 @property (nonatomic, readwrite, assign) NSUInteger cachedDataCount;
@@ -709,9 +709,9 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
            atRecordIndex:indexRange.location];
     }
     else if ( [theDataSource respondsToSelector:@selector(dataLabelForPlot:recordIndex:)] ) {
-        id nilObject                      = [CPTPlot nilData];
-        NSMutableArray<CPTLayer *> *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
-        NSUInteger maxIndex               = NSMaxRange(indexRange);
+        id nilObject                = [CPTPlot nilData];
+        CPTMutableLayerArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
+        NSUInteger maxIndex         = NSMaxRange(indexRange);
 
         for ( NSUInteger idx = indexRange.location; idx < maxIndex; idx++ ) {
             CPTLayer *labelLayer = [theDataSource dataLabelForPlot:self recordIndex:idx];
@@ -1599,8 +1599,8 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     NSFormatter *dataLabelFormatter  = self.labelFormatter;
     BOOL plotProvidesLabels          = dataLabelTextStyle && dataLabelFormatter;
 
-    BOOL hasCachedLabels                     = NO;
-    NSMutableArray<CPTLayer *> *cachedLabels = (NSMutableArray<CPTLayer *> *)[self cachedArrayForKey:CPTPlotBindingDataLabels];
+    BOOL hasCachedLabels               = NO;
+    CPTMutableLayerArray *cachedLabels = (CPTMutableLayerArray *)[self cachedArrayForKey:CPTPlotBindingDataLabels];
     for ( CPTLayer *label in cachedLabels ) {
         if ( ![label isKindOfClass:nullClass] ) {
             hasCachedLabels = YES;
@@ -2034,12 +2034,12 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
 /// @cond
 
--(nullable NSArray<CPTLayer *> *)dataLabels
+-(nullable CPTLayerArray *)dataLabels
 {
     return [self cachedArrayForKey:CPTPlotBindingDataLabels];
 }
 
--(void)setDataLabels:(nullable NSArray<CPTLayer *> *)newDataLabels
+-(void)setDataLabels:(nullable CPTLayerArray *)newDataLabels
 {
     [self cacheArray:newDataLabels forKey:CPTPlotBindingDataLabels];
     [self setNeedsRelabel];

@@ -5,6 +5,7 @@
 /// @file
 
 @class CPTGraph;
+@class CPTLayer;
 @class CPTShadow;
 
 /// @name Layout
@@ -16,6 +17,26 @@
 extern NSString *__nonnull const CPTLayerBoundsDidChangeNotification;
 
 /// @}
+
+/**
+ *  @brief An array of CPTLayer objects.
+ **/
+typedef NSArray<CPTLayer *> CPTLayerArray;
+
+/**
+ *  @brief A mutable array of CPTLayer objects.
+ **/
+typedef NSMutableArray<CPTLayer *> CPTMutableLayerArray;
+
+/**
+ *  @brief A set of CPTLayer objects.
+ **/
+typedef NSSet<CPTLayer *> CPTLayerSet;
+
+/**
+ *  @brief A mutable set of CPTLayer objects.
+ **/
+typedef NSMutableSet<CPTLayer *> CPTMutableLayerSet;
 
 /**
  *  @brief An array of CALayer objects.
