@@ -628,6 +628,15 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         }
     }
 
+    CPTMutableAnnotationArray *labelArray = self.labelAnnotations;
+    if ( labelArray ) {
+        id nullObject        = [NSNull null];
+        NSUInteger lastIndex = idx + numberOfRecords - 1;
+        for ( NSUInteger i = idx; i <= lastIndex; i++ ) {
+            [labelArray insertObject:nullObject atIndex:i];
+        }
+    }
+
     self.cachedDataCount += numberOfRecords;
     [self reloadDataInIndexRange:NSMakeRange(idx, numberOfRecords)];
 }
@@ -659,8 +668,20 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
         }
     }
 
+    CPTMutableAnnotationArray *labelArray = self.labelAnnotations;
+
+    NSUInteger maxIndex   = NSMaxRange(indexRange);
+    Class annotationClass = [CPTAnnotation class];
+
+    for ( NSUInteger i = indexRange.location; i < maxIndex; i++ ) {
+        CPTAnnotation *annotation = labelArray[i];
+        if ( [annotation isKindOfClass:annotationClass] ) {
+            [self removeAnnotation:annotation];
+        }
+    }
+    [labelArray removeObjectsInRange:indexRange];
+
     self.cachedDataCount -= indexRange.length;
-    [self relabelIndexRange:NSMakeRange(indexRange.location, self.cachedDataCount - indexRange.location)];
     [self setNeedsDisplay];
 }
 
