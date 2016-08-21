@@ -27,9 +27,9 @@
  *  @endif
  **/
 
-NSString *const CPTScatterPlotBindingXValues     = @"xValues";     ///< X values.
-NSString *const CPTScatterPlotBindingYValues     = @"yValues";     ///< Y values.
-NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot symbols.
+CPTScatterPlotBinding const CPTScatterPlotBindingXValues     = @"xValues";     ///< X values.
+CPTScatterPlotBinding const CPTScatterPlotBindingYValues     = @"yValues";     ///< Y values.
+CPTScatterPlotBinding const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot symbols.
 
 /// @cond
 @interface CPTScatterPlot()

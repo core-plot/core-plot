@@ -45,7 +45,7 @@
  *  @endif
  **/
 
-NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
+CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 
 /// @cond
 @interface CPTPlot()

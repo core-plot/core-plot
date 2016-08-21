@@ -12,7 +12,7 @@
 #import "CPTXYAxisSet.h"
 #import "CPTXYGraph.h"
 
-NSString *const kCPTDarkGradientTheme = @"Dark Gradients";
+CPTThemeName const kCPTDarkGradientTheme = @"Dark Gradients";
 
 /// @cond
 @interface _CPTDarkGradientTheme()

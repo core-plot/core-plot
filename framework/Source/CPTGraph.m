@@ -22,10 +22,10 @@
  *  @ingroup animation
  **/
 
-NSString *const CPTGraphNeedsRedrawNotification        = @"CPTGraphNeedsRedrawNotification";
-NSString *const CPTGraphDidAddPlotSpaceNotification    = @"CPTGraphDidAddPlotSpaceNotification";
-NSString *const CPTGraphDidRemovePlotSpaceNotification = @"CPTGraphDidRemovePlotSpaceNotification";
-NSString *const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNotificationKey";
+CPTGraphNotification const CPTGraphNeedsRedrawNotification        = @"CPTGraphNeedsRedrawNotification";
+CPTGraphNotification const CPTGraphDidAddPlotSpaceNotification    = @"CPTGraphDidAddPlotSpaceNotification";
+CPTGraphNotification const CPTGraphDidRemovePlotSpaceNotification = @"CPTGraphDidRemovePlotSpaceNotification";
+CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPlotSpaceNotificationKey";
 
 /// @cond
 @interface CPTGraph()

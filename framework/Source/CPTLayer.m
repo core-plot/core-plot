@@ -11,7 +11,7 @@
 #import <objc/runtime.h>
 #import <tgmath.h>
 
-NSString *const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeNotification";
+CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBoundsDidChangeNotification";
 
 /** @defgroup animation Animatable Properties
  *  @brief Custom layer properties that can be animated using Core Animation.

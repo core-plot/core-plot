@@ -14,9 +14,14 @@
 @class CPTPlotRange;
 @class CPTTextStyle;
 
+/**
+ *  @brief Plot bindings.
+ **/
+typedef NSString *CPTPlotBinding cpt_swift_struct;
+
 /// @ingroup plotBindingsAllPlots
 /// @{
-extern NSString *__nonnull const CPTPlotBindingDataLabels;
+extern CPTPlotBinding __nonnull const CPTPlotBindingDataLabels;
 /// @}
 
 /**

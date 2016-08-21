@@ -4,11 +4,11 @@
 #import "CPTMutablePlotRange.h"
 #import "CPTUtilities.h"
 
-NSString *const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSpaceCoordinateMappingDidChangeNotification";
+CPTPlotSpaceCoordinateMapping const CPTPlotSpaceCoordinateMappingDidChangeNotification = @"CPTPlotSpaceCoordinateMappingDidChangeNotification";
 
-NSString *const CPTPlotSpaceCoordinateKey   = @"CPTPlotSpaceCoordinateKey";
-NSString *const CPTPlotSpaceScrollingKey    = @"CPTPlotSpaceScrollingKey";
-NSString *const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
+CPTPlotSpaceInfoKey const CPTPlotSpaceCoordinateKey   = @"CPTPlotSpaceCoordinateKey";
+CPTPlotSpaceInfoKey const CPTPlotSpaceScrollingKey    = @"CPTPlotSpaceScrollingKey";
+CPTPlotSpaceInfoKey const CPTPlotSpaceDisplacementKey = @"CPTPlotSpaceDisplacementKey";
 
 /// @cond
 

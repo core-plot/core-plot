@@ -5,15 +5,20 @@
 @class CPTFill;
 @class CPTRangePlot;
 
+/**
+ *  @brief Range plot bindings.
+ **/
+typedef NSString *CPTRangePlotBinding cpt_swift_struct;
+
 /// @ingroup plotBindingsRangePlot
 /// @{
-extern NSString *__nonnull const CPTRangePlotBindingXValues;
-extern NSString *__nonnull const CPTRangePlotBindingYValues;
-extern NSString *__nonnull const CPTRangePlotBindingHighValues;
-extern NSString *__nonnull const CPTRangePlotBindingLowValues;
-extern NSString *__nonnull const CPTRangePlotBindingLeftValues;
-extern NSString *__nonnull const CPTRangePlotBindingRightValues;
-extern NSString *__nonnull const CPTRangePlotBindingBarLineStyles;
+extern CPTRangePlotBinding __nonnull const CPTRangePlotBindingXValues;
+extern CPTRangePlotBinding __nonnull const CPTRangePlotBindingYValues;
+extern CPTRangePlotBinding __nonnull const CPTRangePlotBindingHighValues;
+extern CPTRangePlotBinding __nonnull const CPTRangePlotBindingLowValues;
+extern CPTRangePlotBinding __nonnull const CPTRangePlotBindingLeftValues;
+extern CPTRangePlotBinding __nonnull const CPTRangePlotBindingRightValues;
+extern CPTRangePlotBinding __nonnull const CPTRangePlotBindingBarLineStyles;
 /// @}
 
 /**

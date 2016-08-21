@@ -13,13 +13,18 @@
 @class CPTTextLayer;
 @class CPTTextStyle;
 
+/**
+ *  @brief Bar plot bindings.
+ **/
+typedef NSString *CPTBarPlotBinding cpt_swift_struct;
+
 /// @ingroup plotBindingsBarPlot
 /// @{
-extern NSString *__nonnull const CPTBarPlotBindingBarLocations;
-extern NSString *__nonnull const CPTBarPlotBindingBarTips;
-extern NSString *__nonnull const CPTBarPlotBindingBarBases;
-extern NSString *__nonnull const CPTBarPlotBindingBarFills;
-extern NSString *__nonnull const CPTBarPlotBindingBarLineStyles;
+extern CPTBarPlotBinding __nonnull const CPTBarPlotBindingBarLocations;
+extern CPTBarPlotBinding __nonnull const CPTBarPlotBindingBarTips;
+extern CPTBarPlotBinding __nonnull const CPTBarPlotBindingBarBases;
+extern CPTBarPlotBinding __nonnull const CPTBarPlotBindingBarFills;
+extern CPTBarPlotBinding __nonnull const CPTBarPlotBindingBarLineStyles;
 /// @}
 
 /**

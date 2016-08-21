@@ -14,35 +14,45 @@
 @class CPTTextStyle;
 @class CPTLayerAnnotation;
 
+/**
+ *  @brief Graph notification type.
+ **/
+typedef NSString *CPTGraphNotification cpt_swift_struct;
+
+/**
+ *  @brief The <code>userInfo</code> dictionary keys used by CPTGraph plot space notifications.
+ **/
+typedef NSString *CPTGraphPlotSpaceKey cpt_swift_struct;
+
 /// @name Graph
 /// @{
 
 /** @brief Notification sent by various objects to tell the graph it should redraw itself.
  *  @ingroup notification
  **/
-extern NSString *__nonnull const CPTGraphNeedsRedrawNotification;
+extern CPTGraphNotification __nonnull const CPTGraphNeedsRedrawNotification NS_SWIFT_NAME(needsRedraw);
 
 /** @brief Notification sent by a graph after adding a new plot space.
  *  @ingroup notification
  *
  *  The notification <code>userInfo</code> dictionary will include the new plot space under the
- *  CPTGraphPlotSpaceNotificationKey key.
+ *  #CPTGraphPlotSpaceNotificationKey key.
  **/
-extern NSString *__nonnull const CPTGraphDidAddPlotSpaceNotification;
+extern CPTGraphNotification __nonnull const CPTGraphDidAddPlotSpaceNotification NS_SWIFT_NAME(didAddPlotSpace);
 
 /** @brief Notification sent by a graph after removing a plot space.
  *  @ingroup notification
  *
  *  The notification <code>userInfo</code> dictionary will include the removed plot space under the
- *  CPTGraphPlotSpaceNotificationKey key.
+ *  #CPTGraphPlotSpaceNotificationKey key.
  **/
-extern NSString *__nonnull const CPTGraphDidRemovePlotSpaceNotification;
+extern CPTGraphNotification __nonnull const CPTGraphDidRemovePlotSpaceNotification NS_SWIFT_NAME(didRemovePlotSpace);
 
-/** @brief The <code>userInfo</code> dictionary key used by the CPTGraphDidAddPlotSpaceNotification
- *  and CPTGraphDidRemovePlotSpaceNotification notifications for the plot space.
+/** @brief The <code>userInfo</code> dictionary key used by the #CPTGraphDidAddPlotSpaceNotification
+ *  and #CPTGraphDidRemovePlotSpaceNotification notifications for the plot space.
  *  @ingroup notification
  **/
-extern NSString *__nonnull const CPTGraphPlotSpaceNotificationKey;
+extern CPTGraphPlotSpaceKey __nonnull const CPTGraphPlotSpaceNotificationKey;
 
 /// @}
 

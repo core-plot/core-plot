@@ -20,9 +20,9 @@
  *  @ingroup animation
  **/
 
-NSString *const CPTLegendNeedsRedrawForPlotNotification        = @"CPTLegendNeedsRedrawForPlotNotification";
-NSString *const CPTLegendNeedsLayoutForPlotNotification        = @"CPTLegendNeedsLayoutForPlotNotification";
-NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeedsReloadEntriesForPlotNotification";
+CPTLegendNotification const CPTLegendNeedsRedrawForPlotNotification        = @"CPTLegendNeedsRedrawForPlotNotification";
+CPTLegendNotification const CPTLegendNeedsLayoutForPlotNotification        = @"CPTLegendNeedsLayoutForPlotNotification";
+CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeedsReloadEntriesForPlotNotification";
 
 /// @cond
 @interface CPTLegend()

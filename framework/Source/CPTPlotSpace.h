@@ -7,6 +7,16 @@
 @class CPTGraph;
 @class CPTPlotSpace;
 
+/**
+ *  @brief Plot space mapping notification type.
+ **/
+typedef NSString *CPTPlotSpaceCoordinateMapping cpt_swift_struct;
+
+/**
+ *  @brief The <code>userInfo</code> dictionary keys used by #CPTPlotSpaceCoordinateMappingDidChangeNotification notifications.
+ **/
+typedef NSString *CPTPlotSpaceInfoKey cpt_swift_struct;
+
 /// @name Plot Space
 /// @{
 
@@ -16,32 +26,32 @@
  *  the plot space coordinate system and drawing coordinates changes.
  *  @ingroup notification
  **/
-extern NSString *__nonnull const CPTPlotSpaceCoordinateMappingDidChangeNotification;
+extern CPTPlotSpaceCoordinateMapping __nonnull const CPTPlotSpaceCoordinateMappingDidChangeNotification;
 
-/** @brief The <code>userInfo</code> dictionary key used by the CPTPlotSpaceCoordinateMappingDidChangeNotification
+/** @brief The <code>userInfo</code> dictionary key used by the #CPTPlotSpaceCoordinateMappingDidChangeNotification
  *  to indicate the plot coordinate affected by the mapping change.
  *
  *  The value associated with this key is the CPTCoordinate affected by the change wrapped in an instance of NSNumber.
  *  @ingroup notification
  **/
-extern NSString *__nonnull const CPTPlotSpaceCoordinateKey;
+extern CPTPlotSpaceInfoKey __nonnull const CPTPlotSpaceCoordinateKey;
 
-/** @brief The <code>userInfo</code> dictionary key used by the CPTPlotSpaceCoordinateMappingDidChangeNotification
+/** @brief The <code>userInfo</code> dictionary key used by the #CPTPlotSpaceCoordinateMappingDidChangeNotification
  *  to indicate whether the mapping change is a scroll movement or other change.
  *
  *  The value associated with this key is a boolean value wrapped in an instance of NSNumber. The value
  *  is @YES if the plot space change represents a horizontal or vertical translation, @NO otherwise.
  *  @ingroup notification
  **/
-extern NSString *__nonnull const CPTPlotSpaceScrollingKey;
+extern CPTPlotSpaceInfoKey __nonnull const CPTPlotSpaceScrollingKey;
 
-/** @brief The <code>userInfo</code> dictionary key used by the CPTPlotSpaceCoordinateMappingDidChangeNotification
+/** @brief The <code>userInfo</code> dictionary key used by the #CPTPlotSpaceCoordinateMappingDidChangeNotification
  *  to indicate the displacement offset for scrolling changes in drawing coordinates.
  *
  *  The value associated with this key is the displacement offset wrapped in an instance of NSNumber.
  *  @ingroup notification
  **/
-extern NSString *__nonnull const CPTPlotSpaceDisplacementKey;
+extern CPTPlotSpaceInfoKey __nonnull const CPTPlotSpaceDisplacementKey;
 
 /// @}
 

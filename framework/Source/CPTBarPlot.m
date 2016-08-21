@@ -27,11 +27,11 @@
  *  @endif
  **/
 
-NSString *const CPTBarPlotBindingBarLocations  = @"barLocations";  ///< Bar locations.
-NSString *const CPTBarPlotBindingBarTips       = @"barTips";       ///< Bar tips.
-NSString *const CPTBarPlotBindingBarBases      = @"barBases";      ///< Bar bases.
-NSString *const CPTBarPlotBindingBarFills      = @"barFills";      ///< Bar fills.
-NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line styles.
+CPTBarPlotBinding const CPTBarPlotBindingBarLocations  = @"barLocations";  ///< Bar locations.
+CPTBarPlotBinding const CPTBarPlotBindingBarTips       = @"barTips";       ///< Bar tips.
+CPTBarPlotBinding const CPTBarPlotBindingBarBases      = @"barBases";      ///< Bar bases.
+CPTBarPlotBinding const CPTBarPlotBindingBarFills      = @"barFills";      ///< Bar fills.
+CPTBarPlotBinding const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line styles.
 
 /// @cond
 @interface CPTBarPlot()

@@ -8,13 +8,18 @@
 @class CPTLayer;
 @class CPTShadow;
 
+/**
+ *  @brief Layer notification type.
+ **/
+typedef NSString *CPTLayerNotification cpt_swift_struct;
+
 /// @name Layout
 /// @{
 
 /** @brief Notification sent by all layers when the layer @link CALayer::bounds bounds @endlink change.
  *  @ingroup notification
  **/
-extern NSString *__nonnull const CPTLayerBoundsDidChangeNotification;
+extern CPTLayerNotification __nonnull const CPTLayerBoundsDidChangeNotification NS_SWIFT_NAME(boundsDidChange);
 
 /// @}
 
