@@ -328,12 +328,10 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
         }
 
         // Add small margin
-        CGFloat margin = kCPTTextLayerMarginWidth * CPTFloat(2.0) * self.contentsScale;
-
-        textSize.width += margin;
+        textSize.width += kCPTTextLayerMarginWidth * CPTFloat(2.0);
         textSize.width  = ceil(textSize.width);
 
-        textSize.height += margin;
+        textSize.height += kCPTTextLayerMarginWidth * CPTFloat(2.0);
         textSize.height  = ceil(textSize.height);
     }
 
