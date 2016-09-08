@@ -198,25 +198,15 @@
  **/
 -(CGSize)sizeWithTextStyle:(nullable CPTTextStyle *)style
 {
-    NSFont *theFont    = nil;
-    NSString *fontName = style.fontName;
+    CGRect rect = [self boundingRectWithSize:CPTSizeMake(10000.0, 10000.0)
+                                     options:CPTStringDrawingOptions
+                                  attributes:style.attributes
+                                     context:nil];
 
-    if ( fontName ) {
-        theFont = [NSFont fontWithName:fontName size:style.fontSize];
-    }
+    CGSize textSize = rect.size;
 
-    CGSize textSize;
-
-    if ( theFont ) {
-        CPTDictionary *attributes = @{
-            NSFontAttributeName: theFont
-        };
-
-        textSize = NSSizeToCGSize([self sizeWithAttributes:attributes]);
-    }
-    else {
-        textSize = CGSizeZero;
-    }
+    textSize.width  = ceil(textSize.width);
+    textSize.height = ceil(textSize.height);
 
     return textSize;
 }

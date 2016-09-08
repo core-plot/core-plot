@@ -53,4 +53,9 @@
 -(void)drawInRect:(CGRect)rect inContext:(nonnull CGContextRef)context;
 /// @}
 
+/// @name Measurement
+/// @{
+-(CGSize)sizeAsDrawn;
+/// @}
+
 @end

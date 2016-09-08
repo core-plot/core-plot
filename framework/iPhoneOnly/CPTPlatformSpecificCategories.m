@@ -114,4 +114,21 @@
     }
 }
 
+/**
+ *  @brief Computes the size of the styled text when drawn rounded up to the nearest whole number in each dimension.
+ **/
+-(CGSize)sizeAsDrawn
+{
+    CGRect rect = [self boundingRectWithSize:CPTSizeMake(10000.0, 10000.0)
+                                     options:CPTStringDrawingOptions
+                                     context:nil];
+
+    CGSize textSize = rect.size;
+
+    textSize.width  = ceil(textSize.width);
+    textSize.height = ceil(textSize.height);
+
+    return textSize;
+}
+
 @end

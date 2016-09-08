@@ -100,4 +100,29 @@
     CPTPopCGContext();
 }
 
+/**
+ *  @brief Computes the size of the styled text when drawn rounded up to the nearest whole number in each dimension.
+ **/
+-(CGSize)sizeAsDrawn
+{
+    CGRect rect = CGRectZero;
+
+    if ( [self respondsToSelector:@selector(boundingRectWithSize:options:context:)] ) {
+        rect = [self boundingRectWithSize:CPTSizeMake(10000.0, 10000.0)
+                                  options:CPTStringDrawingOptions
+                                  context:nil];
+    }
+    else {
+        rect = [self boundingRectWithSize:CPTSizeMake(10000.0, 10000.0)
+                                  options:CPTStringDrawingOptions];
+    }
+
+    CGSize textSize = rect.size;
+
+    textSize.width  = ceil(textSize.width);
+    textSize.height = ceil(textSize.height);
+
+    return textSize;
+}
+
 @end
