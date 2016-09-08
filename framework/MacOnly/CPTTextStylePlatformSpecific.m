@@ -261,7 +261,7 @@
             NSParagraphStyleAttributeName: paragraphStyle
         };
         [self drawWithRect:NSRectFromCGRect(rect)
-                   options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine
+                   options:CPTStringDrawingOptions
                 attributes:attributes];
     }
     CPTPopCGContext();

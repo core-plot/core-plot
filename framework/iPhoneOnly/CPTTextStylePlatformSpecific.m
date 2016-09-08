@@ -173,7 +173,7 @@
 
 #if TARGET_OS_SIMULATOR || TARGET_OS_TV
     CGRect rect = [self boundingRectWithSize:CPTSizeMake(10000.0, 10000.0)
-                                     options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine
+                                     options:CPTStringDrawingOptions
                                   attributes:style.attributes
                                      context:nil];
     textSize        = rect.size;
@@ -232,7 +232,7 @@
 
 #if TARGET_OS_SIMULATOR || TARGET_OS_TV
     [self drawWithRect:rect
-               options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine
+               options:CPTStringDrawingOptions
             attributes:style.attributes
                context:nil];
 #else
@@ -240,7 +240,7 @@
     // -drawWithRect:options:attributes:context: method is available in iOS 7.0 and later
     if ( [self respondsToSelector:@selector(drawWithRect:options:attributes:context:)] ) {
         [self drawWithRect:rect
-                   options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine
+                   options:CPTStringDrawingOptions
                 attributes:style.attributes
                    context:nil];
     }

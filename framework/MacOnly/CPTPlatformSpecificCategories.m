@@ -95,7 +95,7 @@
     CPTPushCGContext(context);
 
     [self drawWithRect:NSRectFromCGRect(rect)
-               options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine];
+               options:CPTStringDrawingOptions];
 
     CPTPopCGContext();
 }
