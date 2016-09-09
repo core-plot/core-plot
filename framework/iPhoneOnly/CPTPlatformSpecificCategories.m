@@ -1,6 +1,7 @@
 #import "CPTPlatformSpecificCategories.h"
 
 #import "CPTPlatformSpecificFunctions.h"
+#import "tgmath.h"
 
 #pragma mark CPTColor
 
