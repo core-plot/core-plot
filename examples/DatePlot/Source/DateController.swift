@@ -24,7 +24,7 @@ class DateController : NSObject, CPTPlotDataSource {
         // Create graph
         let newGraph = CPTXYGraph(frame: .zero)
 
-        let theme = CPTTheme(named: kCPTDarkGradientTheme)
+        let theme = CPTTheme(named: .darkGradientTheme)
         newGraph.apply(theme)
 
         if let host = self.hostView {
