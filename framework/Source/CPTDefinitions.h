@@ -42,6 +42,22 @@
 
 #define cpt_deprecated __attribute__( (deprecated) )
 
+// Swift wrappers
+
+/**
+ *  @def cpt_swift_enum
+ *  @hideinitializer
+ *  @brief Marks a type definition to be imported into Swift as an enumeration.
+ **/
+#define cpt_swift_enum __attribute__( ( swift_wrapper(enum) ) )
+
+/**
+ *  @def cpt_swift_struct
+ *  @hideinitializer
+ *  @brief Marks a type definition to be imported into Swift as a structure.
+ **/
+#define cpt_swift_struct __attribute__( ( swift_wrapper(struct) ) )
+
 // Type safety defines
 
 /**
@@ -197,6 +213,8 @@ typedef struct _CPTEdgeInsets {
 CPTEdgeInsets;
 
 extern const CPTEdgeInsets CPTEdgeInsetsZero; ///< Defines a set of stretchable image edge insets where all of the values are zero (@num{0}).
+
+extern const NSStringDrawingOptions CPTStringDrawingOptions; ///< String drawing options used when measuring and drawing text.
 
 /**
  *  @brief An array of numbers.

@@ -11,7 +11,7 @@
 #import "CPTXYAxisSet.h"
 #import "CPTXYGraph.h"
 
-NSString *const kCPTPlainWhiteTheme = @"Plain White";
+CPTThemeName const kCPTPlainWhiteTheme = @"Plain White";
 
 /**
  *  @brief Creates a CPTXYGraph instance formatted with white backgrounds and black lines.

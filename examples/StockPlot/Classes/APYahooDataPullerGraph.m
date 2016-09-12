@@ -93,16 +93,6 @@
     [self reloadData];
 }
 
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-    // NSLog(@"willRotateToInterfaceOrientation");
-}
-
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    // NSLog(@"didRotateFromInterfaceOrientation");
-}
-
 -(void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.

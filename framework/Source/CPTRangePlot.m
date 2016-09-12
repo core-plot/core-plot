@@ -27,13 +27,13 @@
  *  @endif
  **/
 
-NSString *const CPTRangePlotBindingXValues       = @"xValues";       ///< X values.
-NSString *const CPTRangePlotBindingYValues       = @"yValues";       ///< Y values.
-NSString *const CPTRangePlotBindingHighValues    = @"highValues";    ///< High values.
-NSString *const CPTRangePlotBindingLowValues     = @"lowValues";     ///< Low values.
-NSString *const CPTRangePlotBindingLeftValues    = @"leftValues";    ///< Left price values.
-NSString *const CPTRangePlotBindingRightValues   = @"rightValues";   ///< Right price values.
-NSString *const CPTRangePlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line styles.
+CPTRangePlotBinding const CPTRangePlotBindingXValues       = @"xValues";       ///< X values.
+CPTRangePlotBinding const CPTRangePlotBindingYValues       = @"yValues";       ///< Y values.
+CPTRangePlotBinding const CPTRangePlotBindingHighValues    = @"highValues";    ///< High values.
+CPTRangePlotBinding const CPTRangePlotBindingLowValues     = @"lowValues";     ///< Low values.
+CPTRangePlotBinding const CPTRangePlotBindingLeftValues    = @"leftValues";    ///< Left price values.
+CPTRangePlotBinding const CPTRangePlotBindingRightValues   = @"rightValues";   ///< Right price values.
+CPTRangePlotBinding const CPTRangePlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line styles.
 
 /// @cond
 struct CGPointError {
@@ -1133,7 +1133,7 @@ typedef struct CGPointError CGPointError;
         return NO;
     }
 
-    id<CPTRangePlotDelegate> theDelegate = self.delegate;
+    id<CPTRangePlotDelegate> theDelegate = (id<CPTRangePlotDelegate>)self.delegate;
     if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchDownAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchDownAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:)] ||
@@ -1202,7 +1202,7 @@ typedef struct CGPointError CGPointError;
         return NO;
     }
 
-    id<CPTRangePlotDelegate> theDelegate = self.delegate;
+    id<CPTRangePlotDelegate> theDelegate = (id<CPTRangePlotDelegate>)self.delegate;
     if ( [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchUpAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(rangePlot:rangeTouchUpAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(rangePlot:rangeWasSelectedAtRecordIndex:)] ||

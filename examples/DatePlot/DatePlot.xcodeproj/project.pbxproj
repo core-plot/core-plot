@@ -13,7 +13,7 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		90AF4F440F36CF1800753D26 /* DatePlot.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90AF4F430F36CF1800753D26 /* DatePlot.xib */; };
 		BC8E737D0FC0B3CF00DF8511 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8E737C0FC0B3CF00DF8511 /* QuartzCore.framework */; };
-		C33E19A8198330CA00182AF2 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33E19A7198330CA00182AF2 /* main.swift */; };
+		C33E19A8198330CA00182AF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33E19A7198330CA00182AF2 /* AppDelegate.swift */; };
 		C3A14440197DE35F0048F1FF /* DateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A1443F197DE35F0048F1FF /* DateController.swift */; };
 		C3D3937419FD6E3500148319 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D3937319FD6E3500148319 /* Images.xcassets */; };
 /* End PBXBuildFile section */
@@ -111,7 +111,7 @@
 		8D1107320486CEB800E47090 /* DatePlot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DatePlot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90AF4F430F36CF1800753D26 /* DatePlot.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DatePlot.xib; sourceTree = "<group>"; };
 		BC8E737C0FC0B3CF00DF8511 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		C33E19A7198330CA00182AF2 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = main.swift; path = Source/main.swift; sourceTree = "<group>"; };
+		C33E19A7198330CA00182AF2 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Source/AppDelegate.swift; sourceTree = "<group>"; };
 		C3A1443E197DE35F0048F1FF /* DatePlot-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DatePlot-Bridging-Header.h"; sourceTree = "<group>"; };
 		C3A1443F197DE35F0048F1FF /* DateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateController.swift; path = Source/DateController.swift; sourceTree = "<group>"; };
 		C3C3CBBF19EA07F600A0296A /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/xcconfig/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
@@ -151,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				C3A1443E197DE35F0048F1FF /* DatePlot-Bridging-Header.h */,
+				C33E19A7198330CA00182AF2 /* AppDelegate.swift */,
 				C3A1443F197DE35F0048F1FF /* DateController.swift */,
 			);
 			name = Classes;
@@ -224,7 +225,6 @@
 		C33E19A219832EEA00182AF2 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				C33E19A7198330CA00182AF2 /* main.swift */,
 				C3C3CBBF19EA07F600A0296A /* CorePlotWarnings.xcconfig */,
 			);
 			name = "Other Sources";
@@ -261,7 +261,12 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = NO;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
+				TargetAttributes = {
+					8D1107260486CEB800E47090 = {
+						LastSwiftMigration = 0800;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "DatePlot" */;
 			compatibilityVersion = "Xcode 6.3";
@@ -365,7 +370,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C33E19A8198330CA00182AF2 /* main.swift in Sources */,
+				C33E19A8198330CA00182AF2 /* AppDelegate.swift in Sources */,
 				C3A14440197DE35F0048F1FF /* DateController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -416,6 +421,7 @@
 				PRODUCT_NAME = DatePlot;
 				SWIFT_OBJC_BRIDGING_HEADER = "DatePlot-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -439,18 +445,34 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.CorePlot.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = DatePlot;
 				SWIFT_OBJC_BRIDGING_HEADER = "DatePlot-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
@@ -462,9 +484,23 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				SDKROOT = macosx;

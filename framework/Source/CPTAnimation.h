@@ -1,3 +1,5 @@
+#import <QuartzCore/QuartzCore.h>
+
 @class CPTAnimationOperation;
 @class CPTAnimationPeriod;
 
@@ -39,10 +41,18 @@ typedef NS_ENUM (NSInteger, CPTAnimationCurve) {
     CPTAnimationCurveQuinticInOut      ///< Quintic in and out animation curve.
 };
 
+#pragma mark -
+
 /**
  *  @brief Animation delegate.
  **/
+#if ( ( TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_TV) && (__IPHONE_OS_VERSION_MAX_ALLOWED >= 100000 ) ) \
+    || (TARGET_OS_MAC && (MAC_OS_X_VERSION_MAX_ALLOWED >= 101200 ) )
+// CAAnimationDelegate is defined by Core Animation in iOS 10.0+, macOS 10.12+, and tvOS 10.0+
+@protocol CPTAnimationDelegate<CAAnimationDelegate>
+#else
 @protocol CPTAnimationDelegate<NSObject>
+#endif
 
 @optional
 

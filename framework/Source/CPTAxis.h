@@ -44,7 +44,7 @@ typedef NSMutableArray<__kindof CPTAxis *> CPTMutableAxisArray;
 /**
  *  @brief Axis labeling delegate.
  **/
-@protocol CPTAxisDelegate<NSObject>
+@protocol CPTAxisDelegate<CPTLayerDelegate>
 
 @optional
 

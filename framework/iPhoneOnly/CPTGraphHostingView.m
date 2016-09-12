@@ -230,7 +230,7 @@
     }
 }
 
--(void)touchesCancelled:(nullable NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event
+-(void)touchesCancelled:(nonnull NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event
 {
     BOOL handled = NO;
 

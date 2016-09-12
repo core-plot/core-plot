@@ -27,11 +27,11 @@
  *  @endif
  **/
 
-NSString *const CPTBarPlotBindingBarLocations  = @"barLocations";  ///< Bar locations.
-NSString *const CPTBarPlotBindingBarTips       = @"barTips";       ///< Bar tips.
-NSString *const CPTBarPlotBindingBarBases      = @"barBases";      ///< Bar bases.
-NSString *const CPTBarPlotBindingBarFills      = @"barFills";      ///< Bar fills.
-NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line styles.
+CPTBarPlotBinding const CPTBarPlotBindingBarLocations  = @"barLocations";  ///< Bar locations.
+CPTBarPlotBinding const CPTBarPlotBindingBarTips       = @"barTips";       ///< Bar tips.
+CPTBarPlotBinding const CPTBarPlotBindingBarBases      = @"barBases";      ///< Bar bases.
+CPTBarPlotBinding const CPTBarPlotBindingBarFills      = @"barFills";      ///< Bar fills.
+CPTBarPlotBinding const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line styles.
 
 /// @cond
 @interface CPTBarPlot()
@@ -44,7 +44,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
 @property (nonatomic, readwrite, assign) NSUInteger pointingDeviceDownIndex;
 
 -(BOOL)barAtRecordIndex:(NSUInteger)idx basePoint:(nonnull CGPoint *)basePoint tipPoint:(nonnull CGPoint *)tipPoint;
--(nonnull CGMutablePathRef)newBarPathWithContext:(nullable CGContextRef)context recordIndex:(NSUInteger)recordIndex;
+-(nullable CGMutablePathRef)newBarPathWithContext:(nullable CGContextRef)context recordIndex:(NSUInteger)recordIndex;
 -(nonnull CGMutablePathRef)newBarPathWithContext:(nullable CGContextRef)context basePoint:(CGPoint)basePoint tipPoint:(CGPoint)tipPoint;
 -(nullable CPTFill *)barFillForIndex:(NSUInteger)idx;
 -(nullable CPTLineStyle *)barLineStyleForIndex:(NSUInteger)idx;
@@ -934,7 +934,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     return YES;
 }
 
--(nonnull CGMutablePathRef)newBarPathWithContext:(nullable CGContextRef)context recordIndex:(NSUInteger)recordIndex
+-(nullable CGMutablePathRef)newBarPathWithContext:(nullable CGContextRef)context recordIndex:(NSUInteger)recordIndex
 {
     // Get base and tip points
     CGPoint basePoint, tipPoint;
@@ -1397,7 +1397,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         return NO;
     }
 
-    id<CPTBarPlotDelegate> theDelegate = self.delegate;
+    id<CPTBarPlotDelegate> theDelegate = (id<CPTBarPlotDelegate>)self.delegate;
     if ( [theDelegate respondsToSelector:@selector(barPlot:barTouchDownAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(barPlot:barTouchDownAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(barPlot:barWasSelectedAtRecordIndex:)] ||
@@ -1466,7 +1466,7 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
         return NO;
     }
 
-    id<CPTBarPlotDelegate> theDelegate = self.delegate;
+    id<CPTBarPlotDelegate> theDelegate = (id<CPTBarPlotDelegate>)self.delegate;
     if ( [theDelegate respondsToSelector:@selector(barPlot:barTouchUpAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(barPlot:barTouchUpAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(barPlot:barWasSelectedAtRecordIndex:)] ||

@@ -758,6 +758,21 @@
     </compound>
 
     <!-- Core Animation -->
+    <compound kind="protocol" objc="yes">
+        <name>CAAnimationDelegate</name>
+        <filename>https://developer.apple.com/library/mac/#documentation/GraphicsImaging/Reference/CAAnimationDelegate_protocol/Introduction/Introduction.html/</filename>
+        <base>NSObject-p</base>
+        <member kind="function" static="yes">
+            <type>void</type>
+            <name>animationDidStart:</name>
+            <anchor>//apple_ref/occ/intfcm/CAAnimationDelegate/animationDidStart</anchor>
+        </member>
+        <member kind="function" static="yes">
+            <type>void</type>
+            <name>animationDidStop:finished:</name>
+            <anchor>//apple_ref/occ/intfcm/CAAnimationDelegate/animationDidStopfinished</anchor>
+        </member>
+    </compound>
     <compound kind="class" objc="yes">
         <name>CALayer</name>
         <filename>https://developer.apple.com/library/mac/#documentation/GraphicsImaging/Reference/CALayer_class/Introduction/Introduction.html</filename>
@@ -858,6 +873,36 @@
             <type>void</type>
             <name>setNeedsLayout</name>
             <anchor>//apple_ref/occ/instm/CALayer/setNeedsLayout</anchor>
+        </member>
+    </compound>
+    <compound kind="protocol" objc="yes">
+        <name>CALayerDelegate</name>
+        <filename>https://developer.apple.com/library/mac/#documentation/GraphicsImaging/Reference/CALayerDelegate_protocol/Introduction/Introduction.html/</filename>
+        <base>NSObject-p</base>
+        <member kind="function" static="yes">
+            <type>id</type>
+            <name>actionForLayer:forKey:</name>
+            <anchor>//apple_ref/occ/intfcm/CALayerDelegate/actionForLayerforKey</anchor>
+        </member>
+        <member kind="function" static="yes">
+            <type>void</type>
+            <name>displayLayer:</name>
+            <anchor>//apple_ref/occ/intfcm/CALayerDelegate/displayLayer</anchor>
+        </member>
+        <member kind="function" static="yes">
+            <type>void</type>
+            <name>drawLayer:inContext:</name>
+            <anchor>//apple_ref/occ/intfcm/CALayerDelegate/drawLayerinContext</anchor>
+        </member>
+        <member kind="function" static="yes">
+            <type>void</type>
+            <name>layerWillDraw:</name>
+            <anchor>//apple_ref/occ/intfcm/CALayerDelegate/layerWillDraw</anchor>
+        </member>
+        <member kind="function" static="yes">
+            <type>void</type>
+            <name>layoutSublayersOfLayer:</name>
+            <anchor>//apple_ref/occ/intfcm/CALayerDelegate/layoutSublayersOfLayer</anchor>
         </member>
     </compound>
     <compound kind="protocol" objc="yes">

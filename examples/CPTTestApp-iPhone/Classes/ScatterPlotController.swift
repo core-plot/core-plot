@@ -1,6 +1,6 @@
 import UIKit
 
-class ScatterPlotController : UIViewController, CPTScatterPlotDataSource {
+class ScatterPlotController : UIViewController, CPTScatterPlotDataSource, CPTAxisDelegate {
     private var scatterGraph : CPTXYGraph? = nil
 
     typealias plotDataType = [CPTScatterPlotField : Double]
@@ -8,13 +8,13 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource {
 
     // MARK: Initialization
 
-    override func viewDidAppear(animated : Bool)
+    override func viewDidAppear(_ animated : Bool)
     {
         super.viewDidAppear(animated)
 
         // Create graph from theme
-        let newGraph = CPTXYGraph(frame: CGRectZero)
-        newGraph.applyTheme(CPTTheme(named: kCPTDarkGradientTheme))
+        let newGraph = CPTXYGraph(frame: .zero)
+        newGraph.apply(CPTTheme(named: .darkGradientTheme))
 
         let hostingView = self.view as! CPTGraphHostingView
         hostingView.hostedGraph = newGraph
@@ -58,43 +58,43 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource {
         }
 
         // Create a blue plot area
-        let boundLinePlot = CPTScatterPlot(frame: CGRectZero)
+        let boundLinePlot = CPTScatterPlot(frame: .zero)
         let blueLineStyle = CPTMutableLineStyle()
         blueLineStyle.miterLimit    = 1.0
         blueLineStyle.lineWidth     = 3.0
-        blueLineStyle.lineColor     = CPTColor.blueColor()
+        blueLineStyle.lineColor     = .blue()
         boundLinePlot.dataLineStyle = blueLineStyle
-        boundLinePlot.identifier    = "Blue Plot"
+        boundLinePlot.identifier    = NSString.init(string: "Blue Plot")
         boundLinePlot.dataSource    = self
-        newGraph.addPlot(boundLinePlot)
+        newGraph.add(boundLinePlot)
 
         let fillImage = CPTImage(named:"BlueTexture")
-        fillImage.tiled = true
+        fillImage.isTiled = true
         boundLinePlot.areaFill      = CPTFill(image: fillImage)
         boundLinePlot.areaBaseValue = 0.0
 
         // Add plot symbols
         let symbolLineStyle = CPTMutableLineStyle()
-        symbolLineStyle.lineColor = CPTColor.blackColor()
-        let plotSymbol = CPTPlotSymbol.ellipsePlotSymbol()
-        plotSymbol.fill          = CPTFill(color: CPTColor.blueColor())
+        symbolLineStyle.lineColor = .black()
+        let plotSymbol = CPTPlotSymbol.ellipse()
+        plotSymbol.fill          = CPTFill(color: .blue())
         plotSymbol.lineStyle     = symbolLineStyle
         plotSymbol.size          = CGSize(width: 10.0, height: 10.0)
         boundLinePlot.plotSymbol = plotSymbol
 
         // Create a green plot area
-        let dataSourceLinePlot = CPTScatterPlot(frame: CGRectZero)
+        let dataSourceLinePlot = CPTScatterPlot(frame: .zero)
         let greenLineStyle               = CPTMutableLineStyle()
         greenLineStyle.lineWidth         = 3.0
-        greenLineStyle.lineColor         = CPTColor.greenColor()
+        greenLineStyle.lineColor         = .green()
         greenLineStyle.dashPattern       = [5.0, 5.0]
         dataSourceLinePlot.dataLineStyle = greenLineStyle
-        dataSourceLinePlot.identifier    = "Green Plot"
+        dataSourceLinePlot.identifier    = NSString.init(string: "Green Plot")
         dataSourceLinePlot.dataSource    = self
 
         // Put an area gradient under the plot above
         let areaColor    = CPTColor(componentRed: 0.3, green: 1.0, blue: 0.3, alpha: 0.8)
-        let areaGradient = CPTGradient(beginningColor: areaColor, endingColor: CPTColor.clearColor())
+        let areaGradient = CPTGradient(beginning: areaColor, ending: .clear())
         areaGradient.angle = -90.0
         let areaGradientFill = CPTFill(gradient: areaGradient)
         dataSourceLinePlot.areaFill      = areaGradientFill
@@ -102,14 +102,14 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource {
 
         // Animate in the new plot, as an example
         dataSourceLinePlot.opacity = 0.0
-        newGraph.addPlot(dataSourceLinePlot)
+        newGraph.add(dataSourceLinePlot)
 
         let fadeInAnimation = CABasicAnimation(keyPath: "opacity")
         fadeInAnimation.duration            = 1.0
-        fadeInAnimation.removedOnCompletion = false
+        fadeInAnimation.isRemovedOnCompletion = false
         fadeInAnimation.fillMode            = kCAFillModeForwards
         fadeInAnimation.toValue             = 1.0
-        dataSourceLinePlot.addAnimation(fadeInAnimation, forKey: "animateOpacity")
+        dataSourceLinePlot.add(fadeInAnimation, forKey: "animateOpacity")
 
         // Add some initial data
         var contentArray = [plotDataType]()
@@ -126,16 +126,16 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource {
 
     // MARK: - Plot Data Source Methods
 
-    func numberOfRecordsForPlot(plot: CPTPlot) -> UInt
+    func numberOfRecords(for plot: CPTPlot) -> UInt
     {
         return UInt(self.dataForPlot.count)
     }
 
-    func numberForPlot(plot: CPTPlot, field: UInt, recordIndex: UInt) -> AnyObject?
+    func number(for plot: CPTPlot, field: UInt, record: UInt) -> Any?
     {
         let plotField = CPTScatterPlotField(rawValue: Int(field))
 
-        if let num = self.dataForPlot[Int(recordIndex)][plotField!] {
+        if let num = self.dataForPlot[Int(record)][plotField!] {
             let plotID = plot.identifier as! String
             if (plotField! == .Y) && (plotID == "Green Plot") {
                 return (num + 1.0) as NSNumber
@@ -151,31 +151,32 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource {
 
     // MARK: - Axis Delegate Methods
 
-    func axis(axis: CPTAxis, shouldUpdateAxisLabelsAtLocations locations: NSSet!) -> Bool
+    private func axis(_ axis: CPTAxis, shouldUpdateAxisLabelsAtLocations locations: NSSet!) -> Bool
     {
         if let formatter = axis.labelFormatter {
             let labelOffset = axis.labelOffset
 
             var newLabels = Set<CPTAxisLabel>()
 
-            for tickLocation in locations {
-                if let labelTextStyle = axis.labelTextStyle?.mutableCopy() as? CPTMutableTextStyle {
+            if let labelTextStyle = axis.labelTextStyle?.mutableCopy() as? CPTMutableTextStyle {
+                for location in locations {
+                    if let tickLocation = location as? NSNumber {
+                        if tickLocation.doubleValue >= 0.0 {
+                            labelTextStyle.color = .green()
+                        }
+                        else {
+                            labelTextStyle.color = .red()
+                        }
 
-                    if tickLocation.doubleValue >= 0.0 {
-                        labelTextStyle.color = CPTColor.greenColor()
+                        let labelString   = formatter.string(for:tickLocation)
+                        let newLabelLayer = CPTTextLayer(text: labelString, style: labelTextStyle)
+
+                        let newLabel = CPTAxisLabel(contentLayer: newLabelLayer)
+                        newLabel.tickLocation = tickLocation
+                        newLabel.offset       = labelOffset
+
+                        newLabels.insert(newLabel)
                     }
-                    else {
-                        labelTextStyle.color = CPTColor.redColor()
-                    }
-
-                    let labelString   = formatter.stringForObjectValue(tickLocation)
-                    let newLabelLayer = CPTTextLayer(text: labelString, style: labelTextStyle)
-
-                    let newLabel = CPTAxisLabel(contentLayer: newLabelLayer)
-                    newLabel.tickLocation = tickLocation as! NSNumber
-                    newLabel.offset       = labelOffset
-                    
-                    newLabels.insert(newLabel)
                 }
                 
                 axis.axisLabels = newLabels

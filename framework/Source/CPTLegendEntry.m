@@ -219,12 +219,8 @@
 
     NSAttributedString *styledTitle = self.attributedTitle;
 
-    if ( (styledTitle.length > 0) && [styledTitle respondsToSelector:@selector(size)] ) {
-#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
-        theTitleSize = styledTitle.size;
-#else
-        theTitleSize = NSSizeToCGSize(styledTitle.size);
-#endif
+    if ( styledTitle.length > 0 ) {
+        theTitleSize = [styledTitle sizeAsDrawn];
     }
     else {
         NSString *theTitle = styledTitle.string;

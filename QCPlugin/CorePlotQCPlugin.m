@@ -10,7 +10,7 @@
 
 @property (nonatomic, readwrite, strong, nullable) NSMutableData *imageData;
 @property (nonatomic, readwrite, assign, nullable) CGContextRef bitmapContext;
-@property (nonatomic, readwrite, strong, nonnull) id<QCPlugInOutputImageProvider> imageProvider;
+@property (nonatomic, readwrite, strong, nullable) id<QCPlugInOutputImageProvider> imageProvider;
 
 void drawErrorText(CGContextRef __nonnull context, CGRect rect);
 
@@ -186,7 +186,7 @@ void drawErrorText(CGContextRef __nonnull context, CGRect rect)
              @"inputAxisMinorTickWidth"];
 }
 
-+(nonnull CPTDictionary *)attributesForPropertyPortWithKey:(nonnull NSString *)key
++(nullable CPTDictionary *)attributesForPropertyPortWithKey:(nullable NSString *)key
 {
     /*
      * Specify the optional attributes for property based ports (QCPortAttributeNameKey, QCPortAttributeDefaultValueKey...).
@@ -513,14 +513,14 @@ void drawErrorText(CGContextRef __nonnull context, CGRect rect)
     return inputValue.doubleValue;
 }
 
--(nonnull CGColorRef)areaFillColor:(NSUInteger)index
+-(nullable CGColorRef)areaFillColor:(NSUInteger)index
 {
     NSString *key = [NSString stringWithFormat:@"plotFillColor%lu", (unsigned long)index];
 
     return (__bridge CGColorRef)([self valueForInputKey:key]);
 }
 
--(nonnull CGImageRef)newAreaFillImage:(NSUInteger)index
+-(nullable CGImageRef)newAreaFillImage:(NSUInteger)index
 {
     NSString *key = [NSString stringWithFormat:@"plotFillImage%lu", (unsigned long)index];
 
@@ -828,9 +828,14 @@ static void _BufferReleaseCallback(const void *__nonnull address, void *__nonnul
     CGContextFlush(bmContext);
 
     // ... and put it on the output port
-    self.outputImage = self.imageProvider;
-
-    return YES;
+    id<QCPlugInOutputImageProvider> provider = self.imageProvider;
+    if ( provider ) {
+        self.outputImage = provider;
+        return YES;
+    }
+    else {
+        return NO;
+    }
 }
 
 @end

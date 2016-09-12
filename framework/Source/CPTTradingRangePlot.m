@@ -26,16 +26,16 @@
  *  @endif
  **/
 
-NSString *const CPTTradingRangePlotBindingXValues            = @"xValues";            ///< X values.
-NSString *const CPTTradingRangePlotBindingOpenValues         = @"openValues";         ///< Open price values.
-NSString *const CPTTradingRangePlotBindingHighValues         = @"highValues";         ///< High price values.
-NSString *const CPTTradingRangePlotBindingLowValues          = @"lowValues";          ///< Low price values.
-NSString *const CPTTradingRangePlotBindingCloseValues        = @"closeValues";        ///< Close price values.
-NSString *const CPTTradingRangePlotBindingIncreaseFills      = @"increaseFills";      ///< Fills used with a candlestick plot when close >= open.
-NSString *const CPTTradingRangePlotBindingDecreaseFills      = @"decreaseFills";      ///< Fills used with a candlestick plot when close < open.
-NSString *const CPTTradingRangePlotBindingLineStyles         = @"lineStyles";         ///< Line styles used to draw candlestick or OHLC symbols.
-NSString *const CPTTradingRangePlotBindingIncreaseLineStyles = @"increaseLineStyles"; ///< Line styles used to outline candlestick symbols when close >= open.
-NSString *const CPTTradingRangePlotBindingDecreaseLineStyles = @"decreaseLineStyles"; ///< Line styles used to outline candlestick symbols when close < open.
+CPTTradingRangePlotBinding const CPTTradingRangePlotBindingXValues            = @"xValues";            ///< X values.
+CPTTradingRangePlotBinding const CPTTradingRangePlotBindingOpenValues         = @"openValues";         ///< Open price values.
+CPTTradingRangePlotBinding const CPTTradingRangePlotBindingHighValues         = @"highValues";         ///< High price values.
+CPTTradingRangePlotBinding const CPTTradingRangePlotBindingLowValues          = @"lowValues";          ///< Low price values.
+CPTTradingRangePlotBinding const CPTTradingRangePlotBindingCloseValues        = @"closeValues";        ///< Close price values.
+CPTTradingRangePlotBinding const CPTTradingRangePlotBindingIncreaseFills      = @"increaseFills";      ///< Fills used with a candlestick plot when close >= open.
+CPTTradingRangePlotBinding const CPTTradingRangePlotBindingDecreaseFills      = @"decreaseFills";      ///< Fills used with a candlestick plot when close < open.
+CPTTradingRangePlotBinding const CPTTradingRangePlotBindingLineStyles         = @"lineStyles";         ///< Line styles used to draw candlestick or OHLC symbols.
+CPTTradingRangePlotBinding const CPTTradingRangePlotBindingIncreaseLineStyles = @"increaseLineStyles"; ///< Line styles used to outline candlestick symbols when close >= open.
+CPTTradingRangePlotBinding const CPTTradingRangePlotBindingDecreaseLineStyles = @"decreaseLineStyles"; ///< Line styles used to outline candlestick symbols when close < open.
 
 static const CPTCoordinate independentCoord = CPTCoordinateX;
 static const CPTCoordinate dependentCoord   = CPTCoordinateY;
@@ -1519,7 +1519,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         return NO;
     }
 
-    id<CPTTradingRangePlotDelegate> theDelegate = self.delegate;
+    id<CPTTradingRangePlotDelegate> theDelegate = (id<CPTTradingRangePlotDelegate>)self.delegate;
     if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchDownAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchDownAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(tradingRangePlot:barWasSelectedAtRecordIndex:)] ||
@@ -1588,7 +1588,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         return NO;
     }
 
-    id<CPTTradingRangePlotDelegate> theDelegate = self.delegate;
+    id<CPTTradingRangePlotDelegate> theDelegate = (id<CPTTradingRangePlotDelegate>)self.delegate;
     if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchUpAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchUpAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(tradingRangePlot:barWasSelectedAtRecordIndex:)] ||

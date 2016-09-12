@@ -20,9 +20,9 @@
  *  @ingroup animation
  **/
 
-NSString *const CPTLegendNeedsRedrawForPlotNotification        = @"CPTLegendNeedsRedrawForPlotNotification";
-NSString *const CPTLegendNeedsLayoutForPlotNotification        = @"CPTLegendNeedsLayoutForPlotNotification";
-NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeedsReloadEntriesForPlotNotification";
+CPTLegendNotification const CPTLegendNeedsRedrawForPlotNotification        = @"CPTLegendNeedsRedrawForPlotNotification";
+CPTLegendNotification const CPTLegendNeedsLayoutForPlotNotification        = @"CPTLegendNeedsLayoutForPlotNotification";
+CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeedsReloadEntriesForPlotNotification";
 
 /// @cond
 @interface CPTLegend()
@@ -1206,7 +1206,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
         return NO;
     }
 
-    id<CPTLegendDelegate> theDelegate = self.delegate;
+    id<CPTLegendDelegate> theDelegate = (id<CPTLegendDelegate>)self.delegate;
     if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchDownAtIndex:)] ||
          [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchDownAtIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:)] ||
@@ -1277,7 +1277,7 @@ NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeed
         return NO;
     }
 
-    id<CPTLegendDelegate> theDelegate = self.delegate;
+    id<CPTLegendDelegate> theDelegate = (id<CPTLegendDelegate>)self.delegate;
     if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchUpAtIndex:)] ||
          [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchUpAtIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:)] ||

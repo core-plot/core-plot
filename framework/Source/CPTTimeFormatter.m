@@ -116,7 +116,7 @@
  *  @param coordinateValue The time value.
  *  @return The date string.
  **/
--(nullable NSString *)stringForObjectValue:(nonnull id)coordinateValue
+-(nullable NSString *)stringForObjectValue:(nullable id)coordinateValue
 {
     NSString *string = nil;
 

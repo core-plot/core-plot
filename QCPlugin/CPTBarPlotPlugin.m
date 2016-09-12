@@ -35,7 +35,7 @@
     };
 }
 
-+(nonnull CPTDictionary *)attributesForPropertyPortWithKey:(nonnull NSString *)key
++(nullable CPTDictionary *)attributesForPropertyPortWithKey:(nullable NSString *)key
 {
     // A few additional ports for the bar plot chart type ...
 
@@ -177,7 +177,10 @@
         plot.barWidth          = @(barWidth);
         plot.barOffset         = @(self.inputBarOffset);
         plot.barsAreHorizontal = self.inputHorizontalBars;
-        plot.fill              = [CPTFill fillWithColor:[CPTColor colorWithCGColor:[self areaFillColor:index]]];
+        CGColorRef fillColor = [self areaFillColor:index];
+        if ( fillColor ) {
+            plot.fill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:fillColor]];
+        }
 
         [plot reloadData];
     }

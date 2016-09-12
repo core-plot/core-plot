@@ -19,13 +19,13 @@ class DateController : NSObject, CPTPlotDataSource {
         // If you make sure your dates are calculated at noon, you shouldn't have to
         // worry about daylight savings. If you use midnight, you will have to adjust
         // for daylight savings time.
-        let refDate = NSDateFormatter().dateFromString("12:00 Oct 29, 2009")
+        let refDate = DateFormatter().date(from: "12:00 Oct 29, 2009")
 
         // Create graph
-        let newGraph = CPTXYGraph(frame: CGRectZero)
+        let newGraph = CPTXYGraph(frame: .zero)
 
-        let theme = CPTTheme(named: kCPTDarkGradientTheme)
-        newGraph.applyTheme(theme)
+        let theme = CPTTheme(named: .darkGradientTheme)
+        newGraph.apply(theme)
 
         if let host = self.hostView {
             host.hostedGraph = newGraph;
@@ -34,17 +34,17 @@ class DateController : NSObject, CPTPlotDataSource {
         // Setup scatter plot space
         let plotSpace = newGraph.defaultPlotSpace as! CPTXYPlotSpace
 
-        plotSpace.xRange = CPTPlotRange(location:0.0, length:oneDay * 5.0)
+        plotSpace.xRange = CPTPlotRange(location:0.0, length:NSNumber.init(value: oneDay * 5.0))
         plotSpace.yRange = CPTPlotRange(location:1.0, length:3.0)
 
         // Axes
         let axisSet = newGraph.axisSet as! CPTXYAxisSet
         if let x = axisSet.xAxis {
-            x.majorIntervalLength   = oneDay
+            x.majorIntervalLength   = NSNumber.init(value: oneDay)
             x.orthogonalPosition    = 2.0
             x.minorTicksPerInterval = 0;
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .short
             let timeFormatter = CPTTimeFormatter(dateFormatter:dateFormatter)
             timeFormatter.referenceDate = refDate;
             x.labelFormatter            = timeFormatter;
@@ -53,23 +53,23 @@ class DateController : NSObject, CPTPlotDataSource {
         if let y = axisSet.yAxis {
             y.majorIntervalLength   = 0.5
             y.minorTicksPerInterval = 5
-            y.orthogonalPosition    = oneDay
+            y.orthogonalPosition    = NSNumber.init(value: oneDay)
 
-            y.labelingPolicy = .None
+            y.labelingPolicy = .none
         }
 
         // Create a plot that uses the data source method
-        let dataSourceLinePlot = CPTScatterPlot(frame: CGRectZero)
-        dataSourceLinePlot.identifier = "Date Plot"
+        let dataSourceLinePlot = CPTScatterPlot(frame: .zero)
+        dataSourceLinePlot.identifier = NSString.init(string: "Date Plot")
 
         if let lineStyle = dataSourceLinePlot.dataLineStyle?.mutableCopy() as? CPTMutableLineStyle {
             lineStyle.lineWidth              = 3.0
-            lineStyle.lineColor              = CPTColor.greenColor()
+            lineStyle.lineColor              = .green()
             dataSourceLinePlot.dataLineStyle = lineStyle
         }
 
         dataSourceLinePlot.dataSource = self
-        newGraph.addPlot(dataSourceLinePlot)
+        newGraph.add(dataSourceLinePlot)
 
         self.graph = newGraph
     }
@@ -87,19 +87,18 @@ class DateController : NSObject, CPTPlotDataSource {
 
     // MARK: - Plot Data Source Methods
 
-    func numberOfRecordsForPlot(plot: CPTPlot) -> UInt
-    {
+    func numberOfRecords(for plot: CPTPlot) -> UInt    {
         return UInt(self.plotData.count)
     }
 
-    func numberForPlot(plot: CPTPlot, field: UInt, recordIndex: UInt) -> AnyObject?
+    func number(for plot: CPTPlot, field: UInt, record: UInt) -> Any?
     {
         switch CPTScatterPlotField(rawValue: Int(field))! {
         case .X:
-            return (oneDay * Double(recordIndex)) as NSNumber
+            return (oneDay * Double(record)) as NSNumber
             
         case .Y:
-            return self.plotData[Int(recordIndex)] as NSNumber
+            return self.plotData[Int(record)] as NSNumber
         }
     }
 }

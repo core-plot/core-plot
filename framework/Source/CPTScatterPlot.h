@@ -9,11 +9,16 @@
 @class CPTScatterPlot;
 @class CPTFill;
 
+/**
+ *  @brief Scatter plot bindings.
+ **/
+typedef NSString *CPTScatterPlotBinding cpt_swift_struct;
+
 /// @ingroup plotBindingsScatterPlot
 /// @{
-extern NSString *__nonnull const CPTScatterPlotBindingXValues;
-extern NSString *__nonnull const CPTScatterPlotBindingYValues;
-extern NSString *__nonnull const CPTScatterPlotBindingPlotSymbols;
+extern CPTScatterPlotBinding __nonnull const CPTScatterPlotBindingXValues;
+extern CPTScatterPlotBinding __nonnull const CPTScatterPlotBindingYValues;
+extern CPTScatterPlotBinding __nonnull const CPTScatterPlotBindingPlotSymbols;
 /// @}
 
 /**

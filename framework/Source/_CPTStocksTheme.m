@@ -12,7 +12,7 @@
 #import "CPTXYAxisSet.h"
 #import "CPTXYGraph.h"
 
-NSString *const kCPTStocksTheme = @"Stocks";
+CPTThemeName const kCPTStocksTheme = @"Stocks";
 
 /**
  *  @brief Creates a CPTXYGraph instance formatted with a gradient background and white lines.

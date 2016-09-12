@@ -1,10 +1,17 @@
+#import "CPTDefinitions.h"
+
+/**
+ *  @brief Theme name type.
+ **/
+typedef NSString *CPTThemeName cpt_swift_struct;
+
 /// @ingroup themeNames
 /// @{
-extern NSString *__nonnull const kCPTDarkGradientTheme; ///< A graph theme with dark gray gradient backgrounds and light gray lines.
-extern NSString *__nonnull const kCPTPlainBlackTheme;   ///< A graph theme with black backgrounds and white lines.
-extern NSString *__nonnull const kCPTPlainWhiteTheme;   ///< A graph theme with white backgrounds and black lines.
-extern NSString *__nonnull const kCPTSlateTheme;        ///< A graph theme with colors that match the default iPhone navigation bar, toolbar buttons, and table views.
-extern NSString *__nonnull const kCPTStocksTheme;       ///< A graph theme with a gradient background and white lines.
+extern CPTThemeName __nonnull const kCPTDarkGradientTheme; ///< A graph theme with dark gray gradient backgrounds and light gray lines.
+extern CPTThemeName __nonnull const kCPTPlainBlackTheme;   ///< A graph theme with black backgrounds and white lines.
+extern CPTThemeName __nonnull const kCPTPlainWhiteTheme;   ///< A graph theme with white backgrounds and black lines.
+extern CPTThemeName __nonnull const kCPTSlateTheme;        ///< A graph theme with colors that match the default iPhone navigation bar, toolbar buttons, and table views.
+extern CPTThemeName __nonnull const kCPTStocksTheme;       ///< A graph theme with a gradient background and white lines.
 /// @}
 
 @class CPTGraph;
@@ -20,8 +27,8 @@ extern NSString *__nonnull const kCPTStocksTheme;       ///< A graph theme with 
 /// @{
 +(void)registerTheme:(nonnull Class)themeClass;
 +(nullable NSArray<Class> *)themeClasses;
-+(nullable instancetype)themeNamed:(nullable NSString *)themeName;
-+(nonnull NSString *)name;
++(nullable instancetype)themeNamed:(nullable CPTThemeName)themeName;
++(nonnull CPTThemeName)name;
 /// @}
 
 /// @name Theme Usage

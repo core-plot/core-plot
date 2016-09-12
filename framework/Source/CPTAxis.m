@@ -1548,7 +1548,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
     BOOL theLabelFormatterChanged;
     CPTShadow *theShadow;
 
-    id<CPTAxisDelegate> theDelegate = self.delegate;
+    id<CPTAxisDelegate> theDelegate = (id<CPTAxisDelegate>)self.delegate;
 
     if ( useMajorAxisLabels ) {
         if ( locations.count > 0 ) {
@@ -1732,7 +1732,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
     if ( !self.plotSpace ) {
         return;
     }
-    id<CPTAxisDelegate> theDelegate = self.delegate;
+    id<CPTAxisDelegate> theDelegate = (id<CPTAxisDelegate>)self.delegate;
     if ( [theDelegate respondsToSelector:@selector(axisShouldRelabel:)] && ![theDelegate axisShouldRelabel:self] ) {
         self.needsRelabel = NO;
         return;
@@ -2072,7 +2072,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
         return NO;
     }
 
-    id<CPTAxisDelegate> theDelegate = self.delegate;
+    id<CPTAxisDelegate> theDelegate = (id<CPTAxisDelegate>)self.delegate;
 
     // Tick labels
     if ( [theDelegate respondsToSelector:@selector(axis:labelTouchDown:)] ||
@@ -2183,7 +2183,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
         return NO;
     }
 
-    id<CPTAxisDelegate> theDelegate = self.delegate;
+    id<CPTAxisDelegate> theDelegate = (id<CPTAxisDelegate>)self.delegate;
 
     // Tick labels
     if ( [theDelegate respondsToSelector:@selector(axis:labelTouchUp:)] ||

@@ -9,11 +9,16 @@
 @class CPTTextLayer;
 @class CPTLineStyle;
 
+/**
+ *  @brief Pie chart bindings.
+ **/
+typedef NSString *CPTPieChartBinding cpt_swift_struct;
+
 /// @ingroup plotBindingsPieChart
 /// @{
-extern NSString *__nonnull const CPTPieChartBindingPieSliceWidthValues;
-extern NSString *__nonnull const CPTPieChartBindingPieSliceFills;
-extern NSString *__nonnull const CPTPieChartBindingPieSliceRadialOffsets;
+extern CPTPieChartBinding __nonnull const CPTPieChartBindingPieSliceWidthValues;
+extern CPTPieChartBinding __nonnull const CPTPieChartBindingPieSliceFills;
+extern CPTPieChartBinding __nonnull const CPTPieChartBindingPieSliceRadialOffsets;
 /// @}
 
 /**

@@ -7,18 +7,23 @@
 
 @class CPTTradingRangePlot;
 
+/**
+ *  @brief Trading range plot bindings.
+ **/
+typedef NSString *CPTTradingRangePlotBinding cpt_swift_struct;
+
 /// @ingroup plotBindingsTradingRangePlot
 /// @{
-extern NSString *__nonnull const CPTTradingRangePlotBindingXValues;
-extern NSString *__nonnull const CPTTradingRangePlotBindingOpenValues;
-extern NSString *__nonnull const CPTTradingRangePlotBindingHighValues;
-extern NSString *__nonnull const CPTTradingRangePlotBindingLowValues;
-extern NSString *__nonnull const CPTTradingRangePlotBindingCloseValues;
-extern NSString *__nonnull const CPTTradingRangePlotBindingIncreaseFills;
-extern NSString *__nonnull const CPTTradingRangePlotBindingDecreaseFills;
-extern NSString *__nonnull const CPTTradingRangePlotBindingLineStyles;
-extern NSString *__nonnull const CPTTradingRangePlotBindingIncreaseLineStyles;
-extern NSString *__nonnull const CPTTradingRangePlotBindingDecreaseLineStyles;
+extern CPTTradingRangePlotBinding __nonnull const CPTTradingRangePlotBindingXValues;
+extern CPTTradingRangePlotBinding __nonnull const CPTTradingRangePlotBindingOpenValues;
+extern CPTTradingRangePlotBinding __nonnull const CPTTradingRangePlotBindingHighValues;
+extern CPTTradingRangePlotBinding __nonnull const CPTTradingRangePlotBindingLowValues;
+extern CPTTradingRangePlotBinding __nonnull const CPTTradingRangePlotBindingCloseValues;
+extern CPTTradingRangePlotBinding __nonnull const CPTTradingRangePlotBindingIncreaseFills;
+extern CPTTradingRangePlotBinding __nonnull const CPTTradingRangePlotBindingDecreaseFills;
+extern CPTTradingRangePlotBinding __nonnull const CPTTradingRangePlotBindingLineStyles;
+extern CPTTradingRangePlotBinding __nonnull const CPTTradingRangePlotBindingIncreaseLineStyles;
+extern CPTTradingRangePlotBinding __nonnull const CPTTradingRangePlotBindingDecreaseLineStyles;
 /// @}
 
 /**

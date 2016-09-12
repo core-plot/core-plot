@@ -46,7 +46,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationItem.title = @"Stocks";
+    self.navigationItem.title = NSLocalizedString(@"Stocks", @"App name");
     // the graph will set itself as delegate of the dataPuller when we push it, so we need to reset this.
     for ( APYahooDataPuller *dp in self.stocks ) {
         dp.delegate = self;
@@ -62,7 +62,7 @@
 
     if ( [high isEqualToNumber:[NSDecimalNumber notANumber]] || [low isEqualToNumber:[NSDecimalNumber notANumber]] || (aStock.financialData.count <= 0) ) {
         NSString *message = [NSString stringWithFormat:@"No information available for %@", aStock.symbol];
-        UIAlertView *av   = [[UIAlertView alloc] initWithTitle:@"Alert" message:message delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        UIAlertView *av   = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert", @"Alert title") message:message delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
         [av show];
     }
     else {
@@ -179,11 +179,6 @@
     return cell;
 }
 
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    self.graph.view.frame = self.view.bounds;
-}
-
 #pragma mark -
 #pragma mark accessors
 
@@ -239,7 +234,6 @@
             dp.delegate = nil;
         }
     }
-    stocks = nil;
 }
 
 /*

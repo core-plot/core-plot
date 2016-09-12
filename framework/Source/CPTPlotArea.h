@@ -14,7 +14,7 @@
 /**
  *  @brief Plot area delegate.
  **/
-@protocol CPTPlotAreaDelegate<NSObject>
+@protocol CPTPlotAreaDelegate<CPTLayerDelegate>
 
 @optional
 
