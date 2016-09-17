@@ -39,6 +39,7 @@ Follow these steps to create a Core Plot release and post it to GitHub:
     <ul>
         <li><strong>Binaries/iOS/</strong></li>
         <li><strong>Binaries/MacOS/</strong></li>
+        <li><strong>Binaries/tvOS/</strong></li>
         <li><strong>Documentation/</strong></li>
         <li><strong>READMEs/</strong></li>
         <li><strong>Source/</strong></li>
