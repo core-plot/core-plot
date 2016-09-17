@@ -44,7 +44,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 
 -(void)generateData
 {
-    if ( !self.plotData ) {
+    if ( self.plotData.count == 0 ) {
         // Add some data
         CPTMutablePlotDataArray *newData = [NSMutableArray array];
 

@@ -59,7 +59,7 @@ static NSString *const kSecond = @"Second Derivative";
 
 -(void)generateData
 {
-    if ( self.plotData == nil ) {
+    if ( self.plotData.count == 0 ) {
         NSMutableArray<NSDictionary<NSString *, NSNumber *> *> *contentArray = [NSMutableArray array];
 
         for ( NSUInteger i = 0; i < 11; i++ ) {

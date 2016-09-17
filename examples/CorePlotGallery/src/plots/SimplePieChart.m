@@ -38,7 +38,7 @@
 
 -(void)generateData
 {
-    if ( self.plotData == nil ) {
+    if ( self.plotData.count == 0 ) {
         self.plotData = @[@20.0, @30.0, @60.0];
     }
 }

@@ -47,7 +47,7 @@ static NSString *const hermiteCubicIdentifier          = @"Hermite Cubic";
 
 -(void)generateData
 {
-    if ( self.plotData == nil ) {
+    if ( self.plotData.count == 0 ) {
         NSArray<NSNumber *> *const xValues = @[@0, @0.1, @0.2, @0.5, @0.6, @0.7, @1];
         NSArray<NSNumber *> *const yValues = @[@(0.5), @0.5, @(-1), @1, @1, @0, @0.1];
 

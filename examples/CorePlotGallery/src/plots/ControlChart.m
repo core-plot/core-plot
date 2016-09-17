@@ -38,7 +38,7 @@ static const NSUInteger numberOfPoints = 11;
 
 -(void)generateData
 {
-    if ( self.plotData == nil ) {
+    if ( self.plotData.count == 0 ) {
         CPTMutableNumberArray *contentArray = [NSMutableArray array];
 
         double sum = 0.0;
