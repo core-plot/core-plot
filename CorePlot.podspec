@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'CorePlot'
-  s.version  = '2.1'
+  s.version  = '2.2'
   s.license  = 'BSD'
   s.summary  = 'Cocoa plotting framework for Mac OS X, iOS, and tvOS.'
   s.homepage = 'https://github.com/core-plot'
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
                   'of data, and is tightly integrated with Apple technologies like Core Animation, ' \
                   'Core Data, and Cocoa Bindings.'
 
-  s.ios.deployment_target = '6.0'
+  s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.8'
   s.tvos.deployment_target = '9.0'
   
