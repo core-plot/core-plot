@@ -5,7 +5,7 @@ Follow these steps to create a Core Plot release and post it to GitHub:
 1. Ensure the following tools are installed on your development machine:
 
     <ul>
-        <li>Xcode 7</li>
+        <li>Xcode 8</li>
         <li>[Doxygen](http://www.stack.nl/~dimitri/doxygen/download.html#latestsrc), version 1.8.11 or later, installed in <strong>/Applications</strong></li>
         <li>[Graphviz](http://www.graphviz.org/Download_macos.php), version 2.36.0 or later</li>
     </ul>
