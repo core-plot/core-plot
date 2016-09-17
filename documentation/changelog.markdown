@@ -1,8 +1,10 @@
-# Release 2.2 (TBD)
+# Release 2.2 (September 17, 2016)
 
 ## Release Notes
 
-To be determined.
+This release updates Core Plot to be compatible with Xcode 8 and Swift 3.
+
+The Mac deployment target remains OS X 10.8. The iOS deployment target has changed to iOS 8.0 for both the framework and the static library. The tvOS deployment target remains tvOS 9.0.
 
 ## Details
 - **New**: Increased the iOS deployment target to iOS 8.
