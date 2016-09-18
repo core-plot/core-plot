@@ -1,4 +1,4 @@
-# Release 2.2 (September 17, 2016)
+# Release 2.2 (September 18, 2016)
 
 ## Release Notes
 
