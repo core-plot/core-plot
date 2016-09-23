@@ -749,12 +749,9 @@ CPTImageSlices;
             theImage   = theNativeImage.CGImage;
             self.scale = theNativeImage.scale;
 #else
-            NSSize imageSize  = theNativeImage.size;
-            CGFloat sizeScale = CPTFloat(theNativeImage.representations.count + 1) - contextScale;
-            imageSize.width  /= sizeScale;
-            imageSize.height /= sizeScale;
-
+            NSSize imageSize   = theNativeImage.size;
             NSRect drawingRect = NSMakeRect(0.0, 0.0, imageSize.width, imageSize.height);
+
             theImage = [theNativeImage CGImageForProposedRect:&drawingRect
                                                       context:[NSGraphicsContext graphicsContextWithGraphicsPort:context flipped:NO]
                                                         hints:nil];
