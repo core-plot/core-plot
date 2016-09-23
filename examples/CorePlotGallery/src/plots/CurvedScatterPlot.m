@@ -412,6 +412,8 @@ static NSString *const kSecond = @"Second Derivative";
         annotation.contentAnchorPoint = CGPointMake(0.5, 0.0);
         annotation.displacement       = CGPointMake(0.0, 10.0);
         [graph.plotAreaFrame.plotArea addAnnotation:annotation];
+
+        self.symbolTextAnnotation = annotation;
     }
 }
 
