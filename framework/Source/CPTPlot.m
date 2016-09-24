@@ -22,7 +22,7 @@
 /** @defgroup plotAnimation Plots
  *  @brief Plot properties that can be animated using Core Animation.
  *  @if MacOnly
- *  @since Custom layer property animation is supported on MacOS 10.6 and later.
+ *  @since Custom layer property animation is supported on macOS 10.6 and later.
  *  @endif
  *  @ingroup animation
  **/
@@ -79,7 +79,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
  *  Each data series on the graph is represented by a plot. Data is provided by
  *  a datasource that conforms to the CPTPlotDataSource protocol.
  *  @if MacOnly
- *  Plots also support data binding on MacOS.
+ *  Plots also support data binding on macOS.
  *  @endif
  *
  *  A Core Plot plot will request its data from the datasource when it is first displayed.

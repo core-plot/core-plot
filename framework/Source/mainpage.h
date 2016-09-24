@@ -2,7 +2,7 @@
  *
  *  @section intro Introduction
  *
- *  Core Plot is a 2D Cocoa plotting framework for Mac OS X, iOS, and tvOS.
+ *  Core Plot is a 2D Cocoa plotting framework for macOS, iOS, and tvOS.
  *  It is highly customizable and capable of drawing many types of plots.
  *  See the <a href="https://github.com/core-plot/core-plot/wiki/Example-Graphs">Example Graphs</a>
  *  wiki page and the <a href="https://github.com/core-plot/core-plot/tree/master/examples">example applications</a>

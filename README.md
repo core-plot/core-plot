@@ -1,6 +1,6 @@
 # Core Plot
 
-*Cocoa plotting framework for Mac OS X and iOS.*
+*Cocoa plotting framework for macOS, iOS, and tvOS.*
 
 [![Build Status](https://secure.travis-ci.org/core-plot/core-plot.svg)](http://travis-ci.org/core-plot/core-plot) [![Version Status](https://img.shields.io/cocoapods/v/CorePlot.svg)](https://cocoapods.org/pods/CorePlot) [![license MIT](https://img.shields.io/cocoapods/l/CorePlot.svg)](http://opensource.org/licenses/BSD-3-Clause)  [![Platform](https://img.shields.io/cocoapods/p/CorePlot.svg)](http://core-plot.github.io)
 

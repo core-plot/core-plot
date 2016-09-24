@@ -47,7 +47,7 @@
     // Color
     NSColor *styleColor = attributes[NSForegroundColorAttributeName];
     if ( styleColor ) {
-        // CGColor property is available in Mac OS 10.8 and later
+        // CGColor property is available in macOS 10.8 and later
         if ( [styleColor respondsToSelector:@selector(CGColor)] ) {
             newStyle.color = [CPTColor colorWithCGColor:styleColor.CGColor];
         }
@@ -153,7 +153,7 @@
     // Color
     NSColor *styleColor = attributes[NSForegroundColorAttributeName];
     if ( styleColor ) {
-        // CGColor property is available in Mac OS 10.8 and later
+        // CGColor property is available in macOS 10.8 and later
         if ( [styleColor respondsToSelector:@selector(CGColor)] ) {
             newStyle.color = [CPTColor colorWithCGColor:styleColor.CGColor];
         }
