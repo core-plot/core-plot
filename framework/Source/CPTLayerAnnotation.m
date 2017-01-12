@@ -7,9 +7,6 @@
 /// @cond
 @interface CPTLayerAnnotation()
 
-@property (nonatomic, readwrite, strong, nullable) CPTConstraints *xConstraints;
-@property (nonatomic, readwrite, strong, nullable) CPTConstraints *yConstraints;
-
 -(void)setConstraints;
 
 @end
@@ -36,7 +33,14 @@
  **/
 @synthesize rectAnchor;
 
+/** @property CPTConstraints *xConstraints
+ *  @brief The constraints used to position the content layer relative to the reference layer in the x-direction. Setting the @ref rectAnchor resets the constraints.
+ **/
 @synthesize xConstraints;
+
+/** @property CPTConstraints *yConstraints
+ *  @brief The constraints used to position the content layer relative to the reference layer in the y-direction. Setting the @ref rectAnchor resets the constraints.
+ **/
 @synthesize yConstraints;
 
 #pragma mark -
@@ -249,6 +253,21 @@
     if ( newAnchor != rectAnchor ) {
         rectAnchor = newAnchor;
         [self setConstraints];
+    }
+}
+
+-(void)setXConstraints:(CPTConstraints *)newConstraints
+{
+    if ( newConstraints != xConstraints ) {
+        xConstraints = newConstraints;
+        [self positionContentLayer];
+    }
+}
+
+-(void)setYConstraints:(CPTConstraints *)newConstraints
+{
+    if ( newConstraints != yConstraints ) {
+        yConstraints = newConstraints;
         [self positionContentLayer];
     }
 }
