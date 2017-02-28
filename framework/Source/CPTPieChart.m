@@ -42,7 +42,7 @@ CPTPieChartBinding const CPTPieChartBindingPieSliceRadialOffsets = @"sliceRadial
 -(CGFloat)normalizedPosition:(CGFloat)rawPosition;
 -(BOOL)angle:(CGFloat)touchedAngle betweenStartAngle:(CGFloat)startingAngle endAngle:(CGFloat)endingAngle;
 
--(void)addSliceToPath:(nonnull CGMutablePathRef)slicePath centerPoint:(CGPoint)center startingAngle:(CGFloat)startingAngle finishingAngle:(CGFloat)finishingAngle;
+-(void)addSliceToPath:(nonnull CGMutablePathRef)slicePath centerPoint:(CGPoint)center startingAngle:(CGFloat)startingAngle finishingAngle:(CGFloat)finishingAngle width:(CGFloat)currentWidth;
 -(nullable CPTFill *)sliceFillForIndex:(NSUInteger)idx;
 
 @end
@@ -643,8 +643,7 @@ static const CGFloat colorLookupTable[10][3] =
             }
 
             CGMutablePathRef slicePath = CGPathCreateMutable();
-            [self addSliceToPath:slicePath centerPoint:center startingAngle:startingAngle finishingAngle:finishingAngle];
-            CGPathCloseSubpath(slicePath);
+            [self addSliceToPath:slicePath centerPoint:center startingAngle:startingAngle finishingAngle:finishingAngle width:currentWidth];
 
             CPTFill *currentFill = [self sliceFillForIndex:currentIndex];
             if ( [currentFill isKindOfClass:fillClass] ) {
@@ -727,19 +726,32 @@ static const CGFloat colorLookupTable[10][3] =
     return fmod( angle, CPTFloat(2.0 * M_PI) );
 }
 
--(void)addSliceToPath:(nonnull CGMutablePathRef)slicePath centerPoint:(CGPoint)center startingAngle:(CGFloat)startingAngle finishingAngle:(CGFloat)finishingAngle
+-(void)addSliceToPath:(nonnull CGMutablePathRef)slicePath centerPoint:(CGPoint)center startingAngle:(CGFloat)startingAngle finishingAngle:(CGFloat)finishingAngle width:(CGFloat)currentWidth
 {
     bool direction      = (self.sliceDirection == CPTPieDirectionClockwise) ? true : false;
+    CGFloat outerRadius = self.pieRadius;
     CGFloat innerRadius = self.pieInnerRadius;
 
     if ( innerRadius > CPTFloat(0.0) ) {
-        CGPathAddArc(slicePath, NULL, center.x, center.y, self.pieRadius, startingAngle, finishingAngle, direction);
-        CGPathAddArc(slicePath, NULL, center.x, center.y, innerRadius, finishingAngle, startingAngle, !direction);
+        if ( currentWidth >= 1.0 ) {
+            CGPathAddArc(slicePath, NULL, center.x, center.y, outerRadius, startingAngle, startingAngle + CPTFloat(2.0 * M_PI), direction);
+            CGPathAddArc(slicePath, NULL, center.x, center.y, innerRadius, startingAngle + CPTFloat(2.0 * M_PI), startingAngle, !direction);
+        }
+        else {
+            CGPathAddArc(slicePath, NULL, center.x, center.y, outerRadius, startingAngle, finishingAngle, direction);
+            CGPathAddArc(slicePath, NULL, center.x, center.y, innerRadius, finishingAngle, startingAngle, !direction);
+        }
     }
     else {
-        CGPathMoveToPoint(slicePath, NULL, center.x, center.y);
-        CGPathAddArc(slicePath, NULL, center.x, center.y, self.pieRadius, startingAngle, finishingAngle, direction);
+        if ( currentWidth >= 1.0 ) {
+            CGPathAddEllipseInRect( slicePath, NULL, CGRectMake( center.x - outerRadius, center.y - outerRadius, outerRadius * CPTFloat(2.0), outerRadius * CPTFloat(2.0) ) );
+        }
+        else {
+            CGPathMoveToPoint(slicePath, NULL, center.x, center.y);
+            CGPathAddArc(slicePath, NULL, center.x, center.y, outerRadius, startingAngle, finishingAngle, direction);
+        }
     }
+    CGPathCloseSubpath(slicePath);
 }
 
 -(nullable CPTFill *)sliceFillForIndex:(NSUInteger)idx
