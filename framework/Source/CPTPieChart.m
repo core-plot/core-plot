@@ -733,7 +733,7 @@ static const CGFloat colorLookupTable[10][3] =
     CGFloat innerRadius = self.pieInnerRadius;
 
     if ( innerRadius > CPTFloat(0.0) ) {
-        if ( currentWidth >= 1.0 ) {
+        if ( currentWidth >= CPTFloat(1.0) ) {
             CGPathAddArc(slicePath, NULL, center.x, center.y, outerRadius, startingAngle, startingAngle + CPTFloat(2.0 * M_PI), direction);
             CGPathAddArc(slicePath, NULL, center.x, center.y, innerRadius, startingAngle + CPTFloat(2.0 * M_PI), startingAngle, !direction);
         }
@@ -743,7 +743,7 @@ static const CGFloat colorLookupTable[10][3] =
         }
     }
     else {
-        if ( currentWidth >= 1.0 ) {
+        if ( currentWidth >= CPTFloat(1.0) ) {
             CGPathAddEllipseInRect( slicePath, NULL, CGRectMake( center.x - outerRadius, center.y - outerRadius, outerRadius * CPTFloat(2.0), outerRadius * CPTFloat(2.0) ) );
         }
         else {
