@@ -37,7 +37,7 @@ class PieChartController : UIViewController, CPTPieChartDataSource, CPTPieChartD
         piePlot.dataSource      = self
         piePlot.pieRadius       = 131.0
         piePlot.identifier      = NSString.init(string: "Pie Chart 1")
-        piePlot.startAngle      = CGFloat(M_PI_4)
+        piePlot.startAngle      = CGFloat(.pi / 4.0)
         piePlot.sliceDirection  = .counterClockwise
         piePlot.centerAnchor    = CGPoint(x: 0.5, y: 0.38)
         piePlot.borderLineStyle = CPTLineStyle()

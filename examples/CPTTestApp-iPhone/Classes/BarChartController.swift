@@ -78,7 +78,7 @@ class BarChartController : UIViewController, CPTBarPlotDataSource {
             x.titleOffset         = 55.0
 
             // Custom labels
-            x.labelRotation  = CGFloat(M_PI_4)
+            x.labelRotation  = CGFloat(.pi / 4.0)
             x.labelingPolicy = .none
 
             let customTickLocations = [1, 5, 10, 15]
@@ -91,7 +91,7 @@ class BarChartController : UIViewController, CPTBarPlotDataSource {
                 labelLocation += 1
                 newLabel.tickLocation = NSNumber.init(value: tickLocation)
                 newLabel.offset       = x.labelOffset + x.majorTickLength
-                newLabel.rotation     = CGFloat(M_PI_4)
+                newLabel.rotation     = CGFloat(.pi / 4.0)
                 customLabels.insert(newLabel)
             }
 
