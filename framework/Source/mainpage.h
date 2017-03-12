@@ -38,7 +38,6 @@
  *  @subsection socialnetworks Social Networks
  *
  *  - <a href="https://twitter.com/CorePlot">Twitter</a>
- *  - <a href="https://alpha.app.net/coreplot">App.net</a>; Subscribe to the <a href="https://app.net/c/2rw2">Announcements</a> broadcast.
  *
  *  @section contributingtocoreplot Contributing to Core Plot
  *

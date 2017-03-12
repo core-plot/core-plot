@@ -33,7 +33,6 @@ Documentation of the Core Plot API and high-level architecture can be found in t
 ## Social Networks
 
   * [Twitter](https://twitter.com/CorePlot)
-  * [App.net](https://alpha.app.net/coreplot); Subscribe to the [Announcements](https://app.net/c/2rw2) broadcast.
 
 # Contributing to Core Plot
 
