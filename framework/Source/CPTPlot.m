@@ -16,7 +16,6 @@
 #import "CPTTextLayer.h"
 #import "CPTUtilities.h"
 #import "NSCoderExtensions.h"
-#import <Accelerate/Accelerate.h>
 #import <tgmath.h>
 
 /** @defgroup plotAnimation Plots
@@ -1467,37 +1466,21 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
     NSUInteger numberOfSamples = numbers.numberOfSamples;
     if ( numberOfSamples > 0 ) {
         if ( self.doublePrecisionCache ) {
-            const double *doubles = (const double *)numbers.bytes;
-
             double min = (double)INFINITY;
             double max = -(double)INFINITY;
 
-            for ( NSUInteger n = 0; n < numberOfSamples; ++n ) {
-                if ( min > doubles[n] ) {
-                    min = doubles[n];
-                }
-                if ( max < doubles[n] ) {
-                    max = doubles[n];
-                }
-            }
+            const double *doubles    = (const double *)numbers.bytes;
+            const double *lastSample = doubles + numberOfSamples;
 
-            if ( isnan(min) || isnan(max) ) {
-                // vDSP functions may return NAN if any data in the array is NAN
-                min = (double)INFINITY;
-                max = -(double)INFINITY;
+            while ( doubles < lastSample ) {
+                double value = *doubles++;
 
-                const double *lastSample = doubles + numberOfSamples;
-
-                while ( doubles < lastSample ) {
-                    double value = *doubles++;
-
-                    if ( !isnan(value) ) {
-                        if ( value < min ) {
-                            min = value;
-                        }
-                        if ( value > max ) {
-                            max = value;
-                        }
+                if ( !isnan(value) ) {
+                    if ( value < min ) {
+                        min = value;
+                    }
+                    if ( value > max ) {
+                        max = value;
                     }
                 }
             }
@@ -1512,6 +1495,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 
             const NSDecimal *decimals   = (const NSDecimal *)numbers.bytes;
             const NSDecimal *lastSample = decimals + numberOfSamples;
+
             while ( decimals < lastSample ) {
                 NSDecimal value = *decimals++;
 

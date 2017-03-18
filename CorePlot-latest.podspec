@@ -39,7 +39,7 @@ Pod::Spec.new do |s|
   s.osx.xcconfig  = { 'HEADER_SEARCH_PATHS' => '"${PODS_ROOT}/Headers/Private/CorePlot/osx"' }
   s.tvos.xcconfig = { 'HEADER_SEARCH_PATHS' => '"${PODS_ROOT}/Headers/Private/CorePlot/tvos"' }
   
-  s.frameworks     = 'QuartzCore', 'Accelerate'
+  s.frameworks     = 'QuartzCore'
   s.ios.frameworks = 'UIKit', 'Foundation'
   s.tvos.frameworks = 'UIKit', 'Foundation'
   s.osx.frameworks = 'Cocoa'

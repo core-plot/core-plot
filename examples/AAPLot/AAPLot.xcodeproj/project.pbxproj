@@ -24,7 +24,6 @@
 		AB8989470FE0309E00FDC37F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB8989460FE0309E00FDC37F /* QuartzCore.framework */; };
 		AB8F94580FDEFA1500E61485 /* APYahooDataPuller.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8F94570FDEFA1500E61485 /* APYahooDataPuller.m */; };
 		ABA5345E0FEB40CE0046A8DA /* AAPL.plist in Resources */ = {isa = PBXBuildFile; fileRef = ABA5345D0FEB40CE0046A8DA /* AAPL.plist */; };
-		C3CD283017DE9B9C008EED1E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CD282F17DE9B9C008EED1E /* Accelerate.framework */; };
 		C3D3936C19FD6B1D00148319 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D3936B19FD6B1D00148319 /* Images.xcassets */; };
 		C3D414941A7D838200B6F5D6 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D414911A7D836300B6F5D6 /* libCorePlot-CocoaTouch.a */; };
 		C3F0BA3919EC9F6300F7CB47 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3F0BA3819EC9F6300F7CB47 /* Launch Screen.xib */; };
@@ -134,7 +133,6 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */,
 				AB8989470FE0309E00FDC37F /* QuartzCore.framework in Frameworks */,
-				C3CD283017DE9B9C008EED1E /* Accelerate.framework in Frameworks */,
 				C3D414941A7D838200B6F5D6 /* libCorePlot-CocoaTouch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
