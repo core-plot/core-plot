@@ -1472,11 +1472,11 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
             double min = (double)INFINITY;
             double max = -(double)INFINITY;
 
-            for (NSUInteger n = 0; n < numberOfSamples; ++n){
-                if (min > doubles[n]){
+            for ( NSUInteger n = 0; n < numberOfSamples; ++n ) {
+                if ( min > doubles[n] ) {
                     min = doubles[n];
                 }
-                if (max < doubles[n]){
+                if ( max < doubles[n] ) {
                     max = doubles[n];
                 }
             }
