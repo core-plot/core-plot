@@ -64,7 +64,7 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource, CPTAxi
         blueLineStyle.lineWidth     = 3.0
         blueLineStyle.lineColor     = .blue()
         boundLinePlot.dataLineStyle = blueLineStyle
-        boundLinePlot.identifier    = NSString.init(string: "Blue Plot")
+        boundLinePlot.identifier    = "Blue Plot" as NSString
         boundLinePlot.dataSource    = self
         newGraph.add(boundLinePlot)
 
@@ -89,7 +89,7 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource, CPTAxi
         greenLineStyle.lineColor         = .green()
         greenLineStyle.dashPattern       = [5.0, 5.0]
         dataSourceLinePlot.dataLineStyle = greenLineStyle
-        dataSourceLinePlot.identifier    = NSString.init(string: "Green Plot")
+        dataSourceLinePlot.identifier    = "Green Plot" as NSString
         dataSourceLinePlot.dataSource    = self
 
         // Put an area gradient under the plot above
