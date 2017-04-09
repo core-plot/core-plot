@@ -1,4 +1,4 @@
-Copyright (c) 2015, Drew McCormack, Brad Larson, Eric Skroch, Barry Wark, Dirkjan Krijnders, Rick Maddy, Vijay Kalusani, Caleb Cannon, Jeff Buck, Thomas Elstner, Jeroen Leenarts, Craig Hockenberry, Hartwig Wiesmann, Koen van der Drift, Nino Ag, Mike Lischke, Trevor Harmon, Travis Fischer, Graham Mueller, Rafał Wójcik, Mike Rossetti, Michael Merickel, Lane Roathe, Ingmar Stein, Sean Holbert, Victor Martin Garcia, Jérôme Morissard, Demitri Muna, and Tim Monzures.
+Copyright (c) 2015, Drew McCormack, Brad Larson, Eric Skroch, Barry Wark, Dirkjan Krijnders, Rick Maddy, Vijay Kalusani, Caleb Cannon, Jeff Buck, Thomas Elstner, Jeroen Leenarts, Craig Hockenberry, Hartwig Wiesmann, Koen van der Drift, Nino Ag, Mike Lischke, Trevor Harmon, Travis Fischer, Graham Mueller, Rafał Wójcik, Mike Rossetti, Michael Merickel, Lane Roathe, Ingmar Stein, Sean Holbert, Victor Martin Garcia, Jérôme Morissard, Demitri Muna, Tim Monzures, and Kirill Yakimovich.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
