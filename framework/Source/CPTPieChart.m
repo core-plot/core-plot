@@ -724,7 +724,7 @@ static const CGFloat colorLookupTable[10][3] =
             angle   += pieSliceValue * pieRange;
             break;
     }
-    return isnan(endingAngle) ? angle : fmod(angle, CPTFloat(2.0 * M_PI));
+    return isnan(endingAngle) ? angle : fmod( angle, CPTFloat(2.0 * M_PI) );
 }
 
 -(void)addSliceToPath:(nonnull CGMutablePathRef)slicePath centerPoint:(CGPoint)center startingAngle:(CGFloat)startingAngle finishingAngle:(CGFloat)finishingAngle
