@@ -1,4 +1,4 @@
-#import "CPTScatterPlotPlugIn.h"
+#import "CPTScatterPlotPlugin.h"
 
 @implementation CPTScatterPlotPlugIn
 

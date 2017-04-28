@@ -1,4 +1,4 @@
-#import "CPTBarPlotPlugIn.h"
+#import "CPTBarPlotPlugin.h"
 
 @implementation CPTBarPlotPlugIn
 

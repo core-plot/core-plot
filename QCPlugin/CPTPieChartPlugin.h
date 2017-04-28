@@ -1,4 +1,4 @@
-#import "CorePlotQCPlugIn.h"
+#import "CorePlotQCPlugin.h"
 #import <Cocoa/Cocoa.h>
 
 @interface CPTPieChartPlugIn : CorePlotQCPlugIn<CPTPieChartDataSource>
