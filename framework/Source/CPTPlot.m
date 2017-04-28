@@ -1472,8 +1472,14 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
             double min = (double)INFINITY;
             double max = -(double)INFINITY;
 
-            vDSP_minvD(doubles, 1, &min, (vDSP_Length)numberOfSamples);
-            vDSP_maxvD(doubles, 1, &max, (vDSP_Length)numberOfSamples);
+            for (NSUInteger n = 0; n < numberOfSamples; ++n){
+                if (min > doubles[n]){
+                    min = doubles[n];
+                }
+                if (max < doubles[n]){
+                    max = doubles[n];
+                }
+            }
 
             if ( isnan(min) || isnan(max) ) {
                 // vDSP functions may return NAN if any data in the array is NAN
