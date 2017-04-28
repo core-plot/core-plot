@@ -14,6 +14,7 @@
 /// @{
 -(void)fillRect:(CGRect)rect inContext:(nonnull CGContextRef)context;
 -(void)fillPathInContext:(nonnull CGContextRef)context;
+-(void)fillPathInContext:(nonnull CGContextRef)context withBounds:(CGRect) bounds;
 /// @}
 
 @end

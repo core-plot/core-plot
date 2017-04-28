@@ -64,6 +64,21 @@
     CGContextRestoreGState(context);
 }
 
+-(void)fillPathInContext:(nonnull CGContextRef)context withBounds:(CGRect) bounds
+{
+    CGRect pathBounds = CGContextGetPathBoundingBox(context);
+    if (!CGRectIsNull(pathBounds)) {
+    
+        CGContextSaveGState(context);
+        
+        CGContextClip(context);
+        [self.fillImage drawInRect:bounds inContext:context];
+        
+        CGContextRestoreGState(context);
+        
+    }
+}
+
 #pragma mark -
 #pragma mark Opacity
 

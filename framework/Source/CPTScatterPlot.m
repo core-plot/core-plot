@@ -923,7 +923,7 @@ CPTScatterPlotBinding const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; /
             CGContextBeginPath(context);
             CGContextAddPath(context, dataLinePath);
             [theLineStyle setLineStyleInContext:context];
-            [theLineStyle strokePathInContext:context];
+            [theLineStyle strokePathInContext:context withBounds:self.frame];
             CGPathRelease(dataLinePath);
         }
 
