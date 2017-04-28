@@ -18,7 +18,7 @@ __nonnull CGPathRef CPTCreateRoundedRectPath(CGRect rect, CGFloat cornerRadius)
 #pragma clang diagnostic ignored "-Wunreachable-code"
 #pragma clang diagnostic ignored "-Wpointer-bool-conversion"
 
-        if ( CGPathCreateWithRoundedRect ) {
+        if ( &CGPathCreateWithRoundedRect ) {
             return CGPathCreateWithRoundedRect(rect, cornerRadius, cornerRadius, NULL);
         }
         else {
