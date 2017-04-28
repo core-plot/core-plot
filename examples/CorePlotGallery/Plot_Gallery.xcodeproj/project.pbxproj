@@ -62,7 +62,6 @@
 		C30D8B371BCAFDE20003BB70 /* SimplePieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FF9F12342D7C006BF615 /* SimplePieChart.m */; };
 		C30D8B381BCAFDE20003BB70 /* SimpleScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FFA112342D7C006BF615 /* SimpleScatterPlot.m */; };
 		C30D8B391BCAFDE20003BB70 /* VerticalBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FFA312342D7C006BF615 /* VerticalBarChart.m */; };
-		C30D8B3B1BCAFFAE0003BB70 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30D8B3A1BCAFFAE0003BB70 /* Accelerate.framework */; };
 		C30D8B3D1BCAFFB50003BB70 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30D8B3C1BCAFFB50003BB70 /* CoreGraphics.framework */; };
 		C30D8B3F1BCAFFBB0003BB70 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30D8B3E1BCAFFBB0003BB70 /* QuartzCore.framework */; };
 		C30D8B411BCAFFC10003BB70 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30D8B401BCAFFC10003BB70 /* Foundation.framework */; };
@@ -80,7 +79,6 @@
 		C34CB5621BC9AB85009270A0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C34CB5611BC9AB85009270A0 /* UIKit.framework */; };
 		C34CB5641BC9AB8C009270A0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C34CB5631BC9AB8C009270A0 /* CoreGraphics.framework */; };
 		C34CB5661BC9AB93009270A0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C34CB5651BC9AB93009270A0 /* QuartzCore.framework */; };
-		C34CB5681BC9AB9E009270A0 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C34CB5671BC9AB9E009270A0 /* Accelerate.framework */; };
 		C34CB57C1BC9B1C1009270A0 /* AxisDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E1CC112908B0000D2035F /* AxisDemo.m */; };
 		C34CB57D1BC9B1C1009270A0 /* CandlestickPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C360E1DF13B18CAE007994B6 /* CandlestickPlot.m */; };
 		C34CB57E1BC9B1C1009270A0 /* ColoredBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A31A5514DF782A00734AB7 /* ColoredBarChart.m */; };
@@ -365,7 +363,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C30D8B3B1BCAFFAE0003BB70 /* Accelerate.framework in Frameworks */,
 				C30D8B3D1BCAFFB50003BB70 /* CoreGraphics.framework in Frameworks */,
 				C30D8B201BCAFC140003BB70 /* CorePlot.framework in Frameworks */,
 				C30D8B411BCAFFC10003BB70 /* Foundation.framework in Frameworks */,
@@ -379,7 +376,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C30B12431BCADD300084C567 /* CorePlot.framework in Frameworks */,
-				C34CB5681BC9AB9E009270A0 /* Accelerate.framework in Frameworks */,
 				C34CB5641BC9AB8C009270A0 /* CoreGraphics.framework in Frameworks */,
 				C34CB5601BC9AB7B009270A0 /* Foundation.framework in Frameworks */,
 				C34CB5661BC9AB93009270A0 /* QuartzCore.framework in Frameworks */,
@@ -694,7 +690,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				TargetAttributes = {
 					C30D8AF51BCAF99D0003BB70 = {
 						CreatedOnToolsVersion = 7.1;
@@ -1048,7 +1044,9 @@
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1083,7 +1081,9 @@
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;

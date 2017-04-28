@@ -1,4 +1,4 @@
-#import "CorePlotQCPlugIn.h"
+#import "CorePlotQCPlugin.h"
 #import <OpenGL/CGLMacro.h>
 
 #define kQCPlugIn_Name        @"CorePlotQCPlugIn"

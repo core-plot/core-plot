@@ -24,7 +24,6 @@
 		C359603919CE34FC005CDFB9 /* PieChartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C359603519CE34FB005CDFB9 /* PieChartController.swift */; };
 		C359603A19CE34FC005CDFB9 /* ScatterPlotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C359603619CE34FB005CDFB9 /* ScatterPlotController.swift */; };
 		C3B9F9D417503CDD001CCC50 /* BlueTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B9F9D317503CDD001CCC50 /* BlueTexture.png */; };
-		C3CD283E17DE9C95008EED1E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CD283D17DE9C95008EED1E /* Accelerate.framework */; };
 		C3D3936419FD671100148319 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D3936319FD671100148319 /* Images.xcassets */; };
 		C3D414C61A7D847C00B6F5D6 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D414C31A7D846500B6F5D6 /* libCorePlot-CocoaTouch.a */; };
 /* End PBXBuildFile section */
@@ -124,7 +123,6 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */,
 				BC9B81DA0FB893F70035D8DA /* QuartzCore.framework in Frameworks */,
-				C3CD283E17DE9C95008EED1E /* Accelerate.framework in Frameworks */,
 				C3D414C61A7D847C00B6F5D6 /* libCorePlot-CocoaTouch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -248,7 +246,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						LastSwiftMigration = 0800;
@@ -443,7 +441,9 @@
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -483,7 +483,9 @@
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";

@@ -197,10 +197,8 @@
 		C318F4AE11EA188700595FF9 /* CPTLimitBand.m in Sources */ = {isa = PBXBuildFile; fileRef = C318F4AC11EA188700595FF9 /* CPTLimitBand.m */; };
 		C3226A521A69F6DA00F77249 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3226A511A69F6DA00F77249 /* QuartzCore.framework */; };
 		C3226A541A69F6DF00F77249 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3226A531A69F6DF00F77249 /* UIKit.framework */; };
-		C3226A561A69F6F000F77249 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3226A551A69F6F000F77249 /* Accelerate.framework */; };
 		C3226A581A69F6FA00F77249 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3226A571A69F6FA00F77249 /* CoreGraphics.framework */; };
 		C3226A5C1A69F72900F77249 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3226A531A69F6DF00F77249 /* UIKit.framework */; };
-		C3226A5D1A69F72F00F77249 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3226A551A69F6F000F77249 /* Accelerate.framework */; };
 		C3226A5E1A69F73800F77249 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3226A511A69F6DA00F77249 /* QuartzCore.framework */; };
 		C3226A5F1A69F75400F77249 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3226A571A69F6FA00F77249 /* CoreGraphics.framework */; };
 		C3286C0015D8740100A436A8 /* _CPTMaskLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = C3286BFE15D8740100A436A8 /* _CPTMaskLayer.h */; settings = {ATTRIBUTES = (); }; };
@@ -335,7 +333,6 @@
 		C37EA6261BC83F2A0091C8F7 /* _CPTConstraintsFixed.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CCA03A13E8D85800CE6DB1 /* _CPTConstraintsFixed.m */; };
 		C37EA6271BC83F2A0091C8F7 /* CPTAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 07975C480F3B818800DE45DC /* CPTAxis.m */; };
 		C37EA6281BC83F2A0091C8F7 /* CPTMutableTextStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C4679A0FE1A24C00299939 /* CPTMutableTextStyle.m */; };
-		C37EA62A1BC83F2A0091C8F7 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3226A551A69F6F000F77249 /* Accelerate.framework */; };
 		C37EA62B1BC83F2A0091C8F7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3226A571A69F6FA00F77249 /* CoreGraphics.framework */; };
 		C37EA62C1BC83F2A0091C8F7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3226A511A69F6DA00F77249 /* QuartzCore.framework */; };
 		C37EA62D1BC83F2A0091C8F7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3226A531A69F6DF00F77249 /* UIKit.framework */; };
@@ -849,12 +846,10 @@
 		C3D979BB13D2347400145DFF /* CPTFillTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D979BA13D2347300145DFF /* CPTFillTests.m */; };
 		C3DA34CC107AD7710051DA02 /* _CPTXYTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DA34CA107AD7710051DA02 /* _CPTXYTheme.m */; };
 		C3DA34CD107AD7710051DA02 /* _CPTXYTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = C3DA34CB107AD7710051DA02 /* _CPTXYTheme.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		C3EE4E681A6C13260098F4E6 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3226A551A69F6F000F77249 /* Accelerate.framework */; };
 		C3EE4E691A6C133D0098F4E6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3226A511A69F6DA00F77249 /* QuartzCore.framework */; };
 		C3EE4E6A1A6C134B0098F4E6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3226A571A69F6FA00F77249 /* CoreGraphics.framework */; };
 		C3EE4E6B1A6C13560098F4E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3226A531A69F6DF00F77249 /* UIKit.framework */; };
 		C3EE4E6E1A6C15890098F4E6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07BF0D630F2B70B8002FCEA7 /* QuartzCore.framework */; };
-		C3EE4E6F1A6C15920098F4E6 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3BB7D1416322F7E00BC9515 /* Accelerate.framework */; };
 		C3EE4E981A6C1E890098F4E6 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3EE4E971A6C1E890098F4E6 /* Cocoa.framework */; };
 		C3EE4E9A1A6C1F770098F4E6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07BF0D630F2B70B8002FCEA7 /* QuartzCore.framework */; };
 		C3EE4E9B1A6C1F8A0098F4E6 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3EE4E971A6C1E890098F4E6 /* Cocoa.framework */; };
@@ -1223,7 +1218,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3EE4E6F1A6C15920098F4E6 /* Accelerate.framework in Frameworks */,
 				C3EE4E981A6C1E890098F4E6 /* Cocoa.framework in Frameworks */,
 				C3EE4E6E1A6C15890098F4E6 /* QuartzCore.framework in Frameworks */,
 			);
@@ -1233,7 +1227,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C37EA62A1BC83F2A0091C8F7 /* Accelerate.framework in Frameworks */,
 				C37EA62B1BC83F2A0091C8F7 /* CoreGraphics.framework in Frameworks */,
 				C37EA62C1BC83F2A0091C8F7 /* QuartzCore.framework in Frameworks */,
 				C37EA62D1BC83F2A0091C8F7 /* UIKit.framework in Frameworks */,
@@ -1253,7 +1246,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3226A5D1A69F72F00F77249 /* Accelerate.framework in Frameworks */,
 				C3226A5F1A69F75400F77249 /* CoreGraphics.framework in Frameworks */,
 				C3226A5E1A69F73800F77249 /* QuartzCore.framework in Frameworks */,
 				C3226A5C1A69F72900F77249 /* UIKit.framework in Frameworks */,
@@ -1273,7 +1265,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3226A561A69F6F000F77249 /* Accelerate.framework in Frameworks */,
 				C3226A581A69F6FA00F77249 /* CoreGraphics.framework in Frameworks */,
 				C3226A521A69F6DA00F77249 /* QuartzCore.framework in Frameworks */,
 				C3226A541A69F6DF00F77249 /* UIKit.framework in Frameworks */,
@@ -1284,7 +1275,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3EE4E681A6C13260098F4E6 /* Accelerate.framework in Frameworks */,
 				C3EE4E6A1A6C134B0098F4E6 /* CoreGraphics.framework in Frameworks */,
 				C3EE4E691A6C133D0098F4E6 /* QuartzCore.framework in Frameworks */,
 				C3EE4E6B1A6C13560098F4E6 /* UIKit.framework in Frameworks */,
@@ -2471,7 +2461,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				TargetAttributes = {
 					8DC2EF4F0486A6940098B216 = {
 						DevelopmentTeam = 28ZA45DE7D;
@@ -3289,7 +3279,9 @@
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CURRENT_PROJECT_VERSION = 2.2;
@@ -3316,7 +3308,9 @@
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CURRENT_PROJECT_VERSION = 2.2;
@@ -3392,6 +3386,7 @@
 			baseConfigurationReference = C3C9D08C1BB5A44800931F32 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -3413,6 +3408,7 @@
 			baseConfigurationReference = C3C9D08D1BB5A45B00931F32 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -3466,6 +3462,7 @@
 			baseConfigurationReference = C3C9D08C1BB5A44800931F32 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -3488,6 +3485,7 @@
 			baseConfigurationReference = C3C9D08D1BB5A45B00931F32 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
