@@ -1426,7 +1426,7 @@ NSDecimal CPTNiceNum(NSDecimal x)
 /**
  *  @internal
  *  @brief Determines a @quote{nice} range length (a multiple of @num{2}, @num{5}, or @num{10}) less than or equal to the given length.
- *  @param x The length to round.
+ *  @param length The length to round.
  */
 NSDecimal CPTNiceLength(NSDecimal length)
 {
