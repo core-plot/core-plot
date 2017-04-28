@@ -14,4 +14,9 @@
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder NS_DESIGNATED_INITIALIZER;
 /// @}
 
+/// @name RelativeOffset
+/// @{
+-(void)setXRelativeOffset:(CGFloat) xRelativeOffset yRelativeOffset: (CGFloat) yRelativeOffset;
+/// @}
+
 @end

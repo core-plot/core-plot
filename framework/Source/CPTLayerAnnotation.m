@@ -239,6 +239,21 @@
 
 /// @endcond
 
+/// @cond
+
+/** @brief Offset are relative to the top left corner.
+ */
+-(void)setXRelativeOffset:(CGFloat) xRelativeOffset yRelativeOffset: (CGFloat) yRelativeOffset
+{
+    
+    self.xConstraints = [[CPTConstraints alloc] initWithRelativeOffset:xRelativeOffset];
+    self.yConstraints = [[CPTConstraints alloc] initWithRelativeOffset: 1 - yRelativeOffset];
+    
+    [self positionContentLayer];
+}
+
+/// @endcond
+
 #pragma mark -
 #pragma mark Accessors
 
