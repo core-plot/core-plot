@@ -110,7 +110,7 @@ typedef NSFont CPTFont;
     y.titleOffset = self.titleSize * CPTFloat(1.25);
 
     // Create some function plots
-    for ( NSUInteger plotNum = 0; plotNum < 2; plotNum++ ) {
+    for ( NSUInteger plotNum = 0; plotNum <= 2; plotNum++ ) {
         NSString *titleString          = nil;
         CPTDataSourceFunction function = NULL;
         CPTDataSourceBlock block       = nil;
