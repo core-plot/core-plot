@@ -108,7 +108,7 @@
         CGColorRef grayColor  = CGColorCreateGenericGray(0.0, 1.0);
         CPTDictionary *result = @{
             QCPortAttributeNameKey: @"Border Color",
-            QCPortAttributeDefaultValueKey: CFBridgingRelease(grayColor)
+            QCPortAttributeDefaultValueKey: (id)CFBridgingRelease(grayColor)
         };
         return result;
     }
@@ -116,7 +116,7 @@
         CGColorRef grayColor  = CGColorCreateGenericGray(1.0, 1.0);
         CPTDictionary *result = @{
             QCPortAttributeNameKey: @"Label Color",
-            QCPortAttributeDefaultValueKey: CFBridgingRelease(grayColor)
+            QCPortAttributeDefaultValueKey: (id)CFBridgingRelease(grayColor)
         };
         return result;
     }
@@ -147,7 +147,7 @@
                             forKey:[NSString stringWithFormat:@"plotFillColor%lu", (unsigned long)index]
                     withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Primary Fill Color %lu", (unsigned long)(index + 1)],
                                       QCPortAttributeTypeKey: QCPortTypeColor,
-                                      QCPortAttributeDefaultValueKey: CFBridgingRelease(grayColor) }
+                                      QCPortAttributeDefaultValueKey: (id)CFBridgingRelease(grayColor) }
         ];
 
         // Add the new plot to the graph

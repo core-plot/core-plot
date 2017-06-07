@@ -51,7 +51,7 @@
                         forKey:[NSString stringWithFormat:@"plotDataLineColor%lu", (unsigned long)index]
                 withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Plot Line Color %lu", (unsigned long)(index + 1)],
                                   QCPortAttributeTypeKey: QCPortTypeColor,
-                                  QCPortAttributeDefaultValueKey: CFBridgingRelease(lineColor) }
+                                  QCPortAttributeDefaultValueKey: (id)CFBridgingRelease(lineColor) }
     ];
 
     CGColorRef fillColor = [self newDefaultColorForPlot:index alpha:0.25];
@@ -59,7 +59,7 @@
                         forKey:[NSString stringWithFormat:@"plotFillColor%lu", (unsigned long)index]
                 withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Plot Fill Color %lu", (unsigned long)(index + 1)],
                                   QCPortAttributeTypeKey: QCPortTypeColor,
-                                  QCPortAttributeDefaultValueKey: CFBridgingRelease(fillColor) }
+                                  QCPortAttributeDefaultValueKey: (id)CFBridgingRelease(fillColor) }
     ];
 
     [self addInputPortWithType:QCPortTypeNumber
@@ -85,7 +85,7 @@
                         forKey:[NSString stringWithFormat:@"plotDataSymbolColor%lu", (unsigned long)index]
                 withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Data Symbol Color %lu", (unsigned long)(index + 1)],
                                   QCPortAttributeTypeKey: QCPortTypeColor,
-                                  QCPortAttributeDefaultValueKey: CFBridgingRelease(symbolColor) }
+                                  QCPortAttributeDefaultValueKey: (id)CFBridgingRelease(symbolColor) }
     ];
 
     // Add the new plot to the graph
