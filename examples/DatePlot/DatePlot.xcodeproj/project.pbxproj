@@ -264,7 +264,7 @@
 				LastUpgradeCheck = 0900;
 				TargetAttributes = {
 					8D1107260486CEB800E47090 = {
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0900;
 					};
 				};
 			};
@@ -421,7 +421,7 @@
 				PRODUCT_NAME = DatePlot;
 				SWIFT_OBJC_BRIDGING_HEADER = "DatePlot-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -446,7 +446,7 @@
 				PRODUCT_NAME = DatePlot;
 				SWIFT_OBJC_BRIDGING_HEADER = "DatePlot-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
