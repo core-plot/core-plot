@@ -1661,7 +1661,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
         if ( needsNewContentLayer || theLabelFormatterChanged ) {
             CPTTextLayer *newLabelLayer = nil;
             if ( hasCategories ) {
-                NSString *labelString = [thePlotSpace categoryForCoordinate:myCoordinate atIndex:tickLocation.unsignedIntegerValue];
+                NSString *labelString = [thePlotSpace categoryForCoordinate:myCoordinate atIndex:(NSUInteger)tickLocation.doubleValue];
                 if ( labelString ) {
                     newLabelLayer = [[CPTTextLayer alloc] initWithText:labelString style:theLabelTextStyle];
                 }
