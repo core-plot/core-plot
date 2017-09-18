@@ -36,7 +36,6 @@
 		C30D8AFA1BCAF99D0003BB70 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C30D8AF91BCAF99D0003BB70 /* main.m */; };
 		C30D8AFD1BCAF99D0003BB70 /* AppDelegateTV.m in Sources */ = {isa = PBXBuildFile; fileRef = C30D8AFC1BCAF99D0003BB70 /* AppDelegateTV.m */; };
 		C30D8B081BCAF99D0003BB70 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C30D8B071BCAF99D0003BB70 /* Assets.xcassets */; };
-		C30D8B201BCAFC140003BB70 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F4892891290FFCD00EDB93F /* CorePlot.framework */; };
 		C30D8B211BCAFD3E0003BB70 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D2FE6219FF1D03002CD4D6 /* Images.xcassets */; };
 		C30D8B221BCAFD3E0003BB70 /* PlotItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FFAE12342DB1006BF615 /* PlotItem.m */; };
 		C30D8B231BCAFD3E0003BB70 /* PlotGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FFAC12342DB1006BF615 /* PlotGallery.m */; };
@@ -102,6 +101,7 @@
 		C34CB5901BC9B1C1009270A0 /* VerticalBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FFA312342D7C006BF615 /* VerticalBarChart.m */; };
 		C354C0D713C7CDBE00DA8822 /* RealTimePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C354C0D613C7CDBE00DA8822 /* RealTimePlot.m */; };
 		C35597961437E07800B41DA7 /* ControlChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C35597951437E07800B41DA7 /* ControlChart.m */; };
+		C357EA9D1F708E870060CF48 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30D8B181BCAF99D0003BB70 /* CorePlot.framework */; };
 		C360E1C613B18AAF007994B6 /* OHLCPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C360E1C513B18AAF007994B6 /* OHLCPlot.m */; };
 		C360E1E013B18CAF007994B6 /* CandlestickPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C360E1DF13B18CAE007994B6 /* CandlestickPlot.m */; };
 		C367249313E103910070F47A /* LineCapDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C367249213E103910070F47A /* LineCapDemo.m */; };
@@ -364,10 +364,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C30D8B3D1BCAFFB50003BB70 /* CoreGraphics.framework in Frameworks */,
-				C30D8B201BCAFC140003BB70 /* CorePlot.framework in Frameworks */,
 				C30D8B411BCAFFC10003BB70 /* Foundation.framework in Frameworks */,
 				C30D8B3F1BCAFFBB0003BB70 /* QuartzCore.framework in Frameworks */,
 				C30D8B431BCAFFCB0003BB70 /* UIKit.framework in Frameworks */,
+				C357EA9D1F708E870060CF48 /* CorePlot.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
