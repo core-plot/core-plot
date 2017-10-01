@@ -170,7 +170,7 @@ CPTBarPlotBinding const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< 
  **/
 +(nonnull instancetype)tubularBarPlotWithColor:(nonnull CPTColor *)color horizontalBars:(BOOL)horizontal
 {
-    CPTBarPlot *barPlot               = [[CPTBarPlot alloc] init];
+    CPTBarPlot *barPlot               = [[self alloc] init];
     CPTMutableLineStyle *barLineStyle = [[CPTMutableLineStyle alloc] init];
 
     barLineStyle.lineWidth = CPTFloat(1.0);
