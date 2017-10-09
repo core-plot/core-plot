@@ -24,7 +24,6 @@
 		AB8989470FE0309E00FDC37F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB8989460FE0309E00FDC37F /* QuartzCore.framework */; };
 		AB8F94580FDEFA1500E61485 /* APYahooDataPuller.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8F94570FDEFA1500E61485 /* APYahooDataPuller.m */; };
 		ABA5345E0FEB40CE0046A8DA /* AAPL.plist in Resources */ = {isa = PBXBuildFile; fileRef = ABA5345D0FEB40CE0046A8DA /* AAPL.plist */; };
-		C3CD283017DE9B9C008EED1E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CD282F17DE9B9C008EED1E /* Accelerate.framework */; };
 		C3D3936C19FD6B1D00148319 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D3936B19FD6B1D00148319 /* Images.xcassets */; };
 		C3D414941A7D838200B6F5D6 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D414911A7D836300B6F5D6 /* libCorePlot-CocoaTouch.a */; };
 		C3F0BA3919EC9F6300F7CB47 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3F0BA3819EC9F6300F7CB47 /* Launch Screen.xib */; };
@@ -134,7 +133,6 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */,
 				AB8989470FE0309E00FDC37F /* QuartzCore.framework in Frameworks */,
-				C3CD283017DE9B9C008EED1E /* Accelerate.framework in Frameworks */,
 				C3D414941A7D838200B6F5D6 /* libCorePlot-CocoaTouch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -291,7 +289,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0900;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = 28ZA45DE7D;
@@ -474,11 +472,19 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -496,7 +502,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SYMROOT = "$(SRCROOT)/../../build";
-				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework\"/**";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework\" \"${PROJECT_DIR}/../../framework/Source\" \"${PROJECT_DIR}/../../framework/iPhoneOnly\"";
 			};
 			name = Debug;
 		};
@@ -505,11 +511,19 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -524,7 +538,7 @@
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
-				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework\"/**";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework\" \"${PROJECT_DIR}/../../framework/Source\" \"${PROJECT_DIR}/../../framework/iPhoneOnly\"";
 			};
 			name = Release;
 		};

@@ -1017,22 +1017,13 @@ typedef struct CGPointError CGPointError;
 -(void)positionLabelAnnotation:(nonnull CPTPlotSpaceAnnotation *)label forIndex:(NSUInteger)idx
 {
     NSNumber *xValue = [self cachedNumberForField:CPTRangePlotFieldX recordIndex:idx];
+    NSNumber *yValue = [self cachedNumberForField:CPTRangePlotFieldY recordIndex:idx];
 
     BOOL positiveDirection = YES;
     CPTPlotRange *yRange   = [self.plotSpace plotRangeForCoordinate:CPTCoordinateY];
 
     if ( CPTDecimalLessThan( yRange.lengthDecimal, CPTDecimalFromInteger(0) ) ) {
         positiveDirection = !positiveDirection;
-    }
-
-    NSNumber *yValue;
-    CPTNumberArray *yValues       = @[[self cachedNumberForField:CPTRangePlotFieldY recordIndex:idx]];
-    CPTNumberArray *yValuesSorted = [yValues sortedArrayUsingSelector:@selector(compare:)];
-    if ( positiveDirection ) {
-        yValue = yValuesSorted.lastObject;
-    }
-    else {
-        yValue = yValuesSorted[0];
     }
 
     label.anchorPlotPoint     = @[xValue, yValue];

@@ -198,10 +198,19 @@
  **/
 -(CGSize)sizeWithTextStyle:(nullable CPTTextStyle *)style
 {
-    CGRect rect = [self boundingRectWithSize:CPTSizeMake(10000.0, 10000.0)
-                                     options:CPTStringDrawingOptions
-                                  attributes:style.attributes
-                                     context:nil];
+    CGRect rect = CGRectZero;
+
+    if ( [self respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)] ) {
+        rect = [self boundingRectWithSize:CPTSizeMake(10000.0, 10000.0)
+                                  options:CPTStringDrawingOptions
+                               attributes:style.attributes
+                                  context:nil];
+    }
+    else {
+        rect = [self boundingRectWithSize:CPTSizeMake(10000.0, 10000.0)
+                                  options:CPTStringDrawingOptions
+                               attributes:style.attributes];
+    }
 
     CGSize textSize = rect.size;
 

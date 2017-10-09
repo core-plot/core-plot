@@ -1,4 +1,4 @@
-#import "CorePlotQCPlugIn.h"
+#import "CorePlotQCPlugin.h"
 #import <OpenGL/CGLMacro.h>
 
 #define kQCPlugIn_Name        @"CorePlotQCPlugIn"
@@ -256,7 +256,7 @@ void drawErrorText(CGContextRef __nonnull context, CGRect rect)
         CGColorRef axisColor  = CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0);
         CPTDictionary *result = @{
             QCPortAttributeNameKey: @"Axis Color",
-            QCPortAttributeDefaultValueKey: CFBridgingRelease(axisColor)
+            QCPortAttributeDefaultValueKey: (id)CFBridgingRelease(axisColor)
         };
         return result;
     }
@@ -321,7 +321,7 @@ void drawErrorText(CGContextRef __nonnull context, CGRect rect)
         CGColorRef plotAreaColor = CGColorCreateGenericRGB(0.0, 0.0, 0.0, 0.4);
         CPTDictionary *result    = @{
             QCPortAttributeNameKey: @"Plot Area Color",
-            QCPortAttributeDefaultValueKey: CFBridgingRelease(plotAreaColor)
+            QCPortAttributeDefaultValueKey: (id)CFBridgingRelease(plotAreaColor)
         };
         return result;
     }

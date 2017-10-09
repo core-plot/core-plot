@@ -7,6 +7,8 @@
 
 @property (nonatomic, readonly, cpt_weak_property, nullable) CPTLayer *anchorLayer;
 @property (nonatomic, readwrite, assign) CPTRectAnchor rectAnchor;
+@property (nonatomic, readwrite, strong, nullable) CPTConstraints *xConstraints;
+@property (nonatomic, readwrite, strong, nullable) CPTConstraints *yConstraints;
 
 /// @name Initialization
 /// @{

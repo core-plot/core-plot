@@ -17,7 +17,6 @@
 		28D7ACF80DDB3853001CB0EB /* CPTTestApp_iPadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* CPTTestApp_iPadViewController.m */; };
 		BC65758F116549890008F594 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC65758E116549890008F594 /* QuartzCore.framework */; };
 		C34677AE19F3341700429A85 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C34677AD19F3341700429A85 /* Launch Screen.xib */; };
-		C3CD283917DE9C59008EED1E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CD283817DE9C59008EED1E /* Accelerate.framework */; };
 		C3D3936019FD670400148319 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D3935F19FD670400148319 /* Images.xcassets */; };
 		C3D414AD1A7D844400B6F5D6 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D414AA1A7D843800B6F5D6 /* libCorePlot-CocoaTouch.a */; };
 		C3F47B6E17BF99DE0075181F /* CorePlotIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F47B6C17BF99DE0075181F /* CorePlotIcon.png */; };
@@ -116,7 +115,6 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
 				BC65758F116549890008F594 /* QuartzCore.framework in Frameworks */,
-				C3CD283917DE9C59008EED1E /* Accelerate.framework in Frameworks */,
 				C3D414AD1A7D844400B6F5D6 /* libCorePlot-CocoaTouch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,7 +234,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0900;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "CPTTestApp-iPad" */;
 			compatibilityVersion = "Xcode 6.3";
@@ -400,11 +398,19 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -427,7 +433,7 @@
 				SDKROOT = iphoneos;
 				SYMROOT = "$(SRCROOT)/../../build";
 				TARGETED_DEVICE_FAMILY = 2;
-				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework\"/**";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework\" \"${PROJECT_DIR}/../../framework/Source\" \"${PROJECT_DIR}/../../framework/iPhoneOnly\"";
 			};
 			name = Debug;
 		};
@@ -436,11 +442,19 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -462,7 +476,7 @@
 				SDKROOT = iphoneos;
 				SYMROOT = "$(SRCROOT)/../../build";
 				TARGETED_DEVICE_FAMILY = 2;
-				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework\"/**";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework\" \"${PROJECT_DIR}/../../framework/Source\" \"${PROJECT_DIR}/../../framework/iPhoneOnly\"";
 			};
 			name = Release;
 		};
