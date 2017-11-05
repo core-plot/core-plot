@@ -40,7 +40,17 @@ int16_t CPTDecimalShortValue(NSDecimal decimalNumber)
  **/
 int32_t CPTDecimalLongValue(NSDecimal decimalNumber)
 {
-    return (int32_t)[NSDecimalNumber decimalNumberWithDecimal:decimalNumber].longValue;
+    NSDecimalNumber *d = [NSDecimalNumber decimalNumberWithDecimal:decimalNumber];
+
+    d = [d decimalNumberByRoundingAccordingToBehavior:
+         [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundDown
+                                                                scale:0
+                                                     raiseOnExactness:NO
+                                                      raiseOnOverflow:NO
+                                                     raiseOnUnderflow:NO
+                                                  raiseOnDivideByZero:NO]];
+
+    return (int32_t)d.longValue;
 }
 
 /**
@@ -50,7 +60,17 @@ int32_t CPTDecimalLongValue(NSDecimal decimalNumber)
  **/
 int64_t CPTDecimalLongLongValue(NSDecimal decimalNumber)
 {
-    return (int64_t)[NSDecimalNumber decimalNumberWithDecimal:decimalNumber].longLongValue;
+    NSDecimalNumber *d = [NSDecimalNumber decimalNumberWithDecimal:decimalNumber];
+
+    d = [d decimalNumberByRoundingAccordingToBehavior:
+         [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundDown
+                                                                scale:0
+                                                     raiseOnExactness:NO
+                                                      raiseOnOverflow:NO
+                                                     raiseOnUnderflow:NO
+                                                  raiseOnDivideByZero:NO]];
+
+    return (int64_t)d.longLongValue;
 }
 
 /**
@@ -70,7 +90,17 @@ int CPTDecimalIntValue(NSDecimal decimalNumber)
  **/
 NSInteger CPTDecimalIntegerValue(NSDecimal decimalNumber)
 {
-    return (NSInteger)[NSDecimalNumber decimalNumberWithDecimal:decimalNumber].integerValue;
+    NSDecimalNumber *d = [NSDecimalNumber decimalNumberWithDecimal:decimalNumber];
+
+    d = [d decimalNumberByRoundingAccordingToBehavior:
+         [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundDown
+                                                                scale:0
+                                                     raiseOnExactness:NO
+                                                      raiseOnOverflow:NO
+                                                     raiseOnUnderflow:NO
+                                                  raiseOnDivideByZero:NO]];
+
+    return (NSInteger)d.integerValue;
 }
 
 /**
@@ -100,7 +130,17 @@ uint16_t CPTDecimalUnsignedShortValue(NSDecimal decimalNumber)
  **/
 uint32_t CPTDecimalUnsignedLongValue(NSDecimal decimalNumber)
 {
-    return (uint32_t)[NSDecimalNumber decimalNumberWithDecimal:decimalNumber].unsignedLongValue;
+    NSDecimalNumber *d = [NSDecimalNumber decimalNumberWithDecimal:decimalNumber];
+
+    d = [d decimalNumberByRoundingAccordingToBehavior:
+         [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundDown
+                                                                scale:0
+                                                     raiseOnExactness:NO
+                                                      raiseOnOverflow:NO
+                                                     raiseOnUnderflow:NO
+                                                  raiseOnDivideByZero:NO]];
+
+    return (uint32_t)d.unsignedLongValue;
 }
 
 /**
@@ -110,7 +150,17 @@ uint32_t CPTDecimalUnsignedLongValue(NSDecimal decimalNumber)
  **/
 uint64_t CPTDecimalUnsignedLongLongValue(NSDecimal decimalNumber)
 {
-    return (uint64_t)[NSDecimalNumber decimalNumberWithDecimal:decimalNumber].unsignedLongLongValue;
+    NSDecimalNumber *d = [NSDecimalNumber decimalNumberWithDecimal:decimalNumber];
+
+    d = [d decimalNumberByRoundingAccordingToBehavior:
+         [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundDown
+                                                                scale:0
+                                                     raiseOnExactness:NO
+                                                      raiseOnOverflow:NO
+                                                     raiseOnUnderflow:NO
+                                                  raiseOnDivideByZero:NO]];
+
+    return (uint64_t)d.unsignedLongLongValue;
 }
 
 /**
@@ -130,7 +180,17 @@ unsigned int CPTDecimalUnsignedIntValue(NSDecimal decimalNumber)
  **/
 NSUInteger CPTDecimalUnsignedIntegerValue(NSDecimal decimalNumber)
 {
-    return (NSUInteger)[NSDecimalNumber decimalNumberWithDecimal:decimalNumber].unsignedIntegerValue;
+    NSDecimalNumber *d = [NSDecimalNumber decimalNumberWithDecimal:decimalNumber];
+
+    d = [d decimalNumberByRoundingAccordingToBehavior:
+         [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundDown
+                                                                scale:0
+                                                     raiseOnExactness:NO
+                                                      raiseOnOverflow:NO
+                                                     raiseOnUnderflow:NO
+                                                  raiseOnDivideByZero:NO]];
+
+    return (NSUInteger)d.unsignedIntegerValue;
 }
 
 /**
