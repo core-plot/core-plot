@@ -169,7 +169,7 @@ static NSString *const kSecond = @"Second Derivative";
     redLineStyle.lineColor = [[CPTColor redColor] colorWithAlphaComponent:0.5];
 
     CPTLineCap *lineCap = [CPTLineCap sweptArrowPlotLineCap];
-    lineCap.size = CGSizeMake( self.titleSize * CPTFloat(0.625), self.titleSize * CPTFloat(0.625) );
+    lineCap.size = CGSizeMake(self.titleSize * CPTFloat(0.625), self.titleSize * CPTFloat(0.625) );
 
     // Axes
     // Label x axis with a fixed interval policy
@@ -291,7 +291,7 @@ static NSString *const kSecond = @"Second Derivative";
     graph.legend.borderLineStyle = x.axisLineStyle;
     graph.legend.cornerRadius    = 5.0;
     graph.legendAnchor           = CPTRectAnchorBottom;
-    graph.legendDisplacement     = CGPointMake( 0.0, self.titleSize * CPTFloat(2.0) );
+    graph.legendDisplacement     = CGPointMake(0.0, self.titleSize * CPTFloat(2.0) );
 }
 
 #pragma mark -

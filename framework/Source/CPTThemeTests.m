@@ -1,13 +1,13 @@
 #import "CPTThemeTests.h"
 
-#import "CPTDerivedXYGraph.h"
-#import "CPTExceptions.h"
-#import "CPTTheme.h"
 #import "_CPTDarkGradientTheme.h"
 #import "_CPTPlainBlackTheme.h"
 #import "_CPTPlainWhiteTheme.h"
 #import "_CPTSlateTheme.h"
 #import "_CPTStocksTheme.h"
+#import "CPTDerivedXYGraph.h"
+#import "CPTExceptions.h"
+#import "CPTTheme.h"
 
 @implementation CPTThemeTests
 

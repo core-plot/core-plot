@@ -18,7 +18,7 @@ void CPTPopCGContext(void)
 #pragma mark -
 #pragma mark Debugging
 
-CPTNativeImage * __nonnull CPTQuickLookImage(CGRect rect, __nonnull CPTQuickLookImageBlock renderBlock)
+CPTNativeImage *__nonnull CPTQuickLookImage(CGRect rect, __nonnull CPTQuickLookImageBlock renderBlock)
 {
     UIGraphicsBeginImageContextWithOptions(rect.size, YES, 1.0);
     CGContextRef context = UIGraphicsGetCurrentContext();

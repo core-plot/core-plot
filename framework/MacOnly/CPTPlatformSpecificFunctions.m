@@ -109,7 +109,7 @@ CPTRGBAColor CPTRGBAColorFromNSColor(NSColor *__nonnull nsColor)
 #pragma mark -
 #pragma mark Debugging
 
-CPTNativeImage * __nonnull CPTQuickLookImage(CGRect rect, __nonnull CPTQuickLookImageBlock renderBlock)
+CPTNativeImage *__nonnull CPTQuickLookImage(CGRect rect, __nonnull CPTQuickLookImageBlock renderBlock)
 {
     NSBitmapImageRep *layerImage = [[NSBitmapImageRep alloc]
                                     initWithBitmapDataPlanes:NULL

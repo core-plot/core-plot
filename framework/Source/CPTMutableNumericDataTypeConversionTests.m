@@ -18,7 +18,7 @@ static const double precision           = 1.0e-6;
     }
 
     CPTMutableNumericData *numericData = [[CPTMutableNumericData alloc] initWithData:data
-                                                                            dataType:CPTDataType( CPTFloatingPointDataType, sizeof(float), NSHostByteOrder() )
+                                                                            dataType:CPTDataType(CPTFloatingPointDataType, sizeof(float), NSHostByteOrder() )
                                                                                shape:nil];
 
     numericData.sampleBytes = sizeof(double);
@@ -39,7 +39,7 @@ static const double precision           = 1.0e-6;
     }
 
     CPTMutableNumericData *numericData = [[CPTMutableNumericData alloc] initWithData:data
-                                                                            dataType:CPTDataType( CPTFloatingPointDataType, sizeof(double), NSHostByteOrder() )
+                                                                            dataType:CPTDataType(CPTFloatingPointDataType, sizeof(double), NSHostByteOrder() )
                                                                                shape:nil];
 
     numericData.sampleBytes = sizeof(float);
@@ -60,10 +60,10 @@ static const double precision           = 1.0e-6;
     }
 
     CPTMutableNumericData *numericData = [[CPTMutableNumericData alloc] initWithData:data
-                                                                            dataType:CPTDataType( CPTFloatingPointDataType, sizeof(float), NSHostByteOrder() )
+                                                                            dataType:CPTDataType(CPTFloatingPointDataType, sizeof(float), NSHostByteOrder() )
                                                                                shape:nil];
 
-    numericData.dataType = CPTDataType( CPTIntegerDataType, sizeof(NSInteger), NSHostByteOrder() );
+    numericData.dataType = CPTDataType(CPTIntegerDataType, sizeof(NSInteger), NSHostByteOrder() );
 
     const NSInteger *intSamples = (const NSInteger *)numericData.data.bytes;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
@@ -81,10 +81,10 @@ static const double precision           = 1.0e-6;
     }
 
     CPTMutableNumericData *numericData = [[CPTMutableNumericData alloc] initWithData:data
-                                                                            dataType:CPTDataType( CPTIntegerDataType, sizeof(NSInteger), NSHostByteOrder() )
+                                                                            dataType:CPTDataType(CPTIntegerDataType, sizeof(NSInteger), NSHostByteOrder() )
                                                                                shape:nil];
 
-    numericData.dataType = CPTDataType( CPTFloatingPointDataType, sizeof(float), NSHostByteOrder() );
+    numericData.dataType = CPTDataType(CPTFloatingPointDataType, sizeof(float), NSHostByteOrder() );
 
     const float *floatSamples = (const float *)numericData.data.bytes;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
@@ -98,14 +98,14 @@ static const double precision           = 1.0e-6;
     NSDecimal *samples  = (NSDecimal *)data.mutableBytes;
 
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        samples[i] = CPTDecimalFromDouble( sin(i) );
+        samples[i] = CPTDecimalFromDouble(sin(i) );
     }
 
     CPTMutableNumericData *numericData = [[CPTMutableNumericData alloc] initWithData:data
-                                                                            dataType:CPTDataType( CPTDecimalDataType, sizeof(NSDecimal), NSHostByteOrder() )
+                                                                            dataType:CPTDataType(CPTDecimalDataType, sizeof(NSDecimal), NSHostByteOrder() )
                                                                                shape:nil];
 
-    numericData.dataType = CPTDataType( CPTFloatingPointDataType, sizeof(double), NSHostByteOrder() );
+    numericData.dataType = CPTDataType(CPTFloatingPointDataType, sizeof(double), NSHostByteOrder() );
 
     const double *doubleSamples = (const double *)numericData.data.bytes;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
@@ -123,14 +123,14 @@ static const double precision           = 1.0e-6;
     }
 
     CPTMutableNumericData *numericData = [[CPTMutableNumericData alloc] initWithData:data
-                                                                            dataType:CPTDataType( CPTFloatingPointDataType, sizeof(double), NSHostByteOrder() )
+                                                                            dataType:CPTDataType(CPTFloatingPointDataType, sizeof(double), NSHostByteOrder() )
                                                                                shape:nil];
 
-    numericData.dataType = CPTDataType( CPTDecimalDataType, sizeof(NSDecimal), NSHostByteOrder() );
+    numericData.dataType = CPTDataType(CPTDecimalDataType, sizeof(NSDecimal), NSHostByteOrder() );
 
     const NSDecimal *decimalSamples = (const NSDecimal *)numericData.data.bytes;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        XCTAssertTrue(CPTDecimalEquals( decimalSamples[i], CPTDecimalFromDouble(samples[i]) ), @"(NSDecimal)%@ != (double)%g", CPTDecimalStringValue(decimalSamples[i]), samples[i]);
+        XCTAssertTrue(CPTDecimalEquals(decimalSamples[i], CPTDecimalFromDouble(samples[i]) ), @"(NSDecimal)%@ != (double)%g", CPTDecimalStringValue(decimalSamples[i]), samples[i]);
     }
 }
 
@@ -177,7 +177,7 @@ static const double precision           = 1.0e-6;
 
     uint64_t end = *(const uint64_t *)numericData.bytes;
     union swap {
-        double v;
+        double           v;
         CFSwappedFloat64 sv;
     }
     result;

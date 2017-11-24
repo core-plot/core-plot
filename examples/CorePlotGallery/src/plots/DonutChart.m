@@ -59,8 +59,8 @@ static NSString *const outerChartName = @"Outer";
     whiteShadow.shadowColor      = [[CPTColor whiteColor] colorWithAlphaComponent:0.25];
 
     // Add pie chart
-    const CGFloat outerRadius = MIN( CPTFloat(0.7) * (hostingView.frame.size.height - CPTFloat(2.0) * graph.paddingLeft) / CPTFloat(2.0),
-                                     CPTFloat(0.7) * (hostingView.frame.size.width - CPTFloat(2.0) * graph.paddingTop) / CPTFloat(2.0) );
+    const CGFloat outerRadius = MIN(CPTFloat(0.7) * (hostingView.frame.size.height - CPTFloat(2.0) * graph.paddingLeft) / CPTFloat(2.0),
+                                    CPTFloat(0.7) * (hostingView.frame.size.width - CPTFloat(2.0) * graph.paddingTop) / CPTFloat(2.0) );
     const CGFloat innerRadius = outerRadius / CPTFloat(2.0);
 
     CPTPieChart *piePlot = [[CPTPieChart alloc] init];
@@ -92,7 +92,7 @@ static NSString *const outerChartName = @"Outer";
     // Add another pie chart
     piePlot                 = [[CPTPieChart alloc] init];
     piePlot.dataSource      = self;
-    piePlot.pieRadius       = ( animated ? CPTFloat(0.0) : ( innerRadius - CPTFloat(5.0) ) );
+    piePlot.pieRadius       = (animated ? CPTFloat(0.0) : (innerRadius - CPTFloat(5.0) ) );
     piePlot.identifier      = innerChartName;
     piePlot.borderLineStyle = whiteLineStyle;
     piePlot.startAngle      = CPTFloat(M_PI_4);
@@ -149,8 +149,8 @@ static NSString *const outerChartName = @"Outer";
 
     if ( [(NSString *) plot.identifier isEqualToString:outerChartName] ) {
         dispatch_once(&onceToken, ^{
-            whiteText = [[CPTMutableTextStyle alloc] init];
-            whiteText.color = [CPTColor whiteColor];
+            whiteText          = [[CPTMutableTextStyle alloc] init];
+            whiteText.color    = [CPTColor whiteColor];
             whiteText.fontSize = self.titleSize * CPTFloat(0.5);
         });
 

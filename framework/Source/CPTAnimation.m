@@ -1,10 +1,10 @@
 #import "CPTAnimation.h"
 
+#import "_CPTAnimationTimingFunctions.h"
 #import "CPTAnimationOperation.h"
 #import "CPTAnimationPeriod.h"
 #import "CPTDefinitions.h"
 #import "CPTPlotRange.h"
-#import "_CPTAnimationTimingFunctions.h"
 
 static const CGFloat kCPTAnimationFrameRate = CPTFloat(1.0 / 60.0); // 60 frames per second
 

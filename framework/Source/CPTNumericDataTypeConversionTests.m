@@ -18,7 +18,7 @@ static const double precision           = 1.0e-6;
     }
 
     CPTNumericData *fd = [[CPTNumericData alloc] initWithData:data
-                                                     dataType:CPTDataType( CPTFloatingPointDataType, sizeof(float), NSHostByteOrder() )
+                                                     dataType:CPTDataType(CPTFloatingPointDataType, sizeof(float), NSHostByteOrder() )
                                                         shape:nil];
 
     CPTNumericData *dd = [fd dataByConvertingToType:CPTFloatingPointDataType
@@ -41,7 +41,7 @@ static const double precision           = 1.0e-6;
     }
 
     CPTNumericData *dd = [[CPTNumericData alloc] initWithData:data
-                                                     dataType:CPTDataType( CPTFloatingPointDataType, sizeof(double), NSHostByteOrder() )
+                                                     dataType:CPTDataType(CPTFloatingPointDataType, sizeof(double), NSHostByteOrder() )
                                                         shape:nil];
 
     CPTNumericData *fd = [dd dataByConvertingToType:CPTFloatingPointDataType
@@ -64,7 +64,7 @@ static const double precision           = 1.0e-6;
     }
 
     CPTNumericData *fd = [[CPTNumericData alloc] initWithData:data
-                                                     dataType:CPTDataType( CPTFloatingPointDataType, sizeof(float), NSHostByteOrder() )
+                                                     dataType:CPTDataType(CPTFloatingPointDataType, sizeof(float), NSHostByteOrder() )
                                                         shape:nil];
 
     CPTNumericData *intData = [fd dataByConvertingToType:CPTIntegerDataType
@@ -87,7 +87,7 @@ static const double precision           = 1.0e-6;
     }
 
     CPTNumericData *intData = [[CPTNumericData alloc] initWithData:data
-                                                          dataType:CPTDataType( CPTIntegerDataType, sizeof(NSInteger), NSHostByteOrder() )
+                                                          dataType:CPTDataType(CPTIntegerDataType, sizeof(NSInteger), NSHostByteOrder() )
                                                              shape:nil];
 
     CPTNumericData *fd = [intData dataByConvertingToType:CPTFloatingPointDataType
@@ -136,11 +136,11 @@ static const double precision           = 1.0e-6;
     NSDecimal *samples  = (NSDecimal *)data.mutableBytes;
 
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        samples[i] = CPTDecimalFromDouble( sin(i) );
+        samples[i] = CPTDecimalFromDouble(sin(i) );
     }
 
     CPTNumericData *decimalData = [[CPTNumericData alloc] initWithData:data
-                                                              dataType:CPTDataType( CPTDecimalDataType, sizeof(NSDecimal), NSHostByteOrder() )
+                                                              dataType:CPTDataType(CPTDecimalDataType, sizeof(NSDecimal), NSHostByteOrder() )
                                                                  shape:nil];
 
     CPTNumericData *doubleData = [decimalData dataByConvertingToType:CPTFloatingPointDataType
@@ -163,7 +163,7 @@ static const double precision           = 1.0e-6;
     }
 
     CPTNumericData *doubleData = [[CPTNumericData alloc] initWithData:data
-                                                             dataType:CPTDataType( CPTFloatingPointDataType, sizeof(double), NSHostByteOrder() )
+                                                             dataType:CPTDataType(CPTFloatingPointDataType, sizeof(double), NSHostByteOrder() )
                                                                 shape:nil];
 
     CPTNumericData *decimalData = [doubleData dataByConvertingToType:CPTDecimalDataType
@@ -172,7 +172,7 @@ static const double precision           = 1.0e-6;
 
     const NSDecimal *decimalSamples = (const NSDecimal *)decimalData.data.bytes;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        XCTAssertTrue(CPTDecimalEquals( decimalSamples[i], CPTDecimalFromDouble(samples[i]) ), @"(NSDecimal)%@ != (double)%g", CPTDecimalStringValue(decimalSamples[i]), samples[i]);
+        XCTAssertTrue(CPTDecimalEquals(decimalSamples[i], CPTDecimalFromDouble(samples[i]) ), @"(NSDecimal)%@ != (double)%g", CPTDecimalStringValue(decimalSamples[i]), samples[i]);
     }
 }
 
@@ -196,7 +196,7 @@ static const double precision           = 1.0e-6;
 
     uint64_t end = *(const uint64_t *)swappedData.bytes;
     union swap {
-        double v;
+        double           v;
         CFSwappedFloat64 sv;
     }
     result;
@@ -220,7 +220,7 @@ static const double precision           = 1.0e-6;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         samples[i] = sin(i);
     }
-    CPTNumericDataType theDataType = CPTDataType( CPTFloatingPointDataType, sizeof(double), NSHostByteOrder() );
+    CPTNumericDataType theDataType = CPTDataType(CPTFloatingPointDataType, sizeof(double), NSHostByteOrder() );
 
     CPTNumericData *doubleData = [[CPTNumericData alloc] initWithData:data
                                                              dataType:theDataType
@@ -248,7 +248,7 @@ static const double precision           = 1.0e-6;
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         samples[i] = (NSInteger)(sin(i) * 1000.0);
     }
-    CPTNumericDataType theDataType = CPTDataType( CPTIntegerDataType, sizeof(NSInteger), NSHostByteOrder() );
+    CPTNumericDataType theDataType = CPTDataType(CPTIntegerDataType, sizeof(NSInteger), NSHostByteOrder() );
 
     CPTNumericData *intData = [[CPTNumericData alloc] initWithData:data
                                                           dataType:theDataType
@@ -274,9 +274,9 @@ static const double precision           = 1.0e-6;
     NSDecimal *samples  = (NSDecimal *)data.mutableBytes;
 
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
-        samples[i] = CPTDecimalFromDouble( sin(i) );
+        samples[i] = CPTDecimalFromDouble(sin(i) );
     }
-    CPTNumericDataType theDataType = CPTDataType( CPTDecimalDataType, sizeof(NSDecimal), NSHostByteOrder() );
+    CPTNumericDataType theDataType = CPTDataType(CPTDecimalDataType, sizeof(NSDecimal), NSHostByteOrder() );
 
     CPTNumericData *decimalData = [[CPTNumericData alloc] initWithData:data
                                                               dataType:theDataType

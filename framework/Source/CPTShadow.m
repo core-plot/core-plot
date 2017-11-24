@@ -174,7 +174,7 @@
 
 -(void)setShadowBlurRadius:(CGFloat)newShadowBlurRadius
 {
-    NSParameterAssert( newShadowBlurRadius >= CPTFloat(0.0) );
+    NSParameterAssert(newShadowBlurRadius >= CPTFloat(0.0) );
 
     if ( newShadowBlurRadius != shadowBlurRadius ) {
         shadowBlurRadius = newShadowBlurRadius;

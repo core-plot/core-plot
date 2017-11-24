@@ -19,8 +19,8 @@ static CGPoint roundPoint(CGPoint position, CGSize contentSize, CGPoint anchor)
     CGPoint newAnchor = CGPointMake(contentSize.width * anchor.x,
                                     contentSize.height * anchor.y);
 
-    newPosition.x = ceil( position.x - newAnchor.x - CPTFloat(0.5) ) + newAnchor.x;
-    newPosition.y = ceil( position.y - newAnchor.y - CPTFloat(0.5) ) + newAnchor.y;
+    newPosition.x = ceil(position.x - newAnchor.x - CPTFloat(0.5) ) + newAnchor.x;
+    newPosition.y = ceil(position.y - newAnchor.y - CPTFloat(0.5) ) + newAnchor.y;
 
     return newPosition;
 }
@@ -60,8 +60,8 @@ static CGPoint roundPoint(CGPoint position, CGSize contentSize, CGPoint anchor)
 
         CGPoint newPosition = roundPoint(CGPointMake(start - label.offset, start), contentSize, contentLayer.anchorPoint);
 
-        XCTAssertEqualWithAccuracy( contentLayer.position.x, newPosition.x, precision, @"Should add negative offset, %@ != %@", CPTStringFromPoint(contentLayer.position), CPTStringFromPoint(newPosition) );
-        XCTAssertEqualWithAccuracy( contentLayer.position.y, newPosition.y, precision, @"Should add negative offset, %@ != %@", CPTStringFromPoint(contentLayer.position), CPTStringFromPoint(newPosition) );
+        XCTAssertEqualWithAccuracy(contentLayer.position.x, newPosition.x, precision, @"Should add negative offset, %@ != %@", CPTStringFromPoint(contentLayer.position), CPTStringFromPoint(newPosition) );
+        XCTAssertEqualWithAccuracy(contentLayer.position.y, newPosition.y, precision, @"Should add negative offset, %@ != %@", CPTStringFromPoint(contentLayer.position), CPTStringFromPoint(newPosition) );
         XCTAssertEqualWithAccuracy(contentLayer.anchorPoint.x, CPTFloat(1.0), precision, @"Should anchor at (1.0, 0.5)");
         XCTAssertEqualWithAccuracy(contentLayer.anchorPoint.y, CPTFloat(0.5), precision, @"Should anchor at (1.0, 0.5)");
 
@@ -73,8 +73,8 @@ static CGPoint roundPoint(CGPoint position, CGSize contentSize, CGPoint anchor)
 
         newPosition = roundPoint(CGPointMake(start - label.offset, start), contentSize, contentLayer.anchorPoint);
 
-        XCTAssertEqualWithAccuracy( contentLayer.position.x, newPosition.x, precision, @"Should add negative offset, %@ != %@", CPTStringFromPoint(contentLayer.position), CPTStringFromPoint(newPosition) );
-        XCTAssertEqualWithAccuracy( contentLayer.position.y, newPosition.y, precision, @"Should add negative offset, %@ != %@", CPTStringFromPoint(contentLayer.position), CPTStringFromPoint(newPosition) );
+        XCTAssertEqualWithAccuracy(contentLayer.position.x, newPosition.x, precision, @"Should add negative offset, %@ != %@", CPTStringFromPoint(contentLayer.position), CPTStringFromPoint(newPosition) );
+        XCTAssertEqualWithAccuracy(contentLayer.position.y, newPosition.y, precision, @"Should add negative offset, %@ != %@", CPTStringFromPoint(contentLayer.position), CPTStringFromPoint(newPosition) );
         XCTAssertEqualWithAccuracy(contentLayer.anchorPoint.x, CPTFloat(1.0), precision, @"Should anchor at (1.0, 0.5)");
         XCTAssertEqualWithAccuracy(contentLayer.anchorPoint.y, CPTFloat(0.5), precision, @"Should anchor at (1.0, 0.5)");
 
@@ -86,8 +86,8 @@ static CGPoint roundPoint(CGPoint position, CGSize contentSize, CGPoint anchor)
 
         newPosition = roundPoint(CGPointMake(start + label.offset, start), contentSize, contentLayer.anchorPoint);
 
-        XCTAssertEqualWithAccuracy( contentLayer.position.x, newPosition.x, precision, @"Should add positive offset, %@ != %@", CPTStringFromPoint(contentLayer.position), CPTStringFromPoint(newPosition) );
-        XCTAssertEqualWithAccuracy( contentLayer.position.y, newPosition.y, precision, @"Should add positive offset, %@ != %@", CPTStringFromPoint(contentLayer.position), CPTStringFromPoint(newPosition) );
+        XCTAssertEqualWithAccuracy(contentLayer.position.x, newPosition.x, precision, @"Should add positive offset, %@ != %@", CPTStringFromPoint(contentLayer.position), CPTStringFromPoint(newPosition) );
+        XCTAssertEqualWithAccuracy(contentLayer.position.y, newPosition.y, precision, @"Should add positive offset, %@ != %@", CPTStringFromPoint(contentLayer.position), CPTStringFromPoint(newPosition) );
         XCTAssertEqualWithAccuracy(contentLayer.anchorPoint.x, CPTFloat(0.0), precision, @"Should anchor at (0.0, 0.5)");
         XCTAssertEqualWithAccuracy(contentLayer.anchorPoint.y, CPTFloat(0.5), precision, @"Should anchor at (0.0, 0.5)");
     }
@@ -117,8 +117,8 @@ static CGPoint roundPoint(CGPoint position, CGSize contentSize, CGPoint anchor)
 
         CGPoint newPosition = roundPoint(CGPointMake(start, start - label.offset), contentSize, contentLayer.anchorPoint);
 
-        XCTAssertEqualWithAccuracy( contentLayer.position.x, newPosition.x, precision, @"Should add negative offset, %@ != %@", CPTStringFromPoint(contentLayer.position), CPTStringFromPoint(newPosition) );
-        XCTAssertEqualWithAccuracy( contentLayer.position.y, newPosition.y, precision, @"Should add negative offset, %@ != %@", CPTStringFromPoint(contentLayer.position), CPTStringFromPoint(newPosition) );
+        XCTAssertEqualWithAccuracy(contentLayer.position.x, newPosition.x, precision, @"Should add negative offset, %@ != %@", CPTStringFromPoint(contentLayer.position), CPTStringFromPoint(newPosition) );
+        XCTAssertEqualWithAccuracy(contentLayer.position.y, newPosition.y, precision, @"Should add negative offset, %@ != %@", CPTStringFromPoint(contentLayer.position), CPTStringFromPoint(newPosition) );
         XCTAssertEqualWithAccuracy(contentLayer.anchorPoint.x, CPTFloat(0.5), precision, @"Should anchor at (0.5, 1.0)");
         XCTAssertEqualWithAccuracy(contentLayer.anchorPoint.y, CPTFloat(1.0), precision, @"Should anchor at (0.5, 1.0)");
 
@@ -130,8 +130,8 @@ static CGPoint roundPoint(CGPoint position, CGSize contentSize, CGPoint anchor)
 
         newPosition = roundPoint(CGPointMake(start, start - label.offset), contentSize, contentLayer.anchorPoint);
 
-        XCTAssertEqualWithAccuracy( contentLayer.position.x, newPosition.x, precision, @"Should add negative offset, %@ != %@", CPTStringFromPoint(contentLayer.position), CPTStringFromPoint(newPosition) );
-        XCTAssertEqualWithAccuracy( contentLayer.position.y, newPosition.y, precision, @"Should add negative offset, %@ != %@", CPTStringFromPoint(contentLayer.position), CPTStringFromPoint(newPosition) );
+        XCTAssertEqualWithAccuracy(contentLayer.position.x, newPosition.x, precision, @"Should add negative offset, %@ != %@", CPTStringFromPoint(contentLayer.position), CPTStringFromPoint(newPosition) );
+        XCTAssertEqualWithAccuracy(contentLayer.position.y, newPosition.y, precision, @"Should add negative offset, %@ != %@", CPTStringFromPoint(contentLayer.position), CPTStringFromPoint(newPosition) );
         XCTAssertEqualWithAccuracy(contentLayer.anchorPoint.x, CPTFloat(0.5), precision, @"Should anchor at (0.5, 1.0)");
         XCTAssertEqualWithAccuracy(contentLayer.anchorPoint.y, CPTFloat(1.0), precision, @"Should anchor at (0.5, 1.0)");
 
@@ -143,8 +143,8 @@ static CGPoint roundPoint(CGPoint position, CGSize contentSize, CGPoint anchor)
 
         newPosition = roundPoint(CGPointMake(start, start + label.offset), contentSize, contentLayer.anchorPoint);
 
-        XCTAssertEqualWithAccuracy( contentLayer.position.x, newPosition.x, precision, @"Should add positive offset, %@ != %@", CPTStringFromPoint(contentLayer.position), CPTStringFromPoint(newPosition) );
-        XCTAssertEqualWithAccuracy( contentLayer.position.y, newPosition.y, precision, @"Should add positive offset, %@ != %@", CPTStringFromPoint(contentLayer.position), CPTStringFromPoint(newPosition) );
+        XCTAssertEqualWithAccuracy(contentLayer.position.x, newPosition.x, precision, @"Should add positive offset, %@ != %@", CPTStringFromPoint(contentLayer.position), CPTStringFromPoint(newPosition) );
+        XCTAssertEqualWithAccuracy(contentLayer.position.y, newPosition.y, precision, @"Should add positive offset, %@ != %@", CPTStringFromPoint(contentLayer.position), CPTStringFromPoint(newPosition) );
         XCTAssertEqualWithAccuracy(contentLayer.anchorPoint.x, CPTFloat(0.5), precision, @"Should anchor at (0.5, 0.0)");
         XCTAssertEqualWithAccuracy(contentLayer.anchorPoint.y, CPTFloat(0.0), precision, @"Should anchor at (0.5, 0.0)");
     }

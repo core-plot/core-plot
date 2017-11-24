@@ -1,10 +1,10 @@
 #import "CPTBorderedLayer.h"
 
+#import "_CPTBorderLayer.h"
+#import "_CPTMaskLayer.h"
 #import "CPTFill.h"
 #import "CPTLineStyle.h"
 #import "CPTPathExtensions.h"
-#import "_CPTBorderLayer.h"
-#import "_CPTMaskLayer.h"
 
 /// @cond
 
@@ -271,7 +271,7 @@
         CGFloat lineWidth = self.borderLineStyle.lineWidth;
         CGRect selfBounds = CGRectInset(self.bounds, lineWidth, lineWidth);
 
-        path = CPTCreateRoundedRectPath( selfBounds, self.cornerRadius - lineWidth * CPTFloat(0.5) );
+        path = CPTCreateRoundedRectPath(selfBounds, self.cornerRadius - lineWidth * CPTFloat(0.5) );
 
         self.innerBorderPath = path;
         CGPathRelease(path);
@@ -306,7 +306,7 @@
 
 -(void)updateOpacity
 {
-    BOOL opaqueLayer = ( self.cornerRadius <= CPTFloat(0.0) );
+    BOOL opaqueLayer = (self.cornerRadius <= CPTFloat(0.0) );
 
     CPTFill *theFill = self.fill;
 

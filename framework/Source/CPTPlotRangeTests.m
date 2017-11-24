@@ -423,11 +423,11 @@
     NSDecimal newLocation = self.plotRange.locationDecimal;
 
     errMessage = [NSString stringWithFormat:@"expected location = %g, was %@", loc, NSDecimalString(&newLocation, nil)];
-    XCTAssertTrue(CPTDecimalEquals( newLocation, CPTDecimalFromDouble(loc) ), @"%@", errMessage);
+    XCTAssertTrue(CPTDecimalEquals(newLocation, CPTDecimalFromDouble(loc) ), @"%@", errMessage);
 
     NSDecimal newLength = self.plotRange.lengthDecimal;
     errMessage = [NSString stringWithFormat:@"expected location = %g, was %@", loc, NSDecimalString(&newLength, nil)];
-    XCTAssertTrue(CPTDecimalEquals( newLength, CPTDecimalFromDouble(len) ), @"%@", errMessage);
+    XCTAssertTrue(CPTDecimalEquals(newLength, CPTDecimalFromDouble(len) ), @"%@", errMessage);
 }
 
 @end

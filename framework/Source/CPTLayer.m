@@ -1,12 +1,12 @@
 #import "CPTLayer.h"
 
+#import "CorePlotProbes.h"
 #import "CPTGraph.h"
 #import "CPTPathExtensions.h"
 #import "CPTPlatformSpecificCategories.h"
 #import "CPTPlatformSpecificFunctions.h"
 #import "CPTShadow.h"
 #import "CPTUtilities.h"
-#import "CorePlotProbes.h"
 #import "NSCoderExtensions.h"
 #import <objc/runtime.h>
 #import <tgmath.h>
@@ -421,7 +421,7 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
                                                 anchorOffset.y = selfBounds.origin.y + anchorPoint.y * selfBounds.size.height);
 
             CGAffineTransform affineTransform = CGAffineTransformMakeTranslation(-anchorOffset.x, -anchorOffset.y);
-            affineTransform = CGAffineTransformConcat( affineTransform, CATransform3DGetAffineTransform(transform3D) );
+            affineTransform = CGAffineTransformConcat(affineTransform, CATransform3DGetAffineTransform(transform3D) );
             affineTransform = CGAffineTransformTranslate(affineTransform, anchorOffset.x, anchorOffset.y);
 
             CGRect transformedBounds = CGRectApplyAffineTransform(selfBounds, affineTransform);
@@ -501,6 +501,7 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
 {
     return NO;
 }
+
 #endif
 
 /// @}
@@ -528,8 +529,8 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
                                         boundsSize.height * anchor.y);
 
         if ( scale == CPTFloat(1.0) ) {
-            newPosition.x = ceil( currentPosition.x - newAnchor.x - CPTFloat(0.5) ) + newAnchor.x;
-            newPosition.y = ceil( currentPosition.y - newAnchor.y - CPTFloat(0.5) ) + newAnchor.y;
+            newPosition.x = ceil(currentPosition.x - newAnchor.x - CPTFloat(0.5) ) + newAnchor.x;
+            newPosition.y = ceil(currentPosition.y - newAnchor.y - CPTFloat(0.5) ) + newAnchor.y;
         }
         else {
             newPosition.x = ceil( (currentPosition.x - newAnchor.x) * scale - CPTFloat(0.5) ) / scale + newAnchor.x;
@@ -543,8 +544,8 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
                                         boundsSize.width * anchor.x);
 
         if ( scale == CPTFloat(1.0) ) {
-            newPosition.x = ceil( currentPosition.x - newAnchor.x - CPTFloat(0.5) ) + newAnchor.x;
-            newPosition.y = ceil( currentPosition.y - newAnchor.y - CPTFloat(0.5) ) + newAnchor.y;
+            newPosition.x = ceil(currentPosition.x - newAnchor.x - CPTFloat(0.5) ) + newAnchor.x;
+            newPosition.y = ceil(currentPosition.y - newAnchor.y - CPTFloat(0.5) ) + newAnchor.y;
         }
         else {
             newPosition.x = ceil( (currentPosition.x - newAnchor.x) * scale - CPTFloat(0.5) ) / scale + newAnchor.x;
@@ -609,7 +610,7 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
         CGSize shadowOffset  = myShadow.shadowOffset;
         CGFloat shadowRadius = myShadow.shadowBlurRadius;
 
-        margin = CGSizeMake( ceil( ABS(shadowOffset.width) + ABS(shadowRadius) ), ceil( ABS(shadowOffset.height) + ABS(shadowRadius) ) );
+        margin = CGSizeMake(ceil(ABS(shadowOffset.width) + ABS(shadowRadius) ), ceil(ABS(shadowOffset.height) + ABS(shadowRadius) ) );
     }
 
     return margin;
@@ -639,14 +640,14 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
 
         CGSize subLayerSize = selfBounds.size;
         subLayerSize.width  -= leftPadding + rightPadding;
-        subLayerSize.width   = MAX( subLayerSize.width, CPTFloat(0.0) );
+        subLayerSize.width   = MAX(subLayerSize.width, CPTFloat(0.0) );
         subLayerSize.width   = round(subLayerSize.width);
         subLayerSize.height -= topPadding + bottomPadding;
-        subLayerSize.height  = MAX( subLayerSize.height, CPTFloat(0.0) );
+        subLayerSize.height  = MAX(subLayerSize.height, CPTFloat(0.0) );
         subLayerSize.height  = round(subLayerSize.height);
 
         CGRect subLayerFrame;
-        subLayerFrame.origin = CGPointMake( round(leftPadding), round(bottomPadding) );
+        subLayerFrame.origin = CGPointMake(round(leftPadding), round(bottomPadding) );
         subLayerFrame.size   = subLayerSize;
 
         CPTSublayerSet *excludedSublayers = self.sublayersExcludedFromAutomaticLayout;
@@ -802,7 +803,7 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
     }
 
     CGAffineTransform sublayerTransform = CATransform3DGetAffineTransform(sublayer.transform);
-    CGContextConcatCTM( context, CGAffineTransformInvert(sublayerTransform) );
+    CGContextConcatCTM(context, CGAffineTransformInvert(sublayerTransform) );
 
     CALayer *superlayer = self.superlayer;
     if ( [superlayer isKindOfClass:[CPTLayer class]] ) {
@@ -878,12 +879,12 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
     super.position = newPosition;
     if ( COREPLOT_LAYER_POSITION_CHANGE_ENABLED() ) {
         CGRect currentFrame = self.frame;
-        if ( !CGRectEqualToRect( currentFrame, CGRectIntegral(self.frame) ) ) {
+        if ( !CGRectEqualToRect(currentFrame, CGRectIntegral(self.frame) ) ) {
             COREPLOT_LAYER_POSITION_CHANGE( (const char *)class_getName([self class]),
-                                            (int)lrint( ceil( currentFrame.origin.x * CPTFloat(1000.0) ) ),
-                                            (int)lrint( ceil( currentFrame.origin.y * CPTFloat(1000.0) ) ),
-                                            (int)lrint( ceil( currentFrame.size.width * CPTFloat(1000.0) ) ),
-                                            (int)lrint( ceil( currentFrame.size.height * CPTFloat(1000.0) ) ) );
+                                            (int)lrint(ceil(currentFrame.origin.x * CPTFloat(1000.0) ) ),
+                                            (int)lrint(ceil(currentFrame.origin.y * CPTFloat(1000.0) ) ),
+                                            (int)lrint(ceil(currentFrame.size.width * CPTFloat(1000.0) ) ),
+                                            (int)lrint(ceil(currentFrame.size.height * CPTFloat(1000.0) ) ) );
         }
     }
 }
@@ -900,7 +901,7 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
 
 -(void)setContentsScale:(CGFloat)newContentsScale
 {
-    NSParameterAssert( newContentsScale > CPTFloat(0.0) );
+    NSParameterAssert(newContentsScale > CPTFloat(0.0) );
 
     if ( self.contentsScale != newContentsScale ) {
         if ( [CALayer instancesRespondToSelector:@selector(setContentsScale:)] ) {
@@ -999,14 +1000,14 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
     if ( self.shadow ) {
         CGSize sizeOffset   = self.shadowMargin;
         CGRect selfBounds   = self.bounds;
-        CGSize adjustedSize = CGSizeMake( selfBounds.size.width + sizeOffset.width * CPTFloat(2.0),
-                                          selfBounds.size.height + sizeOffset.height * CPTFloat(2.0) );
+        CGSize adjustedSize = CGSizeMake(selfBounds.size.width + sizeOffset.width * CPTFloat(2.0),
+                                         selfBounds.size.height + sizeOffset.height * CPTFloat(2.0) );
 
         if ( selfBounds.size.width > CPTFloat(0.0) ) {
-            adjustedAnchor.x = ( adjustedAnchor.x - CPTFloat(0.5) ) * (adjustedSize.width / selfBounds.size.width) + CPTFloat(0.5);
+            adjustedAnchor.x = (adjustedAnchor.x - CPTFloat(0.5) ) * (adjustedSize.width / selfBounds.size.width) + CPTFloat(0.5);
         }
         if ( selfBounds.size.height > CPTFloat(0.0) ) {
-            adjustedAnchor.y = ( adjustedAnchor.y - CPTFloat(0.5) ) * (adjustedSize.height / selfBounds.size.height) + CPTFloat(0.5);
+            adjustedAnchor.y = (adjustedAnchor.y - CPTFloat(0.5) ) * (adjustedSize.height / selfBounds.size.height) + CPTFloat(0.5);
         }
     }
 
@@ -1018,14 +1019,14 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
     if ( self.shadow ) {
         CGSize sizeOffset   = self.shadowMargin;
         CGRect selfBounds   = self.bounds;
-        CGSize adjustedSize = CGSizeMake( selfBounds.size.width + sizeOffset.width * CPTFloat(2.0),
-                                          selfBounds.size.height + sizeOffset.height * CPTFloat(2.0) );
+        CGSize adjustedSize = CGSizeMake(selfBounds.size.width + sizeOffset.width * CPTFloat(2.0),
+                                         selfBounds.size.height + sizeOffset.height * CPTFloat(2.0) );
 
         if ( adjustedSize.width > CPTFloat(0.0) ) {
-            newAnchorPoint.x = ( newAnchorPoint.x - CPTFloat(0.5) ) * (selfBounds.size.width / adjustedSize.width) + CPTFloat(0.5);
+            newAnchorPoint.x = (newAnchorPoint.x - CPTFloat(0.5) ) * (selfBounds.size.width / adjustedSize.width) + CPTFloat(0.5);
         }
         if ( adjustedSize.height > CPTFloat(0.0) ) {
-            newAnchorPoint.y = ( newAnchorPoint.y - CPTFloat(0.5) ) * (selfBounds.size.height / adjustedSize.height) + CPTFloat(0.5);
+            newAnchorPoint.y = (newAnchorPoint.y - CPTFloat(0.5) ) * (selfBounds.size.height / adjustedSize.height) + CPTFloat(0.5);
         }
     }
 

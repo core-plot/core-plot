@@ -52,7 +52,7 @@
     NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:layerImage];
     CGContextRef context             = (CGContextRef)bitmapContext.graphicsPort;
 
-    CGContextClearRect( context, CPTRectMake(0.0, 0.0, boundsSize.width, boundsSize.height) );
+    CGContextClearRect(context, CPTRectMake(0.0, 0.0, boundsSize.width, boundsSize.height) );
     CGContextSetAllowsAntialiasing(context, true);
     CGContextSetShouldSmoothFonts(context, false);
     [self layoutAndRenderInContext:context];

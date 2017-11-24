@@ -1322,6 +1322,7 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
         return [super scrollWheelEvent:event fromPoint:fromPoint toPoint:toPoint];
     }
 }
+
 #endif
 
 /// @}

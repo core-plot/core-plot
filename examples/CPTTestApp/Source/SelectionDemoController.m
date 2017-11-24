@@ -296,6 +296,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
     self.selectedIndex = NSUIntegerMax;
     return YES;
 }
+
 #endif
 
 #pragma mark -

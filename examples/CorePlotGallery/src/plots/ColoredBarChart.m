@@ -133,7 +133,7 @@
 
     graph.legend             = theLegend;
     graph.legendAnchor       = CPTRectAnchorTop;
-    graph.legendDisplacement = CGPointMake( 0.0, self.titleSize * CPTFloat(-2.625) );
+    graph.legendDisplacement = CGPointMake(0.0, self.titleSize * CPTFloat(-2.625) );
 }
 
 #pragma mark -
@@ -152,7 +152,7 @@
         case CPTBarPlotFieldBarLocation:
             nums = [NSMutableArray arrayWithCapacity:indexRange.length];
             for ( NSUInteger i = indexRange.location; i < NSMaxRange(indexRange); i++ ) {
-                [(NSMutableArray < NSNumber * > *) nums addObject:@(i)];
+                [(NSMutableArray<NSNumber *> *) nums addObject:@(i)];
             }
             break;
 

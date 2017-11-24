@@ -255,6 +255,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
         [self exposeBinding:CPTPlotBindingDataLabels];
     }
 }
+
 #endif
 
 /// @endcond
@@ -1191,7 +1192,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
         if ( ( (CPTNumberArray *)numbers ).count == 0 ) {
             loadedDataType = self.doubleDataType;
         }
-        else if ( [( (NSArray < NSNumber * > *)numbers )[0] isKindOfClass:[NSDecimalNumber class]] ) {
+        else if ( [( (NSArray<NSNumber *> *)numbers )[0] isKindOfClass:[NSDecimalNumber class]] ) {
             loadedDataType = self.decimalDataType;
         }
         else {
@@ -1357,7 +1358,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
     static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
-        dataType = CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() );
+        dataType = CPTDataType(CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() );
     });
 
     return dataType;
@@ -1369,7 +1370,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
     static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
-        dataType = CPTDataType( CPTDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent() );
+        dataType = CPTDataType(CPTDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent() );
     });
 
     return dataType;
@@ -1755,7 +1756,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
             newAnchorX  = signbit(newAnchorX) ? CPTFloat(-1.0) : CPTFloat(1.0);
         }
 
-        label.contentAnchorPoint = CPTPointMake( ( newAnchorX + CPTFloat(1.0) ) / CPTFloat(2.0), ( newAnchorY + CPTFloat(1.0) ) / CPTFloat(2.0) );
+        label.contentAnchorPoint = CPTPointMake( (newAnchorX + CPTFloat(1.0) ) / CPTFloat(2.0), (newAnchorY + CPTFloat(1.0) ) / CPTFloat(2.0) );
     }
 }
 
