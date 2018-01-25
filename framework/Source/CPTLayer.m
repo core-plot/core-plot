@@ -1,6 +1,5 @@
 #import "CPTLayer.h"
 
-#import "CorePlotProbes.h"
 #import "CPTGraph.h"
 #import "CPTPathExtensions.h"
 #import "CPTPlatformSpecificCategories.h"
@@ -877,16 +876,6 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
 -(void)setPosition:(CGPoint)newPosition
 {
     super.position = newPosition;
-    if ( COREPLOT_LAYER_POSITION_CHANGE_ENABLED() ) {
-        CGRect currentFrame = self.frame;
-        if ( !CGRectEqualToRect(currentFrame, CGRectIntegral(self.frame) ) ) {
-            COREPLOT_LAYER_POSITION_CHANGE( (const char *)class_getName([self class]),
-                                            (int)lrint(ceil(currentFrame.origin.x * CPTFloat(1000.0) ) ),
-                                            (int)lrint(ceil(currentFrame.origin.y * CPTFloat(1000.0) ) ),
-                                            (int)lrint(ceil(currentFrame.size.width * CPTFloat(1000.0) ) ),
-                                            (int)lrint(ceil(currentFrame.size.height * CPTFloat(1000.0) ) ) );
-        }
-    }
 }
 
 -(void)setHidden:(BOOL)newHidden
