@@ -425,7 +425,7 @@ typedef NSMutableArray<CPTAnimationOperation *> CPTMutableAnimationArray;
                 invocation.target   = boundObject;
                 invocation.selector = boundSetter;
 
-                void *buffer = malloc(bufferSize);
+                void *buffer = calloc(1, bufferSize);
                 [value getValue:buffer];
                 [invocation setArgument:buffer atIndex:2];
                 free(buffer);
