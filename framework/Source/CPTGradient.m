@@ -1167,7 +1167,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
 
     if ( (curElement == NULL) || (newElement->position < curElement->position) ) {
         CPTGradientElement *tmpNext        = curElement;
-        CPTGradientElement *newElementList = malloc(sizeof(CPTGradientElement) );
+        CPTGradientElement *newElementList = calloc(1, sizeof(CPTGradientElement) );
         if ( newElementList ) {
             *newElementList             = *newElement;
             newElementList->nextElement = tmpNext;
@@ -1182,7 +1182,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
         }
 
         CPTGradientElement *tmpNext = curElement->nextElement;
-        curElement->nextElement              = malloc(sizeof(CPTGradientElement) );
+        curElement->nextElement              = calloc(1, sizeof(CPTGradientElement) );
         *(curElement->nextElement)           = *newElement;
         curElement->nextElement->nextElement = tmpNext;
     }

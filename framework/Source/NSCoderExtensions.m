@@ -454,7 +454,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 
     CGFloat *decodeArray = NULL;
     if ( numberOfComponents ) {
-        decodeArray = malloc(numberOfComponents * 2 * sizeof(CGFloat) );
+        decodeArray = calloc( (numberOfComponents * 2), sizeof(CGFloat) );
 
         for ( size_t i = 0; i < numberOfComponents; i++ ) {
             newKey             = [[NSString alloc] initWithFormat:@"%@.decode[%zu].lower", key, i];

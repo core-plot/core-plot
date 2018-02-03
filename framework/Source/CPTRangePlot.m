@@ -274,9 +274,9 @@ typedef struct CGPointError CGPointError;
         }
     }
     else {
-        CPTPlotRangeComparisonResult *xRangeFlags = malloc(dataCount * sizeof(CPTPlotRangeComparisonResult) );
-        CPTPlotRangeComparisonResult *yRangeFlags = malloc(dataCount * sizeof(CPTPlotRangeComparisonResult) );
-        BOOL *nanFlags                            = malloc(dataCount * sizeof(BOOL) );
+        CPTPlotRangeComparisonResult *xRangeFlags = calloc(dataCount, sizeof(CPTPlotRangeComparisonResult) );
+        CPTPlotRangeComparisonResult *yRangeFlags = calloc(dataCount, sizeof(CPTPlotRangeComparisonResult) );
+        BOOL *nanFlags                            = calloc(dataCount, sizeof(BOOL) );
 
         CPTPlotRange *xRange = xyPlotSpace.xRange;
         CPTPlotRange *yRange = xyPlotSpace.yRange;
@@ -1049,7 +1049,7 @@ typedef struct CGPointError CGPointError;
 {
     NSUInteger dataCount     = self.cachedDataCount;
     CGPointError *viewPoints = calloc(dataCount, sizeof(CGPointError) );
-    BOOL *drawPointFlags     = malloc(dataCount * sizeof(BOOL) );
+    BOOL *drawPointFlags     = calloc(dataCount, sizeof(BOOL) );
 
     [self calculatePointsToDraw:drawPointFlags numberOfPoints:dataCount forPlotSpace:(id)self.plotSpace includeVisiblePointsOnly:YES];
     [self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags numberOfPoints:dataCount];
