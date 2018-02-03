@@ -87,7 +87,8 @@ class DateController : NSObject, CPTPlotDataSource {
 
     // MARK: - Plot Data Source Methods
 
-    func numberOfRecords(for plot: CPTPlot) -> UInt    {
+    func numberOfRecords(for plot: CPTPlot) -> UInt
+    {
         return UInt(self.plotData.count)
     }
 
