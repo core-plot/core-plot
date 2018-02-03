@@ -324,13 +324,14 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
             plots = [[NSMutableArray alloc] init];
         }
 
+        plotSpaces = [[NSMutableArray alloc] init];
+
         CPTPlotSpaceArray *plotSpaceArray = [coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [CPTPlotSpace class]]]
                                                                   forKey:@"CPTGraph.plotSpaces"];
         if ( plotSpaceArray ) {
-            plotSpaces = [plotSpaceArray mutableCopy];
-        }
-        else {
-            plotSpaces = [[NSMutableArray alloc] init];
+            for ( CPTPlotSpace *space in plotSpaceArray ) {
+                [self addPlotSpace:space];
+            }
         }
 
         title = [[coder decodeObjectOfClass:[NSString class]
