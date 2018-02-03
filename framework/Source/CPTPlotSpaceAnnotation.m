@@ -196,7 +196,7 @@
 
         self.anchorCount = anchorPlotPoint.count;
 
-        NSDecimal *decimalPoint = calloc(self.anchorCount, sizeof(NSDecimal));
+        NSDecimal *decimalPoint = calloc(self.anchorCount, sizeof(NSDecimal) );
         for ( NSUInteger i = 0; i < self.anchorCount; i++ ) {
             decimalPoint[i] = anchorPlotPoint[i].decimalValue;
         }

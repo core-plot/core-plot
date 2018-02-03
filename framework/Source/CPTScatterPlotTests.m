@@ -42,7 +42,7 @@
 {
     CPTNumberArray *inRangeValues = @[@0.1, @0.2, @0.15, @0.6, @0.9];
 
-    BOOL *drawFlags = calloc(inRangeValues.count, sizeof(BOOL));
+    BOOL *drawFlags = calloc(inRangeValues.count, sizeof(BOOL) );
 
     CPTXYPlotSpace *thePlotSpace = self.plotSpace;
 
@@ -60,7 +60,7 @@
 {
     CPTNumberArray *inRangeValues = @[@0.1, @0.2, @0.15, @0.6, @0.9];
 
-    BOOL *drawFlags = calloc(inRangeValues.count, sizeof(BOOL));
+    BOOL *drawFlags = calloc(inRangeValues.count, sizeof(BOOL) );
 
     CPTXYPlotSpace *thePlotSpace = self.plotSpace;
 
@@ -78,7 +78,7 @@
 {
     CPTNumberArray *inRangeValues = @[@(-0.1), @(-0.2), @(-0.15), @(-0.6), @(-0.9)];
 
-    BOOL *drawFlags = calloc(inRangeValues.count, sizeof(BOOL));
+    BOOL *drawFlags = calloc(inRangeValues.count, sizeof(BOOL) );
 
     CPTXYPlotSpace *thePlotSpace = self.plotSpace;
 
@@ -96,7 +96,7 @@
 {
     CPTNumberArray *inRangeValues = @[@(-0.1), @(-0.2), @(-0.15), @(-0.6), @(-0.9)];
 
-    BOOL *drawFlags = calloc(inRangeValues.count, sizeof(BOOL));
+    BOOL *drawFlags = calloc(inRangeValues.count, sizeof(BOOL) );
 
     CPTXYPlotSpace *thePlotSpace = self.plotSpace;
 
@@ -114,7 +114,7 @@
 {
     CPTNumberArray *inRangeValues = @[@(-0.1), @2, @(-0.15), @3, @(-0.9)];
 
-    BOOL *drawFlags = calloc(inRangeValues.count, sizeof(BOOL));
+    BOOL *drawFlags = calloc(inRangeValues.count, sizeof(BOOL) );
 
     CPTXYPlotSpace *thePlotSpace = self.plotSpace;
 
@@ -132,7 +132,7 @@
 {
     CPTNumberArray *inRangeValues = @[@(-0.1), @2, @(-0.15), @3, @(-0.9)];
 
-    BOOL *drawFlags = calloc(inRangeValues.count, sizeof(BOOL));
+    BOOL *drawFlags = calloc(inRangeValues.count, sizeof(BOOL) );
 
     CPTXYPlotSpace *thePlotSpace = self.plotSpace;
 
@@ -151,7 +151,7 @@
     CPTNumberArray *inRangeValues = @[@(-0.1), @0.1, @0.2, @1.2, @1.5];
     BOOL expected[5]              = { YES, YES, YES, YES, NO };
 
-    BOOL *drawFlags = calloc(inRangeValues.count, sizeof(BOOL));
+    BOOL *drawFlags = calloc(inRangeValues.count, sizeof(BOOL) );
 
     CPTXYPlotSpace *thePlotSpace = self.plotSpace;
 
@@ -173,7 +173,7 @@
 {
     CPTNumberArray *inRangeValues = @[@(-0.1), @0.1, @0.2, @1.2, @1.5];
 
-    BOOL *drawFlags = calloc(inRangeValues.count, sizeof(BOOL));
+    BOOL *drawFlags = calloc(inRangeValues.count, sizeof(BOOL) );
 
     CPTXYPlotSpace *thePlotSpace = self.plotSpace;
 
@@ -196,8 +196,8 @@
 {
     CPTNumberArray *inRangeValues = @[@(-0.1), @1.1, @0.9, @(-0.1), @(-0.2)];
 
-    BOOL *drawFlags = calloc(inRangeValues.count, sizeof(BOOL));
-    BOOL *expected  = calloc(inRangeValues.count, sizeof(BOOL));
+    BOOL *drawFlags = calloc(inRangeValues.count, sizeof(BOOL) );
+    BOOL *expected  = calloc(inRangeValues.count, sizeof(BOOL) );
 
     for ( NSUInteger i = 0; i < inRangeValues.count - 1; i++ ) {
         expected[i] = YES;
@@ -226,7 +226,7 @@
 {
     CPTNumberArray *inRangeValues = @[@(-0.1), @1.1, @0.9, @(-0.1), @(-0.2)];
 
-    BOOL *drawFlags = calloc(inRangeValues.count, sizeof(BOOL));
+    BOOL *drawFlags = calloc(inRangeValues.count, sizeof(BOOL) );
 
     CPTXYPlotSpace *thePlotSpace = self.plotSpace;
 

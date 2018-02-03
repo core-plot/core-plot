@@ -555,8 +555,8 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
     // calculate column positions
     CPTNumberArray *computedColumnWidths = self.columnWidthsThatFit;
     NSUInteger columnCount               = computedColumnWidths.count;
-    CGFloat *actualColumnWidths          = calloc(columnCount, sizeof(CGFloat));
-    CGFloat *columnPositions             = calloc(columnCount, sizeof(CGFloat));
+    CGFloat *actualColumnWidths          = calloc(columnCount, sizeof(CGFloat) );
+    CGFloat *columnPositions             = calloc(columnCount, sizeof(CGFloat) );
     columnPositions[0] = self.paddingLeft;
     CGFloat theOffset       = self.titleOffset;
     CGSize theSwatchSize    = self.swatchSize;
@@ -579,8 +579,8 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
     // calculate row positions
     CPTNumberArray *computedRowHeights = self.rowHeightsThatFit;
     NSUInteger rowCount                = computedRowHeights.count;
-    CGFloat *actualRowHeights          = calloc(rowCount, sizeof(CGFloat));
-    CGFloat *rowPositions              = calloc(rowCount, sizeof(CGFloat));
+    CGFloat *actualRowHeights          = calloc(rowCount, sizeof(CGFloat) );
+    CGFloat *rowPositions              = calloc(rowCount, sizeof(CGFloat) );
     rowPositions[rowCount - 1] = self.paddingBottom;
     CGFloat theRowMargin  = self.rowMargin;
     CGFloat lastRowHeight = 0.0;

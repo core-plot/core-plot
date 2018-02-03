@@ -435,7 +435,7 @@
 
         size_t numberOfComponents = (size_t)[coder decodeInt64ForKey:@"CPTColor.numberOfComponents"];
 
-        CGFloat *colorComponents = calloc(numberOfComponents, sizeof(CGFloat));
+        CGFloat *colorComponents = calloc(numberOfComponents, sizeof(CGFloat) );
 
         for ( size_t i = 0; i < numberOfComponents; i++ ) {
             NSString *newKey = [[NSString alloc] initWithFormat:@"CPTColor.component[%zu]", i];
