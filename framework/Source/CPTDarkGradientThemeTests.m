@@ -1,7 +1,7 @@
 #import "CPTDarkGradientThemeTests.h"
 
-#import "CPTDerivedXYGraph.h"
 #import "_CPTDarkGradientTheme.h"
+#import "CPTDerivedXYGraph.h"
 
 @implementation CPTDarkGradientThemeTests
 

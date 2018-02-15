@@ -30,8 +30,8 @@
     NSDecimal startLoc   = start.locationDecimal;
     NSDecimal endLoc     = end.locationDecimal;
 
-    return ( CPTDecimalGreaterThanOrEqualTo(currentLoc, startLoc) && CPTDecimalLessThanOrEqualTo(currentLoc, endLoc) ) ||
-           ( CPTDecimalGreaterThanOrEqualTo(currentLoc, endLoc) && CPTDecimalLessThanOrEqualTo(currentLoc, startLoc) );
+    return (CPTDecimalGreaterThanOrEqualTo(currentLoc, startLoc) && CPTDecimalLessThanOrEqualTo(currentLoc, endLoc) ) ||
+           (CPTDecimalGreaterThanOrEqualTo(currentLoc, endLoc) && CPTDecimalLessThanOrEqualTo(currentLoc, startLoc) );
 }
 
 -(nonnull NSValue *)tweenedValueForProgress:(CGFloat)progress
@@ -42,10 +42,10 @@
     NSDecimal progressDecimal = CPTDecimalFromCGFloat(progress);
 
     NSDecimal locationDiff    = CPTDecimalSubtract(end.locationDecimal, start.locationDecimal);
-    NSDecimal tweenedLocation = CPTDecimalAdd( start.locationDecimal, CPTDecimalMultiply(progressDecimal, locationDiff) );
+    NSDecimal tweenedLocation = CPTDecimalAdd(start.locationDecimal, CPTDecimalMultiply(progressDecimal, locationDiff) );
 
     NSDecimal lengthDiff    = CPTDecimalSubtract(end.lengthDecimal, start.lengthDecimal);
-    NSDecimal tweenedLength = CPTDecimalAdd( start.lengthDecimal, CPTDecimalMultiply(progressDecimal, lengthDiff) );
+    NSDecimal tweenedLength = CPTDecimalAdd(start.lengthDecimal, CPTDecimalMultiply(progressDecimal, lengthDiff) );
 
     return (NSValue *)[CPTPlotRange plotRangeWithLocationDecimal:tweenedLocation lengthDecimal:tweenedLength];
 }

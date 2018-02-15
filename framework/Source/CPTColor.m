@@ -41,7 +41,7 @@
 
         CGColorRef clear = CGColorCreate([CPTColorSpace genericRGBSpace].cgColorSpace, values);
 
-        color = [[CPTColor alloc] initWithCGColor:clear];
+        color = [[self alloc] initWithCGColor:clear];
 
         CGColorRelease(clear);
     });
@@ -139,10 +139,10 @@
     static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
-        color = [[CPTColor alloc] initWithComponentRed:CPTFloat(1.0)
-                                                 green:CPTFloat(0.0)
-                                                  blue:CPTFloat(0.0)
-                                                 alpha:CPTFloat(1.0)];
+        color = [[self alloc] initWithComponentRed:CPTFloat(1.0)
+                                             green:CPTFloat(0.0)
+                                              blue:CPTFloat(0.0)
+                                             alpha:CPTFloat(1.0)];
     });
 
     return color;
@@ -158,10 +158,10 @@
     static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
-        color = [[CPTColor alloc] initWithComponentRed:CPTFloat(0.0)
-                                                 green:CPTFloat(1.0)
-                                                  blue:CPTFloat(0.0)
-                                                 alpha:CPTFloat(1.0)];
+        color = [[self alloc] initWithComponentRed:CPTFloat(0.0)
+                                             green:CPTFloat(1.0)
+                                              blue:CPTFloat(0.0)
+                                             alpha:CPTFloat(1.0)];
     });
 
     return color;
@@ -177,10 +177,10 @@
     static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
-        color = [[CPTColor alloc] initWithComponentRed:CPTFloat(0.0)
-                                                 green:CPTFloat(0.0)
-                                                  blue:CPTFloat(1.0)
-                                                 alpha:CPTFloat(1.0)];
+        color = [[self alloc] initWithComponentRed:CPTFloat(0.0)
+                                             green:CPTFloat(0.0)
+                                              blue:CPTFloat(1.0)
+                                             alpha:CPTFloat(1.0)];
     });
 
     return color;
@@ -196,10 +196,10 @@
     static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
-        color = [[CPTColor alloc] initWithComponentRed:CPTFloat(0.0)
-                                                 green:CPTFloat(1.0)
-                                                  blue:CPTFloat(1.0)
-                                                 alpha:CPTFloat(1.0)];
+        color = [[self alloc] initWithComponentRed:CPTFloat(0.0)
+                                             green:CPTFloat(1.0)
+                                              blue:CPTFloat(1.0)
+                                             alpha:CPTFloat(1.0)];
     });
 
     return color;
@@ -215,7 +215,7 @@
     static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
-        color = [[CPTColor alloc] initWithComponentRed:CPTFloat(1.0) green:CPTFloat(1.0) blue:CPTFloat(0.0) alpha:CPTFloat(1.0)];
+        color = [[self alloc] initWithComponentRed:CPTFloat(1.0) green:CPTFloat(1.0) blue:CPTFloat(0.0) alpha:CPTFloat(1.0)];
     });
 
     return color;
@@ -230,7 +230,7 @@
     static CPTColor *color = nil;
 
     if ( nil == color ) {
-        color = [[CPTColor alloc] initWithComponentRed:CPTFloat(1.0) green:CPTFloat(0.0) blue:CPTFloat(1.0) alpha:CPTFloat(1.0)];
+        color = [[self alloc] initWithComponentRed:CPTFloat(1.0) green:CPTFloat(0.0) blue:CPTFloat(1.0) alpha:CPTFloat(1.0)];
     }
     return color;
 }
@@ -245,7 +245,7 @@
     static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
-        color = [[CPTColor alloc] initWithComponentRed:CPTFloat(1.0) green:CPTFloat(0.5) blue:CPTFloat(0.0) alpha:CPTFloat(1.0)];
+        color = [[self alloc] initWithComponentRed:CPTFloat(1.0) green:CPTFloat(0.5) blue:CPTFloat(0.0) alpha:CPTFloat(1.0)];
     });
 
     return color;
@@ -261,7 +261,7 @@
     static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
-        color = [[CPTColor alloc] initWithComponentRed:CPTFloat(0.5) green:CPTFloat(0.0) blue:CPTFloat(0.5) alpha:CPTFloat(1.0)];
+        color = [[self alloc] initWithComponentRed:CPTFloat(0.5) green:CPTFloat(0.0) blue:CPTFloat(0.5) alpha:CPTFloat(1.0)];
     });
 
     return color;
@@ -277,7 +277,7 @@
     static dispatch_once_t onceToken = 0;
 
     dispatch_once(&onceToken, ^{
-        color = [[CPTColor alloc] initWithComponentRed:CPTFloat(0.6) green:CPTFloat(0.4) blue:CPTFloat(0.2) alpha:CPTFloat(1.0)];
+        color = [[self alloc] initWithComponentRed:CPTFloat(0.6) green:CPTFloat(0.4) blue:CPTFloat(0.2) alpha:CPTFloat(1.0)];
     });
 
     return color;
@@ -289,7 +289,7 @@
  **/
 +(nonnull instancetype)colorWithCGColor:(nonnull CGColorRef)newCGColor
 {
-    return [[CPTColor alloc] initWithCGColor:newCGColor];
+    return [[self alloc] initWithCGColor:newCGColor];
 }
 
 /** @brief Creates and returns a new CPTColor instance initialized with the provided RGBA color components.
@@ -301,7 +301,7 @@
  **/
 +(nonnull instancetype)colorWithComponentRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha
 {
-    return [[CPTColor alloc] initWithComponentRed:red green:green blue:blue alpha:alpha];
+    return [[self alloc] initWithComponentRed:red green:green blue:blue alpha:alpha];
 }
 
 /** @brief Creates and returns a new CPTColor instance initialized with the provided gray level.
@@ -312,7 +312,7 @@
 {
     CGFloat values[4]   = { gray, gray, gray, CPTFloat(1.0) };
     CGColorRef colorRef = CGColorCreate([CPTColorSpace genericRGBSpace].cgColorSpace, values);
-    CPTColor *color     = [[CPTColor alloc] initWithCGColor:colorRef];
+    CPTColor *color     = [[self alloc] initWithCGColor:colorRef];
 
     CGColorRelease(colorRef);
     return color;
@@ -382,7 +382,7 @@
 -(nonnull instancetype)colorWithAlphaComponent:(CGFloat)alpha
 {
     CGColorRef newCGColor = CGColorCreateCopyWithAlpha(self.cgColor, alpha);
-    CPTColor *newColor    = [CPTColor colorWithCGColor:newCGColor];
+    CPTColor *newColor    = [[self class] colorWithCGColor:newCGColor];
 
     CGColorRelease(newCGColor);
     return newColor;
@@ -435,7 +435,7 @@
 
         size_t numberOfComponents = (size_t)[coder decodeInt64ForKey:@"CPTColor.numberOfComponents"];
 
-        CGFloat *colorComponents = malloc( numberOfComponents * sizeof(CGFloat) );
+        CGFloat *colorComponents = calloc(numberOfComponents, sizeof(CGFloat) );
 
         for ( size_t i = 0; i < numberOfComponents; i++ ) {
             NSString *newKey = [[NSString alloc] initWithFormat:@"CPTColor.component[%zu]", i];
@@ -544,7 +544,6 @@
 {
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     return self.uiColor;
-
 #else
     return self.nsColor;
 #endif

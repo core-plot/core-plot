@@ -123,6 +123,45 @@
 }
 
 #pragma mark -
+#pragma mark NSDecimalNumber tests
+
+// Fix issues with incorrect values when converting NSDecimalNumber to non-double values (due to bugs in NSDecimalNumber, see radar #32520109)
+-(void)testNSDecimalNumberBugFix
+{
+    NSArray *strings =
+        @[
+        @"0", // validation tests
+        @"1",
+        @"1.8446744073709551615", // 64/65 bit tests (radar 32520109)
+        @"1.8446744073709551616",
+        @"9.821426272392280061", // radar 25465729 tests
+        @"9.821426272392280060",
+    ];
+
+    for ( NSString *string in strings ) {
+        NSDecimalNumber *v    = [NSDecimalNumber decimalNumberWithString:string];
+        NSDecimal d           = v.decimalValue;
+        double expectedDouble = v.doubleValue;
+
+        XCTAssertEqual(CPTDecimalCharValue(d), (char)expectedDouble);
+        XCTAssertEqual(CPTDecimalUnsignedCharValue(d), (unsigned char)expectedDouble);
+        XCTAssertEqual(CPTDecimalShortValue(d), (short)expectedDouble);
+        XCTAssertEqual(CPTDecimalUnsignedShortValue(d), (unsigned short)expectedDouble);
+        XCTAssertEqual(CPTDecimalIntValue(d), (int)expectedDouble);
+        XCTAssertEqual(CPTDecimalUnsignedIntValue(d), (unsigned int)expectedDouble);
+        XCTAssertEqual(CPTDecimalLongValue(d), (long)expectedDouble);
+        XCTAssertEqual(CPTDecimalUnsignedLongValue(d), (unsigned long)expectedDouble);
+        XCTAssertEqual(CPTDecimalLongLongValue(d), (long long)expectedDouble);
+        XCTAssertEqual(CPTDecimalUnsignedLongLongValue(d), (unsigned long long)expectedDouble);
+
+        XCTAssertEqual(CPTDecimalFloatValue(d), (float)expectedDouble);
+
+        XCTAssertEqual(CPTDecimalIntegerValue(d), (NSInteger)expectedDouble);
+        XCTAssertEqual(CPTDecimalUnsignedIntegerValue(d), (NSUInteger)expectedDouble);
+    }
+}
+
+#pragma mark -
 #pragma mark Cached values
 
 -(void)testCachedZero
@@ -595,11 +634,11 @@
 {
     XCTAssertEqual(CPTInverseLogModulus(0.0), 0.0, @"CPTInverseLogModulus(0.0)");
 
-    XCTAssertEqualWithAccuracy(CPTInverseLogModulus( log10(11.0) ), 10.0, 1.0e-7, @"CPTInverseLogModulus(log10(11.0))");
-    XCTAssertEqualWithAccuracy(CPTInverseLogModulus( -log10(11.0) ), -10.0, 1.0e-7, @"CPTInverseLogModulus(-log10(11.0))");
+    XCTAssertEqualWithAccuracy(CPTInverseLogModulus(log10(11.0) ), 10.0, 1.0e-7, @"CPTInverseLogModulus(log10(11.0))");
+    XCTAssertEqualWithAccuracy(CPTInverseLogModulus(-log10(11.0) ), -10.0, 1.0e-7, @"CPTInverseLogModulus(-log10(11.0))");
 
-    XCTAssertEqualWithAccuracy(CPTInverseLogModulus( log10(101.0) ), 100.0, 1.0e-7, @"CPTInverseLogModulus(log10(101.0))");
-    XCTAssertEqualWithAccuracy(CPTInverseLogModulus( -log10(101.0) ), -100.0, 1.0e-7, @"CPTInverseLogModulus(-log10(101.0))");
+    XCTAssertEqualWithAccuracy(CPTInverseLogModulus(log10(101.0) ), 100.0, 1.0e-7, @"CPTInverseLogModulus(log10(101.0))");
+    XCTAssertEqualWithAccuracy(CPTInverseLogModulus(-log10(101.0) ), -100.0, 1.0e-7, @"CPTInverseLogModulus(-log10(101.0))");
 }
 
 /// @endcond

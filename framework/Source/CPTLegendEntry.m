@@ -153,8 +153,8 @@
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     CGContextSaveGState(context);
     CGContextTranslateCTM(context, CPTFloat(0.0), rect.origin.y);
-    CGContextScaleCTM( context, CPTFloat(1.0), CPTFloat(-1.0) );
-    CGContextTranslateCTM( context, CPTFloat(0.0), -CGRectGetMaxY(rect) );
+    CGContextScaleCTM(context, CPTFloat(1.0), CPTFloat(-1.0) );
+    CGContextTranslateCTM(context, CPTFloat(0.0), -CGRectGetMaxY(rect) );
 #endif
     // center the title vertically
     CGRect textRect     = rect;

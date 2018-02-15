@@ -30,14 +30,14 @@
 {
     CGSize boundsSize = self.bounds.size;
 
-    UIGraphicsBeginImageContextWithOptions( boundsSize, self.opaque, CPTFloat(0.0) );
+    UIGraphicsBeginImageContextWithOptions(boundsSize, self.opaque, CPTFloat(0.0) );
 
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSaveGState(context);
     CGContextSetAllowsAntialiasing(context, true);
 
     CGContextTranslateCTM(context, CPTFloat(0.0), boundsSize.height);
-    CGContextScaleCTM( context, CPTFloat(1.0), CPTFloat(-1.0) );
+    CGContextScaleCTM(context, CPTFloat(1.0), CPTFloat(-1.0) );
 
     [self layoutAndRenderInContext:context];
     CPTNativeImage *layerImage = UIGraphicsGetImageFromCurrentImageContext();

@@ -1,9 +1,9 @@
 #import "CPTConstraints.h"
 
-#import "CPTDefinitions.h"
-#import "NSCoderExtensions.h"
 #import "_CPTConstraintsFixed.h"
 #import "_CPTConstraintsRelative.h"
+#import "CPTDefinitions.h"
+#import "NSCoderExtensions.h"
 
 /** @brief Implements a one-dimensional constrained position within a given numeric range.
  *

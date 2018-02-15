@@ -88,7 +88,7 @@
 /// @name Initialization
 /// @{
 
-/** @brief Initializes a newly allocated CPTAnnotation object.
+/** @brief Initializes a newly allocated CPTTextStyle object.
  *
  *  The initialized object will have the following properties:
  *  - @ref fontName = Helvetica

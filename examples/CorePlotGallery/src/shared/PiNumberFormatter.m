@@ -32,7 +32,7 @@ double gcd(double a, double b);
         double numerator   = round(value * factor);
         double denominator = factor;
         double fraction    = numerator / denominator;
-        double divisor     = ABS( gcd(numerator, denominator) );
+        double divisor     = ABS(gcd(numerator, denominator) );
 
         if ( fraction == 0.0 ) {
             string = @"0";
@@ -70,7 +70,7 @@ double gcd(double a, double b)
 
     while ( a != 0.0 ) {
         c = a;
-        a = round( fmod(b, a) );
+        a = round(fmod(b, a) );
         b = c;
     }
 

@@ -162,7 +162,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         fill               = nil;
         touchedPoint       = CPTPointMake(NAN, NAN);
         topDownLayerOrder  = nil;
-        bottomUpLayerOrder = malloc( kCPTNumberOfLayers * sizeof(CPTGraphLayerType) );
+        bottomUpLayerOrder = calloc(kCPTNumberOfLayers, sizeof(CPTGraphLayerType) );
         [self updateLayerOrder];
 
         CPTPlotGroup *newPlotGroup = [[CPTPlotGroup alloc] initWithFrame:newFrame];
@@ -195,8 +195,8 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         fill               = theLayer->fill;
         touchedPoint       = theLayer->touchedPoint;
         topDownLayerOrder  = theLayer->topDownLayerOrder;
-        bottomUpLayerOrder = malloc( kCPTNumberOfLayers * sizeof(CPTGraphLayerType) );
-        memcpy( bottomUpLayerOrder, theLayer->bottomUpLayerOrder, kCPTNumberOfLayers * sizeof(CPTGraphLayerType) );
+        bottomUpLayerOrder = calloc(kCPTNumberOfLayers, sizeof(CPTGraphLayerType) );
+        memcpy(bottomUpLayerOrder, theLayer->bottomUpLayerOrder, kCPTNumberOfLayers * sizeof(CPTGraphLayerType) );
         widthDecimal  = theLayer->widthDecimal;
         heightDecimal = theLayer->heightDecimal;
     }
@@ -256,7 +256,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         topDownLayerOrder = [coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [NSNumber class]]]
                                                   forKey:@"CPTPlotArea.topDownLayerOrder"];
 
-        bottomUpLayerOrder = malloc( kCPTNumberOfLayers * sizeof(CPTGraphLayerType) );
+        bottomUpLayerOrder = calloc(kCPTNumberOfLayers, sizeof(CPTGraphLayerType) );
         [self updateLayerOrder];
 
         touchedPoint = CPTPointMake(NAN, NAN);

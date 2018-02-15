@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FlipsideView : UIView {
+@interface FlipsideView : UIView
+{
 }
 
 @end

@@ -37,7 +37,7 @@
 #else
         cgSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
 #endif
-        space = [[CPTColorSpace alloc] initWithCGColorSpace:cgSpace];
+        space = [[self alloc] initWithCGColorSpace:cgSpace];
         CGColorSpaceRelease(cgSpace);
     });
 

@@ -1,10 +1,10 @@
 #import "CPTNumericData.h"
 
+#import "complex.h"
 #import "CPTExceptions.h"
 #import "CPTMutableNumericData.h"
 #import "CPTNumericData+TypeConversion.h"
 #import "CPTUtilities.h"
-#import "complex.h"
 
 /// @cond
 @interface CPTNumericData()
@@ -418,7 +418,7 @@
 -(nonnull instancetype)init
 {
     return [self initWithData:[NSData data]
-                     dataType:CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() )
+                     dataType:CPTDataType(CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() )
                         shape:nil];
 }
 
@@ -427,7 +427,7 @@
                     shape:(nullable CPTNumberArray *)shapeArray
                 dataOrder:(CPTDataOrder)order
 {
-    NSParameterAssert( CPTDataTypeIsSupported(newDataType) );
+    NSParameterAssert(CPTDataTypeIsSupported(newDataType) );
 
     self.data      = newData;
     self.dataType  = newDataType;
@@ -515,13 +515,13 @@
         return;
     }
 
-    NSParameterAssert( CPTDataTypeIsSupported(newDataType) );
+    NSParameterAssert(CPTDataTypeIsSupported(newDataType) );
     NSParameterAssert(newDataType.dataTypeFormat != CPTUndefinedDataType);
     NSParameterAssert(newDataType.byteOrder != CFByteOrderUnknown);
 
     dataType = newDataType;
 
-    if ( ( oldDataType.sampleBytes == sizeof(int8_t) ) && ( newDataType.sampleBytes == sizeof(int8_t) ) ) {
+    if ( (oldDataType.sampleBytes == sizeof(int8_t) ) && (newDataType.sampleBytes == sizeof(int8_t) ) ) {
         return;
     }
 
@@ -582,7 +582,7 @@
  *  dimension of the data buffer, this method returns @ref NSNotFound.
  **/
 -(NSUInteger)sampleIndex:(NSUInteger)idx, ...
- {
+{
     va_list indices;
 
     va_start(indices, idx);
@@ -669,11 +669,11 @@
             case CPTComplexFloatingPointDataType:
                 switch ( self.sampleBytes ) {
                     case sizeof(float complex):
-                        result = @( crealf(*(const float complex *)[self samplePointer:sample]) );
+                        result = @(crealf(*(const float complex *)[self samplePointer:sample]) );
                         break;
 
                     case sizeof(double complex):
-                        result = @( creal(*(const double complex *)[self samplePointer:sample]) );
+                        result = @(creal(*(const double complex *)[self samplePointer:sample]) );
                         break;
                 }
                 break;
@@ -703,7 +703,7 @@
  *  @float or @double before being wrapped in an instance of NSNumber.
  **/
 -(NSNumber *)sampleValueAtIndex:(NSUInteger)idx, ...
- {
+{
     NSUInteger newIndex;
 
     if ( self.numberOfDimensions > 1 ) {
@@ -741,7 +741,7 @@
  *  @return A pointer to the sample or @NULL if any of the sample indices are out of bounds.
  **/
 -(nullable const void *)samplePointerAtIndex:(NSUInteger)idx, ...
- {
+{
     NSUInteger newIndex;
 
     if ( self.numberOfDimensions > 1 ) {
@@ -802,9 +802,9 @@
     NSUInteger newIndex      = 0;
 
     if ( numDims > 1 ) {
-        NSUInteger *dims        = calloc( numDims, sizeof(NSUInteger) );
-        NSUInteger *dimProducts = calloc( numDims, sizeof(NSUInteger) );
-        NSUInteger *indices     = calloc( numDims, sizeof(NSUInteger) );
+        NSUInteger *dims        = calloc(numDims, sizeof(NSUInteger) );
+        NSUInteger *dimProducts = calloc(numDims, sizeof(NSUInteger) );
+        NSUInteger *indices     = calloc(numDims, sizeof(NSUInteger) );
         NSUInteger argIndex     = 0;
 
         indices[0] = idx;
@@ -865,7 +865,7 @@
 
 -(nonnull NSData *)dataFromArray:(nonnull CPTNumberArray *)newData dataType:(CPTNumericDataType)newDataType
 {
-    NSParameterAssert( CPTDataTypeIsSupported(newDataType) );
+    NSParameterAssert(CPTDataTypeIsSupported(newDataType) );
     NSParameterAssert(newDataType.dataTypeFormat != CPTUndefinedDataType);
     NSParameterAssert(newDataType.dataTypeFormat != CPTComplexFloatingPointDataType);
 
@@ -1085,7 +1085,7 @@
     // End of code generated with "CPTNumericData+TypeConversions_Generation.py"
     // ========================================================================
 
-    if ( ( newDataType.byteOrder != CFByteOrderGetCurrent() ) && (newDataType.byteOrder != CFByteOrderUnknown) ) {
+    if ( (newDataType.byteOrder != CFByteOrderGetCurrent() ) && (newDataType.byteOrder != CFByteOrderUnknown) ) {
         [self swapByteOrderForData:sampleData sampleSize:newDataType.sampleBytes];
     }
 

@@ -17,7 +17,7 @@ static const size_t numberOfSamples = 10000000;
     }
 
     CPTNumericData *floatNumericData = [[CPTNumericData alloc] initWithData:data
-                                                                   dataType:CPTDataType( CPTFloatingPointDataType, sizeof(float), CFByteOrderGetCurrent() )
+                                                                   dataType:CPTDataType(CPTFloatingPointDataType, sizeof(float), CFByteOrderGetCurrent() )
                                                                       shape:nil];
 
     __block CPTNumericData *doubleNumericData = nil;
@@ -37,7 +37,7 @@ static const size_t numberOfSamples = 10000000;
     }
 
     CPTNumericData *doubleNumericData = [[CPTNumericData alloc] initWithData:data
-                                                                    dataType:CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() )
+                                                                    dataType:CPTDataType(CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() )
                                                                        shape:nil];
 
     __block CPTNumericData *floatNumericData = nil;
@@ -57,7 +57,7 @@ static const size_t numberOfSamples = 10000000;
     }
 
     CPTNumericData *integerNumericData = [[CPTNumericData alloc] initWithData:data
-                                                                     dataType:CPTDataType( CPTIntegerDataType, sizeof(NSInteger), CFByteOrderGetCurrent() )
+                                                                     dataType:CPTDataType(CPTIntegerDataType, sizeof(NSInteger), CFByteOrderGetCurrent() )
                                                                         shape:nil];
 
     __block CPTNumericData *doubleNumericData = nil;
@@ -77,7 +77,7 @@ static const size_t numberOfSamples = 10000000;
     }
 
     CPTNumericData *doubleNumericData = [[CPTNumericData alloc] initWithData:data
-                                                                    dataType:CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() )
+                                                                    dataType:CPTDataType(CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() )
                                                                        shape:nil];
 
     __block CPTNumericData *integerNumericData = nil;

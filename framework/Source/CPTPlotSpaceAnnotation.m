@@ -175,7 +175,7 @@
 
                 content.anchorPoint = self.contentAnchorPoint;
                 content.position    = newPosition;
-                content.transform   = CATransform3DMakeRotation( self.rotation, CPTFloat(0.0), CPTFloat(0.0), CPTFloat(1.0) );
+                content.transform   = CATransform3DMakeRotation(self.rotation, CPTFloat(0.0), CPTFloat(0.0), CPTFloat(1.0) );
                 [content pixelAlign];
             }
         }
@@ -196,7 +196,7 @@
 
         self.anchorCount = anchorPlotPoint.count;
 
-        NSDecimal *decimalPoint = malloc(sizeof(NSDecimal) * self.anchorCount);
+        NSDecimal *decimalPoint = calloc(self.anchorCount, sizeof(NSDecimal) );
         for ( NSUInteger i = 0; i < self.anchorCount; i++ ) {
             decimalPoint[i] = anchorPlotPoint[i].decimalValue;
         }

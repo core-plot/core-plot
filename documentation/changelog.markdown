@@ -4,13 +4,14 @@
 
 This release updates Core Plot to be compatible with Xcode 8 and Swift 3.
 
-The Mac deployment target remains OS X 10.8. The iOS deployment target has changed to iOS 8.0 for both the framework and the static library. The tvOS deployment target remains tvOS 9.0.
+The Mac deployment target remains OS X 10.8. The iOS deployment target has changed to iOS 8.0 for both the framework and the static library. The tvOS deployment target remains tvOS 9.0. Core Plot no longer requires the Accelerate framework.
 
 ## Details
 - **New**: Increased the iOS deployment target to iOS 8.
 - **Changed**: Added Swift name mappings for all string constants.
 - **Changed**: Updated all Swift example apps to Swift 3.
 - **Changed**: Miscellaneous bug fixes and cleanup.
+- **Removed**: Removed the dependency on the Accelerate framework.
 
 
 

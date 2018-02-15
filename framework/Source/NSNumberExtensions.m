@@ -18,7 +18,6 @@
 {
 #if CGFLOAT_IS_DOUBLE
     return self.doubleValue;
-
 #else
     return [self floatValue];
 #endif
@@ -32,7 +31,6 @@
 {
 #if CGFLOAT_IS_DOUBLE
     return [self initWithDouble:number];
-
 #else
     return [self initWithFloat:number];
 #endif

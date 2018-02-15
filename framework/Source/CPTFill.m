@@ -1,12 +1,12 @@
 #import "CPTFill.h"
 
+#import "_CPTFillColor.h"
+#import "_CPTFillGradient.h"
+#import "_CPTFillImage.h"
 #import "CPTColor.h"
 #import "CPTGradient.h"
 #import "CPTImage.h"
 #import "CPTPlatformSpecificFunctions.h"
-#import "_CPTFillColor.h"
-#import "_CPTFillGradient.h"
-#import "_CPTFillImage.h"
 
 /** @brief Draws area fills.
  *

@@ -40,7 +40,17 @@ int16_t CPTDecimalShortValue(NSDecimal decimalNumber)
  **/
 int32_t CPTDecimalLongValue(NSDecimal decimalNumber)
 {
-    return (int32_t)[NSDecimalNumber decimalNumberWithDecimal:decimalNumber].longValue;
+    NSDecimalNumber *d = [NSDecimalNumber decimalNumberWithDecimal:decimalNumber];
+
+    d = [d decimalNumberByRoundingAccordingToBehavior:
+         [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundDown
+                                                                scale:0
+                                                     raiseOnExactness:NO
+                                                      raiseOnOverflow:NO
+                                                     raiseOnUnderflow:NO
+                                                  raiseOnDivideByZero:NO]];
+
+    return (int32_t)d.longValue;
 }
 
 /**
@@ -50,7 +60,17 @@ int32_t CPTDecimalLongValue(NSDecimal decimalNumber)
  **/
 int64_t CPTDecimalLongLongValue(NSDecimal decimalNumber)
 {
-    return (int64_t)[NSDecimalNumber decimalNumberWithDecimal:decimalNumber].longLongValue;
+    NSDecimalNumber *d = [NSDecimalNumber decimalNumberWithDecimal:decimalNumber];
+
+    d = [d decimalNumberByRoundingAccordingToBehavior:
+         [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundDown
+                                                                scale:0
+                                                     raiseOnExactness:NO
+                                                      raiseOnOverflow:NO
+                                                     raiseOnUnderflow:NO
+                                                  raiseOnDivideByZero:NO]];
+
+    return (int64_t)d.longLongValue;
 }
 
 /**
@@ -70,7 +90,17 @@ int CPTDecimalIntValue(NSDecimal decimalNumber)
  **/
 NSInteger CPTDecimalIntegerValue(NSDecimal decimalNumber)
 {
-    return (NSInteger)[NSDecimalNumber decimalNumberWithDecimal:decimalNumber].integerValue;
+    NSDecimalNumber *d = [NSDecimalNumber decimalNumberWithDecimal:decimalNumber];
+
+    d = [d decimalNumberByRoundingAccordingToBehavior:
+         [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundDown
+                                                                scale:0
+                                                     raiseOnExactness:NO
+                                                      raiseOnOverflow:NO
+                                                     raiseOnUnderflow:NO
+                                                  raiseOnDivideByZero:NO]];
+
+    return (NSInteger)d.integerValue;
 }
 
 /**
@@ -100,7 +130,17 @@ uint16_t CPTDecimalUnsignedShortValue(NSDecimal decimalNumber)
  **/
 uint32_t CPTDecimalUnsignedLongValue(NSDecimal decimalNumber)
 {
-    return (uint32_t)[NSDecimalNumber decimalNumberWithDecimal:decimalNumber].unsignedLongValue;
+    NSDecimalNumber *d = [NSDecimalNumber decimalNumberWithDecimal:decimalNumber];
+
+    d = [d decimalNumberByRoundingAccordingToBehavior:
+         [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundDown
+                                                                scale:0
+                                                     raiseOnExactness:NO
+                                                      raiseOnOverflow:NO
+                                                     raiseOnUnderflow:NO
+                                                  raiseOnDivideByZero:NO]];
+
+    return (uint32_t)d.unsignedLongValue;
 }
 
 /**
@@ -110,7 +150,17 @@ uint32_t CPTDecimalUnsignedLongValue(NSDecimal decimalNumber)
  **/
 uint64_t CPTDecimalUnsignedLongLongValue(NSDecimal decimalNumber)
 {
-    return (uint64_t)[NSDecimalNumber decimalNumberWithDecimal:decimalNumber].unsignedLongLongValue;
+    NSDecimalNumber *d = [NSDecimalNumber decimalNumberWithDecimal:decimalNumber];
+
+    d = [d decimalNumberByRoundingAccordingToBehavior:
+         [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundDown
+                                                                scale:0
+                                                     raiseOnExactness:NO
+                                                      raiseOnOverflow:NO
+                                                     raiseOnUnderflow:NO
+                                                  raiseOnDivideByZero:NO]];
+
+    return (uint64_t)d.unsignedLongLongValue;
 }
 
 /**
@@ -130,7 +180,17 @@ unsigned int CPTDecimalUnsignedIntValue(NSDecimal decimalNumber)
  **/
 NSUInteger CPTDecimalUnsignedIntegerValue(NSDecimal decimalNumber)
 {
-    return (NSUInteger)[NSDecimalNumber decimalNumberWithDecimal:decimalNumber].unsignedIntegerValue;
+    NSDecimalNumber *d = [NSDecimalNumber decimalNumberWithDecimal:decimalNumber];
+
+    d = [d decimalNumberByRoundingAccordingToBehavior:
+         [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundDown
+                                                                scale:0
+                                                     raiseOnExactness:NO
+                                                      raiseOnOverflow:NO
+                                                     raiseOnUnderflow:NO
+                                                  raiseOnDivideByZero:NO]];
+
+    return (NSUInteger)d.unsignedIntegerValue;
 }
 
 /**
@@ -162,7 +222,6 @@ CGFloat CPTDecimalCGFloatValue(NSDecimal decimalNumber)
 {
 #if CGFLOAT_IS_DOUBLE
     return (CGFloat)[NSDecimalNumber decimalNumberWithDecimal:decimalNumber].doubleValue;
-
 #else
     return (CGFloat)[[NSDecimalNumber decimalNumberWithDecimal:decimalNumber] floatValue];
 #endif
@@ -715,11 +774,11 @@ NSDecimal CPTDecimalMax(NSDecimal leftOperand, NSDecimal rightOperand)
  **/
 NSDecimal CPTDecimalAbs(NSDecimal value)
 {
-    if ( CPTDecimalGreaterThanOrEqualTo( value, CPTDecimalFromInteger(0) ) ) {
+    if ( CPTDecimalGreaterThanOrEqualTo(value, CPTDecimalFromInteger(0) ) ) {
         return value;
     }
     else {
-        return CPTDecimalMultiply( value, CPTDecimalFromInteger(-1) );
+        return CPTDecimalMultiply(value, CPTDecimalFromInteger(-1) );
     }
 }
 
@@ -816,7 +875,7 @@ CGPoint CPTAlignPointToUserSpace(__nonnull CGContextRef context, CGPoint point)
 
     // Ensure that coordinates are at exactly the corner
     // of a device pixel.
-    point.x = round( point.x - CPTFloat(0.5) ) + CPTFloat(0.5);
+    point.x = round(point.x - CPTFloat(0.5) ) + CPTFloat(0.5);
     point.y = ceil(point.y) - CPTFloat(0.5);
 
     // Convert the device aligned coordinate back to user space.
@@ -863,11 +922,11 @@ CGRect CPTAlignRectToUserSpace(__nonnull CGContextRef context, CGRect rect)
 
     CGPoint oldOrigin = rect.origin;
 
-    rect.origin.x   = round( rect.origin.x - CPTFloat(0.5) );
-    rect.size.width = round( oldOrigin.x + rect.size.width - CPTFloat(0.5) ) - rect.origin.x;
+    rect.origin.x   = round(rect.origin.x - CPTFloat(0.5) );
+    rect.size.width = round(oldOrigin.x + rect.size.width - CPTFloat(0.5) ) - rect.origin.x;
     rect.origin.x  += CPTFloat(0.5);
 
-    rect.origin.y    = ceil( CGRectGetMaxY(rect) ) - CPTFloat(0.5);
+    rect.origin.y    = ceil(CGRectGetMaxY(rect) ) - CPTFloat(0.5);
     rect.size.height = ceil(oldOrigin.y - CPTFloat(0.5) - rect.origin.y);
 
     return CGContextConvertRectToUserSpace(context, rect);
@@ -890,7 +949,7 @@ CGPoint CPTAlignIntegralPointToUserSpace(__nonnull CGContextRef context, CGPoint
     point = CGContextConvertPointToDeviceSpace(context, point);
 
     point.x = round(point.x);
-    point.y = ceil( point.y - CPTFloat(0.5) );
+    point.y = ceil(point.y - CPTFloat(0.5) );
 
     return CGContextConvertPointToUserSpace(context, point);
 }
@@ -914,7 +973,7 @@ CGRect CPTAlignIntegralRectToUserSpace(__nonnull CGContextRef context, CGRect re
     rect.origin.x   = round(rect.origin.x);
     rect.size.width = round(oldOrigin.x + rect.size.width) - rect.origin.x;
 
-    rect.origin.y    = ceil( CGRectGetMaxY(rect) - CPTFloat(0.5) );
+    rect.origin.y    = ceil(CGRectGetMaxY(rect) - CPTFloat(0.5) );
     rect.size.height = ceil(oldOrigin.y - CPTFloat(0.5) - rect.origin.y);
 
     return CGContextConvertRectToUserSpace(context, rect);
@@ -932,7 +991,7 @@ CGRect CPTAlignBorderedRectToUserSpace(__nonnull CGContextRef context, CGRect re
 
     if ( contextScale != CPTFloat(1.0) ) {
         CGFloat borderWidth = borderLineStyle.lineWidth;
-        if ( ( borderWidth > CPTFloat(0.0) ) && ( borderWidth == round(borderWidth) ) ) {
+        if ( (borderWidth > CPTFloat(0.0) ) && (borderWidth == round(borderWidth) ) ) {
             borderRect = CPTAlignIntegralRectToUserSpace(context, rect);
         }
         else {
@@ -953,7 +1012,7 @@ CGRect CPTAlignBorderedRectToUserSpace(__nonnull CGContextRef context, CGRect re
  *  @param point The point.
  *  @return A string with the format <code> {x, y}</code>.
  **/
-NSString * __nonnull CPTStringFromPoint(CGPoint point)
+NSString *__nonnull CPTStringFromPoint(CGPoint point)
 {
     return [NSString stringWithFormat:@"{%g, %g}", (double)point.x, (double)point.y];
 }
@@ -1066,7 +1125,7 @@ double CPTInverseLogModulus(double value)
     if ( value != 0.0 ) {
         double sign = (signbit(value) ? -1.0 : +1.0);
 
-        return sign * (pow( 10.0, fabs(value) ) - 1.0);
+        return sign * (pow(10.0, fabs(value) ) - 1.0);
     }
     else {
         return 0.0;

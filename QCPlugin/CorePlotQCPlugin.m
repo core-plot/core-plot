@@ -1,4 +1,4 @@
-#import "CorePlotQCPlugIn.h"
+#import "CorePlotQCPlugin.h"
 #import <OpenGL/CGLMacro.h>
 
 #define kQCPlugIn_Name        @"CorePlotQCPlugIn"
@@ -256,7 +256,7 @@ void drawErrorText(CGContextRef __nonnull context, CGRect rect)
         CGColorRef axisColor  = CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0);
         CPTDictionary *result = @{
             QCPortAttributeNameKey: @"Axis Color",
-            QCPortAttributeDefaultValueKey: CFBridgingRelease(axisColor)
+            QCPortAttributeDefaultValueKey: (id)CFBridgingRelease(axisColor)
         };
         return result;
     }
@@ -321,7 +321,7 @@ void drawErrorText(CGContextRef __nonnull context, CGRect rect)
         CGColorRef plotAreaColor = CGColorCreateGenericRGB(0.0, 0.0, 0.0, 0.4);
         CPTDictionary *result    = @{
             QCPortAttributeNameKey: @"Plot Area Color",
-            QCPortAttributeDefaultValueKey: CFBridgingRelease(plotAreaColor)
+            QCPortAttributeDefaultValueKey: (id)CFBridgingRelease(plotAreaColor)
         };
         return result;
     }
@@ -451,11 +451,11 @@ void drawErrorText(CGContextRef __nonnull context, CGRect rect)
     set.xAxis.labelTextStyle = textStyle;
 
     double xrange = self.inputXMax - self.inputXMin;
-    set.xAxis.majorIntervalLength   = @( xrange / (self.inputXMajorIntervals) );
+    set.xAxis.majorIntervalLength   = @(xrange / (self.inputXMajorIntervals) );
     set.xAxis.minorTicksPerInterval = self.inputXMinorIntervals;
 
     double yrange = self.inputYMax - self.inputYMin;
-    set.yAxis.majorIntervalLength   = @( yrange / (self.inputYMajorIntervals) );
+    set.yAxis.majorIntervalLength   = @(yrange / (self.inputYMajorIntervals) );
     set.yAxis.minorTicksPerInterval = self.inputYMinorIntervals;
 
     set.xAxis.minorTickLength = self.inputAxisMinorTickLength;
@@ -750,7 +750,7 @@ static void _BufferReleaseCallback(const void *__nonnull address, void *__nonnul
      */
 
     // Configure the graph area
-    CGRect frame = CPTRectMake( 0.0, 0.0, MAX(1, self.inputPixelsWide), MAX(1, self.inputPixelsHigh) );
+    CGRect frame = CPTRectMake(0.0, 0.0, MAX(1, self.inputPixelsWide), MAX(1, self.inputPixelsHigh) );
 
     self.graph.bounds = frame;
 
@@ -811,9 +811,9 @@ static void _BufferReleaseCallback(const void *__nonnull address, void *__nonnul
     // Draw the plot ...
     CGSize boundsSize      = self.graph.bounds.size;
     CGContextRef bmContext = self.bitmapContext;
-    CGContextClearRect( bmContext, CPTRectMake(0.0, 0.0, boundsSize.width, boundsSize.height) );
+    CGContextClearRect(bmContext, CPTRectMake(0.0, 0.0, boundsSize.width, boundsSize.height) );
     CGContextSetRGBFillColor(bmContext, 0.0, 0.0, 0.0, 0.0);
-    CGContextFillRect( bmContext, CPTRectMake(0, 0, boundsSize.width, boundsSize.height) );
+    CGContextFillRect(bmContext, CPTRectMake(0, 0, boundsSize.width, boundsSize.height) );
     CGContextSetAllowsAntialiasing(bmContext, true);
 
     if ( configurationCheck ) {
@@ -821,7 +821,7 @@ static void _BufferReleaseCallback(const void *__nonnull address, void *__nonnul
         [self.graph recursivelyRenderInContext:bmContext];
     }
     else {
-        drawErrorText( bmContext, CPTRectMake(0, 0, self.inputPixelsWide, self.inputPixelsHigh) );
+        drawErrorText(bmContext, CPTRectMake(0, 0, self.inputPixelsWide, self.inputPixelsHigh) );
     }
 
     // CGContextSetAllowsAntialiasing(bitmapContext, false);

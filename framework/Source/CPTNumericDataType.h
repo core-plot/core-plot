@@ -26,8 +26,8 @@ typedef NS_ENUM (NSInteger, CPTDataOrder) {
  **/
 typedef struct _CPTNumericDataType {
     CPTDataTypeFormat dataTypeFormat; ///< Data type format
-    size_t sampleBytes;               ///< Number of bytes in each sample
-    CFByteOrder byteOrder;            ///< Byte order
+    size_t            sampleBytes;    ///< Number of bytes in each sample
+    CFByteOrder       byteOrder;      ///< Byte order
 }
 CPTNumericDataType;
 

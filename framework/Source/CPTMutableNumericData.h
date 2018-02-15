@@ -16,7 +16,7 @@
 /// @name Samples
 /// @{
 -(nullable void *)mutableSamplePointer:(NSUInteger)sample NS_RETURNS_INNER_POINTER;
--(nullable void *)mutableSamplePointerAtIndex:(NSUInteger)idx, ...NS_RETURNS_INNER_POINTER;
+-(nullable void *)mutableSamplePointerAtIndex:(NSUInteger)idx, ... NS_RETURNS_INNER_POINTER;
 /// @}
 
 @end

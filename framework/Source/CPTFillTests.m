@@ -1,12 +1,12 @@
 #import "CPTFillTests.h"
 
+#import "_CPTFillColor.h"
+#import "_CPTFillGradient.h"
+#import "_CPTFillImage.h"
 #import "CPTColor.h"
 #import "CPTFill.h"
 #import "CPTGradient.h"
 #import "CPTImage.h"
-#import "_CPTFillColor.h"
-#import "_CPTFillGradient.h"
-#import "_CPTFillImage.h"
 
 @interface _CPTFillColor()
 

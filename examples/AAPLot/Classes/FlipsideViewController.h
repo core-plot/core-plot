@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FlipsideViewController : UIViewController {
+@interface FlipsideViewController : UIViewController
+{
 }
 
 @end

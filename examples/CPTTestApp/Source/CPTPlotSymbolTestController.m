@@ -116,9 +116,9 @@
         CGMutablePathRef path = CGPathCreateMutable();
         CGPathMoveToPoint(path, NULL, 0., 0.);
 
-        CGPathAddEllipseInRect( path, NULL, CGRectMake(0., 0., 10., 10.) );
-        CGPathAddEllipseInRect( path, NULL, CGRectMake(1.5, 4., 3., 3.) );
-        CGPathAddEllipseInRect( path, NULL, CGRectMake(5.5, 4., 3., 3.) );
+        CGPathAddEllipseInRect(path, NULL, CGRectMake(0., 0., 10., 10.) );
+        CGPathAddEllipseInRect(path, NULL, CGRectMake(1.5, 4., 3., 3.) );
+        CGPathAddEllipseInRect(path, NULL, CGRectMake(5.5, 4., 3., 3.) );
         CGPathMoveToPoint(path, NULL, 5., 2.);
         CGPathAddArc(path, NULL, 5., 3.3, 2.8, 0., M_PI, TRUE);
         CGPathCloseSubpath(path);

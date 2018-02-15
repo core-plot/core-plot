@@ -20,7 +20,8 @@
 /** @category NSObject(CPTDebugQuickLookExtension)
  *  @brief Debugging extensions to NSObject.
  **/
-@interface NSObject(CPTDebugQuickLookExtension)<CPTDebugQuickLook> {
+@interface NSObject(CPTDebugQuickLookExtension)<CPTDebugQuickLook>
+{
 }
 
 @end

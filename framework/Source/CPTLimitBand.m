@@ -28,7 +28,7 @@
  **/
 +(nonnull instancetype)limitBandWithRange:(nullable CPTPlotRange *)newRange fill:(nullable CPTFill *)newFill
 {
-    return [[CPTLimitBand alloc] initWithRange:newRange fill:newFill];
+    return [[self alloc] initWithRange:newRange fill:newFill];
 }
 
 /** @brief Initializes a newly allocated CPTLimitBand object with the provided range and fill.

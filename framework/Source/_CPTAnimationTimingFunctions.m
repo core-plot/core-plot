@@ -51,7 +51,7 @@ CGFloat CPTAnimationTimingFunctionBackIn(CGFloat elapsedTime, CGFloat duration)
         return CPTFloat(1.0);
     }
 
-    return elapsedTime * elapsedTime * ( ( s + CPTFloat(1.0) ) * elapsedTime - s );
+    return elapsedTime * elapsedTime * ( (s + CPTFloat(1.0) ) * elapsedTime - s );
 }
 
 /**
@@ -74,7 +74,7 @@ CGFloat CPTAnimationTimingFunctionBackOut(CGFloat elapsedTime, CGFloat duration)
         return CPTFloat(1.0);
     }
 
-    return elapsedTime * elapsedTime * ( ( s + CPTFloat(1.0) ) * elapsedTime + s ) + CPTFloat(1.0);
+    return elapsedTime * elapsedTime * ( (s + CPTFloat(1.0) ) * elapsedTime + s ) + CPTFloat(1.0);
 }
 
 /**
@@ -98,12 +98,12 @@ CGFloat CPTAnimationTimingFunctionBackInOut(CGFloat elapsedTime, CGFloat duratio
     }
 
     if ( elapsedTime < CPTFloat(1.0) ) {
-        return CPTFloat(0.5) * ( elapsedTime * elapsedTime * ( ( s + CPTFloat(1.0) ) * elapsedTime - s ) );
+        return CPTFloat(0.5) * (elapsedTime * elapsedTime * ( (s + CPTFloat(1.0) ) * elapsedTime - s ) );
     }
     else {
         elapsedTime -= CPTFloat(2.0);
 
-        return CPTFloat(0.5) * ( elapsedTime * elapsedTime * ( ( s + CPTFloat(1.0) ) * elapsedTime + s ) + CPTFloat(2.0) );
+        return CPTFloat(0.5) * (elapsedTime * elapsedTime * ( (s + CPTFloat(1.0) ) * elapsedTime + s ) + CPTFloat(2.0) );
     }
 }
 
@@ -197,7 +197,7 @@ CGFloat CPTAnimationTimingFunctionCircularIn(CGFloat elapsedTime, CGFloat durati
         return CPTFloat(1.0);
     }
 
-    return -( sqrt(CPTFloat(1.0) - elapsedTime * elapsedTime) - CPTFloat(1.0) );
+    return -(sqrt(CPTFloat(1.0) - elapsedTime * elapsedTime) - CPTFloat(1.0) );
 }
 
 /**
@@ -240,12 +240,12 @@ CGFloat CPTAnimationTimingFunctionCircularInOut(CGFloat elapsedTime, CGFloat dur
     }
 
     if ( elapsedTime < CPTFloat(1.0) ) {
-        return CPTFloat(-0.5) * ( sqrt(CPTFloat(1.0) - elapsedTime * elapsedTime) - CPTFloat(1.0) );
+        return CPTFloat(-0.5) * (sqrt(CPTFloat(1.0) - elapsedTime * elapsedTime) - CPTFloat(1.0) );
     }
     else {
         elapsedTime -= CPTFloat(2.0);
 
-        return CPTFloat(0.5) * ( sqrt(CPTFloat(1.0) - elapsedTime * elapsedTime) + CPTFloat(1.0) );
+        return CPTFloat(0.5) * (sqrt(CPTFloat(1.0) - elapsedTime * elapsedTime) + CPTFloat(1.0) );
     }
 }
 
@@ -275,7 +275,7 @@ CGFloat CPTAnimationTimingFunctionElasticIn(CGFloat elapsedTime, CGFloat duratio
 
     elapsedTime -= CPTFloat(1.0);
 
-    return -( pow(CPTFloat(2.0), CPTFloat(10.0) * elapsedTime) * sin( (elapsedTime * duration - s) * CPTFloat(2.0 * M_PI) / period ) );
+    return -(pow(CPTFloat(2.0), CPTFloat(10.0) * elapsedTime) * sin( (elapsedTime * duration - s) * CPTFloat(2.0 * M_PI) / period ) );
 }
 
 /**
@@ -326,7 +326,7 @@ CGFloat CPTAnimationTimingFunctionElasticInOut(CGFloat elapsedTime, CGFloat dura
     elapsedTime -= CPTFloat(1.0);
 
     if ( elapsedTime < CPTFloat(0.0) ) {
-        return CPTFloat(-0.5) * ( pow(CPTFloat(2.0), CPTFloat(10.0) * elapsedTime) * sin( (elapsedTime * duration - s) * CPTFloat(2.0 * M_PI) / period ) );
+        return CPTFloat(-0.5) * (pow(CPTFloat(2.0), CPTFloat(10.0) * elapsedTime) * sin( (elapsedTime * duration - s) * CPTFloat(2.0 * M_PI) / period ) );
     }
     else {
         return pow(CPTFloat(2.0), CPTFloat(-10.0) * elapsedTime) * sin( (elapsedTime * duration - s) * CPTFloat(2.0 * M_PI) / period ) * CPTFloat(0.5) + CPTFloat(1.0);
@@ -354,7 +354,7 @@ CGFloat CPTAnimationTimingFunctionExponentialIn(CGFloat elapsedTime, CGFloat dur
         return CPTFloat(1.0);
     }
 
-    return pow( CPTFloat(2.0), CPTFloat(10.0) * ( elapsedTime - CPTFloat(1.0) ) );
+    return pow(CPTFloat(2.0), CPTFloat(10.0) * (elapsedTime - CPTFloat(1.0) ) );
 }
 
 /**
@@ -401,7 +401,7 @@ CGFloat CPTAnimationTimingFunctionExponentialInOut(CGFloat elapsedTime, CGFloat 
         return CPTFloat(0.5) * pow(CPTFloat(2.0), CPTFloat(10.0) * elapsedTime);
     }
     else {
-        return CPTFloat(0.5) * ( -pow(CPTFloat(2.0), CPTFloat(-10.0) * elapsedTime) + CPTFloat(2.0) );
+        return CPTFloat(0.5) * (-pow(CPTFloat(2.0), CPTFloat(-10.0) * elapsedTime) + CPTFloat(2.0) );
     }
 }
 
@@ -426,7 +426,7 @@ CGFloat CPTAnimationTimingFunctionSinusoidalIn(CGFloat elapsedTime, CGFloat dura
         return CPTFloat(1.0);
     }
 
-    return -cos( elapsedTime * CPTFloat(M_PI_2) ) + CPTFloat(1.0);
+    return -cos(elapsedTime * CPTFloat(M_PI_2) ) + CPTFloat(1.0);
 }
 
 /**
@@ -447,7 +447,7 @@ CGFloat CPTAnimationTimingFunctionSinusoidalOut(CGFloat elapsedTime, CGFloat dur
         return CPTFloat(1.0);
     }
 
-    return sin( elapsedTime * CPTFloat(M_PI_2) );
+    return sin(elapsedTime * CPTFloat(M_PI_2) );
 }
 
 /**
@@ -468,7 +468,7 @@ CGFloat CPTAnimationTimingFunctionSinusoidalInOut(CGFloat elapsedTime, CGFloat d
         return CPTFloat(1.0);
     }
 
-    return CPTFloat(-0.5) * ( cos(CPTFloat(M_PI) * elapsedTime) - CPTFloat(1.0) );
+    return CPTFloat(-0.5) * (cos(CPTFloat(M_PI) * elapsedTime) - CPTFloat(1.0) );
 }
 
 #pragma mark -
@@ -540,7 +540,7 @@ CGFloat CPTAnimationTimingFunctionCubicInOut(CGFloat elapsedTime, CGFloat durati
     else {
         elapsedTime -= CPTFloat(2.0);
 
-        return CPTFloat(0.5) * ( elapsedTime * elapsedTime * elapsedTime + CPTFloat(2.0) );
+        return CPTFloat(0.5) * (elapsedTime * elapsedTime * elapsedTime + CPTFloat(2.0) );
     }
 }
 
@@ -586,7 +586,7 @@ CGFloat CPTAnimationTimingFunctionQuadraticOut(CGFloat elapsedTime, CGFloat dura
         return CPTFloat(1.0);
     }
 
-    return -elapsedTime * ( elapsedTime - CPTFloat(2.0) );
+    return -elapsedTime * (elapsedTime - CPTFloat(2.0) );
 }
 
 /**
@@ -613,7 +613,7 @@ CGFloat CPTAnimationTimingFunctionQuadraticInOut(CGFloat elapsedTime, CGFloat du
     else {
         elapsedTime -= CPTFloat(1.0);
 
-        return CPTFloat(-0.5) * ( elapsedTime * ( elapsedTime - CPTFloat(2.0) ) - CPTFloat(1.0) );
+        return CPTFloat(-0.5) * (elapsedTime * (elapsedTime - CPTFloat(2.0) ) - CPTFloat(1.0) );
     }
 }
 
@@ -659,7 +659,7 @@ CGFloat CPTAnimationTimingFunctionQuarticOut(CGFloat elapsedTime, CGFloat durati
         return CPTFloat(1.0);
     }
 
-    return -( elapsedTime * elapsedTime * elapsedTime * elapsedTime - CPTFloat(1.0) );
+    return -(elapsedTime * elapsedTime * elapsedTime * elapsedTime - CPTFloat(1.0) );
 }
 
 /**
@@ -686,7 +686,7 @@ CGFloat CPTAnimationTimingFunctionQuarticInOut(CGFloat elapsedTime, CGFloat dura
     else {
         elapsedTime -= CPTFloat(2.0);
 
-        return CPTFloat(-0.5) * ( elapsedTime * elapsedTime * elapsedTime * elapsedTime - CPTFloat(2.0) );
+        return CPTFloat(-0.5) * (elapsedTime * elapsedTime * elapsedTime * elapsedTime - CPTFloat(2.0) );
     }
 }
 
@@ -759,6 +759,6 @@ CGFloat CPTAnimationTimingFunctionQuinticInOut(CGFloat elapsedTime, CGFloat dura
     else {
         elapsedTime -= CPTFloat(2.0);
 
-        return CPTFloat(0.5) * ( elapsedTime * elapsedTime * elapsedTime * elapsedTime * elapsedTime + CPTFloat(2.0) );
+        return CPTFloat(0.5) * (elapsedTime * elapsedTime * elapsedTime * elapsedTime * elapsedTime + CPTFloat(2.0) );
     }
 }

@@ -62,7 +62,7 @@
  *  @return A pointer to the sample or @NULL if any of the sample indices are out of bounds.
  **/
 -(nullable void *)mutableSamplePointerAtIndex:(NSUInteger)idx, ...
- {
+{
     NSUInteger newIndex;
 
     if ( self.numberOfDimensions > 1 ) {

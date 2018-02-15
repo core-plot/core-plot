@@ -32,8 +32,8 @@
         NSDecimal startDecimal   = start.decimalValue;
         NSDecimal endDecimal     = end.decimalValue;
 
-        return ( CPTDecimalGreaterThanOrEqualTo(currentDecimal, startDecimal) && CPTDecimalLessThanOrEqualTo(currentDecimal, endDecimal) ) ||
-               ( CPTDecimalGreaterThanOrEqualTo(currentDecimal, endDecimal) && CPTDecimalLessThanOrEqualTo(currentDecimal, startDecimal) );
+        return (CPTDecimalGreaterThanOrEqualTo(currentDecimal, startDecimal) && CPTDecimalLessThanOrEqualTo(currentDecimal, endDecimal) ) ||
+               (CPTDecimalGreaterThanOrEqualTo(currentDecimal, endDecimal) && CPTDecimalLessThanOrEqualTo(currentDecimal, startDecimal) );
     }
     else {
         double currentDouble = current.doubleValue;
@@ -57,7 +57,7 @@
         NSDecimal endDecimal   = end.decimalValue;
 
         NSDecimal length       = CPTDecimalSubtract(endDecimal, startDecimal);
-        NSDecimal tweenedValue = CPTDecimalAdd( startDecimal, CPTDecimalMultiply(CPTDecimalFromCGFloat(progress), length) );
+        NSDecimal tweenedValue = CPTDecimalAdd(startDecimal, CPTDecimalMultiply(CPTDecimalFromCGFloat(progress), length) );
 
         return [NSDecimalNumber decimalNumberWithDecimal:tweenedValue];
     }
