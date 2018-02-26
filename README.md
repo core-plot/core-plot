@@ -48,7 +48,7 @@ Everyone has a their own preferred coding style, and no one way can be considere
 Core Plot includes a [script](https://github.com/core-plot/core-plot/blob/master/scripts/format_core_plot.sh) to run [Uncrustify](http://uncrustify.sourceforge.net) on the source code to standardize the formatting. All source code will be formatted with this tool before being committed to the Core Plot repository.
 
 ## Testing
-Because Core Plot is intended to be used in scientific, financial, and other domains where correctness is paramount, unit testing is integrated into the framework. Good test coverage protects developers from introducing accidental regressions and frees them to experiment and refactor without fear of breaking things. See the [unit testing](https://github.com/core-plot/core-plot/wiki/Unit-Testing) wiki page for instructions on how to build unit tests for any new code you add to the project.
+Core Plot is intended to be applied in scientific, financial, and other domains where correctness is paramount. In order to assure the quality of the framework, unit testing is integrated. Good test coverage protects developers from introducing accidental regressions, and helps them to experiment and refactor without breaking existing code. See the [unit testing](https://github.com/core-plot/core-plot/wiki/Unit-Testing) wiki page for instructions on how to build unit tests for any new code you add to the project.
 
 # Support Core Plot
 
