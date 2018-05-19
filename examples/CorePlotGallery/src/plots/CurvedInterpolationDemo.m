@@ -60,9 +60,9 @@ static NSString *const hermiteCubicIdentifier          = @"Hermite Cubic";
             NSNumber *y = yValues[i];
             if ( x && y ) {
                 [generatedData addObject:@{
-                     @"x": x,
-                     @"y": y
-                 }];
+                 @"x": x,
+                 @"y": y
+                }];
             }
         }
         self.plotData = generatedData;
@@ -87,12 +87,12 @@ static NSString *const hermiteCubicIdentifier          = @"Hermite Cubic";
     graph.plotAreaFrame.paddingBottom += self.titleSize;
     graph.plotAreaFrame.masksToBorder  = NO;
 
-    // Setup scatter plot space
+// Setup scatter plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
     plotSpace.allowsUserInteraction = YES;
     plotSpace.delegate              = self;
 
-    // Grid line styles
+// Grid line styles
     CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
     majorGridLineStyle.lineWidth = 0.75;
     majorGridLineStyle.lineColor = [[CPTColor colorWithGenericGray:CPTFloat(0.2)] colorWithAlphaComponent:CPTFloat(0.75)];
@@ -108,8 +108,8 @@ static NSString *const hermiteCubicIdentifier          = @"Hermite Cubic";
     CPTLineCap *lineCap = [CPTLineCap sweptArrowPlotLineCap];
     lineCap.size = CGSizeMake(self.titleSize * CPTFloat(0.625), self.titleSize * CPTFloat(0.625) );
 
-    // Axes
-    // Label x axis with a fixed interval policy
+// Axes
+// Label x axis with a fixed interval policy
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
     x.majorIntervalLength   = @0.1;
@@ -128,7 +128,7 @@ static NSString *const hermiteCubicIdentifier          = @"Hermite Cubic";
     x.title       = @"X Axis";
     x.titleOffset = self.titleSize * CPTFloat(1.25);
 
-    // Label y with an automatic label policy.
+// Label y with an automatic label policy.
     CPTXYAxis *y = axisSet.yAxis;
     y.labelingPolicy              = CPTAxisLabelingPolicyAutomatic;
     y.minorTicksPerInterval       = 4;
@@ -149,25 +149,25 @@ static NSString *const hermiteCubicIdentifier          = @"Hermite Cubic";
     y.title       = @"Y Axis";
     y.titleOffset = self.titleSize * CPTFloat(1.25);
 
-    // Set axes
+// Set axes
     graph.axisSet.axes = @[x, y];
 
     // Create the plots
-    // Bezier
+// Bezier
     CPTScatterPlot *bezierPlot = [[CPTScatterPlot alloc] initWithFrame:CGRectZero];
     bezierPlot.identifier = bezierCurveIdentifier;
-    // Catmull-Rom
+// Catmull-Rom
     CPTScatterPlot *cmUniformPlot = [[CPTScatterPlot alloc] initWithFrame:CGRectZero];
     cmUniformPlot.identifier = catmullRomUniformIdentifier;
     CPTScatterPlot *cmCentripetalPlot = [[CPTScatterPlot alloc] initWithFrame:CGRectZero];
     cmCentripetalPlot.identifier = catmullRomCentripetalIdentifier;
     CPTScatterPlot *cmChordalPlot = [[CPTScatterPlot alloc] initWithFrame:CGRectZero];
     cmChordalPlot.identifier = catmullRomChordalIdentifier;
-    // Hermite Cubic
+// Hermite Cubic
     CPTScatterPlot *hermitePlot = [[CPTScatterPlot alloc] initWithFrame:CGRectZero];
     hermitePlot.identifier = hermiteCubicIdentifier;
 
-    // set interpolation types
+// set interpolation types
     bezierPlot.interpolation = cmUniformPlot.interpolation = cmCentripetalPlot.interpolation = cmChordalPlot.interpolation = hermitePlot.interpolation = CPTScatterPlotInterpolationCurved;
 
     bezierPlot.curvedInterpolationOption        = CPTScatterPlotCurvedInterpolationNormal;
@@ -176,7 +176,7 @@ static NSString *const hermiteCubicIdentifier          = @"Hermite Cubic";
     cmCentripetalPlot.curvedInterpolationOption = CPTScatterPlotCurvedInterpolationCatmullRomCentripetal;
     hermitePlot.curvedInterpolationOption       = CPTScatterPlotCurvedInterpolationHermiteCubic;
 
-    // style plots
+// style plots
     CPTMutableLineStyle *lineStyle = [bezierPlot.dataLineStyle mutableCopy];
     lineStyle.lineWidth = 2.0;
     lineStyle.lineColor = [CPTColor greenColor];
@@ -195,7 +195,7 @@ static NSString *const hermiteCubicIdentifier          = @"Hermite Cubic";
     lineStyle.lineColor       = [CPTColor cyanColor];
     hermitePlot.dataLineStyle = lineStyle;
 
-    // set data source and add plots
+// set data source and add plots
     bezierPlot.dataSource = cmUniformPlot.dataSource = cmCentripetalPlot.dataSource = cmChordalPlot.dataSource = hermitePlot.dataSource = self;
 
     [graph addPlot:bezierPlot];
@@ -204,12 +204,12 @@ static NSString *const hermiteCubicIdentifier          = @"Hermite Cubic";
     [graph addPlot:cmChordalPlot];
     [graph addPlot:hermitePlot];
 
-    // Auto scale the plot space to fit the plot data
+// Auto scale the plot space to fit the plot data
     [plotSpace scaleToFitPlots:[graph allPlots]];
     CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
     CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
 
-    // Expand the ranges to put some space around the plot
+// Expand the ranges to put some space around the plot
     [xRange expandRangeByFactor:@1.2];
     [yRange expandRangeByFactor:@1.2];
     plotSpace.xRange = xRange;
@@ -226,7 +226,7 @@ static NSString *const hermiteCubicIdentifier          = @"Hermite Cubic";
     plotSpace.globalXRange = xRange;
     plotSpace.globalYRange = yRange;
 
-    // Add plot symbols
+// Add plot symbols
     CPTMutableLineStyle *symbolLineStyle = [CPTMutableLineStyle lineStyle];
     symbolLineStyle.lineColor = [[CPTColor blackColor] colorWithAlphaComponent:0.5];
     CPTPlotSymbol *plotSymbol = [CPTPlotSymbol ellipsePlotSymbol];
@@ -235,7 +235,7 @@ static NSString *const hermiteCubicIdentifier          = @"Hermite Cubic";
     plotSymbol.size       = CGSizeMake(5.0, 5.0);
     bezierPlot.plotSymbol = cmUniformPlot.plotSymbol = cmCentripetalPlot.plotSymbol = cmChordalPlot.plotSymbol = hermitePlot.plotSymbol = plotSymbol;
 
-    // Add legend
+// Add legend
     graph.legend                 = [CPTLegend legendWithGraph:graph];
     graph.legend.numberOfRows    = 2;
     graph.legend.textStyle       = x.titleTextStyle;

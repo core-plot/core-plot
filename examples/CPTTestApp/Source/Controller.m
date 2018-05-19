@@ -634,7 +634,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 
 -(void)printOperationDidRun:(nonnull NSPrintOperation *)printOperation success:(BOOL)success contextInfo:(nullable void *)contextInfo
 {
-    // print delegate
+// print delegate
 }
 
 #pragma mark -

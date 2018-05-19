@@ -351,9 +351,9 @@ typedef struct CGPointError CGPointError;
                 double plotPoint[2];
                 plotPoint[CPTCoordinateX] = x;
                 plotPoint[CPTCoordinateY] = y;
-                CGPoint pos = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
-                viewPoints[i].x = pos.x;
-                viewPoints[i].y = pos.y;
+                CGPoint pos               = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
+                viewPoints[i].x           = pos.x;
+                viewPoints[i].y           = pos.y;
 
                 plotPoint[CPTCoordinateX] = x;
                 plotPoint[CPTCoordinateY] = y + high;
@@ -401,9 +401,9 @@ typedef struct CGPointError CGPointError;
                 NSDecimal plotPoint[2];
                 plotPoint[CPTCoordinateX] = x;
                 plotPoint[CPTCoordinateY] = y;
-                CGPoint pos = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
-                viewPoints[i].x = pos.x;
-                viewPoints[i].y = pos.y;
+                CGPoint pos               = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
+                viewPoints[i].x           = pos.x;
+                viewPoints[i].y           = pos.y;
 
                 if ( !NSDecimalIsNotANumber(&high) ) {
                     plotPoint[CPTCoordinateX] = x;
@@ -463,9 +463,9 @@ typedef struct CGPointError CGPointError;
     if ( self.barLineStyle.lineWidth > CPTFloat(0.0) ) {
         dispatch_apply(dataCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
             if ( drawPointFlags[i] ) {
-                CGFloat x   = viewPoints[i].x;
-                CGFloat y   = viewPoints[i].y;
-                CGPoint pos = CPTAlignPointToUserSpace(context, CPTPointMake(viewPoints[i].x, viewPoints[i].y) );
+                CGFloat x       = viewPoints[i].x;
+                CGFloat y       = viewPoints[i].y;
+                CGPoint pos     = CPTAlignPointToUserSpace(context, CPTPointMake(viewPoints[i].x, viewPoints[i].y) );
                 viewPoints[i].x = pos.x;
                 viewPoints[i].y = pos.y;
 
@@ -483,9 +483,9 @@ typedef struct CGPointError CGPointError;
     else {
         dispatch_apply(dataCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
             if ( drawPointFlags[i] ) {
-                CGFloat x   = viewPoints[i].x;
-                CGFloat y   = viewPoints[i].y;
-                CGPoint pos = CPTAlignIntegralPointToUserSpace(context, CPTPointMake(viewPoints[i].x, viewPoints[i].y) );
+                CGFloat x       = viewPoints[i].x;
+                CGFloat y       = viewPoints[i].y;
+                CGPoint pos     = CPTAlignIntegralPointToUserSpace(context, CPTPointMake(viewPoints[i].x, viewPoints[i].y) );
                 viewPoints[i].x = pos.x;
                 viewPoints[i].y = pos.y;
 

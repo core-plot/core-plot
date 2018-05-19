@@ -500,7 +500,7 @@ CPTScatterPlotBinding const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; /
                 const double y = yBytes[i];
 
                 CPTPlotRangeComparisonResult xFlag = [xRange compareToDouble:x];
-                xRangeFlags[i] = xFlag;
+                xRangeFlags[i]                     = xFlag;
                 if ( xFlag != CPTPlotRangeComparisonResultNumberInRange ) {
                     yRangeFlags[i] = CPTPlotRangeComparisonResultNumberInRange; // if x is out of range, then y doesn't matter
                 }
@@ -520,7 +520,7 @@ CPTScatterPlotBinding const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; /
                 const NSDecimal y = yBytes[i];
 
                 CPTPlotRangeComparisonResult xFlag = [xRange compareToDecimal:x];
-                xRangeFlags[i] = xFlag;
+                xRangeFlags[i]                     = xFlag;
                 if ( xFlag != CPTPlotRangeComparisonResultNumberInRange ) {
                     yRangeFlags[i] = CPTPlotRangeComparisonResultNumberInRange; // if x is out of range, then y doesn't matter
                 }

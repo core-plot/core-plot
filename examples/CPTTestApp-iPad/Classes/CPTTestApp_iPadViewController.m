@@ -195,7 +195,7 @@
 
 -(void)constructBarChart
 {
-    // Create barChart from theme
+// Create barChart from theme
     CPTXYGraph *newGraph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
     CPTTheme *theme      = [CPTTheme themeNamed:kCPTDarkGradientTheme];
 
@@ -211,7 +211,7 @@
     newGraph.paddingRight  = 20.0;
     newGraph.paddingBottom = 80.0;
 
-    // Add plot space for horizontal bar charts
+// Add plot space for horizontal bar charts
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)newGraph.defaultPlotSpace;
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@300.0];
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@16.0];
@@ -227,7 +227,7 @@
     x.titleLocation       = @7.5;
     x.titleOffset         = 55.0;
 
-    // Define some custom labels for the data elements
+// Define some custom labels for the data elements
     x.labelRotation  = CPTFloat(M_PI_4);
     x.labelingPolicy = CPTAxisLabelingPolicyNone;
     CPTNumberArray *customTickLocations  = @[@1, @5, @10, @15];
@@ -254,7 +254,7 @@
     y.titleOffset         = 45.0;
     y.titleLocation       = @150.0;
 
-    // First bar plot
+// First bar plot
     CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor darkGrayColor] horizontalBars:NO];
     barPlot.baseValue  = @0.0;
     barPlot.dataSource = self;
@@ -262,7 +262,7 @@
     barPlot.identifier = @"Bar Plot 1";
     [newGraph addPlot:barPlot toPlotSpace:plotSpace];
 
-    // Second bar plot
+// Second bar plot
     barPlot                 = [CPTBarPlot tubularBarPlotWithColor:[CPTColor blueColor] horizontalBars:NO];
     barPlot.dataSource      = self;
     barPlot.baseValue       = @0.0;
@@ -275,7 +275,7 @@
 
 -(void)constructPieChart
 {
-    // Create pieChart from theme
+// Create pieChart from theme
     CPTXYGraph *newGraph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
     CPTTheme *theme      = [CPTTheme themeNamed:kCPTDarkGradientTheme];
 
@@ -293,14 +293,14 @@
 
     newGraph.axisSet = nil;
 
-    // Prepare a radial overlay gradient for shading/gloss
+// Prepare a radial overlay gradient for shading/gloss
     CPTGradient *overlayGradient = [[CPTGradient alloc] init];
     overlayGradient.gradientType = CPTGradientTypeRadial;
     overlayGradient              = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:CPTFloat(0.0)] atPosition:CPTFloat(0.0)];
     overlayGradient              = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:CPTFloat(0.3)] atPosition:CPTFloat(0.9)];
     overlayGradient              = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:CPTFloat(0.7)] atPosition:CPTFloat(1.0)];
 
-    // Add pie chart
+// Add pie chart
     CPTPieChart *newPlot = [[CPTPieChart alloc] init];
     newPlot.dataSource      = self;
     newPlot.pieRadius       = 130.0;
@@ -313,7 +313,7 @@
     [newGraph addPlot:newPlot];
     self.piePlot = newPlot;
 
-    // Add some initial data
+// Add some initial data
     self.dataForChart = @[@20.0, @30.0, @(NAN), @60.0];
 }
 
@@ -385,7 +385,7 @@
         if ( index % 8 ) {
             NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
             num = self.dataForPlot[index][key];
-            // Green plot gets shifted above the blue
+// Green plot gets shifted above the blue
             if ( [(NSString *) plot.identifier isEqualToString:@"Green Plot"] ) {
                 if ( fieldEnum == CPTScatterPlotFieldY ) {
                     num = @(num.doubleValue + 1.0);

@@ -218,13 +218,13 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
     if ( [pngSavingDialog runModal] == NSOKButton ) {
         NSURL *url = pngSavingDialog.URL;
         if ( url ) {
-            // top image
+// top image
             CGSize topShelfSize = CGSizeMake(1920.0, 720.0);
 
             NSURL *topURL = [NSURL URLWithString:@"PlotGalleryTopShelf.png" relativeToURL:url];
             [self exportTVImageWithSize:topShelfSize toURL:topURL showPlots:YES showBackground:YES];
 
-            // large icon image
+// large icon image
             CGSize largeIconSize = CGSizeMake(1280.0, 768.0);
 
             NSURL *largeBackURL = [NSURL URLWithString:@"PlotGalleryLargeIconBack.png" relativeToURL:url];
@@ -233,7 +233,7 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
             NSURL *largeFrontURL = [NSURL URLWithString:@"PlotGalleryLargeIconFront.png" relativeToURL:url];
             [self exportTVImageWithSize:largeIconSize toURL:largeFrontURL showPlots:YES showBackground:NO];
 
-            // small icon image
+// small icon image
             CGSize smallIconSize = CGSizeMake(400.0, 240.0);
 
             NSURL *smallBackURL = [NSURL URLWithString:@"PlotGallerySmallIconBack.png" relativeToURL:url];
@@ -293,9 +293,9 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
     NSValue *groupRange = [NSValue valueWithRange:NSMakeRange(offset, [[PlotGallery sharedPlotGallery] numberOfRowsInSection:index])];
 
     return @{
-               IKImageBrowserGroupStyleKey: @(IKGroupDisclosureStyle),
-               IKImageBrowserGroupTitleKey: groupTitle,
-               IKImageBrowserGroupRangeKey: groupRange
+    IKImageBrowserGroupStyleKey: @(IKGroupDisclosureStyle),
+    IKImageBrowserGroupTitleKey: groupTitle,
+    IKImageBrowserGroupRangeKey: groupRange
     };
 }
 
@@ -327,7 +327,7 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 
 -(void)splitView:(nonnull NSSplitView *)sender resizeSubviewsWithOldSize:(NSSize)oldSize
 {
-    // Lock the LHS width
+// Lock the LHS width
     NSRect frame   = sender.frame;
     NSView *lhs    = sender.subviews[0];
     NSRect lhsRect = lhs.frame;

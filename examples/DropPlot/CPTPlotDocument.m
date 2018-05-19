@@ -369,11 +369,11 @@
         CPTPlotArea *plotArea = self.graph.plotAreaFrame.plotArea;
         CGRect plotBounds     = plotArea.bounds;
 
-        // convert the dragStart and dragEnd values to plot coordinates
+// convert the dragStart and dragEnd values to plot coordinates
         CGPoint dragStartInPlotArea = [self.graph convertPoint:self.dragStart toLayer:plotArea];
         CGPoint dragEndInPlotArea   = [self.graph convertPoint:interactionPoint toLayer:plotArea];
 
-        // create the dragrect from dragStart to the current location
+// create the dragrect from dragStart to the current location
         CGFloat endX      = MAX(MIN(dragEndInPlotArea.x, CGRectGetMaxX(plotBounds) ), CGRectGetMinX(plotBounds) );
         CGFloat endY      = MAX(MIN(dragEndInPlotArea.y, CGRectGetMaxY(plotBounds) ), CGRectGetMinY(plotBounds) );
         CGRect borderRect = CGRectMake(dragStartInPlotArea.x, dragStartInPlotArea.y,
@@ -397,8 +397,8 @@
         CGPoint dragStartInPlotArea = [self.graph convertPoint:self.dragStart toLayer:plotArea];
 
         if ( CGRectContainsPoint(plotArea.bounds, dragStartInPlotArea) ) {
-            // create the zoom rectangle
-            // first a bordered layer to draw the zoomrect
+// create the zoom rectangle
+// first a bordered layer to draw the zoomrect
             CPTBorderedLayer *zoomRectangleLayer = [[CPTBorderedLayer alloc] initWithFrame:CGRectNull];
 
             CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
@@ -414,7 +414,7 @@
             CPTNumberArray *anchorPoint = @[@(start[CPTCoordinateX]),
                                             @(start[CPTCoordinateY])];
 
-            // now create the annotation
+// now create the annotation
             CPTPlotSpace *defaultSpace = self.graph.defaultPlotSpace;
             if ( defaultSpace ) {
                 CPTPlotSpaceAnnotation *annotation = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:defaultSpace anchorPlotPoint:anchorPoint];
@@ -436,7 +436,7 @@
     if ( annotation ) {
         self.dragEnd = interactionPoint;
 
-        // double-click to completely zoom out
+// double-click to completely zoom out
         if ( event.clickCount == 2 ) {
             CPTPlotArea *plotArea     = self.graph.plotAreaFrame.plotArea;
             CGPoint dragEndInPlotArea = [self.graph convertPoint:interactionPoint toLayer:plotArea];
@@ -446,11 +446,11 @@
             }
         }
         else if ( !CGPointEqualToPoint(self.dragStart, self.dragEnd) ) {
-            // no accidental drag, so zoom in
+// no accidental drag, so zoom in
             [self zoomIn];
         }
 
-        // and we're done with the drag
+// and we're done with the drag
         [self.graph.plotAreaFrame.plotArea removeAnnotation:annotation];
         self.zoomAnnotation = nil;
 
