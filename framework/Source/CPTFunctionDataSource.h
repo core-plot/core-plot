@@ -23,16 +23,16 @@ typedef double (^CPTDataSourceBlock)(double);
 @property (nonatomic, readwrite) CGFloat resolution;
 @property (nonatomic, readwrite, strong, nullable) CPTPlotRange *dataRange;
 
-/// @name Factory Methods
-/// @{
-+(nonnull instancetype)dataSourceForPlot:(nonnull CPTPlot *)plot withFunction:(nonnull CPTDataSourceFunction)function;
-+(nonnull instancetype)dataSourceForPlot:(nonnull CPTPlot *)plot withBlock:(nonnull CPTDataSourceBlock)block;
+ /// @name Factory Methods
+  /// @{		  /// @{
++(nonnull instancetype)dataSourceForPlot:(nonnull CPTPlot *)plot withFunction:(nonnull CPTDataSourceFunction)function NS_SWIFT_NAME(init(for:withFunction:));
++(nonnull instancetype)dataSourceForPlot:(nonnull CPTPlot *)plot withBlock:(nonnull CPTDataSourceBlock)block NS_SWIFT_NAME(init(for:withBlock:));
 /// @}
-
+  		  
 /// @name Initialization
 /// @{
--(nonnull instancetype)initForPlot:(nonnull CPTPlot *)plot withFunction:(nonnull CPTDataSourceFunction)function;
--(nonnull instancetype)initForPlot:(nonnull CPTPlot *)plot withBlock:(nonnull CPTDataSourceBlock)block;
+-(nonnull instancetype)initForPlot:(nonnull CPTPlot *)plot withFunction:(nonnull CPTDataSourceFunction)function NS_SWIFT_NAME(init(forPlot:withFunction:));
+-(nonnull instancetype)initForPlot:(nonnull CPTPlot *)plot withBlock:(nonnull CPTDataSourceBlock)block NS_SWIFT_NAME(init(forPlot:withBlock:));
 /// @}
 
 @end
