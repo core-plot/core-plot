@@ -131,8 +131,7 @@ static NSMutableSet<Class> *themes = nil;
 {
     NSParameterAssert(themeClass);
 
-    @synchronized ( self )
-    {
+    @synchronized ( self ) {
         if ( !themes ) {
             themes = [[NSMutableSet alloc] init];
         }

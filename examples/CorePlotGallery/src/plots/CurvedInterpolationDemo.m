@@ -152,7 +152,7 @@ static NSString *const hermiteCubicIdentifier          = @"Hermite Cubic";
 // Set axes
     graph.axisSet.axes = @[x, y];
 
-    // Create the plots
+// Create the plots
 // Bezier
     CPTScatterPlot *bezierPlot = [[CPTScatterPlot alloc] initWithFrame:CGRectZero];
     bezierPlot.identifier = bezierCurveIdentifier;
