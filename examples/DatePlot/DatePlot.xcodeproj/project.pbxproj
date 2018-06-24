@@ -11,10 +11,10 @@
 		0761850B0F3CB1E800A89A76 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 076184C10F3CAD5900A89A76 /* CorePlot.framework */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		90AF4F440F36CF1800753D26 /* DatePlot.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90AF4F430F36CF1800753D26 /* DatePlot.xib */; };
 		BC8E737D0FC0B3CF00DF8511 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8E737C0FC0B3CF00DF8511 /* QuartzCore.framework */; };
 		C33E19A8198330CA00182AF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33E19A7198330CA00182AF2 /* AppDelegate.swift */; };
 		C3A14440197DE35F0048F1FF /* DateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A1443F197DE35F0048F1FF /* DateController.swift */; };
+		C3D0A1A720E0183A00BA2921 /* DatePlot.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3D0A1A920E0183A00BA2921 /* DatePlot.xib */; };
 		C3D3937419FD6E3500148319 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D3937319FD6E3500148319 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -107,14 +107,14 @@
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* DatePlot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DatePlot.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		90AF4F430F36CF1800753D26 /* DatePlot.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DatePlot.xib; sourceTree = "<group>"; };
 		BC8E737C0FC0B3CF00DF8511 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C33E19A7198330CA00182AF2 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Source/AppDelegate.swift; sourceTree = "<group>"; };
+		C37A409820E030B500C4FF48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = Base.lproj/Info.plist; sourceTree = "<group>"; };
 		C3A1443E197DE35F0048F1FF /* DatePlot-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DatePlot-Bridging-Header.h"; sourceTree = "<group>"; };
 		C3A1443F197DE35F0048F1FF /* DateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateController.swift; path = Source/DateController.swift; sourceTree = "<group>"; };
 		C3C3CBBF19EA07F600A0296A /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/xcconfig/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
+		C3D0A1B620E0184100BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/DatePlot.xib; sourceTree = "<group>"; };
 		C3D3937319FD6E3500148319 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = DatePlot/Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -206,8 +206,8 @@
 			isa = PBXGroup;
 			children = (
 				C3D3937319FD6E3500148319 /* Images.xcassets */,
-				90AF4F430F36CF1800753D26 /* DatePlot.xib */,
-				8D1107310486CEB800E47090 /* Info.plist */,
+				C3D0A1A920E0183A00BA2921 /* DatePlot.xib */,
+				C37A409920E030B500C4FF48 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 			);
 			name = Resources;
@@ -277,6 +277,7 @@
 				Japanese,
 				French,
 				German,
+				Base,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CPTTestApp */;
 			projectDirPath = "";
@@ -359,7 +360,7 @@
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				C3D3937419FD6E3500148319 /* Images.xcassets in Resources */,
-				90AF4F440F36CF1800753D26 /* DatePlot.xib in Resources */,
+				C3D0A1A720E0183A00BA2921 /* DatePlot.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,6 +395,22 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
+		C37A409920E030B500C4FF48 /* Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C37A409820E030B500C4FF48 /* Base */,
+			);
+			name = Info.plist;
+			sourceTree = "<group>";
+		};
+		C3D0A1A920E0183A00BA2921 /* DatePlot.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3D0A1B620E0184100BA2921 /* Base */,
+			);
+			name = DatePlot.xib;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -414,7 +431,7 @@
 				GCC_PREFIX_HEADER = DatePlot_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.CorePlot.${PRODUCT_NAME:identifier}";
@@ -439,12 +456,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = DatePlot_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.CorePlot.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = DatePlot;
-				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OBJC_BRIDGING_HEADER = "DatePlot-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;

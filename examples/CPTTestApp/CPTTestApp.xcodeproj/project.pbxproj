@@ -12,17 +12,17 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		90AF4F440F36CF1800753D26 /* CPTTestApp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90AF4F430F36CF1800753D26 /* CPTTestApp.xib */; };
 		BC8E74240FC0B96000DF8511 /* RotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8E74230FC0B96000DF8511 /* RotationView.m */; };
-		C317AB4F1093CC1E00B25011 /* PlotSymbolDemo.xib in Resources */ = {isa = PBXBuildFile; fileRef = C317AB4E1093CC1E00B25011 /* PlotSymbolDemo.xib */; };
-		C317AB711093E09D00B25011 /* AxisDemo.xib in Resources */ = {isa = PBXBuildFile; fileRef = C317AB701093E09D00B25011 /* AxisDemo.xib */; };
 		C317AB751093E17500B25011 /* AxisDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = C317AB731093E17500B25011 /* AxisDemoController.m */; };
 		C34D4F8E0F8ED78400969C24 /* CPTPlotSymbolTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34D4F8C0F8ED78400969C24 /* CPTPlotSymbolTestController.m */; };
 		C36912D21C0B48DF000A1D61 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07032B6A11ABB9E000463D20 /* CorePlot.framework */; };
 		C36912D31C0B48DF000A1D61 /* CorePlot.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 07032B6A11ABB9E000463D20 /* CorePlot.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C38017DD124132020052B00D /* SelectionDemo.xib in Resources */ = {isa = PBXBuildFile; fileRef = C38017DC124132020052B00D /* SelectionDemo.xib */; };
 		C38017E1124132610052B00D /* SelectionDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38017E0124132610052B00D /* SelectionDemoController.m */; };
 		C39BB9A4181C154500D95E01 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8E737C0FC0B3CF00DF8511 /* QuartzCore.framework */; };
+		C3D0A18B20E017C500BA2921 /* AxisDemo.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3D0A18D20E017C500BA2921 /* AxisDemo.xib */; };
+		C3D0A19A20E017CC00BA2921 /* CPTTestApp.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3D0A19C20E017CC00BA2921 /* CPTTestApp.xib */; };
+		C3D0A19D20E017D100BA2921 /* PlotSymbolDemo.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3D0A19F20E017D100BA2921 /* PlotSymbolDemo.xib */; };
+		C3D0A1A020E017D600BA2921 /* SelectionDemo.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3D0A1A220E017D600BA2921 /* SelectionDemo.xib */; };
 		C3D3935C19FD653300148319 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D3935B19FD653300148319 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -126,22 +126,22 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32CA4F630368D1EE00C91783 /* CPTTestApp_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTTestApp_Prefix.pch; sourceTree = "<group>"; };
-		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* CPTTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CPTTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		90AF4F430F36CF1800753D26 /* CPTTestApp.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CPTTestApp.xib; path = Resources/CPTTestApp.xib; sourceTree = "<group>"; };
 		BC8E737C0FC0B3CF00DF8511 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BC8E74220FC0B96000DF8511 /* RotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotationView.h; path = Source/RotationView.h; sourceTree = "<group>"; };
 		BC8E74230FC0B96000DF8511 /* RotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RotationView.m; path = Source/RotationView.m; sourceTree = "<group>"; };
-		C317AB4E1093CC1E00B25011 /* PlotSymbolDemo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlotSymbolDemo.xib; path = Resources/PlotSymbolDemo.xib; sourceTree = "<group>"; };
-		C317AB701093E09D00B25011 /* AxisDemo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AxisDemo.xib; path = Resources/AxisDemo.xib; sourceTree = "<group>"; };
 		C317AB731093E17500B25011 /* AxisDemoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AxisDemoController.m; path = Source/AxisDemoController.m; sourceTree = "<group>"; };
 		C317AB741093E17500B25011 /* AxisDemoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AxisDemoController.h; path = Source/AxisDemoController.h; sourceTree = "<group>"; };
 		C34D4F8C0F8ED78400969C24 /* CPTPlotSymbolTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTPlotSymbolTestController.m; path = Source/CPTPlotSymbolTestController.m; sourceTree = "<group>"; };
 		C34D4F8D0F8ED78400969C24 /* CPTPlotSymbolTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTPlotSymbolTestController.h; path = Source/CPTPlotSymbolTestController.h; sourceTree = "<group>"; };
-		C38017DC124132020052B00D /* SelectionDemo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SelectionDemo.xib; path = Resources/SelectionDemo.xib; sourceTree = "<group>"; };
+		C37A40A620E030C000C4FF48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = Base.lproj/Info.plist; sourceTree = "<group>"; };
 		C38017DF124132610052B00D /* SelectionDemoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectionDemoController.h; path = Source/SelectionDemoController.h; sourceTree = "<group>"; };
 		C38017E0124132610052B00D /* SelectionDemoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectionDemoController.m; path = Source/SelectionDemoController.m; sourceTree = "<group>"; };
 		C3880C3919DCD6A000ED0618 /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/xcconfig/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
+		C3D0A1A320E017E400BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AxisDemo.xib; sourceTree = "<group>"; };
+		C3D0A1A420E017E400BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CPTTestApp.xib; sourceTree = "<group>"; };
+		C3D0A1A520E017E400BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PlotSymbolDemo.xib; sourceTree = "<group>"; };
+		C3D0A1A620E017E400BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SelectionDemo.xib; sourceTree = "<group>"; };
 		C3D3935B19FD653300148319 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = CPTTestApp/Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -249,13 +249,13 @@
 			isa = PBXGroup;
 			children = (
 				C3D3935B19FD653300148319 /* Images.xcassets */,
-				8D1107310486CEB800E47090 /* Info.plist */,
+				C37A40A720E030C000C4FF48 /* Info.plist */,
 				07C13BBA0FF9322A00BEE616 /* BlueTexture.png */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
-				C317AB701093E09D00B25011 /* AxisDemo.xib */,
-				90AF4F430F36CF1800753D26 /* CPTTestApp.xib */,
-				C317AB4E1093CC1E00B25011 /* PlotSymbolDemo.xib */,
-				C38017DC124132020052B00D /* SelectionDemo.xib */,
+				C3D0A18D20E017C500BA2921 /* AxisDemo.xib */,
+				C3D0A19C20E017CC00BA2921 /* CPTTestApp.xib */,
+				C3D0A19F20E017D100BA2921 /* PlotSymbolDemo.xib */,
+				C3D0A1A220E017D600BA2921 /* SelectionDemo.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -311,6 +311,7 @@
 				Japanese,
 				French,
 				German,
+				Base,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CPTTestApp */;
 			projectDirPath = "";
@@ -393,11 +394,11 @@
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				C3D3935C19FD653300148319 /* Images.xcassets in Resources */,
-				90AF4F440F36CF1800753D26 /* CPTTestApp.xib in Resources */,
+				C3D0A19A20E017CC00BA2921 /* CPTTestApp.xib in Resources */,
 				07C13BBB0FF9322A00BEE616 /* BlueTexture.png in Resources */,
-				C317AB4F1093CC1E00B25011 /* PlotSymbolDemo.xib in Resources */,
-				C317AB711093E09D00B25011 /* AxisDemo.xib in Resources */,
-				C38017DD124132020052B00D /* SelectionDemo.xib in Resources */,
+				C3D0A19D20E017D100BA2921 /* PlotSymbolDemo.xib in Resources */,
+				C3D0A18B20E017C500BA2921 /* AxisDemo.xib in Resources */,
+				C3D0A1A020E017D600BA2921 /* SelectionDemo.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,6 +442,50 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
+		C37A40A720E030C000C4FF48 /* Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C37A40A620E030C000C4FF48 /* Base */,
+			);
+			name = Info.plist;
+			sourceTree = "<group>";
+		};
+		C3D0A18D20E017C500BA2921 /* AxisDemo.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3D0A1A320E017E400BA2921 /* Base */,
+			);
+			name = AxisDemo.xib;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C3D0A19C20E017CC00BA2921 /* CPTTestApp.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3D0A1A420E017E400BA2921 /* Base */,
+			);
+			name = CPTTestApp.xib;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C3D0A19F20E017D100BA2921 /* PlotSymbolDemo.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3D0A1A520E017E400BA2921 /* Base */,
+			);
+			name = PlotSymbolDemo.xib;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C3D0A1A220E017D600BA2921 /* SelectionDemo.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3D0A1A620E017E400BA2921 /* Base */,
+			);
+			name = SelectionDemo.xib;
+			path = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -460,7 +505,7 @@
 				GCC_PREFIX_HEADER = CPTTestApp_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.CorePlot.${PRODUCT_NAME:identifier}";
@@ -481,7 +526,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CPTTestApp_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.CorePlot.${PRODUCT_NAME:identifier}";

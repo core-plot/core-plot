@@ -1020,7 +1020,6 @@
 		4CD7E7EF0F4B4FA700F9BCBB /* NSDecimalNumberExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDecimalNumberExtensions.m; sourceTree = "<group>"; };
 		4CD7E9620F4B625900F9BCBB /* CPTUtilitiesTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTUtilitiesTests.h; sourceTree = "<group>"; };
 		4CD7E9630F4B625900F9BCBB /* CPTUtilitiesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTUtilitiesTests.m; sourceTree = "<group>"; };
-		8DC2EF5A0486A6940098B216 /* CorePlot-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "CorePlot-Info.plist"; path = "Info/CorePlot-Info.plist"; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* CorePlot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CorePlot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9021E5690FC69B2900443472 /* doxygen.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; lineEnding = 0; name = doxygen.config; path = ../documentation/doxygen/doxygen.config; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = "<none>"; };
 		906156BC0F375598001B75FC /* CPTLineStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CPTLineStyle.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -1057,11 +1056,6 @@
 		C3226A451A69ED0900F77249 /* doxygen touch.config */ = {isa = PBXFileReference; lastKnownFileType = text; lineEnding = 0; name = "doxygen touch.config"; path = "../documentation/doxygen/doxygen touch.config"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "<none>"; };
 		C3226A461A69ED1F00F77249 /* doxygen-cocoa-touch-tags.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "doxygen-cocoa-touch-tags.xml"; path = "../documentation/doxygen/doxygen-cocoa-touch-tags.xml"; sourceTree = "<group>"; };
 		C3226A471A69EE9200F77249 /* CorePlot-CocoaTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorePlot-CocoaTouch.h"; sourceTree = "<group>"; };
-		C3226A4C1A69F07600F77249 /* CorePlotTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CorePlotTests-Info.plist"; path = "Info/CorePlotTests-Info.plist"; sourceTree = SOURCE_ROOT; };
-		C3226A4D1A69F09A00F77249 /* CorePlot-iOSTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CorePlot-iOSTests-Info.plist"; path = "Info/CorePlot-iOSTests-Info.plist"; sourceTree = SOURCE_ROOT; };
-		C3226A4E1A69F0AA00F77249 /* CorePlot-CocoaTouchTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CorePlot-CocoaTouchTests-Info.plist"; path = "Info/CorePlot-CocoaTouchTests-Info.plist"; sourceTree = SOURCE_ROOT; };
-		C3226A4F1A69F18C00F77249 /* CorePlot-CocoaTouch-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CorePlot-CocoaTouch-Info.plist"; path = "Info/CorePlot-CocoaTouch-Info.plist"; sourceTree = "<group>"; };
-		C3226A501A69F1A700F77249 /* CorePlot-iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CorePlot-iOS-Info.plist"; path = "Info/CorePlot-iOS-Info.plist"; sourceTree = "<group>"; };
 		C3226A511A69F6DA00F77249 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		C3226A531A69F6DF00F77249 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		C3226A551A69F6F000F77249 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
@@ -1085,6 +1079,10 @@
 		C342601D0FAE096C00072842 /* _CPTFillImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = _CPTFillImage.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C342601E0FAE096C00072842 /* _CPTFillGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = _CPTFillGradient.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C342601F0FAE096C00072842 /* CPTFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CPTFill.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		C3490DF120E028CF0089F309 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/CorePlot-Info.plist"; sourceTree = "<group>"; };
+		C3490DF320E028D30089F309 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/CorePlot-CocoaTouch-Info.plist"; sourceTree = "<group>"; };
+		C3490DF520E028D80089F309 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/CorePlot-iOS-Info.plist"; sourceTree = "<group>"; };
+		C3490DF720E028DC0089F309 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/CorePlot-tvOS-Info.plist"; sourceTree = "<group>"; };
 		C349DCB2151AAFBF00BFD6A7 /* CPTCalendarFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CPTCalendarFormatter.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C349DCB3151AAFBF00BFD6A7 /* CPTCalendarFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CPTCalendarFormatter.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C34AFE6911021D010041675A /* CPTPlotSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CPTPlotSymbol.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -1099,10 +1097,12 @@
 		C377B3B91C122AA600891DF8 /* CPTCalendarFormatterTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTCalendarFormatterTests.h; sourceTree = "<group>"; };
 		C377B3BA1C122AA600891DF8 /* CPTCalendarFormatterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTCalendarFormatterTests.m; sourceTree = "<group>"; };
 		C3791D07191D4C4C001EC514 /* CPTImagePlatformSpecific.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = CPTImagePlatformSpecific.m; path = MacOnly/CPTImagePlatformSpecific.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		C37A406320E02B9D00C4FF48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/CorePlot-tvOSTests-Info.plist"; sourceTree = "<group>"; };
+		C37A406520E02BA100C4FF48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/CorePlot-CocoaTouchTests-Info.plist"; sourceTree = "<group>"; };
+		C37A406720E02BA500C4FF48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/CorePlot-iOSTests-Info.plist"; sourceTree = "<group>"; };
+		C37A406920E02BE900C4FF48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/CorePlotTests-Info.plist"; sourceTree = "<group>"; };
 		C37EA6921BC83F2A0091C8F7 /* CorePlot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CorePlot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C37EA6931BC83F2A0091C8F7 /* CorePlot-tvOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CorePlot-tvOS-Info.plist"; path = "/Users/eskroch/Projects/Core Plot/framework/Info/CorePlot-tvOS-Info.plist"; sourceTree = "<absolute>"; };
 		C37EA6B71BC83F2D0091C8F7 /* UnitTests tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UnitTests tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C37EA6B81BC83F2E0091C8F7 /* CorePlot-tvOSTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CorePlot-tvOSTests-Info.plist"; path = "/Users/eskroch/Projects/Core Plot/framework/Info/CorePlot-tvOSTests-Info.plist"; sourceTree = "<absolute>"; };
 		C38A09781A46185200D45436 /* CorePlot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CorePlot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C38A09821A46185300D45436 /* UnitTests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UnitTests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C38A09BA1A4619A900D45436 /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libCorePlot-CocoaTouch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1618,10 +1618,10 @@
 			isa = PBXGroup;
 			children = (
 				071F3CB810FBAB5900D0A7B6 /* License.txt */,
-				8DC2EF5A0486A6940098B216 /* CorePlot-Info.plist */,
-				C3226A4F1A69F18C00F77249 /* CorePlot-CocoaTouch-Info.plist */,
-				C3226A501A69F1A700F77249 /* CorePlot-iOS-Info.plist */,
-				C37EA6931BC83F2A0091C8F7 /* CorePlot-tvOS-Info.plist */,
+				C3490DF220E028CF0089F309 /* CorePlot-Info.plist */,
+				C3490DF420E028D30089F309 /* CorePlot-CocoaTouch-Info.plist */,
+				C3490DF620E028D80089F309 /* CorePlot-iOS-Info.plist */,
+				C3490DF820E028DC0089F309 /* CorePlot-tvOS-Info.plist */,
 				089C1666FE841158C02AAC07 /* InfoPlist.strings */,
 			);
 			name = Resources;
@@ -1766,10 +1766,10 @@
 		C3226A4B1A69F02900F77249 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C3226A4C1A69F07600F77249 /* CorePlotTests-Info.plist */,
-				C3226A4D1A69F09A00F77249 /* CorePlot-iOSTests-Info.plist */,
-				C3226A4E1A69F0AA00F77249 /* CorePlot-CocoaTouchTests-Info.plist */,
-				C37EA6B81BC83F2E0091C8F7 /* CorePlot-tvOSTests-Info.plist */,
+				C37A406A20E02BE900C4FF48 /* CorePlotTests-Info.plist */,
+				C37A406820E02BA500C4FF48 /* CorePlot-iOSTests-Info.plist */,
+				C37A406620E02BA100C4FF48 /* CorePlot-CocoaTouchTests-Info.plist */,
+				C37A406420E02B9D00C4FF48 /* CorePlot-tvOSTests-Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -2483,6 +2483,7 @@
 				Japanese,
 				French,
 				German,
+				Base,
 			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* CorePlot */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
@@ -3196,6 +3197,78 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
+		C3490DF220E028CF0089F309 /* CorePlot-Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3490DF120E028CF0089F309 /* Base */,
+			);
+			name = "CorePlot-Info.plist";
+			path = Info;
+			sourceTree = "<group>";
+		};
+		C3490DF420E028D30089F309 /* CorePlot-CocoaTouch-Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3490DF320E028D30089F309 /* Base */,
+			);
+			name = "CorePlot-CocoaTouch-Info.plist";
+			path = Info/Base.lproj;
+			sourceTree = "<group>";
+		};
+		C3490DF620E028D80089F309 /* CorePlot-iOS-Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3490DF520E028D80089F309 /* Base */,
+			);
+			name = "CorePlot-iOS-Info.plist";
+			path = Info/Base.lproj;
+			sourceTree = "<group>";
+		};
+		C3490DF820E028DC0089F309 /* CorePlot-tvOS-Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3490DF720E028DC0089F309 /* Base */,
+			);
+			name = "CorePlot-tvOS-Info.plist";
+			path = "/Users/eskroch/Projects/Core Plot/framework/Info/Base.lproj";
+			sourceTree = "<absolute>";
+		};
+		C37A406420E02B9D00C4FF48 /* CorePlot-tvOSTests-Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C37A406320E02B9D00C4FF48 /* Base */,
+			);
+			name = "CorePlot-tvOSTests-Info.plist";
+			path = "/Users/eskroch/Projects/Core Plot/framework/Info";
+			sourceTree = "<absolute>";
+		};
+		C37A406620E02BA100C4FF48 /* CorePlot-CocoaTouchTests-Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C37A406520E02BA100C4FF48 /* Base */,
+			);
+			name = "CorePlot-CocoaTouchTests-Info.plist";
+			path = Info;
+			sourceTree = SOURCE_ROOT;
+		};
+		C37A406820E02BA500C4FF48 /* CorePlot-iOSTests-Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C37A406720E02BA500C4FF48 /* Base */,
+			);
+			name = "CorePlot-iOSTests-Info.plist";
+			path = Info;
+			sourceTree = SOURCE_ROOT;
+		};
+		C37A406A20E02BE900C4FF48 /* CorePlotTests-Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C37A406920E02BE900C4FF48 /* Base */,
+			);
+			name = "CorePlotTests-Info.plist";
+			path = Info;
+			sourceTree = SOURCE_ROOT;
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -3203,7 +3276,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C3C9D08C1BB5A44800931F32 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "$(SRCROOT)/Info/CorePlotTests-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlotTests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = UnitTests;
@@ -3216,7 +3289,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C3C9D08D1BB5A45B00931F32 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "$(SRCROOT)/Info/CorePlotTests-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlotTests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = UnitTests;
@@ -3233,7 +3306,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "$(SRCROOT)/Info/CorePlot-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-Info.plist";
 				INSTALL_PATH = "@rpath";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.$(PRODUCT_NAME:rfc1034identifier)";
@@ -3252,7 +3325,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "$(SRCROOT)/Info/CorePlot-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-Info.plist";
 				INSTALL_PATH = "@rpath";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.$(PRODUCT_NAME:rfc1034identifier)";
@@ -3395,7 +3468,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Info/CorePlot-tvOS-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-tvOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -3417,7 +3490,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Info/CorePlot-tvOS-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-tvOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -3434,7 +3507,7 @@
 			baseConfigurationReference = C3C9D08C1BB5A44800931F32 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = "$(SRCROOT)/Info/CorePlot-tvOSTests-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-tvOSTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.$(PRODUCT_NAME:rfc1034identifier)";
@@ -3450,7 +3523,7 @@
 			baseConfigurationReference = C3C9D08D1BB5A45B00931F32 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = "$(SRCROOT)/Info/CorePlot-tvOSTests-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-tvOSTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.$(PRODUCT_NAME:rfc1034identifier)";
@@ -3471,7 +3544,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Info/CorePlot-iOS-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -3494,7 +3567,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Info/CorePlot-iOS-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -3512,7 +3585,7 @@
 			baseConfigurationReference = C3C9D08C1BB5A44800931F32 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = "$(SRCROOT)/Info/CorePlot-iOSTests-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-iOSTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -3529,7 +3602,7 @@
 			baseConfigurationReference = C3C9D08D1BB5A45B00931F32 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = "$(SRCROOT)/Info/CorePlot-iOSTests-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-iOSTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -3602,7 +3675,7 @@
 			baseConfigurationReference = C3C9D08C1BB5A44800931F32 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = "$(SRCROOT)/Info/CorePlot-CocoaTouch-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-CocoaTouch-Info.plist";
 				INSTALL_PATH = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = "";
@@ -3619,7 +3692,7 @@
 			baseConfigurationReference = C3C9D08D1BB5A45B00931F32 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = "$(SRCROOT)/Info/CorePlot-CocoaTouch-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-CocoaTouch-Info.plist";
 				INSTALL_PATH = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = "";
@@ -3636,7 +3709,7 @@
 			baseConfigurationReference = C3C9D08C1BB5A44800931F32 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = "$(SRCROOT)/Info/CorePlot-CocoaTouchTests-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-CocoaTouchTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -3653,7 +3726,7 @@
 			baseConfigurationReference = C3C9D08D1BB5A45B00931F32 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = "$(SRCROOT)/Info/CorePlot-CocoaTouchTests-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-CocoaTouchTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;

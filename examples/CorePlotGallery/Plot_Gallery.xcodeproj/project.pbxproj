@@ -19,7 +19,6 @@
 		4F22FFAF12342DB1006BF615 /* PlotGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FFAC12342DB1006BF615 /* PlotGallery.m */; };
 		4F22FFB012342DB1006BF615 /* PlotItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FFAE12342DB1006BF615 /* PlotItem.m */; };
 		4F22FFE8123431D2006BF615 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F22FFE7123431D2006BF615 /* Quartz.framework */; };
-		4F35EBBD12360D89007C3389 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4F35EBBC12360D89007C3389 /* Icon.icns */; };
 		4F35EBF7123611E3007C3389 /* PlotGalleryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F35EBF4123611E3007C3389 /* PlotGalleryController.m */; };
 		4F35EBF8123611E3007C3389 /* PlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F35EBF6123611E3007C3389 /* PlotView.m */; };
 		4F8E1C14129077C200D2035F /* DatePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8E1C13129077C200D2035F /* DatePlot.m */; };
@@ -66,12 +65,11 @@
 		C30D8B411BCAFFC10003BB70 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30D8B401BCAFFC10003BB70 /* Foundation.framework */; };
 		C30D8B431BCAFFCB0003BB70 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30D8B421BCAFFCB0003BB70 /* UIKit.framework */; };
 		C3457A4D17AD7C5D000880F3 /* PiNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3457A4C17AD7C5D000880F3 /* PiNumberFormatter.m */; };
+		C3490DD820E025760089F309 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = C3490DDA20E025760089F309 /* Icon.icns */; };
 		C34CB5461BC9A83C009270A0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34CB5451BC9A83C009270A0 /* Images.xcassets */; };
 		C34CB5541BC9A889009270A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C34CB5481BC9A889009270A0 /* AppDelegate.m */; };
 		C34CB5551BC9A889009270A0 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34CB54A1BC9A889009270A0 /* DetailViewController.m */; };
-		C34CB5561BC9A889009270A0 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C34CB54B1BC9A889009270A0 /* Launch Screen.xib */; };
 		C34CB5571BC9A889009270A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C34CB54C1BC9A889009270A0 /* main.m */; };
-		C34CB5581BC9A889009270A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C34CB54D1BC9A889009270A0 /* Main.storyboard */; };
 		C34CB55A1BC9A889009270A0 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34CB5511BC9A889009270A0 /* RootViewController.m */; };
 		C34CB55B1BC9A889009270A0 /* ThemeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34CB5531BC9A889009270A0 /* ThemeTableViewController.m */; };
 		C34CB5601BC9AB7B009270A0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C34CB55F1BC9AB7B009270A0 /* Foundation.framework */; };
@@ -111,10 +109,12 @@
 		C3A14BEC13AEB7E700D103EA /* RangePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A14BEB13AEB7E700D103EA /* RangePlot.m */; };
 		C3A31A5614DF782A00734AB7 /* ColoredBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A31A5514DF782A00734AB7 /* ColoredBarChart.m */; };
 		C3AC1410150EDE5C00631001 /* CurvedScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F42A2714D3A75F0044B323 /* CurvedScatterPlot.m */; };
-		C3B9C2551BCB186800BD560B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3B9C2541BCB186800BD560B /* Main.storyboard */; };
 		C3B9C26F1BCB237000BD560B /* DetailViewControllerTV.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B9C26A1BCB237000BD560B /* DetailViewControllerTV.m */; };
 		C3B9C2701BCB237000BD560B /* RootViewControllerTV.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B9C26C1BCB237000BD560B /* RootViewControllerTV.m */; };
 		C3B9C2711BCB237000BD560B /* ThemeTableViewControllerTV.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B9C26E1BCB237000BD560B /* ThemeTableViewControllerTV.m */; };
+		C3D0A1B720E0187600BA2921 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3D0A1B920E0187600BA2921 /* Main.storyboard */; };
+		C3D0A1C420E0188800BA2921 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3D0A1C620E0188800BA2921 /* Launch Screen.xib */; };
+		C3D0A1C820E018DE00BA2921 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3D0A1CA20E018DE00BA2921 /* Main.storyboard */; };
 		C3D2FE6319FF1D03002CD4D6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D2FE6219FF1D03002CD4D6 /* Images.xcassets */; };
 		C3D70BA6175EB29E00F27173 /* ImageDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D70BA5175EB29E00F27173 /* ImageDemo.m */; };
 		C3EF42FD19FC75810060791A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3EF42FC19FC75810060791A /* Images.xcassets */; };
@@ -245,9 +245,7 @@
 		4F22FF4A1234298E006BF615 /* Plot_Gallery_MacAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plot_Gallery_MacAppDelegate.h; path = src/mac/Plot_Gallery_MacAppDelegate.h; sourceTree = "<group>"; };
 		4F22FF4B1234298E006BF615 /* Plot_Gallery_MacAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Plot_Gallery_MacAppDelegate.m; path = src/mac/Plot_Gallery_MacAppDelegate.m; sourceTree = "<group>"; };
 		4F22FF5812342A21006BF615 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = InfoPlist.strings; sourceTree = "<group>"; };
-		4F22FF5A12342A21006BF615 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = MainMenu.xib; sourceTree = "<group>"; };
 		4F22FF7B12342B5A006BF615 /* Plot_Gallery_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plot_Gallery_Prefix.pch; sourceTree = "<group>"; };
-		4F22FF7C12342B6E006BF615 /* Plot_Gallery_Mac-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Plot_Gallery_Mac-Info.plist"; sourceTree = "<group>"; };
 		4F22FF9A12342D7C006BF615 /* CompositePlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = CompositePlot.h; path = src/plots/CompositePlot.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		4F22FF9B12342D7C006BF615 /* CompositePlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = CompositePlot.m; path = src/plots/CompositePlot.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4F22FF9C12342D7C006BF615 /* GradientScatterPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GradientScatterPlot.h; path = src/plots/GradientScatterPlot.h; sourceTree = "<group>"; };
@@ -263,7 +261,6 @@
 		4F22FFAD12342DB1006BF615 /* PlotItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PlotItem.h; path = src/shared/PlotItem.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		4F22FFAE12342DB1006BF615 /* PlotItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlotItem.m; path = src/shared/PlotItem.m; sourceTree = "<group>"; };
 		4F22FFE7123431D2006BF615 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
-		4F35EBBC12360D89007C3389 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icon.icns; path = src/mac/Icon.icns; sourceTree = "<group>"; };
 		4F35EBF3123611E3007C3389 /* PlotGalleryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlotGalleryController.h; path = src/mac/PlotGalleryController.h; sourceTree = "<group>"; };
 		4F35EBF4123611E3007C3389 /* PlotGalleryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlotGalleryController.m; path = src/mac/PlotGalleryController.m; sourceTree = "<group>"; };
 		4F35EBF5123611E3007C3389 /* PlotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlotView.h; path = src/mac/PlotView.h; sourceTree = "<group>"; };
@@ -281,7 +278,6 @@
 		C30D8AFB1BCAF99D0003BB70 /* AppDelegateTV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegateTV.h; path = src/tvOS/AppDelegateTV.h; sourceTree = "<group>"; };
 		C30D8AFC1BCAF99D0003BB70 /* AppDelegateTV.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegateTV.m; path = src/tvOS/AppDelegateTV.m; sourceTree = "<group>"; };
 		C30D8B071BCAF99D0003BB70 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "Plot Gallery-tvOS/Assets.xcassets"; sourceTree = "<group>"; };
-		C30D8B091BCAF99D0003BB70 /* Plot_Gallery_tvOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Plot_Gallery_tvOS-Info.plist"; sourceTree = "<group>"; };
 		C30D8B3A1BCAFFAE0003BB70 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
 		C30D8B3C1BCAFFB50003BB70 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		C30D8B3E1BCAFFBB0003BB70 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -289,20 +285,21 @@
 		C30D8B421BCAFFCB0003BB70 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		C3457A4B17AD7C5D000880F3 /* PiNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PiNumberFormatter.h; path = src/shared/PiNumberFormatter.h; sourceTree = "<group>"; };
 		C3457A4C17AD7C5D000880F3 /* PiNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PiNumberFormatter.m; path = src/shared/PiNumberFormatter.m; sourceTree = "<group>"; };
+		C3490DCC20E025660089F309 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/Plot_Gallery_Mac-Info.plist"; sourceTree = "<group>"; };
+		C3490DD920E025760089F309 /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Base; path = Base.lproj/Icon.icns; sourceTree = "<group>"; };
+		C3490DDB20E025B60089F309 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/Plot_Gallery_iOS-Info.plist"; sourceTree = "<group>"; };
+		C3490DDF20E026410089F309 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/Plot_Gallery_tvOS-Info.plist"; sourceTree = "<group>"; };
 		C34CB52E1BC9A76A009270A0 /* Plot Gallery-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Plot Gallery-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34CB5451BC9A83C009270A0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Plot Gallery-iOS/Images.xcassets"; sourceTree = "<group>"; };
 		C34CB5471BC9A889009270A0 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = src/ios/AppDelegate.h; sourceTree = "<group>"; };
 		C34CB5481BC9A889009270A0 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = src/ios/AppDelegate.m; sourceTree = "<group>"; };
 		C34CB5491BC9A889009270A0 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = src/ios/DetailViewController.h; sourceTree = "<group>"; };
 		C34CB54A1BC9A889009270A0 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = src/ios/DetailViewController.m; sourceTree = "<group>"; };
-		C34CB54B1BC9A889009270A0 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "Launch Screen.xib"; path = "src/ios/Launch Screen.xib"; sourceTree = "<group>"; };
 		C34CB54C1BC9A889009270A0 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = src/ios/main.m; sourceTree = "<group>"; };
-		C34CB54D1BC9A889009270A0 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = src/ios/Main.storyboard; sourceTree = "<group>"; };
 		C34CB5501BC9A889009270A0 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RootViewController.h; path = src/ios/RootViewController.h; sourceTree = "<group>"; };
 		C34CB5511BC9A889009270A0 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RootViewController.m; path = src/ios/RootViewController.m; sourceTree = "<group>"; };
 		C34CB5521BC9A889009270A0 /* ThemeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThemeTableViewController.h; path = src/ios/ThemeTableViewController.h; sourceTree = "<group>"; };
 		C34CB5531BC9A889009270A0 /* ThemeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ThemeTableViewController.m; path = src/ios/ThemeTableViewController.m; sourceTree = "<group>"; };
-		C34CB55D1BC9A936009270A0 /* Plot_Gallery_iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Plot_Gallery_iOS-Info.plist"; sourceTree = "<group>"; };
 		C34CB55F1BC9AB7B009270A0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		C34CB5611BC9AB85009270A0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		C34CB5631BC9AB8C009270A0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
@@ -326,7 +323,6 @@
 		C3A14BEB13AEB7E700D103EA /* RangePlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RangePlot.m; path = src/plots/RangePlot.m; sourceTree = "<group>"; };
 		C3A31A5414DF782A00734AB7 /* ColoredBarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColoredBarChart.h; path = src/plots/ColoredBarChart.h; sourceTree = "<group>"; };
 		C3A31A5514DF782A00734AB7 /* ColoredBarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = ColoredBarChart.m; path = src/plots/ColoredBarChart.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C3B9C2541BCB186800BD560B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = src/tvOS/Main.storyboard; sourceTree = "<group>"; };
 		C3B9C2691BCB237000BD560B /* DetailViewControllerTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewControllerTV.h; path = src/tvOS/DetailViewControllerTV.h; sourceTree = "<group>"; };
 		C3B9C26A1BCB237000BD560B /* DetailViewControllerTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewControllerTV.m; path = src/tvOS/DetailViewControllerTV.m; sourceTree = "<group>"; };
 		C3B9C26B1BCB237000BD560B /* RootViewControllerTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RootViewControllerTV.h; path = src/tvOS/RootViewControllerTV.h; sourceTree = "<group>"; };
@@ -334,6 +330,10 @@
 		C3B9C26D1BCB237000BD560B /* ThemeTableViewControllerTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThemeTableViewControllerTV.h; path = src/tvOS/ThemeTableViewControllerTV.h; sourceTree = "<group>"; };
 		C3B9C26E1BCB237000BD560B /* ThemeTableViewControllerTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ThemeTableViewControllerTV.m; path = src/tvOS/ThemeTableViewControllerTV.m; sourceTree = "<group>"; };
 		C3C0DF2719D86B5E00631CAD /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/xcconfig/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
+		C3D0A1B820E0187600BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C3D0A1C520E0188800BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Base.lproj/Launch Screen.xib"; sourceTree = "<group>"; };
+		C3D0A1C720E0189900BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = ../Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		C3D0A1C920E018DE00BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C3D2FE6219FF1D03002CD4D6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = img/Images.xcassets; sourceTree = "<group>"; };
 		C3D70BA4175EB29E00F27173 /* ImageDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageDemo.h; path = src/plots/ImageDemo.h; sourceTree = "<group>"; };
 		C3D70BA5175EB29E00F27173 /* ImageDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = ImageDemo.m; path = src/plots/ImageDemo.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -442,8 +442,8 @@
 			isa = PBXGroup;
 			children = (
 				C3EF42FC19FC75810060791A /* Images.xcassets */,
-				4F35EBBC12360D89007C3389 /* Icon.icns */,
-				4F22FF7C12342B6E006BF615 /* Plot_Gallery_Mac-Info.plist */,
+				C3490DDA20E025760089F309 /* Icon.icns */,
+				C3490DCD20E025660089F309 /* Plot_Gallery_Mac-Info.plist */,
 				4F22FF5912342A21006BF615 /* MainMenu.xib */,
 				4F22FF5712342A21006BF615 /* InfoPlist.strings */,
 			);
@@ -566,8 +566,8 @@
 			isa = PBXGroup;
 			children = (
 				C30D8B071BCAF99D0003BB70 /* Assets.xcassets */,
-				C30D8B091BCAF99D0003BB70 /* Plot_Gallery_tvOS-Info.plist */,
-				C3B9C2541BCB186800BD560B /* Main.storyboard */,
+				C3490DE020E026410089F309 /* Plot_Gallery_tvOS-Info.plist */,
+				C3D0A1CA20E018DE00BA2921 /* Main.storyboard */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -593,9 +593,9 @@
 			isa = PBXGroup;
 			children = (
 				C34CB5451BC9A83C009270A0 /* Images.xcassets */,
-				C34CB55D1BC9A936009270A0 /* Plot_Gallery_iOS-Info.plist */,
-				C34CB54D1BC9A889009270A0 /* Main.storyboard */,
-				C34CB54B1BC9A889009270A0 /* Launch Screen.xib */,
+				C3490DDC20E025B60089F309 /* Plot_Gallery_iOS-Info.plist */,
+				C3D0A1B920E0187600BA2921 /* Main.storyboard */,
+				C3D0A1C620E0188800BA2921 /* Launch Screen.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -712,6 +712,7 @@
 				French,
 				German,
 				Base,
+				en,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Plot Gallery-Mac */;
 			projectDirPath = "";
@@ -798,7 +799,7 @@
 				4F22FF5B12342A21006BF615 /* InfoPlist.strings in Resources */,
 				C3EF42FD19FC75810060791A /* Images.xcassets in Resources */,
 				4F22FF5C12342A21006BF615 /* MainMenu.xib in Resources */,
-				4F35EBBD12360D89007C3389 /* Icon.icns in Resources */,
+				C3490DD820E025760089F309 /* Icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -808,7 +809,7 @@
 			files = (
 				C30D8B211BCAFD3E0003BB70 /* Images.xcassets in Resources */,
 				C30D8B081BCAF99D0003BB70 /* Assets.xcassets in Resources */,
-				C3B9C2551BCB186800BD560B /* Main.storyboard in Resources */,
+				C3D0A1C820E018DE00BA2921 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -818,8 +819,8 @@
 			files = (
 				C34CB5461BC9A83C009270A0 /* Images.xcassets in Resources */,
 				C367EEE21BCAEA9E00A21FE7 /* Images.xcassets in Resources */,
-				C34CB5581BC9A889009270A0 /* Main.storyboard in Resources */,
-				C34CB5561BC9A889009270A0 /* Launch Screen.xib in Resources */,
+				C3D0A1B720E0187600BA2921 /* Main.storyboard in Resources */,
+				C3D0A1C420E0188800BA2921 /* Launch Screen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -974,10 +975,70 @@
 		4F22FF5912342A21006BF615 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				4F22FF5A12342A21006BF615 /* English */,
+				C3D0A1C720E0189900BA2921 /* Base */,
 			);
 			name = MainMenu.xib;
 			path = src/mac/English.lproj;
+			sourceTree = "<group>";
+		};
+		C3490DCD20E025660089F309 /* Plot_Gallery_Mac-Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3490DCC20E025660089F309 /* Base */,
+			);
+			name = "Plot_Gallery_Mac-Info.plist";
+			sourceTree = "<group>";
+		};
+		C3490DDA20E025760089F309 /* Icon.icns */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3490DD920E025760089F309 /* Base */,
+			);
+			name = Icon.icns;
+			path = src/mac;
+			sourceTree = "<group>";
+		};
+		C3490DDC20E025B60089F309 /* Plot_Gallery_iOS-Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3490DDB20E025B60089F309 /* Base */,
+			);
+			name = "Plot_Gallery_iOS-Info.plist";
+			sourceTree = "<group>";
+		};
+		C3490DE020E026410089F309 /* Plot_Gallery_tvOS-Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3490DDF20E026410089F309 /* Base */,
+			);
+			name = "Plot_Gallery_tvOS-Info.plist";
+			sourceTree = "<group>";
+		};
+		C3D0A1B920E0187600BA2921 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3D0A1B820E0187600BA2921 /* Base */,
+			);
+			name = Main.storyboard;
+			path = src/ios;
+			sourceTree = "<group>";
+		};
+		C3D0A1C620E0188800BA2921 /* Launch Screen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3D0A1C520E0188800BA2921 /* Base */,
+			);
+			name = "Launch Screen.xib";
+			path = src/ios;
+			sourceTree = "<group>";
+		};
+		C3D0A1CA20E018DE00BA2921 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3D0A1C920E018DE00BA2921 /* Base */,
+			);
+			name = Main.storyboard;
+			path = src/tvOS;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -995,10 +1056,10 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				INFOPLIST_FILE = "Plot_Gallery_Mac-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Plot_Gallery_Mac-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -1021,10 +1082,10 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = s;
-				INFOPLIST_FILE = "Plot_Gallery_Mac-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Plot_Gallery_Mac-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -1153,7 +1214,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "Plot_Gallery_tvOS-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Plot_Gallery_tvOS-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.Plot-Gallery-tvOS";
@@ -1193,7 +1254,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "Plot_Gallery_tvOS-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Plot_Gallery_tvOS-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.Plot-Gallery-tvOS";
@@ -1238,7 +1299,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "Plot_Gallery_iOS-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Plot_Gallery_iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -1278,7 +1339,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "Plot_Gallery_iOS-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Plot_Gallery_iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;

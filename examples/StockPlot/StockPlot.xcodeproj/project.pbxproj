@@ -12,8 +12,6 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
-		2899E5600DE3E45000AC0155 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E55F0DE3E45000AC0155 /* RootViewController.xib */; };
-		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* RootViewController.m */; };
 		AB0363AA0FEF3681007B09A9 /* YHOO.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB6FA6090FEB6DAA008DB04A /* YHOO.plist */; };
 		AB0363AB0FEF3684007B09A9 /* MSFT.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB6FA60A0FEB6DAA008DB04A /* MSFT.plist */; };
@@ -24,8 +22,10 @@
 		AB4913C90FECC2B8008A08AB /* NSDictionary+APFinancialData.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4913C70FECC2B8008A08AB /* NSDictionary+APFinancialData.m */; };
 		AB6FA4A40FEB579B008DB04A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6FA4A30FEB579B008DB04A /* QuartzCore.framework */; };
 		AB6FA5590FEB6235008DB04A /* APYahooDataPullerGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6FA5570FEB6235008DB04A /* APYahooDataPullerGraph.m */; };
-		AB6FA55A0FEB6235008DB04A /* APYahooDataPullerGraph.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB6FA5580FEB6235008DB04A /* APYahooDataPullerGraph.xib */; };
-		C36157E919D79AAC0036ACDA /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C36157E819D79AAC0036ACDA /* Launch Screen.xib */; };
+		C3D0A22D20E01A1C00BA2921 /* APYahooDataPullerGraph.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3D0A22F20E01A1C00BA2921 /* APYahooDataPullerGraph.xib */; };
+		C3D0A23E20E01A2A00BA2921 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3D0A24020E01A2A00BA2921 /* RootViewController.xib */; };
+		C3D0A24120E01A2E00BA2921 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3D0A24320E01A2E00BA2921 /* MainWindow.xib */; };
+		C3D0A24420E01A3200BA2921 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3D0A24620E01A3200BA2921 /* Launch Screen.xib */; };
 		C3D3937019FD6CBF00148319 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D3936F19FD6CBF00148319 /* Images.xcassets */; };
 		C3D414DF1A7D84CC00B6F5D6 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D414DC1A7D84BF00B6F5D6 /* libCorePlot-CocoaTouch.a */; };
 /* End PBXBuildFile section */
@@ -96,13 +96,10 @@
 		1D6058910D05DD3D006BFB54 /* StockPlot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StockPlot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		2899E55F0DE3E45000AC0155 /* RootViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
 		28A0AAE50D9B0CCF005BE974 /* StockPlot_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPlot_Prefix.pch; sourceTree = "<group>"; };
-		28AD735F0D9D9599002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		28C286DF0D94DF7D0034E888 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		28C286E00D94DF7D0034E888 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		8D1107310486CEB800E47090 /* StockPlot-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "StockPlot-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		AB0364760FEF4603007B09A9 /* caution.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = caution.png; sourceTree = SOURCE_ROOT; };
 		AB4913C50FECC2B8008A08AB /* APYahooDataPuller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APYahooDataPuller.h; path = Classes/APYahooDataPuller.h; sourceTree = SOURCE_ROOT; };
 		AB4913C60FECC2B8008A08AB /* APYahooDataPuller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = APYahooDataPuller.m; path = Classes/APYahooDataPuller.m; sourceTree = SOURCE_ROOT; };
@@ -111,14 +108,17 @@
 		AB6FA4DE0FEB59DB008DB04A /* NSDictionary+APFinancialData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+APFinancialData.h"; sourceTree = "<group>"; };
 		AB6FA5560FEB6235008DB04A /* APYahooDataPullerGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = APYahooDataPullerGraph.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		AB6FA5570FEB6235008DB04A /* APYahooDataPullerGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = APYahooDataPullerGraph.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		AB6FA5580FEB6235008DB04A /* APYahooDataPullerGraph.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = APYahooDataPullerGraph.xib; path = Classes/APYahooDataPullerGraph.xib; sourceTree = "<group>"; };
 		AB6FA6090FEB6DAA008DB04A /* YHOO.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = YHOO.plist; sourceTree = SOURCE_ROOT; };
 		AB6FA60A0FEB6DAA008DB04A /* MSFT.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MSFT.plist; sourceTree = SOURCE_ROOT; };
 		AB6FA60B0FEB6DAA008DB04A /* GOOG.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GOOG.plist; sourceTree = SOURCE_ROOT; };
 		AB6FA60C0FEB6DAA008DB04A /* AAPL.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AAPL.plist; sourceTree = SOURCE_ROOT; };
-		C36157E819D79AAC0036ACDA /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
+		C37A40FF20E0325100C4FF48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/StockPlot-Info.plist"; sourceTree = "<group>"; };
 		C3CA9B5B19E203B2008DF7A3 /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/xcconfig/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
 		C3CD284717DE9D1F008EED1E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		C3D0A23D20E01A2300BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/APYahooDataPullerGraph.xib; sourceTree = "<group>"; };
+		C3D0A23F20E01A2A00BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/RootViewController.xib; sourceTree = "<group>"; };
+		C3D0A24220E01A2E00BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		C3D0A24520E01A3200BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Base.lproj/Launch Screen.xib"; sourceTree = "<group>"; };
 		C3D3936F19FD6CBF00148319 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = StockPlot/Images.xcassets; sourceTree = "<group>"; };
 		C3D414C71A7D84BF00B6F5D6 /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = ../../framework/CorePlot.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -199,11 +199,11 @@
 				AB6FA60A0FEB6DAA008DB04A /* MSFT.plist */,
 				AB6FA60B0FEB6DAA008DB04A /* GOOG.plist */,
 				AB6FA60C0FEB6DAA008DB04A /* AAPL.plist */,
-				AB6FA5580FEB6235008DB04A /* APYahooDataPullerGraph.xib */,
-				2899E55F0DE3E45000AC0155 /* RootViewController.xib */,
-				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
-				8D1107310486CEB800E47090 /* StockPlot-Info.plist */,
-				C36157E819D79AAC0036ACDA /* Launch Screen.xib */,
+				C3D0A22F20E01A1C00BA2921 /* APYahooDataPullerGraph.xib */,
+				C3D0A24020E01A2A00BA2921 /* RootViewController.xib */,
+				C3D0A24320E01A2E00BA2921 /* MainWindow.xib */,
+				C37A410020E0325100C4FF48 /* StockPlot-Info.plist */,
+				C3D0A24620E01A3200BA2921 /* Launch Screen.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -278,6 +278,7 @@
 				French,
 				German,
 				en,
+				Base,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
@@ -358,16 +359,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */,
-				2899E5600DE3E45000AC0155 /* RootViewController.xib in Resources */,
-				AB6FA55A0FEB6235008DB04A /* APYahooDataPullerGraph.xib in Resources */,
+				C3D0A24120E01A2E00BA2921 /* MainWindow.xib in Resources */,
+				C3D0A23E20E01A2A00BA2921 /* RootViewController.xib in Resources */,
+				C3D0A22D20E01A1C00BA2921 /* APYahooDataPullerGraph.xib in Resources */,
 				AB0363AA0FEF3681007B09A9 /* YHOO.plist in Resources */,
 				C3D3937019FD6CBF00148319 /* Images.xcassets in Resources */,
 				AB0363AB0FEF3684007B09A9 /* MSFT.plist in Resources */,
 				AB0363AC0FEF3687007B09A9 /* GOOG.plist in Resources */,
 				AB0363AD0FEF368A007B09A9 /* AAPL.plist in Resources */,
 				AB0364770FEF4603007B09A9 /* caution.png in Resources */,
-				C36157E919D79AAC0036ACDA /* Launch Screen.xib in Resources */,
+				C3D0A24420E01A3200BA2921 /* Launch Screen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,6 +390,50 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		C37A410020E0325100C4FF48 /* StockPlot-Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C37A40FF20E0325100C4FF48 /* Base */,
+			);
+			name = "StockPlot-Info.plist";
+			sourceTree = "<group>";
+		};
+		C3D0A22F20E01A1C00BA2921 /* APYahooDataPullerGraph.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3D0A23D20E01A2300BA2921 /* Base */,
+			);
+			name = APYahooDataPullerGraph.xib;
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		C3D0A24020E01A2A00BA2921 /* RootViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3D0A23F20E01A2A00BA2921 /* Base */,
+			);
+			name = RootViewController.xib;
+			sourceTree = "<group>";
+		};
+		C3D0A24320E01A2E00BA2921 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3D0A24220E01A2E00BA2921 /* Base */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		C3D0A24620E01A3200BA2921 /* Launch Screen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3D0A24520E01A3200BA2921 /* Base */,
+			);
+			name = "Launch Screen.xib";
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -406,7 +451,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = StockPlot_Prefix.pch;
 				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "StockPlot-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/StockPlot-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.CorePlot.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = StockPlot;
 			};
@@ -426,7 +471,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = StockPlot_Prefix.pch;
 				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "StockPlot-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/StockPlot-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.CorePlot.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = StockPlot;
 			};

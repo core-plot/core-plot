@@ -12,11 +12,11 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
-		2899E5220DE3E06400AC0155 /* CPTTestApp_iPadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* CPTTestApp_iPadViewController.xib */; };
-		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* CPTTestApp_iPadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* CPTTestApp_iPadViewController.m */; };
 		BC65758F116549890008F594 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC65758E116549890008F594 /* QuartzCore.framework */; };
-		C34677AE19F3341700429A85 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C34677AD19F3341700429A85 /* Launch Screen.xib */; };
+		C3D0A1F520E019BF00BA2921 /* CPTTestApp_iPadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3D0A1F720E019BF00BA2921 /* CPTTestApp_iPadViewController.xib */; };
+		C3D0A20620E019CD00BA2921 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3D0A20820E019CD00BA2921 /* MainWindow.xib */; };
+		C3D0A20920E019D400BA2921 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3D0A20B20E019D400BA2921 /* Launch Screen.xib */; };
 		C3D3936019FD670400148319 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D3935F19FD670400148319 /* Images.xcassets */; };
 		C3D414AD1A7D844400B6F5D6 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D414AA1A7D843800B6F5D6 /* libCorePlot-CocoaTouch.a */; };
 		C3F47B6E17BF99DE0075181F /* CorePlotIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F47B6C17BF99DE0075181F /* CorePlotIcon.png */; };
@@ -89,17 +89,17 @@
 		1D6058910D05DD3D006BFB54 /* CPTTestApp-iPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CPTTestApp-iPad.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		2899E5210DE3E06400AC0155 /* CPTTestApp_iPadViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CPTTestApp_iPadViewController.xib; sourceTree = "<group>"; };
-		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		28D7ACF60DDB3853001CB0EB /* CPTTestApp_iPadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CPTTestApp_iPadViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		28D7ACF70DDB3853001CB0EB /* CPTTestApp_iPadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CPTTestApp_iPadViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* CPTTestApp_iPad_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTTestApp_iPad_Prefix.pch; sourceTree = "<group>"; };
-		8D1107310486CEB800E47090 /* CPTTestApp_iPad-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "CPTTestApp_iPad-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		BC65758E116549890008F594 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		C34677AD19F3341700429A85 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		C36E7CC519DE1C1F00EDEACB /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/xcconfig/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
+		C37A40E120E0320500C4FF48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/CPTTestApp_iPad-Info.plist"; sourceTree = "<group>"; };
 		C3CD283817DE9C59008EED1E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		C3D0A20520E019C900BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CPTTestApp_iPadViewController.xib; sourceTree = "<group>"; };
+		C3D0A20720E019CD00BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		C3D0A20A20E019D400BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Base.lproj/Launch Screen.xib"; sourceTree = "<group>"; };
 		C3D3935F19FD670400148319 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "CPTTestApp-iPad/Images.xcassets"; sourceTree = "<group>"; };
 		C3D414951A7D843800B6F5D6 /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = ../../framework/CorePlot.xcodeproj; sourceTree = "<group>"; };
 		C3F47B6C17BF99DE0075181F /* CorePlotIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CorePlotIcon.png; sourceTree = "<group>"; };
@@ -171,12 +171,12 @@
 			isa = PBXGroup;
 			children = (
 				C3D3935F19FD670400148319 /* Images.xcassets */,
-				2899E5210DE3E06400AC0155 /* CPTTestApp_iPadViewController.xib */,
-				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
-				C34677AD19F3341700429A85 /* Launch Screen.xib */,
+				C3D0A1F720E019BF00BA2921 /* CPTTestApp_iPadViewController.xib */,
+				C3D0A20820E019CD00BA2921 /* MainWindow.xib */,
+				C3D0A20B20E019D400BA2921 /* Launch Screen.xib */,
 				C3F47B6C17BF99DE0075181F /* CorePlotIcon.png */,
 				C3F47B6D17BF99DE0075181F /* CorePlotIcon@2x.png */,
-				8D1107310486CEB800E47090 /* CPTTestApp_iPad-Info.plist */,
+				C37A40E220E0320500C4FF48 /* CPTTestApp_iPad-Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -245,6 +245,7 @@
 				Japanese,
 				French,
 				German,
+				Base,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
@@ -325,12 +326,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
-				2899E5220DE3E06400AC0155 /* CPTTestApp_iPadViewController.xib in Resources */,
+				C3D0A20620E019CD00BA2921 /* MainWindow.xib in Resources */,
+				C3D0A1F520E019BF00BA2921 /* CPTTestApp_iPadViewController.xib in Resources */,
 				C3F47B6E17BF99DE0075181F /* CorePlotIcon.png in Resources */,
 				C3D3936019FD670400148319 /* Images.xcassets in Resources */,
 				C3F47B6F17BF99DE0075181F /* CorePlotIcon@2x.png in Resources */,
-				C34677AE19F3341700429A85 /* Launch Screen.xib in Resources */,
+				C3D0A20920E019D400BA2921 /* Launch Screen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,6 +350,41 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		C37A40E220E0320500C4FF48 /* CPTTestApp_iPad-Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C37A40E120E0320500C4FF48 /* Base */,
+			);
+			name = "CPTTestApp_iPad-Info.plist";
+			sourceTree = "<group>";
+		};
+		C3D0A1F720E019BF00BA2921 /* CPTTestApp_iPadViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3D0A20520E019C900BA2921 /* Base */,
+			);
+			name = CPTTestApp_iPadViewController.xib;
+			sourceTree = "<group>";
+		};
+		C3D0A20820E019CD00BA2921 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3D0A20720E019CD00BA2921 /* Base */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		C3D0A20B20E019D400BA2921 /* Launch Screen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3D0A20A20E019D400BA2921 /* Base */,
+			);
+			name = "Launch Screen.xib";
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -366,7 +402,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CPTTestApp_iPad_Prefix.pch;
 				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "CPTTestApp_iPad-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/CPTTestApp_iPad-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = org.CorePlot.CPTTestAppiPad;
 				PRODUCT_NAME = "CPTTestApp-iPad";
 			};
@@ -386,7 +422,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CPTTestApp_iPad_Prefix.pch;
 				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "CPTTestApp_iPad-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/CPTTestApp_iPad-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = org.CorePlot.CPTTestAppiPad;
 				PRODUCT_NAME = "CPTTestApp-iPad";
 				VALIDATE_PRODUCT = YES;

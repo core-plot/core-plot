@@ -125,9 +125,7 @@
 		16BA95400A7EB2EB001E4983 /* CorePlotQCPlugin.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CorePlotQCPlugin.h; sourceTree = "<group>"; };
 		16BA95410A7EB2EB001E4983 /* CorePlotQCPlugin.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CorePlotQCPlugin.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		16BA96300A7EB9AC001E4983 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
-		7238D5510DB6988600E9A42D /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Settings.xib; sourceTree = "<group>"; };
 		8D5B49B6048680CD000E48DA /* CorePlotQCPlugin.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CorePlotQCPlugin.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
-		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A819AA0311FD3F23006D1C2D /* CPTPieChartPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPieChartPlugin.h; sourceTree = "<group>"; };
 		A819AA0411FD3F23006D1C2D /* CPTPieChartPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTPieChartPlugin.m; sourceTree = "<group>"; };
 		A89BAB3B1027EFBD004B2FE1 /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = ../framework/CorePlot.xcodeproj; sourceTree = SOURCE_ROOT; };
@@ -135,7 +133,9 @@
 		A8FC1815102CBADE00CF2266 /* CPTScatterPlotPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTScatterPlotPlugin.m; sourceTree = "<group>"; };
 		A8FC1817102CBAEA00CF2266 /* CPTBarPlotPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTBarPlotPlugin.h; sourceTree = "<group>"; };
 		A8FC1818102CBAEA00CF2266 /* CPTBarPlotPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTBarPlotPlugin.m; sourceTree = "<group>"; };
+		C37A410E20E0326C00C4FF48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = Base.lproj/Info.plist; sourceTree = "<group>"; };
 		C3C8CFF619E9504C007E0BCB /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../framework/xcconfig/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
+		C3DA083820E00C7700F73704 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Settings.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,7 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				7238D5500DB6988600E9A42D /* Settings.xib */,
-				8D5B49B7048680CD000E48DA /* Info.plist */,
+				C37A410F20E0326C00C4FF48 /* Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -273,6 +273,7 @@
 				Japanese,
 				French,
 				German,
+				Base,
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* Quartz Composer Plug In */;
 			projectDirPath = "";
@@ -407,9 +408,17 @@
 		7238D5500DB6988600E9A42D /* Settings.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				7238D5510DB6988600E9A42D /* English */,
+				C3DA083820E00C7700F73704 /* Base */,
 			);
 			name = Settings.xib;
+			sourceTree = "<group>";
+		};
+		C37A410F20E0326C00C4FF48 /* Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C37A410E20E0326C00C4FF48 /* Base */,
+			);
+			name = Info.plist;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -428,7 +437,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CorePlotQCPlugin_Prefix.pch;
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Graphics/Quartz Composer Plug-Ins";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
 				OTHER_LDFLAGS = "";
@@ -451,7 +460,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CorePlotQCPlugin_Prefix.pch;
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Graphics/Quartz Composer Plug-Ins";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
 				OTHER_LDFLAGS = "";
