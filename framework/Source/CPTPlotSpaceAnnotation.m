@@ -113,13 +113,18 @@
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        anchorPlotPoint = [[coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [NSNumber class]]]
-                                                 forKey:@"CPTPlotSpaceAnnotation.anchorPlotPoint"] copy];
+        self.anchorPlotPoint = [[coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [NSNumber class]]]
+                                                      forKey:@"CPTPlotSpaceAnnotation.anchorPlotPoint"] copy];
 
         CPTPlotSpace *thePlotSpace = [coder decodeObjectOfClass:[CPTPlotSpace class]
                                                          forKey:@"CPTPlotSpaceAnnotation.plotSpace"];
         if ( thePlotSpace ) {
             plotSpace = thePlotSpace;
+
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(setContentNeedsLayout)
+                                                         name:CPTPlotSpaceCoordinateMappingDidChangeNotification
+                                                       object:plotSpace];
         }
     }
     return self;
