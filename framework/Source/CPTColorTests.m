@@ -16,7 +16,8 @@
     XCTAssertEqualObjects(color, newColor, @"Colors not equal");
     
 #if TARGET_OS_OSX
-    if (@available(macOS 10.13, *)) {
+    // Workaround since @available macro is not there
+    if ( [NSColor respondsToSelector:@selector(colorNamed:)] ) {
 
         color = [CPTColor colorWithNSColor:[NSColor systemRedColor]];
         

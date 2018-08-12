@@ -381,7 +381,8 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
     [self.axisSet.axes makeObjectsPerformSelector:@selector(relabel)];
     
 #if TARGET_OS_OSX
-    if (@available(macOS 10.13, *)) {
+    // Workaround since @available macro is not there
+    if ( [NSColor respondsToSelector:@selector(colorNamed:)] ) {
         NSAppearance *oldAppearance = NSAppearance.currentAppearance;
         NSView *view = (NSView *)self.hostingView;
         NSAppearance.currentAppearance = view.effectiveAppearance;

@@ -324,7 +324,8 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
     }
     else {
 #if TARGET_OS_OSX
-        if (@available(macOS 10.13, *)) {
+        // Workaround since @available macro is not there
+        if ( [NSColor respondsToSelector:@selector(colorNamed:)] ) {
             NSAppearance *oldAppearance = NSAppearance.currentAppearance;
             NSAppearance.currentAppearance = ((NSView *)self.graph.hostingView).effectiveAppearance;
             [super display];
