@@ -379,7 +379,20 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
 {
     [self reloadDataIfNeeded];
     [self.axisSet.axes makeObjectsPerformSelector:@selector(relabel)];
+    
+#if TARGET_OS_OSX
+    if (@available(macOS 10.13, *)) {
+        NSAppearance *oldAppearance = NSAppearance.currentAppearance;
+        NSView *view = (NSView *)self.hostingView;
+        NSAppearance.currentAppearance = view.effectiveAppearance;
+        [super layoutAndRenderInContext:context];
+        NSAppearance.currentAppearance = oldAppearance;
+    } else {
+        [super layoutAndRenderInContext:context];
+    }
+#else
     [super layoutAndRenderInContext:context];
+#endif
 }
 
 /// @endcond

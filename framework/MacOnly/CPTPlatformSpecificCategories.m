@@ -66,22 +66,6 @@
 
 @end
 
-#pragma mark - CPTColor
-
-@implementation CPTColor(CPTPlatformSpecificColorExtensions)
-
-/** @property nsColor
- *  @brief Gets the color value as an NSColor.
- **/
-@dynamic nsColor;
-
--(nonnull NSColor *)nsColor
-{
-    return [NSColor colorWithCIColor:[CIColor colorWithCGColor:self.cgColor]];
-}
-
-@end
-
 #pragma mark - NSAttributedString
 
 @implementation NSAttributedString(CPTPlatformSpecificAttributedStringExtensions)

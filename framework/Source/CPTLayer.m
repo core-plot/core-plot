@@ -323,7 +323,18 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
         return;
     }
     else {
+#if TARGET_OS_OSX
+        if (@available(macOS 10.13, *)) {
+            NSAppearance *oldAppearance = NSAppearance.currentAppearance;
+            NSAppearance.currentAppearance = ((NSView *)self.graph.hostingView).effectiveAppearance;
+            [super display];
+            NSAppearance.currentAppearance = oldAppearance;
+        } else {
+            [super display];
+        }
+#else
         [super display];
+#endif
     }
 }
 

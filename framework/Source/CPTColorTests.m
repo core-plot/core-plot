@@ -14,6 +14,18 @@
     CPTColor *newColor = [self archiveRoundTrip:color];
 
     XCTAssertEqualObjects(color, newColor, @"Colors not equal");
+    
+#if TARGET_OS_OSX
+    if (@available(macOS 10.13, *)) {
+
+        color = [CPTColor colorWithNSColor:[NSColor systemRedColor]];
+        
+        newColor = [self archiveRoundTrip:color];
+        
+        XCTAssertEqualObjects(color, newColor, @"Colors not equal");
+        
+    }
+#endif
 }
 
 @end
