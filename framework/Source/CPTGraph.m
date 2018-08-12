@@ -381,6 +381,8 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
     [self.axisSet.axes makeObjectsPerformSelector:@selector(relabel)];
     
 #if TARGET_OS_OSX
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
     // Workaround since @available macro is not there
     if ( [NSColor respondsToSelector:@selector(colorNamed:)] ) {
         NSAppearance *oldAppearance = NSAppearance.currentAppearance;
@@ -391,6 +393,7 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
     } else {
         [super layoutAndRenderInContext:context];
     }
+#pragma clang diagnostic pop
 #else
     [super layoutAndRenderInContext:context];
 #endif
