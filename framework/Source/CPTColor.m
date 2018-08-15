@@ -1,12 +1,22 @@
 #import "CPTColor.h"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdirect-ivar-access"
-
 #import "CPTColorSpace.h"
 #import "CPTDefinitions.h"
 #import "CPTPlatformSpecificCategories.h"
 #import "NSCoderExtensions.h"
+
+/// @cond
+
+@interface CPTColor()
+
+#if TARGET_OS_OSX
+@property (nonatomic, readonly, nullable) NSColor *nsColorCache;
+#endif
+@end
+
+/// @endcond
+
+#pragma mark -
 
 /** @brief An immutable color.
  *
@@ -19,15 +29,23 @@
 
 #if TARGET_OS_OSX
 
-/** @property nullable NSColor nsColorCahce
+/** @internal
+ *  @property nullable NSColor *nsColorCache
  *  @brief The NSColor to wrap around.
  **/
-@synthesize nsColor = _nsColor;
+@synthesize nsColorCache;
+
+/** @property nonnull NSColor *nsColor
+ *  @brief The NSColor to wrap around.
+ **/
+@dynamic nsColor;
 
 -(NSColor *)nsColor
 {
-    if ( _nsColor ) {
-        return _nsColor;
+    NSColor *theNSColor = self.nsColorCache;
+
+    if ( theNSColor ) {
+        return theNSColor;
     }
     else {
         return [NSColor colorWithCIColor:[CIColor colorWithCGColor:self.cgColor]];
@@ -39,16 +57,17 @@
 /** @property nonnull CGColorRef cgColor
  *  @brief The @ref CGColorRef to wrap around.
  **/
-@synthesize cgColor = _cgColor;
+@synthesize cgColor;
 
 -(CGColorRef)cgColor
 {
 #if TARGET_OS_OSX
-    if ( _nsColor ) {
-        return _nsColor.CGColor;
+    NSColor *theNSColor = self.nsColorCache;
+    if ( theNSColor ) {
+        return theNSColor.CGColor;
     }
 #endif
-    return _cgColor;
+    return cgColor;
 }
 
 /** @property BOOL opaque
@@ -352,8 +371,10 @@
 
 #if TARGET_OS_OSX
 
-/** @brief Creates and returns a new CPTColor instance initialized with the provided NSColor. NSColor can be a dynamic system color
- *  or catalog color. This adds support for dark mode in macOS 10.14
+/** @brief Creates and returns a new CPTColor instance initialized with the provided NSColor.
+ *
+ *  NSColor can be a dynamic system color or catalog color. This adds support for dark mode in macOS 10.14.
+ *
  *  @param newNSColor The color to wrap.
  *  @return A new CPTColor instance initialized with the provided NSColor.
  **/
@@ -376,7 +397,7 @@
 {
     if ( (self = [super init]) ) {
         CGColorRetain(newCGColor);
-        _cgColor = newCGColor;
+        cgColor = newCGColor;
     }
     return self;
 }
@@ -407,13 +428,15 @@
 
 /** @brief Initializes a newly allocated CPTColor object with the provided NSColor.
  *
+ *  NSColor can be a dynamic system color or catalog color. This adds support for dark mode in macOS 10.14.
+ *
  *  @param newNSColor The color to wrap.
  *  @return The initialized CPTColor object.
  **/
 -(nonnull instancetype)initWithNSColor:(nonnull NSColor *)newNSColor
 {
     if ( (self = [super init]) ) {
-        _nsColor = newNSColor;
+        nsColorCache = newNSColor;
     }
     return self;
 }
@@ -429,7 +452,7 @@
 
 -(void)dealloc
 {
-    CGColorRelease(_cgColor);
+    CGColorRelease(cgColor);
 }
 
 /// @endcond
@@ -445,8 +468,9 @@
 -(nonnull instancetype)colorWithAlphaComponent:(CGFloat)alpha
 {
 #if TARGET_OS_OSX
-    if ( _nsColor ) {
-        NSColor *newNSColor = [_nsColor colorWithAlphaComponent:alpha];
+    NSColor *theNSColor = self.nsColorCache;
+    if ( theNSColor ) {
+        NSColor *newNSColor = [theNSColor colorWithAlphaComponent:alpha];
         return [[self class] colorWithNSColor:newNSColor];
     }
 #endif
@@ -476,11 +500,11 @@
 
 -(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
-    CGColorRef theColor = self.cgColor;
-
 #if TARGET_OS_OSX
-    [coder encodeObject:_nsColor forKey:@"CPTColor.nsColor"];
+    [coder encodeConditionalObject:self.nsColorCache forKey:@"CPTColor.nsColorCache"];
 #endif
+
+    CGColorRef theColor = self.cgColor;
 
     [coder encodeCGColorSpace:CGColorGetColorSpace(theColor) forKey:@"CPTColor.colorSpace"];
 
@@ -506,10 +530,9 @@
     if ( (self = [super init]) ) {
 #if TARGET_OS_OSX
         NSColor *decodedNSColor = [coder decodeObjectOfClass:[NSColor class]
-                                                      forKey:@"CPTColor.nsColor"];
+                                                      forKey:@"CPTColor.nsColorCache"];
         if ( decodedNSColor ) {
-            _nsColor = decodedNSColor;
-            return self;
+            nsColorCache = decodedNSColor;
         }
 #endif
         CGColorSpaceRef colorSpace = [coder newCGColorSpaceDecodeForKey:@"CPTColor.colorSpace"];
@@ -524,7 +547,7 @@
         }
 
         CGColorRef color = CGColorCreate(colorSpace, colorComponents);
-        _cgColor = color;
+        cgColor = color;
 
         CGColorSpaceRelease(colorSpace);
         free(colorComponents);
@@ -552,9 +575,8 @@
 -(nonnull id)copyWithZone:(nullable NSZone *)zone
 {
 #if TARGET_OS_OSX
-    NSColor *nsColorCopy = nil;
-    if ( _nsColor ) {
-        nsColorCopy = [_nsColor copyWithZone:zone];
+    NSColor *nsColorCopy = [self.nsColorCache copyWithZone:zone];
+    if ( nsColorCopy ) {
         CPTColor *colorCopy = [[[self class] allocWithZone:zone] initWithNSColor:nsColorCopy];
         return colorCopy;
     }
@@ -641,5 +663,3 @@
 /// @endcond
 
 @end
-
-#pragma clang diagnostic pop
