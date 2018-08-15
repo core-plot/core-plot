@@ -328,7 +328,7 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
 #pragma clang diagnostic ignored "-Wundeclared-selector"
         // Workaround since @available macro is not there
 
-        if ( [NSColor respondsToSelector:@selector(colorNamed:)] ) {
+        if ( [NSView respondsToSelector:@selector(effectiveAppearance)] ) {
             NSAppearance *oldAppearance = NSAppearance.currentAppearance;
             NSAppearance.currentAppearance = ( (NSView *)self.graph.hostingView ).effectiveAppearance;
             [super display];

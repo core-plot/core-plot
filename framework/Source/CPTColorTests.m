@@ -19,7 +19,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
     // Workaround since @available macro is not there
-    if ( [NSColor respondsToSelector:@selector(colorNamed:)] ) {
+    if ( [NSColor respondsToSelector:@selector(systemRedColor)] ) {
         color = [CPTColor colorWithNSColor:[NSColor systemRedColor]];
 
         newColor = [self archiveRoundTrip:color];
