@@ -384,7 +384,7 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
     // Workaround since @available macro is not there
-    if ( [NSView respondsToSelector:@selector(effectiveAppearance)] ) {
+    if ( [NSView instancesRespondToSelector:@selector(effectiveAppearance)] ) {
         NSAppearance *oldAppearance = NSAppearance.currentAppearance;
         NSView *view                = (NSView *)self.hostingView;
         NSAppearance.currentAppearance = view.effectiveAppearance;
