@@ -200,10 +200,6 @@
     NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
     NSNumber *num = self.plotData[index][key];
 
-    if ( fieldEnum == CPTScatterPlotFieldY ) {
-        num = @(num.doubleValue);
-    }
-
     return num;
 }
 
