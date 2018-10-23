@@ -437,7 +437,7 @@
         self.dragEnd = interactionPoint;
 
 // double-click to completely zoom out
-        if ( event.clickCount == 2 ) {
+        if ( (event.type != NSEventTypeScrollWheel) && (event.clickCount == 2) ) {
             CPTPlotArea *plotArea     = self.graph.plotAreaFrame.plotArea;
             CGPoint dragEndInPlotArea = [self.graph convertPoint:interactionPoint toLayer:plotArea];
 
