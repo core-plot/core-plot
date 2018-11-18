@@ -255,9 +255,9 @@
         paragraphStyle.lineBreakMode = style.lineBreakMode;
 
         CPTDictionary *attributes = @{
-            NSFontAttributeName: theFont,
-            NSForegroundColorAttributeName: foregroundColor,
-            NSParagraphStyleAttributeName: paragraphStyle
+                                        NSFontAttributeName: theFont,
+                                        NSForegroundColorAttributeName: foregroundColor,
+                                        NSParagraphStyleAttributeName: paragraphStyle
         };
         [self drawWithRect:NSRectFromCGRect(rect)
                    options:CPTStringDrawingOptions

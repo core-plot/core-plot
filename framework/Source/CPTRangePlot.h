@@ -25,12 +25,12 @@ extern CPTRangePlotBinding __nonnull const CPTRangePlotBindingBarLineStyles;
  *  @brief Enumeration of range plot data source field types
  **/
 typedef NS_ENUM (NSInteger, CPTRangePlotField) {
-    CPTRangePlotFieldX,     ///< X values.
-    CPTRangePlotFieldY,     ///< Y values.
-    CPTRangePlotFieldHigh,  ///< relative High values.
-    CPTRangePlotFieldLow,   ///< relative Low values.
-    CPTRangePlotFieldLeft,  ///< relative Left values.
-    CPTRangePlotFieldRight, ///< relative Right values.
+    CPTRangePlotFieldX,    ///< X values.
+    CPTRangePlotFieldY,    ///< Y values.
+    CPTRangePlotFieldHigh, ///< relative High values.
+    CPTRangePlotFieldLow,  ///< relative Low values.
+    CPTRangePlotFieldLeft, ///< relative Left values.
+    CPTRangePlotFieldRight ///< relative Right values.
 };
 
 #pragma mark -

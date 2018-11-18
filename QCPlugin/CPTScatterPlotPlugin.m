@@ -25,8 +25,8 @@
 +(nonnull NSDictionary<NSString *, NSString *> *)attributes
 {
     return @{
-               QCPlugInAttributeNameKey: @"Core Plot Scatter Plot",
-               QCPlugInAttributeDescriptionKey: @"Scatter plot"
+        QCPlugInAttributeNameKey: @"Core Plot Scatter Plot",
+        QCPlugInAttributeDescriptionKey: @"Scatter plot"
     };
 }
 

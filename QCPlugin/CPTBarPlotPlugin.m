@@ -30,8 +30,8 @@
 +(nonnull NSDictionary<NSString *, NSString *> *)attributes
 {
     return @{
-               QCPlugInAttributeNameKey: @"Core Plot Bar Chart",
-               QCPlugInAttributeDescriptionKey: @"Bar chart"
+        QCPlugInAttributeNameKey: @"Core Plot Bar Chart",
+        QCPlugInAttributeDescriptionKey: @"Bar chart"
     };
 }
 
@@ -41,58 +41,58 @@
 
     if ( [key isEqualToString:@"inputBarWidth"] ) {
         return @{
-                   QCPortAttributeNameKey: @"Bar Width",
-                   QCPortAttributeDefaultValueKey: @1.0,
-                   QCPortAttributeMinimumValueKey: @0.0
+            QCPortAttributeNameKey: @"Bar Width",
+            QCPortAttributeDefaultValueKey: @1.0,
+            QCPortAttributeMinimumValueKey: @0.0
         };
     }
 
     if ( [key isEqualToString:@"inputBarOffset"] ) {
         return @{
-                   QCPortAttributeNameKey: @"Bar Offset",
-                   QCPortAttributeDefaultValueKey: @0.5
+            QCPortAttributeNameKey: @"Bar Offset",
+            QCPortAttributeDefaultValueKey: @0.5
         };
     }
 
     if ( [key isEqualToString:@"inputBaseValue"] ) {
         return @{
-                   QCPortAttributeNameKey: @"Base Value",
-                   QCPortAttributeDefaultValueKey: @0.0
+            QCPortAttributeNameKey: @"Base Value",
+            QCPortAttributeDefaultValueKey: @0.0
         };
     }
 
     if ( [key isEqualToString:@"inputHorizontalBars"] ) {
         return @{
-                   QCPortAttributeNameKey: @"Horizontal Bars",
-                   QCPortAttributeDefaultValueKey: @NO
+            QCPortAttributeNameKey: @"Horizontal Bars",
+            QCPortAttributeDefaultValueKey: @NO
         };
     }
 
     if ( [key isEqualToString:@"inputXMin"] ) {
         return @{
-                   QCPortAttributeNameKey: @"X Range Min",
-                   QCPortAttributeDefaultValueKey: @0.0
+            QCPortAttributeNameKey: @"X Range Min",
+            QCPortAttributeDefaultValueKey: @0.0
         };
     }
 
     if ( [key isEqualToString:@"inputXMax"] ) {
         return @{
-                   QCPortAttributeNameKey: @"X Range Max",
-                   QCPortAttributeDefaultValueKey: @5.0
+            QCPortAttributeNameKey: @"X Range Max",
+            QCPortAttributeDefaultValueKey: @5.0
         };
     }
 
     if ( [key isEqualToString:@"inputYMin"] ) {
         return @{
-                   QCPortAttributeNameKey: @"Y Range Min",
-                   QCPortAttributeDefaultValueKey: @0.0
+            QCPortAttributeNameKey: @"Y Range Min",
+            QCPortAttributeDefaultValueKey: @0.0
         };
     }
 
     if ( [key isEqualToString:@"inputYMax"] ) {
         return @{
-                   QCPortAttributeNameKey: @"Y Range Max",
-                   QCPortAttributeDefaultValueKey: @5.0
+            QCPortAttributeNameKey: @"Y Range Max",
+            QCPortAttributeDefaultValueKey: @5.0
         };
     }
 

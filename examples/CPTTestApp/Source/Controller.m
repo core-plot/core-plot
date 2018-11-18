@@ -68,8 +68,8 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     NSNumber *y1 = @(1.2 * arc4random() / (double)UINT32_MAX + 1.2);
 
     return @{
-               @"x": x1,
-               @"y": y1
+        @"x": x1,
+        @"y": y1
     };
 }
 

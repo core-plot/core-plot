@@ -74,6 +74,7 @@
     NSDictionary<NSString *, NSString *> *themeInfo = notification.userInfo;
 
     NSString *themeName = themeInfo[PlotGalleryThemeNameKey];
+
     if ( themeName ) {
         self.currentThemeName = themeName;
     }

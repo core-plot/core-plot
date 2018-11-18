@@ -1760,11 +1760,11 @@ CPTScatterPlotBinding const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; /
     switch ( coord ) {
         case CPTCoordinateX:
             result = @[@(CPTScatterPlotFieldX)];
-            break;
+        break;
 
         case CPTCoordinateY:
             result = @[@(CPTScatterPlotFieldY)];
-            break;
+        break;
 
         default:
             [NSException raise:CPTException format:@"Invalid coordinate passed to fieldIdentifiersForCoordinate:"];

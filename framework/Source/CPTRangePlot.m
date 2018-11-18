@@ -971,11 +971,11 @@ typedef struct CGPointError CGPointError;
     switch ( coord ) {
         case CPTCoordinateX:
             result = @[@(CPTRangePlotFieldX)];
-            break;
+        break;
 
         case CPTCoordinateY:
             result = @[@(CPTRangePlotFieldY)];
-            break;
+        break;
 
         default:
             [NSException raise:CPTException format:@"Invalid coordinate passed to fieldIdentifiersForCoordinate:"];

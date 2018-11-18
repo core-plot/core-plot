@@ -293,9 +293,9 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
     NSValue *groupRange = [NSValue valueWithRange:NSMakeRange(offset, [[PlotGallery sharedPlotGallery] numberOfRowsInSection:index])];
 
     return @{
-    IKImageBrowserGroupStyleKey: @(IKGroupDisclosureStyle),
-    IKImageBrowserGroupTitleKey: groupTitle,
-    IKImageBrowserGroupRangeKey: groupRange
+        IKImageBrowserGroupStyleKey: @(IKGroupDisclosureStyle),
+        IKImageBrowserGroupTitleKey: groupTitle,
+        IKImageBrowserGroupRangeKey: groupRange
     };
 }
 

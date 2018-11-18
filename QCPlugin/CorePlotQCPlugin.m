@@ -90,8 +90,8 @@ void drawErrorText(CGContextRef __nonnull context, CGRect rect)
      */
 
     return @{
-               QCPlugInAttributeNameKey: kQCPlugIn_Name,
-               QCPlugInAttributeDescriptionKey: kQCPlugIn_Description
+        QCPlugInAttributeNameKey: kQCPlugIn_Name,
+        QCPlugInAttributeDescriptionKey: kQCPlugIn_Description
     };
 }
 
@@ -194,157 +194,157 @@ void drawErrorText(CGContextRef __nonnull context, CGRect rect)
 
     if ( [key isEqualToString:@"inputXMin"] ) {
         return @{
-                   QCPortAttributeNameKey: @"X Range Min",
-                   QCPortAttributeDefaultValueKey: @(-1.0)
+            QCPortAttributeNameKey: @"X Range Min",
+            QCPortAttributeDefaultValueKey: @(-1.0)
         };
     }
 
     if ( [key isEqualToString:@"inputXMax"] ) {
         return @{
-                   QCPortAttributeNameKey: @"X Range Max",
-                   QCPortAttributeDefaultValueKey: @1.0
+            QCPortAttributeNameKey: @"X Range Max",
+            QCPortAttributeDefaultValueKey: @1.0
         };
     }
 
     if ( [key isEqualToString:@"inputYMin"] ) {
         return @{
-                   QCPortAttributeNameKey: @"Y Range Min",
-                   QCPortAttributeDefaultValueKey: @(-1.0)
+            QCPortAttributeNameKey: @"Y Range Min",
+            QCPortAttributeDefaultValueKey: @(-1.0)
         };
     }
 
     if ( [key isEqualToString:@"inputYMax"] ) {
         return @{
-                   QCPortAttributeNameKey: @"Y Range Max",
-                   QCPortAttributeDefaultValueKey: @1.0
+            QCPortAttributeNameKey: @"Y Range Max",
+            QCPortAttributeDefaultValueKey: @1.0
         };
     }
 
     if ( [key isEqualToString:@"inputXMajorIntervals"] ) {
         return @{
-                   QCPortAttributeNameKey: @"X Major Intervals",
-                   QCPortAttributeDefaultValueKey: @4.0,
-                   QCPortAttributeMinimumValueKey: @0.0
+            QCPortAttributeNameKey: @"X Major Intervals",
+            QCPortAttributeDefaultValueKey: @4.0,
+            QCPortAttributeMinimumValueKey: @0.0
         };
     }
 
     if ( [key isEqualToString:@"inputYMajorIntervals"] ) {
         return @{
-                   QCPortAttributeNameKey: @"Y Major Intervals",
-                   QCPortAttributeDefaultValueKey: @4.0,
-                   QCPortAttributeMinimumValueKey: @0.0
+            QCPortAttributeNameKey: @"Y Major Intervals",
+            QCPortAttributeDefaultValueKey: @4.0,
+            QCPortAttributeMinimumValueKey: @0.0
         };
     }
 
     if ( [key isEqualToString:@"inputXMinorIntervals"] ) {
         return @{
-                   QCPortAttributeNameKey: @"X Minor Intervals",
-                   QCPortAttributeDefaultValueKey: @1,
-                   QCPortAttributeMinimumValueKey: @0
+            QCPortAttributeNameKey: @"X Minor Intervals",
+            QCPortAttributeDefaultValueKey: @1,
+            QCPortAttributeMinimumValueKey: @0
         };
     }
 
     if ( [key isEqualToString:@"inputYMinorIntervals"] ) {
         return @{
-                   QCPortAttributeNameKey: @"Y Minor Intervals",
-                   QCPortAttributeDefaultValueKey: @1,
-                   QCPortAttributeMinimumValueKey: @0
+            QCPortAttributeNameKey: @"Y Minor Intervals",
+            QCPortAttributeDefaultValueKey: @1,
+            QCPortAttributeMinimumValueKey: @0
         };
     }
 
     if ( [key isEqualToString:@"inputAxisColor"] ) {
         CGColorRef axisColor  = CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0);
         CPTDictionary *result = @{
-            QCPortAttributeNameKey: @"Axis Color",
-            QCPortAttributeDefaultValueKey: (id)CFBridgingRelease(axisColor)
+                                    QCPortAttributeNameKey: @"Axis Color",
+                                    QCPortAttributeDefaultValueKey: (id)CFBridgingRelease(axisColor)
         };
         return result;
     }
 
     if ( [key isEqualToString:@"inputAxisLineWidth"] ) {
         return @{
-                   QCPortAttributeNameKey: @"Axis Line Width",
-                   QCPortAttributeMinimumValueKey: @0.0,
-                   QCPortAttributeDefaultValueKey: @1.0
+            QCPortAttributeNameKey: @"Axis Line Width",
+            QCPortAttributeMinimumValueKey: @0.0,
+            QCPortAttributeDefaultValueKey: @1.0
         };
     }
 
     if ( [key isEqualToString:@"inputAxisMajorTickWidth"] ) {
         return @{
-                   QCPortAttributeNameKey: @"Major Tick Width",
-                   QCPortAttributeMinimumValueKey: @0.0,
-                   QCPortAttributeDefaultValueKey: @2.0
+            QCPortAttributeNameKey: @"Major Tick Width",
+            QCPortAttributeMinimumValueKey: @0.0,
+            QCPortAttributeDefaultValueKey: @2.0
         };
     }
 
     if ( [key isEqualToString:@"inputAxisMinorTickWidth"] ) {
         return @{
-                   QCPortAttributeNameKey: @"Minor Tick Width",
-                   QCPortAttributeMinimumValueKey: @0.0,
-                   QCPortAttributeDefaultValueKey: @1.0
+            QCPortAttributeNameKey: @"Minor Tick Width",
+            QCPortAttributeMinimumValueKey: @0.0,
+            QCPortAttributeDefaultValueKey: @1.0
         };
     }
 
     if ( [key isEqualToString:@"inputAxisMajorTickLength"] ) {
         return @{
-                   QCPortAttributeNameKey: @"Major Tick Length",
-                   QCPortAttributeMinimumValueKey: @0.0,
-                   QCPortAttributeDefaultValueKey: @10.0
+            QCPortAttributeNameKey: @"Major Tick Length",
+            QCPortAttributeMinimumValueKey: @0.0,
+            QCPortAttributeDefaultValueKey: @10.0
         };
     }
 
     if ( [key isEqualToString:@"inputAxisMinorTickLength"] ) {
         return @{
-                   QCPortAttributeNameKey: @"Minor Tick Length",
-                   QCPortAttributeMinimumValueKey: @0.0,
-                   QCPortAttributeDefaultValueKey: @3.0
+            QCPortAttributeNameKey: @"Minor Tick Length",
+            QCPortAttributeMinimumValueKey: @0.0,
+            QCPortAttributeDefaultValueKey: @3.0
         };
     }
 
     if ( [key isEqualToString:@"inputMajorGridLineWidth"] ) {
         return @{
-                   QCPortAttributeNameKey: @"Major Grid Line Width",
-                   QCPortAttributeMinimumValueKey: @0.0,
-                   QCPortAttributeDefaultValueKey: @1.0
+            QCPortAttributeNameKey: @"Major Grid Line Width",
+            QCPortAttributeMinimumValueKey: @0.0,
+            QCPortAttributeDefaultValueKey: @1.0
         };
     }
 
     if ( [key isEqualToString:@"inputMinorGridLineWidth"] ) {
         return @{
-                   QCPortAttributeNameKey: @"Minor Grid Line Width",
-                   QCPortAttributeMinimumValueKey: @0.0,
-                   QCPortAttributeDefaultValueKey: @0.0
+            QCPortAttributeNameKey: @"Minor Grid Line Width",
+            QCPortAttributeMinimumValueKey: @0.0,
+            QCPortAttributeDefaultValueKey: @0.0
         };
     }
 
     if ( [key isEqualToString:@"inputPlotAreaColor"] ) {
         CGColorRef plotAreaColor = CGColorCreateGenericRGB(0.0, 0.0, 0.0, 0.4);
         CPTDictionary *result    = @{
-            QCPortAttributeNameKey: @"Plot Area Color",
-            QCPortAttributeDefaultValueKey: (id)CFBridgingRelease(plotAreaColor)
+                                       QCPortAttributeNameKey: @"Plot Area Color",
+                                       QCPortAttributeDefaultValueKey: (id)CFBridgingRelease(plotAreaColor)
         };
         return result;
     }
 
     if ( [key isEqualToString:@"inputPixelsWide"] ) {
         return @{
-                   QCPortAttributeNameKey: @"Pixels Wide",
-                   QCPortAttributeMinimumValueKey: @1,
-                   QCPortAttributeDefaultValueKey: @512
+            QCPortAttributeNameKey: @"Pixels Wide",
+            QCPortAttributeMinimumValueKey: @1,
+            QCPortAttributeDefaultValueKey: @512
         };
     }
 
     if ( [key isEqualToString:@"inputPixelsHigh"] ) {
         return @{
-                   QCPortAttributeNameKey: @"Pixels High",
-                   QCPortAttributeMinimumValueKey: @1,
-                   QCPortAttributeDefaultValueKey: @512
+            QCPortAttributeNameKey: @"Pixels High",
+            QCPortAttributeMinimumValueKey: @1,
+            QCPortAttributeDefaultValueKey: @512
         };
     }
 
     if ( [key isEqualToString:@"outputImage"] ) {
         return @{
-                   QCPortAttributeNameKey: @"Image"
+            QCPortAttributeNameKey: @"Image"
         };
     }
 
@@ -525,6 +525,7 @@ void drawErrorText(CGContextRef __nonnull context, CGRect rect)
     NSString *key = [NSString stringWithFormat:@"plotFillImage%lu", (unsigned long)index];
 
     id<QCPlugInInputImageSource> img = [self valueForInputKey:key];
+
     if ( !img ) {
         return nil;
     }

@@ -60,8 +60,8 @@ static NSString *const hermiteCubicIdentifier          = @"Hermite Cubic";
             NSNumber *y = yValues[i];
             if ( x && y ) {
                 [generatedData addObject:@{
-                 @"x": x,
-                 @"y": y
+                     @"x": x,
+                     @"y": y
                 }];
             }
         }

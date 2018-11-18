@@ -56,6 +56,7 @@ static const CGFloat kMouseMovementScaleFactorForRotation = 1.0;
                                                      ( (displacementInX / totalRotation) * oldTransform.m32 + (displacementInY / totalRotation) * oldTransform.m31 ) );
 
     id<CPTRotationDelegate> theDelegate = self.rotationDelegate;
+
     [theDelegate rotateObjectUsingTransform:newTransform];
 
     self.rotationTransform = newTransform;

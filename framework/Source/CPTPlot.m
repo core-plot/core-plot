@@ -1841,6 +1841,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
     id<CPTLegendDelegate> theDelegate = (id<CPTLegendDelegate>)self.delegate;
 
     CPTFill *theFill = nil;
+
     if ( [theDelegate respondsToSelector:@selector(legend:fillForSwatchAtIndex:forPlot:)] ) {
         theFill = [theDelegate legend:legend fillForSwatchAtIndex:idx forPlot:self];
     }

@@ -1167,14 +1167,14 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     switch ( coord ) {
         case CPTCoordinateX:
             result = @[@(CPTTradingRangePlotFieldX)];
-            break;
+        break;
 
         case CPTCoordinateY:
             result = @[@(CPTTradingRangePlotFieldOpen),
                        @(CPTTradingRangePlotFieldLow),
                        @(CPTTradingRangePlotFieldHigh),
                        @(CPTTradingRangePlotFieldClose)];
-            break;
+        break;
 
         default:
             [NSException raise:CPTException format:@"Invalid coordinate passed to fieldIdentifiersForCoordinate:"];
