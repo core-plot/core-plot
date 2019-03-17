@@ -56,9 +56,9 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 
     self.splitView.delegate = self;
 
-    [self.imageBrowser setDelegate:self];
-    [self.imageBrowser setDataSource:self];
-    [self.imageBrowser setCellsStyleMask:IKCellsStyleShadowed | IKCellsStyleTitled]; // | IKCellsStyleSubtitled];
+    self.imageBrowser.delegate       = self;
+    self.imageBrowser.dataSource     = self;
+    self.imageBrowser.cellsStyleMask = IKCellsStyleShadowed | IKCellsStyleTitled; // | IKCellsStyleSubtitled;
 
     [self.imageBrowser reloadData];
 
@@ -71,10 +71,10 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 {
     [self setPlotItem:nil];
 
-    [splitView setDelegate:nil];
-    [imageBrowser setDataSource:nil];
-    [imageBrowser setDelegate:nil];
-    [hostingView setDelegate:nil];
+    splitView.delegate      = nil;
+    imageBrowser.dataSource = nil;
+    imageBrowser.delegate   = nil;
+    hostingView.delegate    = nil;
 }
 
 -(void)setFrameSize:(NSSize)newSize
