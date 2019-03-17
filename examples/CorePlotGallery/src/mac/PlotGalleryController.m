@@ -6,7 +6,6 @@
 #import "PlotGalleryController.h"
 
 #import "dlfcn.h"
-// #define EMBED_NU  1
 
 static const CGFloat CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0;
 
@@ -66,24 +65,6 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
     self.hostingView.delegate = self;
 
     [self setupThemes];
-
-#ifdef EMBED_NU
-    // Setup a Nu console without the help of the Nu include files or
-    // an explicit link of the Nu framework, which may not be installed
-    nuHandle = dlopen("/Library/Frameworks/Nu.framework/Nu", RTLD_LAZY);
-
-    if ( nuHandle ) {
-        NSString *consoleStartup =
-            @"(progn \
-           (load \"console\") \
-           (set $console ((NuConsoleWindowController alloc) init)))";
-
-        Class nuClass = NSClassFromString(@"Nu");
-        id parser     = [nuClass performSelector:@selector(parser)];
-        id code       = [parser performSelector:@selector(parse:) withObject:consoleStartup];
-        [parser performSelector:@selector(eval:) withObject:code];
-    }
-#endif
 }
 
 -(void)dealloc
@@ -94,12 +75,6 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
     [imageBrowser setDataSource:nil];
     [imageBrowser setDelegate:nil];
     [hostingView setDelegate:nil];
-
-#ifdef EMBED_NU
-    if ( nuHandle ) {
-        dlclose(nuHandle);
-    }
-#endif
 }
 
 -(void)setFrameSize:(NSSize)newSize
