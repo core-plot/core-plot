@@ -51,6 +51,8 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 
 -(void)awakeFromNib
 {
+    [super awakeFromNib];
+
     [[PlotGallery sharedPlotGallery] sortByTitle];
 
     self.splitView.delegate = self;
