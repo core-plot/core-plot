@@ -155,7 +155,7 @@
         numFields = 2;
     }
 
-    NSMutableData *data = [[NSMutableData alloc] initWithLength:indexRange.length * numFields * (useDoubles ? sizeof(double) : sizeof(NSDecimal) )];
+    NSMutableData *data = [[NSMutableData alloc] initWithLength:indexRange.length * numFields * ( useDoubles ? sizeof(double) : sizeof(NSDecimal) )];
 
     const NSUInteger maxIndex = NSMaxRange(indexRange);
 
@@ -376,7 +376,7 @@
         numFields = 2;
     }
 
-    NSMutableData *data = [[NSMutableData alloc] initWithLength:indexRange.length * numFields * (useDoubles ? sizeof(double) : sizeof(NSDecimal) )];
+    NSMutableData *data = [[NSMutableData alloc] initWithLength:indexRange.length * numFields * ( useDoubles ? sizeof(double) : sizeof(NSDecimal) )];
 
     const NSUInteger maxIndex = NSMaxRange(indexRange);
 
@@ -652,7 +652,7 @@
         animationOperation = [CPTAnimation animate:volumePlotSpace
                                           property:@"yRange"
                                      fromPlotRange:[CPTPlotRange      plotRangeWithLocationDecimal:volumeLowDisplayLocation.decimalValue
-                                                                                     lengthDecimal:CPTDecimalMultiply(volumeLengthDisplayLocation.decimalValue, CPTDecimalFromInteger(10) )]
+                                                                                     lengthDecimal:CPTDecimalMultiply( volumeLengthDisplayLocation.decimalValue, CPTDecimalFromInteger(10) )]
                                        toPlotRange:[CPTPlotRange      plotRangeWithLocation:volumeLowDisplayLocation
                                                                                      length:volumeLengthDisplayLocation]
                                           duration:2.5];

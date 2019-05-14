@@ -276,7 +276,7 @@
     NSDecimal loc = self.locationDecimal;
     NSDecimal len = self.lengthDecimal;
 
-    if ( CPTDecimalLessThan(len, CPTDecimalFromInteger(0) ) ) {
+    if ( CPTDecimalLessThan( len, CPTDecimalFromInteger(0) ) ) {
         return CPTDecimalAdd(loc, len);
     }
     else {
@@ -304,7 +304,7 @@
 
 -(NSDecimal)midPointDecimal
 {
-    return CPTDecimalAdd(self.locationDecimal, CPTDecimalDivide(self.lengthDecimal, CPTDecimalFromInteger(2) ) );
+    return CPTDecimalAdd( self.locationDecimal, CPTDecimalDivide( self.lengthDecimal, CPTDecimalFromInteger(2) ) );
 }
 
 -(double)midPointDouble
@@ -322,7 +322,7 @@
     NSDecimal loc = self.locationDecimal;
     NSDecimal len = self.lengthDecimal;
 
-    if ( CPTDecimalGreaterThan(len, CPTDecimalFromInteger(0) ) ) {
+    if ( CPTDecimalGreaterThan( len, CPTDecimalFromInteger(0) ) ) {
         return CPTDecimalAdd(loc, len);
     }
     else {

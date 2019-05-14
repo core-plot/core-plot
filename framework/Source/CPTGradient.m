@@ -798,15 +798,15 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
 
     switch ( self.blendingMode ) {
         case CPTLinearBlendingMode:
-            CPTLinearEvaluation( (__bridge void *)(self), &position, components );
+            CPTLinearEvaluation( (__bridge void *)(self), &position, components);
             break;
 
         case CPTChromaticBlendingMode:
-            CPTChromaticEvaluation( (__bridge void *)(self), &position, components );
+            CPTChromaticEvaluation( (__bridge void *)(self), &position, components);
             break;
 
         case CPTInverseChromaticBlendingMode:
-            CPTInverseChromaticEvaluation( (__bridge void *)(self), &position, components );
+            CPTInverseChromaticEvaluation( (__bridge void *)(self), &position, components);
             break;
     }
 
@@ -902,7 +902,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
     CPTGradientElement *list = self.elementList;
 
     while ( opaqueGradient && (list != NULL) ) {
-        opaqueGradient = opaqueGradient && (list->color.alpha >= CPTFloat(1.0) );
+        opaqueGradient = opaqueGradient && ( list->color.alpha >= CPTFloat(1.0) );
         list           = list->nextElement;
     }
 
@@ -1034,12 +1034,12 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
     CGPoint startPoint, endPoint;
 
     if ( self.angle == CPTFloat(0.0) ) {
-        startPoint = CPTPointMake(CGRectGetMinX(rect), CGRectGetMinY(rect) ); // right of rect
-        endPoint   = CPTPointMake(CGRectGetMaxX(rect), CGRectGetMinY(rect) ); // left  of rect
+        startPoint = CPTPointMake( CGRectGetMinX(rect), CGRectGetMinY(rect) ); // right of rect
+        endPoint   = CPTPointMake( CGRectGetMaxX(rect), CGRectGetMinY(rect) ); // left  of rect
     }
     else if ( self.angle == CPTFloat(90.0) ) {
-        startPoint = CPTPointMake(CGRectGetMinX(rect), CGRectGetMinY(rect) ); // bottom of rect
-        endPoint   = CPTPointMake(CGRectGetMinX(rect), CGRectGetMaxY(rect) ); // top    of rect
+        startPoint = CPTPointMake( CGRectGetMinX(rect), CGRectGetMinY(rect) ); // bottom of rect
+        endPoint   = CPTPointMake( CGRectGetMinX(rect), CGRectGetMaxY(rect) ); // top    of rect
     }
     else { // ok, we'll do the calculations now
         CGFloat x, y;
@@ -1050,7 +1050,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
 
         CGFloat rAngle = self.angle * CPTFloat(M_PI / 180.0); // convert the angle to radians
 
-        if ( fabs(tan(rAngle) ) <= CPTFloat(1.0) ) { // for range [-45,45], [135,225]
+        if ( fabs( tan(rAngle) ) <= CPTFloat(1.0) ) { // for range [-45,45], [135,225]
             x = CGRectGetWidth(rect);
             y = CGRectGetHeight(rect);
 
@@ -1058,7 +1058,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
             cosA = cos(rAngle);
             tanA = tan(rAngle);
 
-            length = x / fabs(cosA) + (y - x * fabs(tanA) ) * fabs(sinA);
+            length = x / fabs(cosA) + ( y - x * fabs(tanA) ) * fabs(sinA);
 
             deltaX = length * cosA / CPTFloat(2.0);
             deltaY = length * sinA / CPTFloat(2.0);
@@ -1073,7 +1073,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
             cosA = cos(rAngle);
             tanA = tan(rAngle);
 
-            length = x / fabs(cosA) + (y - x * fabs(tanA) ) * fabs(sinA);
+            length = x / fabs(cosA) + ( y - x * fabs(tanA) ) * fabs(sinA);
 
             deltaX = -length * sinA / CPTFloat(2.0);
             deltaY = length * cosA / CPTFloat(2.0);
@@ -1096,12 +1096,12 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
 
     CGPoint theStartAnchor = self.startAnchor;
 
-    startPoint = CPTPointMake(fma(CGRectGetWidth(rect), theStartAnchor.x, CGRectGetMinX(rect) ),
-                              fma(CGRectGetHeight(rect), theStartAnchor.y, CGRectGetMinY(rect) ) );
+    startPoint = CPTPointMake( fma( CGRectGetWidth(rect), theStartAnchor.x, CGRectGetMinX(rect) ),
+                               fma( CGRectGetHeight(rect), theStartAnchor.y, CGRectGetMinY(rect) ) );
 
     CGPoint theEndAnchor = self.endAnchor;
-    endPoint = CPTPointMake(fma(CGRectGetWidth(rect), theEndAnchor.x, CGRectGetMinX(rect) ),
-                            fma(CGRectGetHeight(rect), theEndAnchor.y, CGRectGetMinY(rect) ) );
+    endPoint = CPTPointMake( fma( CGRectGetWidth(rect), theEndAnchor.x, CGRectGetMinX(rect) ),
+                             fma( CGRectGetHeight(rect), theEndAnchor.y, CGRectGetMinY(rect) ) );
 
     startRadius = CPTFloat(-1.0);
     if ( CGRectGetHeight(rect) > CGRectGetWidth(rect) ) {
@@ -1151,10 +1151,10 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
     static const CGFloat input_value_range[2]   = { 0, 1 };                   // range  for the evaluator input
     static const CGFloat output_value_ranges[8] = { 0, 1, 0, 1, 0, 1, 0, 1 }; // ranges for the evaluator output (4 returned values)
 
-    CGFunctionRef cgFunction = CGFunctionCreate( (__bridge void *)(self),   // the two transition colors
-                                                 1, input_value_range,      // number of inputs (just fraction of progression)
-                                                 4, output_value_ranges,    // number of outputs (4 - RGBa)
-                                                 &evaluationCallbackInfo ); // info for using the evaluator function
+    CGFunctionRef cgFunction = CGFunctionCreate( (__bridge void *)(self),  // the two transition colors
+                                                 1, input_value_range,     // number of inputs (just fraction of progression)
+                                                 4, output_value_ranges,   // number of outputs (4 - RGBa)
+                                                 &evaluationCallbackInfo); // info for using the evaluator function
 
     if ( cgFunction ) {
         self.gradientFunction = cgFunction;
@@ -1167,7 +1167,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
 
     if ( (curElement == NULL) || (newElement->position < curElement->position) ) {
         CPTGradientElement *tmpNext        = curElement;
-        CPTGradientElement *newElementList = calloc(1, sizeof(CPTGradientElement) );
+        CPTGradientElement *newElementList = calloc( 1, sizeof(CPTGradientElement) );
         if ( newElementList ) {
             *newElementList             = *newElement;
             newElementList->nextElement = tmpNext;
@@ -1182,7 +1182,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
         }
 
         CPTGradientElement *tmpNext = curElement->nextElement;
-        curElement->nextElement              = calloc(1, sizeof(CPTGradientElement) );
+        curElement->nextElement              = calloc( 1, sizeof(CPTGradientElement) );
         *(curElement->nextElement)           = *newElement;
         curElement->nextElement->nextElement = tmpNext;
     }
@@ -1573,11 +1573,11 @@ void CPTTransformRGB_HSV(CGFloat *__nonnull components) // H,S,B -> R,G,B
 void CPTTransformHSV_RGB(CGFloat *__nonnull components) // H,S,B -> R,G,B
 {
     CGFloat R = CPTFloat(0.0), G = CPTFloat(0.0), B = CPTFloat(0.0);
-    CGFloat H = fmod(components[0], CPTFloat(360.0) ); // map to [0,360)
+    CGFloat H = fmod( components[0], CPTFloat(360.0) ); // map to [0,360)
     CGFloat S = components[1];
     CGFloat V = components[2];
 
-    int Hi    = (int)lrint(floor(H / CPTFloat(60.0) ) ) % 6;
+    int Hi    = (int)lrint( floor( H / CPTFloat(60.0) ) ) % 6;
     CGFloat f = H / CPTFloat(60.0) - Hi;
     CGFloat p = V * (CPTFloat(1.0) - S);
     CGFloat q = V * (CPTFloat(1.0) - f * S);

@@ -64,7 +64,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 
 -(id)newObject
 {
-    NSNumber *x1 = @(1.0 + ( (NSMutableArray *)self.content ).count * 0.05);
+    NSNumber *x1 = @(1.0 + ( (NSMutableArray *)self.content).count * 0.05);
     NSNumber *y1 = @(1.2 * arc4random() / (double)UINT32_MAX + 1.2);
 
     return @{
@@ -780,7 +780,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 {
     labelRotation = newRotation;
 
-    ( (CPTXYAxisSet *)self.graph.axisSet ).yAxis.labelRotation   = newRotation;
+    ( (CPTXYAxisSet *)self.graph.axisSet).yAxis.labelRotation    = newRotation;
     [self.graph plotWithIdentifier:dataSourcePlot].labelRotation = newRotation;
 }
 

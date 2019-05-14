@@ -816,13 +816,13 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         [theBorderLineStyle setLineStyleInContext:context];
 
         CGFloat lineWidth = theBorderLineStyle.lineWidth;
-        if ( (self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
+        if ( ( self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
             alignmentFunction = CPTAlignIntegralPointToUserSpace;
         }
     }
 
     // high - low only
-    if ( hasLineStyle && !isnan(highValue) && !isnan(lowValue) && (isnan(openValue) || isnan(closeValue) ) ) {
+    if ( hasLineStyle && !isnan(highValue) && !isnan(lowValue) && ( isnan(openValue) || isnan(closeValue) ) ) {
         CGPoint alignedHighPoint = CPTPointMake(x, highValue);
         CGPoint alignedLowPoint  = CPTPointMake(x, lowValue);
         if ( alignPoints ) {
@@ -845,7 +845,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     if ( !isnan(openValue) && !isnan(closeValue) ) {
         if ( currentBarFill || hasLineStyle ) {
             CGFloat radius = MIN(self.barCornerRadius, halfBarWidth);
-            radius = MIN(radius, ABS(closeValue - openValue) );
+            radius = MIN( radius, ABS(closeValue - openValue) );
 
             CGPoint alignedPoint1 = CPTPointMake(x + halfBarWidth, openValue);
             CGPoint alignedPoint2 = CPTPointMake(x + halfBarWidth, closeValue);
@@ -901,7 +901,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
                 if ( !isnan(lowValue) ) {
                     if ( lowValue < MIN(openValue, closeValue) ) {
-                        CGPoint alignedStartPoint = CPTPointMake(x, MIN(openValue, closeValue) );
+                        CGPoint alignedStartPoint = CPTPointMake( x, MIN(openValue, closeValue) );
                         CGPoint alignedLowPoint   = CPTPointMake(x, lowValue);
                         if ( alignPoints ) {
                             alignedStartPoint = alignmentFunction(context, alignedStartPoint);
@@ -914,7 +914,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
                 }
                 if ( !isnan(highValue) ) {
                     if ( highValue > MAX(openValue, closeValue) ) {
-                        CGPoint alignedStartPoint = CPTPointMake(x, MAX(openValue, closeValue) );
+                        CGPoint alignedStartPoint = CPTPointMake( x, MAX(openValue, closeValue) );
                         CGPoint alignedHighPoint  = CPTPointMake(x, highValue);
                         if ( alignPoints ) {
                             alignedStartPoint = alignmentFunction(context, alignedStartPoint);
@@ -968,7 +968,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         CPTAlignPointFunction alignmentFunction = CPTAlignPointToUserSpace;
 
         CGFloat lineWidth = theLineStyle.lineWidth;
-        if ( (self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
+        if ( ( self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
             alignmentFunction = CPTAlignIntegralPointToUserSpace;
         }
 
@@ -1218,7 +1218,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     BOOL positiveDirection = YES;
     CPTPlotRange *yRange   = [self.plotSpace plotRangeForCoordinate:CPTCoordinateY];
 
-    if ( CPTDecimalLessThan(yRange.lengthDecimal, CPTDecimalFromInteger(0) ) ) {
+    if ( CPTDecimalLessThan( yRange.lengthDecimal, CPTDecimalFromInteger(0) ) ) {
         positiveDirection = !positiveDirection;
     }
 
@@ -1370,8 +1370,8 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
                     lastViewX = closePoint.x;
                 }
 
-                lastViewMin = MIN(MIN(openPoint.y, closePoint.y), MIN(highPoint.y, lowPoint.y) );
-                lastViewMax = MAX(MAX(openPoint.y, closePoint.y), MAX(highPoint.y, lowPoint.y) );
+                lastViewMin = MIN( MIN(openPoint.y, closePoint.y), MIN(highPoint.y, lowPoint.y) );
+                lastViewMax = MAX( MAX(openPoint.y, closePoint.y), MAX(highPoint.y, lowPoint.y) );
             }
         }
     }
@@ -1463,8 +1463,8 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
                     lastViewX = closePoint.x;
                 }
 
-                lastViewMin = MIN(MIN(openPoint.y, closePoint.y), MIN(highPoint.y, lowPoint.y) );
-                lastViewMax = MAX(MAX(openPoint.y, closePoint.y), MAX(highPoint.y, lowPoint.y) );
+                lastViewMin = MIN( MIN(openPoint.y, closePoint.y), MIN(highPoint.y, lowPoint.y) );
+                lastViewMax = MAX( MAX(openPoint.y, closePoint.y), MAX(highPoint.y, lowPoint.y) );
             }
         }
     }
@@ -1482,7 +1482,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
                 break;
         }
 
-        if ( (point.x < (lastViewX - offset) ) || (point.x > (lastViewX + offset) ) ) {
+        if ( ( point.x < (lastViewX - offset) ) || ( point.x > (lastViewX + offset) ) ) {
             result = NSNotFound;
         }
         if ( (point.y < lastViewMin) || (point.y > lastViewMax) ) {

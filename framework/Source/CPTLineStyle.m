@@ -239,7 +239,7 @@
 
     NSUInteger dashCount = myDashPattern.count;
     if ( dashCount > 0 ) {
-        CGFloat *dashLengths = (CGFloat *)calloc(dashCount, sizeof(CGFloat) );
+        CGFloat *dashLengths = (CGFloat *)calloc( dashCount, sizeof(CGFloat) );
 
         NSUInteger dashCounter = 0;
         for ( NSNumber *currentDashLength in myDashPattern ) {
@@ -309,7 +309,7 @@
 -(void)strokePathWithGradient:(nonnull CPTGradient *)gradient inContext:(nonnull CGContextRef)context
 {
     if ( gradient ) {
-        CGRect deviceRect = CGContextConvertRectToDeviceSpace(context, CPTRectMake(0.0, 0.0, 1.0, 1.0) );
+        CGRect deviceRect = CGContextConvertRectToDeviceSpace( context, CPTRectMake(0.0, 0.0, 1.0, 1.0) );
 
         CGFloat step = CPTFloat(2.0) / deviceRect.size.height;
 

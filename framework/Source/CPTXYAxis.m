@@ -206,7 +206,7 @@
     }
 
     if ( isnan(point.x) || isnan(point.y) ) {
-        NSLog(@"[CPTXYAxis viewPointForCoordinateValue:%@] was %@", coordinateValue, CPTStringFromPoint(point) );
+        NSLog( @"[CPTXYAxis viewPointForCoordinateValue:%@] was %@", coordinateValue, CPTStringFromPoint(point) );
 
         if ( isnan(point.x) ) {
             point.x = CPTFloat(0.0);
@@ -237,7 +237,7 @@
     CGFloat lineWidth = lineStyle.lineWidth;
 
     CPTAlignPointFunction alignmentFunction = NULL;
-    if ( (self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
+    if ( ( self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
         alignmentFunction = CPTAlignIntegralPointToUserSpace;
     }
     else {
@@ -348,7 +348,7 @@
         CPTAlignPointFunction alignmentFunction = CPTAlignPointToUserSpace;
         if ( theLineStyle ) {
             CGFloat lineWidth = theLineStyle.lineWidth;
-            if ( (self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
+            if ( ( self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
                 alignmentFunction = CPTAlignIntegralPointToUserSpace;
             }
 
@@ -443,7 +443,7 @@
         CGFloat lineWidth = lineStyle.lineWidth;
 
         CPTAlignPointFunction alignmentFunction = NULL;
-        if ( (self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
+        if ( ( self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
             alignmentFunction = CPTAlignIntegralPointToUserSpace;
         }
         else {
@@ -673,10 +673,10 @@
                         CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint numberOfCoordinates:2];
 
                         // Fill band
-                        CGRect fillRect = CPTRectMake(MIN(startViewPoint.x, endViewPoint.x),
-                                                      MIN(startViewPoint.y, endViewPoint.y),
-                                                      ABS(endViewPoint.x - startViewPoint.x),
-                                                      ABS(endViewPoint.y - startViewPoint.y) );
+                        CGRect fillRect = CPTRectMake( MIN(startViewPoint.x, endViewPoint.x),
+                                                       MIN(startViewPoint.y, endViewPoint.y),
+                                                       ABS(endViewPoint.x - startViewPoint.x),
+                                                       ABS(endViewPoint.y - startViewPoint.y) );
                         [bandFill fillRect:CPTAlignIntegralRectToUserSpace(context, fillRect) inContext:context];
                     }
                 }
@@ -705,10 +705,10 @@
                     CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint numberOfCoordinates:2];
 
                     // Fill band
-                    CGRect fillRect = CPTRectMake(MIN(startViewPoint.x, endViewPoint.x),
-                                                  MIN(startViewPoint.y, endViewPoint.y),
-                                                  ABS(endViewPoint.x - startViewPoint.x),
-                                                  ABS(endViewPoint.y - startViewPoint.y) );
+                    CGRect fillRect = CPTRectMake( MIN(startViewPoint.x, endViewPoint.x),
+                                                   MIN(startViewPoint.y, endViewPoint.y),
+                                                   ABS(endViewPoint.x - startViewPoint.x),
+                                                   ABS(endViewPoint.y - startViewPoint.y) );
                     [bandFill fillRect:CPTAlignIntegralRectToUserSpace(context, fillRect) inContext:context];
                 }
             }
@@ -763,10 +763,10 @@
                     CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint numberOfCoordinates:2];
 
                     // Fill band
-                    CGRect fillRect = CPTRectMake(MIN(startViewPoint.x, endViewPoint.x),
-                                                  MIN(startViewPoint.y, endViewPoint.y),
-                                                  ABS(endViewPoint.x - startViewPoint.x),
-                                                  ABS(endViewPoint.y - startViewPoint.y) );
+                    CGRect fillRect = CPTRectMake( MIN(startViewPoint.x, endViewPoint.x),
+                                                   MIN(startViewPoint.y, endViewPoint.y),
+                                                   ABS(endViewPoint.x - startViewPoint.x),
+                                                   ABS(endViewPoint.y - startViewPoint.y) );
                     [bandFill fillRect:CPTAlignIntegralRectToUserSpace(context, fillRect) inContext:context];
                 }
             }
@@ -825,7 +825,7 @@
                 double end = axisRange.endDouble;
 
                 if ( (loc > 0.0) && (end >= 0.0) ) {
-                    location = @(pow(10.0, (log10(loc) + log10(end) ) / 2.0) );
+                    location = @( pow(10.0, ( log10(loc) + log10(end) ) / 2.0) );
                 }
                 else {
                     location = axisRange.midPoint;
@@ -838,7 +838,7 @@
                 double loc = axisRange.locationDouble;
                 double end = axisRange.endDouble;
 
-                location = @(CPTInverseLogModulus( (CPTLogModulus(loc) + CPTLogModulus(end) ) / 2.0 ) );
+                location = @( CPTInverseLogModulus( ( CPTLogModulus(loc) + CPTLogModulus(end) ) / 2.0) );
             }
             break;
 

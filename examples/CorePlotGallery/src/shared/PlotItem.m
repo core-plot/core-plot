@@ -174,7 +174,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
 
         graph.title                    = (self.graphs.count == 1 ? self.title : nil);
         graph.titleTextStyle           = textStyle;
-        graph.titleDisplacement        = CPTPointMake(0.0, textStyle.fontSize * CPTFloat(1.5) );
+        graph.titleDisplacement        = CPTPointMake( 0.0, textStyle.fontSize * CPTFloat(1.5) );
         graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
 
         // Padding
@@ -228,7 +228,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
         textStyle.fontSize = labelSize;
 
         theLegend.textStyle  = textStyle;
-        theLegend.swatchSize = CGSizeMake(labelSize * CPTFloat(1.5), labelSize * CPTFloat(1.5) );
+        theLegend.swatchSize = CGSizeMake( labelSize * CPTFloat(1.5), labelSize * CPTFloat(1.5) );
 
         theLegend.rowMargin    = labelSize * CPTFloat(0.75);
         theLegend.columnMargin = labelSize * CPTFloat(0.75);
@@ -314,7 +314,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
         NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:layerImage];
         CGContextRef context             = (CGContextRef)bitmapContext.graphicsPort;
 
-        CGContextClearRect(context, CGRectMake(0.0, 0.0, boundsSize.width, boundsSize.height) );
+        CGContextClearRect( context, CGRectMake(0.0, 0.0, boundsSize.width, boundsSize.height) );
         CGContextSetAllowsAntialiasing(context, true);
         CGContextSetShouldSmoothFonts(context, false);
         [imageView.layer renderInContext:context];

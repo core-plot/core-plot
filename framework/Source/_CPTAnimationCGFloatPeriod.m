@@ -31,7 +31,7 @@ CGFloat CPTCurrentFloatValue(id __nonnull boundObject, SEL __nonnull boundGetter
 
 -(void)setStartValueFromObject:(nonnull id)boundObject propertyGetter:(nonnull SEL)boundGetter
 {
-    self.startValue = @(CPTCurrentFloatValue(boundObject, boundGetter) );
+    self.startValue = @( CPTCurrentFloatValue(boundObject, boundGetter) );
 }
 
 -(BOOL)canStartWithValueFromObject:(nonnull id)boundObject propertyGetter:(nonnull SEL)boundGetter

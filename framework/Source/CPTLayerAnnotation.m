@@ -168,7 +168,7 @@
 
             content.anchorPoint = self.contentAnchorPoint;
             content.position    = newPosition;
-            content.transform   = CATransform3DMakeRotation(self.rotation, CPTFloat(0.0), CPTFloat(0.0), CPTFloat(1.0) );
+            content.transform   = CATransform3DMakeRotation( self.rotation, CPTFloat(0.0), CPTFloat(0.0), CPTFloat(1.0) );
             [content pixelAlign];
         }
     }

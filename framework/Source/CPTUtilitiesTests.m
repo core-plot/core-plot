@@ -50,7 +50,7 @@
     XCTAssertEqual(CPTDecimalIntegerValue([d decimalValue]), (NSInteger)42, @"Result incorrect");
 
     d = [NSDecimalNumber decimalNumberWithString:@"42.1"];
-    XCTAssertEqual( (NSInteger)CPTDecimalIntegerValue([d decimalValue]), (NSInteger)42, @"Result incorrect" );
+    XCTAssertEqual( (NSInteger)CPTDecimalIntegerValue([d decimalValue]), (NSInteger)42, @"Result incorrect");
 }
 
 -(void)testCPTDecimalFloatValue
@@ -634,11 +634,11 @@
 {
     XCTAssertEqual(CPTInverseLogModulus(0.0), 0.0, @"CPTInverseLogModulus(0.0)");
 
-    XCTAssertEqualWithAccuracy(CPTInverseLogModulus(log10(11.0) ), 10.0, 1.0e-7, @"CPTInverseLogModulus(log10(11.0))");
-    XCTAssertEqualWithAccuracy(CPTInverseLogModulus(-log10(11.0) ), -10.0, 1.0e-7, @"CPTInverseLogModulus(-log10(11.0))");
+    XCTAssertEqualWithAccuracy(CPTInverseLogModulus( log10(11.0) ), 10.0, 1.0e-7, @"CPTInverseLogModulus(log10(11.0))");
+    XCTAssertEqualWithAccuracy(CPTInverseLogModulus( -log10(11.0) ), -10.0, 1.0e-7, @"CPTInverseLogModulus(-log10(11.0))");
 
-    XCTAssertEqualWithAccuracy(CPTInverseLogModulus(log10(101.0) ), 100.0, 1.0e-7, @"CPTInverseLogModulus(log10(101.0))");
-    XCTAssertEqualWithAccuracy(CPTInverseLogModulus(-log10(101.0) ), -100.0, 1.0e-7, @"CPTInverseLogModulus(-log10(101.0))");
+    XCTAssertEqualWithAccuracy(CPTInverseLogModulus( log10(101.0) ), 100.0, 1.0e-7, @"CPTInverseLogModulus(log10(101.0))");
+    XCTAssertEqualWithAccuracy(CPTInverseLogModulus( -log10(101.0) ), -100.0, 1.0e-7, @"CPTInverseLogModulus(-log10(101.0))");
 }
 
 /// @endcond

@@ -46,8 +46,8 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 
             double rOpen  = 3.0 * arc4random() / (double)UINT32_MAX + 1.0;
             double rClose = (arc4random() / (double)UINT32_MAX - 0.5) * 0.125 + rOpen;
-            double rHigh  = MAX(rOpen, MAX(rClose, (arc4random() / (double)UINT32_MAX - 0.5) * 0.5 + rOpen) );
-            double rLow   = MIN(rOpen, MIN(rClose, (arc4random() / (double)UINT32_MAX - 0.5) * 0.5 + rOpen) );
+            double rHigh  = MAX( rOpen, MAX(rClose, (arc4random() / (double)UINT32_MAX - 0.5) * 0.5 + rOpen) );
+            double rLow   = MIN( rOpen, MIN(rClose, (arc4random() / (double)UINT32_MAX - 0.5) * 0.5 + rOpen) );
 
             [newData addObject:
              @{ @(CPTTradingRangePlotFieldX): @(x),
@@ -105,7 +105,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     CPTLineCap *lineCap = [[CPTLineCap alloc] init];
     lineCap.lineStyle   = xAxis.axisLineStyle;
     lineCap.lineCapType = CPTLineCapTypeSweptArrow;
-    lineCap.size        = CGSizeMake(self.titleSize * CPTFloat(0.5), self.titleSize * CPTFloat(0.625) );
+    lineCap.size        = CGSizeMake( self.titleSize * CPTFloat(0.5), self.titleSize * CPTFloat(0.625) );
 
     CPTColor *lineColor = xAxis.axisLineStyle.lineColor;
     if ( lineColor ) {
@@ -175,7 +175,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     newGraph.legend.swatchLayout       = CPTLegendSwatchLayoutRight;
 
     newGraph.legendAnchor       = CPTRectAnchorBottom;
-    newGraph.legendDisplacement = CGPointMake(0.0, self.titleSize * CPTFloat(3.0) );
+    newGraph.legendDisplacement = CGPointMake( 0.0, self.titleSize * CPTFloat(3.0) );
 
     // Set plot ranges
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)newGraph.defaultPlotSpace;

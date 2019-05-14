@@ -161,14 +161,14 @@ BOOL CPTDataTypeIsSupported(CPTNumericDataType format)
                     case sizeof(float complex):
                     case sizeof(double complex):
                         // only the native byte order is supported
-                        valid = (format.byteOrder == CFByteOrderGetCurrent() );
+                        valid = ( format.byteOrder == CFByteOrderGetCurrent() );
                         break;
                 }
                 break;
 
             case CPTDecimalDataType:
                 // only the native byte order is supported
-                valid = (format.sampleBytes == sizeof(NSDecimal) ) && (format.byteOrder == CFByteOrderGetCurrent() );
+                valid = ( format.sampleBytes == sizeof(NSDecimal) ) && ( format.byteOrder == CFByteOrderGetCurrent() );
                 break;
         }
 

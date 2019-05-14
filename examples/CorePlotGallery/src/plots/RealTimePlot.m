@@ -172,7 +172,7 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
         CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)theGraph.defaultPlotSpace;
         NSUInteger location       = (self.currentIndex >= kMaxDataPoints ? self.currentIndex - kMaxDataPoints + 2 : 0);
 
-        CPTPlotRange *oldRange = [CPTPlotRange plotRangeWithLocation:@( (location > 0) ? (location - 1) : 0 )
+        CPTPlotRange *oldRange = [CPTPlotRange plotRangeWithLocation:@( (location > 0) ? (location - 1) : 0)
                                                               length:@(kMaxDataPoints - 2)];
         CPTPlotRange *newRange = [CPTPlotRange plotRangeWithLocation:@(location)
                                                               length:@(kMaxDataPoints - 2)];
@@ -184,7 +184,7 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
                      duration:CPTFloat(1.0 / kFrameRate)];
 
         self.currentIndex++;
-        [self.plotData addObject:@( (1.0 - kAlpha) * self.plotData.lastObject.doubleValue + kAlpha * arc4random() / (double)UINT32_MAX )];
+        [self.plotData addObject:@( (1.0 - kAlpha) * self.plotData.lastObject.doubleValue + kAlpha * arc4random() / (double)UINT32_MAX)];
         [thePlot insertDataAtIndex:self.plotData.count - 1 numberOfRecords:1];
     }
 }

@@ -62,8 +62,8 @@
     if ( [self class] != [otherConstraint class] ) {
         return NO;
     }
-    return (self.offset == ( (_CPTConstraintsFixed *)otherConstraint ).offset) &&
-           (self.isFixedToLower == ( (_CPTConstraintsFixed *)otherConstraint ).isFixedToLower);
+    return (self.offset == ( (_CPTConstraintsFixed *)otherConstraint).offset) &&
+           (self.isFixedToLower == ( (_CPTConstraintsFixed *)otherConstraint).isFixedToLower);
 }
 
 #pragma mark -

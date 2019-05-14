@@ -418,7 +418,7 @@
 -(nonnull instancetype)init
 {
     return [self initWithData:[NSData data]
-                     dataType:CPTDataType(CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() )
+                     dataType:CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() )
                         shape:nil];
 }
 
@@ -427,7 +427,7 @@
                     shape:(nullable CPTNumberArray *)shapeArray
                 dataOrder:(CPTDataOrder)order
 {
-    NSParameterAssert(CPTDataTypeIsSupported(newDataType) );
+    NSParameterAssert( CPTDataTypeIsSupported(newDataType) );
 
     self.data      = newData;
     self.dataType  = newDataType;
@@ -515,13 +515,13 @@
         return;
     }
 
-    NSParameterAssert(CPTDataTypeIsSupported(newDataType) );
+    NSParameterAssert( CPTDataTypeIsSupported(newDataType) );
     NSParameterAssert(newDataType.dataTypeFormat != CPTUndefinedDataType);
     NSParameterAssert(newDataType.byteOrder != CFByteOrderUnknown);
 
     dataType = newDataType;
 
-    if ( (oldDataType.sampleBytes == sizeof(int8_t) ) && (newDataType.sampleBytes == sizeof(int8_t) ) ) {
+    if ( ( oldDataType.sampleBytes == sizeof(int8_t) ) && ( newDataType.sampleBytes == sizeof(int8_t) ) ) {
         return;
     }
 
@@ -669,11 +669,11 @@
             case CPTComplexFloatingPointDataType:
                 switch ( self.sampleBytes ) {
                     case sizeof(float complex):
-                        result = @(crealf(*(const float complex *)[self samplePointer:sample]) );
+                        result = @( crealf(*(const float complex *)[self samplePointer:sample]) );
                         break;
 
                     case sizeof(double complex):
-                        result = @(creal(*(const double complex *)[self samplePointer:sample]) );
+                        result = @( creal(*(const double complex *)[self samplePointer:sample]) );
                         break;
                 }
                 break;
@@ -728,7 +728,7 @@
 -(nullable const void *)samplePointer:(NSUInteger)sample
 {
     if ( sample < self.numberOfSamples ) {
-        return (const void *)( (const char *)self.bytes + sample * self.sampleBytes );
+        return (const void *)( (const char *)self.bytes + sample * self.sampleBytes);
     }
     else {
         return NULL;
@@ -802,9 +802,9 @@
     NSUInteger newIndex      = 0;
 
     if ( numDims > 1 ) {
-        NSUInteger *dims        = calloc(numDims, sizeof(NSUInteger) );
-        NSUInteger *dimProducts = calloc(numDims, sizeof(NSUInteger) );
-        NSUInteger *indices     = calloc(numDims, sizeof(NSUInteger) );
+        NSUInteger *dims        = calloc( numDims, sizeof(NSUInteger) );
+        NSUInteger *dimProducts = calloc( numDims, sizeof(NSUInteger) );
+        NSUInteger *indices     = calloc( numDims, sizeof(NSUInteger) );
         NSUInteger argIndex     = 0;
 
         indices[0] = idx;
@@ -865,7 +865,7 @@
 
 -(nonnull NSData *)dataFromArray:(nonnull CPTNumberArray *)newData dataType:(CPTNumericDataType)newDataType
 {
-    NSParameterAssert(CPTDataTypeIsSupported(newDataType) );
+    NSParameterAssert( CPTDataTypeIsSupported(newDataType) );
     NSParameterAssert(newDataType.dataTypeFormat != CPTUndefinedDataType);
     NSParameterAssert(newDataType.dataTypeFormat != CPTComplexFloatingPointDataType);
 
@@ -1085,7 +1085,7 @@
     // End of code generated with "CPTNumericData+TypeConversions_Generation.py"
     // ========================================================================
 
-    if ( (newDataType.byteOrder != CFByteOrderGetCurrent() ) && (newDataType.byteOrder != CFByteOrderUnknown) ) {
+    if ( ( newDataType.byteOrder != CFByteOrderGetCurrent() ) && (newDataType.byteOrder != CFByteOrderUnknown) ) {
         [self swapByteOrderForData:sampleData sampleSize:newDataType.sampleBytes];
     }
 
@@ -1188,7 +1188,7 @@
 
         newDataType = CPTDataType( (CPTDataTypeFormat)[decoder decodeIntegerForKey:@"CPTNumericData.dataType.dataTypeFormat"],
                                    (size_t)[decoder decodeInt64ForKey:@"CPTNumericData.dataType.sampleBytes"],
-                                   (CFByteOrder)[decoder decodeInt64ForKey:@"CPTNumericData.dataType.byteOrder"] );
+                                   (CFByteOrder)[decoder decodeInt64ForKey:@"CPTNumericData.dataType.byteOrder"]);
 
         shapeArray = [decoder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [NSNumber class]]]
                                              forKey:@"CPTNumericData.shape"];

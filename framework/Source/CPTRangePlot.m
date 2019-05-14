@@ -274,9 +274,9 @@ typedef struct CGPointError CGPointError;
         }
     }
     else {
-        CPTPlotRangeComparisonResult *xRangeFlags = calloc(dataCount, sizeof(CPTPlotRangeComparisonResult) );
-        CPTPlotRangeComparisonResult *yRangeFlags = calloc(dataCount, sizeof(CPTPlotRangeComparisonResult) );
-        BOOL *nanFlags                            = calloc(dataCount, sizeof(BOOL) );
+        CPTPlotRangeComparisonResult *xRangeFlags = calloc( dataCount, sizeof(CPTPlotRangeComparisonResult) );
+        CPTPlotRangeComparisonResult *yRangeFlags = calloc( dataCount, sizeof(CPTPlotRangeComparisonResult) );
+        BOOL *nanFlags                            = calloc( dataCount, sizeof(BOOL) );
 
         CPTPlotRange *xRange = xyPlotSpace.xRange;
         CPTPlotRange *yRange = xyPlotSpace.yRange;
@@ -465,17 +465,17 @@ typedef struct CGPointError CGPointError;
             if ( drawPointFlags[i] ) {
                 CGFloat x       = viewPoints[i].x;
                 CGFloat y       = viewPoints[i].y;
-                CGPoint pos     = CPTAlignPointToUserSpace(context, CPTPointMake(viewPoints[i].x, viewPoints[i].y) );
+                CGPoint pos     = CPTAlignPointToUserSpace( context, CPTPointMake(viewPoints[i].x, viewPoints[i].y) );
                 viewPoints[i].x = pos.x;
                 viewPoints[i].y = pos.y;
 
-                pos                 = CPTAlignPointToUserSpace(context, CPTPointMake(x, viewPoints[i].high) );
+                pos                 = CPTAlignPointToUserSpace( context, CPTPointMake(x, viewPoints[i].high) );
                 viewPoints[i].high  = pos.y;
-                pos                 = CPTAlignPointToUserSpace(context, CPTPointMake(x, viewPoints[i].low) );
+                pos                 = CPTAlignPointToUserSpace( context, CPTPointMake(x, viewPoints[i].low) );
                 viewPoints[i].low   = pos.y;
-                pos                 = CPTAlignPointToUserSpace(context, CPTPointMake(viewPoints[i].left, y) );
+                pos                 = CPTAlignPointToUserSpace( context, CPTPointMake(viewPoints[i].left, y) );
                 viewPoints[i].left  = pos.x;
-                pos                 = CPTAlignPointToUserSpace(context, CPTPointMake(viewPoints[i].right, y) );
+                pos                 = CPTAlignPointToUserSpace( context, CPTPointMake(viewPoints[i].right, y) );
                 viewPoints[i].right = pos.x;
             }
         });
@@ -485,17 +485,17 @@ typedef struct CGPointError CGPointError;
             if ( drawPointFlags[i] ) {
                 CGFloat x       = viewPoints[i].x;
                 CGFloat y       = viewPoints[i].y;
-                CGPoint pos     = CPTAlignIntegralPointToUserSpace(context, CPTPointMake(viewPoints[i].x, viewPoints[i].y) );
+                CGPoint pos     = CPTAlignIntegralPointToUserSpace( context, CPTPointMake(viewPoints[i].x, viewPoints[i].y) );
                 viewPoints[i].x = pos.x;
                 viewPoints[i].y = pos.y;
 
-                pos                 = CPTAlignIntegralPointToUserSpace(context, CPTPointMake(x, viewPoints[i].high) );
+                pos                 = CPTAlignIntegralPointToUserSpace( context, CPTPointMake(x, viewPoints[i].high) );
                 viewPoints[i].high  = pos.y;
-                pos                 = CPTAlignIntegralPointToUserSpace(context, CPTPointMake(x, viewPoints[i].low) );
+                pos                 = CPTAlignIntegralPointToUserSpace( context, CPTPointMake(x, viewPoints[i].low) );
                 viewPoints[i].low   = pos.y;
-                pos                 = CPTAlignIntegralPointToUserSpace(context, CPTPointMake(viewPoints[i].left, y) );
+                pos                 = CPTAlignIntegralPointToUserSpace( context, CPTPointMake(viewPoints[i].left, y) );
                 viewPoints[i].left  = pos.x;
-                pos                 = CPTAlignIntegralPointToUserSpace(context, CPTPointMake(viewPoints[i].right, y) );
+                pos                 = CPTAlignIntegralPointToUserSpace( context, CPTPointMake(viewPoints[i].right, y) );
                 viewPoints[i].right = pos.x;
             }
         });
@@ -651,8 +651,8 @@ typedef struct CGPointError CGPointError;
     [super renderAsVectorInContext:context];
 
     // Calculate view points, and align to user space
-    CGPointError *viewPoints = calloc(dataCount, sizeof(CGPointError) );
-    BOOL *drawPointFlags     = calloc(dataCount, sizeof(BOOL) );
+    CGPointError *viewPoints = calloc( dataCount, sizeof(CGPointError) );
+    BOOL *drawPointFlags     = calloc( dataCount, sizeof(BOOL) );
 
     CPTXYPlotSpace *thePlotSpace = (CPTXYPlotSpace *)self.plotSpace;
     [self calculatePointsToDraw:drawPointFlags numberOfPoints:dataCount forPlotSpace:thePlotSpace includeVisiblePointsOnly:NO];
@@ -724,7 +724,7 @@ typedef struct CGPointError CGPointError;
             CGPathRelease(fillPath);
         }
 
-        CGSize halfGapSize   = CPTSizeMake(self.gapWidth * CPTFloat(0.5), self.gapHeight * CPTFloat(0.5) );
+        CGSize halfGapSize   = CPTSizeMake( self.gapWidth * CPTFloat(0.5), self.gapHeight * CPTFloat(0.5) );
         CGFloat halfBarWidth = self.barWidth * CPTFloat(0.5);
         BOOL alignPoints     = self.alignsPointsToPixels;
 
@@ -753,7 +753,7 @@ typedef struct CGPointError CGPointError;
         CPTAlignPointFunction alignmentFunction = CPTAlignPointToUserSpace;
 
         CGFloat lineWidth = lineStyle.lineWidth;
-        if ( (self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
+        if ( ( self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
             alignmentFunction = CPTAlignIntegralPointToUserSpace;
         }
 
@@ -898,7 +898,7 @@ typedef struct CGPointError CGPointError;
             [self drawRangeInContext:context
                            lineStyle:theBarLineStyle
                            viewPoint:&viewPoint
-                         halfGapSize:CPTSizeMake(MIN(self.gapWidth, rect.size.width / CPTFloat(2.0) ) * CPTFloat(0.5), MIN(self.gapHeight, rect.size.height / CPTFloat(2.0) ) * CPTFloat(0.5) )
+                         halfGapSize:CPTSizeMake( MIN( self.gapWidth, rect.size.width / CPTFloat(2.0) ) * CPTFloat(0.5), MIN( self.gapHeight, rect.size.height / CPTFloat(2.0) ) * CPTFloat(0.5) )
                         halfBarWidth:MIN(MIN(self.barWidth, rect.size.width), rect.size.height) * CPTFloat(0.5)
                          alignPoints:YES];
         }
@@ -1023,7 +1023,7 @@ typedef struct CGPointError CGPointError;
     BOOL positiveDirection = YES;
     CPTPlotRange *yRange   = [self.plotSpace plotRangeForCoordinate:CPTCoordinateY];
 
-    if ( CPTDecimalLessThan(yRange.lengthDecimal, CPTDecimalFromInteger(0) ) ) {
+    if ( CPTDecimalLessThan( yRange.lengthDecimal, CPTDecimalFromInteger(0) ) ) {
         positiveDirection = !positiveDirection;
     }
 
@@ -1048,8 +1048,8 @@ typedef struct CGPointError CGPointError;
 -(NSUInteger)dataIndexFromInteractionPoint:(CGPoint)point
 {
     NSUInteger dataCount     = self.cachedDataCount;
-    CGPointError *viewPoints = calloc(dataCount, sizeof(CGPointError) );
-    BOOL *drawPointFlags     = calloc(dataCount, sizeof(BOOL) );
+    CGPointError *viewPoints = calloc( dataCount, sizeof(CGPointError) );
+    BOOL *drawPointFlags     = calloc( dataCount, sizeof(BOOL) );
 
     [self calculatePointsToDraw:drawPointFlags numberOfPoints:dataCount forPlotSpace:(id)self.plotSpace includeVisiblePointsOnly:YES];
     [self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags numberOfPoints:dataCount];

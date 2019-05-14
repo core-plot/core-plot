@@ -774,11 +774,11 @@ NSDecimal CPTDecimalMax(NSDecimal leftOperand, NSDecimal rightOperand)
  **/
 NSDecimal CPTDecimalAbs(NSDecimal value)
 {
-    if ( CPTDecimalGreaterThanOrEqualTo(value, CPTDecimalFromInteger(0) ) ) {
+    if ( CPTDecimalGreaterThanOrEqualTo( value, CPTDecimalFromInteger(0) ) ) {
         return value;
     }
     else {
-        return CPTDecimalMultiply(value, CPTDecimalFromInteger(-1) );
+        return CPTDecimalMultiply( value, CPTDecimalFromInteger(-1) );
     }
 }
 
@@ -800,7 +800,7 @@ NSRange CPTExpandedRange(NSRange range, NSInteger expandBy)
     NSInteger lowerExpansion = (NSInteger)range.location - loc;
     NSInteger length         = MAX(0, (NSInteger)range.length + lowerExpansion + expandBy);
 
-    return NSMakeRange( (NSUInteger)loc, (NSUInteger)length );
+    return NSMakeRange( (NSUInteger)loc, (NSUInteger)length);
 }
 
 #pragma mark -
@@ -875,7 +875,7 @@ CGPoint CPTAlignPointToUserSpace(__nonnull CGContextRef context, CGPoint point)
 
     // Ensure that coordinates are at exactly the corner
     // of a device pixel.
-    point.x = round(point.x - CPTFloat(0.5) ) + CPTFloat(0.5);
+    point.x = round( point.x - CPTFloat(0.5) ) + CPTFloat(0.5);
     point.y = ceil(point.y) - CPTFloat(0.5);
 
     // Convert the device aligned coordinate back to user space.
@@ -922,11 +922,11 @@ CGRect CPTAlignRectToUserSpace(__nonnull CGContextRef context, CGRect rect)
 
     CGPoint oldOrigin = rect.origin;
 
-    rect.origin.x   = round(rect.origin.x - CPTFloat(0.5) );
-    rect.size.width = round(oldOrigin.x + rect.size.width - CPTFloat(0.5) ) - rect.origin.x;
+    rect.origin.x   = round( rect.origin.x - CPTFloat(0.5) );
+    rect.size.width = round( oldOrigin.x + rect.size.width - CPTFloat(0.5) ) - rect.origin.x;
     rect.origin.x  += CPTFloat(0.5);
 
-    rect.origin.y    = ceil(CGRectGetMaxY(rect) ) - CPTFloat(0.5);
+    rect.origin.y    = ceil( CGRectGetMaxY(rect) ) - CPTFloat(0.5);
     rect.size.height = ceil(oldOrigin.y - CPTFloat(0.5) - rect.origin.y);
 
     return CGContextConvertRectToUserSpace(context, rect);
@@ -949,7 +949,7 @@ CGPoint CPTAlignIntegralPointToUserSpace(__nonnull CGContextRef context, CGPoint
     point = CGContextConvertPointToDeviceSpace(context, point);
 
     point.x = round(point.x);
-    point.y = ceil(point.y - CPTFloat(0.5) );
+    point.y = ceil( point.y - CPTFloat(0.5) );
 
     return CGContextConvertPointToUserSpace(context, point);
 }
@@ -973,7 +973,7 @@ CGRect CPTAlignIntegralRectToUserSpace(__nonnull CGContextRef context, CGRect re
     rect.origin.x   = round(rect.origin.x);
     rect.size.width = round(oldOrigin.x + rect.size.width) - rect.origin.x;
 
-    rect.origin.y    = ceil(CGRectGetMaxY(rect) - CPTFloat(0.5) );
+    rect.origin.y    = ceil( CGRectGetMaxY(rect) - CPTFloat(0.5) );
     rect.size.height = ceil(oldOrigin.y - CPTFloat(0.5) - rect.origin.y);
 
     return CGContextConvertRectToUserSpace(context, rect);
@@ -991,7 +991,7 @@ CGRect CPTAlignBorderedRectToUserSpace(__nonnull CGContextRef context, CGRect re
 
     if ( contextScale != CPTFloat(1.0) ) {
         CGFloat borderWidth = borderLineStyle.lineWidth;
-        if ( (borderWidth > CPTFloat(0.0) ) && (borderWidth == round(borderWidth) ) ) {
+        if ( ( borderWidth > CPTFloat(0.0) ) && ( borderWidth == round(borderWidth) ) ) {
             borderRect = CPTAlignIntegralRectToUserSpace(context, rect);
         }
         else {
@@ -1125,7 +1125,7 @@ double CPTInverseLogModulus(double value)
     if ( value != 0.0 ) {
         double sign = (signbit(value) ? -1.0 : +1.0);
 
-        return sign * (pow(10.0, fabs(value) ) - 1.0);
+        return sign * (pow( 10.0, fabs(value) ) - 1.0);
     }
     else {
         return 0.0;

@@ -418,14 +418,14 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
             if ( xRange && constrainedRange ) {
                 isScrolling = !CPTDecimalEquals(constrainedRange.locationDecimal, xRange.locationDecimal) && CPTDecimalEquals(constrainedRange.lengthDecimal, xRange.lengthDecimal);
 
-                if ( isScrolling && (displacement == CPTFloat(0.0) ) ) {
+                if ( isScrolling && ( displacement == CPTFloat(0.0) ) ) {
                     CPTGraph *theGraph    = self.graph;
                     CPTPlotArea *plotArea = theGraph.plotAreaFrame.plotArea;
 
                     if ( plotArea ) {
                         NSDecimal rangeLength = constrainedRange.lengthDecimal;
 
-                        if ( !CPTDecimalEquals(rangeLength, CPTDecimalFromInteger(0) ) ) {
+                        if ( !CPTDecimalEquals( rangeLength, CPTDecimalFromInteger(0) ) ) {
                             NSDecimal diff = CPTDecimalDivide(CPTDecimalSubtract(constrainedRange.locationDecimal, xRange.locationDecimal), rangeLength);
 
                             displacement = plotArea.bounds.size.width * CPTDecimalCGFloatValue(diff);
@@ -482,14 +482,14 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
             if ( yRange && constrainedRange ) {
                 isScrolling = !CPTDecimalEquals(constrainedRange.locationDecimal, yRange.locationDecimal) && CPTDecimalEquals(constrainedRange.lengthDecimal, yRange.lengthDecimal);
 
-                if ( isScrolling && (displacement == CPTFloat(0.0) ) ) {
+                if ( isScrolling && ( displacement == CPTFloat(0.0) ) ) {
                     CPTGraph *theGraph    = self.graph;
                     CPTPlotArea *plotArea = theGraph.plotAreaFrame.plotArea;
 
                     if ( plotArea ) {
                         NSDecimal rangeLength = constrainedRange.lengthDecimal;
 
-                        if ( !CPTDecimalEquals(rangeLength, CPTDecimalFromInteger(0) ) ) {
+                        if ( !CPTDecimalEquals( rangeLength, CPTDecimalFromInteger(0) ) ) {
                             NSDecimal diff = CPTDecimalDivide(CPTDecimalSubtract(constrainedRange.locationDecimal, yRange.locationDecimal), rangeLength);
 
                             displacement = plotArea.bounds.size.height * CPTDecimalCGFloatValue(diff);
@@ -595,8 +595,8 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
         CPTPlotRange *constrainedRange = [self constrainRange:newRange toGlobalRange:globalRange];
 
         if ( ![newRange isEqualToRange:constrainedRange] && ![globalRange containsRange:newRange] ) {
-            BOOL direction = (CPTDecimalGreaterThan(shift, zero) && CPTDecimalGreaterThan(oldRange.lengthDecimal, zero) ) ||
-                             (CPTDecimalLessThan(shift, zero) && CPTDecimalLessThan(oldRange.lengthDecimal, zero) );
+            BOOL direction = ( CPTDecimalGreaterThan(shift, zero) && CPTDecimalGreaterThan(oldRange.lengthDecimal, zero) ) ||
+                             ( CPTDecimalLessThan(shift, zero) && CPTDecimalLessThan(oldRange.lengthDecimal, zero) );
 
             // decelerate at the global range
             if ( hasShift ) {
@@ -654,7 +654,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
                     while ( momentumTime > CPTFloat(0.1) ) {
                         momentumTime *= CPTFloat(0.5);
 
-                        shift = CPTDecimalDivide(shift, CPTDecimalFromInteger(2) );
+                        shift = CPTDecimalDivide( shift, CPTDecimalFromInteger(2) );
                     }
 
                     newRange = [oldRange mutableCopy];
@@ -740,7 +740,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         if ( root1 >= CPTFloat(0.0) ) {
             root = root1;
         }
-        if ( (root2 >= CPTFloat(0.0) ) && (isnan(root) || (root2 < root) ) ) {
+        if ( ( root2 >= CPTFloat(0.0) ) && ( isnan(root) || (root2 < root) ) ) {
             root = root2;
         }
     }
@@ -905,7 +905,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
     if ( !range || (range.lengthDouble == 0.0) ) {
         return CPTFloat(0.0);
     }
-    return viewLength * (CGFloat)( (plotCoord - range.locationDouble) / range.lengthDouble );
+    return viewLength * (CGFloat)( (plotCoord - range.locationDouble) / range.lengthDouble);
 }
 
 -(NSDecimal)plotCoordinateForViewLength:(NSDecimal)viewLength linearPlotRange:(nonnull CPTPlotRange *)range boundsLength:(NSDecimal)boundsLength
@@ -1418,7 +1418,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
     CPTGraph *theGraph    = self.graph;
     CPTPlotArea *plotArea = theGraph.plotAreaFrame.plotArea;
 
-    if ( !plotArea || (interactionScale <= CPTFloat(1.e-6) ) ) {
+    if ( !plotArea || ( interactionScale <= CPTFloat(1.e-6) ) ) {
         return;
     }
     if ( ![plotArea containsPoint:plotAreaPoint] ) {
@@ -1451,7 +1451,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
 
     // New locations
     NSDecimal newLocationX;
-    if ( CPTDecimalGreaterThanOrEqualTo(oldRangeX.lengthDecimal, CPTDecimalFromInteger(0) ) ) {
+    if ( CPTDecimalGreaterThanOrEqualTo( oldRangeX.lengthDecimal, CPTDecimalFromInteger(0) ) ) {
         NSDecimal oldFirstLengthX = CPTDecimalSubtract(plotInteractionPoint[CPTCoordinateX], oldRangeX.minLimitDecimal); // x - minX
         NSDecimal newFirstLengthX = CPTDecimalDivide(oldFirstLengthX, decimalScale);                                     // (x - minX) / scale
         newLocationX = CPTDecimalSubtract(plotInteractionPoint[CPTCoordinateX], newFirstLengthX);
@@ -1463,7 +1463,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
     }
 
     NSDecimal newLocationY;
-    if ( CPTDecimalGreaterThanOrEqualTo(oldRangeY.lengthDecimal, CPTDecimalFromInteger(0) ) ) {
+    if ( CPTDecimalGreaterThanOrEqualTo( oldRangeY.lengthDecimal, CPTDecimalFromInteger(0) ) ) {
         NSDecimal oldFirstLengthY = CPTDecimalSubtract(plotInteractionPoint[CPTCoordinateY], oldRangeY.minLimitDecimal); // y - minY
         NSDecimal newFirstLengthY = CPTDecimalDivide(oldFirstLengthY, decimalScale);                                     // (y - minY) / scale
         newLocationY = CPTDecimalSubtract(plotInteractionPoint[CPTCoordinateY], newFirstLengthY);
@@ -1609,7 +1609,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
                 speed        = sqrt(displacement.x * displacement.x + displacement.y * displacement.y) / CPTFloat(lastDeltaT);
                 momentumTime = speed / (CPTFloat(2.0) * acceleration);
                 CGFloat distanceTraveled = speed * momentumTime - CPTFloat(0.5) * acceleration * momentumTime * momentumTime;
-                distanceTraveled = MAX(distanceTraveled, CPTFloat(0.0) );
+                distanceTraveled = MAX( distanceTraveled, CPTFloat(0.0) );
 
                 CGFloat theta = atan2(displacement.y, displacement.x);
                 scaleX = cos(theta);
@@ -1755,13 +1755,13 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
                 // reduce the shift as we get farther outside the global range
                 NSDecimal rangeLength = newRange.lengthDecimal;
 
-                if ( !CPTDecimalEquals(rangeLength, CPTDecimalFromInteger(0) ) ) {
+                if ( !CPTDecimalEquals( rangeLength, CPTDecimalFromInteger(0) ) ) {
                     NSDecimal diff = CPTDecimalDivide(CPTDecimalSubtract(constrainedRange.locationDecimal, newRange.locationDecimal), rangeLength);
-                    diff = CPTDecimalMax(CPTDecimalMin(CPTDecimalMultiply(diff, CPTDecimalFromDouble(2.5) ), CPTDecimalFromInteger(1) ), CPTDecimalFromInteger(-1) );
+                    diff = CPTDecimalMax( CPTDecimalMin( CPTDecimalMultiply( diff, CPTDecimalFromDouble(2.5) ), CPTDecimalFromInteger(1) ), CPTDecimalFromInteger(-1) );
 
-                    newRange.locationDecimal = CPTDecimalSubtract(newRange.locationDecimal, CPTDecimalMultiply(shift, CPTDecimalAbs(diff) ) );
+                    newRange.locationDecimal = CPTDecimalSubtract( newRange.locationDecimal, CPTDecimalMultiply( shift, CPTDecimalAbs(diff) ) );
 
-                    *displacement = *displacement * (CPTFloat(1.0) - ABS(CPTDecimalCGFloatValue(diff) ) );
+                    *displacement = *displacement * ( CPTFloat(1.0) - ABS( CPTDecimalCGFloatValue(diff) ) );
                 }
             }
         }

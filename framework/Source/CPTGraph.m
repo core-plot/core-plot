@@ -914,7 +914,7 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
 
             if ( title ) {
                 if ( theTitleAnnotation ) {
-                    ( (CPTTextLayer *)theTitleAnnotation.contentLayer ).text = title;
+                    ( (CPTTextLayer *)theTitleAnnotation.contentLayer).text = title;
                 }
                 else {
                     CPTPlotAreaFrame *frameLayer = self.plotAreaFrame;
@@ -956,7 +956,7 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
                 self.title = [attributedTitle.string copy];
 
                 if ( theTitleAnnotation ) {
-                    ( (CPTTextLayer *)theTitleAnnotation.contentLayer ).attributedText = attributedTitle;
+                    ( (CPTTextLayer *)theTitleAnnotation.contentLayer).attributedText = attributedTitle;
                 }
                 else {
                     CPTPlotAreaFrame *frameLayer = self.plotAreaFrame;

@@ -56,7 +56,7 @@
             return NO;
         }
 
-        NSNumber *location = ( (CPTAxisLabel *)object ).tickLocation;
+        NSNumber *location = ( (CPTAxisLabel *)object).tickLocation;
 
         if ( location ) {
             return [self.tickLocation isEqualToNumber:location];
@@ -82,10 +82,10 @@
     double tickLocationAsDouble = self.tickLocation.doubleValue;
 
     if ( !isnan(tickLocationAsDouble) ) {
-        hashValue = (NSUInteger)lrint(fmod(ABS(tickLocationAsDouble), (double)NSUIntegerMax) );
+        hashValue = (NSUInteger)lrint( fmod(ABS(tickLocationAsDouble), (double)NSUIntegerMax) );
     }
-    hashValue += (NSUInteger)lrint(fmod(ABS(self.rotation), (double)NSUIntegerMax) );
-    hashValue += (NSUInteger)lrint(fmod(ABS(self.offset), (double)NSUIntegerMax) );
+    hashValue += (NSUInteger)lrint( fmod(ABS(self.rotation), (double)NSUIntegerMax) );
+    hashValue += (NSUInteger)lrint( fmod(ABS(self.offset), (double)NSUIntegerMax) );
 
     return hashValue;
 }

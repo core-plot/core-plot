@@ -186,14 +186,14 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
             }
 
             // scale the view isotropically so that it fits on the printed page
-            CGFloat widthScale  = (sourceRect.size.width != CPTFloat(0.0) ) ? destinationRect.size.width / sourceRect.size.width : CPTFloat(1.0);
-            CGFloat heightScale = (sourceRect.size.height != CPTFloat(0.0) ) ? destinationRect.size.height / sourceRect.size.height : CPTFloat(1.0);
+            CGFloat widthScale  = ( sourceRect.size.width != CPTFloat(0.0) ) ? destinationRect.size.width / sourceRect.size.width : CPTFloat(1.0);
+            CGFloat heightScale = ( sourceRect.size.height != CPTFloat(0.0) ) ? destinationRect.size.height / sourceRect.size.height : CPTFloat(1.0);
             CGFloat scale       = MIN(widthScale, heightScale);
 
             // position the view so that its centered on the printed page
             CGPoint offset = destinationRect.origin;
-            offset.x += ( (destinationRect.size.width - (sourceRect.size.width * scale) ) / CPTFloat(2.0) );
-            offset.y += ( (destinationRect.size.height - (sourceRect.size.height * scale) ) / CPTFloat(2.0) );
+            offset.x += ( ( destinationRect.size.width - (sourceRect.size.width * scale) ) / CPTFloat(2.0) );
+            offset.y += ( ( destinationRect.size.height - (sourceRect.size.height * scale) ) / CPTFloat(2.0) );
 
             NSAffineTransform *transform = [NSAffineTransform transform];
             [transform translateXBy:offset.x yBy:offset.y];
@@ -588,7 +588,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
 -(void)setHostedGraph:(nullable CPTGraph *)newGraph
 {
-    NSParameterAssert( (newGraph == nil) || [newGraph isKindOfClass:[CPTGraph class]] );
+    NSParameterAssert( (newGraph == nil) || [newGraph isKindOfClass:[CPTGraph class]]);
 
     if ( newGraph != hostedGraph ) {
         self.wantsLayer = YES;

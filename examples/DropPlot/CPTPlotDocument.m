@@ -90,9 +90,9 @@
     // Setup plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)newGraph.defaultPlotSpace;
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@(self.minimumValueForXAxis)
-                                                    length:@(ceil( (self.maximumValueForXAxis - self.minimumValueForXAxis) / self.majorIntervalLengthForX ) * self.majorIntervalLengthForX)];
+                                                    length:@(ceil( (self.maximumValueForXAxis - self.minimumValueForXAxis) / self.majorIntervalLengthForX) * self.majorIntervalLengthForX)];
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@(self.minimumValueForYAxis)
-                                                    length:@(ceil( (self.maximumValueForYAxis - self.minimumValueForYAxis) / self.majorIntervalLengthForY ) * self.majorIntervalLengthForY)];
+                                                    length:@(ceil( (self.maximumValueForYAxis - self.minimumValueForYAxis) / self.majorIntervalLengthForY) * self.majorIntervalLengthForY)];
 
     // this allows the plot to respond to mouse events
     plotSpace.delegate = self;
@@ -201,13 +201,13 @@
 
         double intervalX = (maxX - minX) / 5.0;
         if ( intervalX > 0.0 ) {
-            intervalX = pow(10.0, ceil(log10(intervalX) ) );
+            intervalX = pow( 10.0, ceil( log10(intervalX) ) );
         }
         self.majorIntervalLengthForX = intervalX;
 
         double intervalY = (maxY - minY) / 10.0;
         if ( intervalY > 0.0 ) {
-            intervalY = pow(10.0, ceil(log10(intervalY) ) );
+            intervalY = pow( 10.0, ceil( log10(intervalY) ) );
         }
         self.majorIntervalLengthForY = intervalY;
 
@@ -297,9 +297,9 @@
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
 
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@(minX)
-                                                    length:@(ceil( (maxX - minX) / intervalX ) * intervalX)];
+                                                    length:@(ceil( (maxX - minX) / intervalX) * intervalX)];
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@(minY)
-                                                    length:@(ceil( (maxY - minY) / intervalY ) * intervalY)];
+                                                    length:@(ceil( (maxY - minY) / intervalY) * intervalY)];
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)self.graph.axisSet;
     axisSet.xAxis.labelingPolicy = CPTAxisLabelingPolicyFixedInterval;
     axisSet.yAxis.labelingPolicy = CPTAxisLabelingPolicyFixedInterval;
@@ -374,11 +374,11 @@
         CGPoint dragEndInPlotArea   = [self.graph convertPoint:interactionPoint toLayer:plotArea];
 
 // create the dragrect from dragStart to the current location
-        CGFloat endX      = MAX(MIN(dragEndInPlotArea.x, CGRectGetMaxX(plotBounds) ), CGRectGetMinX(plotBounds) );
-        CGFloat endY      = MAX(MIN(dragEndInPlotArea.y, CGRectGetMaxY(plotBounds) ), CGRectGetMinY(plotBounds) );
-        CGRect borderRect = CGRectMake(dragStartInPlotArea.x, dragStartInPlotArea.y,
-                                       (endX - dragStartInPlotArea.x),
-                                       (endY - dragStartInPlotArea.y) );
+        CGFloat endX      = MAX( MIN( dragEndInPlotArea.x, CGRectGetMaxX(plotBounds) ), CGRectGetMinX(plotBounds) );
+        CGFloat endY      = MAX( MIN( dragEndInPlotArea.y, CGRectGetMaxY(plotBounds) ), CGRectGetMinY(plotBounds) );
+        CGRect borderRect = CGRectMake( dragStartInPlotArea.x, dragStartInPlotArea.y,
+                                        (endX - dragStartInPlotArea.x),
+                                        (endY - dragStartInPlotArea.y) );
 
         annotation.contentAnchorPoint = CGPointMake(dragEndInPlotArea.x >= dragStartInPlotArea.x ? 0.0 : 1.0,
                                                     dragEndInPlotArea.y >= dragStartInPlotArea.y ? 0.0 : 1.0);

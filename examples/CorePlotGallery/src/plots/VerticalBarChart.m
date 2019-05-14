@@ -130,7 +130,7 @@ static const BOOL kUseHorizontalBars = NO;
     {
         y.majorIntervalLength   = (kUseHorizontalBars ? @1.0 : @10.0);
         y.minorTicksPerInterval = (kUseHorizontalBars ? 0 : 9);
-        y.orthogonalPosition    = (kUseHorizontalBars ? @0.0 : @(-0.5) );
+        y.orthogonalPosition    = ( kUseHorizontalBars ? @0.0 : @(-0.5) );
 
         y.preferredNumberOfMajorTicks = 8;
         y.majorGridLineStyle          = majorGridLineStyle;
@@ -211,7 +211,7 @@ static const BOOL kUseHorizontalBars = NO;
     theLegend.fill            = [CPTFill fillWithColor:[CPTColor colorWithGenericGray:CPTFloat(0.15)]];
     theLegend.borderLineStyle = barLineStyle;
     theLegend.cornerRadius    = textSize * CPTFloat(0.25);
-    theLegend.swatchSize      = CGSizeMake(textSize * CPTFloat(0.75), textSize * CPTFloat(0.75) );
+    theLegend.swatchSize      = CGSizeMake( textSize * CPTFloat(0.75), textSize * CPTFloat(0.75) );
     whiteTextStyle.fontSize   = textSize * CPTFloat(0.5);
     theLegend.textStyle       = whiteTextStyle;
     theLegend.rowMargin       = textSize * CPTFloat(0.25);
@@ -226,7 +226,7 @@ static const BOOL kUseHorizontalBars = NO;
     CPTPlotSpaceAnnotation *legendAnnotation = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:barPlotSpace anchorPlotPoint:plotPoint];
     legendAnnotation.contentLayer = theLegend;
 
-    legendAnnotation.contentAnchorPoint = (kUseHorizontalBars ? CGPointMake(1.0, 0.0) : CGPointMake(0.0, 1.0) );
+    legendAnnotation.contentAnchorPoint = ( kUseHorizontalBars ? CGPointMake(1.0, 0.0) : CGPointMake(0.0, 1.0) );
 
     [graph.plotAreaFrame.plotArea addAnnotation:legendAnnotation];
 }

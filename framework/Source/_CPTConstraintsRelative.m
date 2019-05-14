@@ -50,7 +50,7 @@
     if ( [self class] != [otherConstraint class] ) {
         return NO;
     }
-    return self.offset == ( (_CPTConstraintsRelative *)otherConstraint ).offset;
+    return self.offset == ( (_CPTConstraintsRelative *)otherConstraint).offset;
 }
 
 #pragma mark -

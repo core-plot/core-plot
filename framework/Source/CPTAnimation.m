@@ -401,7 +401,7 @@ typedef NSMutableArray<CPTAnimationOperation *> CPTMutableAnimationArray;
             id tweenedValue = parameters[CPTAnimationValueKey];
 
             if ( [tweenedValue isKindOfClass:[NSDecimalNumber class]] ) {
-                NSDecimal buffer = ( (NSDecimalNumber *)tweenedValue ).decimalValue;
+                NSDecimal buffer = ( (NSDecimalNumber *)tweenedValue).decimalValue;
 
                 typedef void (*SetterType)(id, SEL, NSDecimal);
                 SetterType setterMethod = (SetterType)[boundObject methodForSelector:boundSetter];

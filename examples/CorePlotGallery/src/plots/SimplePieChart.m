@@ -68,8 +68,8 @@
     // Add pie chart
     CPTPieChart *piePlot = [[CPTPieChart alloc] init];
     piePlot.dataSource = self;
-    piePlot.pieRadius  = MIN(CPTFloat(0.7) * (hostingView.frame.size.height - CPTFloat(2.0) * graph.paddingLeft) / CPTFloat(2.0),
-                             CPTFloat(0.7) * (hostingView.frame.size.width - CPTFloat(2.0) * graph.paddingTop) / CPTFloat(2.0) );
+    piePlot.pieRadius  = MIN( CPTFloat(0.7) * (hostingView.frame.size.height - CPTFloat(2.0) * graph.paddingLeft) / CPTFloat(2.0),
+                              CPTFloat(0.7) * (hostingView.frame.size.width - CPTFloat(2.0) * graph.paddingTop) / CPTFloat(2.0) );
     piePlot.identifier     = self.title;
     piePlot.startAngle     = CPTFloat(M_PI_4);
     piePlot.sliceDirection = CPTPieDirectionCounterClockwise;
@@ -136,7 +136,7 @@
     self.offsetIndex = NSNotFound;
 
     CPTMutableNumberArray *newData = [[NSMutableArray alloc] init];
-    NSUInteger dataCount           = (NSUInteger)lrint(ceil(10.0 * arc4random() / (double)UINT32_MAX) ) + 1;
+    NSUInteger dataCount           = (NSUInteger)lrint( ceil(10.0 * arc4random() / (double)UINT32_MAX) ) + 1;
     for ( NSUInteger i = 1; i < dataCount; i++ ) {
         [newData addObject:@(100.0 * arc4random() / (double)UINT32_MAX)];
     }
@@ -156,8 +156,8 @@
 
     [CPTAnimation animate:self
                  property:@"sliceOffset"
-                     from:(idx == self.offsetIndex ? CPTNAN : CPTFloat(0.0) )
-                       to:(idx == self.offsetIndex ? CPTFloat(0.0) : CPTFloat(35.0) )
+                     from:( idx == self.offsetIndex ? CPTNAN : CPTFloat(0.0) )
+                       to:( idx == self.offsetIndex ? CPTFloat(0.0) : CPTFloat(35.0) )
                  duration:0.5
            animationCurve:CPTAnimationCurveCubicOut
                  delegate:nil];

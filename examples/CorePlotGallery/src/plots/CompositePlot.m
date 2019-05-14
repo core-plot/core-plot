@@ -58,20 +58,20 @@
 
 -(void)setFrameSize:(NSSize)newSize
 {
-    self.scatterPlotView.frame = NSMakeRect(0.0,
-                                            0.0,
-                                            newSize.width,
-                                            newSize.height * CPTFloat(0.5) );
+    self.scatterPlotView.frame = NSMakeRect( 0.0,
+                                             0.0,
+                                             newSize.width,
+                                             newSize.height * CPTFloat(0.5) );
 
-    self.barChartView.frame = NSMakeRect(0.0,
-                                         newSize.height * CPTFloat(0.5),
-                                         newSize.width * CPTFloat(0.5),
-                                         newSize.height * CPTFloat(0.5) );
+    self.barChartView.frame = NSMakeRect( 0.0,
+                                          newSize.height * CPTFloat(0.5),
+                                          newSize.width * CPTFloat(0.5),
+                                          newSize.height * CPTFloat(0.5) );
 
-    self.pieChartView.frame = NSMakeRect(newSize.width * CPTFloat(0.5),
-                                         newSize.height * CPTFloat(0.5),
-                                         newSize.width * CPTFloat(0.5),
-                                         newSize.height * CPTFloat(0.5) );
+    self.pieChartView.frame = NSMakeRect( newSize.width * CPTFloat(0.5),
+                                          newSize.height * CPTFloat(0.5),
+                                          newSize.width * CPTFloat(0.5),
+                                          newSize.height * CPTFloat(0.5) );
 
     [self.scatterPlotView setNeedsDisplay:YES];
     [self.barChartView setNeedsDisplay:YES];
@@ -170,20 +170,20 @@
 #else
     NSRect viewRect = hostingView.bounds;
 
-    scatterView.frame = NSMakeRect(0.0,
-                                   0.0,
-                                   viewRect.size.width,
-                                   viewRect.size.height * CPTFloat(0.5) );
+    scatterView.frame = NSMakeRect( 0.0,
+                                    0.0,
+                                    viewRect.size.width,
+                                    viewRect.size.height * CPTFloat(0.5) );
 
-    barView.frame = NSMakeRect(0.0,
-                               viewRect.size.height * CPTFloat(0.5),
-                               viewRect.size.width * CPTFloat(0.5),
-                               viewRect.size.height * CPTFloat(0.5) );
+    barView.frame = NSMakeRect( 0.0,
+                                viewRect.size.height * CPTFloat(0.5),
+                                viewRect.size.width * CPTFloat(0.5),
+                                viewRect.size.height * CPTFloat(0.5) );
 
-    pieView.frame = NSMakeRect(viewRect.size.width * CPTFloat(0.5),
-                               viewRect.size.height * CPTFloat(0.5),
-                               viewRect.size.width * CPTFloat(0.5),
-                               viewRect.size.height * CPTFloat(0.5) );
+    pieView.frame = NSMakeRect( viewRect.size.width * CPTFloat(0.5),
+                                viewRect.size.height * CPTFloat(0.5),
+                                viewRect.size.width * CPTFloat(0.5),
+                                viewRect.size.height * CPTFloat(0.5) );
 
     for ( NSView *view in @[scatterView, barView, pieView] ) {
         [view setAutoresizesSubviews:YES];
@@ -422,8 +422,8 @@
     // Add pie chart
     CPTPieChart *piePlot = [[CPTPieChart alloc] init];
     piePlot.dataSource = self;
-    piePlot.pieRadius  = MIN(CPTFloat(0.7) * (hostingView.frame.size.height - CPTFloat(2.0) * self.pieChart.paddingLeft) / CPTFloat(2.0),
-                             CPTFloat(0.7) * (hostingView.frame.size.width - CPTFloat(2.0) * self.pieChart.paddingTop) / CPTFloat(2.0) );
+    piePlot.pieRadius  = MIN( CPTFloat(0.7) * (hostingView.frame.size.height - CPTFloat(2.0) * self.pieChart.paddingLeft) / CPTFloat(2.0),
+                              CPTFloat(0.7) * (hostingView.frame.size.width - CPTFloat(2.0) * self.pieChart.paddingTop) / CPTFloat(2.0) );
     piePlot.identifier      = @"Pie Chart 1";
     piePlot.startAngle      = CPTFloat(M_PI_4);
     piePlot.sliceDirection  = CPTPieDirectionCounterClockwise;
@@ -575,7 +575,7 @@
 
     CPTPlotSymbol *symbol = nil; // Use the default symbol
 
-    if ( [(NSString *) plot.identifier isEqualToString:@"Blue Plot"] && ( (NSInteger)index == self.selectedIndex ) ) {
+    if ( [(NSString *) plot.identifier isEqualToString:@"Blue Plot"] && ( (NSInteger)index == self.selectedIndex) ) {
         dispatch_once(&onceToken, ^{
             redDot            = [[CPTPlotSymbol alloc] init];
             redDot.symbolType = CPTPlotSymbolTypeEllipse;
@@ -602,10 +602,10 @@
 
         CPTScatterPlot *thePlot = (CPTScatterPlot *)[self.scatterPlot plotWithIdentifier:@"Blue Plot"];
         if ( oldIndex != NSNotFound ) {
-            [thePlot reloadPlotSymbolsInIndexRange:NSMakeRange( (NSUInteger)oldIndex, 1 )];
+            [thePlot reloadPlotSymbolsInIndexRange:NSMakeRange( (NSUInteger)oldIndex, 1)];
         }
         if ( newIndex != NSNotFound ) {
-            [thePlot reloadPlotSymbolsInIndexRange:NSMakeRange( (NSUInteger)newIndex, 1 )];
+            [thePlot reloadPlotSymbolsInIndexRange:NSMakeRange( (NSUInteger)newIndex, 1)];
         }
     }
 }

@@ -381,7 +381,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
         CGContextSaveGState(context);
         CGContextTranslateCTM(context, CPTFloat(0.0), self.bounds.size.height);
-        CGContextScaleCTM(context, CPTFloat(1.0), CPTFloat(-1.0) );
+        CGContextScaleCTM( context, CPTFloat(1.0), CPTFloat(-1.0) );
 #endif
 
         CGRect newBounds = CGRectInset(self.bounds, kCPTTextLayerMarginWidth, kCPTTextLayerMarginWidth);

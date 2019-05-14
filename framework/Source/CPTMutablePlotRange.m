@@ -80,7 +80,7 @@
     NSDecimal maximum = CPTDecimalGreaterThan(max1, max2) ? max1 : max2;
 
     NSDecimal newLocation, newLength;
-    if ( CPTDecimalGreaterThanOrEqualTo(self.lengthDecimal, CPTDecimalFromInteger(0) ) ) {
+    if ( CPTDecimalGreaterThanOrEqualTo( self.lengthDecimal, CPTDecimalFromInteger(0) ) ) {
         newLocation = minimum;
         newLength   = CPTDecimalSubtract(maximum, minimum);
     }
@@ -112,7 +112,7 @@
 
     if ( CPTDecimalGreaterThanOrEqualTo(maximum, minimum) ) {
         NSDecimal newLocation, newLength;
-        if ( CPTDecimalGreaterThanOrEqualTo(self.lengthDecimal, CPTDecimalFromInteger(0) ) ) {
+        if ( CPTDecimalGreaterThanOrEqualTo( self.lengthDecimal, CPTDecimalFromInteger(0) ) ) {
             newLocation = minimum;
             newLength   = CPTDecimalSubtract(maximum, minimum);
         }
@@ -140,7 +140,7 @@
 {
     NSDecimal oldLength      = self.lengthDecimal;
     NSDecimal newLength      = CPTDecimalMultiply(oldLength, factor.decimalValue);
-    NSDecimal locationOffset = CPTDecimalDivide(CPTDecimalSubtract(oldLength, newLength), CPTDecimalFromInteger(2) );
+    NSDecimal locationOffset = CPTDecimalDivide( CPTDecimalSubtract(oldLength, newLength), CPTDecimalFromInteger(2) );
     NSDecimal newLocation    = CPTDecimalAdd(self.locationDecimal, locationOffset);
 
     self.locationDecimal = newLocation;

@@ -151,14 +151,14 @@
     }
 
     CGPoint newPosition = point;
-    CGFloat *value      = (coordinate == CPTCoordinateX ? &(newPosition.x) : &(newPosition.y) );
+    CGFloat *value      = ( coordinate == CPTCoordinateX ? &(newPosition.x) : &(newPosition.y) );
     CGFloat angle       = CPTFloat(0.0);
 
     CGFloat labelRotation = self.rotation;
     if ( isnan(labelRotation) ) {
-        labelRotation = (coordinate == CPTCoordinateX ? CPTFloat(M_PI_2) : CPTFloat(0.0) );
+        labelRotation = ( coordinate == CPTCoordinateX ? CPTFloat(M_PI_2) : CPTFloat(0.0) );
     }
-    content.transform = CATransform3DMakeRotation(labelRotation, CPTFloat(0.0), CPTFloat(0.0), CPTFloat(1.0) );
+    content.transform = CATransform3DMakeRotation( labelRotation, CPTFloat(0.0), CPTFloat(0.0), CPTFloat(1.0) );
     CGRect contentFrame = content.frame;
 
     // Position the anchor point along the closest edge.
@@ -280,7 +280,7 @@
         newAnchorY /= ABS(newAnchorX);
         newAnchorX  = signbit(newAnchorX) ? CPTFloat(-1.0) : CPTFloat(1.0);
     }
-    CGPoint anchor = CPTPointMake( (newAnchorX + CPTFloat(1.0) ) / CPTFloat(2.0), (newAnchorY + CPTFloat(1.0) ) / CPTFloat(2.0) );
+    CGPoint anchor = CPTPointMake( ( newAnchorX + CPTFloat(1.0) ) / CPTFloat(2.0), ( newAnchorY + CPTFloat(1.0) ) / CPTFloat(2.0) );
 
     content.anchorPoint = anchor;
     content.position    = newPosition;
@@ -329,7 +329,7 @@
         return YES;
     }
     else if ( [object isKindOfClass:[self class]] ) {
-        NSNumber *location = ( (CPTAxisLabel *)object ).tickLocation;
+        NSNumber *location = ( (CPTAxisLabel *)object).tickLocation;
 
         if ( location ) {
             return [self.tickLocation isEqualToNumber:location];
@@ -355,7 +355,7 @@
     double tickLocationAsDouble = self.tickLocation.doubleValue;
 
     if ( !isnan(tickLocationAsDouble) ) {
-        hashValue = (NSUInteger)lrint(fmod(ABS(tickLocationAsDouble), (double)NSUIntegerMax) );
+        hashValue = (NSUInteger)lrint( fmod(ABS(tickLocationAsDouble), (double)NSUIntegerMax) );
     }
 
     return hashValue;

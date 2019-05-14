@@ -555,8 +555,8 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
     // calculate column positions
     CPTNumberArray *computedColumnWidths = self.columnWidthsThatFit;
     NSUInteger columnCount               = computedColumnWidths.count;
-    CGFloat *actualColumnWidths          = calloc(columnCount, sizeof(CGFloat) );
-    CGFloat *columnPositions             = calloc(columnCount, sizeof(CGFloat) );
+    CGFloat *actualColumnWidths          = calloc( columnCount, sizeof(CGFloat) );
+    CGFloat *columnPositions             = calloc( columnCount, sizeof(CGFloat) );
     columnPositions[0] = self.paddingLeft;
     CGFloat theOffset       = self.titleOffset;
     CGSize theSwatchSize    = self.swatchSize;
@@ -579,8 +579,8 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
     // calculate row positions
     CPTNumberArray *computedRowHeights = self.rowHeightsThatFit;
     NSUInteger rowCount                = computedRowHeights.count;
-    CGFloat *actualRowHeights          = calloc(rowCount, sizeof(CGFloat) );
-    CGFloat *rowPositions              = calloc(rowCount, sizeof(CGFloat) );
+    CGFloat *actualRowHeights          = calloc( rowCount, sizeof(CGFloat) );
+    CGFloat *rowPositions              = calloc( rowCount, sizeof(CGFloat) );
     rowPositions[rowCount - 1] = self.paddingBottom;
     CGFloat theRowMargin  = self.rowMargin;
     CGFloat lastRowHeight = 0.0;
@@ -691,7 +691,7 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
             }
 
             // draw title
-            [legendEntry drawTitleInRect:CPTAlignRectToUserSpace(context, CPTRectMake(titleLeft, rowPosition + padBottom, actualColumnWidths[col] + CPTFloat(1.0), actualRowHeights[row]) )
+            [legendEntry drawTitleInRect:CPTAlignRectToUserSpace( context, CPTRectMake(titleLeft, rowPosition + padBottom, actualColumnWidths[col] + CPTFloat(1.0), actualRowHeights[row]) )
                                inContext:context
                                    scale:self.contentsScale];
         }
@@ -763,7 +763,7 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
 
     NSUInteger legendEntryCount = self.legendEntries.count;
     if ( (rowCount == 0) && (columnCount == 0) ) {
-        rowCount    = (NSUInteger)lrint(sqrt( (double)legendEntryCount ) );
+        rowCount    = (NSUInteger)lrint( sqrt( (double)legendEntryCount) );
         columnCount = rowCount;
         if ( rowCount * columnCount < legendEntryCount ) {
             columnCount++;
@@ -788,8 +788,8 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
     // compute row heights and column widths
     NSUInteger row                      = 0;
     NSUInteger col                      = 0;
-    CGFloat *maxTitleHeight             = calloc(rowCount, sizeof(CGFloat) );
-    CGFloat *maxTitleWidth              = calloc(columnCount, sizeof(CGFloat) );
+    CGFloat *maxTitleHeight             = calloc( rowCount, sizeof(CGFloat) );
+    CGFloat *maxTitleWidth              = calloc( columnCount, sizeof(CGFloat) );
     CGSize theSwatchSize                = self.swatchSize;
     CPTNumberArray *desiredRowHeights   = self.rowHeights;
     CPTNumberArray *desiredColumnWidths = self.columnWidths;
@@ -865,7 +865,7 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
         }
     }
     if ( columnCount > 0 ) {
-        legendSize.width += ( (theSwatchSize.width + self.titleOffset + self.entryPaddingLeft + self.entryPaddingRight) * columnCount ) + (self.columnMargin * (columnCount - 1) );
+        legendSize.width += ( (theSwatchSize.width + self.titleOffset + self.entryPaddingLeft + self.entryPaddingRight) * columnCount) + ( self.columnMargin * (columnCount - 1) );
     }
 
     NSUInteger rows = row;
@@ -876,10 +876,10 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
         legendSize.height += [height cgFloatValue];
     }
     if ( rows > 0 ) {
-        legendSize.height += ( (self.entryPaddingBottom + self.entryPaddingTop) * rowCount ) + (self.rowMargin * (rows - 1) );
+        legendSize.height += ( (self.entryPaddingBottom + self.entryPaddingTop) * rowCount) + ( self.rowMargin * (rows - 1) );
     }
 
-    self.bounds = CPTRectMake(0.0, 0.0, ceil(legendSize.width), ceil(legendSize.height) );
+    self.bounds = CPTRectMake( 0.0, 0.0, ceil(legendSize.width), ceil(legendSize.height) );
     [self pixelAlign];
 
     self.layoutChanged = NO;

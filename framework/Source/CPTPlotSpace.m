@@ -666,7 +666,7 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
 
     // Set range
     if ( unionRange ) {
-        if ( CPTDecimalEquals(unionRange.lengthDecimal, CPTDecimalFromInteger(0) ) ) {
+        if ( CPTDecimalEquals( unionRange.lengthDecimal, CPTDecimalFromInteger(0) ) ) {
             [unionRange unionPlotRange:[self plotRangeForCoordinate:coordinate]];
         }
         [self setPlotRange:unionRange forCoordinate:coordinate];
@@ -702,7 +702,7 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
 
     // Set range
     if ( unionRange ) {
-        if ( CPTDecimalEquals(unionRange.lengthDecimal, CPTDecimalFromInteger(0) ) ) {
+        if ( CPTDecimalEquals( unionRange.lengthDecimal, CPTDecimalFromInteger(0) ) ) {
             [unionRange unionPlotRange:[self plotRangeForCoordinate:coordinate]];
         }
         [self setPlotRange:unionRange forCoordinate:coordinate];

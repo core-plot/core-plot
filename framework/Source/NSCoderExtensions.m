@@ -336,7 +336,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
     NSData *iccProfile = [self decodeObjectOfClass:[NSData class]
                                             forKey:key];
     if ( iccProfile ) {
-        colorSpace = CGColorSpaceCreateWithICCProfile( (__bridge CFDataRef)iccProfile );
+        colorSpace = CGColorSpaceCreateWithICCProfile( (__bridge CFDataRef)iccProfile);
     }
     else {
         NSLog(@"Color space not available for key '%@'. Using generic RGB color space.", key);
@@ -447,7 +447,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 
     newKey = [[NSString alloc] initWithFormat:@"%@.provider", key];
     CGDataProviderRef provider = CGDataProviderCreateWithCFData( (__bridge CFDataRef)[self decodeObjectOfClass:[NSData class]
-                                                                                                        forKey:newKey] );
+                                                                                                        forKey:newKey]);
 
     newKey = [[NSString alloc] initWithFormat:@"%@.numberOfComponents", key];
     size_t numberOfComponents = (size_t)[self decodeInt64ForKey:newKey];

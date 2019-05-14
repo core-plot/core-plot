@@ -49,7 +49,7 @@
 -(nullable void *)mutableSamplePointer:(NSUInteger)sample
 {
     if ( sample < self.numberOfSamples ) {
-        return (void *)( (char *)self.mutableBytes + sample * self.sampleBytes );
+        return (void *)( (char *)self.mutableBytes + sample * self.sampleBytes);
     }
     else {
         return NULL;
@@ -87,7 +87,7 @@
 
 -(nonnull void *)mutableBytes
 {
-    return ( (NSMutableData *)self.data ).mutableBytes;
+    return ( (NSMutableData *)self.data).mutableBytes;
 }
 
 /// @endcond

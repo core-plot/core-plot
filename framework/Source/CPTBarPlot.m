@@ -406,7 +406,7 @@ CPTBarPlotBinding const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< 
             CPTMutableNumericData *locationData = nil;
             if ( self.doublePrecisionCache ) {
                 locationData = [[CPTMutableNumericData alloc] initWithData:[NSData data]
-                                                                  dataType:CPTDataType(CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() )
+                                                                  dataType:CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() )
                                                                      shape:nil];
                 locationData.shape = @[@(indexRange.length)];
 
@@ -425,13 +425,13 @@ CPTBarPlotBinding const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< 
             }
             else {
                 locationData = [[CPTMutableNumericData alloc] initWithData:[NSData data]
-                                                                  dataType:CPTDataType(CPTDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent() )
+                                                                  dataType:CPTDataType( CPTDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent() )
                                                                      shape:nil];
                 locationData.shape = @[@(indexRange.length)];
 
                 NSDecimal delta = CPTDecimalFromInteger(1);
                 if ( indexRange.length > 1 ) {
-                    delta = CPTDecimalDivide(self.plotRange.lengthDecimal, CPTDecimalFromUnsignedInteger(indexRange.length - 1) );
+                    delta = CPTDecimalDivide( self.plotRange.lengthDecimal, CPTDecimalFromUnsignedInteger(indexRange.length - 1) );
                 }
 
                 NSDecimal locationDecimal = self.plotRange.locationDecimal;
@@ -454,7 +454,7 @@ CPTBarPlotBinding const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< 
             CPTMutableNumericData *locationData = nil;
             if ( self.doublePrecisionCache ) {
                 locationData = [[CPTMutableNumericData alloc] initWithData:[NSData data]
-                                                                  dataType:CPTDataType(CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() )
+                                                                  dataType:CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() )
                                                                      shape:nil];
                 locationData.shape = @[@(indexRange.length)];
 
@@ -468,7 +468,7 @@ CPTBarPlotBinding const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< 
             }
             else {
                 locationData = [[CPTMutableNumericData alloc] initWithData:[NSData data]
-                                                                  dataType:CPTDataType(CPTDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent() )
+                                                                  dataType:CPTDataType( CPTDecimalDataType, sizeof(NSDecimal), CFByteOrderGetCurrent() )
                                                                      shape:nil];
                 locationData.shape = @[@(indexRange.length)];
 
@@ -789,12 +789,12 @@ CPTBarPlotBinding const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< 
 
     NSDecimal barOffsetLength = [self lengthInPlotCoordinates:self.barOffset.decimalValue];
     NSDecimal barWidthLength  = [self lengthInPlotCoordinates:self.barWidth.decimalValue];
-    NSDecimal halfBarWidth    = CPTDecimalDivide(barWidthLength, CPTDecimalFromInteger(2) );
+    NSDecimal halfBarWidth    = CPTDecimalDivide( barWidthLength, CPTDecimalFromInteger(2) );
 
     NSDecimal rangeLocation = range.locationDecimal;
     NSDecimal rangeLength   = range.lengthDecimal;
 
-    if ( CPTDecimalGreaterThanOrEqualTo(rangeLength, CPTDecimalFromInteger(0) ) ) {
+    if ( CPTDecimalGreaterThanOrEqualTo( rangeLength, CPTDecimalFromInteger(0) ) ) {
         rangeLocation = CPTDecimalSubtract(rangeLocation, halfBarWidth);
 
         range.locationDecimal = CPTDecimalAdd(rangeLocation, barOffsetLength);
@@ -993,14 +993,14 @@ CPTBarPlotBinding const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< 
         }
     }
 
-    CGFloat radius     = MIN(MIN(self.barCornerRadius, ABS(barRect.size.width) * CPTFloat(0.5) ), ABS(barRect.size.height) * CPTFloat(0.5) );
-    CGFloat baseRadius = MIN(MIN(self.barBaseCornerRadius, ABS(barRect.size.width) * CPTFloat(0.5) ), ABS(barRect.size.height) * CPTFloat(0.5) );
+    CGFloat radius     = MIN( MIN( self.barCornerRadius, ABS(barRect.size.width) * CPTFloat(0.5) ), ABS(barRect.size.height) * CPTFloat(0.5) );
+    CGFloat baseRadius = MIN( MIN( self.barBaseCornerRadius, ABS(barRect.size.width) * CPTFloat(0.5) ), ABS(barRect.size.height) * CPTFloat(0.5) );
 
-    if ( widthNegative && (barRect.size.width > CPTFloat(0.0) ) ) {
+    if ( widthNegative && ( barRect.size.width > CPTFloat(0.0) ) ) {
         barRect.origin.x  += barRect.size.width;
         barRect.size.width = -barRect.size.width;
     }
-    if ( heightNegative && (barRect.size.height > CPTFloat(0.0) ) ) {
+    if ( heightNegative && ( barRect.size.height > CPTFloat(0.0) ) ) {
         barRect.origin.y   += barRect.size.height;
         barRect.size.height = -barRect.size.height;
     }
@@ -1053,14 +1053,14 @@ CPTBarPlotBinding const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< 
         else {
             // rounded at both ends
             if ( horizontalBars ) {
-                CGPathMoveToPoint(path, NULL, barRect.origin.x, CGRectGetMidY(barRect) );
+                CGPathMoveToPoint( path, NULL, barRect.origin.x, CGRectGetMidY(barRect) );
                 CGPathAddArcToPoint(path, NULL, barRect.origin.x, tipY, CGRectGetMidX(barRect), tipY, baseRadius);
                 CGPathAddArcToPoint(path, NULL, tipX, tipY, tipX, CGRectGetMidY(barRect), radius);
                 CGPathAddArcToPoint(path, NULL, tipX, barRect.origin.y, CGRectGetMidX(barRect), barRect.origin.y, radius);
                 CGPathAddArcToPoint(path, NULL, barRect.origin.x, barRect.origin.y, barRect.origin.x, CGRectGetMidY(barRect), baseRadius);
             }
             else {
-                CGPathMoveToPoint(path, NULL, barRect.origin.x, CGRectGetMidY(barRect) );
+                CGPathMoveToPoint( path, NULL, barRect.origin.x, CGRectGetMidY(barRect) );
                 CGPathAddArcToPoint(path, NULL, barRect.origin.x, tipY, CGRectGetMidX(barRect), tipY, radius);
                 CGPathAddArcToPoint(path, NULL, tipX, tipY, tipX, CGRectGetMidY(barRect), radius);
                 CGPathAddArcToPoint(path, NULL, tipX, barRect.origin.y, CGRectGetMidX(barRect), barRect.origin.y, baseRadius);
@@ -1081,8 +1081,8 @@ CPTBarPlotBinding const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< 
 
     CPTPlotArea *thePlotArea = self.plotArea;
 
-    CGFloat lowerBound = (horizontalBars ? CGRectGetMinY(thePlotArea.bounds) : CGRectGetMinX(thePlotArea.bounds) );
-    CGFloat upperBound = (horizontalBars ? CGRectGetMaxY(thePlotArea.bounds) : CGRectGetMaxX(thePlotArea.bounds) );
+    CGFloat lowerBound = ( horizontalBars ? CGRectGetMinY(thePlotArea.bounds) : CGRectGetMinX(thePlotArea.bounds) );
+    CGFloat upperBound = ( horizontalBars ? CGRectGetMaxY(thePlotArea.bounds) : CGRectGetMaxX(thePlotArea.bounds) );
     CGFloat base       = (horizontalBars ? basePoint.y : basePoint.x);
 
     return (base + halfBarWidth >= lowerBound) && (base - halfBarWidth <= upperBound);
@@ -1231,7 +1231,7 @@ CPTBarPlotBinding const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< 
     BOOL horizontalBars       = self.barsAreHorizontal;
     CPTCoordinate coordinate  = (horizontalBars ? CPTCoordinateX : CPTCoordinateY);
     CPTPlotRange *lengthRange = [self.plotSpace plotRangeForCoordinate:coordinate];
-    if ( CPTDecimalLessThan(lengthRange.lengthDecimal, CPTDecimalFromInteger(0) ) ) {
+    if ( CPTDecimalLessThan( lengthRange.lengthDecimal, CPTDecimalFromInteger(0) ) ) {
         positiveDirection = !positiveDirection;
     }
 
