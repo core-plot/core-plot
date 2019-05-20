@@ -3070,6 +3070,9 @@ NSDecimal CPTNiceLength(NSDecimal length)
             for ( CPTAxisLabel *label in self.axisLabels ) {
                 [label.contentLayer removeFromSuperlayer];
             }
+            for ( CPTAxisLabel *label in self.minorTickAxisLabels ) {
+                [label.contentLayer removeFromSuperlayer];
+            }
             [self.axisTitle.contentLayer removeFromSuperlayer];
         }
     }
