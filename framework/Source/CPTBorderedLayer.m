@@ -68,7 +68,7 @@
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
-    if ( (self = [super initWithFrame:newFrame]) ) {
+    if ((self = [super initWithFrame:newFrame])) {
         borderLineStyle = nil;
         fill            = nil;
         inLayout        = NO;
@@ -84,7 +84,7 @@
 
 -(nonnull instancetype)initWithLayer:(nonnull id)layer
 {
-    if ( (self = [super initWithLayer:layer]) ) {
+    if ((self = [super initWithLayer:layer])) {
         CPTBorderedLayer *theLayer = (CPTBorderedLayer *)layer;
 
         borderLineStyle = theLayer->borderLineStyle;
@@ -114,7 +114,7 @@
 
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super initWithCoder:coder]) ) {
+    if ((self = [super initWithCoder:coder])) {
         borderLineStyle = [[coder decodeObjectOfClass:[CPTLineStyle class]
                                                forKey:@"CPTBorderedLayer.borderLineStyle"] copy];
         fill = [[coder decodeObjectOfClass:[CPTFill class]
@@ -183,7 +183,7 @@
 
         CGFloat radius = self.cornerRadius;
 
-        if ( radius > CPTFloat(0.0) ) {
+        if ( radius > CPTFloat(0.0)) {
             CGContextBeginPath(context);
             CPTAddRoundedRectPath(context, layerBounds, radius);
             [theLineStyle strokePathInContext:context];
@@ -212,7 +212,7 @@
 
     CGFloat inset = self.borderLineStyle.lineWidth * CPTFloat(0.5);
 
-    if ( inset > CPTFloat(0.0) ) {
+    if ( inset > CPTFloat(0.0)) {
         *left   += inset;
         *top    += inset;
         *right  += inset;
@@ -271,7 +271,7 @@
         CGFloat lineWidth = self.borderLineStyle.lineWidth;
         CGRect selfBounds = CGRectInset(self.bounds, lineWidth, lineWidth);
 
-        path = CPTCreateRoundedRectPath( selfBounds, self.cornerRadius - lineWidth * CPTFloat(0.5) );
+        path = CPTCreateRoundedRectPath(selfBounds, self.cornerRadius - lineWidth * CPTFloat(0.5));
 
         self.innerBorderPath = path;
         CGPathRelease(path);
@@ -306,7 +306,7 @@
 
 -(void)updateOpacity
 {
-    BOOL opaqueLayer = ( self.cornerRadius <= CPTFloat(0.0) );
+    BOOL opaqueLayer = (self.cornerRadius <= CPTFloat(0.0));
 
     CPTFill *theFill = self.fill;
 
@@ -353,7 +353,7 @@
         fill = [newFill copy];
 
         CPTLayer *border = self.borderLayer;
-        if ( self.cornerRadius != CPTFloat(0.0) ) {
+        if ( self.cornerRadius != CPTFloat(0.0)) {
             border.backgroundColor = NULL;
         }
         else {

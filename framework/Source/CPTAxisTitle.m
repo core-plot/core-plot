@@ -18,7 +18,7 @@
 -(nonnull instancetype)initWithContentLayer:(nonnull CPTLayer *)layer
 {
     if ( layer ) {
-        if ( (self = [super initWithContentLayer:layer]) ) {
+        if ((self = [super initWithContentLayer:layer])) {
             self.rotation = CPTNAN;
         }
     }
@@ -49,14 +49,14 @@
     else if ( [object isKindOfClass:[self class]] ) {
         CPTAxisTitle *otherTitle = object;
 
-        if ( (self.rotation != otherTitle.rotation) || (self.offset != otherTitle.offset) ) {
+        if ((self.rotation != otherTitle.rotation) || (self.offset != otherTitle.offset)) {
             return NO;
         }
         if ( ![self.contentLayer isEqual:otherTitle] ) {
             return NO;
         }
 
-        NSNumber *location = ( (CPTAxisLabel *)object).tickLocation;
+        NSNumber *location = ((CPTAxisLabel *)object).tickLocation;
 
         if ( location ) {
             return [self.tickLocation isEqualToNumber:location];
@@ -81,11 +81,11 @@
     // Equal objects must hash the same.
     double tickLocationAsDouble = self.tickLocation.doubleValue;
 
-    if ( !isnan(tickLocationAsDouble) ) {
-        hashValue = (NSUInteger)lrint( fmod(ABS(tickLocationAsDouble), (double)NSUIntegerMax) );
+    if ( !isnan(tickLocationAsDouble)) {
+        hashValue = (NSUInteger)lrint(fmod(ABS(tickLocationAsDouble), (double)NSUIntegerMax));
     }
-    hashValue += (NSUInteger)lrint( fmod(ABS(self.rotation), (double)NSUIntegerMax) );
-    hashValue += (NSUInteger)lrint( fmod(ABS(self.offset), (double)NSUIntegerMax) );
+    hashValue += (NSUInteger)lrint(fmod(ABS(self.rotation), (double)NSUIntegerMax));
+    hashValue += (NSUInteger)lrint(fmod(ABS(self.offset), (double)NSUIntegerMax));
 
     return hashValue;
 }

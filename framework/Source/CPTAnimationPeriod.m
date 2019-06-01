@@ -125,7 +125,7 @@
 {
     NSValue *start = nil;
 
-    if ( !isnan(aStartPoint.x) && !isnan(aStartPoint.y) ) {
+    if ( !isnan(aStartPoint.x) && !isnan(aStartPoint.y)) {
         start = [NSValue valueWithBytes:&aStartPoint objCType:@encode(CGPoint)];
     }
 
@@ -148,7 +148,7 @@
 {
     NSValue *start = nil;
 
-    if ( !isnan(aStartSize.width) && !isnan(aStartSize.height) ) {
+    if ( !isnan(aStartSize.width) && !isnan(aStartSize.height)) {
         start = [NSValue valueWithBytes:&aStartSize objCType:@encode(CGSize)];
     }
 
@@ -171,7 +171,7 @@
 {
     NSValue *start = nil;
 
-    if ( !CGRectEqualToRect(aStartRect, CGRectNull) && !isnan(aStartRect.origin.x) && !isnan(aStartRect.origin.y) && !isnan(aStartRect.size.width) && !isnan(aStartRect.size.height) ) {
+    if ( !CGRectEqualToRect(aStartRect, CGRectNull) && !isnan(aStartRect.origin.x) && !isnan(aStartRect.origin.y) && !isnan(aStartRect.size.width) && !isnan(aStartRect.size.height)) {
         start = [NSValue valueWithBytes:&aStartRect objCType:@encode(CGRect)];
     }
 
@@ -230,7 +230,7 @@
 {
     CPTPlotRange *startRange = aStartPlotRange;
 
-    if ( isnan(aStartPlotRange.locationDouble) || isnan(aStartPlotRange.lengthDouble) ) {
+    if ( isnan(aStartPlotRange.locationDouble) || isnan(aStartPlotRange.lengthDouble)) {
         startRange = nil;
     }
 
@@ -263,7 +263,7 @@
  **/
 -(instancetype)initWithStartValue:(NSValue *)aStartValue endValue:(NSValue *)anEndValue ofClass:(Class)class duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         startValue  = [aStartValue copy];
         endValue    = [anEndValue copy];
         valueClass  = class;
@@ -310,7 +310,7 @@
 {
     NSValue *start = nil;
 
-    if ( !isnan(aStartPoint.x) && !isnan(aStartPoint.y) ) {
+    if ( !isnan(aStartPoint.x) && !isnan(aStartPoint.y)) {
         start = [NSValue valueWithBytes:&aStartPoint objCType:@encode(CGPoint)];
     }
 
@@ -335,7 +335,7 @@
 {
     NSValue *start = nil;
 
-    if ( !isnan(aStartSize.width) && !isnan(aStartSize.height) ) {
+    if ( !isnan(aStartSize.width) && !isnan(aStartSize.height)) {
         start = [NSValue valueWithBytes:&aStartSize objCType:@encode(CGSize)];
     }
 
@@ -360,7 +360,7 @@
 {
     NSValue *start = nil;
 
-    if ( !CGRectEqualToRect(aStartRect, CGRectNull) && !isnan(aStartRect.origin.x) && !isnan(aStartRect.origin.y) && !isnan(aStartRect.size.width) && !isnan(aStartRect.size.height) ) {
+    if ( !CGRectEqualToRect(aStartRect, CGRectNull) && !isnan(aStartRect.origin.x) && !isnan(aStartRect.origin.y) && !isnan(aStartRect.size.width) && !isnan(aStartRect.size.height)) {
         start = [NSValue valueWithBytes:&aStartRect objCType:@encode(CGRect)];
     }
 
@@ -425,7 +425,7 @@
 {
     CPTPlotRange *startRange = aStartPlotRange;
 
-    if ( isnan(aStartPlotRange.locationDouble) || isnan(aStartPlotRange.lengthDouble) ) {
+    if ( isnan(aStartPlotRange.locationDouble) || isnan(aStartPlotRange.lengthDouble)) {
         startRange = nil;
     }
 

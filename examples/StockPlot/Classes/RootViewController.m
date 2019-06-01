@@ -60,7 +60,7 @@
     NSDecimalNumber *high = aStock.overallHigh;
     NSDecimalNumber *low  = aStock.overallLow;
 
-    if ( [high isEqualToNumber:[NSDecimalNumber notANumber]] || [low isEqualToNumber:[NSDecimalNumber notANumber]] || (aStock.financialData.count <= 0) ) {
+    if ( [high isEqualToNumber:[NSDecimalNumber notANumber]] || [low isEqualToNumber:[NSDecimalNumber notANumber]] || (aStock.financialData.count <= 0)) {
         NSString *message = [NSString stringWithFormat:@"No information available for %@", aStock.symbol];
         UIAlertView *av   = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert", @"Alert title") message:message delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
         [av show];

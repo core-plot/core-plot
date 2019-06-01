@@ -17,7 +17,7 @@
 
 -(nonnull instancetype)init
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         self.title   = @"Colored Bar Chart";
         self.section = kBarPlots;
     }
@@ -133,7 +133,7 @@
 
     graph.legend             = theLegend;
     graph.legendAnchor       = CPTRectAnchorTop;
-    graph.legendDisplacement = CGPointMake( 0.0, self.titleSize * CPTFloat(-2.625) );
+    graph.legendDisplacement = CGPointMake(0.0, self.titleSize * CPTFloat(-2.625));
 }
 
 #pragma mark -

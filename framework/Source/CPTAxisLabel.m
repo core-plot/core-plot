@@ -63,7 +63,7 @@
  **/
 -(nonnull instancetype)initWithContentLayer:(nonnull CPTLayer *)layer
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         contentLayer = layer;
         offset       = CPTFloat(20.0);
         rotation     = CPTFloat(0.0);
@@ -105,7 +105,7 @@
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         contentLayer = [coder decodeObjectOfClass:[CPTLayer class]
                                            forKey:@"CPTAxisLabel.contentLayer"];
         offset    = [coder decodeCGFloatForKey:@"CPTAxisLabel.offset"];
@@ -151,14 +151,14 @@
     }
 
     CGPoint newPosition = point;
-    CGFloat *value      = ( coordinate == CPTCoordinateX ? &(newPosition.x) : &(newPosition.y) );
+    CGFloat *value      = (coordinate == CPTCoordinateX ? &(newPosition.x) : &(newPosition.y));
     CGFloat angle       = CPTFloat(0.0);
 
     CGFloat labelRotation = self.rotation;
-    if ( isnan(labelRotation) ) {
-        labelRotation = ( coordinate == CPTCoordinateX ? CPTFloat(M_PI_2) : CPTFloat(0.0) );
+    if ( isnan(labelRotation)) {
+        labelRotation = (coordinate == CPTCoordinateX ? CPTFloat(M_PI_2) : CPTFloat(0.0));
     }
-    content.transform = CATransform3DMakeRotation( labelRotation, CPTFloat(0.0), CPTFloat(0.0), CPTFloat(1.0) );
+    content.transform = CATransform3DMakeRotation(labelRotation, CPTFloat(0.0), CPTFloat(0.0), CPTFloat(1.0));
     CGRect contentFrame = content.frame;
 
     // Position the anchor point along the closest edge.
@@ -272,7 +272,7 @@
     CGFloat newAnchorX = cos(angle);
     CGFloat newAnchorY = sin(angle);
 
-    if ( ABS(newAnchorX) <= ABS(newAnchorY) ) {
+    if ( ABS(newAnchorX) <= ABS(newAnchorY)) {
         newAnchorX /= ABS(newAnchorY);
         newAnchorY  = signbit(newAnchorY) ? CPTFloat(-1.0) : CPTFloat(1.0);
     }
@@ -280,7 +280,7 @@
         newAnchorY /= ABS(newAnchorX);
         newAnchorX  = signbit(newAnchorX) ? CPTFloat(-1.0) : CPTFloat(1.0);
     }
-    CGPoint anchor = CPTPointMake( ( newAnchorX + CPTFloat(1.0) ) / CPTFloat(2.0), ( newAnchorY + CPTFloat(1.0) ) / CPTFloat(2.0) );
+    CGPoint anchor = CPTPointMake((newAnchorX + CPTFloat(1.0)) / CPTFloat(2.0), (newAnchorY + CPTFloat(1.0)) / CPTFloat(2.0));
 
     content.anchorPoint = anchor;
     content.position    = newPosition;
@@ -295,7 +295,7 @@
  **/
 -(void)positionBetweenViewPoint:(CGPoint)firstPoint andViewPoint:(CGPoint)secondPoint forCoordinate:(CPTCoordinate)coordinate inDirection:(CPTSign)direction
 {
-    [self positionRelativeToViewPoint:CPTPointMake( (firstPoint.x + secondPoint.x) / CPTFloat(2.0), (firstPoint.y + secondPoint.y) / CPTFloat(2.0) )
+    [self positionRelativeToViewPoint:CPTPointMake((firstPoint.x + secondPoint.x) / CPTFloat(2.0), (firstPoint.y + secondPoint.y) / CPTFloat(2.0))
                         forCoordinate:coordinate
                           inDirection:direction];
 }
@@ -329,7 +329,7 @@
         return YES;
     }
     else if ( [object isKindOfClass:[self class]] ) {
-        NSNumber *location = ( (CPTAxisLabel *)object).tickLocation;
+        NSNumber *location = ((CPTAxisLabel *)object).tickLocation;
 
         if ( location ) {
             return [self.tickLocation isEqualToNumber:location];
@@ -354,8 +354,8 @@
     // Equal objects must hash the same.
     double tickLocationAsDouble = self.tickLocation.doubleValue;
 
-    if ( !isnan(tickLocationAsDouble) ) {
-        hashValue = (NSUInteger)lrint( fmod(ABS(tickLocationAsDouble), (double)NSUIntegerMax) );
+    if ( !isnan(tickLocationAsDouble)) {
+        hashValue = (NSUInteger)lrint(fmod(ABS(tickLocationAsDouble), (double)NSUIntegerMax));
     }
 
     return hashValue;

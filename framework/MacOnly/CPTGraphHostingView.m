@@ -80,7 +80,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
 -(nonnull instancetype)initWithFrame:(NSRect)frame
 {
-    if ( (self = [super initWithFrame:frame]) ) {
+    if ((self = [super initWithFrame:frame])) {
         [self commonInit];
     }
     return self;
@@ -136,7 +136,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super initWithCoder:coder]) ) {
+    if ((self = [super initWithCoder:coder])) {
         [self commonInit];
 
         self.hostedGraph = [coder decodeObjectOfClass:[CPTGraph class]
@@ -185,19 +185,19 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
             CGRect sourceRect      = NSRectToCGRect(self.frame);
             CGRect destinationRect = NSRectToCGRect(self.printRect);
-            if ( CGRectEqualToRect(destinationRect, CGRectZero) ) {
+            if ( CGRectEqualToRect(destinationRect, CGRectZero)) {
                 destinationRect = sourceRect;
             }
 
             // scale the view isotropically so that it fits on the printed page
-            CGFloat widthScale  = ( sourceRect.size.width != CPTFloat(0.0) ) ? destinationRect.size.width / sourceRect.size.width : CPTFloat(1.0);
-            CGFloat heightScale = ( sourceRect.size.height != CPTFloat(0.0) ) ? destinationRect.size.height / sourceRect.size.height : CPTFloat(1.0);
+            CGFloat widthScale  = (sourceRect.size.width != CPTFloat(0.0)) ? destinationRect.size.width / sourceRect.size.width : CPTFloat(1.0);
+            CGFloat heightScale = (sourceRect.size.height != CPTFloat(0.0)) ? destinationRect.size.height / sourceRect.size.height : CPTFloat(1.0);
             CGFloat scale       = MIN(widthScale, heightScale);
 
             // position the view so that its centered on the printed page
             CGPoint offset = destinationRect.origin;
-            offset.x += ( ( destinationRect.size.width - (sourceRect.size.width * scale) ) / CPTFloat(2.0) );
-            offset.y += ( ( destinationRect.size.height - (sourceRect.size.height * scale) ) / CPTFloat(2.0) );
+            offset.x += ((destinationRect.size.width - (sourceRect.size.width * scale)) / CPTFloat(2.0));
+            offset.y += ((destinationRect.size.height - (sourceRect.size.height * scale)) / CPTFloat(2.0));
 
             NSAffineTransform *transform = [NSAffineTransform transform];
             [transform translateXBy:offset.x yBy:offset.y];
@@ -446,7 +446,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
     NSCursor *closedCursor = self.closedHandCursor;
     NSCursor *openCursor   = self.openHandCursor;
 
-    if ( plotArea && (closedCursor || openCursor) ) {
+    if ( plotArea && (closedCursor || openCursor)) {
         BOOL allowsInteraction = NO;
         BOOL isDragging        = NO;
 
@@ -545,7 +545,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
         if ( [keyPath isEqualToString:@"isDragging"] && [object isKindOfClass:[CPTPlotSpace class]] ) {
             [self.window invalidateCursorRectsForView:self];
         }
-        else if ( [keyPath isEqualToString:@"plotAreaFrame"] && (object == theGraph) ) {
+        else if ( [keyPath isEqualToString:@"plotAreaFrame"] && (object == theGraph)) {
             CPTPlotAreaFrame *oldPlotAreaFrame = change[NSKeyValueChangeOldKey];
             CPTPlotAreaFrame *newPlotAreaFrame = change[NSKeyValueChangeNewKey];
 
@@ -560,7 +560,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
                                       context:CPTGraphHostingViewKVOContext];
             }
         }
-        else if ( [keyPath isEqualToString:@"plotArea"] && (object == theGraph.plotAreaFrame) ) {
+        else if ( [keyPath isEqualToString:@"plotArea"] && (object == theGraph.plotAreaFrame)) {
             CPTPlotArea *oldPlotArea = change[NSKeyValueChangeOldKey];
             CPTPlotArea *newPlotArea = change[NSKeyValueChangeNewKey];
 
@@ -592,7 +592,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
 -(void)setHostedGraph:(nullable CPTGraph *)newGraph
 {
-    NSParameterAssert( (newGraph == nil) || [newGraph isKindOfClass:[CPTGraph class]]);
+    NSParameterAssert((newGraph == nil) || [newGraph isKindOfClass:[CPTGraph class]]);
 
     if ( newGraph != hostedGraph ) {
         self.wantsLayer = YES;

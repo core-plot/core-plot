@@ -40,7 +40,7 @@ static NSMutableSet<Class> *themes = nil;
  **/
 -(nonnull instancetype)init
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         graphClass = Nil;
     }
     return self;

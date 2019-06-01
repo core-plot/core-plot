@@ -77,7 +77,7 @@
  **/
 -(nonnull instancetype)initWithAnimationPeriod:(nonnull CPTAnimationPeriod *)animationPeriod animationCurve:(CPTAnimationCurve)curve object:(nonnull id)object getter:(nonnull SEL)getter setter:(nonnull SEL)setter
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         period         = animationPeriod;
         animationCurve = curve;
         boundObject    = object;

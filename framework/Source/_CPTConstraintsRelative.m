@@ -35,7 +35,7 @@
  **/
 -(nonnull instancetype)initWithRelativeOffset:(CGFloat)newOffset
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         offset = newOffset;
     }
 
@@ -50,7 +50,7 @@
     if ( [self class] != [otherConstraint class] ) {
         return NO;
     }
-    return self.offset == ( (_CPTConstraintsRelative *)otherConstraint).offset;
+    return self.offset == ((_CPTConstraintsRelative *)otherConstraint).offset;
 }
 
 #pragma mark -
@@ -109,7 +109,7 @@
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         offset = [coder decodeCGFloatForKey:@"_CPTConstraintsRelative.offset"];
     }
     return self;

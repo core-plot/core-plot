@@ -32,7 +32,7 @@
  **/
 -(nonnull instancetype)initWithLowerOffset:(CGFloat)newOffset
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         offset         = newOffset;
         isFixedToLower = YES;
     }
@@ -46,7 +46,7 @@
  **/
 -(nonnull instancetype)initWithUpperOffset:(CGFloat)newOffset
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         offset         = newOffset;
         isFixedToLower = NO;
     }
@@ -62,8 +62,8 @@
     if ( [self class] != [otherConstraint class] ) {
         return NO;
     }
-    return (self.offset == ( (_CPTConstraintsFixed *)otherConstraint).offset) &&
-           (self.isFixedToLower == ( (_CPTConstraintsFixed *)otherConstraint).isFixedToLower);
+    return (self.offset == ((_CPTConstraintsFixed *)otherConstraint).offset) &&
+           (self.isFixedToLower == ((_CPTConstraintsFixed *)otherConstraint).isFixedToLower);
 }
 
 #pragma mark -
@@ -131,7 +131,7 @@
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         offset         = [coder decodeCGFloatForKey:@"_CPTConstraintsFixed.offset"];
         isFixedToLower = [coder decodeBoolForKey:@"_CPTConstraintsFixed.isFixedToLower"];
     }

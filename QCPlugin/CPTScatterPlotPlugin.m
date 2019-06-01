@@ -197,7 +197,7 @@
         if ( fillColor ) {
             plot.areaFill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:fillColor]];
         }
-        plot.areaBaseValue = @( MAX( self.inputYMin, MIN(self.inputYMax, 0.0) ) );
+        plot.areaBaseValue = @(MAX(self.inputYMin, MIN(self.inputYMax, 0.0)));
 
         [plot reloadData];
     }

@@ -14,7 +14,7 @@
 
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super initWithCoder:coder]) ) {
+    if ((self = [super initWithCoder:coder])) {
         // support old archives
         if ( [coder containsValueForKey:@"CPTPlotGroup.identifier"] ) {
             self.identifier = [coder decodeObjectOfClass:[NSObject class]

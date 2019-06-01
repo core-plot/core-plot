@@ -61,7 +61,7 @@
 {
     NSParameterAssert(newAnchorLayer);
 
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         anchorLayer  = newAnchorLayer;
         rectAnchor   = CPTRectAnchorTop;
         xConstraints = nil;
@@ -118,7 +118,7 @@
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super initWithCoder:coder]) ) {
+    if ((self = [super initWithCoder:coder])) {
         CPTLayer *anchor = [coder decodeObjectOfClass:[CPTLayer class]
                                                forKey:@"CPTLayerAnnotation.anchorLayer"];
         xConstraints = [coder decodeObjectOfClass:[CPTConstraints class]
@@ -168,7 +168,7 @@
 
             content.anchorPoint = self.contentAnchorPoint;
             content.position    = newPosition;
-            content.transform   = CATransform3DMakeRotation( self.rotation, CPTFloat(0.0), CPTFloat(0.0), CPTFloat(1.0) );
+            content.transform   = CATransform3DMakeRotation(self.rotation, CPTFloat(0.0), CPTFloat(0.0), CPTFloat(1.0));
             [content pixelAlign];
         }
     }

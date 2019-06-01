@@ -70,7 +70,7 @@
  **/
 -(nonnull instancetype)init
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         shadowOffset     = CGSizeZero;
         shadowBlurRadius = CPTFloat(0.0);
         shadowColor      = nil;
@@ -94,7 +94,7 @@
 
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         shadowOffset     = [coder decodeCPTSizeForKey:@"CPTShadow.shadowOffset"];
         shadowBlurRadius = [coder decodeCGFloatForKey:@"CPTShadow.shadowBlurRadius"];
         shadowColor      = [coder decodeObjectOfClass:[CPTColor class]
@@ -174,7 +174,7 @@
 
 -(void)setShadowBlurRadius:(CGFloat)newShadowBlurRadius
 {
-    NSParameterAssert( newShadowBlurRadius >= CPTFloat(0.0) );
+    NSParameterAssert(newShadowBlurRadius >= CPTFloat(0.0));
 
     if ( newShadowBlurRadius != shadowBlurRadius ) {
         shadowBlurRadius = newShadowBlurRadius;

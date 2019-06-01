@@ -67,7 +67,7 @@
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
-    if ( (self = [super initWithFrame:newFrame]) ) {
+    if ((self = [super initWithFrame:newFrame])) {
         orthogonalPosition = @0.0;
         axisConstraints    = nil;
         self.tickDirection = CPTSignNone;
@@ -81,7 +81,7 @@
 
 -(nonnull instancetype)initWithLayer:(nonnull id)layer
 {
-    if ( (self = [super initWithLayer:layer]) ) {
+    if ((self = [super initWithLayer:layer])) {
         CPTXYAxis *theLayer = (CPTXYAxis *)layer;
 
         orthogonalPosition = theLayer->orthogonalPosition;
@@ -107,7 +107,7 @@
 
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super initWithCoder:coder]) ) {
+    if ((self = [super initWithCoder:coder])) {
         orthogonalPosition = [coder decodeObjectOfClass:[NSNumber class]
                                                  forKey:@"CPTXYAxis.orthogonalPosition"];
         axisConstraints = [coder decodeObjectOfClass:[CPTConstraints class]
@@ -205,13 +205,13 @@
         }
     }
 
-    if ( isnan(point.x) || isnan(point.y) ) {
-        NSLog( @"[CPTXYAxis viewPointForCoordinateValue:%@] was %@", coordinateValue, CPTStringFromPoint(point) );
+    if ( isnan(point.x) || isnan(point.y)) {
+        NSLog(@"[CPTXYAxis viewPointForCoordinateValue:%@] was %@", coordinateValue, CPTStringFromPoint(point));
 
-        if ( isnan(point.x) ) {
+        if ( isnan(point.x)) {
             point.x = CPTFloat(0.0);
         }
-        if ( isnan(point.y) ) {
+        if ( isnan(point.y)) {
             point.y = CPTFloat(0.0);
         }
     }
@@ -237,7 +237,7 @@
     CGFloat lineWidth = lineStyle.lineWidth;
 
     CPTAlignPointFunction alignmentFunction = NULL;
-    if ( ( self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
+    if ((self.contentsScale > CPTFloat(1.0)) && (round(lineWidth) == lineWidth)) {
         alignmentFunction = CPTAlignIntegralPointToUserSpace;
     }
     else {
@@ -348,7 +348,7 @@
         CPTAlignPointFunction alignmentFunction = CPTAlignPointToUserSpace;
         if ( theLineStyle ) {
             CGFloat lineWidth = theLineStyle.lineWidth;
-            if ( ( self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
+            if ((self.contentsScale > CPTFloat(1.0)) && (round(lineWidth) == lineWidth)) {
                 alignmentFunction = CPTAlignIntegralPointToUserSpace;
             }
 
@@ -443,7 +443,7 @@
         CGFloat lineWidth = lineStyle.lineWidth;
 
         CPTAlignPointFunction alignmentFunction = NULL;
-        if ( ( self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
+        if ((self.contentsScale > CPTFloat(1.0)) && (round(lineWidth) == lineWidth)) {
             alignmentFunction = CPTAlignIntegralPointToUserSpace;
         }
         else {
@@ -501,7 +501,7 @@
     NSNumber *bandAnchor = self.alternatingBandAnchor;
     NSUInteger bandCount = self.alternatingBandFills.count;
 
-    if ( bandAnchor && (bandCount > 0) ) {
+    if ( bandAnchor && (bandCount > 0)) {
         NSDecimal anchor = bandAnchor.decimalValue;
 
         CPTPlotRange *theVisibleRange = self.visibleRange;
@@ -552,7 +552,7 @@
                 // user provided tick locations; they're not guaranteed to be evenly spaced, but band drawing always starts with the first location
                 if ( range.lengthDouble >= 0.0 ) {
                     for ( NSNumber *location in sortedLocations ) {
-                        if ( CPTDecimalLessThan(anchor, location.decimalValue) ) {
+                        if ( CPTDecimalLessThan(anchor, location.decimalValue)) {
                             break;
                         }
 
@@ -561,7 +561,7 @@
                 }
                 else {
                     for ( NSNumber *location in sortedLocations ) {
-                        if ( CPTDecimalGreaterThanOrEqualTo(anchor, location.decimalValue) ) {
+                        if ( CPTDecimalGreaterThanOrEqualTo(anchor, location.decimalValue)) {
                             break;
                         }
 
@@ -574,7 +574,7 @@
             break;
         }
 
-        if ( !CPTDecimalEquals(majorInterval, zero) ) {
+        if ( !CPTDecimalEquals(majorInterval, zero)) {
             coord = CPTDecimalDivide(CPTDecimalSubtract(rangeStart, origin), majorInterval);
             NSDecimalRound(&coord, &coord, 0, NSRoundUp);
             NSInteger stepCount = CPTDecimalIntegerValue(coord) + CPTDecimalIntegerValue(offset) + 1;
@@ -622,7 +622,7 @@
             const NSDecimal zero             = CPTDecimalFromInteger(0);
             NSSortDescriptor *sortDescriptor = nil;
             if ( range ) {
-                if ( CPTDecimalGreaterThanOrEqualTo(range.lengthDecimal, zero) ) {
+                if ( CPTDecimalGreaterThanOrEqualTo(range.lengthDecimal, zero)) {
                     sortDescriptor = [[NSSortDescriptor alloc] initWithKey:nil ascending:YES];
                 }
                 else {
@@ -659,7 +659,7 @@
 
             for ( NSDecimalNumber *location in locations ) {
                 NSDecimal currentLocation = location.decimalValue;
-                if ( !CPTDecimalEquals(CPTDecimalSubtract(currentLocation, lastLocation), zero) ) {
+                if ( !CPTDecimalEquals(CPTDecimalSubtract(currentLocation, lastLocation), zero)) {
                     CPTFill *bandFill = bandArray[bandIndex++];
                     bandIndex %= bandCount;
 
@@ -673,10 +673,10 @@
                         CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint numberOfCoordinates:2];
 
                         // Fill band
-                        CGRect fillRect = CPTRectMake( MIN(startViewPoint.x, endViewPoint.x),
-                                                       MIN(startViewPoint.y, endViewPoint.y),
-                                                       ABS(endViewPoint.x - startViewPoint.x),
-                                                       ABS(endViewPoint.y - startViewPoint.y) );
+                        CGRect fillRect = CPTRectMake(MIN(startViewPoint.x, endViewPoint.x),
+                                                      MIN(startViewPoint.y, endViewPoint.y),
+                                                      ABS(endViewPoint.x - startViewPoint.x),
+                                                      ABS(endViewPoint.y - startViewPoint.y));
                         [bandFill fillRect:CPTAlignIntegralRectToUserSpace(context, fillRect) inContext:context];
                     }
                 }
@@ -692,7 +692,7 @@
             else {
                 endLocation = CPTDecimalNaN();
             }
-            if ( !CPTDecimalEquals(lastLocation, endLocation) ) {
+            if ( !CPTDecimalEquals(lastLocation, endLocation)) {
                 CPTFill *bandFill = bandArray[bandIndex];
 
                 if ( bandFill != null ) {
@@ -705,10 +705,10 @@
                     CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint numberOfCoordinates:2];
 
                     // Fill band
-                    CGRect fillRect = CPTRectMake( MIN(startViewPoint.x, endViewPoint.x),
-                                                   MIN(startViewPoint.y, endViewPoint.y),
-                                                   ABS(endViewPoint.x - startViewPoint.x),
-                                                   ABS(endViewPoint.y - startViewPoint.y) );
+                    CGRect fillRect = CPTRectMake(MIN(startViewPoint.x, endViewPoint.x),
+                                                  MIN(startViewPoint.y, endViewPoint.y),
+                                                  ABS(endViewPoint.x - startViewPoint.x),
+                                                  ABS(endViewPoint.y - startViewPoint.y));
                     [bandFill fillRect:CPTAlignIntegralRectToUserSpace(context, fillRect) inContext:context];
                 }
             }
@@ -763,10 +763,10 @@
                     CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint numberOfCoordinates:2];
 
                     // Fill band
-                    CGRect fillRect = CPTRectMake( MIN(startViewPoint.x, endViewPoint.x),
-                                                   MIN(startViewPoint.y, endViewPoint.y),
-                                                   ABS(endViewPoint.x - startViewPoint.x),
-                                                   ABS(endViewPoint.y - startViewPoint.y) );
+                    CGRect fillRect = CPTRectMake(MIN(startViewPoint.x, endViewPoint.x),
+                                                  MIN(startViewPoint.y, endViewPoint.y),
+                                                  ABS(endViewPoint.x - startViewPoint.x),
+                                                  ABS(endViewPoint.y - startViewPoint.y));
                     [bandFill fillRect:CPTAlignIntegralRectToUserSpace(context, fillRect) inContext:context];
                 }
             }
@@ -824,8 +824,8 @@
                 double loc = axisRange.locationDouble;
                 double end = axisRange.endDouble;
 
-                if ( (loc > 0.0) && (end >= 0.0) ) {
-                    location = @( pow(10.0, ( log10(loc) + log10(end) ) / 2.0) );
+                if ((loc > 0.0) && (end >= 0.0)) {
+                    location = @(pow(10.0, (log10(loc) + log10(end)) / 2.0));
                 }
                 else {
                     location = axisRange.midPoint;
@@ -838,7 +838,7 @@
                 double loc = axisRange.locationDouble;
                 double end = axisRange.endDouble;
 
-                location = @( CPTInverseLogModulus( ( CPTLogModulus(loc) + CPTLogModulus(end) ) / 2.0) );
+                location = @(CPTInverseLogModulus((CPTLogModulus(loc) + CPTLogModulus(end)) / 2.0));
             }
             break;
 

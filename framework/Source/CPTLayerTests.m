@@ -142,14 +142,14 @@ static const CGFloat precision = CPTFloat(1.0e-6);
     self.layer.anchorPoint   = anchor;
 
     for ( NSUInteger i = 0; i < positionCount; i++ ) {
-        CGFloat position      = ( (NSNumber *)( (self.positions)[i]) ).cgFloatValue;
+        CGFloat position      = ((NSNumber *)((self.positions)[i])).cgFloatValue;
         CGPoint layerPosition = CGPointMake(position, position);
         self.layer.position = layerPosition;
 
         [self.layer pixelAlign];
 
         CGPoint alignedPoint = self.layer.position;
-        CGFloat expected     = ( (NSNumber *)(expectedValues[i]) ).cgFloatValue;
+        CGFloat expected     = ((NSNumber *)(expectedValues[i])).cgFloatValue;
 
         NSString *errMessage;
         errMessage = [NSString stringWithFormat:@"pixelAlign at x = %g with scale %g and anchor %@", (double)position, (double)scale, CPTStringFromPoint(anchor)];

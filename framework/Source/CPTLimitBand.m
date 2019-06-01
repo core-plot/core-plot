@@ -38,7 +38,7 @@
  **/
 -(nonnull instancetype)initWithRange:(nullable CPTPlotRange *)newRange fill:(nullable CPTFill *)newFill
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         range = newRange;
         fill  = newFill;
     }
@@ -91,7 +91,7 @@
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)decoder
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         range = [decoder decodeObjectOfClass:[CPTPlotRange class]
                                       forKey:@"CPTLimitBand.range"];
         fill = [decoder decodeObjectOfClass:[CPTFill class]

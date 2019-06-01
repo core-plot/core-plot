@@ -32,7 +32,7 @@
  **/
 -(nonnull instancetype)initWithColor:(nonnull CPTColor *)aColor
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         fillColor = aColor;
     }
     return self;
@@ -119,7 +119,7 @@
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         CPTColor *color = [coder decodeObjectOfClass:[CPTColor class]
                                               forKey:@"_CPTFillColor.fillColor"];
 

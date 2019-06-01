@@ -79,12 +79,12 @@
     self.allowPinchScaling = YES;
 
     // This undoes the normal coordinate space inversion that UIViews apply to their layers
-    self.layer.sublayerTransform = CATransform3DMakeScale( CPTFloat(1.0), CPTFloat(-1.0), CPTFloat(1.0) );
+    self.layer.sublayerTransform = CATransform3DMakeScale(CPTFloat(1.0), CPTFloat(-1.0), CPTFloat(1.0));
 }
 
 -(nonnull instancetype)initWithFrame:(CGRect)frame
 {
-    if ( (self = [super initWithFrame:frame]) ) {
+    if ((self = [super initWithFrame:frame])) {
         [self commonInit];
     }
     return self;
@@ -123,7 +123,7 @@
 
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super initWithCoder:coder]) ) {
+    if ((self = [super initWithCoder:coder])) {
         [self commonInit];
 
         collapsesLayers  = [coder decodeBoolForKey:@"CPTGraphHostingView.collapsesLayers"];
@@ -361,7 +361,7 @@
 
 -(void)setHostedGraph:(nullable CPTGraph *)newLayer
 {
-    NSParameterAssert( (newLayer == nil) || [newLayer isKindOfClass:[CPTGraph class]]);
+    NSParameterAssert((newLayer == nil) || [newLayer isKindOfClass:[CPTGraph class]]);
 
     if ( newLayer == hostedGraph ) {
         return;

@@ -14,7 +14,7 @@
 
 -(nonnull instancetype)init
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         self.title   = @"Line Caps";
         self.section = kDemoPlots;
     }

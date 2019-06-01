@@ -54,7 +54,7 @@
         else {
             const NSInteger numberOfComponents = styleColor.numberOfComponents;
 
-            CGFloat *components = calloc( (size_t)numberOfComponents, sizeof(CGFloat) );
+            CGFloat *components = calloc((size_t)numberOfComponents, sizeof(CGFloat));
             [styleColor getComponents:components];
 
             CGColorSpaceRef colorSpace = styleColor.colorSpace.CGColorSpace;
@@ -160,7 +160,7 @@
         else {
             const NSInteger numberOfComponents = styleColor.numberOfComponents;
 
-            CGFloat *components = calloc( (size_t)numberOfComponents, sizeof(CGFloat) );
+            CGFloat *components = calloc((size_t)numberOfComponents, sizeof(CGFloat));
             [styleColor getComponents:components];
 
             CGColorSpaceRef colorSpace = styleColor.colorSpace.CGColorSpace;

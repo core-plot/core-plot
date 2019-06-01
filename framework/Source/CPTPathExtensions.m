@@ -10,8 +10,8 @@
  **/
 __nonnull CGPathRef CPTCreateRoundedRectPath(CGRect rect, CGFloat cornerRadius)
 {
-    if ( cornerRadius > CPTFloat(0.0) ) {
-        cornerRadius = MIN( MIN( cornerRadius, rect.size.width * CPTFloat(0.5) ), rect.size.height * CPTFloat(0.5) );
+    if ( cornerRadius > CPTFloat(0.0)) {
+        cornerRadius = MIN(MIN(cornerRadius, rect.size.width * CPTFloat(0.5)), rect.size.height * CPTFloat(0.5));
 
         // CGPathCreateWithRoundedRect() is available in macOS 10.9 and iOS 7 but not marked in the header file
 #pragma clang diagnostic push

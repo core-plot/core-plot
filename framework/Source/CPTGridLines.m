@@ -35,7 +35,7 @@
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
-    if ( (self = [super initWithFrame:newFrame]) ) {
+    if ((self = [super initWithFrame:newFrame])) {
         axis  = nil;
         major = NO;
 
@@ -50,7 +50,7 @@
 
 -(nonnull instancetype)initWithLayer:(nonnull id)layer
 {
-    if ( (self = [super initWithLayer:layer]) ) {
+    if ((self = [super initWithLayer:layer])) {
         CPTGridLines *theLayer = (CPTGridLines *)layer;
 
         axis  = theLayer->axis;
@@ -76,7 +76,7 @@
 
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super initWithCoder:coder]) ) {
+    if ((self = [super initWithCoder:coder])) {
         axis = [coder decodeObjectOfClass:[CPTAxis class]
                                    forKey:@"CPTGridLines.axis"];
         major = [coder decodeBoolForKey:@"CPTGridLines.major"];

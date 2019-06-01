@@ -101,7 +101,7 @@
  **/
 -(nonnull instancetype)init
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         fontName      = @"Helvetica";
         fontSize      = CPTFloat(12.0);
         color         = [CPTColor blackColor];
@@ -129,7 +129,7 @@
 
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         fontName = [[coder decodeObjectOfClass:[NSString class]
                                         forKey:@"CPTTextStyle.fontName"] copy];
         fontSize = [coder decodeCGFloatForKey:@"CPTTextStyle.fontSize"];

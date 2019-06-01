@@ -97,7 +97,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
 {
     NSParameterAssert(function);
 
-    if ( (self = [self initForPlot:plot]) ) {
+    if ((self = [self initForPlot:plot])) {
         dataSourceFunction = function;
 
         plot.dataSource = self;
@@ -114,7 +114,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
 {
     NSParameterAssert(block);
 
-    if ( (self = [self initForPlot:plot]) ) {
+    if ((self = [self initForPlot:plot])) {
         dataSourceBlock = block;
 
         plot.dataSource = self;
@@ -128,7 +128,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
 {
     NSParameterAssert([plot isKindOfClass:[CPTScatterPlot class]]);
 
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         dataPlot           = plot;
         dataSourceFunction = NULL;
         dataSourceBlock    = nil;
@@ -176,7 +176,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
 
 -(void)setResolution:(CGFloat)newResolution
 {
-    NSParameterAssert( newResolution > CPTFloat(0.0) );
+    NSParameterAssert(newResolution > CPTFloat(0.0));
 
     if ( newResolution != resolution ) {
         resolution = newResolution;
@@ -221,8 +221,8 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
 
         if ( plotSpace ) {
             CGFloat width = plot.bounds.size.width;
-            if ( width > CPTFloat(0.0) ) {
-                NSUInteger count = (NSUInteger)lrint( ceil(width / self.resolution) ) + 1;
+            if ( width > CPTFloat(0.0)) {
+                NSUInteger count = (NSUInteger)lrint(ceil(width / self.resolution)) + 1;
 
                 if ( count > self.cachedCount ) {
                     self.dataCount   = count;
@@ -261,7 +261,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
     if ( [cachedRange containsRange:plotRange] ) {
         // no new data needed
     }
-    else if ( ![cachedRange intersectsRange:plotRange] || (step == 0.0) ) {
+    else if ( ![cachedRange intersectsRange:plotRange] || (step == 0.0)) {
         self.cachedCount     = 0;
         self.cachedPlotRange = plotRange;
 
@@ -271,7 +271,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
         if ( step > 0.0 ) {
             double minLimit = plotRange.minLimitDouble;
             if ( ![cachedRange containsDouble:minLimit] ) {
-                NSUInteger numPoints = (NSUInteger)lrint( ( ceil( (cachedRange.minLimitDouble - minLimit) / step) ) );
+                NSUInteger numPoints = (NSUInteger)lrint((ceil((cachedRange.minLimitDouble - minLimit) / step)));
 
                 NSDecimal offset = CPTDecimalFromDouble(step * numPoints);
                 cachedRange.locationDecimal = CPTDecimalSubtract(cachedRange.locationDecimal, offset);
@@ -284,7 +284,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
 
             double maxLimit = plotRange.maxLimitDouble;
             if ( ![cachedRange containsDouble:maxLimit] ) {
-                NSUInteger numPoints = (NSUInteger)lrint( ceil( (maxLimit - cachedRange.maxLimitDouble) / step) );
+                NSUInteger numPoints = (NSUInteger)lrint(ceil((maxLimit - cachedRange.maxLimitDouble) / step));
 
                 NSDecimal offset = CPTDecimalFromDouble(step * numPoints);
                 cachedRange.lengthDecimal = CPTDecimalAdd(cachedRange.lengthDecimal, offset);
@@ -297,7 +297,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
         else {
             double maxLimit = plotRange.maxLimitDouble;
             if ( ![cachedRange containsDouble:maxLimit] ) {
-                NSUInteger numPoints = (NSUInteger)lrint( ceil( (cachedRange.maxLimitDouble - maxLimit) / step) );
+                NSUInteger numPoints = (NSUInteger)lrint(ceil((cachedRange.maxLimitDouble - maxLimit) / step));
 
                 NSDecimal offset = CPTDecimalFromDouble(step * numPoints);
                 cachedRange.locationDecimal = CPTDecimalSubtract(cachedRange.locationDecimal, offset);
@@ -310,7 +310,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
 
             double minLimit = plotRange.minLimitDouble;
             if ( ![cachedRange containsDouble:minLimit] ) {
-                NSUInteger numPoints = (NSUInteger)lrint( ceil( (minLimit - cachedRange.minLimitDouble) / step) );
+                NSUInteger numPoints = (NSUInteger)lrint(ceil((minLimit - cachedRange.minLimitDouble) / step));
 
                 NSDecimal offset = CPTDecimalFromDouble(step * numPoints);
                 cachedRange.lengthDecimal = CPTDecimalAdd(cachedRange.lengthDecimal, offset);
@@ -332,7 +332,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
 
 -(void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(NSDictionary<NSString *, CPTPlotSpace *> *)change context:(nullable void *)context
 {
-    if ( (context == CPTFunctionDataSourceKVOContext) && [keyPath isEqualToString:@"plotSpace"] && [object isEqual:self.dataPlot] ) {
+    if ((context == CPTFunctionDataSourceKVOContext) && [keyPath isEqualToString:@"plotSpace"] && [object isEqual:self.dataPlot] ) {
         CPTPlotSpace *oldSpace = change[NSKeyValueChangeOldKey];
         CPTPlotSpace *newSpace = change[NSKeyValueChangeNewKey];
 
@@ -392,11 +392,11 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
         NSMutableData *data = [[NSMutableData alloc] initWithLength:indexRange.length * 2 * sizeof(double)];
 
         double *xBytes = data.mutableBytes;
-        double *yBytes = data.mutableBytes + ( indexRange.length * sizeof(double) );
+        double *yBytes = data.mutableBytes + (indexRange.length * sizeof(double));
 
         double location = xRange.locationDouble;
         double length   = xRange.lengthDouble;
-        double denom    = (double)( count - ( (count > 1) ? 1 : 0) );
+        double denom    = (double)(count - ((count > 1) ? 1 : 0));
 
         NSUInteger lastIndex = NSMaxRange(indexRange);
 
@@ -404,7 +404,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
 
         if ( function ) {
             for ( NSUInteger i = indexRange.location; i < lastIndex; i++ ) {
-                double x = location + ( (double)i / denom) * length;
+                double x = location + ((double)i / denom) * length;
 
                 *xBytes++ = x;
                 *yBytes++ = function(x);
@@ -415,7 +415,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
 
             if ( functionBlock ) {
                 for ( NSUInteger i = indexRange.location; i < lastIndex; i++ ) {
-                    double x = location + ( (double)i / denom) * length;
+                    double x = location + ((double)i / denom) * length;
 
                     *xBytes++ = x;
                     *yBytes++ = functionBlock(x);
@@ -424,7 +424,7 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
         }
 
         numericData = [CPTNumericData numericDataWithData:data
-                                                 dataType:CPTDataType( CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent() )
+                                                 dataType:CPTDataType(CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent())
                                                     shape:@[@(indexRange.length), @2]
                                                 dataOrder:CPTDataOrderColumnsFirst];
     }

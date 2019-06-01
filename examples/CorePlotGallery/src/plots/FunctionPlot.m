@@ -33,7 +33,7 @@ typedef NSFont CPTFont;
 
 -(nonnull instancetype)init
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         dataSources = [[NSMutableSet alloc] init];
 
         self.title   = @"Math Function Plot";
@@ -201,7 +201,7 @@ typedef NSFont CPTFont;
     graph.legend.numberOfRows    = 1;
     graph.legend.delegate        = self;
     graph.legendAnchor           = CPTRectAnchorBottom;
-    graph.legendDisplacement     = CGPointMake( 0.0, self.titleSize * CPTFloat(1.25) );
+    graph.legendDisplacement     = CGPointMake(0.0, self.titleSize * CPTFloat(1.25));
 }
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE

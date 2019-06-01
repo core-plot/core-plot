@@ -48,7 +48,7 @@ NSString *const PlotGalleryThemeNameKey               = @"PlotGalleryThemeNameKe
 
 -(nonnull instancetype)initWithNibName:(nullable NSString *)nibNameOrNil bundle:(nullable NSBundle *)nibBundleOrNil
 {
-    if ( (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) ) {
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         [self setupThemes];
     }
 

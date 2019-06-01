@@ -92,7 +92,7 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
  **/
 -(nonnull instancetype)init
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         identifier            = nil;
         allowsUserInteraction = NO;
         isDragging            = NO;
@@ -143,7 +143,7 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         graph = [coder decodeObjectOfClass:[CPTGraph class]
                                     forKey:@"CPTPlotSpace.graph"];
         identifier = [[coder decodeObjectOfClass:[NSObject class]
@@ -666,7 +666,7 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
 
     // Set range
     if ( unionRange ) {
-        if ( CPTDecimalEquals( unionRange.lengthDecimal, CPTDecimalFromInteger(0) ) ) {
+        if ( CPTDecimalEquals(unionRange.lengthDecimal, CPTDecimalFromInteger(0))) {
             [unionRange unionPlotRange:[self plotRangeForCoordinate:coordinate]];
         }
         [self setPlotRange:unionRange forCoordinate:coordinate];
@@ -702,7 +702,7 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
 
     // Set range
     if ( unionRange ) {
-        if ( CPTDecimalEquals( unionRange.lengthDecimal, CPTDecimalFromInteger(0) ) ) {
+        if ( CPTDecimalEquals(unionRange.lengthDecimal, CPTDecimalFromInteger(0))) {
             [unionRange unionPlotRange:[self plotRangeForCoordinate:coordinate]];
         }
         [self setPlotRange:unionRange forCoordinate:coordinate];

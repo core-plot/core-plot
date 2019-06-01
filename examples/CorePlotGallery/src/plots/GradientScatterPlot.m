@@ -24,7 +24,7 @@
 
 -(nonnull instancetype)init
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         self.title   = @"Gradient Scatter Plot";
         self.section = kLinePlots;
     }

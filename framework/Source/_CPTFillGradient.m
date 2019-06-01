@@ -32,7 +32,7 @@
  **/
 -(nonnull instancetype)initWithGradient:(nonnull CPTGradient *)aGradient
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         fillGradient = aGradient;
     }
     return self;
@@ -105,7 +105,7 @@
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         CPTGradient *gradient = [coder decodeObjectOfClass:[CPTGradient class]
                                                     forKey:@"_CPTFillGradient.fillGradient"];
 

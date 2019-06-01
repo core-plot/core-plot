@@ -134,9 +134,9 @@ CPTImageSlices;
  **/
 -(nonnull instancetype)initWithCGImage:(nullable CGImageRef)anImage scale:(CGFloat)newScale
 {
-    NSParameterAssert( newScale > CPTFloat(0.0) );
+    NSParameterAssert(newScale > CPTFloat(0.0));
 
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         CGImageRetain(anImage);
         nativeImage           = nil;
         image                 = anImage;
@@ -215,7 +215,7 @@ CPTImageSlices;
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         nativeImage = [[coder decodeObjectOfClass:[CPTNativeImage class]
                                            forKey:@"CPTImage.nativeImage"] copy];
         image                 = [coder newCGImageDecodeForKey:@"CPTImage.image"];
@@ -371,35 +371,35 @@ CPTImageSlices;
         CGColorSpaceRef otherColorSpace = CGImageGetColorSpace(otherCGImage);
 
         if ( equalImages ) {
-            equalImages = ( CGImageGetWidth(selfCGImage) == CGImageGetWidth(otherCGImage) );
+            equalImages = (CGImageGetWidth(selfCGImage) == CGImageGetWidth(otherCGImage));
         }
 
         if ( equalImages ) {
-            equalImages = ( CGImageGetHeight(selfCGImage) == CGImageGetHeight(otherCGImage) );
+            equalImages = (CGImageGetHeight(selfCGImage) == CGImageGetHeight(otherCGImage));
         }
 
         if ( equalImages ) {
-            equalImages = ( CGImageGetBitsPerComponent(selfCGImage) == CGImageGetBitsPerComponent(otherCGImage) );
+            equalImages = (CGImageGetBitsPerComponent(selfCGImage) == CGImageGetBitsPerComponent(otherCGImage));
         }
 
         if ( equalImages ) {
-            equalImages = ( CGImageGetBitsPerPixel(selfCGImage) == CGImageGetBitsPerPixel(otherCGImage) );
+            equalImages = (CGImageGetBitsPerPixel(selfCGImage) == CGImageGetBitsPerPixel(otherCGImage));
         }
 
         if ( equalImages ) {
-            equalImages = ( CGImageGetBytesPerRow(selfCGImage) == CGImageGetBytesPerRow(otherCGImage) );
+            equalImages = (CGImageGetBytesPerRow(selfCGImage) == CGImageGetBytesPerRow(otherCGImage));
         }
 
         if ( equalImages ) {
-            equalImages = ( CGImageGetBitmapInfo(selfCGImage) == CGImageGetBitmapInfo(otherCGImage) );
+            equalImages = (CGImageGetBitmapInfo(selfCGImage) == CGImageGetBitmapInfo(otherCGImage));
         }
 
         if ( equalImages ) {
-            equalImages = ( CGImageGetShouldInterpolate(selfCGImage) == CGImageGetShouldInterpolate(otherCGImage) );
+            equalImages = (CGImageGetShouldInterpolate(selfCGImage) == CGImageGetShouldInterpolate(otherCGImage));
         }
 
         if ( equalImages ) {
-            equalImages = ( CGImageGetRenderingIntent(selfCGImage) == CGImageGetRenderingIntent(otherCGImage) );
+            equalImages = (CGImageGetRenderingIntent(selfCGImage) == CGImageGetRenderingIntent(otherCGImage));
         }
 
         // decode array
@@ -423,15 +423,15 @@ CPTImageSlices;
                     equalImages = NO;
                 }
             }
-            else if ( (selfDecodeArray && !otherDecodeArray) || (!selfDecodeArray && otherDecodeArray) ) {
+            else if ((selfDecodeArray && !otherDecodeArray) || (!selfDecodeArray && otherDecodeArray)) {
                 equalImages = NO;
             }
         }
 
         // color space
         if ( equalImages ) {
-            equalImages = ( CGColorSpaceGetModel(selfColorSpace) == CGColorSpaceGetModel(otherColorSpace) ) &&
-                          ( CGColorSpaceGetNumberOfComponents(selfColorSpace) == CGColorSpaceGetNumberOfComponents(otherColorSpace) );
+            equalImages = (CGColorSpaceGetModel(selfColorSpace) == CGColorSpaceGetModel(otherColorSpace)) &&
+                          (CGColorSpaceGetNumberOfComponents(selfColorSpace) == CGColorSpaceGetNumberOfComponents(otherColorSpace));
         }
 
         // data provider
@@ -472,7 +472,7 @@ CPTImageSlices;
     // Equal objects must hash the same.
     CGImageRef selfCGImage = self.image;
 
-    return ( CGImageGetWidth(selfCGImage) * CGImageGetHeight(selfCGImage) ) +
+    return (CGImageGetWidth(selfCGImage) * CGImageGetHeight(selfCGImage)) +
            CGImageGetBitsPerComponent(selfCGImage) +
            CGImageGetBitsPerPixel(selfCGImage) +
            CGImageGetBytesPerRow(selfCGImage) +
@@ -526,7 +526,7 @@ CPTImageSlices;
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
         CGFloat theScale = self.scale;
 
-        if ( imageRef && ( theScale > CPTFloat(0.0) ) ) {
+        if ( imageRef && (theScale > CPTFloat(0.0))) {
             nativeImage = [UIImage imageWithCGImage:imageRef
                                               scale:theScale
                                         orientation:UIImageOrientationUp];
@@ -536,7 +536,7 @@ CPTImageSlices;
             nativeImage = [[NSImage alloc] initWithCGImage:imageRef size:NSZeroSize];
         }
         else {
-            CGSize imageSize = CGSizeMake( CGImageGetWidth(imageRef), CGImageGetHeight(imageRef) );
+            CGSize imageSize = CGSizeMake(CGImageGetWidth(imageRef), CGImageGetHeight(imageRef));
 
             NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
                                                                                  pixelsWide:(NSInteger)imageSize.width
@@ -565,7 +565,7 @@ CPTImageSlices;
 
 -(void)setScale:(CGFloat)newScale
 {
-    NSParameterAssert( newScale > CPTFloat(0.0) );
+    NSParameterAssert(newScale > CPTFloat(0.0));
 
     if ( newScale != scale ) {
         scale = newScale;
@@ -574,7 +574,7 @@ CPTImageSlices;
 
 -(void)setEdgeInsets:(CPTEdgeInsets)newEdgeInsets
 {
-    if ( !CPTEdgeInsetsEqualToEdgeInsets(edgeInsets, newEdgeInsets) ) {
+    if ( !CPTEdgeInsetsEqualToEdgeInsets(edgeInsets, newEdgeInsets)) {
         edgeInsets = newEdgeInsets;
 
         CPTImageSlices imageSlices = {};
@@ -631,55 +631,55 @@ CPTImageSlices;
     }
 
     // top row
-    if ( capTop > CPTFloat(0.0) ) {
-        if ( capLeft > CPTFloat(0.0) ) {
-            CGImageRef sliceImage = CGImageCreateWithImageInRect( theImage, CPTRectMake(0.0, 0.0, capLeft, capTop) );
+    if ( capTop > CPTFloat(0.0)) {
+        if ( capLeft > CPTFloat(0.0)) {
+            CGImageRef sliceImage = CGImageCreateWithImageInRect(theImage, CPTRectMake(0.0, 0.0, capLeft, capTop));
             imageSlices.slice[CPTSliceTopLeft] = sliceImage;
         }
 
-        if ( centerSize.width > CPTFloat(0.0) ) {
-            CGImageRef sliceImage = CGImageCreateWithImageInRect( theImage, CPTRectMake(capLeft, 0.0, centerSize.width, capTop) );
+        if ( centerSize.width > CPTFloat(0.0)) {
+            CGImageRef sliceImage = CGImageCreateWithImageInRect(theImage, CPTRectMake(capLeft, 0.0, centerSize.width, capTop));
             imageSlices.slice[CPTSliceTop] = sliceImage;
         }
 
-        if ( capRight > CPTFloat(0.0) ) {
-            CGImageRef sliceImage = CGImageCreateWithImageInRect( theImage, CPTRectMake(width - capRight, 0.0, capRight, capTop) );
+        if ( capRight > CPTFloat(0.0)) {
+            CGImageRef sliceImage = CGImageCreateWithImageInRect(theImage, CPTRectMake(width - capRight, 0.0, capRight, capTop));
             imageSlices.slice[CPTSliceTopRight] = sliceImage;
         }
     }
 
     // middle row
-    if ( centerSize.height > CPTFloat(0.0) ) {
-        if ( capLeft > CPTFloat(0.0) ) {
-            CGImageRef sliceImage = CGImageCreateWithImageInRect( theImage, CPTRectMake(0.0, capTop, capLeft, centerSize.height) );
+    if ( centerSize.height > CPTFloat(0.0)) {
+        if ( capLeft > CPTFloat(0.0)) {
+            CGImageRef sliceImage = CGImageCreateWithImageInRect(theImage, CPTRectMake(0.0, capTop, capLeft, centerSize.height));
             imageSlices.slice[CPTSliceLeft] = sliceImage;
         }
 
-        if ( centerSize.width > CPTFloat(0.0) ) {
-            CGImageRef sliceImage = CGImageCreateWithImageInRect( theImage, CPTRectMake(capLeft, capTop, centerSize.width, centerSize.height) );
+        if ( centerSize.width > CPTFloat(0.0)) {
+            CGImageRef sliceImage = CGImageCreateWithImageInRect(theImage, CPTRectMake(capLeft, capTop, centerSize.width, centerSize.height));
             imageSlices.slice[CPTSliceMiddle] = sliceImage;
         }
 
-        if ( capRight > CPTFloat(0.0) ) {
-            CGImageRef sliceImage = CGImageCreateWithImageInRect( theImage, CPTRectMake(width - capRight, capTop, capRight, centerSize.height) );
+        if ( capRight > CPTFloat(0.0)) {
+            CGImageRef sliceImage = CGImageCreateWithImageInRect(theImage, CPTRectMake(width - capRight, capTop, capRight, centerSize.height));
             imageSlices.slice[CPTSliceRight] = sliceImage;
         }
     }
 
     // bottom row
-    if ( capBottom > CPTFloat(0.0) ) {
-        if ( capLeft > CPTFloat(0.0) ) {
-            CGImageRef sliceImage = CGImageCreateWithImageInRect( theImage, CPTRectMake(0.0, height - capBottom, capLeft, capBottom) );
+    if ( capBottom > CPTFloat(0.0)) {
+        if ( capLeft > CPTFloat(0.0)) {
+            CGImageRef sliceImage = CGImageCreateWithImageInRect(theImage, CPTRectMake(0.0, height - capBottom, capLeft, capBottom));
             imageSlices.slice[CPTSliceBottomLeft] = sliceImage;
         }
 
-        if ( centerSize.width > CPTFloat(0.0) ) {
-            CGImageRef sliceImage = CGImageCreateWithImageInRect( theImage, CPTRectMake(capLeft, height - capBottom, centerSize.width, capBottom) );
+        if ( centerSize.width > CPTFloat(0.0)) {
+            CGImageRef sliceImage = CGImageCreateWithImageInRect(theImage, CPTRectMake(capLeft, height - capBottom, centerSize.width, capBottom));
             imageSlices.slice[CPTSliceBottom] = sliceImage;
         }
 
-        if ( capRight > CPTFloat(0.0) ) {
-            CGImageRef sliceImage = CGImageCreateWithImageInRect( theImage, CPTRectMake(width - capRight, height - capBottom, capRight, capBottom) );
+        if ( capRight > CPTFloat(0.0)) {
+            CGImageRef sliceImage = CGImageCreateWithImageInRect(theImage, CPTRectMake(width - capRight, height - capBottom, capRight, capBottom));
             imageSlices.slice[CPTSliceBottomRight] = sliceImage;
         }
     }
@@ -692,7 +692,7 @@ CPTImageSlices;
 
 -(void)drawImage:(nonnull CGImageRef)theImage inContext:(nonnull CGContextRef)context rect:(CGRect)rect scaleRatio:(CGFloat)scaleRatio
 {
-    if ( theImage && ( rect.size.width > CPTFloat(0.0) ) && ( rect.size.height > CPTFloat(0.0) ) ) {
+    if ( theImage && (rect.size.width > CPTFloat(0.0)) && (rect.size.height > CPTFloat(0.0))) {
         CGFloat imageScale = self.scale;
 
         CGContextSaveGState(context);
@@ -735,13 +735,13 @@ CPTImageSlices;
     CGFloat lastScale    = self.lastDrawnScale;
     CGFloat contextScale = CPTFloat(1.0);
 
-    if ( rect.size.height != CPTFloat(0.0) ) {
+    if ( rect.size.height != CPTFloat(0.0)) {
         CGRect deviceRect = CGContextConvertRectToDeviceSpace(context, rect);
         contextScale = deviceRect.size.height / rect.size.height;
     }
 
     // generate a Core Graphics image if needed
-    if ( !theImage || (contextScale != lastScale) ) {
+    if ( !theImage || (contextScale != lastScale)) {
         CPTNativeImage *theNativeImage = self.nativeImage;
 
         if ( theNativeImage ) {
@@ -771,7 +771,7 @@ CPTImageSlices;
 
     CPTEdgeInsets insets = self.edgeInsets;
 
-    if ( CPTEdgeInsetsEqualToEdgeInsets(insets, CPTEdgeInsetsZero) ) {
+    if ( CPTEdgeInsetsEqualToEdgeInsets(insets, CPTEdgeInsetsZero)) {
         [self drawImage:theImage inContext:context rect:rect scaleRatio:scaleRatio];
     }
     else {
@@ -786,7 +786,7 @@ CPTImageSlices;
         }
 
         // create new slices if needed
-        if ( !hasSlices || (contextScale != lastScale) ) {
+        if ( !hasSlices || (contextScale != lastScale)) {
             [self makeImageSlices];
             imageSlices = self.slices;
         }

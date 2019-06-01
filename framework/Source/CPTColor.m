@@ -395,7 +395,7 @@
  **/
 -(nonnull instancetype)initWithCGColor:(nonnull CGColorRef)newCGColor
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         CGColorRetain(newCGColor);
         cgColor = newCGColor;
     }
@@ -435,7 +435,7 @@
  **/
 -(nonnull instancetype)initWithNSColor:(nonnull NSColor *)newNSColor
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         nsColorCache = newNSColor;
     }
     return self;
@@ -527,7 +527,7 @@
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
 #if TARGET_OS_OSX
         NSColor *decodedNSColor = [coder decodeObjectOfClass:[NSColor class]
                                                       forKey:@"CPTColor.nsColorCache"];
@@ -539,7 +539,7 @@
 
         size_t numberOfComponents = (size_t)[coder decodeInt64ForKey:@"CPTColor.numberOfComponents"];
 
-        CGFloat *colorComponents = calloc( numberOfComponents, sizeof(CGFloat) );
+        CGFloat *colorComponents = calloc(numberOfComponents, sizeof(CGFloat));
 
         for ( size_t i = 0; i < numberOfComponents; i++ ) {
             NSString *newKey = [[NSString alloc] initWithFormat:@"CPTColor.component[%zu]", i];
@@ -615,7 +615,7 @@
         return YES;
     }
     else if ( [object isKindOfClass:[self class]] ) {
-        return CGColorEqualToColor(self.cgColor, ( (CPTColor *)object).cgColor);
+        return CGColorEqualToColor(self.cgColor, ((CPTColor *)object).cgColor);
     }
     else {
         return NO;

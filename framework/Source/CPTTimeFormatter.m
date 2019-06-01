@@ -49,7 +49,7 @@
  **/
 -(nonnull instancetype)initWithDateFormatter:(nullable NSDateFormatter *)aDateFormatter
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         dateFormatter = aDateFormatter;
         referenceDate = nil;
     }
@@ -77,7 +77,7 @@
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         dateFormatter = [coder decodeObjectForKey:@"CPTTimeFormatter.dateFormatter"];
         referenceDate = [[coder decodeObjectForKey:@"CPTTimeFormatter.referenceDate"] copy];
     }

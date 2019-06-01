@@ -14,7 +14,7 @@
 
 -(nonnull instancetype)init
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         self.title   = @"Axis Labeling Policies";
         self.section = kDemoPlots;
     }

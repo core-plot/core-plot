@@ -20,7 +20,7 @@ static const CGFloat kMouseMovementScaleFactorForRotation = 1.0;
 
 -(nonnull instancetype)initWithFrame:(NSRect)frame
 {
-    if ( (self = [super initWithFrame:frame]) ) {
+    if ((self = [super initWithFrame:frame])) {
         rotationTransform = CATransform3DIdentity;
         // Initialization code here.
     }
@@ -50,10 +50,10 @@ static const CGFloat kMouseMovementScaleFactorForRotation = 1.0;
     CGFloat totalRotation = sqrt(displacementInX * displacementInX + displacementInY * displacementInY);
 
     CATransform3D oldTransform = self.rotationTransform;
-    CATransform3D newTransform = CATransform3DRotate( oldTransform, totalRotation * M_PI / 180.0,
-                                                      ( (displacementInX / totalRotation) * oldTransform.m12 + (displacementInY / totalRotation) * oldTransform.m11),
-                                                      ( (displacementInX / totalRotation) * oldTransform.m22 + (displacementInY / totalRotation) * oldTransform.m21),
-                                                      ( (displacementInX / totalRotation) * oldTransform.m32 + (displacementInY / totalRotation) * oldTransform.m31) );
+    CATransform3D newTransform = CATransform3DRotate(oldTransform, totalRotation * M_PI / 180.0,
+                                                     ((displacementInX / totalRotation) * oldTransform.m12 + (displacementInY / totalRotation) * oldTransform.m11),
+                                                     ((displacementInX / totalRotation) * oldTransform.m22 + (displacementInY / totalRotation) * oldTransform.m21),
+                                                     ((displacementInX / totalRotation) * oldTransform.m32 + (displacementInY / totalRotation) * oldTransform.m31));
 
     id<CPTRotationDelegate> theDelegate = self.rotationDelegate;
 

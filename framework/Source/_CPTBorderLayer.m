@@ -33,7 +33,7 @@
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
-    if ( (self = [super initWithFrame:newFrame]) ) {
+    if ((self = [super initWithFrame:newFrame])) {
         maskedLayer = nil;
 
         self.needsDisplayOnBoundsChange = YES;
@@ -47,7 +47,7 @@
 
 -(nonnull instancetype)initWithLayer:(nonnull id)layer
 {
-    if ( (self = [super initWithLayer:layer]) ) {
+    if ((self = [super initWithLayer:layer])) {
         CPTBorderLayer *theLayer = (CPTBorderLayer *)layer;
 
         maskedLayer = theLayer->maskedLayer;
@@ -71,7 +71,7 @@
 
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super initWithCoder:coder]) ) {
+    if ((self = [super initWithCoder:coder])) {
         maskedLayer = [coder decodeObjectOfClass:[CPTBorderedLayer class]
                                           forKey:@"CPTBorderLayer.maskedLayer"];
     }
@@ -177,7 +177,7 @@
 
 -(void)setBounds:(CGRect)newBounds
 {
-    if ( !CGRectEqualToRect(newBounds, self.bounds) ) {
+    if ( !CGRectEqualToRect(newBounds, self.bounds)) {
         super.bounds = newBounds;
         [self setNeedsLayout];
     }

@@ -43,7 +43,7 @@
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
-    if ( (self = [super initWithFrame:newFrame]) ) {
+    if ((self = [super initWithFrame:newFrame])) {
         mutableAnnotations = [[NSMutableArray alloc] init];
     }
     return self;
@@ -55,7 +55,7 @@
 
 -(nonnull instancetype)initWithLayer:(nonnull id)layer
 {
-    if ( (self = [super initWithLayer:layer]) ) {
+    if ((self = [super initWithLayer:layer])) {
         CPTAnnotationHostLayer *theLayer = (CPTAnnotationHostLayer *)layer;
 
         mutableAnnotations = theLayer->mutableAnnotations;
@@ -79,7 +79,7 @@
 
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super initWithCoder:coder]) ) {
+    if ((self = [super initWithCoder:coder])) {
         CPTAnnotationArray *annotations = [coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [CPTAnnotation class]]]
                                                                 forKey:@"CPTAnnotationHostLayer.mutableAnnotations"];
         if ( annotations ) {
@@ -230,7 +230,7 @@
     for ( CPTAnnotation *annotation in self.annotations ) {
         CPTLayer *content = annotation.contentLayer;
         if ( content ) {
-            if ( CGRectContainsPoint(content.frame, interactionPoint) ) {
+            if ( CGRectContainsPoint(content.frame, interactionPoint)) {
                 BOOL handled = [content pointingDeviceDownEvent:event atPoint:interactionPoint];
                 if ( handled ) {
                     return YES;
@@ -261,7 +261,7 @@
     for ( CPTAnnotation *annotation in self.annotations ) {
         CPTLayer *content = annotation.contentLayer;
         if ( content ) {
-            if ( CGRectContainsPoint(content.frame, interactionPoint) ) {
+            if ( CGRectContainsPoint(content.frame, interactionPoint)) {
                 BOOL handled = [content pointingDeviceUpEvent:event atPoint:interactionPoint];
                 if ( handled ) {
                     return YES;
@@ -292,7 +292,7 @@
     for ( CPTAnnotation *annotation in self.annotations ) {
         CPTLayer *content = annotation.contentLayer;
         if ( content ) {
-            if ( CGRectContainsPoint(content.frame, interactionPoint) ) {
+            if ( CGRectContainsPoint(content.frame, interactionPoint)) {
                 BOOL handled = [content pointingDeviceDraggedEvent:event atPoint:interactionPoint];
                 if ( handled ) {
                     return YES;

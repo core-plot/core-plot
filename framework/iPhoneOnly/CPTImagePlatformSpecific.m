@@ -14,7 +14,7 @@
  **/
 -(nonnull instancetype)initWithNativeImage:(nullable CPTNativeImage *)anImage
 {
-    if ( (self = [self initWithCGImage:NULL scale:anImage.scale]) ) {
+    if ((self = [self initWithCGImage:NULL scale:anImage.scale])) {
         self.nativeImage = anImage;
 
         UIEdgeInsets insets = anImage.capInsets;
@@ -45,7 +45,7 @@
         imageScale = MAX(imageScale, screen.scale);
     }
 
-    if ( imageScale > CPTFloat(1.0) ) {
+    if ( imageScale > CPTFloat(1.0)) {
         NSMutableString *hiDpiPath = [path mutableCopy];
         NSUInteger replaceCount    = [hiDpiPath replaceOccurrencesOfString:@".png"
                                                                 withString:[NSString stringWithFormat:@"@%dx.png", (int)imageScale]

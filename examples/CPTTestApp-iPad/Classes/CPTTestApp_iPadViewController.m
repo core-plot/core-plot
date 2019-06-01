@@ -373,7 +373,7 @@
                     num = @(NAN);
                 }
                 else {
-                    num = @( (index + 1) * (index + 1) );
+                    num = @((index + 1) * (index + 1));
                     if ( [plot.identifier isEqual:@"Bar Plot 2"] ) {
                         num = @(num.integerValue - 10);
                     }

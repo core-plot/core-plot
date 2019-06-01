@@ -11,7 +11,7 @@
 
 -(nonnull instancetype)initWithFrame:(NSRect)frame
 {
-    if ( (self = [super initWithFrame:frame]) ) {
+    if ((self = [super initWithFrame:frame])) {
     }
 
     return self;

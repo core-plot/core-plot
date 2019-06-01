@@ -15,13 +15,13 @@
  **/
 CGFloat CPTAnimationTimingFunctionLinear(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime /= duration;
 
-    if ( elapsedTime >= CPTFloat(1.0) ) {
+    if ( elapsedTime >= CPTFloat(1.0)) {
         return CPTFloat(1.0);
     }
 
@@ -41,17 +41,17 @@ CGFloat CPTAnimationTimingFunctionBackIn(CGFloat elapsedTime, CGFloat duration)
 {
     const CGFloat s = CPTFloat(1.70158);
 
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime /= duration;
 
-    if ( elapsedTime >= CPTFloat(1.0) ) {
+    if ( elapsedTime >= CPTFloat(1.0)) {
         return CPTFloat(1.0);
     }
 
-    return elapsedTime * elapsedTime * ( ( s + CPTFloat(1.0) ) * elapsedTime - s);
+    return elapsedTime * elapsedTime * ((s + CPTFloat(1.0)) * elapsedTime - s);
 }
 
 /**
@@ -64,17 +64,17 @@ CGFloat CPTAnimationTimingFunctionBackOut(CGFloat elapsedTime, CGFloat duration)
 {
     const CGFloat s = CPTFloat(1.70158);
 
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime = elapsedTime / duration - CPTFloat(1.0);
 
-    if ( elapsedTime >= CPTFloat(0.0) ) {
+    if ( elapsedTime >= CPTFloat(0.0)) {
         return CPTFloat(1.0);
     }
 
-    return elapsedTime * elapsedTime * ( ( s + CPTFloat(1.0) ) * elapsedTime + s) + CPTFloat(1.0);
+    return elapsedTime * elapsedTime * ((s + CPTFloat(1.0)) * elapsedTime + s) + CPTFloat(1.0);
 }
 
 /**
@@ -87,23 +87,23 @@ CGFloat CPTAnimationTimingFunctionBackInOut(CGFloat elapsedTime, CGFloat duratio
 {
     const CGFloat s = CPTFloat(1.70158 * 1.525);
 
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime /= duration * CPTFloat(0.5);
 
-    if ( elapsedTime >= CPTFloat(2.0) ) {
+    if ( elapsedTime >= CPTFloat(2.0)) {
         return CPTFloat(1.0);
     }
 
-    if ( elapsedTime < CPTFloat(1.0) ) {
-        return CPTFloat(0.5) * ( elapsedTime * elapsedTime * ( ( s + CPTFloat(1.0) ) * elapsedTime - s) );
+    if ( elapsedTime < CPTFloat(1.0)) {
+        return CPTFloat(0.5) * (elapsedTime * elapsedTime * ((s + CPTFloat(1.0)) * elapsedTime - s));
     }
     else {
         elapsedTime -= CPTFloat(2.0);
 
-        return CPTFloat(0.5) * ( elapsedTime * elapsedTime * ( ( s + CPTFloat(1.0) ) * elapsedTime + s) + CPTFloat(2.0) );
+        return CPTFloat(0.5) * (elapsedTime * elapsedTime * ((s + CPTFloat(1.0)) * elapsedTime + s) + CPTFloat(2.0));
     }
 }
 
@@ -129,25 +129,25 @@ CGFloat CPTAnimationTimingFunctionBounceIn(CGFloat elapsedTime, CGFloat duration
  **/
 CGFloat CPTAnimationTimingFunctionBounceOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime /= duration;
 
-    if ( elapsedTime >= CPTFloat(1.0) ) {
+    if ( elapsedTime >= CPTFloat(1.0)) {
         return CPTFloat(1.0);
     }
 
-    if ( elapsedTime < CPTFloat(1.0 / 2.75) ) {
+    if ( elapsedTime < CPTFloat(1.0 / 2.75)) {
         return CPTFloat(7.5625) * elapsedTime * elapsedTime;
     }
-    else if ( elapsedTime < CPTFloat(2.0 / 2.75) ) {
+    else if ( elapsedTime < CPTFloat(2.0 / 2.75)) {
         elapsedTime -= CPTFloat(1.5 / 2.75);
 
         return CPTFloat(7.5625) * elapsedTime * elapsedTime + CPTFloat(0.75);
     }
-    else if ( elapsedTime < CPTFloat(2.5 / 2.75) ) {
+    else if ( elapsedTime < CPTFloat(2.5 / 2.75)) {
         elapsedTime -= CPTFloat(2.25 / 2.75);
 
         return CPTFloat(7.5625) * elapsedTime * elapsedTime + CPTFloat(0.9375);
@@ -167,7 +167,7 @@ CGFloat CPTAnimationTimingFunctionBounceOut(CGFloat elapsedTime, CGFloat duratio
  **/
 CGFloat CPTAnimationTimingFunctionBounceInOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime < duration * CPTFloat(0.5) ) {
+    if ( elapsedTime < duration * CPTFloat(0.5)) {
         return CPTAnimationTimingFunctionBounceIn(elapsedTime * CPTFloat(2.0), duration) * CPTFloat(0.5);
     }
     else {
@@ -187,17 +187,17 @@ CGFloat CPTAnimationTimingFunctionBounceInOut(CGFloat elapsedTime, CGFloat durat
  **/
 CGFloat CPTAnimationTimingFunctionCircularIn(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime /= duration;
 
-    if ( elapsedTime >= CPTFloat(1.0) ) {
+    if ( elapsedTime >= CPTFloat(1.0)) {
         return CPTFloat(1.0);
     }
 
-    return -( sqrt(CPTFloat(1.0) - elapsedTime * elapsedTime) - CPTFloat(1.0) );
+    return -(sqrt(CPTFloat(1.0) - elapsedTime * elapsedTime) - CPTFloat(1.0));
 }
 
 /**
@@ -208,13 +208,13 @@ CGFloat CPTAnimationTimingFunctionCircularIn(CGFloat elapsedTime, CGFloat durati
  **/
 CGFloat CPTAnimationTimingFunctionCircularOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime = elapsedTime / duration - CPTFloat(1.0);
 
-    if ( elapsedTime >= CPTFloat(0.0) ) {
+    if ( elapsedTime >= CPTFloat(0.0)) {
         return CPTFloat(1.0);
     }
 
@@ -229,23 +229,23 @@ CGFloat CPTAnimationTimingFunctionCircularOut(CGFloat elapsedTime, CGFloat durat
  **/
 CGFloat CPTAnimationTimingFunctionCircularInOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime /= duration * CPTFloat(0.5);
 
-    if ( elapsedTime >= CPTFloat(2.0) ) {
+    if ( elapsedTime >= CPTFloat(2.0)) {
         return CPTFloat(1.0);
     }
 
-    if ( elapsedTime < CPTFloat(1.0) ) {
-        return CPTFloat(-0.5) * ( sqrt(CPTFloat(1.0) - elapsedTime * elapsedTime) - CPTFloat(1.0) );
+    if ( elapsedTime < CPTFloat(1.0)) {
+        return CPTFloat(-0.5) * (sqrt(CPTFloat(1.0) - elapsedTime * elapsedTime) - CPTFloat(1.0));
     }
     else {
         elapsedTime -= CPTFloat(2.0);
 
-        return CPTFloat(0.5) * ( sqrt(CPTFloat(1.0) - elapsedTime * elapsedTime) + CPTFloat(1.0) );
+        return CPTFloat(0.5) * (sqrt(CPTFloat(1.0) - elapsedTime * elapsedTime) + CPTFloat(1.0));
     }
 }
 
@@ -260,13 +260,13 @@ CGFloat CPTAnimationTimingFunctionCircularInOut(CGFloat elapsedTime, CGFloat dur
  **/
 CGFloat CPTAnimationTimingFunctionElasticIn(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime /= duration;
 
-    if ( elapsedTime >= CPTFloat(1.0) ) {
+    if ( elapsedTime >= CPTFloat(1.0)) {
         return CPTFloat(1.0);
     }
 
@@ -275,7 +275,7 @@ CGFloat CPTAnimationTimingFunctionElasticIn(CGFloat elapsedTime, CGFloat duratio
 
     elapsedTime -= CPTFloat(1.0);
 
-    return -( pow(CPTFloat(2.0), CPTFloat(10.0) * elapsedTime) * sin( (elapsedTime * duration - s) * CPTFloat(2.0 * M_PI) / period) );
+    return -(pow(CPTFloat(2.0), CPTFloat(10.0) * elapsedTime) * sin((elapsedTime * duration - s) * CPTFloat(2.0 * M_PI) / period));
 }
 
 /**
@@ -286,20 +286,20 @@ CGFloat CPTAnimationTimingFunctionElasticIn(CGFloat elapsedTime, CGFloat duratio
  **/
 CGFloat CPTAnimationTimingFunctionElasticOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime /= duration;
 
-    if ( elapsedTime >= CPTFloat(1.0) ) {
+    if ( elapsedTime >= CPTFloat(1.0)) {
         return CPTFloat(1.0);
     }
 
     CGFloat period = duration * CPTFloat(0.3);
     CGFloat s      = period * CPTFloat(0.25);
 
-    return pow(CPTFloat(2.0), CPTFloat(-10.0) * elapsedTime) * sin( (elapsedTime * duration - s) * CPTFloat(2.0 * M_PI) / period) + CPTFloat(1.0);
+    return pow(CPTFloat(2.0), CPTFloat(-10.0) * elapsedTime) * sin((elapsedTime * duration - s) * CPTFloat(2.0 * M_PI) / period) + CPTFloat(1.0);
 }
 
 /**
@@ -310,13 +310,13 @@ CGFloat CPTAnimationTimingFunctionElasticOut(CGFloat elapsedTime, CGFloat durati
  **/
 CGFloat CPTAnimationTimingFunctionElasticInOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime /= duration * CPTFloat(0.5);
 
-    if ( elapsedTime >= CPTFloat(2.0) ) {
+    if ( elapsedTime >= CPTFloat(2.0)) {
         return CPTFloat(1.0);
     }
 
@@ -325,11 +325,11 @@ CGFloat CPTAnimationTimingFunctionElasticInOut(CGFloat elapsedTime, CGFloat dura
 
     elapsedTime -= CPTFloat(1.0);
 
-    if ( elapsedTime < CPTFloat(0.0) ) {
-        return CPTFloat(-0.5) * ( pow(CPTFloat(2.0), CPTFloat(10.0) * elapsedTime) * sin( (elapsedTime * duration - s) * CPTFloat(2.0 * M_PI) / period) );
+    if ( elapsedTime < CPTFloat(0.0)) {
+        return CPTFloat(-0.5) * (pow(CPTFloat(2.0), CPTFloat(10.0) * elapsedTime) * sin((elapsedTime * duration - s) * CPTFloat(2.0 * M_PI) / period));
     }
     else {
-        return pow(CPTFloat(2.0), CPTFloat(-10.0) * elapsedTime) * sin( (elapsedTime * duration - s) * CPTFloat(2.0 * M_PI) / period) * CPTFloat(0.5) + CPTFloat(1.0);
+        return pow(CPTFloat(2.0), CPTFloat(-10.0) * elapsedTime) * sin((elapsedTime * duration - s) * CPTFloat(2.0 * M_PI) / period) * CPTFloat(0.5) + CPTFloat(1.0);
     }
 }
 
@@ -344,17 +344,17 @@ CGFloat CPTAnimationTimingFunctionElasticInOut(CGFloat elapsedTime, CGFloat dura
  **/
 CGFloat CPTAnimationTimingFunctionExponentialIn(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime /= duration;
 
-    if ( elapsedTime >= CPTFloat(1.0) ) {
+    if ( elapsedTime >= CPTFloat(1.0)) {
         return CPTFloat(1.0);
     }
 
-    return pow( CPTFloat(2.0), CPTFloat(10.0) * ( elapsedTime - CPTFloat(1.0) ) );
+    return pow(CPTFloat(2.0), CPTFloat(10.0) * (elapsedTime - CPTFloat(1.0)));
 }
 
 /**
@@ -365,13 +365,13 @@ CGFloat CPTAnimationTimingFunctionExponentialIn(CGFloat elapsedTime, CGFloat dur
  **/
 CGFloat CPTAnimationTimingFunctionExponentialOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime /= duration;
 
-    if ( elapsedTime >= CPTFloat(1.0) ) {
+    if ( elapsedTime >= CPTFloat(1.0)) {
         return CPTFloat(1.0);
     }
 
@@ -386,22 +386,22 @@ CGFloat CPTAnimationTimingFunctionExponentialOut(CGFloat elapsedTime, CGFloat du
  **/
 CGFloat CPTAnimationTimingFunctionExponentialInOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime /= duration * CPTFloat(0.5);
     elapsedTime -= CPTFloat(1.0);
 
-    if ( elapsedTime >= CPTFloat(1.0) ) {
+    if ( elapsedTime >= CPTFloat(1.0)) {
         return CPTFloat(1.0);
     }
 
-    if ( elapsedTime < CPTFloat(0.0) ) {
+    if ( elapsedTime < CPTFloat(0.0)) {
         return CPTFloat(0.5) * pow(CPTFloat(2.0), CPTFloat(10.0) * elapsedTime);
     }
     else {
-        return CPTFloat(0.5) * ( -pow(CPTFloat(2.0), CPTFloat(-10.0) * elapsedTime) + CPTFloat(2.0) );
+        return CPTFloat(0.5) * (-pow(CPTFloat(2.0), CPTFloat(-10.0) * elapsedTime) + CPTFloat(2.0));
     }
 }
 
@@ -416,17 +416,17 @@ CGFloat CPTAnimationTimingFunctionExponentialInOut(CGFloat elapsedTime, CGFloat 
  **/
 CGFloat CPTAnimationTimingFunctionSinusoidalIn(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime /= duration;
 
-    if ( elapsedTime >= CPTFloat(1.0) ) {
+    if ( elapsedTime >= CPTFloat(1.0)) {
         return CPTFloat(1.0);
     }
 
-    return -cos( elapsedTime * CPTFloat(M_PI_2) ) + CPTFloat(1.0);
+    return -cos(elapsedTime * CPTFloat(M_PI_2)) + CPTFloat(1.0);
 }
 
 /**
@@ -437,17 +437,17 @@ CGFloat CPTAnimationTimingFunctionSinusoidalIn(CGFloat elapsedTime, CGFloat dura
  **/
 CGFloat CPTAnimationTimingFunctionSinusoidalOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime /= duration;
 
-    if ( elapsedTime >= CPTFloat(1.0) ) {
+    if ( elapsedTime >= CPTFloat(1.0)) {
         return CPTFloat(1.0);
     }
 
-    return sin( elapsedTime * CPTFloat(M_PI_2) );
+    return sin(elapsedTime * CPTFloat(M_PI_2));
 }
 
 /**
@@ -458,17 +458,17 @@ CGFloat CPTAnimationTimingFunctionSinusoidalOut(CGFloat elapsedTime, CGFloat dur
  **/
 CGFloat CPTAnimationTimingFunctionSinusoidalInOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime /= duration;
 
-    if ( elapsedTime >= CPTFloat(1.0) ) {
+    if ( elapsedTime >= CPTFloat(1.0)) {
         return CPTFloat(1.0);
     }
 
-    return CPTFloat(-0.5) * ( cos(CPTFloat(M_PI) * elapsedTime) - CPTFloat(1.0) );
+    return CPTFloat(-0.5) * (cos(CPTFloat(M_PI) * elapsedTime) - CPTFloat(1.0));
 }
 
 #pragma mark -
@@ -482,13 +482,13 @@ CGFloat CPTAnimationTimingFunctionSinusoidalInOut(CGFloat elapsedTime, CGFloat d
  **/
 CGFloat CPTAnimationTimingFunctionCubicIn(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime /= duration;
 
-    if ( elapsedTime >= CPTFloat(1.0) ) {
+    if ( elapsedTime >= CPTFloat(1.0)) {
         return CPTFloat(1.0);
     }
 
@@ -503,13 +503,13 @@ CGFloat CPTAnimationTimingFunctionCubicIn(CGFloat elapsedTime, CGFloat duration)
  **/
 CGFloat CPTAnimationTimingFunctionCubicOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime = elapsedTime / duration - CPTFloat(1.0);
 
-    if ( elapsedTime >= CPTFloat(0.0) ) {
+    if ( elapsedTime >= CPTFloat(0.0)) {
         return CPTFloat(1.0);
     }
 
@@ -524,23 +524,23 @@ CGFloat CPTAnimationTimingFunctionCubicOut(CGFloat elapsedTime, CGFloat duration
  **/
 CGFloat CPTAnimationTimingFunctionCubicInOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime /= duration * CPTFloat(0.5);
 
-    if ( elapsedTime >= CPTFloat(2.0) ) {
+    if ( elapsedTime >= CPTFloat(2.0)) {
         return CPTFloat(1.0);
     }
 
-    if ( elapsedTime < CPTFloat(1.0) ) {
+    if ( elapsedTime < CPTFloat(1.0)) {
         return CPTFloat(0.5) * elapsedTime * elapsedTime * elapsedTime;
     }
     else {
         elapsedTime -= CPTFloat(2.0);
 
-        return CPTFloat(0.5) * ( elapsedTime * elapsedTime * elapsedTime + CPTFloat(2.0) );
+        return CPTFloat(0.5) * (elapsedTime * elapsedTime * elapsedTime + CPTFloat(2.0));
     }
 }
 
@@ -555,13 +555,13 @@ CGFloat CPTAnimationTimingFunctionCubicInOut(CGFloat elapsedTime, CGFloat durati
  **/
 CGFloat CPTAnimationTimingFunctionQuadraticIn(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime /= duration;
 
-    if ( elapsedTime >= CPTFloat(1.0) ) {
+    if ( elapsedTime >= CPTFloat(1.0)) {
         return CPTFloat(1.0);
     }
 
@@ -576,17 +576,17 @@ CGFloat CPTAnimationTimingFunctionQuadraticIn(CGFloat elapsedTime, CGFloat durat
  **/
 CGFloat CPTAnimationTimingFunctionQuadraticOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime /= duration;
 
-    if ( elapsedTime >= CPTFloat(1.0) ) {
+    if ( elapsedTime >= CPTFloat(1.0)) {
         return CPTFloat(1.0);
     }
 
-    return -elapsedTime * ( elapsedTime - CPTFloat(2.0) );
+    return -elapsedTime * (elapsedTime - CPTFloat(2.0));
 }
 
 /**
@@ -597,23 +597,23 @@ CGFloat CPTAnimationTimingFunctionQuadraticOut(CGFloat elapsedTime, CGFloat dura
  **/
 CGFloat CPTAnimationTimingFunctionQuadraticInOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime /= duration * CPTFloat(0.5);
 
-    if ( elapsedTime >= CPTFloat(2.0) ) {
+    if ( elapsedTime >= CPTFloat(2.0)) {
         return CPTFloat(1.0);
     }
 
-    if ( elapsedTime < CPTFloat(1.0) ) {
+    if ( elapsedTime < CPTFloat(1.0)) {
         return CPTFloat(0.5) * elapsedTime * elapsedTime;
     }
     else {
         elapsedTime -= CPTFloat(1.0);
 
-        return CPTFloat(-0.5) * ( elapsedTime * ( elapsedTime - CPTFloat(2.0) ) - CPTFloat(1.0) );
+        return CPTFloat(-0.5) * (elapsedTime * (elapsedTime - CPTFloat(2.0)) - CPTFloat(1.0));
     }
 }
 
@@ -628,13 +628,13 @@ CGFloat CPTAnimationTimingFunctionQuadraticInOut(CGFloat elapsedTime, CGFloat du
  **/
 CGFloat CPTAnimationTimingFunctionQuarticIn(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime /= duration;
 
-    if ( elapsedTime >= CPTFloat(1.0) ) {
+    if ( elapsedTime >= CPTFloat(1.0)) {
         return CPTFloat(1.0);
     }
 
@@ -649,17 +649,17 @@ CGFloat CPTAnimationTimingFunctionQuarticIn(CGFloat elapsedTime, CGFloat duratio
  **/
 CGFloat CPTAnimationTimingFunctionQuarticOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime = elapsedTime / duration - CPTFloat(1.0);
 
-    if ( elapsedTime >= CPTFloat(0.0) ) {
+    if ( elapsedTime >= CPTFloat(0.0)) {
         return CPTFloat(1.0);
     }
 
-    return -( elapsedTime * elapsedTime * elapsedTime * elapsedTime - CPTFloat(1.0) );
+    return -(elapsedTime * elapsedTime * elapsedTime * elapsedTime - CPTFloat(1.0));
 }
 
 /**
@@ -670,23 +670,23 @@ CGFloat CPTAnimationTimingFunctionQuarticOut(CGFloat elapsedTime, CGFloat durati
  **/
 CGFloat CPTAnimationTimingFunctionQuarticInOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime /= duration * CPTFloat(0.5);
 
-    if ( elapsedTime >= CPTFloat(2.0) ) {
+    if ( elapsedTime >= CPTFloat(2.0)) {
         return CPTFloat(1.0);
     }
 
-    if ( elapsedTime < CPTFloat(1.0) ) {
+    if ( elapsedTime < CPTFloat(1.0)) {
         return CPTFloat(0.5) * elapsedTime * elapsedTime * elapsedTime * elapsedTime;
     }
     else {
         elapsedTime -= CPTFloat(2.0);
 
-        return CPTFloat(-0.5) * ( elapsedTime * elapsedTime * elapsedTime * elapsedTime - CPTFloat(2.0) );
+        return CPTFloat(-0.5) * (elapsedTime * elapsedTime * elapsedTime * elapsedTime - CPTFloat(2.0));
     }
 }
 
@@ -701,13 +701,13 @@ CGFloat CPTAnimationTimingFunctionQuarticInOut(CGFloat elapsedTime, CGFloat dura
  **/
 CGFloat CPTAnimationTimingFunctionQuinticIn(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime /= duration;
 
-    if ( elapsedTime >= CPTFloat(1.0) ) {
+    if ( elapsedTime >= CPTFloat(1.0)) {
         return CPTFloat(1.0);
     }
 
@@ -722,13 +722,13 @@ CGFloat CPTAnimationTimingFunctionQuinticIn(CGFloat elapsedTime, CGFloat duratio
  **/
 CGFloat CPTAnimationTimingFunctionQuinticOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime = elapsedTime / duration - CPTFloat(1.0);
 
-    if ( elapsedTime >= CPTFloat(0.0) ) {
+    if ( elapsedTime >= CPTFloat(0.0)) {
         return CPTFloat(1.0);
     }
 
@@ -743,22 +743,22 @@ CGFloat CPTAnimationTimingFunctionQuinticOut(CGFloat elapsedTime, CGFloat durati
  **/
 CGFloat CPTAnimationTimingFunctionQuinticInOut(CGFloat elapsedTime, CGFloat duration)
 {
-    if ( elapsedTime <= CPTFloat(0.0) ) {
+    if ( elapsedTime <= CPTFloat(0.0)) {
         return CPTFloat(0.0);
     }
 
     elapsedTime /= duration * CPTFloat(0.5);
 
-    if ( elapsedTime >= CPTFloat(2.0) ) {
+    if ( elapsedTime >= CPTFloat(2.0)) {
         return CPTFloat(1.0);
     }
 
-    if ( elapsedTime < CPTFloat(1.0) ) {
+    if ( elapsedTime < CPTFloat(1.0)) {
         return CPTFloat(0.5) * elapsedTime * elapsedTime * elapsedTime * elapsedTime * elapsedTime;
     }
     else {
         elapsedTime -= CPTFloat(2.0);
 
-        return CPTFloat(0.5) * ( elapsedTime * elapsedTime * elapsedTime * elapsedTime * elapsedTime + CPTFloat(2.0) );
+        return CPTFloat(0.5) * (elapsedTime * elapsedTime * elapsedTime * elapsedTime * elapsedTime + CPTFloat(2.0));
     }
 }

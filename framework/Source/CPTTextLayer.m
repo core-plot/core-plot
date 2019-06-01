@@ -71,7 +71,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
  **/
 -(nonnull instancetype)initWithText:(nullable NSString *)newText style:(nullable CPTTextStyle *)newStyle
 {
-    if ( (self = [super initWithFrame:CGRectZero]) ) {
+    if ((self = [super initWithFrame:CGRectZero])) {
         textStyle      = newStyle;
         text           = [newText copy];
         attributedText = nil;
@@ -102,7 +102,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
 {
     CPTTextStyle *newStyle = [CPTTextStyle textStyleWithAttributes:[newText attributesAtIndex:0 effectiveRange:NULL]];
 
-    if ( (self = [self initWithText:newText.string style:newStyle]) ) {
+    if ((self = [self initWithText:newText.string style:newStyle])) {
         attributedText = [newText copy];
 
         [self sizeToFit];
@@ -115,7 +115,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
 
 -(nonnull instancetype)initWithLayer:(nonnull id)layer
 {
-    if ( (self = [super initWithLayer:layer]) ) {
+    if ((self = [super initWithLayer:layer])) {
         CPTTextLayer *theLayer = (CPTTextLayer *)layer;
 
         textStyle      = theLayer->textStyle;
@@ -167,7 +167,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
 
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super initWithCoder:coder]) ) {
+    if ((self = [super initWithCoder:coder])) {
         textStyle = [coder decodeObjectOfClass:[CPTTextStyle class]
                                         forKey:@"CPTTextLayer.textStyle"];
         text = [[coder decodeObjectOfClass:[NSString class]
@@ -255,7 +255,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
 
 -(void)setMaximumSize:(CGSize)newSize
 {
-    if ( !CGSizeEqualToSize(maximumSize, newSize) ) {
+    if ( !CGSizeEqualToSize(maximumSize, newSize)) {
         maximumSize = newSize;
         [self sizeToFit];
     }
@@ -347,10 +347,10 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
         newBounds.size.height += self.paddingTop + self.paddingBottom;
 
         CGSize myMaxSize = self.maximumSize;
-        if ( myMaxSize.width > CPTFloat(0.0) ) {
+        if ( myMaxSize.width > CPTFloat(0.0)) {
             newBounds.size.width = MIN(newBounds.size.width, myMaxSize.width);
         }
-        if ( myMaxSize.height > CPTFloat(0.0) ) {
+        if ( myMaxSize.height > CPTFloat(0.0)) {
             newBounds.size.height = MIN(newBounds.size.height, myMaxSize.height);
         }
 
@@ -381,7 +381,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
         CGContextSaveGState(context);
         CGContextTranslateCTM(context, CPTFloat(0.0), self.bounds.size.height);
-        CGContextScaleCTM( context, CPTFloat(1.0), CPTFloat(-1.0) );
+        CGContextScaleCTM(context, CPTFloat(1.0), CPTFloat(-1.0));
 #endif
 
         CGRect newBounds = CGRectInset(self.bounds, kCPTTextLayerMarginWidth, kCPTTextLayerMarginWidth);
@@ -395,7 +395,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
         newBounds.size.height -= self.paddingTop + self.paddingBottom;
 
         NSAttributedString *styledText = self.attributedText;
-        if ( (styledText.length > 0) && [styledText respondsToSelector:@selector(drawInRect:)] ) {
+        if ((styledText.length > 0) && [styledText respondsToSelector:@selector(drawInRect:)] ) {
             [styledText drawInRect:newBounds
                          inContext:context];
         }

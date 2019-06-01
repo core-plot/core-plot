@@ -28,7 +28,7 @@ static const NSUInteger numberOfPoints = 11;
 
 -(nonnull instancetype)init
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         self.title   = @"Control Chart";
         self.section = kLinePlots;
     }
@@ -58,7 +58,7 @@ static const NSUInteger numberOfPoints = 11;
             double error = value.doubleValue - self.meanValue;
             sum += error * error;
         }
-        double stdDev = sqrt( ( 1.0 / (numberOfPoints - 1) ) * sum);
+        double stdDev = sqrt((1.0 / (numberOfPoints - 1)) * sum);
         self.standardError = stdDev / sqrt(numberOfPoints);
     }
 }
@@ -207,7 +207,7 @@ static const NSUInteger numberOfPoints = 11;
     graph.legend.cornerRadius    = 5.0;
     graph.legend.numberOfRows    = 1;
     graph.legendAnchor           = CPTRectAnchorBottom;
-    graph.legendDisplacement     = CGPointMake( 0.0, self.titleSize * CPTFloat(4.0) );
+    graph.legendDisplacement     = CGPointMake(0.0, self.titleSize * CPTFloat(4.0));
 }
 
 #pragma mark -

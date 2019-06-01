@@ -167,7 +167,7 @@
  **/
 -(nonnull instancetype)initWithLocationDecimal:(NSDecimal)loc lengthDecimal:(NSDecimal)len
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         self.locationDecimal = loc;
         self.lengthDecimal   = len;
     }
@@ -204,7 +204,7 @@
 
 -(void)setLocationDecimal:(NSDecimal)newLocation
 {
-    if ( !CPTDecimalEquals(locationDecimal, newLocation) ) {
+    if ( !CPTDecimalEquals(locationDecimal, newLocation)) {
         locationDecimal = newLocation;
 
         if ( !self.inValueUpdate ) {
@@ -231,7 +231,7 @@
 
 -(void)setLengthDecimal:(NSDecimal)newLength
 {
-    if ( !CPTDecimalEquals(lengthDecimal, newLength) ) {
+    if ( !CPTDecimalEquals(lengthDecimal, newLength)) {
         lengthDecimal = newLength;
 
         if ( !self.inValueUpdate ) {
@@ -276,7 +276,7 @@
     NSDecimal loc = self.locationDecimal;
     NSDecimal len = self.lengthDecimal;
 
-    if ( CPTDecimalLessThan( len, CPTDecimalFromInteger(0) ) ) {
+    if ( CPTDecimalLessThan(len, CPTDecimalFromInteger(0))) {
         return CPTDecimalAdd(loc, len);
     }
     else {
@@ -304,7 +304,7 @@
 
 -(NSDecimal)midPointDecimal
 {
-    return CPTDecimalAdd( self.locationDecimal, CPTDecimalDivide( self.lengthDecimal, CPTDecimalFromInteger(2) ) );
+    return CPTDecimalAdd(self.locationDecimal, CPTDecimalDivide(self.lengthDecimal, CPTDecimalFromInteger(2)));
 }
 
 -(double)midPointDouble
@@ -322,7 +322,7 @@
     NSDecimal loc = self.locationDecimal;
     NSDecimal len = self.lengthDecimal;
 
-    if ( CPTDecimalGreaterThan( len, CPTDecimalFromInteger(0) ) ) {
+    if ( CPTDecimalGreaterThan(len, CPTDecimalFromInteger(0))) {
         return CPTDecimalAdd(loc, len);
     }
     else {
@@ -404,7 +404,7 @@
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)decoder
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         self.locationDecimal = [decoder decodeDecimalForKey:@"CPTPlotRange.location"];
         self.lengthDecimal   = [decoder decodeDecimalForKey:@"CPTPlotRange.length"];
     }
@@ -538,7 +538,7 @@
     if ( [self contains:number] ) {
         result = CPTPlotRangeComparisonResultNumberInRange;
     }
-    else if ( CPTDecimalLessThan(number, self.minLimitDecimal) ) {
+    else if ( CPTDecimalLessThan(number, self.minLimitDecimal)) {
         result = CPTPlotRangeComparisonResultNumberBelowRange;
     }
     else {

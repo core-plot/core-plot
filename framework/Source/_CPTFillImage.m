@@ -32,7 +32,7 @@
  **/
 -(nonnull instancetype)initWithImage:(nonnull CPTImage *)anImage
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         fillImage = anImage;
     }
     return self;
@@ -111,7 +111,7 @@
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         CPTImage *image = [coder decodeObjectOfClass:[CPTImage class]
                                               forKey:@"_CPTFillImage.fillImage"];
 

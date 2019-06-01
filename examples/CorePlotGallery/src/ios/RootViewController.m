@@ -50,7 +50,7 @@
 -(void)prepareForSegue:(nonnull UIStoryboardSegue *)segue sender:(nullable id)sender
 {
     if ( [segue.identifier isEqualToString:@"showDetail"] ) {
-        DetailViewController *controller = (DetailViewController *)( (UINavigationController *)segue.destinationViewController).topViewController;
+        DetailViewController *controller = (DetailViewController *)((UINavigationController *)segue.destinationViewController).topViewController;
 
         controller.navigationItem.leftBarButtonItem             = self.splitViewController.displayModeButtonItem;
         controller.navigationItem.leftItemsSupplementBackButton = YES;

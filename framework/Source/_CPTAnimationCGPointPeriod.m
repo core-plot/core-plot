@@ -47,8 +47,8 @@ CGPoint CPTCurrentPointValue(id __nonnull boundObject, SEL __nonnull boundGetter
     [self.startValue getValue:&start];
     [self.endValue getValue:&end];
 
-    return ( ( (current.x >= start.x) && (current.x <= end.x) ) || ( (current.x >= end.x) && (current.x <= start.x) ) ) &&
-           ( ( (current.y >= start.y) && (current.y <= end.y) ) || ( (current.y >= end.y) && (current.y <= start.y) ) );
+    return (((current.x >= start.x) && (current.x <= end.x)) || ((current.x >= end.x) && (current.x <= start.x))) &&
+           (((current.y >= start.y) && (current.y <= end.y)) || ((current.y >= end.y) && (current.y <= start.y)));
 }
 
 -(nonnull NSValue *)tweenedValueForProgress:(CGFloat)progress

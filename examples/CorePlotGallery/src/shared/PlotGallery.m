@@ -45,7 +45,7 @@ static PlotGallery *sharedPlotGallery = nil;
 
     @synchronized ( thisClass ) {
         if ( sharedPlotGallery == nil ) {
-            if ( (self = [super init]) ) {
+            if ((self = [super init])) {
                 sharedPlotGallery = self;
                 plotItems         = [[NSMutableArray alloc] init];
                 plotSections      = [[NSCountedSet alloc] init];

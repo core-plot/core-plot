@@ -266,7 +266,7 @@ static NSString *const SELECTION_PLOT = @"Selection Plot";
 
     CPTPlotSymbol *symbol = (id)[NSNull null];
 
-    if ( [(NSString *) plot.identifier isEqualToString:SELECTION_PLOT] && (index == 2) ) {
+    if ( [(NSString *) plot.identifier isEqualToString:SELECTION_PLOT] && (index == 2)) {
         if ( !redDot ) {
             redDot            = [[CPTPlotSymbol alloc] init];
             redDot.symbolType = CPTPlotSymbolTypeEllipse;

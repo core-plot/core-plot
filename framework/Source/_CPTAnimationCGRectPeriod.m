@@ -47,10 +47,10 @@ CGRect CPTCurrentRectValue(id __nonnull boundObject, SEL __nonnull boundGetter)
     [self.startValue getValue:&start];
     [self.endValue getValue:&end];
 
-    return ( ( (current.origin.x >= start.origin.x) && (current.origin.x <= end.origin.x) ) || ( (current.origin.x >= end.origin.x) && (current.origin.x <= start.origin.x) ) ) &&
-           ( ( (current.origin.y >= start.origin.y) && (current.origin.y <= end.origin.y) ) || ( (current.origin.y >= end.origin.y) && (current.origin.y <= start.origin.y) ) ) &&
-           ( ( (current.size.width >= start.size.width) && (current.size.width <= end.size.width) ) || ( (current.size.width >= end.size.width) && (current.size.width <= start.size.width) ) ) &&
-           ( ( (current.size.height >= start.size.height) && (current.size.height <= end.size.height) ) || ( (current.size.height >= end.size.height) && (current.size.height <= start.size.height) ) );
+    return (((current.origin.x >= start.origin.x) && (current.origin.x <= end.origin.x)) || ((current.origin.x >= end.origin.x) && (current.origin.x <= start.origin.x))) &&
+           (((current.origin.y >= start.origin.y) && (current.origin.y <= end.origin.y)) || ((current.origin.y >= end.origin.y) && (current.origin.y <= start.origin.y))) &&
+           (((current.size.width >= start.size.width) && (current.size.width <= end.size.width)) || ((current.size.width >= end.size.width) && (current.size.width <= start.size.width))) &&
+           (((current.size.height >= start.size.height) && (current.size.height <= end.size.height)) || ((current.size.height >= end.size.height) && (current.size.height <= start.size.height)));
 }
 
 -(nonnull NSValue *)tweenedValueForProgress:(CGFloat)progress

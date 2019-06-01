@@ -34,7 +34,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 
 -(nonnull instancetype)init
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         self.title   = @"Date Plot";
         self.section = kLinePlots;
     }
@@ -100,7 +100,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
 
     NSTimeInterval xLow = 0.0;
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@(xLow) length:@( oneDay * (kNumPoints - 1) )];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@(xLow) length:@(oneDay * (kNumPoints - 1))];
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@1.0 length:@2.0];
 
     plotSpace.allowsUserInteraction = YES;

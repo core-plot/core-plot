@@ -43,20 +43,20 @@ NSDecimal CPTCurrentDecimalValue(id __nonnull boundObject, SEL __nonnull boundGe
     }
 
     NSDecimal current = CPTCurrentDecimalValue(boundObject, boundGetter);
-    NSDecimal start   = ( (NSDecimalNumber *)self.startValue).decimalValue;
-    NSDecimal end     = ( (NSDecimalNumber *)self.endValue).decimalValue;
+    NSDecimal start   = ((NSDecimalNumber *)self.startValue).decimalValue;
+    NSDecimal end     = ((NSDecimalNumber *)self.endValue).decimalValue;
 
-    return ( CPTDecimalGreaterThanOrEqualTo(current, start) && CPTDecimalLessThanOrEqualTo(current, end) ) ||
-           ( CPTDecimalGreaterThanOrEqualTo(current, end) && CPTDecimalLessThanOrEqualTo(current, start) );
+    return (CPTDecimalGreaterThanOrEqualTo(current, start) && CPTDecimalLessThanOrEqualTo(current, end)) ||
+           (CPTDecimalGreaterThanOrEqualTo(current, end) && CPTDecimalLessThanOrEqualTo(current, start));
 }
 
 -(nonnull NSValue *)tweenedValueForProgress:(CGFloat)progress
 {
-    NSDecimal start = ( (NSDecimalNumber *)self.startValue).decimalValue;
-    NSDecimal end   = ( (NSDecimalNumber *)self.endValue).decimalValue;
+    NSDecimal start = ((NSDecimalNumber *)self.startValue).decimalValue;
+    NSDecimal end   = ((NSDecimalNumber *)self.endValue).decimalValue;
 
     NSDecimal length       = CPTDecimalSubtract(end, start);
-    NSDecimal tweenedValue = CPTDecimalAdd( start, CPTDecimalMultiply(CPTDecimalFromCGFloat(progress), length) );
+    NSDecimal tweenedValue = CPTDecimalAdd(start, CPTDecimalMultiply(CPTDecimalFromCGFloat(progress), length));
 
     return [NSDecimalNumber decimalNumberWithDecimal:tweenedValue];
 }

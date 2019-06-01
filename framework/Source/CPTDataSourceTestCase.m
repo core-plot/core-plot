@@ -51,7 +51,7 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
 
     arr = [NSMutableArray arrayWithCapacity:recordCount];
     for ( NSUInteger i = 0; i < recordCount; i++ ) {
-        [arr insertObject:@( sin(2 * M_PI * (double)i / (double)recordCount) ) atIndex:i];
+        [arr insertObject:@(sin(2 * M_PI * (double)i / (double)recordCount)) atIndex:i];
     }
     self.yData = arr;
 }
@@ -81,7 +81,7 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
     CPTMutablePlotRange *range = [self plotRangeForData:data];
 
     if ( self.plots.count > 1 ) {
-        range.lengthDecimal = CPTDecimalAdd( range.lengthDecimal, CPTDecimalFromUnsignedInteger(self.plots.count) );
+        range.lengthDecimal = CPTDecimalAdd(range.lengthDecimal, CPTDecimalFromUnsignedInteger(self.plots.count));
     }
 
     return range;
@@ -122,7 +122,7 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
                 XCTAssertTrue([[self plots] containsObject:plot], @"Plot missing");
                 CPTMutableNumberArray *shiftedResult = [NSMutableArray arrayWithCapacity:result.count];
                 for ( NSDecimalNumber *d in result ) {
-                    [shiftedResult addObject:[d decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromCGFloat( CPTDataSourceTestCasePlotOffset * ([self.plots indexOfObject:plot] + 1) )]]];
+                    [shiftedResult addObject:[d decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromCGFloat(CPTDataSourceTestCasePlotOffset * ([self.plots indexOfObject:plot] + 1))]]];
                 }
 
                 result = shiftedResult;

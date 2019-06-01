@@ -86,7 +86,7 @@
  **/
 -(nonnull instancetype)init
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         plot      = nil;
         index     = 0;
         row       = 0;
@@ -114,7 +114,7 @@
 
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         plot = [coder decodeObjectOfClass:[CPTPlot class]
                                    forKey:@"CPTLegendEntry.plot"];
         index     = (NSUInteger)[coder decodeIntegerForKey:@"CPTLegendEntry.index"];
@@ -153,15 +153,15 @@
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     CGContextSaveGState(context);
     CGContextTranslateCTM(context, CPTFloat(0.0), rect.origin.y);
-    CGContextScaleCTM( context, CPTFloat(1.0), CPTFloat(-1.0) );
-    CGContextTranslateCTM( context, CPTFloat(0.0), -CGRectGetMaxY(rect) );
+    CGContextScaleCTM(context, CPTFloat(1.0), CPTFloat(-1.0));
+    CGContextTranslateCTM(context, CPTFloat(0.0), -CGRectGetMaxY(rect));
 #endif
     // center the title vertically
     CGRect textRect     = rect;
     CGSize theTitleSize = self.titleSize;
     if ( theTitleSize.height < textRect.size.height ) {
         CGFloat offset = (textRect.size.height - theTitleSize.height) / CPTFloat(2.0);
-        if ( scale == CPTFloat(1.0) ) {
+        if ( scale == CPTFloat(1.0)) {
             offset = round(offset);
         }
         else {
@@ -173,7 +173,7 @@
 
     NSAttributedString *styledTitle = self.attributedTitle;
 
-    if ( (styledTitle.length > 0) && [styledTitle respondsToSelector:@selector(drawInRect:)] ) {
+    if ((styledTitle.length > 0) && [styledTitle respondsToSelector:@selector(drawInRect:)] ) {
         [styledTitle drawInRect:textRect
                       inContext:context];
     }

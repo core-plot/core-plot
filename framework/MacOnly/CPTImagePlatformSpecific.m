@@ -12,7 +12,7 @@
  **/
 -(nonnull instancetype)initWithNativeImage:(nullable CPTNativeImage *)anImage
 {
-    if ( (self = [self init]) ) {
+    if ((self = [self init])) {
         self.nativeImage = anImage;
     }
 
@@ -40,7 +40,7 @@
         imageScale = MAX(imageScale, screen.backingScaleFactor);
     }
 
-    while ( imageScale > CPTFloat(1.0) ) {
+    while ( imageScale > CPTFloat(1.0)) {
         NSMutableString *hiDpiPath = [path mutableCopy];
         NSUInteger replaceCount    = [hiDpiPath replaceOccurrencesOfString:@".png"
                                                                 withString:[NSString stringWithFormat:@"@%dx.png", (int)imageScale]

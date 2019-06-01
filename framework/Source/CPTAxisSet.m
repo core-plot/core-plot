@@ -38,7 +38,7 @@
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
-    if ( (self = [super initWithFrame:newFrame]) ) {
+    if ((self = [super initWithFrame:newFrame])) {
         axes            = @[];
         borderLineStyle = nil;
 
@@ -53,7 +53,7 @@
 
 -(nonnull instancetype)initWithLayer:(nonnull id)layer
 {
-    if ( (self = [super initWithLayer:layer]) ) {
+    if ((self = [super initWithLayer:layer])) {
         CPTAxisSet *theLayer = (CPTAxisSet *)layer;
 
         axes            = theLayer->axes;
@@ -79,7 +79,7 @@
 
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super initWithCoder:coder]) ) {
+    if ((self = [super initWithCoder:coder])) {
         axes = [[coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [CPTAxis class]]]
                                       forKey:@"CPTAxisSet.axes"] copy];
         borderLineStyle = [[coder decodeObjectOfClass:[CPTLineStyle class]

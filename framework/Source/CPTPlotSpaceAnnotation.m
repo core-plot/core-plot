@@ -60,7 +60,7 @@
 {
     NSParameterAssert(newPlotSpace);
 
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         plotSpace            = newPlotSpace;
         self.anchorPlotPoint = newPlotPoint;
 
@@ -112,7 +112,7 @@
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super initWithCoder:coder]) ) {
+    if ((self = [super initWithCoder:coder])) {
         self.anchorPlotPoint = [[coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [NSNumber class]]]
                                                       forKey:@"CPTPlotSpaceAnnotation.anchorPlotPoint"] copy];
 
@@ -180,7 +180,7 @@
 
                 content.anchorPoint = self.contentAnchorPoint;
                 content.position    = newPosition;
-                content.transform   = CATransform3DMakeRotation( self.rotation, CPTFloat(0.0), CPTFloat(0.0), CPTFloat(1.0) );
+                content.transform   = CATransform3DMakeRotation(self.rotation, CPTFloat(0.0), CPTFloat(0.0), CPTFloat(1.0));
                 [content pixelAlign];
             }
         }
@@ -201,7 +201,7 @@
 
         self.anchorCount = anchorPlotPoint.count;
 
-        NSDecimal *decimalPoint = calloc( self.anchorCount, sizeof(NSDecimal) );
+        NSDecimal *decimalPoint = calloc(self.anchorCount, sizeof(NSDecimal));
         for ( NSUInteger i = 0; i < self.anchorCount; i++ ) {
             decimalPoint[i] = anchorPlotPoint[i].decimalValue;
         }

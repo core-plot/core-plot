@@ -115,7 +115,7 @@ void drawErrorText(CGContextRef __nonnull context, CGRect rect)
 
 -(nonnull instancetype)init
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         /*
          * Allocate any permanent resource required by the plug-in.
          */
@@ -451,11 +451,11 @@ void drawErrorText(CGContextRef __nonnull context, CGRect rect)
     set.xAxis.labelTextStyle = textStyle;
 
     double xrange = self.inputXMax - self.inputXMin;
-    set.xAxis.majorIntervalLength   = @( xrange / (self.inputXMajorIntervals) );
+    set.xAxis.majorIntervalLength   = @(xrange / (self.inputXMajorIntervals));
     set.xAxis.minorTicksPerInterval = self.inputXMinorIntervals;
 
     double yrange = self.inputYMax - self.inputYMin;
-    set.yAxis.majorIntervalLength   = @( yrange / (self.inputYMajorIntervals) );
+    set.yAxis.majorIntervalLength   = @(yrange / (self.inputYMajorIntervals));
     set.yAxis.minorTicksPerInterval = self.inputYMinorIntervals;
 
     set.xAxis.minorTickLength = self.inputAxisMinorTickLength;
@@ -577,7 +577,7 @@ static void _BufferReleaseCallback(const void *__nonnull address, void *__nonnul
     size_t rowBytes             = (size_t)boundsSize.width * 4;
 
     if ( rowBytes % 16 ) {
-        rowBytes = ( (rowBytes / 16) + 1) * 16;
+        rowBytes = ((rowBytes / 16) + 1) * 16;
     }
 
     if ( !self.imageData ) {
@@ -610,7 +610,7 @@ static void _BufferReleaseCallback(const void *__nonnull address, void *__nonnul
     CGContextRelease(newContext);
 
     if ( rowBytes % 16 ) {
-        rowBytes = ( (rowBytes / 16) + 1) * 16;
+        rowBytes = ((rowBytes / 16) + 1) * 16;
     }
 
     // Note: I don't have a PPC to test on so this may or may not cause some color issues
@@ -751,7 +751,7 @@ static void _BufferReleaseCallback(const void *__nonnull address, void *__nonnul
      */
 
     // Configure the graph area
-    CGRect frame = CPTRectMake( 0.0, 0.0, MAX(1, self.inputPixelsWide), MAX(1, self.inputPixelsHigh) );
+    CGRect frame = CPTRectMake(0.0, 0.0, MAX(1, self.inputPixelsWide), MAX(1, self.inputPixelsHigh));
 
     self.graph.bounds = frame;
 
@@ -761,7 +761,7 @@ static void _BufferReleaseCallback(const void *__nonnull address, void *__nonnul
     self.graph.paddingBottom = 0.0;
 
     // Perform some sanity checks.  If there is a configuration error set the error flag so that a message is displayed
-    if ( (self.inputXMax <= self.inputXMin) || (self.inputYMax <= self.inputYMin) ) {
+    if ((self.inputXMax <= self.inputXMin) || (self.inputYMax <= self.inputYMin)) {
         return NO;
     }
 
@@ -812,9 +812,9 @@ static void _BufferReleaseCallback(const void *__nonnull address, void *__nonnul
     // Draw the plot ...
     CGSize boundsSize      = self.graph.bounds.size;
     CGContextRef bmContext = self.bitmapContext;
-    CGContextClearRect( bmContext, CPTRectMake(0.0, 0.0, boundsSize.width, boundsSize.height) );
+    CGContextClearRect(bmContext, CPTRectMake(0.0, 0.0, boundsSize.width, boundsSize.height));
     CGContextSetRGBFillColor(bmContext, 0.0, 0.0, 0.0, 0.0);
-    CGContextFillRect( bmContext, CPTRectMake(0, 0, boundsSize.width, boundsSize.height) );
+    CGContextFillRect(bmContext, CPTRectMake(0, 0, boundsSize.width, boundsSize.height));
     CGContextSetAllowsAntialiasing(bmContext, true);
 
     if ( configurationCheck ) {
@@ -822,7 +822,7 @@ static void _BufferReleaseCallback(const void *__nonnull address, void *__nonnul
         [self.graph recursivelyRenderInContext:bmContext];
     }
     else {
-        drawErrorText( bmContext, CPTRectMake(0, 0, self.inputPixelsWide, self.inputPixelsHigh) );
+        drawErrorText(bmContext, CPTRectMake(0, 0, self.inputPixelsWide, self.inputPixelsHigh));
     }
 
     // CGContextSetAllowsAntialiasing(bitmapContext, false);

@@ -55,7 +55,7 @@
  **/
 -(nonnull instancetype)init
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         annotationHostLayer = nil;
         contentLayer        = nil;
         displacement        = CGPointZero;
@@ -83,7 +83,7 @@
 
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         annotationHostLayer = [coder decodeObjectOfClass:[CPTAnnotationHostLayer class]
                                                   forKey:@"CPTAnnotation.annotationHostLayer"];
         contentLayer = [coder decodeObjectOfClass:[CPTLayer class]
@@ -155,7 +155,7 @@
 
 -(void)setDisplacement:(CGPoint)newDisplacement
 {
-    if ( !CGPointEqualToPoint(newDisplacement, displacement) ) {
+    if ( !CGPointEqualToPoint(newDisplacement, displacement)) {
         displacement = newDisplacement;
         [self.contentLayer.superlayer setNeedsLayout];
     }
@@ -163,7 +163,7 @@
 
 -(void)setContentAnchorPoint:(CGPoint)newAnchorPoint
 {
-    if ( !CGPointEqualToPoint(newAnchorPoint, contentAnchorPoint) ) {
+    if ( !CGPointEqualToPoint(newAnchorPoint, contentAnchorPoint)) {
         contentAnchorPoint = newAnchorPoint;
         [self.contentLayer.superlayer setNeedsLayout];
     }

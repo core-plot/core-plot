@@ -204,7 +204,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
-    if ( (self = [super initWithFrame:newFrame]) ) {
+    if ((self = [super initWithFrame:newFrame])) {
         plotStyle         = CPTTradingRangePlotStyleOHLC;
         lineStyle         = [[CPTLineStyle alloc] init];
         increaseLineStyle = nil;
@@ -229,7 +229,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
 -(nonnull instancetype)initWithLayer:(nonnull id)layer
 {
-    if ( (self = [super initWithLayer:layer]) ) {
+    if ((self = [super initWithLayer:layer])) {
         CPTTradingRangePlot *theLayer = (CPTTradingRangePlot *)layer;
 
         plotStyle         = theLayer->plotStyle;
@@ -276,7 +276,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super initWithCoder:coder]) ) {
+    if ((self = [super initWithCoder:coder])) {
         lineStyle = [[coder decodeObjectOfClass:[CPTLineStyle class]
                                          forKey:@"CPTTradingRangePlot.lineStyle"] copy];
         increaseLineStyle = [[coder decodeObjectOfClass:[CPTLineStyle class]
@@ -570,11 +570,11 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     if ( sampleCount == 0 ) {
         return;
     }
-    if ( (opens == nil) || (highs == nil) || (lows == nil) || (closes == nil) ) {
+    if ((opens == nil) || (highs == nil) || (lows == nil) || (closes == nil)) {
         return;
     }
 
-    if ( (opens.numberOfSamples != sampleCount) || (highs.numberOfSamples != sampleCount) || (lows.numberOfSamples != sampleCount) || (closes.numberOfSamples != sampleCount) ) {
+    if ((opens.numberOfSamples != sampleCount) || (highs.numberOfSamples != sampleCount) || (lows.numberOfSamples != sampleCount) || (closes.numberOfSamples != sampleCount)) {
         [NSException raise:CPTException format:@"Mismatching number of data values in trading range plot"];
     }
 
@@ -598,7 +598,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         for ( NSUInteger i = 0; i < sampleCount; i++ ) {
             double plotPoint[2];
             plotPoint[independentCoord] = *locationBytes++;
-            if ( isnan(plotPoint[independentCoord]) ) {
+            if ( isnan(plotPoint[independentCoord])) {
                 openBytes++;
                 highBytes++;
                 lowBytes++;
@@ -608,7 +608,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
             // open point
             plotPoint[dependentCoord] = *openBytes++;
-            if ( isnan(plotPoint[dependentCoord]) ) {
+            if ( isnan(plotPoint[dependentCoord])) {
                 openPoint = CPTPointMake(NAN, NAN);
             }
             else {
@@ -617,7 +617,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
             // high point
             plotPoint[dependentCoord] = *highBytes++;
-            if ( isnan(plotPoint[dependentCoord]) ) {
+            if ( isnan(plotPoint[dependentCoord])) {
                 highPoint = CPTPointMake(NAN, NAN);
             }
             else {
@@ -626,7 +626,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
             // low point
             plotPoint[dependentCoord] = *lowBytes++;
-            if ( isnan(plotPoint[dependentCoord]) ) {
+            if ( isnan(plotPoint[dependentCoord])) {
                 lowPoint = CPTPointMake(NAN, NAN);
             }
             else {
@@ -635,7 +635,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
             // close point
             plotPoint[dependentCoord] = *closeBytes++;
-            if ( isnan(plotPoint[dependentCoord]) ) {
+            if ( isnan(plotPoint[dependentCoord])) {
                 closePoint = CPTPointMake(NAN, NAN);
             }
             else {
@@ -643,17 +643,17 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
             }
 
             CGFloat xCoord = openPoint.x;
-            if ( isnan(xCoord) ) {
+            if ( isnan(xCoord)) {
                 xCoord = highPoint.x;
             }
-            else if ( isnan(xCoord) ) {
+            else if ( isnan(xCoord)) {
                 xCoord = lowPoint.x;
             }
-            else if ( isnan(xCoord) ) {
+            else if ( isnan(xCoord)) {
                 xCoord = closePoint.x;
             }
 
-            if ( !isnan(xCoord) ) {
+            if ( !isnan(xCoord)) {
                 // Draw
                 switch ( thePlotStyle ) {
                     case CPTTradingRangePlotStyleOHLC:
@@ -691,7 +691,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         for ( NSUInteger i = 0; i < sampleCount; i++ ) {
             NSDecimal plotPoint[2];
             plotPoint[independentCoord] = *locationBytes++;
-            if ( NSDecimalIsNotANumber(&plotPoint[independentCoord]) ) {
+            if ( NSDecimalIsNotANumber(&plotPoint[independentCoord])) {
                 openBytes++;
                 highBytes++;
                 lowBytes++;
@@ -701,7 +701,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
             // open point
             plotPoint[dependentCoord] = *openBytes++;
-            if ( NSDecimalIsNotANumber(&plotPoint[dependentCoord]) ) {
+            if ( NSDecimalIsNotANumber(&plotPoint[dependentCoord])) {
                 openPoint = CPTPointMake(NAN, NAN);
             }
             else {
@@ -710,7 +710,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
             // high point
             plotPoint[dependentCoord] = *highBytes++;
-            if ( NSDecimalIsNotANumber(&plotPoint[dependentCoord]) ) {
+            if ( NSDecimalIsNotANumber(&plotPoint[dependentCoord])) {
                 highPoint = CPTPointMake(NAN, NAN);
             }
             else {
@@ -719,7 +719,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
             // low point
             plotPoint[dependentCoord] = *lowBytes++;
-            if ( NSDecimalIsNotANumber(&plotPoint[dependentCoord]) ) {
+            if ( NSDecimalIsNotANumber(&plotPoint[dependentCoord])) {
                 lowPoint = CPTPointMake(NAN, NAN);
             }
             else {
@@ -728,7 +728,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
             // close point
             plotPoint[dependentCoord] = *closeBytes++;
-            if ( NSDecimalIsNotANumber(&plotPoint[dependentCoord]) ) {
+            if ( NSDecimalIsNotANumber(&plotPoint[dependentCoord])) {
                 closePoint = CPTPointMake(NAN, NAN);
             }
             else {
@@ -736,17 +736,17 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
             }
 
             CGFloat xCoord = openPoint.x;
-            if ( isnan(xCoord) ) {
+            if ( isnan(xCoord)) {
                 xCoord = highPoint.x;
             }
-            else if ( isnan(xCoord) ) {
+            else if ( isnan(xCoord)) {
                 xCoord = lowPoint.x;
             }
-            else if ( isnan(xCoord) ) {
+            else if ( isnan(xCoord)) {
                 xCoord = closePoint.x;
             }
 
-            if ( !isnan(xCoord) ) {
+            if ( !isnan(xCoord)) {
                 // Draw
                 switch ( thePlotStyle ) {
                     case CPTTradingRangePlotStyleOHLC:
@@ -791,7 +791,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     CPTFill *currentBarFill          = nil;
     CPTLineStyle *theBorderLineStyle = nil;
 
-    if ( !isnan(openValue) && !isnan(closeValue) ) {
+    if ( !isnan(openValue) && !isnan(closeValue)) {
         if ( openValue < closeValue ) {
             theBorderLineStyle = [self increaseLineStyleForIndex:idx];
             currentBarFill     = [self increaseFillForIndex:idx];
@@ -816,13 +816,13 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         [theBorderLineStyle setLineStyleInContext:context];
 
         CGFloat lineWidth = theBorderLineStyle.lineWidth;
-        if ( ( self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
+        if ((self.contentsScale > CPTFloat(1.0)) && (round(lineWidth) == lineWidth)) {
             alignmentFunction = CPTAlignIntegralPointToUserSpace;
         }
     }
 
     // high - low only
-    if ( hasLineStyle && !isnan(highValue) && !isnan(lowValue) && ( isnan(openValue) || isnan(closeValue) ) ) {
+    if ( hasLineStyle && !isnan(highValue) && !isnan(lowValue) && (isnan(openValue) || isnan(closeValue))) {
         CGPoint alignedHighPoint = CPTPointMake(x, highValue);
         CGPoint alignedLowPoint  = CPTPointMake(x, lowValue);
         if ( alignPoints ) {
@@ -842,10 +842,10 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     }
 
     // open-close
-    if ( !isnan(openValue) && !isnan(closeValue) ) {
+    if ( !isnan(openValue) && !isnan(closeValue)) {
         if ( currentBarFill || hasLineStyle ) {
             CGFloat radius = MIN(self.barCornerRadius, halfBarWidth);
-            radius = MIN( radius, ABS(closeValue - openValue) );
+            radius = MIN(radius, ABS(closeValue - openValue));
 
             CGPoint alignedPoint1 = CPTPointMake(x + halfBarWidth, openValue);
             CGPoint alignedPoint2 = CPTPointMake(x + halfBarWidth, closeValue);
@@ -869,7 +869,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
                 }
             }
 
-            if ( hasLineStyle && (openValue == closeValue) ) {
+            if ( hasLineStyle && (openValue == closeValue)) {
                 // #285 Draw a cross with open/close values marked
                 const CGFloat halfLineWidth = CPTFloat(0.5) * theBorderLineStyle.lineWidth;
 
@@ -899,9 +899,9 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
                     path = CGPathCreateMutable();
                 }
 
-                if ( !isnan(lowValue) ) {
-                    if ( lowValue < MIN(openValue, closeValue) ) {
-                        CGPoint alignedStartPoint = CPTPointMake( x, MIN(openValue, closeValue) );
+                if ( !isnan(lowValue)) {
+                    if ( lowValue < MIN(openValue, closeValue)) {
+                        CGPoint alignedStartPoint = CPTPointMake(x, MIN(openValue, closeValue));
                         CGPoint alignedLowPoint   = CPTPointMake(x, lowValue);
                         if ( alignPoints ) {
                             alignedStartPoint = alignmentFunction(context, alignedStartPoint);
@@ -912,9 +912,9 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
                         CGPathAddLineToPoint(path, NULL, alignedLowPoint.x, alignedLowPoint.y);
                     }
                 }
-                if ( !isnan(highValue) ) {
-                    if ( highValue > MAX(openValue, closeValue) ) {
-                        CGPoint alignedStartPoint = CPTPointMake( x, MAX(openValue, closeValue) );
+                if ( !isnan(highValue)) {
+                    if ( highValue > MAX(openValue, closeValue)) {
+                        CGPoint alignedStartPoint = CPTPointMake(x, MAX(openValue, closeValue));
                         CGPoint alignedHighPoint  = CPTPointMake(x, highValue);
                         if ( alignPoints ) {
                             alignedStartPoint = alignmentFunction(context, alignedStartPoint);
@@ -946,7 +946,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 {
     CPTLineStyle *theLineStyle = [self lineStyleForIndex:idx];
 
-    if ( !isnan(openValue) && !isnan(closeValue) ) {
+    if ( !isnan(openValue) && !isnan(closeValue)) {
         if ( openValue < closeValue ) {
             CPTLineStyle *lineStyleForIncrease = [self increaseLineStyleForIndex:idx];
             if ( [lineStyleForIncrease isKindOfClass:[CPTLineStyle class]] ) {
@@ -968,12 +968,12 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         CPTAlignPointFunction alignmentFunction = CPTAlignPointToUserSpace;
 
         CGFloat lineWidth = theLineStyle.lineWidth;
-        if ( ( self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
+        if ((self.contentsScale > CPTFloat(1.0)) && (round(lineWidth) == lineWidth)) {
             alignmentFunction = CPTAlignIntegralPointToUserSpace;
         }
 
         // high-low
-        if ( !isnan(highValue) && !isnan(lowValue) ) {
+        if ( !isnan(highValue) && !isnan(lowValue)) {
             CGPoint alignedHighPoint = CPTPointMake(x, highValue);
             CGPoint alignedLowPoint  = CPTPointMake(x, lowValue);
             if ( alignPoints ) {
@@ -985,7 +985,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         }
 
         // open
-        if ( !isnan(openValue) ) {
+        if ( !isnan(openValue)) {
             CGPoint alignedOpenStartPoint = CPTPointMake(x, openValue);
             CGPoint alignedOpenEndPoint   = CPTPointMake(x - theStickLength, openValue); // left side
             if ( alignPoints ) {
@@ -997,7 +997,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         }
 
         // close
-        if ( !isnan(closeValue) ) {
+        if ( !isnan(closeValue)) {
             CGPoint alignedCloseStartPoint = CPTPointMake(x, closeValue);
             CGPoint alignedCloseEndPoint   = CPTPointMake(x + theStickLength, closeValue); // right side
             if ( alignPoints ) {
@@ -1053,7 +1053,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 {
     CPTFill *theFill = [self cachedValueForKey:CPTTradingRangePlotBindingIncreaseFills recordIndex:idx];
 
-    if ( (theFill == nil) || (theFill == [CPTPlot nilData]) ) {
+    if ((theFill == nil) || (theFill == [CPTPlot nilData])) {
         theFill = self.increaseFill;
     }
 
@@ -1064,7 +1064,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 {
     CPTFill *theFill = [self cachedValueForKey:CPTTradingRangePlotBindingDecreaseFills recordIndex:idx];
 
-    if ( (theFill == nil) || (theFill == [CPTPlot nilData]) ) {
+    if ((theFill == nil) || (theFill == [CPTPlot nilData])) {
         theFill = self.decreaseFill;
     }
 
@@ -1075,7 +1075,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 {
     CPTLineStyle *theLineStyle = [self cachedValueForKey:CPTTradingRangePlotBindingLineStyles recordIndex:idx];
 
-    if ( (theLineStyle == nil) || (theLineStyle == [CPTPlot nilData]) ) {
+    if ((theLineStyle == nil) || (theLineStyle == [CPTPlot nilData])) {
         theLineStyle = self.lineStyle;
     }
 
@@ -1086,7 +1086,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 {
     CPTLineStyle *theLineStyle = [self cachedValueForKey:CPTTradingRangePlotBindingIncreaseLineStyles recordIndex:idx];
 
-    if ( (theLineStyle == nil) || (theLineStyle == [CPTPlot nilData]) ) {
+    if ((theLineStyle == nil) || (theLineStyle == [CPTPlot nilData])) {
         theLineStyle = self.increaseLineStyle;
     }
 
@@ -1101,7 +1101,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 {
     CPTLineStyle *theLineStyle = [self cachedValueForKey:CPTTradingRangePlotBindingDecreaseLineStyles recordIndex:idx];
 
-    if ( (theLineStyle == nil) || (theLineStyle == [CPTPlot nilData]) ) {
+    if ((theLineStyle == nil) || (theLineStyle == [CPTPlot nilData])) {
         theLineStyle = self.decreaseLineStyle;
     }
 
@@ -1218,7 +1218,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     BOOL positiveDirection = YES;
     CPTPlotRange *yRange   = [self.plotSpace plotRangeForCoordinate:CPTCoordinateY];
 
-    if ( CPTDecimalLessThan( yRange.lengthDecimal, CPTDecimalFromInteger(0) ) ) {
+    if ( CPTDecimalLessThan(yRange.lengthDecimal, CPTDecimalFromInteger(0))) {
         positiveDirection = !positiveDirection;
     }
 
@@ -1307,7 +1307,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
             if ( !isnan(plotPoint[dependentCoord]) && [yRange containsDouble:plotPoint[dependentCoord]] ) {
                 openPoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
                 CGFloat distanceSquared = squareOfDistanceBetweenPoints(point, openPoint);
-                if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
+                if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared)) {
                     minimumDistanceSquared = distanceSquared;
                     result                 = i;
                 }
@@ -1321,7 +1321,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
             if ( !isnan(plotPoint[dependentCoord]) && [yRange containsDouble:plotPoint[dependentCoord]] ) {
                 highPoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
                 CGFloat distanceSquared = squareOfDistanceBetweenPoints(point, highPoint);
-                if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
+                if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared)) {
                     minimumDistanceSquared = distanceSquared;
                     result                 = i;
                 }
@@ -1335,7 +1335,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
             if ( !isnan(plotPoint[dependentCoord]) && [yRange containsDouble:plotPoint[dependentCoord]] ) {
                 lowPoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
                 CGFloat distanceSquared = squareOfDistanceBetweenPoints(point, lowPoint);
-                if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
+                if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared)) {
                     minimumDistanceSquared = distanceSquared;
                     result                 = i;
                 }
@@ -1349,7 +1349,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
             if ( !isnan(plotPoint[dependentCoord]) && [yRange containsDouble:plotPoint[dependentCoord]] ) {
                 closePoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
                 CGFloat distanceSquared = squareOfDistanceBetweenPoints(point, closePoint);
-                if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
+                if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared)) {
                     minimumDistanceSquared = distanceSquared;
                     result                 = i;
                 }
@@ -1360,18 +1360,18 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
             if ( result == i ) {
                 lastViewX = openPoint.x;
-                if ( isnan(lastViewX) ) {
+                if ( isnan(lastViewX)) {
                     lastViewX = highPoint.x;
                 }
-                else if ( isnan(lastViewX) ) {
+                else if ( isnan(lastViewX)) {
                     lastViewX = lowPoint.x;
                 }
-                else if ( isnan(lastViewX) ) {
+                else if ( isnan(lastViewX)) {
                     lastViewX = closePoint.x;
                 }
 
-                lastViewMin = MIN( MIN(openPoint.y, closePoint.y), MIN(highPoint.y, lowPoint.y) );
-                lastViewMax = MAX( MAX(openPoint.y, closePoint.y), MAX(highPoint.y, lowPoint.y) );
+                lastViewMin = MIN(MIN(openPoint.y, closePoint.y), MIN(highPoint.y, lowPoint.y));
+                lastViewMax = MAX(MAX(openPoint.y, closePoint.y), MAX(highPoint.y, lowPoint.y));
             }
         }
     }
@@ -1400,7 +1400,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
             if ( !NSDecimalIsNotANumber(&plotPoint[dependentCoord]) && [yRange contains:plotPoint[dependentCoord]] ) {
                 openPoint = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
                 CGFloat distanceSquared = squareOfDistanceBetweenPoints(point, openPoint);
-                if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
+                if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared)) {
                     minimumDistanceSquared = distanceSquared;
                     result                 = i;
                 }
@@ -1414,7 +1414,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
             if ( !NSDecimalIsNotANumber(&plotPoint[dependentCoord]) && [yRange contains:plotPoint[dependentCoord]] ) {
                 highPoint = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
                 CGFloat distanceSquared = squareOfDistanceBetweenPoints(point, highPoint);
-                if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
+                if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared)) {
                     minimumDistanceSquared = distanceSquared;
                     result                 = i;
                 }
@@ -1428,7 +1428,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
             if ( !NSDecimalIsNotANumber(&plotPoint[dependentCoord]) && [yRange contains:plotPoint[dependentCoord]] ) {
                 lowPoint = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
                 CGFloat distanceSquared = squareOfDistanceBetweenPoints(point, lowPoint);
-                if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
+                if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared)) {
                     minimumDistanceSquared = distanceSquared;
                     result                 = i;
                 }
@@ -1442,7 +1442,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
             if ( !NSDecimalIsNotANumber(&plotPoint[dependentCoord]) && [yRange contains:plotPoint[dependentCoord]] ) {
                 closePoint = [thePlotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2];
                 CGFloat distanceSquared = squareOfDistanceBetweenPoints(point, closePoint);
-                if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
+                if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared)) {
                     minimumDistanceSquared = distanceSquared;
                     result                 = i;
                 }
@@ -1453,18 +1453,18 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
             if ( result == i ) {
                 lastViewX = openPoint.x;
-                if ( isnan(lastViewX) ) {
+                if ( isnan(lastViewX)) {
                     lastViewX = highPoint.x;
                 }
-                else if ( isnan(lastViewX) ) {
+                else if ( isnan(lastViewX)) {
                     lastViewX = lowPoint.x;
                 }
-                else if ( isnan(lastViewX) ) {
+                else if ( isnan(lastViewX)) {
                     lastViewX = closePoint.x;
                 }
 
-                lastViewMin = MIN( MIN(openPoint.y, closePoint.y), MIN(highPoint.y, lowPoint.y) );
-                lastViewMax = MAX( MAX(openPoint.y, closePoint.y), MAX(highPoint.y, lowPoint.y) );
+                lastViewMin = MIN(MIN(openPoint.y, closePoint.y), MIN(highPoint.y, lowPoint.y));
+                lastViewMax = MAX(MAX(openPoint.y, closePoint.y), MAX(highPoint.y, lowPoint.y));
             }
         }
     }
@@ -1482,10 +1482,10 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
                 break;
         }
 
-        if ( ( point.x < (lastViewX - offset) ) || ( point.x > (lastViewX + offset) ) ) {
+        if ((point.x < (lastViewX - offset)) || (point.x > (lastViewX + offset))) {
             result = NSNotFound;
         }
-        if ( (point.y < lastViewMin) || (point.y > lastViewMax) ) {
+        if ((point.y < lastViewMin) || (point.y > lastViewMax)) {
             result = NSNotFound;
         }
     }

@@ -152,7 +152,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
-    if ( (self = [super initWithFrame:newFrame]) ) {
+    if ((self = [super initWithFrame:newFrame])) {
         minorGridLineGroup = nil;
         majorGridLineGroup = nil;
         axisSet            = nil;
@@ -162,7 +162,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         fill               = nil;
         touchedPoint       = CPTPointMake(NAN, NAN);
         topDownLayerOrder  = nil;
-        bottomUpLayerOrder = calloc( kCPTNumberOfLayers, sizeof(CPTGraphLayerType) );
+        bottomUpLayerOrder = calloc(kCPTNumberOfLayers, sizeof(CPTGraphLayerType));
         [self updateLayerOrder];
 
         CPTPlotGroup *newPlotGroup = [[CPTPlotGroup alloc] initWithFrame:newFrame];
@@ -183,7 +183,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 
 -(nonnull instancetype)initWithLayer:(nonnull id)layer
 {
-    if ( (self = [super initWithLayer:layer]) ) {
+    if ((self = [super initWithLayer:layer])) {
         CPTPlotArea *theLayer = (CPTPlotArea *)layer;
 
         minorGridLineGroup = theLayer->minorGridLineGroup;
@@ -195,8 +195,8 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         fill               = theLayer->fill;
         touchedPoint       = theLayer->touchedPoint;
         topDownLayerOrder  = theLayer->topDownLayerOrder;
-        bottomUpLayerOrder = calloc( kCPTNumberOfLayers, sizeof(CPTGraphLayerType) );
-        memcpy( bottomUpLayerOrder, theLayer->bottomUpLayerOrder, kCPTNumberOfLayers * sizeof(CPTGraphLayerType) );
+        bottomUpLayerOrder = calloc(kCPTNumberOfLayers, sizeof(CPTGraphLayerType));
+        memcpy(bottomUpLayerOrder, theLayer->bottomUpLayerOrder, kCPTNumberOfLayers * sizeof(CPTGraphLayerType));
         widthDecimal  = theLayer->widthDecimal;
         heightDecimal = theLayer->heightDecimal;
     }
@@ -238,7 +238,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super initWithCoder:coder]) ) {
+    if ((self = [super initWithCoder:coder])) {
         minorGridLineGroup = [coder decodeObjectOfClass:[CPTGridLineGroup class]
                                                  forKey:@"CPTPlotArea.minorGridLineGroup"];
         majorGridLineGroup = [coder decodeObjectOfClass:[CPTGridLineGroup class]
@@ -256,7 +256,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         topDownLayerOrder = [coder decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class], [NSNumber class]]]
                                                   forKey:@"CPTPlotArea.topDownLayerOrder"];
 
-        bottomUpLayerOrder = calloc( kCPTNumberOfLayers, sizeof(CPTGraphLayerType) );
+        bottomUpLayerOrder = calloc(kCPTNumberOfLayers, sizeof(CPTGraphLayerType));
         [self updateLayerOrder];
 
         touchedPoint = CPTPointMake(NAN, NAN);
@@ -710,7 +710,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         // Inform delegate if a point was hit
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:self];
 
-        if ( CGRectContainsPoint(self.bounds, plotAreaPoint) ) {
+        if ( CGRectContainsPoint(self.bounds, plotAreaPoint)) {
             self.touchedPoint = plotAreaPoint;
 
             if ( [theDelegate respondsToSelector:@selector(plotAreaTouchDown:)] ) {
@@ -764,9 +764,9 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
         // Inform delegate if a point was hit
         CGPoint plotAreaPoint = [theGraph convertPoint:interactionPoint toLayer:self];
 
-        if ( CGRectContainsPoint(self.bounds, plotAreaPoint) ) {
+        if ( CGRectContainsPoint(self.bounds, plotAreaPoint)) {
             CGVector offset = CGVectorMake(plotAreaPoint.x - lastPoint.x, plotAreaPoint.y - lastPoint.y);
-            if ( (offset.dx * offset.dx + offset.dy * offset.dy) <= CPTFloat(25.0) ) {
+            if ((offset.dx * offset.dx + offset.dy * offset.dy) <= CPTFloat(25.0)) {
                 if ( [theDelegate respondsToSelector:@selector(plotAreaTouchUp:)] ) {
                     [theDelegate plotAreaTouchUp:self];
                 }
@@ -818,7 +818,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 
 -(void)setMinorGridLineGroup:(nullable CPTGridLineGroup *)newGridLines
 {
-    if ( (newGridLines != minorGridLineGroup) || self.isUpdatingLayers ) {
+    if ((newGridLines != minorGridLineGroup) || self.isUpdatingLayers ) {
         [minorGridLineGroup removeFromSuperlayer];
         minorGridLineGroup = newGridLines;
         if ( newGridLines ) {
@@ -834,7 +834,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 
 -(void)setMajorGridLineGroup:(nullable CPTGridLineGroup *)newGridLines
 {
-    if ( (newGridLines != majorGridLineGroup) || self.isUpdatingLayers ) {
+    if ((newGridLines != majorGridLineGroup) || self.isUpdatingLayers ) {
         [majorGridLineGroup removeFromSuperlayer];
         majorGridLineGroup = newGridLines;
         if ( newGridLines ) {
@@ -850,7 +850,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 
 -(void)setAxisSet:(nullable CPTAxisSet *)newAxisSet
 {
-    if ( (newAxisSet != axisSet) || self.isUpdatingLayers ) {
+    if ((newAxisSet != axisSet) || self.isUpdatingLayers ) {
         [axisSet removeFromSuperlayer];
         for ( CPTAxis *axis in axisSet.axes ) {
             axis.plotArea = nil;
@@ -878,7 +878,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 
 -(void)setPlotGroup:(nullable CPTPlotGroup *)newPlotGroup
 {
-    if ( (newPlotGroup != plotGroup) || self.isUpdatingLayers ) {
+    if ((newPlotGroup != plotGroup) || self.isUpdatingLayers ) {
         [plotGroup removeFromSuperlayer];
         plotGroup = newPlotGroup;
         if ( newPlotGroup ) {
@@ -892,7 +892,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 
 -(void)setAxisLabelGroup:(nullable CPTAxisLabelGroup *)newAxisLabelGroup
 {
-    if ( (newAxisLabelGroup != axisLabelGroup) || self.isUpdatingLayers ) {
+    if ((newAxisLabelGroup != axisLabelGroup) || self.isUpdatingLayers ) {
         [axisLabelGroup removeFromSuperlayer];
         axisLabelGroup = newAxisLabelGroup;
         if ( newAxisLabelGroup ) {
@@ -906,7 +906,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 
 -(void)setAxisTitleGroup:(nullable CPTAxisLabelGroup *)newAxisTitleGroup
 {
-    if ( (newAxisTitleGroup != axisTitleGroup) || self.isUpdatingLayers ) {
+    if ((newAxisTitleGroup != axisTitleGroup) || self.isUpdatingLayers ) {
         [axisTitleGroup removeFromSuperlayer];
         axisTitleGroup = newAxisTitleGroup;
         if ( newAxisTitleGroup ) {
@@ -939,7 +939,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 
 -(void)setBounds:(CGRect)newBounds
 {
-    if ( !CGRectEqualToRect(self.bounds, newBounds) ) {
+    if ( !CGRectEqualToRect(self.bounds, newBounds)) {
         self.widthDecimal  = CPTDecimalFromCGFloat(newBounds.size.width);
         self.heightDecimal = CPTDecimalFromCGFloat(newBounds.size.height);
 

@@ -100,7 +100,7 @@ typedef NSMutableArray<CPTAnimationOperation *> CPTMutableAnimationArray;
  **/
 -(nonnull instancetype)init
 {
-    if ( (self = [super init]) ) {
+    if ((self = [super init])) {
         animationOperations        = [[NSMutableArray alloc] init];
         runningAnimationOperations = [[NSMutableArray alloc] init];
         timer                      = NULL;
@@ -200,7 +200,7 @@ typedef NSMutableArray<CPTAnimationOperation *> CPTMutableAnimationArray;
     id boundObject             = animationOperation.boundObject;
     CPTAnimationPeriod *period = animationOperation.period;
 
-    if ( animationOperation.delegate || (boundObject && period && ![period.startValue isEqual:period.endValue]) ) {
+    if ( animationOperation.delegate || (boundObject && period && ![period.startValue isEqual:period.endValue])) {
         dispatch_async(self.animationQueue, ^{
             [self.animationOperations addObject:animationOperation];
 
@@ -277,7 +277,7 @@ typedef NSMutableArray<CPTAnimationOperation *> CPTMutableAnimationArray;
         CGFloat duration  = period.duration;
         CGFloat startTime = period.startOffset;
         CGFloat delay     = period.delay;
-        if ( isnan(delay) ) {
+        if ( isnan(delay)) {
             if ( [period canStartWithValueFromObject:animationOperation.boundObject propertyGetter:animationOperation.boundGetter] ) {
                 period.delay = currentTime - startTime;
                 startTime    = currentTime;
@@ -315,7 +315,7 @@ typedef NSMutableArray<CPTAnimationOperation *> CPTMutableAnimationArray;
 
                     for ( CPTAnimationOperation *operation in runningOperations ) {
                         if ( operation.boundObject == boundObject ) {
-                            if ( (operation.boundGetter == boundGetter) && (operation.boundSetter == boundSetter) ) {
+                            if ((operation.boundGetter == boundGetter) && (operation.boundSetter == boundSetter)) {
                                 operation.canceled = YES;
                             }
                         }
@@ -401,7 +401,7 @@ typedef NSMutableArray<CPTAnimationOperation *> CPTMutableAnimationArray;
             id tweenedValue = parameters[CPTAnimationValueKey];
 
             if ( [tweenedValue isKindOfClass:[NSDecimalNumber class]] ) {
-                NSDecimal buffer = ( (NSDecimalNumber *)tweenedValue).decimalValue;
+                NSDecimal buffer = ((NSDecimalNumber *)tweenedValue).decimalValue;
 
                 typedef void (*SetterType)(id, SEL, NSDecimal);
                 SetterType setterMethod = (SetterType)[boundObject methodForSelector:boundSetter];

@@ -17,7 +17,7 @@
         NSString *theField = theFields[i];
         switch ( inField ) {
             case NO:
-                if ( ([theField hasPrefix:@"\""] == YES) && ([theField hasSuffix:@"\""] == NO) ) {
+                if (([theField hasPrefix:@"\""] == YES) && ([theField hasSuffix:@"\""] == NO)) {
                     inField = YES;
                     [theConcatenatedField appendString:theField];
                     [theConcatenatedField appendString:@","];

@@ -47,7 +47,7 @@
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame xScaleType:(CPTScaleType)newXScaleType yScaleType:(CPTScaleType)newYScaleType
 {
-    if ( (self = [super initWithFrame:newFrame]) ) {
+    if ((self = [super initWithFrame:newFrame])) {
         xScaleType = newXScaleType;
         yScaleType = newYScaleType;
     }
@@ -78,7 +78,7 @@
 
 -(nonnull instancetype)initWithLayer:(nonnull id)layer
 {
-    if ( (self = [super initWithLayer:layer]) ) {
+    if ((self = [super initWithLayer:layer])) {
         CPTXYGraph *theLayer = (CPTXYGraph *)layer;
 
         xScaleType = theLayer->xScaleType;
@@ -104,7 +104,7 @@
 
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( (self = [super initWithCoder:coder]) ) {
+    if ((self = [super initWithCoder:coder])) {
         xScaleType = (CPTScaleType)[coder decodeIntegerForKey:@"CPTXYGraph.xScaleType"];
         yScaleType = (CPTScaleType)[coder decodeIntegerForKey:@"CPTXYGraph.yScaleType"];
     }
