@@ -61,22 +61,27 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
 /// @cond
 
+-(void)commonInit
+{
+    self.hostedGraph = nil;
+    self.printRect   = NSZeroRect;
+
+    self.closedHandCursor  = [NSCursor closedHandCursor];
+    self.openHandCursor    = [NSCursor openHandCursor];
+    self.allowPinchScaling = YES;
+
+    self.locationInWindow = NSZeroPoint;
+    self.scrollOffset     = CGPointZero;
+
+    if ( !self.superview.wantsLayer ) {
+        self.layer = [self makeBackingLayer];
+    }
+}
+
 -(nonnull instancetype)initWithFrame:(NSRect)frame
 {
     if ( (self = [super initWithFrame:frame]) ) {
-        hostedGraph = nil;
-        printRect   = NSZeroRect;
-
-        closedHandCursor  = [NSCursor closedHandCursor];
-        openHandCursor    = [NSCursor openHandCursor];
-        allowPinchScaling = YES;
-
-        locationInWindow = NSZeroPoint;
-        scrollOffset     = CGPointZero;
-
-        if ( !self.superview.wantsLayer ) {
-            self.layer = [self makeBackingLayer];
-        }
+        [self commonInit];
     }
     return self;
 }
@@ -84,6 +89,13 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 -(nonnull CALayer *)makeBackingLayer
 {
     return [[CPTLayer alloc] initWithFrame:NSRectToCGRect(self.bounds)];
+}
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+
+    [self commonInit];
 }
 
 -(void)dealloc
@@ -125,10 +137,8 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        CPTLayer *mainLayer = [[CPTLayer alloc] initWithFrame:NSRectToCGRect(self.frame)];
-        self.layer = mainLayer;
+        [self commonInit];
 
-        hostedGraph      = nil;
         self.hostedGraph = [coder decodeObjectOfClass:[CPTGraph class]
                                                forKey:@"CPTLayerHostingView.hostedGraph"]; // setup layers
         self.printRect        = [coder decodeRectForKey:@"CPTLayerHostingView.printRect"];
@@ -140,12 +150,6 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
         if ( [coder containsValueForKey:@"CPTLayerHostingView.allowPinchScaling"] ) {
             self.allowPinchScaling = [coder decodeBoolForKey:@"CPTLayerHostingView.allowPinchScaling"];
         }
-        else {
-            self.allowPinchScaling = YES;
-        }
-
-        self.locationInWindow = NSZeroPoint;
-        self.scrollOffset     = CGPointZero;
     }
     return self;
 }

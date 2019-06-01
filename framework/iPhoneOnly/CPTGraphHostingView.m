@@ -90,6 +90,13 @@
     return self;
 }
 
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+
+    [self commonInit];
+}
+
 -(void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
