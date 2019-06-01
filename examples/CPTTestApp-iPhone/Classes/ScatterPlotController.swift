@@ -107,7 +107,7 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource, CPTAxi
         let fadeInAnimation = CABasicAnimation(keyPath: "opacity")
         fadeInAnimation.duration            = 1.0
         fadeInAnimation.isRemovedOnCompletion = false
-        fadeInAnimation.fillMode            = kCAFillModeForwards
+        fadeInAnimation.fillMode            = .forwards
         fadeInAnimation.toValue             = 1.0
         dataSourceLinePlot.add(fadeInAnimation, forKey: "animateOpacity")
 

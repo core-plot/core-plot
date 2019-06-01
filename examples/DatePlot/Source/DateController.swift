@@ -100,6 +100,9 @@ class DateController : NSObject, CPTPlotDataSource {
             
         case .Y:
             return self.plotData[Int(record)] as NSNumber
+
+        @unknown default:
+            return nil
         }
     }
 }
