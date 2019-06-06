@@ -2476,15 +2476,14 @@
 			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "CorePlot" */;
 			compatibilityVersion = "Xcode 6.3";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 1;
 			knownRegions = (
-				English,
-				Japanese,
-				French,
-				German,
 				Base,
 				en,
+				de,
+				ja,
+				fr,
 			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* CorePlot */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
