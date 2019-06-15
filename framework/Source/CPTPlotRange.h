@@ -7,7 +7,7 @@
 /**
  *  @brief Enumeration of possible results of a plot range comparison.
  **/
-typedef NS_ENUM (NSInteger, CPTPlotRangeComparisonResult) {
+typedef NS_CLOSED_ENUM (NSInteger, CPTPlotRangeComparisonResult) {
     CPTPlotRangeComparisonResultNumberBelowRange, ///< Number is below the range.
     CPTPlotRangeComparisonResultNumberInRange,    ///< Number is in the range.
     CPTPlotRangeComparisonResultNumberAboveRange  ///< Number is above the range.
