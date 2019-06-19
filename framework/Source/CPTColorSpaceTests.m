@@ -13,8 +13,18 @@
 
     CPTColorSpace *newColorSpace = [self archiveRoundTrip:colorSpace];
 
-    CFDataRef iccProfile    = CGColorSpaceCopyICCProfile(colorSpace.cgColorSpace);
-    CFDataRef newIccProfile = CGColorSpaceCopyICCProfile(newColorSpace.cgColorSpace);
+    CFDataRef iccProfile    = NULL;
+    CFDataRef newIccProfile = NULL;
+
+    // CGColorSpaceCopyICCProfile() is deprecated as of macOS 10.13
+    if ( CGColorSpaceCopyICCData ) {
+        iccProfile    = CGColorSpaceCopyICCData(colorSpace.cgColorSpace);
+        newIccProfile = CGColorSpaceCopyICCData(newColorSpace.cgColorSpace);
+    }
+    else {
+        iccProfile    = CGColorSpaceCopyICCProfile(colorSpace.cgColorSpace);
+        newIccProfile = CGColorSpaceCopyICCProfile(newColorSpace.cgColorSpace);
+    }
 
     if ( iccProfile && newIccProfile ) {
         XCTAssertTrue([(__bridge NSData *) iccProfile isEqualToData:(__bridge NSData *)newIccProfile], @"Color spaces not equal");

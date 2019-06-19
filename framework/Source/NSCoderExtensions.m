@@ -78,7 +78,16 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element);
     NSLog(@"Color space encoding is not supported on iOS. Decoding will return a generic RGB color space.");
 #else
     if ( colorSpace ) {
-        CFDataRef iccProfile = CGColorSpaceCopyICCProfile(colorSpace);
+        CFDataRef iccProfile = NULL;
+
+        // CGColorSpaceCopyICCProfile() is deprecated as of macOS 10.13
+        if ( CGColorSpaceCopyICCData ) {
+            iccProfile = CGColorSpaceCopyICCData(colorSpace);
+        }
+        else {
+            iccProfile = CGColorSpaceCopyICCProfile(colorSpace);
+        }
+
         [self encodeObject:(__bridge NSData *)iccProfile forKey:key];
         CFRelease(iccProfile);
     }
@@ -336,7 +345,13 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
     NSData *iccProfile = [self decodeObjectOfClass:[NSData class]
                                             forKey:key];
     if ( iccProfile ) {
-        colorSpace = CGColorSpaceCreateWithICCProfile((__bridge CFDataRef)iccProfile);
+        // CGColorSpaceCreateWithICCProfile() is deprecated as of macOS 10.13
+        if ( CGColorSpaceCreateWithICCData ) {
+            colorSpace = CGColorSpaceCreateWithICCData((__bridge CFDataRef)iccProfile);
+        }
+        else {
+            colorSpace = CGColorSpaceCreateWithICCProfile((__bridge CFDataRef)iccProfile);
+        }
     }
     else {
         NSLog(@"Color space not available for key '%@'. Using generic RGB color space.", key);
