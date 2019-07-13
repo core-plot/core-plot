@@ -2,12 +2,12 @@
 
 @implementation CPTTestCase
 
--(id)archiveRoundTrip:(id)object
+-(nullable id)archiveRoundTrip:(nonnull id)object
 {
     return [self archiveRoundTrip:object toClass:[object class]];
 }
 
--(nullable id)archiveRoundTrip:(nonnull id)object toClass:(Class)archiveClass
+-(nullable id)archiveRoundTrip:(nonnull id)object toClass:(nonnull Class)archiveClass
 {
     const BOOL secure = ![archiveClass isSubclassOfClass:[NSNumberFormatter class]];
 

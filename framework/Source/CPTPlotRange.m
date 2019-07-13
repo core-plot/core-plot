@@ -12,6 +12,9 @@
 @property (nonatomic, readwrite) double locationDouble;
 @property (nonatomic, readwrite) double lengthDouble;
 
+@property (nonatomic, readwrite) BOOL isInfinite;
+@property (nonatomic, readwrite) CPTSign lengthSign;
+
 @property (nonatomic, readwrite) BOOL inValueUpdate;
 
 @end
@@ -121,6 +124,16 @@
  **/
 @dynamic maxLimitDouble;
 
+/** @property BOOL isInfinite
+ *  @brief @YES if the length of the range is infinite.
+ **/
+@synthesize isInfinite;
+
+/** @property CPTSign lengthSign
+ *  @brief The direction (positive or negative) if the length of the range is infinite.
+ **/
+@synthesize lengthSign;
+
 @synthesize inValueUpdate;
 
 #pragma mark -
@@ -156,8 +169,24 @@
     NSParameterAssert(loc);
     NSParameterAssert(len);
 
-    return [self initWithLocationDecimal:loc.decimalValue
-                           lengthDecimal:len.decimalValue];
+    if ((self = [super init])) {
+        locationDecimal = loc.decimalValue;
+        locationDouble  = loc.doubleValue;
+
+        lengthDecimal = len.decimalValue;
+        lengthDouble  = len.doubleValue;
+
+        if ( isnan(lengthDouble)) {
+            isInfinite = NO;
+            lengthSign = CPTSignNone;
+        }
+        else {
+            isInfinite = (BOOL)isinf(lengthDouble);
+            lengthSign = signbit(lengthDouble) ? CPTSignNegative : CPTSignPositive;
+        }
+    }
+
+    return self;
 }
 
 /** @brief Initializes a newly allocated CPTPlotRange object with the provided location and length.
@@ -167,11 +196,8 @@
  **/
 -(nonnull instancetype)initWithLocationDecimal:(NSDecimal)loc lengthDecimal:(NSDecimal)len
 {
-    if ((self = [super init])) {
-        self.locationDecimal = loc;
-        self.lengthDecimal   = len;
-    }
-    return self;
+    return [self initWithLocation:[NSDecimalNumber decimalNumberWithDecimal:loc]
+                           length:[NSDecimalNumber decimalNumberWithDecimal:len]];
 }
 
 /// @name Initialization
@@ -208,7 +234,11 @@
         locationDecimal = newLocation;
 
         if ( !self.inValueUpdate ) {
-            self.locationDouble = [NSDecimalNumber decimalNumberWithDecimal:newLocation].doubleValue;
+            self.inValueUpdate = YES;
+
+            self.locationDouble = CPTDecimalDoubleValue(newLocation);
+
+            self.inValueUpdate = NO;
         }
     }
 }
@@ -219,7 +249,11 @@
         locationDouble = newLocation;
 
         if ( !self.inValueUpdate ) {
-            self.locationDecimal = @(newLocation).decimalValue;
+            self.inValueUpdate = YES;
+
+            self.locationDecimal = CPTDecimalFromDouble(newLocation);
+
+            self.inValueUpdate = NO;
         }
     }
 }
@@ -235,7 +269,11 @@
         lengthDecimal = newLength;
 
         if ( !self.inValueUpdate ) {
-            self.lengthDouble = [NSDecimalNumber decimalNumberWithDecimal:newLength].doubleValue;
+            self.inValueUpdate = YES;
+
+            self.lengthDouble = CPTDecimalDoubleValue(newLength);
+
+            self.inValueUpdate = NO;
         }
     }
 }
@@ -245,8 +283,21 @@
     if ( lengthDouble != newLength ) {
         lengthDouble = newLength;
 
+        if ( isnan(newLength)) {
+            self.isInfinite = NO;
+            self.lengthSign = CPTSignNone;
+        }
+        else {
+            self.isInfinite = (BOOL)isinf(newLength);
+            self.lengthSign = signbit(newLength) ? CPTSignNegative : CPTSignPositive;
+        }
+
         if ( !self.inValueUpdate ) {
-            self.lengthDecimal = @(newLength).decimalValue;
+            self.inValueUpdate = YES;
+
+            self.lengthDecimal = CPTDecimalFromDouble(newLength);
+
+            self.inValueUpdate = NO;
         }
     }
 }
@@ -276,7 +327,10 @@
     NSDecimal loc = self.locationDecimal;
     NSDecimal len = self.lengthDecimal;
 
-    if ( CPTDecimalLessThan(len, CPTDecimalFromInteger(0))) {
+    if ( NSDecimalIsNotANumber(&len)) {
+        return loc;
+    }
+    else if ( CPTDecimalLessThan(len, CPTDecimalFromInteger(0))) {
         return CPTDecimalAdd(loc, len);
     }
     else {
@@ -322,7 +376,10 @@
     NSDecimal loc = self.locationDecimal;
     NSDecimal len = self.lengthDecimal;
 
-    if ( CPTDecimalGreaterThan(len, CPTDecimalFromInteger(0))) {
+    if ( NSDecimalIsNotANumber(&len)) {
+        return loc;
+    }
+    else if ( CPTDecimalGreaterThan(len, CPTDecimalFromInteger(0))) {
         return CPTDecimalAdd(loc, len);
     }
     else {
@@ -355,10 +412,15 @@
     CPTPlotRange *newRange = [[CPTPlotRange allocWithZone:zone] init];
 
     if ( newRange ) {
+        newRange.inValueUpdate = YES;
+
         newRange.locationDecimal = self.locationDecimal;
-        newRange.lengthDecimal   = self.lengthDecimal;
         newRange.locationDouble  = self.locationDouble;
-        newRange.lengthDouble    = self.lengthDouble;
+
+        newRange.lengthDecimal = self.lengthDecimal;
+        newRange.lengthDouble  = self.lengthDouble;
+
+        newRange.inValueUpdate = NO;
     }
     return newRange;
 }
@@ -375,10 +437,15 @@
     CPTPlotRange *newRange = [[CPTMutablePlotRange allocWithZone:zone] init];
 
     if ( newRange ) {
+        newRange.inValueUpdate = YES;
+
         newRange.locationDecimal = self.locationDecimal;
-        newRange.lengthDecimal   = self.lengthDecimal;
         newRange.locationDouble  = self.locationDouble;
-        newRange.lengthDouble    = self.lengthDouble;
+
+        newRange.lengthDecimal = self.lengthDecimal;
+        newRange.lengthDouble  = self.lengthDouble;
+
+        newRange.inValueUpdate = NO;
     }
     return newRange;
 }
@@ -394,6 +461,8 @@
 {
     [encoder encodeDecimal:self.locationDecimal forKey:@"CPTPlotRange.location"];
     [encoder encodeDecimal:self.lengthDecimal forKey:@"CPTPlotRange.length"];
+    [encoder encodeBool:self.isInfinite forKey:@"CPTPlotRange.isInfinite"];
+    [encoder encodeInteger:self.lengthSign forKey:@"CPTPlotRange.lengthSign"];
 }
 
 /// @endcond
@@ -407,6 +476,9 @@
     if ((self = [super init])) {
         self.locationDecimal = [decoder decodeDecimalForKey:@"CPTPlotRange.location"];
         self.lengthDecimal   = [decoder decodeDecimalForKey:@"CPTPlotRange.length"];
+
+        isInfinite = [decoder decodeBoolForKey:@"CPTPlotRange.isInfinite"];
+        lengthSign = [decoder decodeIntegerForKey:@"CPTPlotRange.lengthSign"];
     }
 
     return self;
@@ -433,7 +505,27 @@
  **/
 -(BOOL)contains:(NSDecimal)number
 {
-    return CPTDecimalGreaterThanOrEqualTo(number, self.minLimitDecimal) && CPTDecimalLessThanOrEqualTo(number, self.maxLimitDecimal);
+    BOOL result = NO;
+
+    if ( self.isInfinite ) {
+        switch ( self.lengthSign ) {
+            case CPTSignPositive:
+                result = CPTDecimalGreaterThanOrEqualTo(number, self.minLimitDecimal);
+                break;
+
+            case CPTSignNegative:
+                result = CPTDecimalLessThanOrEqualTo(number, self.maxLimitDecimal);
+                break;
+
+            default:
+                break;
+        }
+    }
+    else {
+        result = CPTDecimalGreaterThanOrEqualTo(number, self.minLimitDecimal) && CPTDecimalLessThanOrEqualTo(number, self.maxLimitDecimal);
+    }
+
+    return result;
 }
 
 /** @brief Determines whether a given number is inside the range.
@@ -452,12 +544,10 @@
 -(BOOL)containsNumber:(nullable NSNumber *)number
 {
     if ( [number isKindOfClass:[NSDecimalNumber class]] ) {
-        NSDecimal numericValue = number.decimalValue;
-        return CPTDecimalGreaterThanOrEqualTo(numericValue, self.minLimitDecimal) && CPTDecimalLessThanOrEqualTo(numericValue, self.maxLimitDecimal);
+        return [self contains:number.decimalValue];
     }
     else {
-        double numericValue = number.doubleValue;
-        return (numericValue >= self.minLimitDouble) && (numericValue <= self.maxLimitDouble);
+        return [self containsDouble:number.doubleValue];
     }
 }
 
@@ -468,7 +558,10 @@
 -(BOOL)isEqualToRange:(nullable CPTPlotRange *)otherRange
 {
     if ( otherRange ) {
-        return CPTDecimalEquals(self.locationDecimal, otherRange.locationDecimal) && CPTDecimalEquals(self.lengthDecimal, otherRange.lengthDecimal);
+        return CPTDecimalEquals(self.locationDecimal, otherRange.locationDecimal) &&
+               CPTDecimalEquals(self.lengthDecimal, otherRange.lengthDecimal) &&
+               (self.isInfinite == otherRange.isInfinite) &&
+               (self.lengthSign == otherRange.lengthSign);
     }
     else {
         return NO;
@@ -481,12 +574,31 @@
  **/
 -(BOOL)containsRange:(nullable CPTPlotRange *)otherRange
 {
+    BOOL result = NO;
+
     if ( otherRange ) {
-        return CPTDecimalGreaterThanOrEqualTo(otherRange.minLimitDecimal, self.minLimitDecimal) && CPTDecimalLessThanOrEqualTo(otherRange.maxLimitDecimal, self.maxLimitDecimal);
+        if ( self.isInfinite ) {
+            if ( !otherRange.isInfinite || (otherRange.lengthSign == self.lengthSign)) {
+                switch ( self.lengthSign ) {
+                    case CPTSignPositive:
+                        result = CPTDecimalGreaterThanOrEqualTo(otherRange.minLimitDecimal, self.minLimitDecimal);
+                        break;
+
+                    case CPTSignNegative:
+                        result = CPTDecimalLessThanOrEqualTo(otherRange.maxLimitDecimal, self.maxLimitDecimal);
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }
+        else {
+            result = CPTDecimalGreaterThanOrEqualTo(otherRange.minLimitDecimal, self.minLimitDecimal) && CPTDecimalLessThanOrEqualTo(otherRange.maxLimitDecimal, self.maxLimitDecimal);
+        }
     }
-    else {
-        return NO;
-    }
+
+    return result;
 }
 
 /** @brief Determines whether a given range intersects the receiver.
@@ -495,19 +607,58 @@
  **/
 -(BOOL)intersectsRange:(nullable CPTPlotRange *)otherRange
 {
-    if ( !otherRange ) {
-        return NO;
+    BOOL result = NO;
+
+    if ( otherRange ) {
+        if ( self.isInfinite ) {
+            if ( otherRange.isInfinite ) {
+                result = (otherRange.lengthSign == self.lengthSign);
+            }
+            if ( !result ) {
+                switch ( self.lengthSign ) {
+                    case CPTSignPositive:
+                        result = CPTDecimalGreaterThanOrEqualTo(otherRange.maxLimitDecimal, self.minLimitDecimal);
+                        break;
+
+                    case CPTSignNegative:
+                        result = CPTDecimalLessThanOrEqualTo(otherRange.minLimitDecimal, self.maxLimitDecimal);
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }
+        else {
+            if ( otherRange.isInfinite ) {
+                switch ( otherRange.lengthSign ) {
+                    case CPTSignPositive:
+                        result = CPTDecimalLessThanOrEqualTo(otherRange.minLimitDecimal, self.maxLimitDecimal);
+                        break;
+
+                    case CPTSignNegative:
+                        result = CPTDecimalLessThanOrEqualTo(otherRange.maxLimitDecimal, self.minLimitDecimal);
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            else {
+                NSDecimal min1    = self.minLimitDecimal;
+                NSDecimal min2    = otherRange.minLimitDecimal;
+                NSDecimal minimum = CPTDecimalMax(min1, min2);
+
+                NSDecimal max1    = self.maxLimitDecimal;
+                NSDecimal max2    = otherRange.maxLimitDecimal;
+                NSDecimal maximum = CPTDecimalMin(max1, max2);
+
+                result = CPTDecimalGreaterThanOrEqualTo(maximum, minimum);
+            }
+        }
     }
 
-    NSDecimal min1    = self.minLimitDecimal;
-    NSDecimal min2    = otherRange.minLimitDecimal;
-    NSDecimal minimum = CPTDecimalGreaterThan(min1, min2) ? min1 : min2;
-
-    NSDecimal max1    = self.maxLimitDecimal;
-    NSDecimal max2    = otherRange.maxLimitDecimal;
-    NSDecimal maximum = CPTDecimalLessThan(max1, max2) ? max1 : max2;
-
-    return CPTDecimalGreaterThanOrEqualTo(maximum, minimum);
+    return result;
 }
 
 /** @brief Compares a number to the range, determining if it is in the range, or above or below it.
@@ -535,7 +686,10 @@
 {
     CPTPlotRangeComparisonResult result;
 
-    if ( [self contains:number] ) {
+    if ( NSDecimalIsNotANumber(&number)) {
+        result = CPTPlotRangeComparisonResultNumberUndefined;
+    }
+    else if ( [self contains:number] ) {
         result = CPTPlotRangeComparisonResultNumberInRange;
     }
     else if ( CPTDecimalLessThan(number, self.minLimitDecimal)) {
@@ -555,7 +709,10 @@
 {
     CPTPlotRangeComparisonResult result;
 
-    if ( number < self.minLimitDouble ) {
+    if ( isnan(number)) {
+        result = CPTPlotRangeComparisonResultNumberUndefined;
+    }
+    else if ( number < self.minLimitDouble ) {
         result = CPTPlotRangeComparisonResultNumberBelowRange;
     }
     else if ( number > self.maxLimitDouble ) {
@@ -608,7 +765,7 @@
     return [NSString stringWithFormat:@"<%@ {%@, %@}>",
             super.description,
             NSDecimalString(&myLocation, [NSLocale currentLocale]),
-            NSDecimalString(&myLength, [NSLocale currentLocale])];
+            self.isInfinite ? (self.lengthSign == CPTSignPositive ? @"+INF" : @"-INF") : NSDecimalString(&myLength, [NSLocale currentLocale])];
 }
 
 /// @endcond
@@ -625,7 +782,7 @@
 
     return [NSString stringWithFormat:@"Location: %@\nLength:   %@",
             NSDecimalString(&myLocation, [NSLocale currentLocale]),
-            NSDecimalString(&myLength, [NSLocale currentLocale])];
+            self.isInfinite ? (self.lengthSign == CPTSignPositive ? @"+INF" : @"-INF") : NSDecimalString(&myLength, [NSLocale currentLocale])];
 }
 
 /// @endcond

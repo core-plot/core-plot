@@ -73,24 +73,76 @@
 
     NSDecimal min1    = self.minLimitDecimal;
     NSDecimal min2    = other.minLimitDecimal;
-    NSDecimal minimum = CPTDecimalLessThan(min1, min2) ? min1 : min2;
+    NSDecimal minimum = CPTDecimalMin(min1, min2);
 
     NSDecimal max1    = self.maxLimitDecimal;
     NSDecimal max2    = other.maxLimitDecimal;
-    NSDecimal maximum = CPTDecimalGreaterThan(max1, max2) ? max1 : max2;
+    NSDecimal maximum = CPTDecimalMax(max1, max2);
 
-    NSDecimal newLocation, newLength;
-    if ( CPTDecimalGreaterThanOrEqualTo(self.lengthDecimal, CPTDecimalFromInteger(0))) {
-        newLocation = minimum;
-        newLength   = CPTDecimalSubtract(maximum, minimum);
+    if ( self.isInfinite && other.isInfinite ) {
+        if ( self.lengthSign == other.lengthSign ) {
+            switch ( self.lengthSign ) {
+                case CPTSignPositive:
+                    self.locationDecimal = minimum;
+                    break;
+
+                case CPTSignNegative:
+                    self.locationDecimal = maximum;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        else {
+            self.locationDouble = -HUGE_VAL;
+            self.lengthDouble   = HUGE_VAL;
+        }
+    }
+    else if ( self.isInfinite && !other.isInfinite ) {
+        switch ( self.lengthSign ) {
+            case CPTSignPositive:
+                self.locationDecimal = minimum;
+                break;
+
+            case CPTSignNegative:
+                self.locationDecimal = maximum;
+                break;
+
+            default:
+                break;
+        }
+    }
+    else if ( !self.isInfinite && other.isInfinite ) {
+        switch ( other.lengthSign ) {
+            case CPTSignPositive:
+                self.locationDecimal = minimum;
+                self.lengthDouble    = HUGE_VAL;
+                break;
+
+            case CPTSignNegative:
+                self.locationDecimal = maximum;
+                self.lengthDouble    = -HUGE_VAL;
+                break;
+
+            default:
+                break;
+        }
+    }
+    else if ( NSDecimalIsNotANumber(&minimum) || NSDecimalIsNotANumber(&maximum)) {
+        self.locationDecimal = CPTDecimalNaN();
+        self.lengthDecimal   = CPTDecimalNaN();
     }
     else {
-        newLocation = maximum;
-        newLength   = CPTDecimalSubtract(minimum, maximum);
+        if ( CPTDecimalGreaterThanOrEqualTo(self.lengthDecimal, CPTDecimalFromInteger(0))) {
+            self.locationDecimal = minimum;
+            self.lengthDecimal   = CPTDecimalSubtract(maximum, minimum);
+        }
+        else {
+            self.locationDecimal = maximum;
+            self.lengthDecimal   = CPTDecimalSubtract(minimum, maximum);
+        }
     }
-
-    self.locationDecimal = newLocation;
-    self.lengthDecimal   = newLength;
 }
 
 /** @brief Sets the messaged object to the intersection with another range. The sign of @ref length is unchanged.
@@ -104,28 +156,75 @@
 
     NSDecimal min1    = self.minLimitDecimal;
     NSDecimal min2    = other.minLimitDecimal;
-    NSDecimal minimum = CPTDecimalGreaterThan(min1, min2) ? min1 : min2;
+    NSDecimal minimum = CPTDecimalMax(min1, min2);
 
     NSDecimal max1    = self.maxLimitDecimal;
     NSDecimal max2    = other.maxLimitDecimal;
-    NSDecimal maximum = CPTDecimalLessThan(max1, max2) ? max1 : max2;
+    NSDecimal maximum = CPTDecimalMin(max1, max2);
 
-    if ( CPTDecimalGreaterThanOrEqualTo(maximum, minimum)) {
-        NSDecimal newLocation, newLength;
-        if ( CPTDecimalGreaterThanOrEqualTo(self.lengthDecimal, CPTDecimalFromInteger(0))) {
-            newLocation = minimum;
-            newLength   = CPTDecimalSubtract(maximum, minimum);
-        }
-        else {
-            newLocation = maximum;
-            newLength   = CPTDecimalSubtract(minimum, maximum);
-        }
+    if ( ![self intersectsRange:other] ) {
+        self.locationDecimal = CPTDecimalNaN();
+        self.lengthDecimal   = CPTDecimalNaN();
+    }
+    else if ( self.isInfinite && other.isInfinite ) {
+        switch ( self.lengthSign ) {
+            case CPTSignPositive:
+                self.locationDecimal = minimum;
+                break;
 
-        self.locationDecimal = newLocation;
-        self.lengthDecimal   = newLength;
+            case CPTSignNegative:
+                self.locationDecimal = maximum;
+                break;
+
+            default:
+                break;
+        }
+    }
+    else if ( self.isInfinite && !other.isInfinite ) {
+        switch ( self.lengthSign ) {
+            case CPTSignPositive:
+                self.locationDecimal = minimum;
+                self.lengthDecimal   = CPTDecimalSubtract(other.maxLimitDecimal, minimum);
+                break;
+
+            case CPTSignNegative:
+                self.locationDecimal = maximum;
+                self.lengthDecimal   = CPTDecimalSubtract(other.minLimitDecimal, maximum);
+                break;
+
+            default:
+                break;
+        }
+    }
+    else if ( !self.isInfinite && other.isInfinite ) {
+        switch ( other.lengthSign ) {
+            case CPTSignPositive:
+                self.locationDecimal = minimum;
+                self.lengthDecimal   = CPTDecimalSubtract(self.maxLimitDecimal, minimum);
+                break;
+
+            case CPTSignNegative:
+                self.locationDecimal = maximum;
+                self.lengthDecimal   = CPTDecimalSubtract(self.minLimitDecimal, maximum);
+                break;
+
+            default:
+                break;
+        }
+    }
+    else if ( NSDecimalIsNotANumber(&minimum) || NSDecimalIsNotANumber(&maximum)) {
+        self.locationDecimal = CPTDecimalNaN();
+        self.lengthDecimal   = CPTDecimalNaN();
     }
     else {
-        self.lengthDecimal = CPTDecimalFromInteger(0);
+        if ( CPTDecimalGreaterThanOrEqualTo(self.lengthDecimal, CPTDecimalFromInteger(0))) {
+            self.locationDecimal = minimum;
+            self.lengthDecimal   = CPTDecimalSubtract(maximum, minimum);
+        }
+        else {
+            self.locationDecimal = maximum;
+            self.lengthDecimal   = CPTDecimalSubtract(minimum, maximum);
+        }
     }
 }
 
@@ -201,8 +300,10 @@
 
 /// @cond
 
--(void)setLocation:(NSNumber *)newLocation
+-(void)setLocation:(nonnull NSNumber *)newLocation
 {
+    NSParameterAssert(newLocation);
+
     self.inValueUpdate = YES;
 
     self.locationDecimal = newLocation.decimalValue;
@@ -211,8 +312,10 @@
     self.inValueUpdate = NO;
 }
 
--(void)setLength:(NSNumber *)newLength
+-(void)setLength:(nonnull NSNumber *)newLength
 {
+    NSParameterAssert(newLength);
+
     self.inValueUpdate = YES;
 
     self.lengthDecimal = newLength.decimalValue;

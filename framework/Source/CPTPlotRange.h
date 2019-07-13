@@ -10,7 +10,8 @@
 typedef NS_CLOSED_ENUM (NSInteger, CPTPlotRangeComparisonResult) {
     CPTPlotRangeComparisonResultNumberBelowRange, ///< Number is below the range.
     CPTPlotRangeComparisonResultNumberInRange,    ///< Number is in the range.
-    CPTPlotRangeComparisonResultNumberAboveRange  ///< Number is above the range.
+    CPTPlotRangeComparisonResultNumberAboveRange, ///< Number is above the range.
+    CPTPlotRangeComparisonResultNumberUndefined   ///< Number is undefined (e.g., @NAN).
 };
 
 /**
@@ -46,6 +47,9 @@ typedef NSMutableArray<CPTPlotRange *> CPTMutablePlotRangeArray;
 @property (nonatomic, readonly) double minLimitDouble;
 @property (nonatomic, readonly) double midPointDouble;
 @property (nonatomic, readonly) double maxLimitDouble;
+
+@property (nonatomic, readonly) BOOL isInfinite;
+@property (nonatomic, readonly) CPTSign lengthSign;
 /// @}
 
 /// @name Factory Methods
@@ -56,8 +60,8 @@ typedef NSMutableArray<CPTPlotRange *> CPTMutablePlotRangeArray;
 
 /// @name Initialization
 /// @{
--(nonnull instancetype)initWithLocation:(nonnull NSNumber *)loc length:(nonnull NSNumber *)len;
--(nonnull instancetype)initWithLocationDecimal:(NSDecimal)loc lengthDecimal:(NSDecimal)len NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype)initWithLocation:(nonnull NSNumber *)loc length:(nonnull NSNumber *)len NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype)initWithLocationDecimal:(NSDecimal)loc lengthDecimal:(NSDecimal)len;
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
 /// @}
 

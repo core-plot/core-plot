@@ -123,6 +123,91 @@
 }
 
 #pragma mark -
+#pragma mark Decimal utilities
+
+-(void)testDecimalMax
+{
+    NSDecimal zero = CPTDecimalFromInteger(0);
+    NSDecimal one  = CPTDecimalFromInteger(1);
+    NSDecimal dNAN = CPTDecimalNaN();
+
+    NSDecimal testValue;
+    NSString *errMessage;
+
+    testValue  = CPTDecimalMin(zero, one);
+    errMessage = [NSString stringWithFormat:@"test min(0, 1), expected %@", NSDecimalString(&zero, nil)];
+    XCTAssertTrue(NSDecimalCompare(&testValue, &zero) == NSOrderedSame, @"%@", errMessage);
+
+    testValue  = CPTDecimalMin(one, zero);
+    errMessage = [NSString stringWithFormat:@"test min(1, 0), expected %@", NSDecimalString(&zero, nil)];
+    XCTAssertTrue(NSDecimalCompare(&testValue, &zero) == NSOrderedSame, @"%@", errMessage);
+
+    testValue  = CPTDecimalMin(one, dNAN);
+    errMessage = [NSString stringWithFormat:@"test min(1, NAN), expected %@", NSDecimalString(&one, nil)];
+    XCTAssertTrue(NSDecimalCompare(&testValue, &one) == NSOrderedSame, @"%@", errMessage);
+
+    testValue  = CPTDecimalMin(dNAN, one);
+    errMessage = [NSString stringWithFormat:@"test min(NAN, 1), expected %@", NSDecimalString(&one, nil)];
+    XCTAssertTrue(NSDecimalCompare(&testValue, &one) == NSOrderedSame, @"%@", errMessage);
+
+    testValue  = CPTDecimalMin(dNAN, dNAN);
+    errMessage = [NSString stringWithFormat:@"test min(NAN, NAN), expected %@", NSDecimalString(&dNAN, nil)];
+    XCTAssertTrue(NSDecimalCompare(&testValue, &dNAN) == NSOrderedSame, @"%@", errMessage);
+}
+
+-(void)testDecimalMin
+{
+    NSDecimal zero = CPTDecimalFromInteger(0);
+    NSDecimal one  = CPTDecimalFromInteger(1);
+    NSDecimal dNAN = CPTDecimalNaN();
+
+    NSDecimal testValue;
+    NSString *errMessage;
+
+    testValue  = CPTDecimalMax(zero, one);
+    errMessage = [NSString stringWithFormat:@"test min(0, 1), expected %@", NSDecimalString(&one, nil)];
+    XCTAssertTrue(NSDecimalCompare(&testValue, &one) == NSOrderedSame, @"%@", errMessage);
+
+    testValue  = CPTDecimalMax(one, zero);
+    errMessage = [NSString stringWithFormat:@"test min(1, 0), expected %@", NSDecimalString(&one, nil)];
+    XCTAssertTrue(NSDecimalCompare(&testValue, &one) == NSOrderedSame, @"%@", errMessage);
+
+    testValue  = CPTDecimalMax(one, dNAN);
+    errMessage = [NSString stringWithFormat:@"test min(1, NAN), expected %@", NSDecimalString(&one, nil)];
+    XCTAssertTrue(NSDecimalCompare(&testValue, &one) == NSOrderedSame, @"%@", errMessage);
+
+    testValue  = CPTDecimalMax(dNAN, one);
+    errMessage = [NSString stringWithFormat:@"test min(NAN, 1), expected %@", NSDecimalString(&one, nil)];
+    XCTAssertTrue(NSDecimalCompare(&testValue, &one) == NSOrderedSame, @"%@", errMessage);
+
+    testValue  = CPTDecimalMin(dNAN, dNAN);
+    errMessage = [NSString stringWithFormat:@"test min(NAN, NAN), expected %@", NSDecimalString(&dNAN, nil)];
+    XCTAssertTrue(NSDecimalCompare(&testValue, &dNAN) == NSOrderedSame, @"%@", errMessage);
+}
+
+-(void)testDecimalAbs
+{
+    NSDecimal zero        = CPTDecimalFromInteger(0);
+    NSDecimal one         = CPTDecimalFromInteger(1);
+    NSDecimal negativeOne = CPTDecimalFromInteger(-1);
+
+    NSDecimal testValue;
+    NSString *errMessage;
+
+    testValue  = CPTDecimalAbs(one);
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil)];
+    XCTAssertTrue(NSDecimalCompare(&testValue, &one) == NSOrderedSame, @"%@", errMessage);
+
+    testValue  = CPTDecimalAbs(zero);
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&zero, nil)];
+    XCTAssertTrue(NSDecimalCompare(&testValue, &zero) == NSOrderedSame, @"%@", errMessage);
+
+    testValue  = CPTDecimalAbs(negativeOne);
+    errMessage = [NSString stringWithFormat:@"test value was %@, expected %@", NSDecimalString(&testValue, nil), NSDecimalString(&one, nil)];
+    XCTAssertTrue(NSDecimalCompare(&testValue, &one) == NSOrderedSame, @"%@", errMessage);
+}
+
+#pragma mark -
 #pragma mark NSDecimalNumber tests
 
 // Fix issues with incorrect values when converting NSDecimalNumber to non-double values (due to bugs in NSDecimalNumber, see radar #32520109)

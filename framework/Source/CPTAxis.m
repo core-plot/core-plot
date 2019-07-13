@@ -1064,7 +1064,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
     double length         = fabs(range.lengthDouble);
 
     // Filter troublesome values and return empty sets
-    if ( length != 0.0 ) {
+    if ((length != 0.0) && !isinf(length)) {
         switch ( scaleType ) {
             case CPTScaleTypeLinear:
             {

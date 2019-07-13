@@ -523,7 +523,7 @@ NSDecimal CPTDecimalFromUnsignedInteger(NSUInteger anInt)
  **/
 NSDecimal CPTDecimalFromFloat(float aFloat)
 {
-    if ( isnan(aFloat)) {
+    if ( isnan(aFloat) || isinf(aFloat)) {
         return CPTDecimalNaN();
     }
     else {
@@ -541,7 +541,7 @@ NSDecimal CPTDecimalFromFloat(float aFloat)
  **/
 NSDecimal CPTDecimalFromDouble(double aDouble)
 {
-    if ( isnan(aDouble)) {
+    if ( isnan(aDouble) || isinf(aDouble)) {
         return CPTDecimalNaN();
     }
     else {
@@ -559,7 +559,7 @@ NSDecimal CPTDecimalFromDouble(double aDouble)
  **/
 NSDecimal CPTDecimalFromCGFloat(CGFloat aCGFloat)
 {
-    if ( isnan(aCGFloat)) {
+    if ( isnan(aCGFloat) || isinf(aCGFloat)) {
         return CPTDecimalNaN();
     }
     else {
@@ -743,7 +743,13 @@ NSDecimal CPTDecimalNaN(void)
  **/
 NSDecimal CPTDecimalMin(NSDecimal leftOperand, NSDecimal rightOperand)
 {
-    if ( NSDecimalCompare(&leftOperand, &rightOperand) == NSOrderedAscending ) {
+    if ( NSDecimalIsNotANumber(&leftOperand)) {
+        return rightOperand;
+    }
+    else if ( NSDecimalIsNotANumber(&rightOperand)) {
+        return leftOperand;
+    }
+    else if ( NSDecimalCompare(&leftOperand, &rightOperand) == NSOrderedAscending ) {
         return leftOperand;
     }
     else {
@@ -759,7 +765,13 @@ NSDecimal CPTDecimalMin(NSDecimal leftOperand, NSDecimal rightOperand)
  **/
 NSDecimal CPTDecimalMax(NSDecimal leftOperand, NSDecimal rightOperand)
 {
-    if ( NSDecimalCompare(&leftOperand, &rightOperand) == NSOrderedDescending ) {
+    if ( NSDecimalIsNotANumber(&leftOperand)) {
+        return rightOperand;
+    }
+    else if ( NSDecimalIsNotANumber(&rightOperand)) {
+        return leftOperand;
+    }
+    else if ( NSDecimalCompare(&leftOperand, &rightOperand) == NSOrderedDescending ) {
         return leftOperand;
     }
     else {
