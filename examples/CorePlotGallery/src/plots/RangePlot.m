@@ -170,6 +170,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     newGraph.legend.borderLineStyle    = x.axisLineStyle;
     newGraph.legend.cornerRadius       = 5.0;
     newGraph.legend.swatchCornerRadius = 3.0;
+    newGraph.legend.swatchLayout       = CPTLegendSwatchLayoutBottom;
     newGraph.legendAnchor              = CPTRectAnchorTop;
     newGraph.legendDisplacement        = CGPointMake(0.0, self.titleSize * CPTFloat(-2.0) - CPTFloat(12.0));
 }

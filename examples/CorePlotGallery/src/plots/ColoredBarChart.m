@@ -131,9 +131,10 @@
     theLegend.textStyle    = whiteTextStyle;
     theLegend.numberOfRows = 1;
 
-    graph.legend             = theLegend;
-    graph.legendAnchor       = CPTRectAnchorTop;
-    graph.legendDisplacement = CGPointMake(0.0, self.titleSize * CPTFloat(-2.625));
+    graph.legend              = theLegend;
+    graph.legend.swatchLayout = CPTLegendSwatchLayoutTop;
+    graph.legendAnchor        = CPTRectAnchorTop;
+    graph.legendDisplacement  = CGPointMake(0.0, self.titleSize * CPTFloat(-2.625));
 }
 
 #pragma mark -

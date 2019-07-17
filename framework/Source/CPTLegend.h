@@ -37,8 +37,10 @@ extern CPTLegendNotification __nonnull const CPTLegendNeedsReloadEntriesForPlotN
  *  @brief Enumeration of legend layout options.
  **/
 typedef NS_ENUM (NSInteger, CPTLegendSwatchLayout) {
-    CPTLegendSwatchLayoutLeft, ///< Lay out the swatch to the left side of the title.
-    CPTLegendSwatchLayoutRight ///< Lay out the swatch to the right side of the title.
+    CPTLegendSwatchLayoutLeft,  ///< Lay out the swatch to the left side of the title.
+    CPTLegendSwatchLayoutRight, ///< Lay out the swatch to the right side of the title.
+    CPTLegendSwatchLayoutTop,   ///< Lay out the swatch above the title.
+    CPTLegendSwatchLayoutBottom ///< Lay out the swatch below the title.
 };
 
 #pragma mark -

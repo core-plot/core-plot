@@ -208,7 +208,7 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
 @synthesize titleOffset;
 
 /** @property CPTLegendSwatchLayout swatchLayout
- *  @brief Draw the legend swatch to the left or right side of the title. Default is #CPTLegendSwatchLayoutLeft.
+ *  @brief Where to draw the legend swatch relative to the title. Default is #CPTLegendSwatchLayoutLeft.
  **/
 @synthesize swatchLayout;
 
@@ -552,6 +552,20 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
         return;
     }
 
+    BOOL isHorizontalLayout;
+
+    switch ( self.swatchLayout ) {
+        case CPTLegendSwatchLayoutLeft:
+        case CPTLegendSwatchLayoutRight:
+            isHorizontalLayout = YES;
+            break;
+
+        case CPTLegendSwatchLayoutTop:
+        case CPTLegendSwatchLayoutBottom:
+            isHorizontalLayout = NO;
+            break;
+    }
+
     // calculate column positions
     CPTNumberArray *computedColumnWidths = self.columnWidthsThatFit;
     NSUInteger columnCount               = computedColumnWidths.count;
@@ -572,7 +586,7 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
         CGFloat width      = [colWidth cgFloatValue];
         actualColumnWidths[col] = width;
         if ( col < columnCount - 1 ) {
-            columnPositions[col + 1] = columnPositions[col] + padLeft + width + padRight + theOffset + theSwatchSize.width + theColumnMargin;
+            columnPositions[col + 1] = columnPositions[col] + padLeft + width + padRight + (isHorizontalLayout ? theOffset + theSwatchSize.width : 0.0) + theColumnMargin;
         }
     }
 
@@ -591,7 +605,7 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
         CGFloat height      = [rowHeight cgFloatValue];
         actualRowHeights[row] = height;
         if ( row < rowCount - 1 ) {
-            rowPositions[row] = rowPositions[row + 1] + padBottom + lastRowHeight + padTop + theRowMargin;
+            rowPositions[row] = rowPositions[row + 1] + padBottom + lastRowHeight + padTop + (isHorizontalLayout ? 0.0 : theOffset + theSwatchSize.height) + theRowMargin;
         }
         lastRowHeight = height;
     }
@@ -620,10 +634,21 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
 
             CGFloat left        = columnPositions[col];
             CGFloat rowPosition = rowPositions[row];
-            CGRect entryRect    = CPTRectMake(left,
-                                              rowPosition,
-                                              padLeft + theSwatchSize.width + theOffset + actualColumnWidths[col] + CPTFloat(1.0) + padRight,
-                                              padBottom + actualRowHeights[row] + padTop);
+
+            CGRect entryRect;
+
+            if ( isHorizontalLayout ) {
+                entryRect = CPTRectMake(left,
+                                        rowPosition,
+                                        padLeft + theSwatchSize.width + theOffset + actualColumnWidths[col] + CPTFloat(1.0) + padRight,
+                                        padBottom + actualRowHeights[row] + padTop);
+            }
+            else {
+                entryRect = CPTRectMake(left,
+                                        rowPosition,
+                                        padLeft + MAX(theSwatchSize.width, actualColumnWidths[col]) + CPTFloat(1.0) + padRight,
+                                        padBottom + theSwatchSize.height + theOffset + actualRowHeights[row] + padTop);
+            }
 
             // draw background
             CPTFill *theFill = nil;
@@ -654,24 +679,46 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
             }
 
             // lay out swatch and title
-            CGFloat swatchLeft;
-            CGFloat titleLeft;
+            CGFloat swatchLeft, swatchBottom;
+            CGFloat titleLeft, titleBottom;
 
             switch ( self.swatchLayout ) {
                 case CPTLegendSwatchLayoutLeft:
-                    swatchLeft = left + padLeft;
-                    titleLeft  = swatchLeft + theSwatchSize.width + theOffset;
+                    swatchLeft   = CGRectGetMinX(entryRect) + padLeft;
+                    swatchBottom = CGRectGetMinY(entryRect) + (entryRect.size.height - theSwatchSize.height) * CPTFloat(0.5);
+
+                    titleLeft   = swatchLeft + theSwatchSize.width + theOffset;
+                    titleBottom = CGRectGetMinY(entryRect) + padBottom;
                     break;
 
                 case CPTLegendSwatchLayoutRight:
-                    swatchLeft = CGRectGetMaxX(entryRect) - padRight - theSwatchSize.width;
-                    titleLeft  = left + padLeft;
+                    swatchLeft   = CGRectGetMaxX(entryRect) - padRight - theSwatchSize.width;
+                    swatchBottom = CGRectGetMinY(entryRect) + (entryRect.size.height - theSwatchSize.height) * CPTFloat(0.5);
+
+                    titleLeft   = CGRectGetMinX(entryRect) + padLeft;
+                    titleBottom = CGRectGetMinY(entryRect) + padBottom;
+                    break;
+
+                case CPTLegendSwatchLayoutTop:
+                    swatchLeft   = CGRectGetMidX(entryRect) - theSwatchSize.width * CPTFloat(0.5);
+                    swatchBottom = CGRectGetMaxY(entryRect) - padTop - theSwatchSize.height;
+
+                    titleLeft   = CGRectGetMidX(entryRect) - actualColumnWidths[col] * CPTFloat(0.5);
+                    titleBottom = CGRectGetMinY(entryRect) + padBottom;
+                    break;
+
+                case CPTLegendSwatchLayoutBottom:
+                    swatchLeft   = CGRectGetMidX(entryRect) - theSwatchSize.width * CPTFloat(0.5);
+                    swatchBottom = CGRectGetMinY(entryRect) + padBottom;
+
+                    titleLeft   = CGRectGetMidX(entryRect) - actualColumnWidths[col] * CPTFloat(0.5);
+                    titleBottom = swatchBottom + theOffset + theSwatchSize.height;
                     break;
             }
 
             // draw swatch
             CGRect swatchRect = CPTRectMake(swatchLeft,
-                                            rowPosition + (entryRect.size.height - theSwatchSize.height) * CPTFloat(0.5),
+                                            swatchBottom,
                                             theSwatchSize.width,
                                             theSwatchSize.height);
 
@@ -691,7 +738,12 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
             }
 
             // draw title
-            [legendEntry drawTitleInRect:CPTAlignRectToUserSpace(context, CPTRectMake(titleLeft, rowPosition + padBottom, actualColumnWidths[col] + CPTFloat(1.0), actualRowHeights[row]))
+            CGRect titleRect = CPTRectMake(titleLeft,
+                                           titleBottom,
+                                           actualColumnWidths[col] + CPTFloat(1.0),
+                                           actualRowHeights[row]);
+
+            [legendEntry drawTitleInRect:CPTAlignRectToUserSpace(context, titleRect)
                                inContext:context
                                    scale:self.contentsScale];
         }
@@ -755,6 +807,20 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
         return;
     }
 
+    BOOL isHorizontalLayout;
+
+    switch ( self.swatchLayout ) {
+        case CPTLegendSwatchLayoutLeft:
+        case CPTLegendSwatchLayoutRight:
+            isHorizontalLayout = YES;
+            break;
+
+        case CPTLegendSwatchLayoutTop:
+        case CPTLegendSwatchLayoutBottom:
+            isHorizontalLayout = NO;
+            break;
+    }
+
     // compute the number of rows and columns needed to hold the legend entries
     NSUInteger rowCount           = self.numberOfRows;
     NSUInteger columnCount        = self.numberOfColumns;
@@ -801,7 +867,10 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
         CGSize titleSize = legendEntry.titleSize;
 
         if ((desiredRowCount == 0) || (row < desiredRowCount)) {
-            maxTitleHeight[row] = MAX(MAX(maxTitleHeight[row], titleSize.height), theSwatchSize.height);
+            maxTitleHeight[row] = MAX(maxTitleHeight[row], titleSize.height);
+            if ( isHorizontalLayout ) {
+                maxTitleHeight[row] = MAX(maxTitleHeight[row], theSwatchSize.height);
+            }
 
             if ( row < desiredRowHeights.count ) {
                 id desiredRowHeight = desiredRowHeights[row];
@@ -812,7 +881,10 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
         }
 
         if ((desiredColumnCount == 0) || (col < desiredColumnCount)) {
-            maxTitleWidth[col] = MAX(MAX(maxTitleWidth[col], titleSize.width), theSwatchSize.width);
+            maxTitleWidth[col] = MAX(maxTitleWidth[col], titleSize.width);
+            if ( !isHorizontalLayout ) {
+                maxTitleWidth[col] = MAX(maxTitleWidth[col], theSwatchSize.width);
+            }
 
             if ( col < desiredColumnWidths.count ) {
                 id desiredColumnWidth = desiredColumnWidths[col];
@@ -865,7 +937,10 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
         }
     }
     if ( columnCount > 0 ) {
-        legendSize.width += ((theSwatchSize.width + self.titleOffset + self.entryPaddingLeft + self.entryPaddingRight) * columnCount) + (self.columnMargin * (columnCount - 1));
+        legendSize.width += ((self.entryPaddingLeft + self.entryPaddingRight) * columnCount) + (self.columnMargin * (columnCount - 1));
+        if ( isHorizontalLayout ) {
+            legendSize.width += (theSwatchSize.width + self.titleOffset) * columnCount;
+        }
     }
 
     NSUInteger rows = row;
@@ -877,6 +952,9 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
     }
     if ( rows > 0 ) {
         legendSize.height += ((self.entryPaddingBottom + self.entryPaddingTop) * rowCount) + (self.rowMargin * (rows - 1));
+        if ( !isHorizontalLayout ) {
+            legendSize.height += (theSwatchSize.height + self.titleOffset) * rowCount;
+        }
     }
 
     self.bounds = CPTRectMake(0.0, 0.0, ceil(legendSize.width), ceil(legendSize.height));
