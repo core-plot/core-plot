@@ -396,7 +396,19 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
     }
 #pragma clang diagnostic pop
 #else
-    [super layoutAndRenderInContext:context];
+    if ( [UITraitCollection instancesRespondToSelector:@selector(performAsCurrentTraitCollection:)] ) {
+        UITraitCollection *traitCollection = ((UIView *)self.hostingView).traitCollection;
+        if ( traitCollection ) {
+            [traitCollection performAsCurrentTraitCollection:^{
+                [super layoutAndRenderInContext:context];
+            }];
+        } else {
+            [super layoutAndRenderInContext:context];
+        }
+    }
+    else {
+        [super layoutAndRenderInContext:context];
+    }
 #endif
 }
 
