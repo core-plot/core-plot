@@ -581,12 +581,13 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
     CGFloat padRight  = self.entryPaddingRight;
     CGFloat padBottom = self.entryPaddingBottom;
 
+    CGFloat zero = 0.0;
     for ( NSUInteger col = 0; col < columnCount; col++ ) {
         NSNumber *colWidth = computedColumnWidths[col];
         CGFloat width      = [colWidth cgFloatValue];
         actualColumnWidths[col] = width;
         if ( col < columnCount - 1 ) {
-            columnPositions[col + 1] = columnPositions[col] + padLeft + width + padRight + (isHorizontalLayout ? theOffset + theSwatchSize.width : 0.0) + theColumnMargin;
+            columnPositions[col + 1] = columnPositions[col] + padLeft + width + padRight + (isHorizontalLayout ? theOffset + theSwatchSize.width : zero) + theColumnMargin;
         }
     }
 
@@ -605,7 +606,7 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
         CGFloat height      = [rowHeight cgFloatValue];
         actualRowHeights[row] = height;
         if ( row < rowCount - 1 ) {
-            rowPositions[row] = rowPositions[row + 1] + padBottom + lastRowHeight + padTop + (isHorizontalLayout ? 0.0 : theOffset + theSwatchSize.height) + theRowMargin;
+            rowPositions[row] = rowPositions[row + 1] + padBottom + lastRowHeight + padTop + (isHorizontalLayout ? zero : theOffset + theSwatchSize.height) + theRowMargin;
         }
         lastRowHeight = height;
     }
