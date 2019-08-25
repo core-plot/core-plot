@@ -5,6 +5,8 @@
 
 #if TARGET_OS_OSX
 @property (nonatomic, readonly, nonnull) NSColor *nsColor;
+#elif TARGET_OS_SIMULATOR || TARGET_OS_IOS
+@property (nonatomic, readonly, nonnull) UIColor *uiColor;
 #endif
 
 /// @name Factory Methods
@@ -31,6 +33,8 @@
 
 #if TARGET_OS_OSX
 +(nonnull instancetype)colorWithNSColor:(nonnull NSColor *)newNSColor;
+#elif TARGET_OS_SIMULATOR || TARGET_OS_IOS
++(nonnull instancetype)colorWithUIColor:(nonnull UIColor *)newUIColor;
 #endif
 
 /// @}

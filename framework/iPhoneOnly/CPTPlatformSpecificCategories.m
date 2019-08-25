@@ -7,16 +7,6 @@
 
 @implementation CPTColor(CPTPlatformSpecificColorExtensions)
 
-/** @property uiColor
- *  @brief Gets the color value as a UIColor.
- **/
-@dynamic uiColor;
-
--(nonnull UIColor *)uiColor
-{
-    return [UIColor colorWithCGColor:self.cgColor];
-}
-
 @end
 
 #pragma mark - CPTLayer
