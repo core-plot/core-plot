@@ -47,6 +47,8 @@
 
 #if TARGET_OS_OSX
 -(nonnull instancetype)initWithNSColor:(nonnull NSColor *)newNSColor NS_DESIGNATED_INITIALIZER;
+#elif TARGET_OS_SIMULATOR || TARGET_OS_IOS
+-(nonnull instancetype)initWithUIColor:(nonnull UIColor *)newUIColor NS_DESIGNATED_INITIALIZER;
 #endif
 
 -(nonnull instancetype)colorWithAlphaComponent:(CGFloat)alpha;

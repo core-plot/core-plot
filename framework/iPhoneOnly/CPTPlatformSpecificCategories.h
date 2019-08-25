@@ -2,17 +2,6 @@
 #import "CPTLayer.h"
 #import "CPTPlatformSpecificDefines.h"
 
-#pragma mark CPTColor
-
-/** @category CPTColor(CPTPlatformSpecificColorExtensions)
- *  @brief Platform-specific extensions to CPTColor.
- **/
-@interface CPTColor(CPTPlatformSpecificColorExtensions)
-
-@property (nonatomic, readonly, nonnull) UIColor *uiColor;
-
-@end
-
 #pragma mark - CPTLayer
 
 /** @category CPTLayer(CPTPlatformSpecificLayerExtensions)

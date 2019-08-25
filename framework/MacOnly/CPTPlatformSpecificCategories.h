@@ -16,17 +16,6 @@
 
 @end
 
-#pragma mark - CPTColor
-
-/** @category CPTColor(CPTPlatformSpecificColorExtensions)
- *  @brief Platform-specific extensions to CPTColor.
- **/
-@interface CPTColor(CPTPlatformSpecificColorExtensions)
-
-@property (nonatomic, readonly, nonnull) NSColor *nsColor;
-
-@end
-
 #pragma mark - NSAttributedString
 
 /** @category NSAttributedString(CPTPlatformSpecificAttributedStringExtensions)

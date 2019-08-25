@@ -380,9 +380,9 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
     [self reloadDataIfNeeded];
     [self.axisSet.axes makeObjectsPerformSelector:@selector(relabel)];
 
-#if TARGET_OS_OSX
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
+#if TARGET_OS_OSX
     // Workaround since @available macro is not there
     if ( [NSView instancesRespondToSelector:@selector(effectiveAppearance)] ) {
         NSAppearance *oldAppearance = NSAppearance.currentAppearance;
@@ -394,15 +394,15 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
     else {
         [super layoutAndRenderInContext:context];
     }
-#pragma clang diagnostic pop
 #else
     if ( [UITraitCollection instancesRespondToSelector:@selector(performAsCurrentTraitCollection:)] ) {
         UITraitCollection *traitCollection = ((UIView *)self.hostingView).traitCollection;
         if ( traitCollection ) {
-            [traitCollection performAsCurrentTraitCollection:^{
+            [traitCollection performAsCurrentTraitCollection: ^{
                 [super layoutAndRenderInContext:context];
             }];
-        } else {
+        }
+        else {
             [super layoutAndRenderInContext:context];
         }
     }
@@ -410,6 +410,7 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
         [super layoutAndRenderInContext:context];
     }
 #endif
+#pragma clang diagnostic pop
 }
 
 /// @endcond

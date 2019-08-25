@@ -3,12 +3,6 @@
 #import "CPTPlatformSpecificFunctions.h"
 #import "tgmath.h"
 
-#pragma mark CPTColor
-
-@implementation CPTColor(CPTPlatformSpecificColorExtensions)
-
-@end
-
 #pragma mark - CPTLayer
 
 @implementation CPTLayer(CPTPlatformSpecificLayerExtensions)

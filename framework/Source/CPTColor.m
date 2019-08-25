@@ -53,7 +53,9 @@
         return [NSColor colorWithCIColor:[CIColor colorWithCGColor:self.cgColor]];
     }
 }
+
 #elif TARGET_OS_SIMULATOR || TARGET_OS_IOS
+
 /** @internal
  *  @property nullable UIColor *uiColorCache
  *  @brief The UIColor to wrap around.
@@ -76,6 +78,7 @@
         return [UIColor colorWithCGColor:self.cgColor];
     }
 }
+
 #endif
 
 /** @property nonnull CGColorRef cgColor
@@ -411,7 +414,9 @@
 {
     return [[self alloc] initWithNSColor:newNSColor];
 }
+
 #elif TARGET_OS_SIMULATOR || TARGET_OS_IOS
+
 /** @brief Creates and returns a new CPTColor instance initialized with the provided UIColor.
  *
  *  UIColor can be a dynamic system color or catalog color. This adds support for dark mode in iOS13.
@@ -423,6 +428,7 @@
 {
     return [[self alloc] initWithUIColor:newUIColor];
 }
+
 #endif
 
 #pragma mark -
@@ -480,7 +486,9 @@
     }
     return self;
 }
+
 #elif TARGET_OS_SIMULATOR || TARGET_OS_IOS
+
 /** @brief Initializes a newly allocated CPTColor object with the provided UIColor.
  *
  *  UIColor can be a dynamic system color or catalog color. This adds support for dark mode in iOS13.
@@ -490,11 +498,12 @@
  **/
 -(nonnull instancetype)initWithUIColor:(nonnull UIColor *)newUIColor
 {
-    if ((self = [self init])) {
+    if ((self = [super init])) {
         uiColorCache = newUIColor;
     }
     return self;
 }
+
 #endif
 
 /// @cond
