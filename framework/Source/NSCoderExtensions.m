@@ -237,7 +237,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
     [self encodeBool:CGImageGetShouldInterpolate(image) forKey:newKey];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.renderingIntent", key];
-    [self encodeInt:CGImageGetRenderingIntent(image) forKey:newKey];
+    [self encodeInt32:CGImageGetRenderingIntent(image) forKey:newKey];
 }
 
 /** @brief Encodes an @ref NSDecimal and associates it with the string @par{key}.
@@ -484,7 +484,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
     bool shouldInterpolate = [self decodeBoolForKey:newKey];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.renderingIntent", key];
-    CGColorRenderingIntent intent = (CGColorRenderingIntent)[self decodeIntForKey:newKey];
+    CGColorRenderingIntent intent = (CGColorRenderingIntent)[self decodeInt32ForKey:newKey];
 
     CGImageRef newImage = CGImageCreate(width,
                                         height,
