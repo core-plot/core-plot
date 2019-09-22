@@ -5,7 +5,7 @@
 
 #if TARGET_OS_OSX
 @property (nonatomic, readonly, nonnull) NSColor *nsColor;
-#elif TARGET_OS_SIMULATOR || TARGET_OS_IOS
+#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
 @property (nonatomic, readonly, nonnull) UIColor *uiColor;
 #endif
 
@@ -33,7 +33,7 @@
 
 #if TARGET_OS_OSX
 +(nonnull instancetype)colorWithNSColor:(nonnull NSColor *)newNSColor;
-#elif TARGET_OS_SIMULATOR || TARGET_OS_IOS
+#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
 +(nonnull instancetype)colorWithUIColor:(nonnull UIColor *)newUIColor;
 #endif
 
@@ -47,7 +47,7 @@
 
 #if TARGET_OS_OSX
 -(nonnull instancetype)initWithNSColor:(nonnull NSColor *)newNSColor NS_DESIGNATED_INITIALIZER;
-#elif TARGET_OS_SIMULATOR || TARGET_OS_IOS
+#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
 -(nonnull instancetype)initWithUIColor:(nonnull UIColor *)newUIColor NS_DESIGNATED_INITIALIZER;
 #endif
 
