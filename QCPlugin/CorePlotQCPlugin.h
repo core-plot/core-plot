@@ -5,7 +5,7 @@
 
 @property (readwrite, strong, nullable) CPTGraph *graph;
 
-@property (readwrite, assign, nonnull) id<QCPlugInOutputImageProvider> outputImage;
+@property (readwrite, strong, nonnull) id<QCPlugInOutputImageProvider> outputImage;
 
 @property (readwrite, assign) NSUInteger numberOfPlots;
 
