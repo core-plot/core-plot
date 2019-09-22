@@ -1,7 +1,7 @@
 #include "CorePlotWarnings.xcconfig"
 
 ARCHS = $(ARCHS_STANDARD)
-VALID_ARCHS[sdk=iphoneos*] = arm64 armv7 armv7s
+VALID_ARCHS[sdk=iphoneos*] = arm64 arm64e armv7 armv7s
 VALID_ARCHS[sdk=iphonesimulator*] = i386 x86_64
 VALID_ARCHS[sdk=macosx*] = i386 x86_64
 VALID_ARCHS[sdk=appletvos*] = arm64
