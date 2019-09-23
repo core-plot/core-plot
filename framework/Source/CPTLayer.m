@@ -338,12 +338,17 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
             [super display];
         }
 #else
-        if ( [UITraitCollection instancesRespondToSelector:@selector(performAsCurrentTraitCollection:)] ) {
-            UITraitCollection *traitCollection = ((UIView *)self.graph.hostingView).traitCollection;
-            if ( traitCollection ) {
-                [traitCollection performAsCurrentTraitCollection: ^{
+        if ( @available(iOS 13, *)) {
+            if ( [UITraitCollection instancesRespondToSelector:@selector(performAsCurrentTraitCollection:)] ) {
+                UITraitCollection *traitCollection = ((UIView *)self.graph.hostingView).traitCollection;
+                if ( traitCollection ) {
+                    [traitCollection performAsCurrentTraitCollection: ^{
+                        [super display];
+                    }];
+                }
+                else {
                     [super display];
-                }];
+                }
             }
             else {
                 [super display];
