@@ -7,6 +7,11 @@
 
 @implementation CPTMutableTextStyle
 
+/** @property UIFont* or NSFont* font
+ *  @brief The font. Default is nil
+ **/
+@synthesize font;
+
 /** @property CGFloat fontSize
  *  @brief The font size. Default is @num{12.0}.
  **/

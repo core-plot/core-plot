@@ -16,6 +16,12 @@ typedef NSMutableArray<CPTTextStyle *> CPTMutableTextStyleArray;
 
 @interface CPTTextStyle : NSObject<NSCopying, NSMutableCopying, NSCoding, NSSecureCoding>
 
+// font would override fontName/fontSize if not nil
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_TV
+@property (readonly, strong, nonatomic, nullable) UIFont *font;
+#else
+@property (readonly, strong, nonatomic, nullable) NSFont *font;
+#endif
 @property (readonly, copy, nonatomic, nullable) NSString *fontName;
 @property (readonly, nonatomic) CGFloat fontSize;
 @property (readonly, copy, nonatomic, nullable) CPTColor *color;

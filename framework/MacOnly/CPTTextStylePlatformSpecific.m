@@ -40,6 +40,7 @@
     NSFont *styleFont = attributes[NSFontAttributeName];
 
     if ( styleFont ) {
+        newStyle.font = styleFont;
         newStyle.fontName = styleFont.fontName;
         newStyle.fontSize = styleFont.pointSize;
     }
@@ -87,10 +88,10 @@
     CPTMutableDictionary *myAttributes = [NSMutableDictionary dictionary];
 
     // Font
-    NSFont *styleFont  = nil;
+    NSFont *styleFont  = self.font;
     NSString *fontName = self.fontName;
 
-    if ( fontName ) {
+    if ( styleFont == nil && fontName ) {
         styleFont = [NSFont fontWithName:fontName size:self.fontSize];
     }
 
@@ -146,6 +147,7 @@
     NSFont *styleFont = attributes[NSFontAttributeName];
 
     if ( styleFont ) {
+        newStyle.font = styleFont;
         newStyle.fontName = styleFont.fontName;
         newStyle.fontSize = styleFont.pointSize;
     }
@@ -241,10 +243,10 @@
 
     CPTPushCGContext(context);
 
-    NSFont *theFont    = nil;
+    NSFont *theFont    = style.font;
     NSString *fontName = style.fontName;
 
-    if ( fontName ) {
+    if ( theFont == nil && fontName ) {
         theFont = [NSFont fontWithName:fontName size:style.fontSize];
     }
 
