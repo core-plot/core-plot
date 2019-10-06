@@ -42,7 +42,7 @@
     UIFont *styleFont = attributes[NSFontAttributeName];
 
     if ( styleFont ) {
-        newStyle.font = styleFont;
+        newStyle.font     = styleFont;
         newStyle.fontName = styleFont.fontName;
         newStyle.fontSize = styleFont.pointSize;
     }
@@ -76,7 +76,7 @@
     UIFont *styleFont  = self.font;
     NSString *fontName = self.fontName;
 
-    if ( styleFont == nil && fontName ) {
+    if ((styleFont == nil) && fontName ) {
         styleFont = [UIFont fontWithName:fontName size:self.fontSize];
     }
 
@@ -133,7 +133,7 @@
     UIFont *styleFont = attributes[NSFontAttributeName];
 
     if ( styleFont ) {
-        newStyle.font = styleFont;
+        newStyle.font     = styleFont;
         newStyle.fontName = styleFont.fontName;
         newStyle.fontSize = styleFont.pointSize;
     }
@@ -227,7 +227,7 @@
         UIFont *theFont    = style.font;
         NSString *fontName = style.fontName;
 
-        if (theFont == nil &&  fontName ) {
+        if ((theFont == nil) && fontName ) {
             theFont = [UIFont fontWithName:fontName size:style.fontSize];
         }
 
@@ -243,8 +243,8 @@
     UIColor *styleColor = style.attributes[NSForegroundColorAttributeName];
     [styleColor set];
 
-    UIFont *theFont    = self.font;
-    if (theFont == nil) {
+    UIFont *theFont = self.font;
+    if ( theFont == nil ) {
         theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
     }
 

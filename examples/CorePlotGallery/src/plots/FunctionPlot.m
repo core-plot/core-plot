@@ -6,13 +6,7 @@
 
 @property (nonatomic, readwrite, strong) NSMutableSet<CPTFunctionDataSource *> *dataSources;
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-typedef UIFont CPTFont;
-#else
-typedef NSFont CPTFont;
-#endif
-
--(nullable CPTFont *)italicFontForFont:(nonnull CPTFont *)oldFont;
+-(nullable CPTNativeFont *)italicFontForFont:(nonnull CPTNativeFont *)oldFont;
 
 @end
 
@@ -146,9 +140,9 @@ typedef NSFont CPTFont;
         NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:titleString
                                                                                   attributes:textAttributes];
 
-        CPTFont *fontAttribute = textAttributes[NSFontAttributeName];
+        CPTNativeFont *fontAttribute = textAttributes[NSFontAttributeName];
         if ( fontAttribute ) {
-            CPTFont *italicFont = [self italicFontForFont:fontAttribute];
+            CPTNativeFont *italicFont = [self italicFontForFont:fontAttribute];
 
             [title addAttribute:NSFontAttributeName
                           value:italicFont
@@ -158,7 +152,7 @@ typedef NSFont CPTFont;
                           range:NSMakeRange(8, 1)];
         }
 
-        CPTFont *labelFont = [CPTFont fontWithName:@"Helvetica" size:self.titleSize * CPTFloat(0.5)];
+        CPTNativeFont *labelFont = [CPTNativeFont fontWithName:@"Helvetica" size:self.titleSize * CPTFloat(0.5)];
         [title addAttribute:NSFontAttributeName
                       value:labelFont
                       range:NSMakeRange(0, title.length)];

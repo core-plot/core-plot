@@ -7,18 +7,20 @@
 
 @implementation CPTMutableTextStyle
 
-/** @property UIFont* or NSFont* font
- *  @brief The font. Default is nil
+/** @property CPTNativeFont* font
+ *  @brief The font. Default is nil.
+ *
+ *  Font will override fontName and fontSize if not @nil.
  **/
 @synthesize font;
 
 /** @property CGFloat fontSize
- *  @brief The font size. Default is @num{12.0}.
+ *  @brief The font size. Default is @num{12.0}. Ignored if font is not @nil.
  **/
 @dynamic fontSize;
 
 /** @property nullable NSString *fontName
- *  @brief The font name. Default is Helvetica.
+ *  @brief The font name. Default is Helvetica. Ignored if font is not @nil.
  **/
 @dynamic fontName;
 

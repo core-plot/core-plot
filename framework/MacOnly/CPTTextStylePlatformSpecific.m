@@ -40,7 +40,7 @@
     NSFont *styleFont = attributes[NSFontAttributeName];
 
     if ( styleFont ) {
-        newStyle.font = styleFont;
+        newStyle.font     = styleFont;
         newStyle.fontName = styleFont.fontName;
         newStyle.fontSize = styleFont.pointSize;
     }
@@ -91,7 +91,7 @@
     NSFont *styleFont  = self.font;
     NSString *fontName = self.fontName;
 
-    if ( styleFont == nil && fontName ) {
+    if ((styleFont == nil) && fontName ) {
         styleFont = [NSFont fontWithName:fontName size:self.fontSize];
     }
 
@@ -147,7 +147,7 @@
     NSFont *styleFont = attributes[NSFontAttributeName];
 
     if ( styleFont ) {
-        newStyle.font = styleFont;
+        newStyle.font     = styleFont;
         newStyle.fontName = styleFont.fontName;
         newStyle.fontSize = styleFont.pointSize;
     }
@@ -246,7 +246,7 @@
     NSFont *theFont    = style.font;
     NSString *fontName = style.fontName;
 
-    if ( theFont == nil && fontName ) {
+    if ((theFont == nil) && fontName ) {
         theFont = [NSFont fontWithName:fontName size:style.fontSize];
     }
 
