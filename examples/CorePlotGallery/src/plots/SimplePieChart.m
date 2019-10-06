@@ -191,11 +191,11 @@
 {
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     UIColor *sliceColor = [CPTPieChart defaultPieSliceColorForIndex:index].uiColor;
-    UIFont *labelFont   = [UIFont fontWithName:@"Helvetica" size:self.titleSize * CPTFloat(0.5)];
 #else
     NSColor *sliceColor = [CPTPieChart defaultPieSliceColorForIndex:index].nsColor;
-    NSFont *labelFont   = [NSFont fontWithName:@"Helvetica" size:self.titleSize * CPTFloat(0.5)];
 #endif
+    CPTNativeFont *labelFont = [CPTNativeFont fontWithName:@"Helvetica"
+                                                      size:self.titleSize * CPTFloat(0.5)];
 
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Pie Slice %lu", (unsigned long)index]];
     [title addAttribute:NSForegroundColorAttributeName
