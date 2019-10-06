@@ -1,4 +1,4 @@
-Copyright (c) 2019, Drew McCormack, Brad Larson, Eric Skroch, Barry Wark, Dirkjan Krijnders, Rick Maddy, Vijay Kalusani, Caleb Cannon, Jeff Buck, Thomas Elstner, Jeroen Leenarts, Craig Hockenberry, Hartwig Wiesmann, Koen van der Drift, Nino Ag, Mike Lischke, Trevor Harmon, Travis Fischer, Graham Mueller, Rafał Wójcik, Mike Rossetti, Michael Merickel, Lane Roathe, Ingmar Stein, Sean Holbert, Victor Martin Garcia, Jérôme Morissard, Demitri Muna, Tim Monzures, Kirill Yakimovich, Tom Izaks, Pascal Freiburghaus, and Fred Potter.
+Copyright (c) 2019, Drew McCormack, Brad Larson, Eric Skroch, Barry Wark, Dirkjan Krijnders, Rick Maddy, Vijay Kalusani, Caleb Cannon, Jeff Buck, Thomas Elstner, Jeroen Leenarts, Craig Hockenberry, Hartwig Wiesmann, Koen van der Drift, Nino Ag, Mike Lischke, Trevor Harmon, Travis Fischer, Graham Mueller, Rafał Wójcik, Mike Rossetti, Michael Merickel, Lane Roathe, Ingmar Stein, Sean Holbert, Victor Martin Garcia, Jérôme Morissard, Demitri Muna, Tim Monzures, Kirill Yakimovich, Tom Izaks, Pascal Freiburghaus, Fred Potter, and Aurélien Hugelé.
 
 All rights reserved.
 
