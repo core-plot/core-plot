@@ -73,8 +73,6 @@ class DateController : NSObject, CPTPlotDataSource {
         newGraph.add(dataSourceLinePlot)
 
         self.graph = newGraph
-
-        newGraph.reloadData()
     }
 
     func newPlotData() -> [Double]
