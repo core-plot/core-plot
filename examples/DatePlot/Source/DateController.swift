@@ -1,5 +1,6 @@
 import Foundation
 import Cocoa
+import CorePlot
 
 class DateController : NSObject, CPTPlotDataSource {
     private let oneDay : Double = 24 * 60 * 60;
