@@ -89,6 +89,12 @@ typedef struct CGPointError CGPointError;
 @dynamic rightValues;
 @dynamic barLineStyles;
 
+/** @property CPTRangePlotFillDirection fillDirection
+ *  @brief Fill the range in a horizontal or vertical direction.
+ *  Default is CPTRangePlotFillHorizontal.
+ **/
+@synthesize fillDirection;
+
 /** @property CPTFill *areaFill
  *  @brief The fill used to render the area.
  *  Set to @nil to have no fill. Default is @nil.
@@ -174,6 +180,7 @@ typedef struct CGPointError CGPointError;
 {
     if ((self = [super initWithFrame:newFrame])) {
         barLineStyle        = [[CPTLineStyle alloc] init];
+        fillDirection       = CPTRangePlotFillHorizontal;
         areaFill            = nil;
         areaBorderLineStyle = nil;
 
@@ -194,6 +201,7 @@ typedef struct CGPointError CGPointError;
         CPTRangePlot *theLayer = (CPTRangePlot *)layer;
 
         barLineStyle        = theLayer->barLineStyle;
+        fillDirection       = theLayer->fillDirection;
         areaFill            = theLayer->areaFill;
         areaBorderLineStyle = theLayer->areaBorderLineStyle;
 
@@ -217,6 +225,7 @@ typedef struct CGPointError CGPointError;
     [coder encodeCGFloat:self.barWidth forKey:@"CPTRangePlot.barWidth"];
     [coder encodeCGFloat:self.gapHeight forKey:@"CPTRangePlot.gapHeight"];
     [coder encodeCGFloat:self.gapWidth forKey:@"CPTRangePlot.gapWidth"];
+    [coder encodeInteger:self.fillDirection forKey:@"CPTRangePlot.fillDirection"];
     [coder encodeObject:self.areaFill forKey:@"CPTRangePlot.areaFill"];
     [coder encodeObject:self.areaBorderLineStyle forKey:@"CPTRangePlot.areaBorderLineStyle"];
 
@@ -229,11 +238,12 @@ typedef struct CGPointError CGPointError;
     if ((self = [super initWithCoder:coder])) {
         barLineStyle = [[coder decodeObjectOfClass:[CPTLineStyle class]
                                             forKey:@"CPTRangePlot.barLineStyle"] copy];
-        barWidth  = [coder decodeCGFloatForKey:@"CPTRangePlot.barWidth"];
-        gapHeight = [coder decodeCGFloatForKey:@"CPTRangePlot.gapHeight"];
-        gapWidth  = [coder decodeCGFloatForKey:@"CPTRangePlot.gapWidth"];
-        areaFill  = [[coder decodeObjectOfClass:[CPTFill class]
-                                         forKey:@"CPTRangePlot.areaFill"] copy];
+        barWidth      = [coder decodeCGFloatForKey:@"CPTRangePlot.barWidth"];
+        gapHeight     = [coder decodeCGFloatForKey:@"CPTRangePlot.gapHeight"];
+        gapWidth      = [coder decodeCGFloatForKey:@"CPTRangePlot.gapWidth"];
+        fillDirection = [coder decodeIntegerForKey:@"CPTRangePlot.fillDirection"];
+        areaFill      = [[coder decodeObjectOfClass:[CPTFill class]
+                                             forKey:@"CPTRangePlot.areaFill"] copy];
         areaBorderLineStyle = [[coder decodeObjectOfClass:[CPTLineStyle class]
                                                    forKey:@"CPTRangePlot.areaBorderLineStyle"] copy];
 
@@ -669,39 +679,80 @@ typedef struct CGPointError CGPointError;
         if ( self.areaFill ) {
             CGMutablePathRef fillPath = CGPathCreateMutable();
 
-            // First do the top points
-            for ( NSUInteger i = (NSUInteger)firstDrawnPointIndex; i <= (NSUInteger)lastDrawnPointIndex; i++ ) {
-                CGFloat x = viewPoints[i].x;
-                CGFloat y = viewPoints[i].high;
-                if ( isnan(y)) {
-                    y = viewPoints[i].y;
-                }
+            switch ( self.fillDirection ) {
+                case CPTRangePlotFillHorizontal:
+                    // First do the top points
+                    for ( NSUInteger i = (NSUInteger)firstDrawnPointIndex; i <= (NSUInteger)lastDrawnPointIndex; i++ ) {
+                        CGFloat x = viewPoints[i].x;
+                        CGFloat y = viewPoints[i].high;
+                        if ( isnan(y)) {
+                            y = viewPoints[i].y;
+                        }
 
-                if ( !isnan(x) && !isnan(y)) {
-                    if ( i == (NSUInteger)firstDrawnPointIndex ) {
-                        CGPathMoveToPoint(fillPath, NULL, x, y);
+                        if ( !isnan(x) && !isnan(y)) {
+                            if ( i == (NSUInteger)firstDrawnPointIndex ) {
+                                CGPathMoveToPoint(fillPath, NULL, x, y);
+                            }
+                            else {
+                                CGPathAddLineToPoint(fillPath, NULL, x, y);
+                            }
+                        }
                     }
-                    else {
-                        CGPathAddLineToPoint(fillPath, NULL, x, y);
+
+                    // Then reverse over bottom points
+                    for ( NSUInteger j = (NSUInteger)lastDrawnPointIndex; j >= (NSUInteger)firstDrawnPointIndex; j-- ) {
+                        CGFloat x = viewPoints[j].x;
+                        CGFloat y = viewPoints[j].low;
+                        if ( isnan(y)) {
+                            y = viewPoints[j].y;
+                        }
+
+                        if ( !isnan(x) && !isnan(y)) {
+                            CGPathAddLineToPoint(fillPath, NULL, x, y);
+                        }
+                        if ( j == (NSUInteger)firstDrawnPointIndex ) {
+                            // This could be done a bit more elegant
+                            break;
+                        }
                     }
-                }
-            }
-
-            // Then reverse over bottom points
-            for ( NSUInteger j = (NSUInteger)lastDrawnPointIndex; j >= (NSUInteger)firstDrawnPointIndex; j-- ) {
-                CGFloat x = viewPoints[j].x;
-                CGFloat y = viewPoints[j].low;
-                if ( isnan(y)) {
-                    y = viewPoints[j].y;
-                }
-
-                if ( !isnan(x) && !isnan(y)) {
-                    CGPathAddLineToPoint(fillPath, NULL, x, y);
-                }
-                if ( j == (NSUInteger)firstDrawnPointIndex ) {
-                    // This could be done a bit more elegant
                     break;
-                }
+
+                case CPTRangePlotFillVertical:
+                    // First do the left points
+                    for ( NSUInteger i = (NSUInteger)firstDrawnPointIndex; i <= (NSUInteger)lastDrawnPointIndex; i++ ) {
+                        CGFloat x = viewPoints[i].left;
+                        CGFloat y = viewPoints[i].y;
+                        if ( isnan(x)) {
+                            y = viewPoints[i].x;
+                        }
+
+                        if ( !isnan(x) && !isnan(y)) {
+                            if ( i == (NSUInteger)firstDrawnPointIndex ) {
+                                CGPathMoveToPoint(fillPath, NULL, x, y);
+                            }
+                            else {
+                                CGPathAddLineToPoint(fillPath, NULL, x, y);
+                            }
+                        }
+                    }
+
+                    // Then reverse over right points
+                    for ( NSUInteger j = (NSUInteger)lastDrawnPointIndex; j >= (NSUInteger)firstDrawnPointIndex; j-- ) {
+                        CGFloat x = viewPoints[j].right;
+                        CGFloat y = viewPoints[j].y;
+                        if ( isnan(x)) {
+                            y = viewPoints[j].x;
+                        }
+
+                        if ( !isnan(x) && !isnan(y)) {
+                            CGPathAddLineToPoint(fillPath, NULL, x, y);
+                        }
+                        if ( j == (NSUInteger)firstDrawnPointIndex ) {
+                            // This could be done a bit more elegant
+                            break;
+                        }
+                    }
+                    break;
             }
 
             // Close the path to have a closed loop

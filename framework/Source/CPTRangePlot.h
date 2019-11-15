@@ -33,6 +33,14 @@ typedef NS_ENUM (NSInteger, CPTRangePlotField) {
     CPTRangePlotFieldRight ///< relative Right values.
 };
 
+/**
+ *  @brief Enumeration of range plot data fill directions
+ **/
+typedef NS_ENUM (NSInteger, CPTRangePlotFillDirection) {
+    CPTRangePlotFillHorizontal, ///< Fill between the high and low values in a horizontal direction.
+    CPTRangePlotFillVertical    ///< Fill between the left and right values in a vertical direction.
+};
+
 #pragma mark -
 
 /**
@@ -159,6 +167,7 @@ typedef NS_ENUM (NSInteger, CPTRangePlotField) {
 
 /// @name Drawing
 /// @{
+@property (nonatomic, readwrite) CPTRangePlotFillDirection fillDirection;
 @property (nonatomic, copy, nullable) CPTFill *areaFill;
 @property (nonatomic, readwrite, copy, nullable) CPTLineStyle *areaBorderLineStyle;
 /// @}
