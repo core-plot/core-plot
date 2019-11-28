@@ -10,6 +10,7 @@ static const BOOL kUseHorizontalBars = NO;
 @interface VerticalBarChart()
 
 @property (nonatomic, readwrite, strong, nullable) CPTPlotSpaceAnnotation *symbolTextAnnotation;
+
 @end
 
 @implementation VerticalBarChart

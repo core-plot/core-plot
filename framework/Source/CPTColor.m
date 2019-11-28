@@ -14,6 +14,7 @@
 #elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
 @property (nonatomic, readonly, nullable) UIColor *uiColorCache;
 #endif
+
 @end
 
 /// @endcond

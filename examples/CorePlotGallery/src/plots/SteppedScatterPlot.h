@@ -8,4 +8,5 @@
 @interface SteppedScatterPlot : PlotItem<CPTPlotSpaceDelegate,
                                          CPTPlotDataSource,
                                          CPTScatterPlotDelegate>
+
 @end

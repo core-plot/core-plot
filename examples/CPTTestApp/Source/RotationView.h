@@ -17,4 +17,5 @@
 
 @protocol CPTRotationDelegate<NSObject>
 -(void)rotateObjectUsingTransform:(CATransform3D)rotationTransform;
+
 @end
