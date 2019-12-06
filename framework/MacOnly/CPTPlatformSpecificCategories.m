@@ -21,7 +21,10 @@
     if ( [self respondsToSelector:@selector(hostingView)] ) {
         scale = ((CPTGraph *)self).hostingView.window.backingScaleFactor;
     }
-    else {
+    if ((scale == 0.0) && [CALayer instancesRespondToSelector:@selector(contentsScale)] ) {
+        scale = self.contentsScale;
+    }
+    if ( scale == 0.0 ) {
         NSWindow *myWindow = self.graph.hostingView.window;
 
         if ( myWindow ) {
@@ -31,6 +34,7 @@
             scale = [NSScreen mainScreen].backingScaleFactor;
         }
     }
+    scale = MAX(scale, CPTFloat(1.0));
 
     NSBitmapImageRep *layerImage = [[NSBitmapImageRep alloc]
                                     initWithBitmapDataPlanes:NULL
