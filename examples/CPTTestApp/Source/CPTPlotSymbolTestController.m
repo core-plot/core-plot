@@ -50,7 +50,7 @@
     // Create a series of plots that uses the data source method
     for ( NSUInteger i = CPTPlotSymbolTypeNone; i <= CPTPlotSymbolTypeCustom; i++ ) {
         CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] initWithFrame:newGraph.bounds];
-        dataSourceLinePlot.identifier = [NSString stringWithFormat:@"%lu", (unsigned long)i];
+        dataSourceLinePlot.identifier = @(i);
         dataSourceLinePlot.shadow     = lineShadow;
 
         CPTMutableLineStyle *lineStyle = [dataSourceLinePlot.dataLineStyle mutableCopy];
@@ -82,7 +82,7 @@
             break;
 
         case CPTScatterPlotFieldY:
-            num = @(((NSString *)plot.identifier).integerValue);
+            num = (NSNumber *)plot.identifier;
             break;
 
         default:
