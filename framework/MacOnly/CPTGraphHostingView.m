@@ -412,6 +412,8 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
 -(void)viewDidChangeBackingProperties
 {
+    [super viewDidChangeBackingProperties];
+
     NSWindow *myWindow = self.window;
 
     if ( myWindow ) {
