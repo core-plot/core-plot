@@ -1,13 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" promptedForUpgradeToXcode5="NO">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication"/>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="371" customClass="NSFontManager"/>
         <menu title="AMainMenu" systemMenu="main" id="29" userLabel="MainMenu">
             <items>
@@ -558,18 +559,19 @@
                     </menu>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="79" y="520"/>
         </menu>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" animationBehavior="default" id="446">
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" animationBehavior="default" id="446">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="68" y="397" width="944" height="525"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1178"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <value key="minSize" type="size" width="450" height="250"/>
             <view key="contentView" id="447">
                 <rect key="frame" x="0.0" y="0.0" width="944" height="525"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button verticalHuggingPriority="750" id="481">
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="481">
                         <rect key="frame" x="4" y="4" width="30" height="27"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="482">
@@ -580,7 +582,7 @@
                             <action selector="add:" target="456" id="484"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" id="496">
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="496">
                         <rect key="frame" x="40" y="4" width="51" height="27"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="squareTextured" title="Reload" bezelStyle="texturedSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="497">
@@ -591,18 +593,18 @@
                             <action selector="reloadDataSourcePlot:" target="456" id="498"/>
                         </connections>
                     </button>
-                    <splitView vertical="YES" id="490">
+                    <splitView fixedFrame="YES" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="490">
                         <rect key="frame" x="-1" y="34" width="913" height="492"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="460">
+                            <scrollView focusRingType="none" fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="460">
                                 <rect key="frame" x="0.0" y="0.0" width="345" height="492"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <clipView key="contentView" id="tth-4F-VMn">
-                                    <rect key="frame" x="1" y="17" width="343" height="474"/>
+                                <clipView key="contentView" ambiguous="YES" id="tth-4F-VMn">
+                                    <rect key="frame" x="1" y="0.0" width="343" height="491"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="464" id="463">
+                                        <tableView focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="464" id="463">
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="474"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -657,13 +659,12 @@
                                             </tableColumns>
                                         </tableView>
                                     </subviews>
-                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.0029154519999999998" horizontal="YES" id="462">
                                     <rect key="frame" x="-100" y="-100" width="275" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="37" horizontal="NO" id="461">
+                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="461">
                                     <rect key="frame" x="276" y="17" width="15" height="238"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -672,11 +673,11 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
-                            <customView id="485">
+                            <customView fixedFrame="YES" id="485">
                                 <rect key="frame" x="354" y="0.0" width="559" height="492"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <customView id="517" customClass="CPTGraphHostingView">
+                                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="517" customClass="CPTGraphHostingView">
                                         <rect key="frame" x="0.0" y="0.0" width="559" height="492"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </customView>
@@ -688,7 +689,7 @@
                             <real value="250"/>
                         </holdingPriorities>
                     </splitView>
-                    <slider verticalHuggingPriority="750" id="519">
+                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="519">
                         <rect key="frame" x="818" y="7" width="96" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="-1" maxValue="1" tickMarkPosition="above" sliderType="linear" id="520"/>
@@ -696,7 +697,7 @@
                             <binding destination="456" name="value" keyPath="xShift" id="525"/>
                         </connections>
                     </slider>
-                    <slider horizontalHuggingPriority="750" id="523">
+                    <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="523">
                         <rect key="frame" x="917" y="31" width="21" height="96"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="-1" maxValue="1" doubleValue="1" tickMarkPosition="right" sliderType="linear" id="524"/>
@@ -704,15 +705,15 @@
                             <binding destination="456" name="value" keyPath="yShift" id="526"/>
                         </connections>
                     </slider>
-                    <slider horizontalHuggingPriority="750" verticalHuggingPriority="750" id="533">
+                    <slider horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="533">
                         <rect key="frame" x="780" y="0.0" width="32" height="34"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="6.2831853071795862" tickMarkPosition="above" numberOfTickMarks="12" sliderType="circular" id="534"/>
+                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="6.2831853071795862" numberOfTickMarks="12" sliderType="circular" id="534"/>
                         <connections>
                             <binding destination="456" name="value" keyPath="labelRotation" id="536"/>
                         </connections>
                     </slider>
-                    <button verticalHuggingPriority="750" id="541">
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="541">
                         <rect key="frame" x="97" y="4" width="99" height="27"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="squareTextured" title="Insert Record" bezelStyle="texturedSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="542">
@@ -724,7 +725,7 @@
                             <binding destination="456" name="enabled" keyPath="isEditable" id="550"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" id="543">
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="543">
                         <rect key="frame" x="202" y="3" width="105" height="27"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="squareTextured" title="Delete Record" bezelStyle="texturedSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="544">
@@ -738,6 +739,7 @@
                     </button>
                 </subviews>
             </view>
+            <point key="canvasLocation" x="139" y="148"/>
         </window>
         <arrayController id="456" userLabel="XY Values Controller" customClass="Controller">
             <declaredKeys>

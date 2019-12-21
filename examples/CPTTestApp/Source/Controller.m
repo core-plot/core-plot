@@ -1,5 +1,9 @@
 #import "Controller.h"
 
+#import "AxisDemoController.h"
+#import "CPTPlotSymbolTestController.h"
+#import "SelectionDemoController.h"
+
 static const CGFloat kZDistanceBetweenLayers = 20.0;
 
 static NSString *const bindingsPlot   = @"Bindings Plot";
@@ -9,10 +13,20 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 
 @interface Controller()
 
+-(void)plotSymbolWindowClosed;
+-(void)axisDemoWindowClosed;
+-(void)selectionDemoWindowClosed;
+
 @property (nonatomic, readwrite, strong, nullable) IBOutlet CPTGraphHostingView *hostView;
-@property (nonatomic, readwrite, weak, nullable) IBOutlet NSWindow *plotSymbolWindow;
-@property (nonatomic, readwrite, weak, nullable) IBOutlet NSWindow *axisDemoWindow;
-@property (nonatomic, readwrite, weak, nullable) IBOutlet NSWindow *selectionDemoWindow;
+
+@property (nonatomic, readwrite, strong, nullable) IBOutlet NSWindow *plotSymbolWindow;
+@property (nonatomic, readwrite, strong, nullable) IBOutlet CPTPlotSymbolTestController *plotSymbolTestController;
+
+@property (nonatomic, readwrite, strong, nullable) IBOutlet NSWindow *axisDemoWindow;
+@property (nonatomic, readwrite, strong, nullable) IBOutlet AxisDemoController *axisDemoController;
+
+@property (nonatomic, readwrite, strong, nullable) IBOutlet NSWindow *selectionDemoWindow;
+@property (nonatomic, readwrite, strong, nullable) IBOutlet SelectionDemoController *selectionDemoController;
 
 @property (nonatomic, readwrite, strong, nonnull) CPTXYGraph *graph;
 @property (nonatomic, readwrite, strong, nullable) RotationView *overlayRotationView;
@@ -32,8 +46,11 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 
 @synthesize hostView;
 @synthesize plotSymbolWindow;
+@synthesize plotSymbolTestController;
 @synthesize axisDemoWindow;
+@synthesize axisDemoController;
 @synthesize selectionDemoWindow;
+@synthesize selectionDemoController;
 
 @synthesize graph;
 @synthesize overlayRotationView;
@@ -716,6 +733,11 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 
     NSWindow *window = self.plotSymbolWindow;
     [window makeKeyAndOrderFront:sender];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(plotSymbolWindowClosed)
+                                                 name:NSWindowWillCloseNotification
+                                               object:window];
 }
 
 -(IBAction)axisDemo:(nullable id)sender
@@ -728,6 +750,11 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 
     NSWindow *window = self.axisDemoWindow;
     [window makeKeyAndOrderFront:sender];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(axisDemoWindowClosed)
+                                                 name:NSWindowWillCloseNotification
+                                               object:window];
 }
 
 -(IBAction)selectionDemo:(nullable id)sender
@@ -740,6 +767,29 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 
     NSWindow *window = self.selectionDemoWindow;
     [window makeKeyAndOrderFront:sender];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(selectionDemoWindowClosed)
+                                                 name:NSWindowWillCloseNotification
+                                               object:window];
+}
+
+-(void)plotSymbolWindowClosed
+{
+    self.plotSymbolWindow         = nil;
+    self.plotSymbolTestController = nil;
+}
+
+-(void)axisDemoWindowClosed
+{
+    self.axisDemoWindow     = nil;
+    self.axisDemoController = nil;
+}
+
+-(void)selectionDemoWindowClosed
+{
+    self.selectionDemoWindow     = nil;
+    self.selectionDemoController = nil;
 }
 
 #pragma mark -
