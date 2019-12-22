@@ -407,6 +407,13 @@ typedef NSMutableArray<CPTAnimationOperation *> CPTMutableAnimationArray;
                 SetterType setterMethod = (SetterType)[boundObject methodForSelector:boundSetter];
                 setterMethod(boundObject, boundSetter, buffer);
             }
+            else if ( [tweenedValue isKindOfClass:[NSNumber class]] ) {
+                NSNumber *value = (NSNumber *)tweenedValue;
+
+                typedef void (*NumberSetterType)(id, SEL, NSNumber *);
+                NumberSetterType setterMethod = (NumberSetterType)[boundObject methodForSelector:boundSetter];
+                setterMethod(boundObject, boundSetter, value);
+            }
             else if ( [tweenedValue isKindOfClass:[CPTPlotRange class]] ) {
                 CPTPlotRange *range = (CPTPlotRange *)tweenedValue;
 
