@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		077382B10F3DC1FB002F10E2 /* Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 077382B00F3DC1FB002F10E2 /* Controller.m */; };
-		07C13BBB0FF9322A00BEE616 /* BlueTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 07C13BBA0FF9322A00BEE616 /* BlueTexture.png */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -118,7 +117,6 @@
 		0761854B0F3CB3CB00A89A76 /* CorePlot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CorePlot.framework; path = ../../../../framework/build/Debug/CorePlot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		077382AF0F3DC1FB002F10E2 /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Controller.h; path = Source/Controller.h; sourceTree = "<group>"; };
 		077382B00F3DC1FB002F10E2 /* Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Controller.m; path = Source/Controller.m; sourceTree = "<group>"; };
-		07C13BBA0FF9322A00BEE616 /* BlueTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BlueTexture.png; path = Resources/BlueTexture.png; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Source/main.m; sourceTree = "<group>"; };
@@ -250,7 +248,6 @@
 			children = (
 				C3D3935B19FD653300148319 /* Images.xcassets */,
 				C37A40A720E030C000C4FF48 /* Info.plist */,
-				07C13BBA0FF9322A00BEE616 /* BlueTexture.png */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				C3D0A18D20E017C500BA2921 /* AxisDemo.xib */,
 				C3D0A19C20E017CC00BA2921 /* CPTTestApp.xib */,
@@ -395,7 +392,6 @@
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				C3D3935C19FD653300148319 /* Images.xcassets in Resources */,
 				C3D0A19A20E017CC00BA2921 /* CPTTestApp.xib in Resources */,
-				07C13BBB0FF9322A00BEE616 /* BlueTexture.png in Resources */,
 				C3D0A19D20E017D100BA2921 /* PlotSymbolDemo.xib in Resources */,
 				C3D0A18B20E017C500BA2921 /* AxisDemo.xib in Resources */,
 				C3D0A1A020E017D600BA2921 /* SelectionDemo.xib in Resources */,
