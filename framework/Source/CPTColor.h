@@ -1,3 +1,5 @@
+#import "CPTPlatformSpecificDefines.h"
+
 @interface CPTColor : NSObject<NSCopying, NSCoding, NSSecureCoding>
 
 @property (nonatomic, readonly, nonnull) CGColorRef cgColor;
@@ -9,7 +11,7 @@
 @property (nonatomic, readonly, nonnull) UIColor *uiColor;
 #endif
 
-/// @name Factory Methods
+/// @name Standard Colors
 /// @{
 +(nonnull instancetype)clearColor;
 +(nonnull instancetype)whiteColor;
@@ -26,7 +28,10 @@
 +(nonnull instancetype)orangeColor;
 +(nonnull instancetype)purpleColor;
 +(nonnull instancetype)brownColor;
+/// @}
 
+/// @name Factory Methods
+/// @{
 +(nonnull instancetype)colorWithCGColor:(nonnull CGColorRef)newCGColor;
 +(nonnull instancetype)colorWithComponentRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;
 +(nonnull instancetype)colorWithGenericGray:(CGFloat)gray;
@@ -36,6 +41,7 @@
 #elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
 +(nonnull instancetype)colorWithUIColor:(nonnull UIColor *)newUIColor;
 #endif
++(nonnull instancetype)colorWithNativeColor:(nonnull CPTNativeColor *)newColor;
 
 /// @}
 
@@ -50,6 +56,7 @@
 #elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
 -(nonnull instancetype)initWithUIColor:(nonnull UIColor *)newUIColor NS_DESIGNATED_INITIALIZER;
 #endif
+-(nonnull instancetype)initWithNativeColor:(nonnull CPTNativeColor *)newColor;
 
 -(nonnull instancetype)colorWithAlphaComponent:(CGFloat)alpha;
 /// @}
