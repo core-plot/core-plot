@@ -131,6 +131,7 @@ typedef NSMutableSet<CALayer *> CPTMutableSublayerSet;
 
 /// @name Drawing
 /// @{
+-(void)setNeedsDisplayAllLayers;
 -(void)renderAsVectorInContext:(nonnull CGContextRef)context;
 -(void)recursivelyRenderInContext:(nonnull CGContextRef)context;
 -(void)layoutAndRenderInContext:(nonnull CGContextRef)context;

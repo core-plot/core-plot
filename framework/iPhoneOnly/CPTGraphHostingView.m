@@ -352,6 +352,13 @@
     [self setNeedsDisplay];
 }
 
+-(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+{
+    [super traitCollectionDidChange:previousTraitCollection];
+
+    [self.hostedGraph setNeedsDisplayAllLayers];
+}
+
 /// @endcond
 
 #pragma mark -

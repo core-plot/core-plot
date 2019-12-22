@@ -376,6 +376,23 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
 
 /// @endcond
 
+/**
+ * @brief Recursively marks this layer and all sublayers as needing to be redrawn.
+ **/
+-(void)setNeedsDisplayAllLayers
+{
+    [self setNeedsDisplay];
+
+    for ( CPTLayer *subLayer in self.sublayers ) {
+        if ( [subLayer respondsToSelector:@selector(setNeedsDisplayAllLayers)] ) {
+            [subLayer setNeedsDisplayAllLayers];
+        }
+        else {
+            [subLayer setNeedsDisplay];
+        }
+    }
+}
+
 /** @brief Draws layer content into the provided graphics context.
  *
  *  This method replaces the CALayer @link CALayer::drawInContext: -drawInContext: @endlink method

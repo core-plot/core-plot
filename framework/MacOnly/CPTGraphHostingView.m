@@ -73,6 +73,11 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
     self.locationInWindow = NSZeroPoint;
     self.scrollOffset     = CGPointZero;
 
+    [self addObserver:self
+           forKeyPath:@"effectiveAppearance"
+              options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionInitial
+              context:CPTGraphHostingViewKVOContext];
+
     if ( !self.superview.wantsLayer ) {
         self.layer = [self makeBackingLayer];
     }
@@ -101,6 +106,8 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
     for ( CPTPlotSpace *space in hostedGraph.allPlotSpaces ) {
         [space removeObserver:self forKeyPath:@"isDragging" context:CPTGraphHostingViewKVOContext];
     }
+
+    [self removeObserver:self forKeyPath:@"effectiveAppearance" context:CPTGraphHostingViewKVOContext];
 
     [hostedGraph removeFromSuperlayer];
 }
@@ -571,6 +578,9 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
                                                              name:CPTLayerBoundsDidChangeNotification
                                                            object:newPlotArea];
             }
+        }
+        else if ( [keyPath isEqualToString:@"effectiveAppearance"] && (object == self)) {
+            [self.hostedGraph setNeedsDisplayAllLayers];
         }
     }
     else {
