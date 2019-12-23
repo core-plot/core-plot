@@ -31,16 +31,10 @@
       location = "container:"
       name = "iOS Apps">
       <FileRef
-         location = "group:AAPLot/AAPLot.xcodeproj">
-      </FileRef>
-      <FileRef
          location = "group:CPTTestApp-iPad/CPTTestApp-iPad.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:CPTTestApp-iPhone/CPTTestApp-iPhone.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:StockPlot/StockPlot.xcodeproj">
       </FileRef>
    </Group>
    <Group
