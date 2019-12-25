@@ -82,6 +82,20 @@
 
 #endif
 
+/** @property nonnull CPTNativeColor *nativeColor
+ *  @brief The platform-native color to wrap around.
+ **/
+@dynamic nativeColor;
+
+-(CPTNativeColor *)nativeColor
+{
+#if TARGET_OS_OSX
+    return self.nsColor;
+#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+    return self.uiColor;
+#endif
+}
+
 /** @property nonnull CGColorRef cgColor
  *  @brief The @ref CGColorRef to wrap around.
  **/

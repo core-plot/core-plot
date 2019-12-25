@@ -10,6 +10,7 @@
 #elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
 @property (nonatomic, readonly, nonnull) UIColor *uiColor;
 #endif
+@property (nonatomic, readonly, nonnull) CPTNativeColor *nativeColor;
 
 /// @name Standard Colors
 /// @{
