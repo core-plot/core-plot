@@ -400,14 +400,14 @@ typedef NSMutableArray<CPTAnimationOperation *> CPTMutableAnimationArray;
             id boundObject  = animationOperation.boundObject;
             id tweenedValue = parameters[CPTAnimationValueKey];
 
-            if ( [tweenedValue isKindOfClass:[NSDecimalNumber class]] ) {
+            if ( !valueClass && [tweenedValue isKindOfClass:[NSDecimalNumber class]] ) {
                 NSDecimal buffer = ((NSDecimalNumber *)tweenedValue).decimalValue;
 
                 typedef void (*SetterType)(id, SEL, NSDecimal);
                 SetterType setterMethod = (SetterType)[boundObject methodForSelector:boundSetter];
                 setterMethod(boundObject, boundSetter, buffer);
             }
-            else if ( [tweenedValue isKindOfClass:[NSNumber class]] ) {
+            else if ( valueClass && [tweenedValue isKindOfClass:[NSNumber class]] ) {
                 NSNumber *value = (NSNumber *)tweenedValue;
 
                 typedef void (*NumberSetterType)(id, SEL, NSNumber *);
