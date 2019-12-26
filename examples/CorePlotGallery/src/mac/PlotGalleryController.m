@@ -6,22 +6,28 @@
 #import "PlotGalleryController.h"
 
 #import "dlfcn.h"
+#import "PlotViewItem.h"
 
 static const CGFloat CPT_SPLIT_VIEW_MIN_LHS_WIDTH = 150.0;
 
 static NSString *const kThemeTableViewControllerNoTheme      = @"None";
 static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 
+static NSString *const kCollectionHeader = @"CPTCollectionHeader";
+static NSString *const kCollectionItem   = @"PlotViewItem";
+
 @interface PlotGalleryController()
 
 @property (nonatomic, readwrite, strong, nullable) IBOutlet NSSplitView *splitView;
 @property (nonatomic, readwrite, strong, nullable) IBOutlet NSScrollView *scrollView;
-@property (nonatomic, readwrite, strong, nullable) IBOutlet IKImageBrowserView *imageBrowser;
+@property (nonatomic, readwrite, strong, nullable) IBOutlet NSCollectionView *imageBrowser;
 @property (nonatomic, readwrite, strong, nullable) IBOutlet NSPopUpButton *themePopUpButton;
 
 @property (nonatomic, readwrite, strong, nullable) IBOutlet PlotView *hostingView;
 
 @end
+
+#pragma mark -
 
 @implementation PlotGalleryController
 
@@ -56,11 +62,16 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 
     self.splitView.delegate = self;
 
-    self.imageBrowser.delegate       = self;
-    self.imageBrowser.dataSource     = self;
-    self.imageBrowser.cellsStyleMask = IKCellsStyleShadowed | IKCellsStyleTitled; // | IKCellsStyleSubtitled;
+    NSCollectionView *browser = self.imageBrowser;
 
-    [self.imageBrowser reloadData];
+    browser.delegate   = self;
+    browser.dataSource = self;
+
+    [browser registerClass:[NSTextField class]
+     forSupplementaryViewOfKind:NSCollectionElementKindSectionHeader
+                 withIdentifier:kCollectionHeader];
+
+    [browser reloadData];
 
     self.hostingView.delegate = self;
 
@@ -192,7 +203,7 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
     pngSavingDialog.canChooseDirectories    = YES;
     pngSavingDialog.allowsMultipleSelection = NO;
 
-    if ( [pngSavingDialog runModal] == NSOKButton ) {
+    if ( [pngSavingDialog runModal] == NSModalResponseOK ) {
         NSURL *url = pngSavingDialog.URL;
         if ( url ) {
 // top image
@@ -240,69 +251,104 @@ static NSString *const kThemeTableViewControllerDefaultTheme = @"Default";
 }
 
 #pragma mark -
-#pragma mark IKImageBrowserViewDataSource methods
+#pragma mark NSCollectionViewDataSource methods
 
--(NSUInteger)numberOfItemsInImageBrowser:(nonnull IKImageBrowserView *)browser
+-(NSInteger)numberOfSectionsInCollectionView:(nonnull NSCollectionView *)collectionView;
 {
-    return [PlotGallery sharedPlotGallery].count;
+    return (NSInteger)[PlotGallery sharedPlotGallery].numberOfSections;
 }
 
--(nonnull id)imageBrowser:(nonnull IKImageBrowserView *)browser itemAtIndex:(NSUInteger)index
+-(NSInteger)collectionView:(nonnull NSCollectionView *)collectionView
+    numberOfItemsInSection:(NSInteger)section
 {
-    return [[PlotGallery sharedPlotGallery] objectInSection:0 atIndex:index];
+    return (NSInteger)[[PlotGallery sharedPlotGallery] numberOfRowsInSection:(NSUInteger)section];
 }
 
--(NSUInteger)numberOfGroupsInImageBrowser:(nonnull IKImageBrowserView *)aBrowser
+-(nonnull NSCollectionViewItem *)collectionView:(nonnull NSCollectionView *)collectionView
+            itemForRepresentedObjectAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    return [PlotGallery sharedPlotGallery].numberOfSections;
+    PlotViewItem *item = [collectionView makeItemWithIdentifier:kCollectionItem
+                                                   forIndexPath:indexPath];
+
+    PlotItem *thePlotItem = [[PlotGallery sharedPlotGallery] objectInSection:(NSUInteger)indexPath.section
+                                                                     atIndex:(NSUInteger)indexPath.item];
+
+    item.plotItemTitle.stringValue = thePlotItem.title;
+    item.plotItemImage.image       = thePlotItem.image;
+
+    return item;
 }
 
--(nonnull CPTDictionary *)imageBrowser:(nonnull IKImageBrowserView *)aBrowser groupAtIndex:(NSUInteger)index
+-(nonnull NSView *)    collectionView:(nonnull NSCollectionView *)collectionView
+    viewForSupplementaryElementOfKind:(nonnull NSCollectionViewSupplementaryElementKind)kind
+                          atIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    NSString *groupTitle = [PlotGallery sharedPlotGallery].sectionTitles[index];
+    NSString *identifier = nil;
 
-    NSUInteger offset = 0;
-
-    for ( NSUInteger i = 0; i < index; i++ ) {
-        offset += [[PlotGallery sharedPlotGallery] numberOfRowsInSection:i];
+    if ( [kind isEqual:NSCollectionElementKindSectionHeader] ) {
+        identifier = kCollectionHeader;
+    }
+    else {
+        identifier = @"";
     }
 
-    NSValue *groupRange = [NSValue valueWithRange:NSMakeRange(offset, [[PlotGallery sharedPlotGallery] numberOfRowsInSection:index])];
+    NSString *content = [PlotGallery sharedPlotGallery].sectionTitles[(NSUInteger)indexPath.section];
 
-    return @{
-        IKImageBrowserGroupStyleKey: @(IKGroupDisclosureStyle),
-        IKImageBrowserGroupTitleKey: groupTitle,
-        IKImageBrowserGroupRangeKey: groupRange
-    };
+    NSView *view = [collectionView makeSupplementaryViewOfKind:kind withIdentifier:identifier forIndexPath:indexPath];
+    if ( content && [view isKindOfClass:[NSTextField class]] ) {
+        NSTextField *titleTextField = (NSTextField *)view;
+
+        titleTextField.editable        = NO;
+        titleTextField.selectable      = NO;
+        titleTextField.backgroundColor = [NSColor controlAccentColor];
+        titleTextField.textColor       = [NSColor headerTextColor];
+        titleTextField.font            = [NSFont boldSystemFontOfSize:14.0];
+        titleTextField.bordered        = YES;
+        titleTextField.stringValue     = content;
+    }
+
+    return view;
 }
 
 #pragma mark -
-#pragma mark IKImageBrowserViewDelegate methods
+#pragma mark NSCollectionViewDelegate methods
 
--(void)imageBrowserSelectionDidChange:(nonnull IKImageBrowserView *)browser
+-(void)         collectionView:(nonnull NSCollectionView *)collectionView
+    didSelectItemsAtIndexPaths:(nonnull NSSet<NSIndexPath *> *)indexPaths
 {
-    NSUInteger index = [browser selectionIndexes].firstIndex;
+    NSUInteger section = NSNotFound;
+    NSUInteger index   = NSNotFound;
+    NSIndexPath *path  = indexPaths.allObjects.firstObject;
+
+    if ( path ) {
+        section = (NSUInteger)path.section;
+        index   = (NSUInteger)path.item;
+    }
 
     if ( index != NSNotFound ) {
-        PlotItem *item = [[PlotGallery sharedPlotGallery] objectInSection:0 atIndex:index];
-        self.plotItem = item;
+        self.plotItem = [[PlotGallery sharedPlotGallery] objectInSection:section atIndex:index];
     }
 }
 
 #pragma mark -
 #pragma mark NSSplitViewDelegate methods
 
--(CGFloat)splitView:(nonnull NSSplitView *)sv constrainMinCoordinate:(CGFloat)coord ofSubviewAt:(NSInteger)index
+-(CGFloat)       splitView:(nonnull NSSplitView *)sv
+    constrainMinCoordinate:(CGFloat)coord
+               ofSubviewAt:(NSInteger)index
 {
     return coord + CPT_SPLIT_VIEW_MIN_LHS_WIDTH;
 }
 
--(CGFloat)splitView:(nonnull NSSplitView *)sv constrainMaxCoordinate:(CGFloat)coord ofSubviewAt:(NSInteger)index
+-(CGFloat)       splitView:(nonnull NSSplitView *)sv
+    constrainMaxCoordinate:(CGFloat)coord
+               ofSubviewAt:(NSInteger)index
 {
     return coord - CPT_SPLIT_VIEW_MIN_LHS_WIDTH;
 }
 
--(void)splitView:(nonnull NSSplitView *)sender resizeSubviewsWithOldSize:(NSSize)oldSize
+-(void)             splitView:(nonnull NSSplitView *)sender
+    resizeSubviewsWithOldSize:(NSSize)oldSize
 {
 // Lock the LHS width
     NSRect frame   = sender.frame;

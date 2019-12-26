@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
-        <plugIn identifier="com.apple.imagekit.ibplugin" version="9059"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -201,70 +201,65 @@
                     </menu>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="139" y="154"/>
         </menu>
         <window title="Plot Gallery-Mac" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" frameAutosaveName="PlotGallery" animationBehavior="default" id="371">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="344" y="741" width="800" height="600"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1578"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="372">
                 <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <splitView dividerStyle="paneSplitter" vertical="YES" id="541">
+                    <splitView dividerStyle="paneSplitter" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="541">
                         <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <customView id="542">
+                            <scrollView wantsLayer="YES" fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="IFZ-w9-1JM">
                                 <rect key="frame" x="0.0" y="0.0" width="227" height="600"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <subviews>
-                                    <scrollView autohidesScrollers="YES" horizontalLineScroll="102.5" horizontalPageScroll="10" verticalLineScroll="120" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="545">
-                                        <rect key="frame" x="0.0" y="0.0" width="227" height="600"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <clipView key="contentView" copiesOnScroll="NO" id="9Gg-fK-bUF">
-                                            <rect key="frame" x="1" y="1" width="225" height="598"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <subviews>
-                                                <ikImageBrowserView autoresizesSubviews="NO" zoomValue="0.58976781368255615" allowsMultipleSelection="NO" id="544">
-                                                    <rect key="frame" x="0.0" y="0.0" width="225" height="598"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <animations/>
-                                                    <autoresizingMask key="contentResizingMask" heightSizable="YES"/>
-                                                    <size key="cellSize" width="100" height="100"/>
-                                                </ikImageBrowserView>
-                                            </subviews>
-                                            <animations/>
-                                        </clipView>
-                                        <animations/>
-                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="547">
-                                            <rect key="frame" x="-100" y="-100" width="125" height="15"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <animations/>
-                                        </scroller>
-                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="546">
-                                            <rect key="frame" x="126" y="1" width="15" height="184"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <animations/>
-                                        </scroller>
-                                    </scrollView>
-                                </subviews>
-                                <animations/>
-                            </customView>
-                            <customView id="543" customClass="PlotView">
+                                <clipView key="contentView" id="mYu-2Y-6bo">
+                                    <rect key="frame" x="1" y="1" width="225" height="598"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <collectionView selectable="YES" allowsEmptySelection="NO" id="6zC-qU-6kg">
+                                            <rect key="frame" x="0.0" y="0.0" width="225" height="598"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="5" minimumLineSpacing="5" sectionHeadersPinToVisibleBounds="YES" id="ug3-lA-VB8">
+                                                <size key="itemSize" width="120" height="120"/>
+                                                <size key="headerReferenceSize" width="0.0" height="25"/>
+                                                <edgeInsets key="sectionInset" left="5" right="5" top="5" bottom="5"/>
+                                            </collectionViewFlowLayout>
+                                            <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </collectionView>
+                                    </subviews>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="PwV-UQ-87y">
+                                    <rect key="frame" x="-100" y="-100" width="233" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="PDT-cW-kl9">
+                                    <rect key="frame" x="234" y="1" width="15" height="143"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                            <customView fixedFrame="YES" id="543" customClass="PlotView">
                                 <rect key="frame" x="237" y="0.0" width="563" height="600"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <animations/>
                             </customView>
                         </subviews>
-                        <animations/>
                         <holdingPriorities>
                             <real value="250"/>
                             <real value="250"/>
                         </holdingPriorities>
                     </splitView>
                 </subviews>
-                <animations/>
+                <constraints>
+                    <constraint firstItem="541" firstAttribute="leading" secondItem="372" secondAttribute="leading" id="6PW-Pu-iDH"/>
+                    <constraint firstItem="541" firstAttribute="top" secondItem="372" secondAttribute="top" id="Jhe-fu-Wxz"/>
+                    <constraint firstAttribute="bottom" secondItem="541" secondAttribute="bottom" id="fow-PF-Sfs"/>
+                    <constraint firstAttribute="trailing" secondItem="541" secondAttribute="trailing" id="ga4-E2-UjP"/>
+                </constraints>
             </view>
             <toolbar key="toolbar" implicitIdentifier="362C0A69-3C26-43DD-93B4-5616D6FA9979" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="533">
                 <allowedToolbarItems>
@@ -277,7 +272,6 @@
                         <popUpButton key="view" verticalHuggingPriority="750" id="556">
                             <rect key="frame" x="0.0" y="14" width="100" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <animations/>
                             <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="557">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="menu"/>
@@ -297,6 +291,7 @@
                     <toolbarItem reference="562"/>
                 </defaultToolbarItems>
             </toolbar>
+            <point key="canvasLocation" x="139" y="-263"/>
         </window>
         <customObject id="494" customClass="Plot_Gallery_MacAppDelegate">
             <connections>
@@ -307,11 +302,12 @@
         <customObject id="563" customClass="PlotGalleryController">
             <connections>
                 <outlet property="hostingView" destination="543" id="568"/>
-                <outlet property="imageBrowser" destination="544" id="564"/>
-                <outlet property="scrollView" destination="545" id="565"/>
+                <outlet property="imageBrowser" destination="6zC-qU-6kg" id="0Zw-I7-oaY"/>
+                <outlet property="scrollView" destination="IFZ-w9-1JM" id="jDI-Fa-dVS"/>
                 <outlet property="splitView" destination="541" id="566"/>
                 <outlet property="themePopUpButton" destination="556" id="567"/>
             </connections>
         </customObject>
+        <collectionViewItem id="t3O-ma-T3S"/>
     </objects>
 </document>

@@ -2,6 +2,8 @@
 
 double gcd(double a, double b);
 
+#pragma mark -
+
 /** @brief A number formatter that converts numbers to multiples of π.
 **/
 @implementation PiNumberFormatter

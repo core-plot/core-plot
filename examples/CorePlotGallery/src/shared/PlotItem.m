@@ -9,7 +9,7 @@
 
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
 #else
-// For IKImageBrowser
+// For NSCollectionView
 #import <Quartz/Quartz.h>
 #endif
 
@@ -242,7 +242,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
 
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
 
--(nonnull UIImage *)image
+-(nonnull CPTNativeImage *)image
 {
     if ( self.cachedImage == nil ) {
         CGRect imageFrame = CGRectMake(0, 0, 400, 300);
@@ -287,7 +287,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
 
 #else // OSX
 
--(nonnull NSImage *)image
+-(nonnull CPTNativeImage *)image
 {
     if ( self.cachedImage == nil ) {
         CGRect imageFrame = CGRectMake(0, 0, 400, 300);
@@ -299,26 +299,9 @@ NSString *const kFinancialPlots = @"Financial Plots";
 
         CGSize boundsSize = imageFrame.size;
 
-        NSBitmapImageRep *layerImage = [[NSBitmapImageRep alloc]
-                                        initWithBitmapDataPlanes:NULL
-                                                      pixelsWide:(NSInteger)boundsSize.width
-                                                      pixelsHigh:(NSInteger)boundsSize.height
-                                                   bitsPerSample:8
-                                                 samplesPerPixel:4
-                                                        hasAlpha:YES
-                                                        isPlanar:NO
-                                                  colorSpaceName:NSCalibratedRGBColorSpace
-                                                     bytesPerRow:(NSInteger)boundsSize.width * 4
-                                                    bitsPerPixel:32];
-
-        NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:layerImage];
-        CGContextRef context             = (CGContextRef)bitmapContext.graphicsPort;
-
-        CGContextClearRect(context, CGRectMake(0.0, 0.0, boundsSize.width, boundsSize.height));
-        CGContextSetAllowsAntialiasing(context, true);
-        CGContextSetShouldSmoothFonts(context, false);
-        [imageView.layer renderInContext:context];
-        CGContextFlush(context);
+        NSBitmapImageRep *layerImage = [imageView bitmapImageRepForCachingDisplayInRect:imageFrame];
+        layerImage.size = boundsSize;
+        [imageView cacheDisplayInRect:imageFrame toBitmapImageRep:layerImage];
 
         self.cachedImage = [[NSImage alloc] initWithSize:NSSizeFromCGSize(boundsSize)];
         [self.cachedImage addRepresentation:layerImage];

@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		4F22FF4912342978006BF615 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FF4712342978006BF615 /* main.m */; };
 		4F22FF4C1234298E006BF615 /* Plot_Gallery_MacAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FF4B1234298E006BF615 /* Plot_Gallery_MacAppDelegate.m */; };
-		4F22FF5B12342A21006BF615 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F22FF5712342A21006BF615 /* InfoPlist.strings */; };
-		4F22FF5C12342A21006BF615 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F22FF5912342A21006BF615 /* MainMenu.xib */; };
 		4F22FFA412342D7C006BF615 /* CompositePlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FF9B12342D7C006BF615 /* CompositePlot.m */; };
 		4F22FFA512342D7C006BF615 /* GradientScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FF9D12342D7C006BF615 /* GradientScatterPlot.m */; };
 		4F22FFA612342D7C006BF615 /* SimplePieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FF9F12342D7C006BF615 /* SimplePieChart.m */; };
@@ -27,6 +25,8 @@
 		4FABDD421291110D003A2DB7 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F4892891290FFCD00EDB93F /* CorePlot.framework */; };
 		4FABDD4612911127003A2DB7 /* CorePlot.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4F4892891290FFCD00EDB93F /* CorePlot.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		C309C23423B3E12500DEDE9D /* PlotViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = C309C23323B3E12500DEDE9D /* PlotViewItem.xib */; };
+		C309C23623B3E21500DEDE9D /* PlotViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C309C23523B3E21500DEDE9D /* PlotViewItem.m */; };
 		C30B12431BCADD300084C567 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D4146F1A7D824700B6F5D6 /* CorePlot.framework */; };
 		C30B12441BCADD300084C567 /* CorePlot.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C3D4146F1A7D824700B6F5D6 /* CorePlot.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C30B12481BCADE170084C567 /* PlotItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22FFAE12342DB1006BF615 /* PlotItem.m */; };
@@ -64,6 +64,7 @@
 		C30D8B3F1BCAFFBB0003BB70 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30D8B3E1BCAFFBB0003BB70 /* QuartzCore.framework */; };
 		C30D8B411BCAFFC10003BB70 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30D8B401BCAFFC10003BB70 /* Foundation.framework */; };
 		C30D8B431BCAFFCB0003BB70 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30D8B421BCAFFCB0003BB70 /* UIKit.framework */; };
+		C32D229E23B1086600043720 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C32D229C23B1086600043720 /* MainMenu.xib */; };
 		C3457A4D17AD7C5D000880F3 /* PiNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3457A4C17AD7C5D000880F3 /* PiNumberFormatter.m */; };
 		C3490DD820E025760089F309 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = C3490DDA20E025760089F309 /* Icon.icns */; };
 		C34CB5461BC9A83C009270A0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34CB5451BC9A83C009270A0 /* Images.xcassets */; };
@@ -272,6 +273,9 @@
 		4F8E1CC012908B0000D2035F /* AxisDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AxisDemo.h; path = src/plots/AxisDemo.h; sourceTree = "<group>"; };
 		4F8E1CC112908B0000D2035F /* AxisDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = AxisDemo.m; path = src/plots/AxisDemo.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		8D1107320486CEB800E47090 /* Plot Gallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Plot Gallery.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C309C23323B3E12500DEDE9D /* PlotViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlotViewItem.xib; path = "Plot Gallery-Mac/PlotViewItem.xib"; sourceTree = "<group>"; };
+		C309C23523B3E21500DEDE9D /* PlotViewItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PlotViewItem.m; path = src/mac/PlotViewItem.m; sourceTree = "<group>"; };
+		C309C23723B3E29F00DEDE9D /* PlotViewItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PlotViewItem.h; path = src/mac/PlotViewItem.h; sourceTree = "<group>"; };
 		C30D8AF61BCAF99D0003BB70 /* Plot Gallery tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Plot Gallery tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C30D8AF91BCAF99D0003BB70 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = src/tvOS/main.m; sourceTree = "<group>"; };
 		C30D8AFB1BCAF99D0003BB70 /* AppDelegateTV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegateTV.h; path = src/tvOS/AppDelegateTV.h; sourceTree = "<group>"; };
@@ -282,6 +286,7 @@
 		C30D8B3E1BCAFFBB0003BB70 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		C30D8B401BCAFFC10003BB70 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		C30D8B421BCAFFCB0003BB70 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		C32D229D23B1086600043720 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = src/mac/Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		C3457A4B17AD7C5D000880F3 /* PiNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PiNumberFormatter.h; path = src/shared/PiNumberFormatter.h; sourceTree = "<group>"; };
 		C3457A4C17AD7C5D000880F3 /* PiNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PiNumberFormatter.m; path = src/shared/PiNumberFormatter.m; sourceTree = "<group>"; };
 		C3490DCC20E025660089F309 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/Plot_Gallery_Mac-Info.plist"; sourceTree = "<group>"; };
@@ -314,7 +319,6 @@
 		C360E1DF13B18CAE007994B6 /* CandlestickPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = CandlestickPlot.m; path = src/plots/CandlestickPlot.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C367249113E103910070F47A /* LineCapDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LineCapDemo.h; path = src/plots/LineCapDemo.h; sourceTree = "<group>"; };
 		C367249213E103910070F47A /* LineCapDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LineCapDemo.m; path = src/plots/LineCapDemo.m; sourceTree = "<group>"; };
-		C385067022A9CC840086BAD5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = ../en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C39C4E3F13BFE1A900CD9194 /* LabelingPolicyDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LabelingPolicyDemo.h; path = src/plots/LabelingPolicyDemo.h; sourceTree = "<group>"; };
 		C39C4E4013BFE1A900CD9194 /* LabelingPolicyDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = LabelingPolicyDemo.m; path = src/plots/LabelingPolicyDemo.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C39C4E4213BFE1B400CD9194 /* PlotSpaceDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlotSpaceDemo.h; path = src/plots/PlotSpaceDemo.h; sourceTree = "<group>"; };
@@ -332,7 +336,6 @@
 		C3C0DF2719D86B5E00631CAD /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/xcconfig/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
 		C3D0A1B820E0187600BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C3D0A1C520E0188800BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Base.lproj/Launch Screen.xib"; sourceTree = "<group>"; };
-		C3D0A1C720E0189900BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = ../Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		C3D0A1C920E018DE00BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C3D2FE6219FF1D03002CD4D6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = img/Images.xcassets; sourceTree = "<group>"; };
 		C3D70BA4175EB29E00F27173 /* ImageDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageDemo.h; path = src/plots/ImageDemo.h; sourceTree = "<group>"; };
@@ -394,6 +397,8 @@
 				4F35EBF4123611E3007C3389 /* PlotGalleryController.m */,
 				4F35EBF5123611E3007C3389 /* PlotView.h */,
 				4F35EBF6123611E3007C3389 /* PlotView.m */,
+				C309C23723B3E29F00DEDE9D /* PlotViewItem.h */,
+				C309C23523B3E21500DEDE9D /* PlotViewItem.m */,
 				4F22FF4712342978006BF615 /* main.m */,
 				4F22FF4A1234298E006BF615 /* Plot_Gallery_MacAppDelegate.h */,
 				4F22FF4B1234298E006BF615 /* Plot_Gallery_MacAppDelegate.m */,
@@ -443,9 +448,9 @@
 			children = (
 				C3EF42FC19FC75810060791A /* Images.xcassets */,
 				C3490DDA20E025760089F309 /* Icon.icns */,
+				C32D229C23B1086600043720 /* MainMenu.xib */,
+				C309C23323B3E12500DEDE9D /* PlotViewItem.xib */,
 				C3490DCD20E025660089F309 /* Plot_Gallery_Mac-Info.plist */,
-				4F22FF5912342A21006BF615 /* MainMenu.xib */,
-				4F22FF5712342A21006BF615 /* InfoPlist.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -795,10 +800,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3D2FE6319FF1D03002CD4D6 /* Images.xcassets in Resources */,
-				4F22FF5B12342A21006BF615 /* InfoPlist.strings in Resources */,
+				C32D229E23B1086600043720 /* MainMenu.xib in Resources */,
 				C3EF42FD19FC75810060791A /* Images.xcassets in Resources */,
-				4F22FF5C12342A21006BF615 /* MainMenu.xib in Resources */,
 				C3490DD820E025760089F309 /* Icon.icns in Resources */,
+				C309C23423B3E12500DEDE9D /* PlotViewItem.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -830,6 +835,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C309C23623B3E21500DEDE9D /* PlotViewItem.m in Sources */,
 				4F22FF4912342978006BF615 /* main.m in Sources */,
 				4F22FF4C1234298E006BF615 /* Plot_Gallery_MacAppDelegate.m in Sources */,
 				4F22FFA412342D7C006BF615 /* CompositePlot.m in Sources */,
@@ -962,22 +968,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		4F22FF5712342A21006BF615 /* InfoPlist.strings */ = {
+		C32D229C23B1086600043720 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				C385067022A9CC840086BAD5 /* en */,
-			);
-			name = InfoPlist.strings;
-			path = src/mac/English.lproj;
-			sourceTree = "<group>";
-		};
-		4F22FF5912342A21006BF615 /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C3D0A1C720E0189900BA2921 /* Base */,
+				C32D229D23B1086600043720 /* Base */,
 			);
 			name = MainMenu.xib;
-			path = src/mac/English.lproj;
 			sourceTree = "<group>";
 		};
 		C3490DCD20E025660089F309 /* Plot_Gallery_Mac-Info.plist */ = {
@@ -1059,7 +1055,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Plot_Gallery_Mac-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -1086,7 +1082,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Plot_Gallery_Mac-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",

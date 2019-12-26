@@ -12,6 +12,8 @@
 
 @end
 
+#pragma mark -
+
 @implementation PlotGallery
 
 @synthesize plotItems;

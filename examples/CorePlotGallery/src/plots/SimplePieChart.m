@@ -189,15 +189,12 @@
 
 -(NSAttributedString *)attributedLegendTitleForPieChart:(nonnull CPTPieChart *)pieChart recordIndex:(NSUInteger)index
 {
-#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
-    UIColor *sliceColor = [CPTPieChart defaultPieSliceColorForIndex:index].uiColor;
-#else
-    NSColor *sliceColor = [CPTPieChart defaultPieSliceColorForIndex:index].nsColor;
-#endif
-    CPTNativeFont *labelFont = [CPTNativeFont fontWithName:@"Helvetica"
-                                                      size:self.titleSize * CPTFloat(0.5)];
+    CPTNativeColor *sliceColor = [CPTPieChart defaultPieSliceColorForIndex:index].nativeColor;
+    CPTNativeFont *labelFont   = [CPTNativeFont fontWithName:@"Helvetica"
+                                                        size:self.titleSize * CPTFloat(0.5)];
 
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Pie Slice %lu", (unsigned long)index]];
+
     [title addAttribute:NSForegroundColorAttributeName
                   value:sliceColor
                   range:NSMakeRange(4, 5)];
