@@ -3,7 +3,7 @@ import UIKit
 class BarChartController : UIViewController, CPTBarPlotDataSource {
     private var barGraph : CPTXYGraph? = nil
 
-    // MARK: Initialization
+    // MARK: - Initialization
 
     override func viewDidAppear(_ animated : Bool)
     {

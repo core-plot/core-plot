@@ -5,7 +5,7 @@ class PieChartController : UIViewController, CPTPieChartDataSource, CPTPieChartD
 
     let dataForChart = [20.0, 30.0, 60.0]
 
-    // MARK: Initialization
+    // MARK: - Initialization
 
     override func viewDidAppear(_ animated : Bool)
     {
@@ -95,9 +95,8 @@ class PieChartController : UIViewController, CPTPieChartDataSource, CPTPieChartD
     }
 
     // MARK: - Delegate Methods
-    
-    private func pieChart(_ plot: CPTPlot, sliceWasSelectedAtRecordIndex recordIndex: UInt)
-    {
-        self.pieGraph?.title = "Selected index: \(recordIndex)"
+
+    func pieChart(_ plot: CPTPieChart, sliceWasSelectedAtRecord idx: UInt) {
+        self.pieGraph?.title = "Selected index: \(idx)"
     }
 }

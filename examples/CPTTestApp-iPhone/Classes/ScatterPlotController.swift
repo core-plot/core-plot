@@ -6,7 +6,7 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource, CPTAxi
     typealias plotDataType = [CPTScatterPlotField : Double]
     private var dataForPlot = [plotDataType]()
 
-    // MARK: Initialization
+    // MARK: - Initialization
 
     override func viewDidAppear(_ animated : Bool)
     {

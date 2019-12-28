@@ -182,12 +182,12 @@
 				BC8166CC1100DD00006D898E /* 16-line-chart.png */,
 				BC8166CD1100DD00006D898E /* 17-bar-chart.png */,
 				C3B9F9D317503CDD001CCC50 /* BlueTexture.png */,
-				C3D0A20E20E019EB00BA2921 /* PieChart.xib */,
-				C3D0A21E20E019F000BA2921 /* BarChart.xib */,
-				C3D0A22120E019F300BA2921 /* MainWindow.xib */,
-				C37A40F120E0322D00C4FF48 /* Info.plist */,
-				C3D0A22420E019F800BA2921 /* ScatterPlot.xib */,
 				C3D0A22720E019FF00BA2921 /* Launch Screen.xib */,
+				C3D0A22120E019F300BA2921 /* MainWindow.xib */,
+				C3D0A22420E019F800BA2921 /* ScatterPlot.xib */,
+				C3D0A21E20E019F000BA2921 /* BarChart.xib */,
+				C3D0A20E20E019EB00BA2921 /* PieChart.xib */,
+				C37A40F120E0322D00C4FF48 /* Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
