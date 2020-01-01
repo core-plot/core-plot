@@ -207,6 +207,7 @@ CPTBarPlotBinding const CPTBarPlotBindingBarWidths     = @"barWidths";     ///< 
         [self exposeBinding:CPTBarPlotBindingBarBases];
         [self exposeBinding:CPTBarPlotBindingBarFills];
         [self exposeBinding:CPTBarPlotBindingBarLineStyles];
+        [self exposeBinding:CPTBarPlotBindingBarWidths];
     }
 }
 
@@ -370,7 +371,7 @@ CPTBarPlotBinding const CPTBarPlotBindingBarWidths     = @"barWidths";     ///< 
     // Bar line styles
     [self reloadBarLineStylesInIndexRange:indexRange];
 
-    // Bar line widths
+    // Bar widths
     [self reloadBarWidthsInIndexRange:indexRange];
 
     // Legend
