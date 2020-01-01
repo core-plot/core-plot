@@ -80,12 +80,11 @@ typedef NS_ENUM (NSInteger, CPTRangePlotFillDirection) {
 
 /** @brief @optional Gets a bar width for the given range plot.
  *  This method will not be called if
- *  @link CPTBarPlotDataSource::barWidthsForBarPlot:recordIndexRange: -barWidthsForBarPlot:recordIndexRange: @endlink
+ *  @link CPTRangePlotDataSource::barWidthForRangePlot:recordIndexRange: -barWidthForRangePlot:recordIndexRange: @endlink
  *  is also implemented in the datasource.
  *  @param plot The range plot.
  *  @param idx The data index of interest.
  *  @return The bar width for the bar with the given index. If the data source returns @nil, the default barWidth is used.
- *  If the data source returns an NSNull object, no line is drawn.
  **/
 -(nullable NSNumber *)barWidthForRangePlot:(nonnull CPTRangePlot *)plot recordIndex:(NSUInteger)idx;
 

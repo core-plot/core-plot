@@ -98,7 +98,6 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
  *  @param barPlot The bar plot.
  *  @param idx The data index of interest.
  *  @return The bar width for the bar with the given index. If the data source returns @nil, the default barWidth is used.
- *  If the data source returns an NSNull object, no line is drawn.
  **/
 -(nullable NSNumber *)barWidthForBarPlot:(nonnull CPTBarPlot *)barPlot recordIndex:(NSUInteger)idx;
 
