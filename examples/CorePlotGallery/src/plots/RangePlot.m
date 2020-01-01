@@ -210,6 +210,11 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     return NO;
 }
 
+-(nullable NSNumber *)barWidthForRangePlot:(nonnull CPTRangePlot *)plot recordIndex:(NSUInteger)idx
+{
+    return @(arc4random_uniform(85) + 15);
+}
+
 #pragma mark -
 #pragma mark Plot Delegate Methods
 

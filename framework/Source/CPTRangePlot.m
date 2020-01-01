@@ -13,6 +13,7 @@
 #import "CPTUtilities.h"
 #import "CPTXYPlotSpace.h"
 #import "NSCoderExtensions.h"
+#import "NSNumberExtensions.h"
 #import "tgmath.h"
 
 /** @defgroup plotAnimationRangePlot Range Plot
@@ -34,6 +35,7 @@ CPTRangePlotBinding const CPTRangePlotBindingLowValues     = @"lowValues";     /
 CPTRangePlotBinding const CPTRangePlotBindingLeftValues    = @"leftValues";    ///< Left price values.
 CPTRangePlotBinding const CPTRangePlotBindingRightValues   = @"rightValues";   ///< Right price values.
 CPTRangePlotBinding const CPTRangePlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line styles.
+CPTRangePlotBinding const CPTRangePlotBindingBarWidths     = @"barWidths";     ///< Bar widths.
 
 /// @cond
 struct CGPointError {
@@ -64,6 +66,7 @@ typedef struct CGPointError CGPointError;
 
 -(void)drawRangeInContext:(nonnull CGContextRef)context lineStyle:(nonnull CPTLineStyle *)lineStyle viewPoint:(CGPointError *)viewPoint halfGapSize:(CGSize)halfGapSize halfBarWidth:(CGFloat)halfBarWidth alignPoints:(BOOL)alignPoints;
 -(CPTLineStyle *)barLineStyleForIndex:(NSUInteger)idx;
+-(nonnull NSNumber *)barWidthForIndex:(NSUInteger)idx;
 
 @end
 
@@ -156,6 +159,7 @@ typedef struct CGPointError CGPointError;
         [self exposeBinding:CPTRangePlotBindingLeftValues];
         [self exposeBinding:CPTRangePlotBindingRightValues];
         [self exposeBinding:CPTRangePlotBindingBarLineStyles];
+        [self exposeBinding:CPTRangePlotBindingBarWidths];
     }
 }
 
@@ -170,7 +174,12 @@ typedef struct CGPointError CGPointError;
  *
  *  This is the designated initializer. The initialized layer will have the following properties:
  *  - @ref barLineStyle = default line style
+ *  - @ref fillDirection = CPTRangePlotFillHorizontal
  *  - @ref areaFill = @nil
+ *  - @ref areaBorderLineStyle = @nil
+ *  - @ref barWidth = 0.0
+ *  - @ref gapHeight = 0.0
+ *  - @ref gapWidth = 0.0
  *  - @ref labelField = #CPTRangePlotFieldX
  *
  *  @param newFrame The frame rectangle.
@@ -183,6 +192,9 @@ typedef struct CGPointError CGPointError;
         fillDirection       = CPTRangePlotFillHorizontal;
         areaFill            = nil;
         areaBorderLineStyle = nil;
+        barWidth            = CPTFloat(0.0);
+        gapHeight           = CPTFloat(0.0);
+        gapWidth            = CPTFloat(0.0);
 
         pointingDeviceDownIndex = NSNotFound;
 
@@ -204,6 +216,9 @@ typedef struct CGPointError CGPointError;
         fillDirection       = theLayer->fillDirection;
         areaFill            = theLayer->areaFill;
         areaBorderLineStyle = theLayer->areaBorderLineStyle;
+        barWidth            = theLayer->barWidth;
+        gapHeight           = theLayer->gapHeight;
+        gapWidth            = theLayer->gapWidth;
 
         pointingDeviceDownIndex = NSNotFound;
     }
@@ -545,6 +560,9 @@ typedef struct CGPointError CGPointError;
 
     // Bar line styles
     [self reloadBarLineStylesInIndexRange:indexRange];
+
+    // Bar widths
+    [self reloadBarWidthsInIndexRange:indexRange];
 }
 
 -(void)reloadPlotDataInIndexRange:(NSRange)indexRange
@@ -628,6 +646,49 @@ typedef struct CGPointError CGPointError;
     // Legend
     if ( needsLegendUpdate ) {
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
+    }
+
+    [self setNeedsDisplay];
+}
+
+/**
+ *  @brief Reload all bar widths from the data source immediately.
+ **/
+-(void)reloadBarWidths
+{
+    [self reloadBarWidthsInIndexRange:NSMakeRange(0, self.cachedDataCount)];
+}
+
+/** @brief Reload bar widths in the given index range from the data source immediately.
+ *  @param indexRange The index range to load.
+ **/
+-(void)reloadBarWidthsInIndexRange:(NSRange)indexRange
+{
+    id<CPTRangePlotDataSource> theDataSource = (id<CPTRangePlotDataSource>)self.dataSource;
+
+    if ( [theDataSource respondsToSelector:@selector(barWidthsForRangePlot:recordIndexRange:)] ) {
+        [self cacheArray:[theDataSource barWidthsForRangePlot:self recordIndexRange:indexRange]
+                  forKey:CPTRangePlotBindingBarWidths
+           atRecordIndex:indexRange.location];
+    }
+    else if ( [theDataSource respondsToSelector:@selector(barWidthForRangePlot:recordIndex:)] ) {
+        id nilObject                 = [CPTPlot nilData];
+        CPTMutableNumberArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
+        NSUInteger maxIndex          = NSMaxRange(indexRange);
+
+        for ( NSUInteger idx = indexRange.location; idx < maxIndex; idx++ ) {
+            NSNumber *width = [theDataSource barWidthForRangePlot:self recordIndex:idx];
+            if ( width ) {
+                [array addObject:width];
+            }
+            else {
+                [array addObject:nilObject];
+            }
+        }
+
+        [self cacheArray:array
+                  forKey:CPTRangePlotBindingBarWidths
+           atRecordIndex:indexRange.location];
     }
 
     [self setNeedsDisplay];
@@ -775,11 +836,12 @@ typedef struct CGPointError CGPointError;
             CGPathRelease(fillPath);
         }
 
-        CGSize halfGapSize   = CPTSizeMake(self.gapWidth * CPTFloat(0.5), self.gapHeight * CPTFloat(0.5));
-        CGFloat halfBarWidth = self.barWidth * CPTFloat(0.5);
-        BOOL alignPoints     = self.alignsPointsToPixels;
+        CGSize halfGapSize = CPTSizeMake(self.gapWidth * CPTFloat(0.5), self.gapHeight * CPTFloat(0.5));
+        BOOL alignPoints   = self.alignsPointsToPixels;
 
         for ( NSUInteger i = (NSUInteger)firstDrawnPointIndex; i <= (NSUInteger)lastDrawnPointIndex; i++ ) {
+            CGFloat halfBarWidth = [self barWidthForIndex:i].cgFloatValue * CPTFloat(0.5);
+
             [self drawRangeInContext:context
                            lineStyle:[self barLineStyleForIndex:i]
                            viewPoint:&viewPoints[i]
@@ -965,6 +1027,17 @@ typedef struct CGPointError CGPointError;
     }
 
     return theBarLineStyle;
+}
+
+-(nonnull NSNumber *)barWidthForIndex:(NSUInteger)idx
+{
+    NSNumber *theBarWidth = [self cachedValueForKey:CPTRangePlotBindingBarWidths recordIndex:idx];
+
+    if ((theBarWidth == nil) || (theBarWidth == [CPTPlot nilData])) {
+        theBarWidth = @(self.barWidth);
+    }
+
+    return theBarWidth;
 }
 
 /// @endcond

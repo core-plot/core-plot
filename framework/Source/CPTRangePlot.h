@@ -19,6 +19,7 @@ extern CPTRangePlotBinding __nonnull const CPTRangePlotBindingLowValues;
 extern CPTRangePlotBinding __nonnull const CPTRangePlotBindingLeftValues;
 extern CPTRangePlotBinding __nonnull const CPTRangePlotBindingRightValues;
 extern CPTRangePlotBinding __nonnull const CPTRangePlotBindingBarLineStyles;
+extern CPTRangePlotBinding __nonnull const CPTRangePlotBindingBarWidths;
 /// @}
 
 /**
@@ -69,6 +70,24 @@ typedef NS_ENUM (NSInteger, CPTRangePlotFillDirection) {
  *  If the data source returns an NSNull object, no line is drawn.
  **/
 -(nullable CPTLineStyle *)barLineStyleForRangePlot:(nonnull CPTRangePlot *)plot recordIndex:(NSUInteger)idx;
+
+/** @brief @optional Gets an array of bar widths for the given range plot.
+ *  @param plot The range plot.
+ *  @param indexRange The range of the data indexes of interest.
+ *  @return An array of bar widths.
+ **/
+-(nullable CPTNumberArray *)barWidthsForRangePlot:(nonnull CPTRangePlot *)barPlot recordIndexRange:(NSRange)indexRange;
+
+/** @brief @optional Gets a bar width for the given range plot.
+ *  This method will not be called if
+ *  @link CPTBarPlotDataSource::barWidthsForBarPlot:recordIndexRange: -barWidthsForBarPlot:recordIndexRange: @endlink
+ *  is also implemented in the datasource.
+ *  @param plot The range plot.
+ *  @param idx The data index of interest.
+ *  @return The bar width for the bar with the given index. If the data source returns @nil, the default barWidth is used.
+ *  If the data source returns an NSNull object, no line is drawn.
+ **/
+-(nullable NSNumber *)barWidthForRangePlot:(nonnull CPTRangePlot *)plot recordIndex:(NSUInteger)idx;
 
 /// @}
 
@@ -176,6 +195,8 @@ typedef NS_ENUM (NSInteger, CPTRangePlotFillDirection) {
 /// @{
 -(void)reloadBarLineStyles;
 -(void)reloadBarLineStylesInIndexRange:(NSRange)indexRange;
+-(void)reloadBarWidths;
+-(void)reloadBarWidthsInIndexRange:(NSRange)indexRange;
 /// @}
 
 @end
