@@ -12,6 +12,7 @@
 #import "CPTUtilities.h"
 #import "CPTXYPlotSpace.h"
 #import "NSCoderExtensions.h"
+#import "NSNumberExtensions.h"
 #import "tgmath.h"
 
 /** @defgroup plotAnimationTradingRangePlot Trading Range Plot
@@ -36,6 +37,7 @@ CPTTradingRangePlotBinding const CPTTradingRangePlotBindingDecreaseFills      = 
 CPTTradingRangePlotBinding const CPTTradingRangePlotBindingLineStyles         = @"lineStyles";         ///< Line styles used to draw candlestick or OHLC symbols.
 CPTTradingRangePlotBinding const CPTTradingRangePlotBindingIncreaseLineStyles = @"increaseLineStyles"; ///< Line styles used to outline candlestick symbols when close >= open.
 CPTTradingRangePlotBinding const CPTTradingRangePlotBindingDecreaseLineStyles = @"decreaseLineStyles"; ///< Line styles used to outline candlestick symbols when close < open.
+CPTTradingRangePlotBinding const CPTTradingRangePlotBindingBarWidths          = @"barWidths";          ///< Bar widths.
 
 static const CPTCoordinate independentCoord = CPTCoordinateX;
 static const CPTCoordinate dependentCoord   = CPTCoordinateY;
@@ -53,9 +55,10 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 @property (nonatomic, readwrite, copy, nullable) CPTLineStyleArray *lineStyles;
 @property (nonatomic, readwrite, copy, nullable) CPTLineStyleArray *increaseLineStyles;
 @property (nonatomic, readwrite, copy, nullable) CPTLineStyleArray *decreaseLineStyles;
+@property (nonatomic, readwrite, copy, nullable) CPTLineStyleArray *barWidths;
 @property (nonatomic, readwrite, assign) NSUInteger pointingDeviceDownIndex;
 
--(void)drawCandleStickInContext:(nonnull CGContextRef)context atIndex:(NSUInteger)idx x:(CGFloat)x open:(CGFloat)openValue close:(CGFloat)closeValue high:(CGFloat)highValue low:(CGFloat)lowValue alignPoints:(BOOL)alignPoints;
+-(void)drawCandleStickInContext:(nonnull CGContextRef)context atIndex:(NSUInteger)idx x:(CGFloat)x open:(CGFloat)openValue close:(CGFloat)closeValue high:(CGFloat)highValue low:(CGFloat)lowValue width:(CGFloat)width alignPoints:(BOOL)alignPoints;
 -(void)drawOHLCInContext:(nonnull CGContextRef)context atIndex:(NSUInteger)idx x:(CGFloat)x open:(CGFloat)openValue close:(CGFloat)closeValue high:(CGFloat)highValue low:(CGFloat)lowValue alignPoints:(BOOL)alignPoints;
 
 -(nullable CPTFill *)increaseFillForIndex:(NSUInteger)idx;
@@ -64,6 +67,8 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 -(nullable CPTLineStyle *)lineStyleForIndex:(NSUInteger)idx;
 -(nullable CPTLineStyle *)increaseLineStyleForIndex:(NSUInteger)idx;
 -(nullable CPTLineStyle *)decreaseLineStyleForIndex:(NSUInteger)idx;
+
+-(nonnull NSNumber *)barWidthForIndex:(NSUInteger)idx;
 
 @end
 
@@ -90,6 +95,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 @dynamic lineStyles;
 @dynamic increaseLineStyles;
 @dynamic decreaseLineStyles;
+@dynamic barWidths;
 
 /** @property nullable CPTLineStyle *lineStyle
  *  @brief The line style used to draw candlestick or OHLC symbols.
@@ -174,6 +180,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         [self exposeBinding:CPTTradingRangePlotBindingLineStyles];
         [self exposeBinding:CPTTradingRangePlotBindingIncreaseLineStyles];
         [self exposeBinding:CPTTradingRangePlotBindingDecreaseLineStyles];
+        [self exposeBinding:CPTTradingRangePlotBindingBarWidths];
     }
 }
 
@@ -326,6 +333,9 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
     // Line styles
     [self reloadBarLineStylesInIndexRange:indexRange];
+
+    // Bar widths
+    [self reloadBarWidthsInIndexRange:indexRange];
 }
 
 -(void)reloadPlotDataInIndexRange:(NSRange)indexRange
@@ -549,6 +559,49 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     [self setNeedsDisplay];
 }
 
+/**
+ *  @brief Reload all bar widths from the data source immediately.
+ **/
+-(void)reloadBarWidths
+{
+    [self reloadBarWidthsInIndexRange:NSMakeRange(0, self.cachedDataCount)];
+}
+
+/** @brief Reload bar widths in the given index range from the data source immediately.
+ *  @param indexRange The index range to load.
+ **/
+-(void)reloadBarWidthsInIndexRange:(NSRange)indexRange
+{
+    id<CPTTradingRangePlotDataSource> theDataSource = (id<CPTTradingRangePlotDataSource>)self.dataSource;
+
+    if ( [theDataSource respondsToSelector:@selector(barWidthsForTradingRangePlot:recordIndexRange:)] ) {
+        [self cacheArray:[theDataSource barWidthsForTradingRangePlot:self recordIndexRange:indexRange]
+                  forKey:CPTTradingRangePlotBindingBarWidths
+           atRecordIndex:indexRange.location];
+    }
+    else if ( [theDataSource respondsToSelector:@selector(barWidthForTradingRangePlot:recordIndex:)] ) {
+        id nilObject                 = [CPTPlot nilData];
+        CPTMutableNumberArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
+        NSUInteger maxIndex          = NSMaxRange(indexRange);
+
+        for ( NSUInteger idx = indexRange.location; idx < maxIndex; idx++ ) {
+            NSNumber *width = [theDataSource barWidthForTradingRangePlot:self recordIndex:idx];
+            if ( width ) {
+                [array addObject:width];
+            }
+            else {
+                [array addObject:nilObject];
+            }
+        }
+
+        [self cacheArray:array
+                  forKey:CPTTradingRangePlotBindingBarWidths
+           atRecordIndex:indexRange.location];
+    }
+
+    [self setNeedsDisplay];
+}
+
 #pragma mark -
 #pragma mark Drawing
 
@@ -675,6 +728,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
                                                  close:closePoint.y
                                                   high:highPoint.y
                                                    low:lowPoint.y
+                                                 width:[self barWidthForIndex:i].cgFloatValue
                                            alignPoints:alignPoints];
                         break;
                 }
@@ -768,6 +822,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
                                                  close:closePoint.y
                                                   high:highPoint.y
                                                    low:lowPoint.y
+                                                 width:[self barWidthForIndex:i].cgFloatValue
                                            alignPoints:alignPoints];
                         break;
                 }
@@ -785,9 +840,11 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
                           close:(CGFloat)closeValue
                            high:(CGFloat)highValue
                             low:(CGFloat)lowValue
+                          width:(CGFloat)width
                     alignPoints:(BOOL)alignPoints
 {
-    const CGFloat halfBarWidth       = CPTFloat(0.5) * self.barWidth;
+    const CGFloat halfBarWidth = CPTFloat(0.5) * width;
+
     CPTFill *currentBarFill          = nil;
     CPTLineStyle *theBorderLineStyle = nil;
 
@@ -1026,7 +1083,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
         switch ( self.plotStyle ) {
             case CPTTradingRangePlotStyleOHLC:
                 [self drawOHLCInContext:context
-                                atIndex:idx
+                                atIndex:0
                                       x:CGRectGetMidX(rect)
                                    open:CGRectGetMinY(rect) + rect.size.height / CPTFloat(3.0)
                                   close:CGRectGetMinY(rect) + rect.size.height * (CGFloat)(2.0 / 3.0)
@@ -1037,12 +1094,13 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
             case CPTTradingRangePlotStyleCandleStick:
                 [self drawCandleStickInContext:context
-                                       atIndex:idx
+                                       atIndex:0
                                              x:CGRectGetMidX(rect)
                                           open:CGRectGetMinY(rect) + rect.size.height / CPTFloat(3.0)
                                          close:CGRectGetMinY(rect) + rect.size.height * (CGFloat)(2.0 / 3.0)
                                           high:CGRectGetMaxY(rect)
                                            low:CGRectGetMinY(rect)
+                                         width:rect.size.width * CPTFloat(0.8)
                                    alignPoints:YES];
                 break;
         }
@@ -1110,6 +1168,17 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     }
 
     return theLineStyle;
+}
+
+-(nonnull NSNumber *)barWidthForIndex:(NSUInteger)idx
+{
+    NSNumber *theBarWidth = [self cachedValueForKey:CPTTradingRangePlotBindingBarWidths recordIndex:idx];
+
+    if ((theBarWidth == nil) || (theBarWidth == [CPTPlot nilData])) {
+        theBarWidth = @(self.barWidth);
+    }
+
+    return theBarWidth;
 }
 
 /// @endcond
@@ -1478,7 +1547,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
                 break;
 
             case CPTTradingRangePlotStyleCandleStick:
-                offset = self.barWidth * CPTFloat(0.5);
+                offset = [self barWidthForIndex:result].cgFloatValue * CPTFloat(0.5);
                 break;
         }
 
