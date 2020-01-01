@@ -215,6 +215,11 @@
     return [CPTFill fillWithGradient:fillGradient];
 }
 
+-(nullable NSNumber *)barWidthForBarPlot:(nonnull CPTBarPlot *)barPlot recordIndex:(NSUInteger)idx
+{
+    return @((double)(arc4random_uniform(50) + 25) / 100.0);
+}
+
 -(nullable NSString *)legendTitleForBarPlot:(nonnull CPTBarPlot *)barPlot recordIndex:(NSUInteger)index
 {
     return [NSString stringWithFormat:@"Bar %lu", (unsigned long)(index + 1)];
