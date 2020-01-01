@@ -42,6 +42,7 @@ CPTBarPlotBinding const CPTBarPlotBindingBarWidths     = @"barWidths";     ///< 
 @property (nonatomic, readwrite, copy, nullable) CPTNumberArray *barBases;
 @property (nonatomic, readwrite, copy, nullable) CPTFillArray *barFills;
 @property (nonatomic, readwrite, copy, nullable) CPTLineStyleArray *barLineStyles;
+@property (nonatomic, readwrite, copy, nullable) CPTLineStyleArray *barWidths;
 @property (nonatomic, readwrite, assign) NSUInteger pointingDeviceDownIndex;
 
 -(BOOL)barAtRecordIndex:(NSUInteger)idx basePoint:(nonnull CGPoint *)basePoint tipPoint:(nonnull CGPoint *)tipPoint;
@@ -77,6 +78,7 @@ CPTBarPlotBinding const CPTBarPlotBindingBarWidths     = @"barWidths";     ///< 
 @dynamic barBases;
 @dynamic barFills;
 @dynamic barLineStyles;
+@dynamic barWidths;
 
 /** @property CGFloat barCornerRadius
  *  @brief The corner radius for the end of the bars. Default is @num{0.0} for square corners.

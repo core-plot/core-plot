@@ -57,6 +57,7 @@ typedef struct CGPointError CGPointError;
 @property (nonatomic, readwrite, copy, nullable) CPTMutableNumericData *leftValues;
 @property (nonatomic, readwrite, copy, nullable) CPTMutableNumericData *rightValues;
 @property (nonatomic, readwrite, copy, nullable) CPTLineStyleArray *barLineStyles;
+@property (nonatomic, readwrite, copy, nullable) CPTLineStyleArray *barWidths;
 @property (nonatomic, readwrite, assign) NSUInteger pointingDeviceDownIndex;
 
 -(void)calculatePointsToDraw:(nonnull BOOL *)pointDrawFlags numberOfPoints:(NSUInteger)dataCount forPlotSpace:(nonnull CPTXYPlotSpace *)xyPlotSpace includeVisiblePointsOnly:(BOOL)visibleOnly;
@@ -91,6 +92,7 @@ typedef struct CGPointError CGPointError;
 @dynamic leftValues;
 @dynamic rightValues;
 @dynamic barLineStyles;
+@dynamic barWidths;
 
 /** @property CPTRangePlotFillDirection fillDirection
  *  @brief Fill the range in a horizontal or vertical direction.
