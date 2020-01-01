@@ -8,7 +8,7 @@
 @implementation CPTMutableTextStyle
 
 /** @property CPTNativeFont* font
- *  @brief The font. Default is nil.
+ *  @brief The font. Default is @nil.
  *
  *  Font will override fontName and fontSize if not @nil.
  **/
