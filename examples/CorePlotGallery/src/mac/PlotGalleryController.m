@@ -253,7 +253,7 @@ static NSString *const kCollectionItem   = @"PlotViewItem";
 #pragma mark -
 #pragma mark NSCollectionViewDataSource methods
 
--(NSInteger)numberOfSectionsInCollectionView:(nonnull NSCollectionView *)collectionView;
+-(NSInteger)numberOfSectionsInCollectionView:(nonnull NSCollectionView *)collectionView
 {
     return (NSInteger)[PlotGallery sharedPlotGallery].numberOfSections;
 }
