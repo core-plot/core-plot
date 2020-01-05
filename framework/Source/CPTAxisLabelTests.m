@@ -32,7 +32,12 @@ static CGPoint roundPoint(CGPoint position, CGSize contentSize, CGPoint anchor)
     @try {
         label = [[CPTAxisLabel alloc] initWithText:@"CPTAxisLabelTests-testPositionRelativeToViewPointRaisesForInvalidDirection" textStyle:[CPTTextStyle textStyle]];
 
-        XCTAssertThrowsSpecificNamed([label positionRelativeToViewPoint:CGPointZero forCoordinate:CPTCoordinateX inDirection:INT_MAX], NSException, NSInvalidArgumentException, @"Should raise NSInvalidArgumentException for invalid direction (type CPTSign)");
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wassign-enum"
+
+        XCTAssertThrowsSpecificNamed([label positionRelativeToViewPoint:CGPointZero forCoordinate:CPTCoordinateX inDirection:NSIntegerMax], NSException, NSInvalidArgumentException, @"Should raise NSInvalidArgumentException for invalid direction (type CPTSign)");
+
+#pragma clang diagnostic pop
     }
     @finally {
         label = nil;

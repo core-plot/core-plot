@@ -59,7 +59,7 @@
     return @"CPTPlotDocument";
 }
 
--(void)windowControllerDidLoadNib:(nonnull NSWindowController *)windowController
+-(void)windowControllerDidLoadNib:(nonnull NSWindowController *__unused)windowController
 {
     // Create graph from theme
     CPTXYGraph *newGraph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
@@ -128,7 +128,7 @@
 #pragma mark -
 #pragma mark Data loading methods
 
--(nullable NSData *)dataOfType:(nonnull NSString *)typeName error:(NSError *__autoreleasing __nullable *)outError
+-(nullable NSData *)dataOfType:(nonnull NSString *__unused)typeName error:(NSError *__autoreleasing __nullable *)outError
 {
     // Insert code here to write your document to data of the specified type. If the given outError != NULL, ensure that you set *outError when returning nil.
 
@@ -308,7 +308,7 @@
 #pragma mark -
 #pragma mark PDF / image export
 
--(IBAction)exportToPDF:(nullable id)sender
+-(IBAction)exportToPDF:(nullable id __unused)sender
 {
     NSSavePanel *pdfSavingDialog = [NSSavePanel savePanel];
 
@@ -324,7 +324,7 @@
     }
 }
 
--(IBAction)exportToPNG:(nullable id)sender
+-(IBAction)exportToPNG:(nullable id __unused)sender
 {
     NSSavePanel *pngSavingDialog = [NSSavePanel savePanel];
 
@@ -346,12 +346,12 @@
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *__unused)plot
 {
     return self.dataPoints.count;
 }
 
--(nullable id)numberForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(nullable id)numberForPlot:(nonnull CPTPlot *__unused)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
 
@@ -361,7 +361,7 @@
 #pragma mark -
 #pragma mark Plot Space Delegate Methods
 
--(BOOL)plotSpace:(nonnull CPTPlotSpace *)space shouldHandlePointingDeviceDraggedEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+-(BOOL)plotSpace:(nonnull CPTPlotSpace *__unused)space shouldHandlePointingDeviceDraggedEvent:(nonnull CPTNativeEvent *__unused)event atPoint:(CGPoint)interactionPoint
 {
     CPTPlotSpaceAnnotation *annotation = self.zoomAnnotation;
 
@@ -388,7 +388,7 @@
     return NO;
 }
 
--(BOOL)plotSpace:(nonnull CPTPlotSpace *)space shouldHandlePointingDeviceDownEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+-(BOOL)plotSpace:(nonnull CPTPlotSpace *__unused)space shouldHandlePointingDeviceDownEvent:(nonnull CPTNativeEvent *__unused)event atPoint:(CGPoint)interactionPoint
 {
     if ( !self.zoomAnnotation ) {
         self.dragStart = interactionPoint;
@@ -429,7 +429,7 @@
     return NO;
 }
 
--(BOOL)plotSpace:(nonnull CPTPlotSpace *)space shouldHandlePointingDeviceUpEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+-(BOOL)plotSpace:(nonnull CPTPlotSpace *__unused)space shouldHandlePointingDeviceUpEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
     CPTPlotSpaceAnnotation *annotation = self.zoomAnnotation;
 
@@ -461,7 +461,7 @@
     return NO;
 }
 
--(BOOL)plotSpace:(nonnull CPTPlotSpace *)space shouldHandlePointingDeviceCancelledEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
+-(BOOL)plotSpace:(nonnull CPTPlotSpace *__unused)space shouldHandlePointingDeviceCancelledEvent:(nonnull CPTNativeEvent *__unused)event atPoint:(CGPoint __unused)interactionPoint
 {
     CPTPlotSpaceAnnotation *annotation = self.zoomAnnotation;
 

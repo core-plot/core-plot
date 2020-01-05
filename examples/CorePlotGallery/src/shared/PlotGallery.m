@@ -58,7 +58,7 @@ static PlotGallery *sharedPlotGallery = nil;
     return sharedPlotGallery;
 }
 
--(nonnull id)copyWithZone:(nullable NSZone *)zone
+-(nonnull id)copyWithZone:(nullable NSZone *__unused)zone
 {
     return self;
 }

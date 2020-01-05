@@ -100,4 +100,4 @@ GCC_WARN_UNUSED_VARIABLE = YES
 
 IBC_WARNINGS = YES
 
-WARNING_CFLAGS = -Weverything -Wno-unused-parameter -Wno-undef -Wno-switch-enum -Wno-float-equal -Wno-custom-atomic-properties -Wno-pedantic -Wno-documentation -Wno-documentation-unknown-command  -Wno-partial-availability -Wno-objc-messaging-id
+WARNING_CFLAGS = -Weverything -Wno-undef -Wno-switch-enum -Wno-float-equal -Wno-custom-atomic-properties -Wno-pedantic -Wno-documentation -Wno-documentation-unknown-command  -Wno-partial-availability -Wno-objc-messaging-id

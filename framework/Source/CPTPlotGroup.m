@@ -83,7 +83,7 @@
     // nothing to draw
 }
 
--(void)renderAsVectorInContext:(nonnull CGContextRef)context
+-(void)renderAsVectorInContext:(nonnull CGContextRef __unused)context
 {
     // nothing to draw
 }

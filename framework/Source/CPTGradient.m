@@ -1653,7 +1653,7 @@ void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2) // H va
 {
     const CGRect rect = CGRectMake(0.0, 0.0, 100.0, 100.0);
 
-    return CPTQuickLookImage(rect, ^(CGContextRef context, CGFloat scale, CGRect bounds) {
+    return CPTQuickLookImage(rect, ^(CGContextRef context, CGFloat __unused scale, CGRect bounds) {
         switch ( self.gradientType ) {
             case CPTGradientTypeAxial:
                 CGContextAddRect(context, bounds);

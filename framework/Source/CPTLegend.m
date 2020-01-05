@@ -1142,12 +1142,12 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
 
 /// @cond
 
--(void)legendNeedsRedraw:(nonnull NSNotification *)notif
+-(void)legendNeedsRedraw:(nonnull NSNotification *__unused)notif
 {
     [self setNeedsDisplay];
 }
 
--(void)legendNeedsLayout:(nonnull NSNotification *)notif
+-(void)legendNeedsLayout:(nonnull NSNotification *__unused)notif
 {
     self.layoutChanged = YES;
     [self setNeedsDisplay];

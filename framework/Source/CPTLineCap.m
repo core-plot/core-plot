@@ -605,7 +605,7 @@
     const CGRect rect         = CGRectMake(-halfSize.width, -halfSize.height, symbolSize.width, symbolSize.height);
     const CGPoint centerPoint = CGPointMake(halfSize.width, halfSize.height);
 
-    return CPTQuickLookImage(rect, ^(CGContextRef context, CGFloat scale, CGRect bounds) {
+    return CPTQuickLookImage(rect, ^(CGContextRef context, CGFloat __unused scale, CGRect bounds __unused) {
         [self renderAsVectorInContext:context atPoint:centerPoint inDirection:CGPointMake(1.0, 0.0)];
     });
 }

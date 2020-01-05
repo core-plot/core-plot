@@ -9,11 +9,11 @@
 
 @synthesize window;
 
--(void)applicationDidFinishLaunching:(nonnull NSNotification *)aNotification
+-(void)applicationDidFinishLaunching:(nonnull NSNotification *__unused)aNotification
 {
 }
 
--(BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
+-(BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *__unused)sender
 {
     return YES;
 }

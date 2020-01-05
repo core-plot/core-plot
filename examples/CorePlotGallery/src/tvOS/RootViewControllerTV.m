@@ -48,7 +48,7 @@
 #pragma mark -
 #pragma mark Segues
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id __unused)sender
 {
     if ( [segue.identifier isEqualToString:@"showDetail"] ) {
         DetailViewControllerTV *controller = (DetailViewControllerTV *)segue.destinationViewController;
@@ -88,12 +88,12 @@
 #pragma mark -
 #pragma mark Table view data source
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tv
+-(NSInteger)numberOfSectionsInTableView:(UITableView *__unused)tv
 {
     return (NSInteger)[PlotGallery sharedPlotGallery].numberOfSections;
 }
 
--(NSInteger)tableView:(UITableView *)tv numberOfRowsInSection:(NSInteger)section
+-(NSInteger)tableView:(UITableView *__unused)tv numberOfRowsInSection:(NSInteger)section
 {
     return (NSInteger)[[PlotGallery sharedPlotGallery] numberOfRowsInSection:(NSUInteger)section];
 }
@@ -117,7 +117,7 @@
     return cell;
 }
 
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+-(NSString *)tableView:(UITableView *__unused)tableView titleForHeaderInSection:(NSInteger)section
 {
     return [PlotGallery sharedPlotGallery].sectionTitles[(NSUInteger)section];
 }

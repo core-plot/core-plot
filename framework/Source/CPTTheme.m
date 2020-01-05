@@ -213,21 +213,21 @@ static NSMutableSet<Class> *themes = nil;
 /** @brief Applies the background theme to the provided graph.
  *  @param graph The graph to style.
  **/
--(void)applyThemeToBackground:(nonnull CPTGraph *)graph
+-(void)applyThemeToBackground:(nonnull CPTGraph *__unused)graph
 {
 }
 
 /** @brief Applies the theme to the provided plot area.
  *  @param plotAreaFrame The plot area to style.
  **/
--(void)applyThemeToPlotArea:(nonnull CPTPlotAreaFrame *)plotAreaFrame
+-(void)applyThemeToPlotArea:(nonnull CPTPlotAreaFrame *__unused)plotAreaFrame
 {
 }
 
 /** @brief Applies the theme to the provided axis set.
  *  @param axisSet The axis set to style.
  **/
--(void)applyThemeToAxisSet:(nonnull CPTAxisSet *)axisSet
+-(void)applyThemeToAxisSet:(nonnull CPTAxisSet *__unused)axisSet
 {
 }
 

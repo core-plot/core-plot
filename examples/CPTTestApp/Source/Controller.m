@@ -395,14 +395,14 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 #pragma mark -
 #pragma mark Actions
 
--(IBAction)reloadDataSourcePlot:(nullable id)sender
+-(IBAction)reloadDataSourcePlot:(nullable id __unused)sender
 {
     CPTPlot *plot = [self.graph plotWithIdentifier:dataSourcePlot];
 
     [plot reloadData];
 }
 
--(IBAction)removeData:(nullable id)sender
+-(IBAction)removeData:(nullable id __unused)sender
 {
     NSUInteger index = self.selectionIndex;
 
@@ -414,7 +414,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     }
 }
 
--(IBAction)insertData:(nullable id)sender
+-(IBAction)insertData:(nullable id __unused)sender
 {
     NSUInteger index = self.selectionIndex;
 
@@ -479,7 +479,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 #pragma mark -
 #pragma mark CPTScatterPlot delegate method
 
--(void)scatterPlot:(nonnull CPTScatterPlot *)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index
+-(void)scatterPlot:(nonnull CPTScatterPlot *__unused)plot plotSymbolWasSelectedAtRecordIndex:(NSUInteger)index
 {
     CPTPlotSpaceAnnotation *annotation = self.symbolTextAnnotation;
 
@@ -590,7 +590,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 #pragma mark -
 #pragma mark Plot area delegate method
 
--(void)plotAreaWasSelected:(nonnull CPTPlotArea *)plotArea
+-(void)plotAreaWasSelected:(nonnull CPTPlotArea *__unused)plotArea
 {
     // Remove the annotation
     CPTPlotSpaceAnnotation *annotation = self.symbolTextAnnotation;
@@ -604,7 +604,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 #pragma mark -
 #pragma mark PDF / image export
 
--(IBAction)exportToPDF:(nullable id)sender
+-(IBAction)exportToPDF:(nullable id __unused)sender
 {
     NSSavePanel *pdfSavingDialog = [NSSavePanel savePanel];
 
@@ -620,7 +620,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     }
 }
 
--(IBAction)exportToPNG:(nullable id)sender
+-(IBAction)exportToPNG:(nullable id __unused)sender
 {
     NSSavePanel *pngSavingDialog = [NSSavePanel savePanel];
 
@@ -642,7 +642,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 #pragma mark -
 #pragma mark Printing
 
--(IBAction)printDocument:(nullable id)sender
+-(IBAction)printDocument:(nullable id __unused)sender
 {
     NSPrintInfo *printInfo = [NSPrintInfo sharedPrintInfo];
 
@@ -664,7 +664,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     }
 }
 
--(void)printOperationDidRun:(nonnull NSPrintOperation *)printOperation success:(BOOL)success contextInfo:(nullable void *)contextInfo
+-(void)printOperationDidRun:(nonnull NSPrintOperation *__unused)printOperation success:(BOOL __unused)success contextInfo:(nullable void *__unused)contextInfo
 {
 // print delegate
 }
@@ -672,7 +672,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 #pragma mark -
 #pragma mark Layer exploding for illustration
 
--(IBAction)explodeLayers:(nullable id)sender
+-(IBAction)explodeLayers:(nullable id __unused)sender
 {
     CATransform3D perspectiveRotation = CATransform3DMakeRotation(-40.0 * M_PI / 180.0, 0.0, 1.0, 0.0);
 
@@ -711,7 +711,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     }
 }
 
--(IBAction)reassembleLayers:(nullable id)sender
+-(IBAction)reassembleLayers:(nullable id __unused)sender
 {
     [CATransaction begin];
     [CATransaction setValue:@1.0f forKey:kCATransactionAnimationDuration];

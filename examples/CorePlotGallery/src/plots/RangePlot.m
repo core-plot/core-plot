@@ -68,7 +68,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     }
 }
 
--(void)renderInGraphHostingView:(nonnull CPTGraphHostingView *)hostingView withTheme:(nullable CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInGraphHostingView:(nonnull CPTGraphHostingView *)hostingView withTheme:(nullable CPTTheme *)theme animated:(BOOL __unused)animated
 {
     // If you make sure your dates are calculated at noon, you shouldn't have to
     // worry about daylight savings. If you use midnight, you will have to adjust
@@ -178,12 +178,12 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *__unused)plot
 {
     return self.plotData.count;
 }
 
--(nullable id)numberForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(nullable id)numberForPlot:(nonnull CPTPlot *__unused)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     return self.plotData[index][@(fieldEnum)];
 }
@@ -191,7 +191,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 #pragma mark -
 #pragma mark Plot Space Delegate Methods
 
--(BOOL)plotSpace:(nonnull CPTPlotSpace *)space shouldHandlePointingDeviceUpEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)point
+-(BOOL)plotSpace:(nonnull CPTPlotSpace *__unused)space shouldHandlePointingDeviceUpEvent:(nonnull CPTNativeEvent *__unused)event atPoint:(CGPoint __unused)point
 {
     CPTRangePlot *rangePlot = (CPTRangePlot *)[self.graph plotWithIdentifier:@"Range Plot"];
 
@@ -210,7 +210,7 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
     return NO;
 }
 
--(nullable NSNumber *)barWidthForRangePlot:(nonnull CPTRangePlot *)plot recordIndex:(NSUInteger)idx
+-(nullable NSNumber *)barWidthForRangePlot:(nonnull CPTRangePlot *__unused)plot recordIndex:(NSUInteger __unused)idx
 {
     return @(arc4random_uniform(85) + 15);
 }

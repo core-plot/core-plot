@@ -721,7 +721,7 @@ CPTScatterPlotBinding const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; /
     CGPoint *viewPoints  = calloc(dataCount, sizeof(CGPoint));
     BOOL *drawPointFlags = calloc(dataCount, sizeof(BOOL));
 
-    [self calculatePointsToDraw:drawPointFlags forPlotSpace:(id)self.plotSpace includeVisiblePointsOnly:YES numberOfPoints:dataCount];
+    [self calculatePointsToDraw:drawPointFlags forPlotSpace:(CPTXYPlotSpace *)self.plotSpace includeVisiblePointsOnly:YES numberOfPoints:dataCount];
     [self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags numberOfPoints:dataCount];
 
     NSInteger result = [self extremeDrawnPointIndexForFlags:drawPointFlags numberOfPoints:dataCount extremeNumIsLowerBound:YES];

@@ -90,7 +90,7 @@
 
 /// @cond
 
--(nonnull id)copyWithZone:(nullable NSZone *)zone
+-(nonnull id)copyWithZone:(nullable NSZone *__unused)zone
 {
     // do nothing--implemented in subclasses
     return nil;
@@ -103,7 +103,7 @@
 
 /// @cond
 
--(void)encodeWithCoder:(nonnull NSCoder *)coder
+-(void)encodeWithCoder:(nonnull NSCoder *__unused)coder
 {
     // do nothing--implemented in subclasses
 }
@@ -169,7 +169,7 @@
  *  @param upperBound The upper bound; must be greater than or equal to the @par{lowerBound}.
  *  @return The calculated position.
  **/
--(CGFloat)positionForLowerBound:(CGFloat)lowerBound upperBound:(CGFloat)upperBound
+-(CGFloat)positionForLowerBound:(CGFloat __unused)lowerBound upperBound:(CGFloat __unused)upperBound
 {
     // subclasses override to do position calculation here
     return CPTNAN;

@@ -36,7 +36,7 @@
     }
 }
 
--(void)renderInGraphHostingView:(nonnull CPTGraphHostingView *)hostingView withTheme:(nullable CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInGraphHostingView:(nonnull CPTGraphHostingView *)hostingView withTheme:(nullable CPTTheme *)theme animated:(BOOL __unused)animated
 {
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     CGRect bounds = hostingView.bounds;
@@ -140,12 +140,12 @@
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *__unused)plot
 {
     return self.plotData.count;
 }
 
--(nullable NSArray *)numbersForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange
+-(nullable NSArray *)numbersForPlot:(nonnull CPTPlot *__unused)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange
 {
     CPTNumberArray *nums = nil;
 
@@ -168,7 +168,7 @@
     return nums;
 }
 
--(nullable CPTFill *)barFillForBarPlot:(nonnull CPTBarPlot *)barPlot recordIndex:(NSUInteger)index
+-(nullable CPTFill *)barFillForBarPlot:(nonnull CPTBarPlot *__unused)barPlot recordIndex:(NSUInteger)index
 {
     CPTColor *color = nil;
 
@@ -215,12 +215,12 @@
     return [CPTFill fillWithGradient:fillGradient];
 }
 
--(nullable NSNumber *)barWidthForBarPlot:(nonnull CPTBarPlot *)barPlot recordIndex:(NSUInteger)idx
+-(nullable NSNumber *)barWidthForBarPlot:(nonnull CPTBarPlot *__unused)barPlot recordIndex:(NSUInteger __unused)idx
 {
     return @((double)(arc4random_uniform(50) + 25) / 100.0);
 }
 
--(nullable NSString *)legendTitleForBarPlot:(nonnull CPTBarPlot *)barPlot recordIndex:(NSUInteger)index
+-(nullable NSString *)legendTitleForBarPlot:(nonnull CPTBarPlot *__unused)barPlot recordIndex:(NSUInteger)index
 {
     return [NSString stringWithFormat:@"Bar %lu", (unsigned long)(index + 1)];
 }

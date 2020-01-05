@@ -121,12 +121,12 @@ static NSString *const outerChartName = @"Outer";
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *__unused)plot
 {
     return self.plotData.count;
 }
 
--(nullable id)numberForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(nullable id)numberForPlot:(nonnull CPTPlot *__unused)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSNumber *num;
 
@@ -195,12 +195,12 @@ static NSString *const outerChartName = @"Outer";
     NSLog(@"animationCancelled: %@", operation);
 }
 
--(void)animationWillUpdate:(nonnull CPTAnimationOperation *)operation
+-(void)animationWillUpdate:(nonnull CPTAnimationOperation *__unused)operation
 {
     NSLog(@"animationWillUpdate:");
 }
 
--(void)animationDidUpdate:(nonnull CPTAnimationOperation *)operation
+-(void)animationDidUpdate:(nonnull CPTAnimationOperation *__unused)operation
 {
     NSLog(@"animationDidUpdate:");
 }

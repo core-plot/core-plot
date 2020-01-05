@@ -173,7 +173,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
 /// @cond
 
--(void)drawRect:(NSRect)dirtyRect
+-(void)drawRect:(NSRect __unused)dirtyRect
 {
     if ( self.hostedGraph ) {
         if ( ![NSGraphicsContext currentContextDrawingToScreen] ) {
@@ -229,7 +229,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
     return YES;
 }
 
--(NSRect)rectForPage:(NSInteger)pageNumber
+-(NSRect)rectForPage:(NSInteger __unused)pageNumber
 {
     return self.printRect;
 }
@@ -241,7 +241,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
 /// @cond
 
--(BOOL)acceptsFirstMouse:(nullable NSEvent *)theEvent
+-(BOOL)acceptsFirstMouse:(nullable NSEvent *__unused)theEvent
 {
     return YES;
 }

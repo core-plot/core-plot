@@ -18,7 +18,7 @@
 
 @synthesize window;
 
--(BOOL)application:(nonnull UIApplication *)application didFinishLaunchingWithOptions:(nullable CPTDictionary *)launchOptions
+-(BOOL)application:(nonnull UIApplication *__unused)application didFinishLaunchingWithOptions:(nullable CPTDictionary *__unused)launchOptions
 {
     [[PlotGallery sharedPlotGallery] sortByTitle];
 
@@ -33,7 +33,7 @@
 
 #pragma mark - Split view
 
--(BOOL)splitViewController:(UISplitViewController *)splitViewController collapseSecondaryViewController:(UIViewController *)secondaryViewController ontoPrimaryViewController:(UIViewController *)primaryViewController
+-(BOOL)splitViewController:(UISplitViewController *__unused)splitViewController collapseSecondaryViewController:(UIViewController *)secondaryViewController ontoPrimaryViewController:(UIViewController *__unused)primaryViewController
 {
     if ( [secondaryViewController isKindOfClass:[UINavigationController class]] && [((UINavigationController *)secondaryViewController).topViewController isKindOfClass:[DetailViewController class]] && (((DetailViewController *)((UINavigationController *)secondaryViewController).topViewController).detailItem == nil)) {
         // Return YES to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.

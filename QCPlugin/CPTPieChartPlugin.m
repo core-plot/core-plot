@@ -224,7 +224,7 @@
     return [[self valueForInputKey:key] count];
 }
 
--(nullable id)numberForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(nullable id)numberForPlot:(nonnull CPTPlot *)plot field:(NSUInteger __unused)fieldEnum recordIndex:(NSUInteger)index
 {
     NSUInteger plotIndex = [[self.graph allPlots] indexOfObject:plot];
     NSString *key        = [NSString stringWithFormat:@"plotNumbers%lu", (unsigned long)plotIndex];
@@ -239,7 +239,7 @@
     }
 }
 
--(nullable CPTFill *)sliceFillForPieChart:(nonnull CPTPieChart *)pieChart recordIndex:(NSUInteger)index
+-(nullable CPTFill *)sliceFillForPieChart:(nonnull CPTPieChart *__unused)pieChart recordIndex:(NSUInteger)index
 {
     CGColorRef plotFillColor  = [CPTPieChart defaultPieSliceColorForIndex:index].cgColor;
     CGColorRef inputFillColor = (CGColorRef)[self areaFillColor:0];

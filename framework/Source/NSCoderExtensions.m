@@ -72,10 +72,15 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element);
  *  @param key The key to associate with the color space.
  *  @note The current implementation only works with named color spaces.
  **/
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
+#endif
 -(void)encodeCGColorSpace:(nullable CGColorSpaceRef)colorSpace forKey:(nonnull NSString *)key
 {
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     NSLog(@"Color space encoding is not supported on iOS. Decoding will return a generic RGB color space.");
+#pragma clang diagnostic pop
 #else
     if ( colorSpace ) {
         CFDataRef iccProfile = NULL;
@@ -334,6 +339,10 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
  *  @return The new path.
  *  @note The current implementation only works with named color spaces.
  **/
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
+#endif
 -(nullable CGColorSpaceRef)newCGColorSpaceDecodeForKey:(nonnull NSString *)key
 {
     CGColorSpaceRef colorSpace = NULL;
@@ -341,6 +350,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
     NSLog(@"Color space decoding is not supported on iOS. Using generic RGB color space.");
     colorSpace = CGColorSpaceCreateDeviceRGB();
+#pragma clang diagnostic pop
 #else
     NSData *iccProfile = [self decodeObjectOfClass:[NSData class]
                                             forKey:key];

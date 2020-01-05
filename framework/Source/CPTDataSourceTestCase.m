@@ -100,7 +100,7 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *__unused)plot
 {
     return self.nRecords;
 }

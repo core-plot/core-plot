@@ -458,7 +458,7 @@
  *  @param boundObject The object to update for each animation frame.
  *  @param boundGetter The getter method for the property to update.
  **/
--(void)setStartValueFromObject:(nonnull id)boundObject propertyGetter:(nonnull SEL)boundGetter
+-(void)setStartValueFromObject:(nonnull id __unused)boundObject propertyGetter:(nonnull SEL __unused)boundGetter
 {
     [NSException raise:NSGenericException
                 format:@"The -initializeStartValue method must be implemented by CPTAnimationPeriod subclasses."];
@@ -472,7 +472,7 @@
  *  @param progress The fraction of the animation progress.
  *  @return The computed value.
  **/
--(nonnull NSValue *)tweenedValueForProgress:(CGFloat)progress
+-(nonnull NSValue *)tweenedValueForProgress:(CGFloat __unused)progress
 {
     [NSException raise:NSGenericException
                 format:@"The -tweenedValueForProgress: method must be implemented by CPTAnimationPeriod subclasses."];
@@ -485,7 +485,7 @@
  *  @param boundGetter The getter method for the property to update.
  *  @return @YES if the current value of the bound property is between the start and end value.
  **/
--(BOOL)canStartWithValueFromObject:(nonnull id)boundObject propertyGetter:(nonnull SEL)boundGetter
+-(BOOL)canStartWithValueFromObject:(nonnull id __unused)boundObject propertyGetter:(nonnull SEL __unused)boundGetter
 {
     [NSException raise:NSGenericException
                 format:@"The -canStartWithValueFromObject:propertyGetter: method must be implemented by CPTAnimationPeriod subclasses."];

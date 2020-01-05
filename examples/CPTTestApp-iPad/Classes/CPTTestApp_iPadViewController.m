@@ -70,7 +70,7 @@
     self.piePlotIsRotating = YES;
 }
 
--(void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag
+-(void)animationDidStop:(CAAnimation *__unused)theAnimation finished:(BOOL __unused)flag
 {
     self.piePlotIsRotating = NO;
     [self.piePlot performSelector:@selector(reloadData) withObject:nil afterDelay:0.4];
@@ -320,7 +320,7 @@
 #pragma mark -
 #pragma mark CPTBarPlot delegate method
 
--(void)barPlot:(nonnull CPTBarPlot *)plot barWasSelectedAtRecordIndex:(NSUInteger)index
+-(void)barPlot:(nonnull CPTBarPlot *__unused)plot barWasSelectedAtRecordIndex:(NSUInteger)index
 {
     NSLog(@"barWasSelectedAtRecordIndex %lu", (unsigned long)index);
 }

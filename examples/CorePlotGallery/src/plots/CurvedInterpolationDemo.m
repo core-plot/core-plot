@@ -69,7 +69,7 @@ static NSString *const hermiteCubicIdentifier          = @"Hermite Cubic";
     }
 }
 
--(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInGraphHostingView:(CPTGraphHostingView *)hostingView withTheme:(CPTTheme *)theme animated:(BOOL __unused)animated
 {
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     CGRect bounds = hostingView.bounds;
@@ -249,7 +249,7 @@ static NSString *const hermiteCubicIdentifier          = @"Hermite Cubic";
 #pragma mark -
 #pragma mark Plot Data Source Methods
 
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(CPTPlot *__unused)plot
 {
     return self.plotData.count;
 }

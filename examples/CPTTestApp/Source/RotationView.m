@@ -30,7 +30,7 @@ static const CGFloat kMouseMovementScaleFactorForRotation = 1.0;
 #pragma mark -
 #pragma mark Mouse handling methods
 
--(BOOL)acceptsFirstMouse:(nullable NSEvent *)theEvent
+-(BOOL)acceptsFirstMouse:(nullable NSEvent *__unused)theEvent
 {
     return YES;
 }

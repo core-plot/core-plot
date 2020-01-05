@@ -141,7 +141,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
  *  @param newFrame The frame rectangle.
  *  @return The initialized CPTTextLayer object.
  **/
--(nonnull instancetype)initWithFrame:(CGRect)newFrame
+-(nonnull instancetype)initWithFrame:(CGRect __unused)newFrame
 {
     return [self initWithText:nil style:nil];
 }

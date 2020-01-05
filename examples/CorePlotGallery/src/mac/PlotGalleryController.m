@@ -195,7 +195,7 @@ static NSString *const kCollectionItem   = @"PlotViewItem";
     }
 }
 
--(IBAction)exportTVImagesToPNG:(id)sender
+-(IBAction)exportTVImagesToPNG:(id __unused)sender
 {
     NSOpenPanel *pngSavingDialog = [NSOpenPanel openPanel];
 
@@ -253,12 +253,12 @@ static NSString *const kCollectionItem   = @"PlotViewItem";
 #pragma mark -
 #pragma mark NSCollectionViewDataSource methods
 
--(NSInteger)numberOfSectionsInCollectionView:(nonnull NSCollectionView *)collectionView
+-(NSInteger)numberOfSectionsInCollectionView:(nonnull NSCollectionView *__unused)collectionView
 {
     return (NSInteger)[PlotGallery sharedPlotGallery].numberOfSections;
 }
 
--(NSInteger)collectionView:(nonnull NSCollectionView *)collectionView
+-(NSInteger)collectionView:(nonnull NSCollectionView *__unused)collectionView
     numberOfItemsInSection:(NSInteger)section
 {
     return (NSInteger)[[PlotGallery sharedPlotGallery] numberOfRowsInSection:(NSUInteger)section];
@@ -313,7 +313,7 @@ static NSString *const kCollectionItem   = @"PlotViewItem";
 #pragma mark -
 #pragma mark NSCollectionViewDelegate methods
 
--(void)         collectionView:(nonnull NSCollectionView *)collectionView
+-(void)         collectionView:(nonnull NSCollectionView *__unused)collectionView
     didSelectItemsAtIndexPaths:(nonnull NSSet<NSIndexPath *> *)indexPaths
 {
     NSUInteger section = NSNotFound;
@@ -333,22 +333,22 @@ static NSString *const kCollectionItem   = @"PlotViewItem";
 #pragma mark -
 #pragma mark NSSplitViewDelegate methods
 
--(CGFloat)       splitView:(nonnull NSSplitView *)sv
+-(CGFloat)       splitView:(nonnull NSSplitView *__unused)sv
     constrainMinCoordinate:(CGFloat)coord
-               ofSubviewAt:(NSInteger)index
+               ofSubviewAt:(NSInteger __unused)index
 {
     return coord + CPT_SPLIT_VIEW_MIN_LHS_WIDTH;
 }
 
--(CGFloat)       splitView:(nonnull NSSplitView *)sv
+-(CGFloat)       splitView:(nonnull NSSplitView *__unused)sv
     constrainMaxCoordinate:(CGFloat)coord
-               ofSubviewAt:(NSInteger)index
+               ofSubviewAt:(NSInteger __unused)index
 {
     return coord - CPT_SPLIT_VIEW_MIN_LHS_WIDTH;
 }
 
 -(void)             splitView:(nonnull NSSplitView *)sender
-    resizeSubviewsWithOldSize:(NSSize)oldSize
+    resizeSubviewsWithOldSize:(NSSize __unused)oldSize
 {
 // Lock the LHS width
     NSRect frame   = sender.frame;

@@ -421,7 +421,7 @@
 {
     const CGRect rect = CGRectMake(0.0, 0.0, 100.0, 100.0);
 
-    return CPTQuickLookImage(rect, ^(CGContextRef context, CGFloat scale, CGRect bounds) {
+    return CPTQuickLookImage(rect, ^(CGContextRef context, CGFloat __unused scale, CGRect bounds) {
         const CGRect alignedRect = CPTAlignBorderedRectToUserSpace(context, bounds, self);
 
         [self setLineStyleInContext:context];

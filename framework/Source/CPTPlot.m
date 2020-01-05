@@ -473,7 +473,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 
 /// @cond
 
--(nullable Class)valueClassForBinding:(nonnull NSString *)binding
+-(nullable Class)valueClassForBinding:(nonnull NSString *__unused)binding
 {
     return [NSArray class];
 }
@@ -702,7 +702,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 /** @brief Reload plot data in the given index range from the data source immediately.
  *  @param indexRange The index range to load.
  **/
--(void)reloadPlotDataInIndexRange:(NSRange)indexRange
+-(void)reloadPlotDataInIndexRange:(NSRange __unused)indexRange
 {
     // do nothing--implementation provided by subclasses
 }
@@ -1795,7 +1795,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
  *  @param idx The index of the desired title.
  *  @return The title of the legend entry at the requested index.
  **/
--(nullable NSString *)titleForLegendEntryAtIndex:(NSUInteger)idx
+-(nullable NSString *)titleForLegendEntryAtIndex:(NSUInteger __unused)idx
 {
     NSString *legendTitle = self.title;
 
@@ -1814,7 +1814,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
  *  @param idx The index of the desired title.
  *  @return The styled title of the legend entry at the requested index.
  **/
--(nullable NSAttributedString *)attributedTitleForLegendEntryAtIndex:(NSUInteger)idx
+-(nullable NSAttributedString *)attributedTitleForLegendEntryAtIndex:(NSUInteger __unused)idx
 {
     NSAttributedString *legendTitle = self.attributedTitle;
 
@@ -2263,7 +2263,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
  *  @param coord The coordinate for which the corresponding field identifiers are desired.
  *  @return Array of NSNumber objects for the field identifiers.
  **/
--(nonnull CPTNumberArray *)fieldIdentifiersForCoordinate:(CPTCoordinate)coord
+-(nonnull CPTNumberArray *)fieldIdentifiersForCoordinate:(CPTCoordinate __unused)coord
 {
     return @[];
 }
@@ -2272,7 +2272,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
  *  @param field The field identifier for which the corresponding coordinate is desired.
  *  @return The coordinate that corresponds to a particular field identifier or #CPTCoordinateNone if there is no matching coordinate.
  */
--(CPTCoordinate)coordinateForFieldIdentifier:(NSUInteger)field
+-(CPTCoordinate)coordinateForFieldIdentifier:(NSUInteger __unused)field
 {
     return CPTCoordinateNone;
 }
@@ -2284,7 +2284,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
  *  @param label The annotation for the data label.
  *  @param idx The data index for the label.
  **/
--(void)positionLabelAnnotation:(nonnull CPTPlotSpaceAnnotation *)label forIndex:(NSUInteger)idx
+-(void)positionLabelAnnotation:(nonnull CPTPlotSpaceAnnotation *__unused)label forIndex:(NSUInteger __unused)idx
 {
     // do nothing--implementation provided by subclasses
 }
@@ -2297,7 +2297,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
  *  @param point The coordinates of the interaction.
  *  @return The index of the data point that is under the given point or @ref NSNotFound if none was found.
  */
--(NSUInteger)dataIndexFromInteractionPoint:(CGPoint)point
+-(NSUInteger)dataIndexFromInteractionPoint:(CGPoint __unused)point
 {
     return NSNotFound;
 }

@@ -547,6 +547,9 @@ void drawErrorText(CGContextRef __nonnull context, CGRect rect)
     NSUInteger bytesPerRow      = [img bufferBytesPerRow];
     CGColorSpaceRef colorSpace  = [img bufferColorSpace];
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wincompatible-pointer-types-discards-qualifiers"
+
     CGContextRef imgContext = CGBitmapContextCreate(baseAddress,
                                                     pixelsWide,
                                                     pixelsHigh,
@@ -554,6 +557,8 @@ void drawErrorText(CGContextRef __nonnull context, CGRect rect)
                                                     bytesPerRow,
                                                     colorSpace,
                                                     (CGBitmapInfo)kCGImageAlphaNoneSkipLast);
+
+#pragma clang diagnostic pop
 
     CGImageRef imageRef = CGBitmapContextCreateImage(imgContext);
 
@@ -564,7 +569,7 @@ void drawErrorText(CGContextRef __nonnull context, CGRect rect)
     return imageRef;
 }
 
-static void _BufferReleaseCallback(const void *__nonnull address, void *__nonnull context)
+static void _BufferReleaseCallback(const void *__nonnull __unused address, void *__nonnull __unused context)
 {
     // Don't do anything.  We release the buffer manually when it's recreated or during dealloc
 }
@@ -640,12 +645,12 @@ static void _BufferReleaseCallback(const void *__nonnull address, void *__nonnul
 #pragma mark -
 #pragma mark Data source methods
 
--(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *__unused)plot
 {
     return 0;
 }
 
--(nullable id)numberForPlot:(nonnull CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(nullable id)numberForPlot:(nonnull CPTPlot *__unused)plot field:(NSUInteger __unused)fieldEnum recordIndex:(NSUInteger __unused)index
 {
     return @0;
 }
@@ -721,14 +726,14 @@ static void _BufferReleaseCallback(const void *__nonnull address, void *__nonnul
 #pragma mark -
 #pragma mark Subclass methods
 
--(void)addPlotWithIndex:(NSUInteger)index
+-(void)addPlotWithIndex:(NSUInteger __unused)index
 {
     /*
      * Subclasses should override this method to create their own ports, plots, and add the plots to the graph
      */
 }
 
--(void)removePlots:(NSUInteger)count
+-(void)removePlots:(NSUInteger __unused)count
 {
     /*
      * Subclasses should override this method to remove plots and their ports
@@ -796,7 +801,7 @@ static void _BufferReleaseCallback(const void *__nonnull address, void *__nonnul
 
 @implementation CorePlotQCPlugIn(Execution)
 
--(BOOL)execute:(nonnull id<QCPlugInContext>)context atTime:(NSTimeInterval)time withArguments:(nullable CPTDictionary *)arguments
+-(BOOL)execute:(nonnull id<QCPlugInContext>)context atTime:(NSTimeInterval __unused)time withArguments:(nullable CPTDictionary *__unused)arguments
 {
     // Configure the plot for drawing
     BOOL configurationCheck = [self configureGraph];

@@ -379,54 +379,56 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
 {
     CPTNumericData *numericData = nil;
 
-    NSUInteger count = self.dataCount;
+    if ( [plot isEqual:self.dataPlot] ) {
+        NSUInteger count = self.dataCount;
 
-    if ( count > 0 ) {
-        CPTPlotRange *xRange = self.cachedPlotRange;
+        if ( count > 0 ) {
+            CPTPlotRange *xRange = self.cachedPlotRange;
 
-        if ( !xRange ) {
-            [self plotSpaceChanged];
-            xRange = self.cachedPlotRange;
-        }
-
-        NSMutableData *data = [[NSMutableData alloc] initWithLength:indexRange.length * 2 * sizeof(double)];
-
-        double *xBytes = data.mutableBytes;
-        double *yBytes = data.mutableBytes + (indexRange.length * sizeof(double));
-
-        double location = xRange.locationDouble;
-        double length   = xRange.lengthDouble;
-        double denom    = (double)(count - ((count > 1) ? 1 : 0));
-
-        NSUInteger lastIndex = NSMaxRange(indexRange);
-
-        CPTDataSourceFunction function = self.dataSourceFunction;
-
-        if ( function ) {
-            for ( NSUInteger i = indexRange.location; i < lastIndex; i++ ) {
-                double x = location + ((double)i / denom) * length;
-
-                *xBytes++ = x;
-                *yBytes++ = function(x);
+            if ( !xRange ) {
+                [self plotSpaceChanged];
+                xRange = self.cachedPlotRange;
             }
-        }
-        else {
-            CPTDataSourceBlock functionBlock = self.dataSourceBlock;
 
-            if ( functionBlock ) {
+            NSMutableData *data = [[NSMutableData alloc] initWithLength:indexRange.length * 2 * sizeof(double)];
+
+            double *xBytes = data.mutableBytes;
+            double *yBytes = data.mutableBytes + (indexRange.length * sizeof(double));
+
+            double location = xRange.locationDouble;
+            double length   = xRange.lengthDouble;
+            double denom    = (double)(count - ((count > 1) ? 1 : 0));
+
+            NSUInteger lastIndex = NSMaxRange(indexRange);
+
+            CPTDataSourceFunction function = self.dataSourceFunction;
+
+            if ( function ) {
                 for ( NSUInteger i = indexRange.location; i < lastIndex; i++ ) {
                     double x = location + ((double)i / denom) * length;
 
                     *xBytes++ = x;
-                    *yBytes++ = functionBlock(x);
+                    *yBytes++ = function(x);
                 }
             }
-        }
+            else {
+                CPTDataSourceBlock functionBlock = self.dataSourceBlock;
 
-        numericData = [CPTNumericData numericDataWithData:data
-                                                 dataType:CPTDataType(CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent())
-                                                    shape:@[@(indexRange.length), @2]
-                                                dataOrder:CPTDataOrderColumnsFirst];
+                if ( functionBlock ) {
+                    for ( NSUInteger i = indexRange.location; i < lastIndex; i++ ) {
+                        double x = location + ((double)i / denom) * length;
+
+                        *xBytes++ = x;
+                        *yBytes++ = functionBlock(x);
+                    }
+                }
+            }
+
+            numericData = [CPTNumericData numericDataWithData:data
+                                                     dataType:CPTDataType(CPTFloatingPointDataType, sizeof(double), CFByteOrderGetCurrent())
+                                                        shape:@[@(indexRange.length), @2]
+                                                    dataOrder:CPTDataOrderColumnsFirst];
+        }
     }
 
     return numericData;

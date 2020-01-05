@@ -324,7 +324,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
 
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
 #else
--(void)setFrameSize:(NSSize)size
+-(void)setFrameSize:(NSSize __unused)size
 {
 }
 
@@ -381,7 +381,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
     self.defaultLayerHostingView = hostingView;
 }
 
--(void)renderInGraphHostingView:(nonnull CPTGraphHostingView *)hostingView withTheme:(nullable CPTTheme *)theme animated:(BOOL)animated
+-(void)renderInGraphHostingView:(nonnull CPTGraphHostingView *__unused)hostingView withTheme:(nullable CPTTheme *__unused)theme animated:(BOOL __unused)animated
 {
     NSLog(@"PlotItem:renderInLayer: Override me");
 }

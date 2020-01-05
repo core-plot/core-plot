@@ -3264,7 +3264,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
  *  @param coordinateValue The axis value in data coordinate space.
  *  @return The drawing coordinates of the point.
  **/
--(CGPoint)viewPointForCoordinateValue:(nullable NSNumber *)coordinateValue
+-(CGPoint)viewPointForCoordinateValue:(nullable NSNumber *__unused)coordinateValue
 {
     return CGPointZero;
 }
@@ -3273,7 +3273,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
  *  @param context The graphics context to draw into.
  *  @param major Draw the major grid lines If @YES, minor grid lines otherwise.
  **/
--(void)drawGridLinesInContext:(nonnull CGContextRef)context isMajor:(BOOL)major
+-(void)drawGridLinesInContext:(nonnull CGContextRef __unused)context isMajor:(BOOL __unused)major
 {
     // do nothing--subclasses must override to do their drawing
 }
@@ -3281,7 +3281,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
 /** @brief Draws alternating background bands into the provided graphics context.
  *  @param context The graphics context to draw into.
  **/
--(void)drawBackgroundBandsInContext:(nonnull CGContextRef)context
+-(void)drawBackgroundBandsInContext:(nonnull CGContextRef __unused)context
 {
     // do nothing--subclasses must override to do their drawing
 }
@@ -3289,7 +3289,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
 /** @brief Draws background limit ranges into the provided graphics context.
  *  @param context The graphics context to draw into.
  **/
--(void)drawBackgroundLimitsInContext:(nonnull CGContextRef)context
+-(void)drawBackgroundLimitsInContext:(nonnull CGContextRef __unused)context
 {
     // do nothing--subclasses must override to do their drawing
 }
