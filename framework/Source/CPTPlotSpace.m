@@ -505,7 +505,7 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
  *  @param plotPoint An array of data point coordinates (as NSNumber values).
  *  @return The drawing coordinates of the data point.
  **/
--(CGPoint)plotAreaViewPointForPlotPoint:(nonnull CPTNumberArray *)plotPoint
+-(CGPoint)plotAreaViewPointForPlotPoint:(nonnull CPTNumberArray *cpt_unused)plotPoint
 {
     NSParameterAssert(plotPoint.count == self.numberOfCoordinates);
 
@@ -517,7 +517,7 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
  *  @param count The number of coordinate values in the @par{plotPoint} array.
  *  @return The drawing coordinates of the data point.
  **/
--(CGPoint)plotAreaViewPointForPlotPoint:(nonnull NSDecimal *__unused)plotPoint numberOfCoordinates:(NSUInteger)count
+-(CGPoint)plotAreaViewPointForPlotPoint:(nonnull NSDecimal *__unused)plotPoint numberOfCoordinates:(NSUInteger cpt_unused)count
 {
     NSParameterAssert(count == self.numberOfCoordinates);
 
@@ -529,7 +529,7 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
  *  @param count The number of coordinate values in the @par{plotPoint} array.
  *  @return The drawing coordinates of the data point.
  **/
--(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(nonnull double *__unused)plotPoint numberOfCoordinates:(NSUInteger)count
+-(CGPoint)plotAreaViewPointForDoublePrecisionPlotPoint:(nonnull double *__unused)plotPoint numberOfCoordinates:(NSUInteger cpt_unused)count
 {
     NSParameterAssert(count == self.numberOfCoordinates);
 
@@ -550,7 +550,7 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
  *  @param count The number of coordinate values in the @par{plotPoint} array.
  *  @param point The drawing coordinates of the data point.
  **/
--(void)plotPoint:(nonnull NSDecimal *__unused)plotPoint numberOfCoordinates:(NSUInteger)count forPlotAreaViewPoint:(CGPoint __unused)point
+-(void)plotPoint:(nonnull NSDecimal *__unused)plotPoint numberOfCoordinates:(NSUInteger cpt_unused)count forPlotAreaViewPoint:(CGPoint __unused)point
 {
     NSParameterAssert(count == self.numberOfCoordinates);
 }
@@ -560,7 +560,7 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
  *  @param count The number of coordinate values in the @par{plotPoint} array.
  *  @param point The drawing coordinates of the data point.
  **/
--(void)doublePrecisionPlotPoint:(nonnull double *__unused)plotPoint numberOfCoordinates:(NSUInteger)count forPlotAreaViewPoint:(CGPoint __unused)point
+-(void)doublePrecisionPlotPoint:(nonnull double *__unused)plotPoint numberOfCoordinates:(NSUInteger cpt_unused)count forPlotAreaViewPoint:(CGPoint __unused)point
 {
     NSParameterAssert(count == self.numberOfCoordinates);
 }
@@ -588,7 +588,7 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
  *  @param count The number of coordinate values in the @par{plotPoint} array.
  *  @param event The event.
  **/
--(void)plotPoint:(nonnull NSDecimal *__unused)plotPoint numberOfCoordinates:(NSUInteger)count forEvent:(nonnull CPTNativeEvent *__unused)event
+-(void)plotPoint:(nonnull NSDecimal *__unused)plotPoint numberOfCoordinates:(NSUInteger cpt_unused)count forEvent:(nonnull CPTNativeEvent *__unused)event
 {
     NSParameterAssert(count == self.numberOfCoordinates);
 }
@@ -598,7 +598,7 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
  *  @param count The number of coordinate values in the @par{plotPoint} array.
  *  @param event The event.
  **/
--(void)doublePrecisionPlotPoint:(nonnull double *__unused)plotPoint numberOfCoordinates:(NSUInteger)count forEvent:(nonnull CPTNativeEvent *__unused)event
+-(void)doublePrecisionPlotPoint:(nonnull double *__unused)plotPoint numberOfCoordinates:(NSUInteger cpt_unused)count forEvent:(nonnull CPTNativeEvent *__unused)event
 {
     NSParameterAssert(count == self.numberOfCoordinates);
 }
