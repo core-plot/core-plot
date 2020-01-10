@@ -1,3 +1,26 @@
+# Release 2.3 (January 10, 2020)
+
+## Release Notes
+
+This release updates Core Plot to be compatible with Xcode 11 and Swift 5. It adds support for platform-native fonts and colors, including dynamic system colors.
+
+The Mac deployment target remains OS X 10.8. The iOS deployment target remains iOS 8.0 for both the framework and the static library. The tvOS deployment target remains tvOS 9.0.
+
+## Details
+- **New**: Added support for platform native fonts (`NSFont` and `UIFont`).
+- **New**: Added support for platform native colors (`NSColor` and `UIColor`), including dynamic system colors.
+- **New**: Added support for variable bar widths in bar, range, and trading range plots.
+- **Changed**: Updated the Core Plot project to prefer the new Xcode build system introduced with Xcode 9.
+- **Changed**: Updated all framework and example code to be compatible with Xcode 11 and the latest SDKs on all platforms.
+- **Changed**: Updated all Swift example apps to Swift 5.
+- **Changed**: Added arm64e as a valid build architecture on iOS.
+- **Changed**: Miscellaneous bug fixes and cleanup.
+- **Removed**: Removed DTrace probing to support Xcode's New Build System.
+- **Removed**: Removed docset generation. Docsets are no longer supported under Xcode 9.3.
+- **Removed**: Removed the AAPLot and StockPlot example apps because the Yahoo finance API that both relied for data is no longer available.
+
+
+
 # Release 2.2 (September 18, 2016)
 
 ## Release Notes
