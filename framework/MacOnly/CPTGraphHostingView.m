@@ -73,10 +73,15 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
     self.locationInWindow = NSZeroPoint;
     self.scrollOffset     = CGPointZero;
 
-    [self addObserver:self
-           forKeyPath:@"effectiveAppearance"
-              options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionInitial
-              context:CPTGraphHostingViewKVOContext];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    if ( [[self class] instancesRespondToSelector:@selector(effectiveAppearance)] ) {
+        [self addObserver:self
+               forKeyPath:@"effectiveAppearance"
+                  options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionInitial
+                  context:CPTGraphHostingViewKVOContext];
+    }
+#pragma clang diagnostic pop
 
     if ( !self.superview.wantsLayer ) {
         self.layer = [self makeBackingLayer];
@@ -107,7 +112,12 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
         [space removeObserver:self forKeyPath:@"isDragging" context:CPTGraphHostingViewKVOContext];
     }
 
-    [self removeObserver:self forKeyPath:@"effectiveAppearance" context:CPTGraphHostingViewKVOContext];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    if ( [[self class] instancesRespondToSelector:@selector(effectiveAppearance)] ) {
+        [self removeObserver:self forKeyPath:@"effectiveAppearance" context:CPTGraphHostingViewKVOContext];
+    }
+#pragma clang diagnostic pop
 
     [hostedGraph removeFromSuperlayer];
 }
