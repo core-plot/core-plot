@@ -735,8 +735,8 @@ static const CGFloat colorLookupTable[10][3] =
 
     if ( innerRadius > CPTFloat(0.0)) {
         if ( currentWidth >= CPTFloat(1.0)) {
-            CGPathAddArc(slicePath, NULL, center.x, center.y, outerRadius, startingAngle, startingAngle + CPTFloat(2.0 * M_PI), direction);
-            CGPathAddArc(slicePath, NULL, center.x, center.y, innerRadius, startingAngle + CPTFloat(2.0 * M_PI), startingAngle, !direction);
+            CGPathAddRelativeArc(slicePath, NULL, center.x, center.y, outerRadius, startingAngle, CPTFloat((direction ? 2.0 : -2.0) * M_PI));
+            CGPathAddRelativeArc(slicePath, NULL, center.x, center.y, innerRadius, startingAngle, CPTFloat((direction ? -2.0 : 2.0) * M_PI));
         }
         else {
             CGPathAddArc(slicePath, NULL, center.x, center.y, outerRadius, startingAngle, finishingAngle, direction);
