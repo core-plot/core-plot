@@ -2,7 +2,7 @@
 
 *Cocoa plotting framework for macOS, iOS, and tvOS.*
 
-[![Build Status](https://secure.travis-ci.org/core-plot/core-plot.svg)](http://travis-ci.org/core-plot/core-plot) [![Version Status](https://img.shields.io/cocoapods/v/CorePlot.svg)](https://cocoapods.org/pods/CorePlot) [![license MIT](https://img.shields.io/cocoapods/l/CorePlot.svg)](http://opensource.org/licenses/BSD-3-Clause)  [![Platform](https://img.shields.io/cocoapods/p/CorePlot.svg)](http://core-plot.github.io) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Build Status](https://secure.travis-ci.org/core-plot/core-plot.svg)](https://travis-ci.org/core-plot/core-plot) [![Version Status](https://img.shields.io/cocoapods/v/CorePlot.svg)](https://cocoapods.org/pods/CorePlot) [![license MIT](https://img.shields.io/cocoapods/l/CorePlot.svg)](https://opensource.org/licenses/BSD-3-Clause)  [![Platform](https://img.shields.io/cocoapods/p/CorePlot.svg)](https://core-plot.github.io) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 # Introduction
 
@@ -17,8 +17,8 @@ See the [High Level Design Overview](https://github.com/core-plot/core-plot/wiki
 Documentation of the Core Plot API and high-level architecture can be found in the following places:
 
   * [Change log](https://github.com/core-plot/core-plot/blob/master/documentation/changelog.markdown)
-  * [API documentation](http://core-plot.github.io/MacOS/index.html) for Mac
-  * [API documentation](http://core-plot.github.io/iOS/index.html) for iOS and tvOS
+  * [API documentation](https://core-plot.github.io/MacOS/index.html) for Mac
+  * [API documentation](https://core-plot.github.io/iOS/index.html) for iOS and tvOS
   * API documentation built with [Doxygen](http://www.doxygen.org/) and installed locally in Xcode (see the  [instructions](https://github.com/core-plot/core-plot/blob/master/READMEs/README%20for%20Docs%20Install.md) in the **READMEs** folder for details)
   * [Project Wiki](https://github.com/core-plot/core-plot/wiki) on GitHub
   * [Documentation](https://github.com/core-plot/core-plot/tree/master/documentation) folder in the code repository
@@ -27,8 +27,8 @@ Documentation of the Core Plot API and high-level architecture can be found in t
 
 ## Q&A Sites
 
-  * [Core Plot](http://groups.google.com/group/coreplot-discuss) Google Group
-  * Stackoverflow.com [core-plot tag](http://stackoverflow.com/questions/tagged/core-plot)
+  * [Core Plot](https://groups.google.com/group/coreplot-discuss) Google Group
+  * Stackoverflow.com [core-plot tag](https://stackoverflow.com/questions/tagged/core-plot)
 
 ## Social Networks
 
@@ -40,16 +40,16 @@ Core Plot is an open source project hosted on [GitHub](https://github.com/core-p
 
    * [core-plot](https://github.com/core-plot/core-plot): This is main code repository with the framework and all examples. This is where you will find the release packages, wiki pages, and issue tracker.
 
-   * [core-plot.github.io](https://github.com/core-plot/core-plot.github.io): This is the HTML API documentation. You can view the pages online at [http://core-plot.github.io](http://core-plot.github.io).
+   * [core-plot.github.io](https://github.com/core-plot/core-plot.github.io): This is the HTML API documentation. You can view the pages online at [https://core-plot.github.io](https://core-plot.github.io).
 
 ## Coding Standards
 Everyone has a their own preferred coding style, and no one way can be considered right. Nonetheless, in a project like Core Plot, with many developers contributing, it is worthwhile defining a set of basic coding standards to prevent a mishmash of different styles which can become frustrating when navigating the code base. See the file [CONTRIBUTING.md](https://github.com/core-plot/core-plot/blob/master/.github/CONTRIBUTING.md) found in the [.github](https://github.com/core-plot/core-plot/tree/master/.github)  directory of the project source for specific guidelines.
 
-Core Plot includes a [script](https://github.com/core-plot/core-plot/blob/master/scripts/format_core_plot.sh) to run [Uncrustify](http://uncrustify.sourceforge.net) on the source code to standardize the formatting. All source code will be formatted with this tool before being committed to the Core Plot repository.
+Core Plot includes a [script](https://github.com/core-plot/core-plot/blob/master/scripts/format_core_plot.sh) to run [Uncrustify](https://github.com/uncrustify/uncrustify) on the source code to standardize the formatting. All source code will be formatted with this tool before being committed to the Core Plot repository.
 
 ## Testing
 Core Plot is intended to be applied in scientific, financial, and other domains where correctness is paramount. In order to assure the quality of the framework, unit testing is integrated. Good test coverage protects developers from introducing accidental regressions, and helps them to experiment and refactor without breaking existing code. See the [unit testing](https://github.com/core-plot/core-plot/wiki/Unit-Testing) wiki page for instructions on how to build unit tests for any new code you add to the project.
 
 # Support Core Plot
 
-<a href="https://flattr.com/submit/auto?user_id=CorePlot&url=https%3A%2F%2Fgithub.com%2Fcore-plot" target="_blank"><img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0"></a>
+<a href="https://flattr.com/submit/auto?user_id=CorePlot&url=https%3A%2F%2Fgithub.com%2Fcore-plot" target="_blank"><img src="https://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0"></a>

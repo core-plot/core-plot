@@ -12,7 +12,7 @@
  *
  *  See the <a href="https://github.com/core-plot/core-plot/wiki/High-Level-Design-Overview">High Level Design Overview</a>
  *  wiki for an overview of Core Plot's architecture and the
- *  <a href="http://code.google.com/p/core-plot/wiki/UsingCorePlotInApplications">Using Core Plot in an Application</a>
+ *  <a href="https://github.com/core-plot/core-plot/wiki/Using-Core-Plot-in-an-Application">Using Core Plot in an Application</a>
  *  wiki for information on how to use Core Plot in your own application.
  *
  *  @section documentation Documentation
@@ -20,8 +20,8 @@
  *  Documentation of the Core Plot API and high-level architecture can be found in the following places:
  *
  *  - <a href="https://github.com/core-plot/core-plot/blob/master/documentation/changelog.markdown">Change log</a>
- *  - <a href="http://core-plot.github.io/MacOS/index.html">API documentation</a> for Mac
- *  - <a href="http://core-plot.github.io/iOS/index.html">API documentation</a> for iOS
+ *  - <a href="https://core-plot.github.io/MacOS/index.html">API documentation</a> for Mac
+ *  - <a href="https://core-plot.github.io/iOS/index.html">API documentation</a> for iOS
  *  - API documentation built with <a href="http://www.doxygen.org/">Doxygen</a> and installed locally in Xcode
  *  (see the <a href="https://github.com/core-plot/core-plot/blob/master/READMEs/README%20for%20Docs%20Install.md">instructions</a>
  *  in the <strong>READMEs</strong> folder for details)
@@ -32,8 +32,8 @@
  *
  *  @subsection qasites Q&A Sites
  *
- *  - <a href="http://groups.google.com/group/coreplot-discuss">Core Plot</a> Google Group
- *  - Stackoverflow.com <a href="http://stackoverflow.com/questions/tagged/core-plot">core-plot tag</a>
+ *  - <a href="https://groups.google.com/group/coreplot-discuss">Core Plot</a> Google Group
+ *  - Stackoverflow.com <a href="https://stackoverflow.com/questions/tagged/core-plot">core-plot tag</a>
  *
  *  @subsection socialnetworks Social Networks
  *
@@ -47,7 +47,7 @@
  *  - <a href="https://github.com/core-plot/core-plot">core-plot</a>: This is main code repository with the framework and all examples.
  *  This is where you will find the release packages, wiki pages, and issue tracker.
  *  - <a href="https://github.com/core-plot/core-plot.github.io">core-plot.github.io</a>: This is the HTML API documentation.
- *  You can view the pages online at <a href="">http://core-plot.github.io</a>.
+ *  You can view the pages online at <a href="">https://core-plot.github.io</a>.
  *
  *  @subsection codingstandards Coding Standards
  *
@@ -60,7 +60,7 @@
  *  directory of the project source for specific guidelines.
  *
  *  Core Plot includes a <a href="https://github.com/core-plot/core-plot/blob/master/scripts/format_core_plot.sh">script</a>
- *  to run <a href="http://uncrustify.sourceforge.net">Uncrustify</a> on the source code to standardize the formatting.
+ *  to run <a href="https://github.com/uncrustify/uncrustify">Uncrustify</a> on the source code to standardize the formatting.
  *  All source code will be formatted with this tool before being committed to the Core Plot repository.
  *
  *  @subsection testing Testing

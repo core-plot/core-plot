@@ -51,7 +51,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
  *  Radial gradients are drawn centered in the provided drawing region with position zero (@num{0})
  *  in the center and one (@num{1}) at the outer edge.
  *
- *  @note Based on @par{CTGradient} (http://blog.oofn.net/2006/01/15/gradients-in-cocoa/).
+ *  @note Based on @par{CTGradient} (https://blog.oofn.net/2006/01/15/gradients-in-cocoa/).
  *  @par{CTGradient} is in the public domain (Thanks Chad Weider!).
  **/
 @implementation CPTGradient

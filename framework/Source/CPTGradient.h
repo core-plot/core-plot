@@ -1,4 +1,4 @@
-// Based on CTGradient (http://blog.oofn.net/2006/01/15/gradients-in-cocoa/)
+// Based on CTGradient (https://blog.oofn.net/2006/01/15/gradients-in-cocoa/)
 // CTGradient is in public domain (Thanks Chad Weider!)
 
 /// @file

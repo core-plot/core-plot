@@ -1114,7 +1114,7 @@ BOOL CPTEdgeInsetsEqualToEdgeInsets(CPTEdgeInsets insets1, CPTEdgeInsets insets2
 /** @brief Computes the log modulus of the given value.
  *  @param value The value.
  *  @return The log modulus of the given value.
- *  @see <a href="http://blogs.sas.com/content/iml/2014/07/14/log-transformation-of-pos-neg.html">A log transformation of positive and negative values</a> for more information about the log-modulus transformation.
+ *  @see <a href="https://blogs.sas.com/content/iml/2014/07/14/log-transformation-of-pos-neg.html">A log transformation of positive and negative values</a> for more information about the log-modulus transformation.
  **/
 double CPTLogModulus(double value)
 {

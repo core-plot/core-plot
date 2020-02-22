@@ -215,7 +215,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
             [transform concat];
 
             // render CPTLayers recursively into the graphics context used for printing
-            // (thanks to Brad for the tip: http://stackoverflow.com/a/2791305/132867 )
+            // (thanks to Brad for the tip: https://stackoverflow.com/a/2791305/132867 )
             CGContextRef context = graphicsContext.graphicsPort;
             [self.hostedGraph recursivelyRenderInContext:context];
 

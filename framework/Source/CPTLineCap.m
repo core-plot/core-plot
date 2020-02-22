@@ -54,7 +54,7 @@
 
 /** @property BOOL usesEvenOddClipRule
  *  @brief If @YES, the even-odd rule is used to draw the line cap, otherwise the non-zero winding number rule is used.
- *  @see <a href="http://developer.apple.com/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_paths/dq_paths.html#//apple_ref/doc/uid/TP30001066-CH211-TPXREF106">Filling a Path</a> in the Quartz 2D Programming Guide.
+ *  @see <a href="https://developer.apple.com/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_paths/dq_paths.html#//apple_ref/doc/uid/TP30001066-CH211-TPXREF106">Filling a Path</a> in the Quartz 2D Programming Guide.
  **/
 @synthesize usesEvenOddClipRule;
 

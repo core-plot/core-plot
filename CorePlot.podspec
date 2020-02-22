@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.summary  = 'Cocoa plotting framework for macOS, iOS, and tvOS.'
   s.homepage = 'https://github.com/core-plot'
   s.social_media_url  = 'https://twitter.com/CorePlot'
-  s.documentation_url = 'http://core-plot.github.io'
+  s.documentation_url = 'https://core-plot.github.io'
  
   s.authors  = { 'Drew McCormack' => 'drewmccormack@mac.com',
                  'Brad Larson'    => 'larson@sunsetlakesoftware.com',
