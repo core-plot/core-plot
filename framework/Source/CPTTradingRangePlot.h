@@ -97,7 +97,7 @@ typedef NS_ENUM (NSInteger, CPTTradingRangePlotField) {
  *  @param indexRange The range of the data indexes of interest.
  *  @return An array of bar widths.
  **/
--(nullable CPTNumberArray *)barWidthsForTradingRangePlot:(nonnull CPTTradingRangePlot *)barPlot recordIndexRange:(NSRange)indexRange;
+-(nullable CPTNumberArray *)barWidthsForTradingRangePlot:(nonnull CPTTradingRangePlot *)plot recordIndexRange:(NSRange)indexRange;
 
 /** @brief @optional Gets a bar width for the given trading range plot.
  *  This method will not be called if
