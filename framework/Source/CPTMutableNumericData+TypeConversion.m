@@ -28,7 +28,6 @@
  *  @param newDataType The new data type format.
  *  @param newSampleBytes The number of bytes used to store each sample.
  *  @param newByteOrder The new byte order.
- *  @return A copy of the current numeric data converted to the new data type.
  **/
 -(void)convertToType:(CPTDataTypeFormat)newDataType
          sampleBytes:(size_t)newSampleBytes
