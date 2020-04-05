@@ -73,8 +73,8 @@ copytree(macFramework, join(macosDir, 'CorePlot.framework'), symlinks=True)
 # Build iOS Framework
 RunXcode('CorePlot.xcodeproj', 'Universal iOS Framework')
 iOSProductsDir = join(projectRoot, 'build/Release-iphoneuniversal')
-iOSFramework = join(iOSProductsDir, 'CorePlot.framework')
-copytree(iOSFramework, join(iosDir, 'CorePlot.framework'), symlinks=True)
+iOSFramework = join(iOSProductsDir, 'CorePlot.xcframework')
+copytree(iOSFramework, join(iosDir, 'CorePlot.xcframework'), symlinks=True)
 
 # Build iOS Static Library
 RunXcode('CorePlot.xcodeproj', 'Universal Library')
