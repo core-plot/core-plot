@@ -62,6 +62,17 @@
 			name = "Universal iOS Framework";
 			productName = Documentation;
 		};
+		C3AC175B244B594800E7380C /* Universal XCFramework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = C3AC175D244B594800E7380C /* Build configuration list for PBXAggregateTarget "Universal XCFramework" */;
+			buildPhases = (
+				C3AC175C244B594800E7380C /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Universal XCFramework";
+			productName = Documentation;
+		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
@@ -2454,7 +2465,6 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1100;
 				TargetAttributes = {
 					8DC2EF4F0486A6940098B216 = {
@@ -2503,6 +2513,7 @@
 				C38A09961A46193F00D45436 /* Universal Library */,
 				C3A5467F1BC1A817005C1BBC /* Universal iOS Framework */,
 				C37EA5C41BC83E900091C8F7 /* Universal tvOS Framework */,
+				C3AC175B244B594800E7380C /* Universal XCFramework */,
 			);
 		};
 /* End PBXProject section */
@@ -2586,7 +2597,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\nUFW_TARGET=\"CorePlot tvOS\"\nUFW_BUILD_DIR=\"${PROJECT_DIR}/../build\"\n\nif [ -z ${SDK_NAME} ]; then\n# Use the latest tvOS SDK available\nUFW_GREP_RESULT=$(xcodebuild -showsdks | grep -o \"appletvos.*$\")\nwhile read -r line; do\nUFW_SDK_VERSION=\"${line}\"\ndone <<< \"${UFW_GREP_RESULT}\"\nelse\n# Use the SDK specified by XCode\nUFW_SDK_VERSION=\"${SDK_NAME}\"\nfi\n\nFRAMEWORK_NAME=\"${PROJECT_NAME}\"\nUFW_SDK_VERSION=$(echo \"${UFW_SDK_VERSION}\" | grep -o \"[0-9].*$\")\nUFW_IPHONE_PATH=\"${UFW_BUILD_DIR}/Release-appletvos/${FRAMEWORK_NAME}.framework\"\nUFW_SIMULATOR_PATH=\"${UFW_BUILD_DIR}/Release-appletvsimulator/${FRAMEWORK_NAME}.framework\"\nUFW_UNIVERSAL_DIR=\"${UFW_BUILD_DIR}/Release-appletvuniversal\"\nUFW_FRAMEWORK=\"${UFW_UNIVERSAL_DIR}/${FRAMEWORK_NAME}.framework\"\n\n# Build Framework\n\nrm -rf \"${UFW_UNIVERSAL_DIR}\"\n\nxcodebuild -target \"${UFW_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk appletvos${UFW_SDK_VERSION} clean build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\nxcodebuild -target \"${UFW_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk appletvsimulator${UFW_SDK_VERSION} build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\n\nmkdir -p \"${UFW_UNIVERSAL_DIR}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: mkdir failed\"; exit 1; fi\n\ncp -r \"${UFW_IPHONE_PATH}/.\" \"${UFW_FRAMEWORK}\"\n\nlipo -create -output \"${UFW_FRAMEWORK}/${FRAMEWORK_NAME}\" \"${UFW_SIMULATOR_PATH}/${FRAMEWORK_NAME}\" \"${UFW_IPHONE_PATH}/${FRAMEWORK_NAME}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: lipo failed\"; exit 1; fi\n";
+			shellScript = "\nUFW_TARGET=\"CorePlot tvOS\"\nUFW_BUILD_DIR=\"${PROJECT_DIR}/../build\"\n\n# Use the latest tvOS SDK available\nUFW_GREP_RESULT=$(xcodebuild -showsdks | grep -o \"appletvos.*$\")\nwhile read -r line; do\nUFW_SDK_VERSION=\"${line}\"\ndone <<< \"${UFW_GREP_RESULT}\"\nUFW_SDK_VERSION=$(echo \"${UFW_SDK_VERSION}\" | grep -o \"[0-9].*$\")\n\nFRAMEWORK_NAME=\"${PROJECT_NAME}\"\n\nUFW_IPHONE_PATH=\"${UFW_BUILD_DIR}/Release-appletvos/${FRAMEWORK_NAME}.framework\"\nUFW_SIMULATOR_PATH=\"${UFW_BUILD_DIR}/Release-appletvsimulator/${FRAMEWORK_NAME}.framework\"\nUFW_UNIVERSAL_DIR=\"${UFW_BUILD_DIR}/Release-appletvuniversal\"\nUFW_FRAMEWORK=\"${UFW_UNIVERSAL_DIR}/${FRAMEWORK_NAME}.framework\"\n\n# Build Framework\n\nrm -rf \"${UFW_UNIVERSAL_DIR}\"\n\nxcodebuild -scheme \"${UFW_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk appletvos${UFW_SDK_VERSION} clean build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\nxcodebuild -scheme \"${UFW_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk appletvsimulator${UFW_SDK_VERSION} build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\n\nmkdir -p \"${UFW_UNIVERSAL_DIR}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: mkdir failed\"; exit 1; fi\n\ncp -r \"${UFW_IPHONE_PATH}/.\" \"${UFW_FRAMEWORK}\"\n\nlipo -create -output \"${UFW_FRAMEWORK}/${FRAMEWORK_NAME}\" \"${UFW_SIMULATOR_PATH}/${FRAMEWORK_NAME}\" \"${UFW_IPHONE_PATH}/${FRAMEWORK_NAME}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: lipo failed\"; exit 1; fi\n";
 		};
 		C38A09921A4618B600D45436 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2612,7 +2623,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\nUFW_TARGET=\"CorePlot-CocoaTouch\"\nUFW_BUILD_DIR=\"${PROJECT_DIR}/../build\"\n\nif [ -z ${SDK_NAME} ]; then\n# Use the latest iphoneos SDK available\nUFW_GREP_RESULT=$(xcodebuild -showsdks | grep -o \"iphoneos.*$\")\nwhile read -r line; do\nUFW_SDK_VERSION=\"${line}\"\ndone <<< \"${UFW_GREP_RESULT}\"\nelse\n# Use the SDK specified by XCode\nUFW_SDK_VERSION=\"${SDK_NAME}\"\nfi\n\nUFW_SDK_VERSION=$(echo \"${UFW_SDK_VERSION}\" | grep -o \"[0-9].*$\")\nUFW_IPHONE_DIR=\"${UFW_BUILD_DIR}/Release-iphoneos\"\nUFW_SIMULATOR_DIR=\"${UFW_BUILD_DIR}/Release-iphonesimulator\"\nUFW_UNIVERSAL_DIR=\"${UFW_BUILD_DIR}/Release-universal\"\nUFW_HEADER_DIR=\"${UFW_UNIVERSAL_DIR}/CorePlotHeaders\"\nUFW_EXE_PATH=\"libCorePlot-CocoaTouch.a\"\n\n# Build Framework\n\nrm -rf \"${UFW_UNIVERSAL_DIR}\"\n\nxcodebuild -target \"${UFW_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk iphoneos${UFW_SDK_VERSION} clean build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\nxcodebuild -target \"${UFW_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk iphonesimulator${UFW_SDK_VERSION} build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\n\nmkdir -p \"${UFW_UNIVERSAL_DIR}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: mkdir failed\"; exit 1; fi\n\nlipo -create -output \"${UFW_UNIVERSAL_DIR}/${UFW_EXE_PATH}\" \"${UFW_IPHONE_DIR}/${UFW_EXE_PATH}\" \"${UFW_SIMULATOR_DIR}/${UFW_EXE_PATH}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: lipo failed\"; exit 1; fi\n\n# copy header files\nmkdir -p \"${UFW_HEADER_DIR}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: mkdir failed\"; exit 1; fi\n\ncp \"${SOURCE_ROOT}/CorePlot-CocoaTouch.h\" \"${UFW_HEADER_DIR}\"\ncp \"${SOURCE_ROOT}/iPhoneOnly/\"[!_]*.h \"${UFW_HEADER_DIR}/\"\ncp \"${SOURCE_ROOT}/Source/\"[!_]*.h \"${UFW_HEADER_DIR}/\"\n\nrm \"${UFW_HEADER_DIR}/\"*Tests.*\n";
+			shellScript = "\nUFW_TARGET=\"CorePlot-CocoaTouch\"\nUFW_BUILD_DIR=\"${PROJECT_DIR}/../build\"\n\n# Use the latest iphoneos SDK available\nUFW_GREP_RESULT=$(xcodebuild -showsdks | grep -o \"iphoneos.*$\")\nwhile read -r line; do\nUFW_SDK_VERSION=\"${line}\"\ndone <<< \"${UFW_GREP_RESULT}\"\nUFW_SDK_VERSION=$(echo \"${UFW_SDK_VERSION}\" | grep -o \"[0-9].*$\")\n\nUFW_IPHONE_DIR=\"${UFW_BUILD_DIR}/Release-iphoneos\"\nUFW_SIMULATOR_DIR=\"${UFW_BUILD_DIR}/Release-iphonesimulator\"\nUFW_UNIVERSAL_DIR=\"${UFW_BUILD_DIR}/Release-universal\"\nUFW_HEADER_DIR=\"${UFW_UNIVERSAL_DIR}/CorePlotHeaders\"\nUFW_EXE_PATH=\"libCorePlot-CocoaTouch.a\"\n\n# Build Framework\n\nrm -rf \"${UFW_UNIVERSAL_DIR}\"\n\nxcodebuild -scheme \"${UFW_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk iphoneos${UFW_SDK_VERSION} clean build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\nxcodebuild -scheme \"${UFW_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk iphonesimulator${UFW_SDK_VERSION} build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\n\nmkdir -p \"${UFW_UNIVERSAL_DIR}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: mkdir failed\"; exit 1; fi\n\nlipo -create -output \"${UFW_UNIVERSAL_DIR}/${UFW_EXE_PATH}\" \"${UFW_IPHONE_DIR}/${UFW_EXE_PATH}\" \"${UFW_SIMULATOR_DIR}/${UFW_EXE_PATH}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: lipo failed\"; exit 1; fi\n\n# copy header files\nmkdir -p \"${UFW_HEADER_DIR}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: mkdir failed\"; exit 1; fi\n\ncp \"${SOURCE_ROOT}/CorePlot-CocoaTouch.h\" \"${UFW_HEADER_DIR}\"\ncp \"${SOURCE_ROOT}/iPhoneOnly/\"[!_]*.h \"${UFW_HEADER_DIR}/\"\ncp \"${SOURCE_ROOT}/Source/\"[!_]*.h \"${UFW_HEADER_DIR}/\"\n\nrm \"${UFW_HEADER_DIR}/\"*Tests.*\n";
 		};
 		C3A546801BC1A817005C1BBC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2625,7 +2636,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\nUFW_TARGET=\"CorePlot iOS\"\nUFW_BUILD_DIR=\"${PROJECT_DIR}/../build\"\n\nif [ -z ${SDK_NAME} ]; then\n# Use the latest iphoneos SDK available\nUFW_GREP_RESULT=$(xcodebuild -showsdks | grep -o \"iphoneos.*$\")\nwhile read -r line; do\nUFW_SDK_VERSION=\"${line}\"\ndone <<< \"${UFW_GREP_RESULT}\"\nelse\n# Use the SDK specified by XCode\nUFW_SDK_VERSION=\"${SDK_NAME}\"\nfi\n\nFRAMEWORK_NAME=\"${PROJECT_NAME}\"\nUFW_SDK_VERSION=$(echo \"${UFW_SDK_VERSION}\" | grep -o \"[0-9].*$\")\nUFW_IPHONE_PATH=\"${UFW_BUILD_DIR}/Release-iphoneos/${FRAMEWORK_NAME}.framework\"\nUFW_SIMULATOR_PATH=\"${UFW_BUILD_DIR}/Release-iphonesimulator/${FRAMEWORK_NAME}.framework\"\nUFW_UNIVERSAL_DIR=\"${UFW_BUILD_DIR}/Release-iphoneuniversal\"\nUFW_FRAMEWORK=\"${UFW_UNIVERSAL_DIR}/${FRAMEWORK_NAME}.framework\"\n\n# Build Framework\n\nrm -rf \"${UFW_UNIVERSAL_DIR}\"\n\nxcodebuild -target \"${UFW_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk iphoneos${UFW_SDK_VERSION} clean build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\nxcodebuild -target \"${UFW_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk iphonesimulator${UFW_SDK_VERSION} build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\n\nmkdir -p \"${UFW_UNIVERSAL_DIR}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: mkdir failed\"; exit 1; fi\n\ncp -r \"${UFW_IPHONE_PATH}/.\" \"${UFW_FRAMEWORK}\"\n\nlipo -create -output \"${UFW_FRAMEWORK}/${FRAMEWORK_NAME}\" \"${UFW_SIMULATOR_PATH}/${FRAMEWORK_NAME}\" \"${UFW_IPHONE_PATH}/${FRAMEWORK_NAME}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: lipo failed\"; exit 1; fi\n";
+			shellScript = "\nUFW_TARGET=\"CorePlot iOS\"\nUFW_BUILD_DIR=\"${PROJECT_DIR}/../build\"\n\n# Use the latest iphoneos SDK available\nUFW_GREP_RESULT=$(xcodebuild -showsdks | grep -o \"iphoneos.*$\")\nwhile read -r line; do\nUFW_SDK_VERSION=\"${line}\"\ndone <<< \"${UFW_GREP_RESULT}\"\nUFW_SDK_VERSION=$(echo \"${UFW_SDK_VERSION}\" | grep -o \"[0-9].*$\")\n\nFRAMEWORK_NAME=\"${PROJECT_NAME}\"\n\nUFW_IPHONE_PATH=\"${UFW_BUILD_DIR}/Release-iphoneos/${FRAMEWORK_NAME}.framework\"\nUFW_SIMULATOR_PATH=\"${UFW_BUILD_DIR}/Release-iphonesimulator/${FRAMEWORK_NAME}.framework\"\nUFW_UNIVERSAL_DIR=\"${UFW_BUILD_DIR}/Release-iphoneuniversal\"\nUFW_FRAMEWORK=\"${UFW_UNIVERSAL_DIR}/${FRAMEWORK_NAME}.framework\"\n\n# Build Framework\n\nrm -rf \"${UFW_UNIVERSAL_DIR}\"\n\nxcodebuild -scheme \"${UFW_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk iphoneos${UFW_SDK_VERSION} clean build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\nxcodebuild -scheme \"${UFW_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk iphonesimulator${UFW_SDK_VERSION} build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\n\nmkdir -p \"${UFW_UNIVERSAL_DIR}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: mkdir failed\"; exit 1; fi\n\ncp -r \"${UFW_IPHONE_PATH}/.\" \"${UFW_FRAMEWORK}\"\n\nlipo -create -output \"${UFW_FRAMEWORK}/${FRAMEWORK_NAME}\" \"${UFW_SIMULATOR_PATH}/${FRAMEWORK_NAME}\" \"${UFW_IPHONE_PATH}/${FRAMEWORK_NAME}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: lipo failed\"; exit 1; fi\n";
+		};
+		C3AC175C244B594800E7380C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "UFW_MAC_TARGET=\"CorePlot Mac\"\nUFW_IOS_TARGET=\"CorePlot iOS\"\nUFW_TVOS_TARGET=\"CorePlot tvOS\"\n\nUFW_BUILD_DIR=\"${PROJECT_DIR}/../build\"\n\n# Mac SDK\n# Use the latest macOS SDK available\nUFW_GREP_RESULT=$(xcodebuild -showsdks | grep -o \"[^.]macosx.*$\")\nwhile read -r line; do\nUFW_MAC_SDK_VERSION=\"${line}\"\ndone <<< \"${UFW_GREP_RESULT}\"\nUFW_MAC_SDK_VERSION=$(echo \"${UFW_MAC_SDK_VERSION}\" | grep -o \"[0-9].*$\")\n\n# iOS SDK\n# Use the latest iOS SDK available\nUFW_GREP_RESULT=$(xcodebuild -showsdks | grep -o \"iphoneos.*$\")\nwhile read -r line; do\nUFW_IOS_SDK_VERSION=\"${line}\"\ndone <<< \"${UFW_GREP_RESULT}\"\nUFW_IOS_SDK_VERSION=$(echo \"${UFW_IOS_SDK_VERSION}\" | grep -o \"[0-9].*$\")\n\n# tvOS SDK\n# Use the latest tvOS SDK available\nUFW_GREP_RESULT=$(xcodebuild -showsdks | grep -o \"appletvos.*$\")\nwhile read -r line; do\nUFW_TVOS_SDK_VERSION=\"${line}\"\ndone <<< \"${UFW_GREP_RESULT}\"\nUFW_TVOS_SDK_VERSION=$(echo \"${UFW_TVOS_SDK_VERSION}\" | grep -o \"[0-9].*$\")\n\nFRAMEWORK_NAME=\"${PROJECT_NAME}\"\n\nUFW_MAC_PATH=\"${UFW_BUILD_DIR}/Release/${FRAMEWORK_NAME}.framework\"\nUFW_CATALYST_PATH=\"${UFW_BUILD_DIR}/Release-maccatalyst/${FRAMEWORK_NAME}.framework\"\nUFW_IOS_PATH=\"${UFW_BUILD_DIR}/Release-iphoneos/${FRAMEWORK_NAME}.framework\"\nUFW_IOS_SIMULATOR_PATH=\"${UFW_BUILD_DIR}/Release-iphonesimulator/${FRAMEWORK_NAME}.framework\"\nUFW_TVOS_PATH=\"${UFW_BUILD_DIR}/Release-appletvos/${FRAMEWORK_NAME}.framework\"\nUFW_TVOS_SIMULATOR_PATH=\"${UFW_BUILD_DIR}/Release-appletvsimulator/${FRAMEWORK_NAME}.framework\"\n\nUFW_UNIVERSAL_DIR=\"${UFW_BUILD_DIR}/Release-universal\"\nUFW_FRAMEWORK=\"${UFW_UNIVERSAL_DIR}/${FRAMEWORK_NAME}.xcframework\"\n\n# Build Framework\n\nrm -rf \"${UFW_UNIVERSAL_DIR}\"\n\n# macOS\nxcodebuild -scheme \"${UFW_MAC_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk macosx${UFW_MAC_SDK_VERSION} clean build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\n# Mac Catalyst\nxcodebuild -scheme \"${UFW_IOS_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk iphoneos${UFW_IOS_SDK_VERSION} -destination \"platform=macOS,variant=Mac Catalyst\" build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\n# iOS\nxcodebuild -scheme \"${UFW_IOS_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk iphoneos${UFW_IOS_SDK_VERSION} build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\nxcodebuild -scheme \"${UFW_IOS_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk iphonesimulator${UFW_IOS_SDK_VERSION} build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\n#tvOS\nxcodebuild -scheme \"${UFW_TVOS_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk appletvos${UFW_TVOS_SDK_VERSION} build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\nxcodebuild -scheme \"${UFW_TVOS_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk appletvsimulator${UFW_TVOS_SDK_VERSION} build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\n\nmkdir -p \"${UFW_UNIVERSAL_DIR}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: mkdir failed\"; exit 1; fi\n\nxcodebuild -create-xcframework -output \"${UFW_FRAMEWORK}\" \\\n    -framework \"${UFW_MAC_PATH}\" \\\n    -framework \"${UFW_CATALYST_PATH}\" \\\n    -framework \"${UFW_IOS_PATH}\" \\\n    -framework \"${UFW_IOS_SIMULATOR_PATH}\" \\\n    -framework \"${UFW_TVOS_PATH}\" \\\n    -framework \"${UFW_TVOS_SIMULATOR_PATH}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: create XCFramework failed\"; exit 1; fi\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -3701,6 +3725,35 @@
 			};
 			name = Release;
 		};
+		C3AC175E244B594800E7380C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+			};
+			name = Debug;
+		};
+		C3AC175F244B594800E7380C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -3826,6 +3879,15 @@
 			buildConfigurations = (
 				C3A546821BC1A817005C1BBC /* Debug */,
 				C3A546831BC1A817005C1BBC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C3AC175D244B594800E7380C /* Build configuration list for PBXAggregateTarget "Universal XCFramework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3AC175E244B594800E7380C /* Debug */,
+				C3AC175F244B594800E7380C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
