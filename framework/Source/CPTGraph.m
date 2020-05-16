@@ -395,6 +395,7 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
         [super layoutAndRenderInContext:context];
     }
 #else
+#ifdef __IPHONE_13_0
     if ( @available(iOS 13, *)) {
         if ( [UITraitCollection instancesRespondToSelector:@selector(performAsCurrentTraitCollection:)] ) {
             UITraitCollection *traitCollection = ((UIView *)self.hostingView).traitCollection;
@@ -414,6 +415,9 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
     else {
         [super layoutAndRenderInContext:context];
     }
+#else
+    [super layoutAndRenderInContext:context];
+#endif
 #endif
 #pragma clang diagnostic pop
 }

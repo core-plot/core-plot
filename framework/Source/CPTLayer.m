@@ -338,6 +338,7 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
             [super display];
         }
 #else
+#ifdef __IPHONE_13_0
         if ( @available(iOS 13, *)) {
             if ( [UITraitCollection instancesRespondToSelector:@selector(performAsCurrentTraitCollection:)] ) {
                 UITraitCollection *traitCollection = ((UIView *)self.graph.hostingView).traitCollection;
@@ -357,6 +358,9 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
         else {
             [super display];
         }
+#else
+        [super display];
+#endif
 #endif
 #pragma clang diagnostic pop
     }
