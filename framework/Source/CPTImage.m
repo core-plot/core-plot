@@ -198,6 +198,7 @@ CPTImageSlices;
     [coder encodeBool:self.tileAnchoredToContext forKey:@"CPTImage.tileAnchoredToContext"];
 
     CPTEdgeInsets insets = self.edgeInsets;
+
     [coder encodeCGFloat:insets.top forKey:@"CPTImage.edgeInsets.top"];
     [coder encodeCGFloat:insets.left forKey:@"CPTImage.edgeInsets.left"];
     [coder encodeCGFloat:insets.bottom forKey:@"CPTImage.edgeInsets.bottom"];

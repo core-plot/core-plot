@@ -110,6 +110,7 @@
     }
 
     CPTAxis *theAxis = self.axis;
+
     [theAxis drawGridLinesInContext:context isMajor:self.major];
 }
 

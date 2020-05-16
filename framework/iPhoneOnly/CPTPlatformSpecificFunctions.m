@@ -32,6 +32,7 @@ CPTNativeImage *__nonnull CPTQuickLookImage(CGRect rect, __nonnull CPTQuickLookI
     renderBlock(context, 1.0, rect);
 
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+
     UIGraphicsEndImageContext();
 
     return image;

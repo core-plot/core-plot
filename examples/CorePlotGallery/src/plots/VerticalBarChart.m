@@ -249,6 +249,7 @@ static const BOOL kUseHorizontalBars = NO;
     CPTGraph *graph = (self.graphs)[0];
 
     CPTPlotSpaceAnnotation *annotation = self.symbolTextAnnotation;
+
     if ( annotation ) {
         [graph.plotAreaFrame.plotArea removeAnnotation:annotation];
         self.symbolTextAnnotation = nil;
@@ -256,6 +257,7 @@ static const BOOL kUseHorizontalBars = NO;
 
     // Setup a style for the annotation
     CPTMutableTextStyle *hitAnnotationTextStyle = [CPTMutableTextStyle textStyle];
+
     hitAnnotationTextStyle.color    = [CPTColor orangeColor];
     hitAnnotationTextStyle.fontSize = 16.0;
     hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
@@ -269,11 +271,13 @@ static const BOOL kUseHorizontalBars = NO;
     // Add annotation
     // First make a string for the y value
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+
     formatter.maximumFractionDigits = 2;
     NSString *yString = [formatter stringFromNumber:value];
 
     // Now add the annotation to the plot area
     CPTPlotSpace *space = plot.plotSpace;
+
     if ( space ) {
         CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle];
         annotation                = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:space anchorPlotPoint:anchorPoint];

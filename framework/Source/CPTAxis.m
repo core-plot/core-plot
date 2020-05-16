@@ -1389,6 +1389,7 @@ NSDecimal CPTNiceNum(NSDecimal x)
     NSDecimal minusOne = CPTDecimalFromInteger(-1);
 
     BOOL xIsNegative = CPTDecimalLessThan(x, zero);
+
     if ( xIsNegative ) {
         x = CPTDecimalMultiply(x, minusOne);
     }
@@ -1396,6 +1397,7 @@ NSDecimal CPTNiceNum(NSDecimal x)
     short exponent = (short)lrint(floor(log10(CPTDecimalDoubleValue(x))));
 
     NSDecimal fractionPart;
+
     NSDecimalMultiplyByPowerOf10(&fractionPart, &x, -exponent, NSRoundPlain);
 
     NSDecimal roundedFraction;
@@ -1418,6 +1420,7 @@ NSDecimal CPTNiceNum(NSDecimal x)
     }
 
     NSDecimal roundedNumber;
+
     NSDecimalMultiplyByPowerOf10(&roundedNumber, &roundedFraction, exponent, NSRoundPlain);
 
     return roundedNumber;
@@ -1439,6 +1442,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
     NSDecimal minusOne = CPTDecimalFromInteger(-1);
 
     BOOL isNegative = CPTDecimalLessThan(length, zero);
+
     if ( isNegative ) {
         length = CPTDecimalMultiply(length, minusOne);
     }
@@ -1618,9 +1622,11 @@ NSDecimal CPTNiceLength(NSDecimal length)
     }
 
     CPTPlotArea *thePlotArea = self.plotArea;
+
     [thePlotArea setAxisSetLayersForType:CPTGraphLayerTypeAxisLabels];
 
     CPTMutableAxisLabelSet *oldAxisLabels;
+
     if ( useMajorAxisLabels ) {
         oldAxisLabels = [self.axisLabels mutableCopy];
     }
@@ -1733,6 +1739,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
         return;
     }
     id<CPTAxisDelegate> theDelegate = (id<CPTAxisDelegate>)self.delegate;
+
     if ( [theDelegate respondsToSelector:@selector(axisShouldRelabel:)] && ![theDelegate axisShouldRelabel:self] ) {
         self.needsRelabel = NO;
         return;
@@ -2036,6 +2043,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
     [self.mutableBackgroundLimitBands removeAllObjects];
 
     CPTPlotArea *thePlotArea = self.plotArea;
+
     [thePlotArea setNeedsDisplay];
 }
 

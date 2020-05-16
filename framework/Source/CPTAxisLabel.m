@@ -155,6 +155,7 @@
     CGFloat angle       = CPTFloat(0.0);
 
     CGFloat labelRotation = self.rotation;
+
     if ( isnan(labelRotation)) {
         labelRotation = (coordinate == CPTCoordinateX ? CPTFloat(M_PI_2) : CPTFloat(0.0));
     }

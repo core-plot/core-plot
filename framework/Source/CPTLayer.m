@@ -747,6 +747,7 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
 
     Class layerClass = [CPTLayer class];
     CGFloat scale    = self.contentsScale;
+
     for ( CALayer *layer in sublayers ) {
         if ( [layer isKindOfClass:layerClass] ) {
             ((CPTLayer *)layer).contentsScale = scale;
@@ -854,14 +855,17 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
     }
 
     CGAffineTransform sublayerTransform = CATransform3DGetAffineTransform(sublayer.transform);
+
     CGContextConcatCTM(context, CGAffineTransformInvert(sublayerTransform));
 
     CALayer *superlayer = self.superlayer;
+
     if ( [superlayer isKindOfClass:[CPTLayer class]] ) {
         [(CPTLayer *) superlayer applySublayerMaskToContext:context forSublayer:self withOffset:layerOffset];
     }
 
     CGPathRef maskPath = self.sublayerMaskingPath;
+
     if ( maskPath ) {
         CGContextTranslateCTM(context, -layerOffset.x, -layerOffset.y);
         CGContextAddPath(context, maskPath);
@@ -888,6 +892,7 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
     }
 
     CGPathRef maskPath = self.maskingPath;
+
     if ( maskPath ) {
         CGContextAddPath(context, maskPath);
         CGContextClip(context);
@@ -901,6 +906,7 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
     [super setNeedsLayout];
 
     CPTGraph *theGraph = self.graph;
+
     if ( theGraph ) {
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphNeedsRedrawNotification
                                                             object:theGraph];
@@ -912,6 +918,7 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
     [super setNeedsDisplay];
 
     CPTGraph *theGraph = self.graph;
+
     if ( theGraph ) {
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphNeedsRedrawNotification
                                                             object:theGraph];

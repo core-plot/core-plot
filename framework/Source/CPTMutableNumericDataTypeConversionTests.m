@@ -24,6 +24,7 @@ static const double precision           = 1.0e-6;
     numericData.sampleBytes = sizeof(double);
 
     const double *doubleSamples = (const double *)numericData.data.bytes;
+
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         XCTAssertEqualWithAccuracy((double)samples[i], doubleSamples[i], precision, @"(float)%g != (double)%g", (double)samples[i], doubleSamples[i]);
     }
@@ -45,6 +46,7 @@ static const double precision           = 1.0e-6;
     numericData.sampleBytes = sizeof(float);
 
     const float *floatSamples = (const float *)numericData.data.bytes;
+
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         XCTAssertEqualWithAccuracy((double)floatSamples[i], samples[i], precision, @"(float)%g != (double)%g", (double)floatSamples[i], samples[i]);
     }
@@ -66,6 +68,7 @@ static const double precision           = 1.0e-6;
     numericData.dataType = CPTDataType(CPTIntegerDataType, sizeof(NSInteger), NSHostByteOrder());
 
     const NSInteger *intSamples = (const NSInteger *)numericData.data.bytes;
+
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         XCTAssertEqualWithAccuracy((NSInteger)samples[i], intSamples[i], precision, @"(float)%g != (NSInteger)%ld", (double)samples[i], (long)intSamples[i]);
     }
@@ -87,6 +90,7 @@ static const double precision           = 1.0e-6;
     numericData.dataType = CPTDataType(CPTFloatingPointDataType, sizeof(float), NSHostByteOrder());
 
     const float *floatSamples = (const float *)numericData.data.bytes;
+
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         XCTAssertEqualWithAccuracy(floatSamples[i], (float)samples[i], (float)precision, @"(float)%g != (NSInteger)%ld", (double)floatSamples[i], (long)samples[i]);
     }
@@ -108,6 +112,7 @@ static const double precision           = 1.0e-6;
     numericData.dataType = CPTDataType(CPTFloatingPointDataType, sizeof(double), NSHostByteOrder());
 
     const double *doubleSamples = (const double *)numericData.data.bytes;
+
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         XCTAssertEqual(CPTDecimalDoubleValue(samples[i]), doubleSamples[i], @"(NSDecimal)%@ != (double)%g", CPTDecimalStringValue(samples[i]), doubleSamples[i]);
     }
@@ -129,6 +134,7 @@ static const double precision           = 1.0e-6;
     numericData.dataType = CPTDataType(CPTDecimalDataType, sizeof(NSDecimal), NSHostByteOrder());
 
     const NSDecimal *decimalSamples = (const NSDecimal *)numericData.data.bytes;
+
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         XCTAssertTrue(CPTDecimalEquals(decimalSamples[i], CPTDecimalFromDouble(samples[i])), @"(NSDecimal)%@ != (double)%g", CPTDecimalStringValue(decimalSamples[i]), samples[i]);
     }
@@ -151,11 +157,13 @@ static const double precision           = 1.0e-6;
     numericData.byteOrder = swappedByteOrder;
 
     uint32_t end = *(const uint32_t *)numericData.bytes;
+
     XCTAssertEqual(CFSwapInt32(start), end, @"Bytes swapped");
 
     numericData.byteOrder = hostByteOrder;
 
     uint32_t startRoundTrip = *(const uint32_t *)numericData.bytes;
+
     XCTAssertEqual(start, startRoundTrip, @"Round trip");
 }
 
@@ -181,12 +189,14 @@ static const double precision           = 1.0e-6;
         CFSwappedFloat64 sv;
     }
     result;
+
     result.v = start;
     XCTAssertEqual(CFSwapInt64(result.sv.v), end, @"Bytes swapped");
 
     numericData.byteOrder = hostByteOrder;
 
     double startRoundTrip = *(const double *)numericData.bytes;
+
     XCTAssertEqual(start, startRoundTrip, @"Round trip");
 }
 

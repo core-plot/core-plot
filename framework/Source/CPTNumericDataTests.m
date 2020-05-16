@@ -45,6 +45,7 @@
     XCTAssertEqual(nd.numberOfDimensions, (NSUInteger)1, @"numberOfDimensions == 1");
 
     NSUInteger prod = 1;
+
     for ( NSNumber *num in nd.shape ) {
         prod *= num.unsignedIntegerValue;
     }
@@ -98,6 +99,7 @@
                                                         shape:nil];
 
     NSData *expected = data;
+
     XCTAssertEqualObjects(data, nd.data, @"equal objects");
     XCTAssertTrue([expected isEqualToData:nd.data], @"data isEqualToData:");
 }
@@ -175,6 +177,7 @@
     nElems = 10;
     data   = [NSMutableData dataWithLength:nElems * sizeof(char)];
     char *charSamples = (char *)data.mutableBytes;
+
     for ( NSUInteger i = 0; i < nElems; i++ ) {
         charSamples[i] = (char)lrint(sin(i) * 100.0);
     }
@@ -224,6 +227,7 @@
                                           byteOrder:NSHostByteOrder()];
 
     const double *doubleSamples = (const double *)dd.data.bytes;
+
     for ( NSUInteger i = 0; i < numberOfSamples; i++ ) {
         XCTAssertTrue((double)samples[i] == doubleSamples[i], @"(float)%g != (double)%g", (double)samples[i], doubleSamples[i]);
     }

@@ -120,6 +120,7 @@ static NSString *const kCollectionItem   = @"PlotViewItem";
     self.currentThemeName = [sender titleOfSelectedItem];
 
     PlotView *hostView = self.hostingView;
+
     if ( hostView ) {
         [self.plotItem renderInView:hostView withTheme:[self currentTheme] animated:YES];
     }
@@ -295,6 +296,7 @@ static NSString *const kCollectionItem   = @"PlotViewItem";
     NSString *content = [PlotGallery sharedPlotGallery].sectionTitles[(NSUInteger)indexPath.section];
 
     NSView *view = [collectionView makeSupplementaryViewOfKind:kind withIdentifier:identifier forIndexPath:indexPath];
+
     if ( content && [view isKindOfClass:[NSTextField class]] ) {
         NSTextField *titleTextField = (NSTextField *)view;
 

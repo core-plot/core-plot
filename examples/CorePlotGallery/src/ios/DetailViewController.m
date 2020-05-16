@@ -37,6 +37,7 @@
                                                object:nil];
 
     UIView *hostView = self.hostingView;
+
     if ( hostView ) {
         [self.detailItem renderInView:hostView withTheme:[self currentTheme] animated:YES];
     }
@@ -124,6 +125,7 @@
     self.currentThemeName = themeName;
 
     UIView *hostView = self.hostingView;
+
     if ( hostView ) {
         [self.detailItem renderInView:hostView withTheme:[self currentTheme] animated:YES];
     }

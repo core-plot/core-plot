@@ -40,6 +40,7 @@ CPTThemeName const kCPTPlainBlackTheme = @"Plain Black";
     plotAreaFrame.fill = [CPTFill fillWithColor:[CPTColor blackColor]];
 
     CPTMutableLineStyle *borderLineStyle = [CPTMutableLineStyle lineStyle];
+
     borderLineStyle.lineColor = [CPTColor whiteColor];
     borderLineStyle.lineWidth = CPTFloat(1.0);
 
@@ -56,14 +57,17 @@ CPTThemeName const kCPTPlainBlackTheme = @"Plain Black";
     majorLineStyle.lineWidth = CPTFloat(3.0);
 
     CPTMutableLineStyle *minorLineStyle = [CPTMutableLineStyle lineStyle];
+
     minorLineStyle.lineColor = [CPTColor whiteColor];
     minorLineStyle.lineWidth = CPTFloat(3.0);
 
     CPTMutableTextStyle *whiteTextStyle = [[CPTMutableTextStyle alloc] init];
+
     whiteTextStyle.color    = [CPTColor whiteColor];
     whiteTextStyle.fontSize = CPTFloat(14.0);
 
     CPTMutableTextStyle *minorTickWhiteTextStyle = [[CPTMutableTextStyle alloc] init];
+
     minorTickWhiteTextStyle.color    = [CPTColor whiteColor];
     minorTickWhiteTextStyle.fontSize = CPTFloat(12.0);
 

@@ -70,6 +70,7 @@
     }
 
     CPTLineStyle *theLineStyle = self.borderLineStyle;
+
     if ( theLineStyle ) {
         [super renderAsVectorInContext:context];
 

@@ -237,6 +237,7 @@
     CGFloat lineWidth = lineStyle.lineWidth;
 
     CPTAlignPointFunction alignmentFunction = NULL;
+
     if ((self.contentsScale > CPTFloat(1.0)) && (round(lineWidth) == lineWidth)) {
         alignmentFunction = CPTAlignIntegralPointToUserSpace;
     }
@@ -313,6 +314,7 @@
     CPTPlotRange *thePlotRange    = [self.plotSpace plotRangeForCoordinate:self.coordinate];
     CPTMutablePlotRange *range    = [thePlotRange mutableCopy];
     CPTPlotRange *theVisibleRange = self.visibleRange;
+
     if ( theVisibleRange ) {
         [range intersectionPlotRange:theVisibleRange];
     }

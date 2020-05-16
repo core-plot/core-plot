@@ -22,6 +22,7 @@ CGSize CPTCurrentSizeValue(id __nonnull boundObject, SEL __nonnull boundGetter)
     [invocation invoke];
 
     CGSize value;
+
     [invocation getReturnValue:&value];
 
     return value;

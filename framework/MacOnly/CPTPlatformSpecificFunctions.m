@@ -98,6 +98,7 @@ CPTRGBAColor CPTRGBAColorFromNSColor(NSColor *__nonnull nsColor)
     [[nsColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace] getRed:&red green:&green blue:&blue alpha:&alpha];
 
     CPTRGBAColor rgbColor;
+
     rgbColor.red   = red;
     rgbColor.green = green;
     rgbColor.blue  = blue;
@@ -134,6 +135,7 @@ CPTNativeImage *__nonnull CPTQuickLookImage(CGRect rect, __nonnull CPTQuickLookI
     CGContextFlush(context);
 
     NSImage *image = [[NSImage alloc] initWithSize:NSSizeFromCGSize(rect.size)];
+
     [image addRepresentation:layerImage];
 
     return image;

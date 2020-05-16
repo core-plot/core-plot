@@ -111,6 +111,7 @@
 
     PlotItem *plotItem = [[PlotGallery sharedPlotGallery] objectInSection:[indexPath indexAtPosition:0]
                                                                   atIndex:[indexPath indexAtPosition:1]];
+
     cell.imageView.image = [plotItem image];
     cell.textLabel.text  = plotItem.title;
 

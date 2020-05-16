@@ -20,6 +20,7 @@
 
     // Create graph
     CPTXYGraph *newGraph = [[CPTXYGraph alloc] initWithFrame:NSRectToCGRect(self.hostView.bounds)];
+
     self.hostView.hostedGraph = newGraph;
     self.graph                = newGraph;
 
@@ -28,6 +29,7 @@
 
     // Background
     CGColorRef grayColor = CGColorCreateGenericGray(0.7, 1.0);
+
     newGraph.fill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:grayColor]];
     CGColorRelease(grayColor);
 
@@ -39,10 +41,12 @@
 
     // Setup plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)newGraph.defaultPlotSpace;
+
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@(-1.0) length:@11.0];
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@(-1.0) length:@14.0];
 
     CPTMutableShadow *lineShadow = [CPTMutableShadow shadow];
+
     lineShadow.shadowOffset     = CGSizeMake(3.0, -3.0);
     lineShadow.shadowBlurRadius = 4.0;
     lineShadow.shadowColor      = [CPTColor redColor];
@@ -98,11 +102,13 @@
     gradientFill.gradientType = CPTGradientTypeRadial;
 
     CPTMutableShadow *symbolShadow = [CPTMutableShadow shadow];
+
     symbolShadow.shadowOffset     = CGSizeMake(3.0, -3.0);
     symbolShadow.shadowBlurRadius = 3.0;
     symbolShadow.shadowColor      = [CPTColor blackColor];
 
     CPTPlotSymbol *symbol = [[CPTPlotSymbol alloc] init];
+
     symbol.symbolType = (CPTPlotSymbolType)((NSString *)plot.identifier).intValue;
     symbol.fill       = [CPTFill fillWithGradient:gradientFill];
     symbol.shadow     = symbolShadow;

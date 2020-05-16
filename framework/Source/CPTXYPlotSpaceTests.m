@@ -80,6 +80,7 @@
                                                     length:@10.0];
 
     NSDecimal plotPoint[2];
+
     plotPoint[CPTCoordinateX] = CPTDecimalFromDouble(5.0);
     plotPoint[CPTCoordinateY] = CPTDecimalFromDouble(5.0);
 
@@ -112,6 +113,7 @@
                                                     length:@10.0];
 
     double plotPoint[2];
+
     plotPoint[CPTCoordinateX] = 5.0;
     plotPoint[CPTCoordinateY] = 5.0;
 
@@ -177,6 +179,7 @@
                                                     length:@9.0];
 
     NSDecimal plotPoint[2];
+
     plotPoint[CPTCoordinateX] = CPTDecimalFromDouble(sqrt(10.0));
     plotPoint[CPTCoordinateY] = CPTDecimalFromDouble(sqrt(10.0));
 
@@ -209,6 +212,7 @@
                                                     length:@9.0];
 
     double plotPoint[2];
+
     plotPoint[CPTCoordinateX] = sqrt(10.0);
     plotPoint[CPTCoordinateY] = sqrt(10.0);
 
@@ -264,6 +268,7 @@
                                                     length:@200.0];
 
     NSDecimal plotPoint[2];
+
     plotPoint[CPTCoordinateX] = CPTDecimalFromInteger(9);
     plotPoint[CPTCoordinateY] = CPTDecimalFromInteger(0);
 
@@ -286,6 +291,7 @@
                                                     length:@200.0];
 
     double plotPoint[2];
+
     plotPoint[CPTCoordinateX] = 9.0;
     plotPoint[CPTCoordinateY] = 0.0;
 
@@ -618,6 +624,7 @@
                                                                 length:@(-20.0)];
 
     NSString *errMessage = [NSString stringWithFormat:@"xRange was %@, expected %@", plotSpace.xRange, expectedRangeX];
+
     XCTAssertTrue([plotSpace.xRange isEqualToRange:expectedRangeX], @"%@", errMessage);
 
     errMessage = [NSString stringWithFormat:@"yRange was %@, expected %@", plotSpace.yRange, expectedRangeY];
@@ -645,6 +652,7 @@
                                                                 length:@(-5.0)];
 
     NSString *errMessage = [NSString stringWithFormat:@"xRange was %@, expected %@", plotSpace.xRange, expectedRangeX];
+
     XCTAssertTrue([plotSpace.xRange isEqualToRange:expectedRangeX], @"%@", errMessage);
 
     errMessage = [NSString stringWithFormat:@"yRange was %@, expected %@", plotSpace.yRange, expectedRangeY];
@@ -666,6 +674,7 @@
     CPTXYPlotSpace *newPlotSpace = [self archiveRoundTrip:plotSpace];
 
     NSString *errMessage = [NSString stringWithFormat:@"xRange was %@, expected %@", plotSpace.xRange, newPlotSpace.xRange];
+
     XCTAssertTrue([plotSpace.xRange isEqualToRange:newPlotSpace.xRange], @"%@", errMessage);
 
     errMessage = [NSString stringWithFormat:@"yRange was %@, expected %@", plotSpace.yRange, newPlotSpace.yRange];

@@ -18,6 +18,7 @@
 
     // Create graph
     CPTXYGraph *graph = [[CPTXYGraph alloc] initWithFrame:NSRectToCGRect(self.hostView.bounds)];
+
     graph.fill                = [CPTFill fillWithColor:[CPTColor darkGrayColor]];
     graph.cornerRadius        = 20.0;
     self.hostView.hostedGraph = graph;
@@ -37,25 +38,30 @@
 
     // Setup plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
+
     plotSpace.xRange     = [CPTPlotRange plotRangeWithLocation:@0.0 length:@(-10.0)];
     plotSpace.yRange     = [CPTPlotRange plotRangeWithLocation:@0.5 length:@1500.0];
     plotSpace.yScaleType = CPTScaleTypeLog;
 
     // Line styles
     CPTMutableLineStyle *axisLineStyle = [CPTMutableLineStyle lineStyle];
+
     axisLineStyle.lineWidth = 3.0;
     axisLineStyle.lineCap   = kCGLineCapRound;
 
     CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
+
     majorGridLineStyle.lineWidth = 0.75;
     majorGridLineStyle.lineColor = [CPTColor redColor];
 
     CPTMutableLineStyle *minorGridLineStyle = [CPTMutableLineStyle lineStyle];
+
     minorGridLineStyle.lineWidth = 0.25;
     minorGridLineStyle.lineColor = [CPTColor blueColor];
 
     // Text styles
     CPTMutableTextStyle *axisTitleTextStyle = [CPTMutableTextStyle textStyle];
+
     axisTitleTextStyle.fontName = @"Helvetica Bold";
     axisTitleTextStyle.fontSize = 14.0;
 
@@ -63,6 +69,7 @@
     // Label x axis with a fixed interval policy
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
+
     x.separateLayers        = NO;
     x.orthogonalPosition    = @0.5;
     x.majorIntervalLength   = @0.5;
@@ -84,6 +91,7 @@
     axisLineStyle.lineColor = [CPTColor greenColor];
 
     CPTXYAxis *y = axisSet.yAxis;
+
     y.separateLayers        = YES;
     y.minorTicksPerInterval = 9;
     y.tickDirection         = CPTSignNone;
@@ -100,6 +108,7 @@
     y.labelingPolicy        = CPTAxisLabelingPolicyAutomatic;
 
     CPTFill *bandFill = [CPTFill fillWithColor:[[CPTColor darkGrayColor] colorWithAlphaComponent:0.5]];
+
     [y addBackgroundLimitBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:@7.0 length:@1.5] fill:bandFill]];
     [y addBackgroundLimitBand:[CPTLimitBand limitBandWithRange:[CPTPlotRange plotRangeWithLocation:@1.5 length:@3.0] fill:bandFill]];
 }

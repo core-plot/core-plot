@@ -89,7 +89,7 @@ NSString *const PlotGalleryThemeNameKey               = @"PlotGalleryThemeNameKe
 -(void)tableView:(nonnull UITableView *__unused)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     NSDictionary<NSString *, NSString *> *themeInfo = @{
-                                                          PlotGalleryThemeNameKey: self.themes[(NSUInteger)indexPath.row]
+        PlotGalleryThemeNameKey: self.themes[(NSUInteger)indexPath.row]
     };
 
     [[NSNotificationCenter defaultCenter] postNotificationName:PlotGalleryThemeDidChangeNotification

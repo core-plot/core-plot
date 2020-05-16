@@ -24,6 +24,7 @@ NSDecimal CPTCurrentDecimalValue(id __nonnull boundObject, SEL __nonnull boundGe
     [invocation invoke];
 
     NSDecimal value;
+
     [invocation getReturnValue:&value];
 
     return value;

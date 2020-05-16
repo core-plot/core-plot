@@ -58,6 +58,7 @@
     CGContextSaveGState(context);
 
     CGRect bounds = CGContextGetPathBoundingBox(context);
+
     CGContextClip(context);
     [self.fillImage drawInRect:bounds inContext:context];
 

@@ -24,6 +24,7 @@ CGFloat CPTCurrentFloatValue(id __nonnull boundObject, SEL __nonnull boundGetter
     [invocation invoke];
 
     CGFloat value;
+
     [invocation getReturnValue:&value];
 
     return value;

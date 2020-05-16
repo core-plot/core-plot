@@ -338,6 +338,7 @@
     self.plotRange.lengthDouble = -2.0;
 
     CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@4.0];
+
     XCTAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:1.0 length:-1.0];
@@ -358,6 +359,7 @@
     self.plotRange.lengthDouble = -2.0;
 
     CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@(-4.0)];
+
     XCTAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:0.0 length:-1.0];
@@ -378,6 +380,7 @@
     self.plotRange.lengthDouble = HUGE_VAL;
 
     CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@4.0];
+
     XCTAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:1.0 length:3.0];
@@ -388,6 +391,7 @@
     self.plotRange.lengthDouble = HUGE_VAL;
 
     CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@(HUGE_VAL)];
+
     XCTAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:1.0 length:HUGE_VAL];
@@ -398,6 +402,7 @@
     self.plotRange.lengthDouble = HUGE_VAL;
 
     CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@(-4.0)];
+
     XCTAssertFalse([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:(double)NAN length:(double)NAN];
@@ -408,6 +413,7 @@
     self.plotRange.lengthDouble = -HUGE_VAL;
 
     CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@4.0];
+
     XCTAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:1.0 length:-1.0];
@@ -418,6 +424,7 @@
     self.plotRange.lengthDouble = -HUGE_VAL;
 
     CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@(-HUGE_VAL)];
+
     XCTAssertTrue([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:0.0 length:-HUGE_VAL];
@@ -428,6 +435,7 @@
     self.plotRange.lengthDouble = -HUGE_VAL;
 
     CPTPlotRange *otherRange = [CPTPlotRange plotRangeWithLocation:@10.0 length:@(-4.0)];
+
     XCTAssertFalse([self.plotRange intersectsRange:otherRange], @"otherRange was {%g, %g}", otherRange.locationDouble, otherRange.lengthDouble);
     [self.plotRange intersectionPlotRange:otherRange];
     [self checkRangeWithLocation:(double)NAN length:(double)NAN];
@@ -695,6 +703,7 @@
     XCTAssertTrue(CPTDecimalEquals(newLocation, CPTDecimalFromDouble(loc)), @"%@", errMessage);
 
     NSDecimal newLength = self.plotRange.lengthDecimal;
+
     errMessage = [NSString stringWithFormat:@"expected location = %g, was %@", loc, NSDecimalString(&newLength, nil)];
     XCTAssertTrue(CPTDecimalEquals(newLength, CPTDecimalFromDouble(len)), @"%@", errMessage);
 }

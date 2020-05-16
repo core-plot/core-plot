@@ -127,6 +127,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
     }
 
     NSMutableArray<NSMutableDictionary<NSString *, NSNumber *> *> *pathData = (__bridge NSMutableArray<NSMutableDictionary<NSString *, NSNumber *> *> *)info;
+
     [pathData addObject:elementData];
 }
 
@@ -146,6 +147,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
     // encode data count
     NSUInteger dataCount = pathData.count;
     NSString *newKey     = [[NSString alloc] initWithFormat:@"%@.count", key];
+
     [self encodeInteger:(NSInteger)dataCount forKey:newKey];
 
     // encode data elements
@@ -209,14 +211,17 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 
     newKey = [[NSString alloc] initWithFormat:@"%@.colorSpace", key];
     CGColorSpaceRef colorSpace = CGImageGetColorSpace(image);
+
     [self encodeCGColorSpace:colorSpace forKey:newKey];
 
     newKey = [[NSString alloc] initWithFormat:@"%@.bitmapInfo", key];
     const CGBitmapInfo info = CGImageGetBitmapInfo(image);
+
     [self encodeBytes:(const void *)(&info) length:sizeof(CGBitmapInfo) forKey:newKey];
 
     CGDataProviderRef provider = CGImageGetDataProvider(image);
     CFDataRef providerData     = CGDataProviderCopyData(provider);
+
     newKey = [[NSString alloc] initWithFormat:@"%@.provider", key];
     [self encodeObject:(__bridge NSData *)providerData forKey:newKey];
     if ( providerData ) {
@@ -224,6 +229,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
     }
 
     const CGFloat *decodeArray = CGImageGetDecode(image);
+
     if ( decodeArray ) {
         size_t numberOfComponents = CGColorSpaceGetNumberOfComponents(colorSpace);
         newKey = [[NSString alloc] initWithFormat:@"%@.numberOfComponents", key];
@@ -478,6 +484,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
     size_t numberOfComponents = (size_t)[self decodeInt64ForKey:newKey];
 
     CGFloat *decodeArray = NULL;
+
     if ( numberOfComponents ) {
         decodeArray = calloc((numberOfComponents * 2), sizeof(CGFloat));
 

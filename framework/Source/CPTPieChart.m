@@ -128,27 +128,35 @@ CPTPieChartBinding const CPTPieChartBindingPieSliceRadialOffsets = @"sliceRadial
 #pragma mark -
 #pragma mark Convenience Factory Methods
 
-static const CGFloat colorLookupTable[10][3] =
-{
+static const CGFloat colorLookupTable[10][3] = {
     {
         CPTFloat(1.0), CPTFloat(0.0), CPTFloat(0.0)
-    },{
+    },
+    {
         CPTFloat(0.0), CPTFloat(1.0), CPTFloat(0.0)
-    },{
+    },
+    {
         CPTFloat(0.0), CPTFloat(0.0), CPTFloat(1.0)
-    },{
+    },
+    {
         CPTFloat(1.0), CPTFloat(1.0), CPTFloat(0.0)
-    },{
+    },
+    {
         CPTFloat(0.25), CPTFloat(0.5), CPTFloat(0.25)
-    },{
+    },
+    {
         CPTFloat(1.0), CPTFloat(0.0), CPTFloat(1.0)
-    },{
+    },
+    {
         CPTFloat(0.5), CPTFloat(0.5), CPTFloat(0.5)
-    },{
+    },
+    {
         CPTFloat(0.25), CPTFloat(0.5), CPTFloat(0.0)
-    },{
+    },
+    {
         CPTFloat(0.25), CPTFloat(0.25), CPTFloat(0.25)
-    },{
+    },
+    {
         CPTFloat(0.0), CPTFloat(1.0), CPTFloat(1.0)
     }
 };
@@ -462,6 +470,7 @@ static const CGFloat colorLookupTable[10][3] =
 
     // Labels
     id<CPTPlotDataSource> theDataSource = self.dataSource;
+
     [self relabelIndexRange:NSMakeRange(0, [theDataSource numberOfRecordsForPlot:self])];
 }
 
@@ -566,11 +575,13 @@ static const CGFloat colorLookupTable[10][3] =
     }
 
     NSUInteger sampleCount = self.cachedDataCount;
+
     if ( sampleCount == 0 ) {
         return;
     }
 
     CPTPlotArea *thePlotArea = self.plotArea;
+
     if ( !thePlotArea ) {
         return;
     }
@@ -583,6 +594,7 @@ static const CGFloat colorLookupTable[10][3] =
     CGPoint anchor        = self.centerAnchor;
     CGPoint centerPoint   = CPTPointMake(plotAreaBounds.origin.x + plotAreaBounds.size.width * anchor.x,
                                          plotAreaBounds.origin.y + plotAreaBounds.size.height * anchor.y);
+
     centerPoint = [self convertPoint:centerPoint fromLayer:thePlotArea];
     if ( self.alignsPointsToPixels ) {
         centerPoint = CPTAlignPointToUserSpace(context, centerPoint);
@@ -596,6 +608,7 @@ static const CGFloat colorLookupTable[10][3] =
 
     BOOL hasNonZeroOffsets      = NO;
     CPTNumberArray *offsetArray = [self cachedArrayForKey:CPTPieChartBindingPieSliceRadialOffsets];
+
     for ( NSNumber *offset in offsetArray ) {
         if ( [offset cgFloatValue] != CPTFloat(0.0)) {
             hasNonZeroOffsets = YES;
@@ -604,6 +617,7 @@ static const CGFloat colorLookupTable[10][3] =
     }
 
     CGRect bounds;
+
     if ( overlay && hasNonZeroOffsets ) {
         CGFloat radius = self.pieRadius + borderStyle.lineWidth * CPTFloat(0.5);
 
@@ -1109,6 +1123,7 @@ static const CGFloat colorLookupTable[10][3] =
     }
 
     id<CPTPieChartDelegate> theDelegate = (id<CPTPieChartDelegate>)self.delegate;
+
     if ( [theDelegate respondsToSelector:@selector(pieChart:sliceTouchDownAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(pieChart:sliceTouchDownAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:)] ||
@@ -1178,6 +1193,7 @@ static const CGFloat colorLookupTable[10][3] =
     }
 
     id<CPTPieChartDelegate> theDelegate = (id<CPTPieChartDelegate>)self.delegate;
+
     if ( [theDelegate respondsToSelector:@selector(pieChart:sliceTouchUpAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(pieChart:sliceTouchUpAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(pieChart:sliceWasSelectedAtRecordIndex:)] ||
@@ -1233,6 +1249,7 @@ static const CGFloat colorLookupTable[10][3] =
     }
 
     NSUInteger sampleCount = self.cachedDataCount;
+
     if ( sampleCount == 0 ) {
         return NSNotFound;
     }
@@ -1241,6 +1258,7 @@ static const CGFloat colorLookupTable[10][3] =
     CGPoint anchor        = self.centerAnchor;
     CGPoint centerPoint   = CPTPointMake(plotAreaBounds.origin.x + plotAreaBounds.size.width * anchor.x,
                                          plotAreaBounds.origin.y + plotAreaBounds.size.height * anchor.y);
+
     centerPoint = [self convertPoint:centerPoint fromLayer:thePlotArea];
 
     CGFloat chartRadius             = self.pieRadius;

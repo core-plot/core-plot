@@ -378,6 +378,7 @@ static NSString *const kSecond = @"Second Derivative";
 
     // Setup a style for the annotation
     CPTMutableTextStyle *hitAnnotationTextStyle = [CPTMutableTextStyle textStyle];
+
     hitAnnotationTextStyle.color    = [CPTColor whiteColor];
     hitAnnotationTextStyle.fontName = @"Helvetica-Bold";
 
@@ -392,12 +393,14 @@ static NSString *const kSecond = @"Second Derivative";
     // Add annotation
     // First make a string for the y value
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+
     formatter.maximumFractionDigits = 2;
     NSString *yString = [formatter stringFromNumber:y];
 
     // Now add the annotation to the plot area
     CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:yString style:hitAnnotationTextStyle];
     CPTImage *background    = [CPTImage imageNamed:@"BlueBackground"];
+
     background.edgeInsets   = CPTEdgeInsetsMake(8.0, 8.0, 8.0, 8.0);
     textLayer.fill          = [CPTFill fillWithImage:background];
     textLayer.paddingLeft   = 2.0;
@@ -406,6 +409,7 @@ static NSString *const kSecond = @"Second Derivative";
     textLayer.paddingBottom = 2.0;
 
     CPTPlotSpace *defaultSpace = graph.defaultPlotSpace;
+
     if ( defaultSpace ) {
         annotation                    = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:defaultSpace anchorPlotPoint:anchorPoint];
         annotation.contentLayer       = textLayer;

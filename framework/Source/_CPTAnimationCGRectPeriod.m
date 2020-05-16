@@ -22,6 +22,7 @@ CGRect CPTCurrentRectValue(id __nonnull boundObject, SEL __nonnull boundGetter)
     [invocation invoke];
 
     CGRect value;
+
     [invocation getReturnValue:&value];
 
     return value;

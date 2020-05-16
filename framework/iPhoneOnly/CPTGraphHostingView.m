@@ -385,6 +385,7 @@
 
     // Screen scaling
     UIScreen *screen = self.window.screen;
+
     if ( !screen ) {
         screen = [UIScreen mainScreen];
     }
@@ -447,6 +448,7 @@
     super.frame = newFrame;
 
     CPTGraph *theHostedGraph = self.hostedGraph;
+
     [theHostedGraph setNeedsLayout];
 
     if ( self.collapsesLayers ) {
@@ -462,6 +464,7 @@
     super.bounds = newBounds;
 
     CPTGraph *theHostedGraph = self.hostedGraph;
+
     [theHostedGraph setNeedsLayout];
 
     if ( self.collapsesLayers ) {

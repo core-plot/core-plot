@@ -118,6 +118,7 @@
 
     CPTTextLayer *newLayer = [[CPTTextLayer alloc] initWithText:[NSString stringWithFormat:@"%1.0f", self.plotData[index].doubleValue]
                                                           style:whiteText];
+
     return newLayer;
 }
 
@@ -137,6 +138,7 @@
 
     CPTMutableNumberArray *newData = [[NSMutableArray alloc] init];
     NSUInteger dataCount           = (NSUInteger)lrint(ceil(10.0 * arc4random() / (double)UINT32_MAX)) + 1;
+
     for ( NSUInteger i = 1; i < dataCount; i++ ) {
         [newData addObject:@(100.0 * arc4random() / (double)UINT32_MAX)];
     }

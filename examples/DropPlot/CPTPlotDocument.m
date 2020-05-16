@@ -89,6 +89,7 @@
 
     // Setup plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)newGraph.defaultPlotSpace;
+
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@(self.minimumValueForXAxis)
                                                     length:@(ceil((self.maximumValueForXAxis - self.minimumValueForXAxis) / self.majorIntervalLengthForX) * self.majorIntervalLengthForX)];
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@(self.minimumValueForYAxis)
@@ -101,12 +102,14 @@
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)newGraph.axisSet;
 
     CPTXYAxis *x = axisSet.xAxis;
+
     x.minorTicksPerInterval = 9;
     x.majorIntervalLength   = @(self.majorIntervalLengthForX);
     x.labelOffset           = 5.0;
     x.axisConstraints       = [CPTConstraints constraintWithLowerOffset:0.0];
 
     CPTXYAxis *y = axisSet.yAxis;
+
     y.minorTicksPerInterval = 9;
     y.majorIntervalLength   = @(self.majorIntervalLengthForY);
     y.labelOffset           = 5.0;
@@ -114,9 +117,11 @@
 
     // Create the main plot for the delimited data
     CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] initWithFrame:newGraph.bounds];
+
     dataSourceLinePlot.identifier = @"Data Source Plot";
 
     CPTMutableLineStyle *lineStyle = [dataSourceLinePlot.dataLineStyle mutableCopy];
+
     lineStyle.lineWidth              = 1.0;
     lineStyle.lineColor              = [CPTColor whiteColor];
     dataSourceLinePlot.dataLineStyle = lineStyle;
@@ -257,6 +262,7 @@
                                                     length:@(self.maximumValueForYAxis - self.minimumValueForYAxis)];
 
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)self.graph.axisSet;
+
     axisSet.xAxis.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
     axisSet.yAxis.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
 }
@@ -301,6 +307,7 @@
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@(minY)
                                                     length:@(ceil((maxY - minY) / intervalY) * intervalY)];
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)self.graph.axisSet;
+
     axisSet.xAxis.labelingPolicy = CPTAxisLabelingPolicyFixedInterval;
     axisSet.yAxis.labelingPolicy = CPTAxisLabelingPolicyFixedInterval;
 }

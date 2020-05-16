@@ -223,6 +223,7 @@
     }
 
     UIFont *italicFont = nil;
+
     if ( italicName ) {
         italicFont = [UIFont fontWithName:italicName
                                      size:oldFont.pointSize];

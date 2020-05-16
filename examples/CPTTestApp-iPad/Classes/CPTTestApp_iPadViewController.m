@@ -59,6 +59,7 @@
 
     // Add a rotation animation
     CABasicAnimation *rotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+
     rotation.removedOnCompletion = YES;
     rotation.fromValue           = @(M_PI * 5);
     rotation.toValue             = @0.0;
@@ -96,6 +97,7 @@
 
     // Setup plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)newGraph.defaultPlotSpace;
+
     plotSpace.allowsUserInteraction = YES;
     plotSpace.xRange                = [CPTPlotRange plotRangeWithLocation:@1.0 length:@2.0];
     plotSpace.yRange                = [CPTPlotRange plotRangeWithLocation:@1.0 length:@3.0];
@@ -103,15 +105,18 @@
     // Axes
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)newGraph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
+
     x.majorIntervalLength   = @0.5;
     x.orthogonalPosition    = @2.0;
     x.minorTicksPerInterval = 2;
     CPTPlotRangeArray *exclusionRanges = @[[CPTPlotRange plotRangeWithLocation:@1.99 length:@0.02],
                                            [CPTPlotRange plotRangeWithLocation:@0.99 length:@0.02],
                                            [CPTPlotRange plotRangeWithLocation:@2.99 length:@0.02]];
+
     x.labelExclusionRanges = exclusionRanges;
 
     CPTXYAxis *y = axisSet.yAxis;
+
     y.majorIntervalLength   = @0.5;
     y.minorTicksPerInterval = 5;
     y.orthogonalPosition    = @2.0;
@@ -122,9 +127,11 @@
 
     // Create a green plot area
     CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] init];
+
     dataSourceLinePlot.identifier = @"Green Plot";
 
     CPTMutableLineStyle *lineStyle = [dataSourceLinePlot.dataLineStyle mutableCopy];
+
     lineStyle.lineWidth              = 3.0;
     lineStyle.lineColor              = [CPTColor greenColor];
     lineStyle.dashPattern            = @[@5.0f, @5.0f];
@@ -135,8 +142,10 @@
     // Put an area gradient under the plot above
     CPTColor *areaColor       = [CPTColor colorWithComponentRed:CPTFloat(0.3) green:CPTFloat(1.0) blue:CPTFloat(0.3) alpha:CPTFloat(0.8)];
     CPTGradient *areaGradient = [CPTGradient gradientWithBeginningColor:areaColor endingColor:[CPTColor clearColor]];
+
     areaGradient.angle = -90.0;
     CPTFill *areaGradientFill = [CPTFill fillWithGradient:areaGradient];
+
     dataSourceLinePlot.areaFill      = areaGradientFill;
     dataSourceLinePlot.areaBaseValue = @1.75;
 
@@ -146,6 +155,7 @@
     [newGraph addPlot:dataSourceLinePlot];
 
     CABasicAnimation *fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+
     fadeInAnimation.duration            = 1.0;
     fadeInAnimation.removedOnCompletion = NO;
     fadeInAnimation.fillMode            = kCAFillModeForwards;
@@ -154,6 +164,7 @@
 
     // Create a blue plot area
     CPTScatterPlot *boundLinePlot = [[CPTScatterPlot alloc] init];
+
     boundLinePlot.identifier = @"Blue Plot";
 
     lineStyle            = [boundLinePlot.dataLineStyle mutableCopy];
@@ -169,6 +180,7 @@
     // Do a blue gradient
     CPTColor *areaColor1       = [CPTColor colorWithComponentRed:CPTFloat(0.3) green:CPTFloat(0.3) blue:CPTFloat(1.0) alpha:CPTFloat(0.8)];
     CPTGradient *areaGradient1 = [CPTGradient gradientWithBeginningColor:areaColor1 endingColor:[CPTColor clearColor]];
+
     areaGradient1.angle         = -90.0;
     areaGradientFill            = [CPTFill fillWithGradient:areaGradient1];
     boundLinePlot.areaFill      = areaGradientFill;
@@ -176,8 +188,10 @@
 
     // Add plot symbols
     CPTMutableLineStyle *symbolLineStyle = [CPTMutableLineStyle lineStyle];
+
     symbolLineStyle.lineColor = [CPTColor blackColor];
     CPTPlotSymbol *plotSymbol = [CPTPlotSymbol ellipsePlotSymbol];
+
     plotSymbol.fill          = [CPTFill fillWithColor:[CPTColor blueColor]];
     plotSymbol.lineStyle     = symbolLineStyle;
     plotSymbol.size          = CGSizeMake(10.0, 10.0);
@@ -185,6 +199,7 @@
 
     // Add some initial data
     NSMutableArray<NSDictionary *> *contentArray = [NSMutableArray arrayWithCapacity:100];
+
     for ( NSUInteger i = 0; i < 60; i++ ) {
         NSNumber *xVal = @(1 + i * 0.05);
         NSNumber *yVal = @(1.2 * arc4random() / (double)UINT32_MAX + 1.2);
@@ -213,11 +228,13 @@
 
 // Add plot space for horizontal bar charts
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)newGraph.defaultPlotSpace;
+
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@300.0];
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@0.0 length:@16.0];
 
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)newGraph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
+
     x.axisLineStyle       = nil;
     x.majorTickLineStyle  = nil;
     x.minorTickLineStyle  = nil;
@@ -234,6 +251,7 @@
     CPTStringArray *xAxisLabels          = @[@"Label A", @"Label B", @"Label C", @"Label D"];
     NSUInteger labelLocation             = 0;
     CPTMutableAxisLabelSet *customLabels = [NSMutableSet setWithCapacity:xAxisLabels.count];
+
     for ( NSNumber *tickLocation in customTickLocations ) {
         CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:xAxisLabels[labelLocation++] textStyle:x.labelTextStyle];
         newLabel.tickLocation = tickLocation;
@@ -245,6 +263,7 @@
     x.axisLabels = customLabels;
 
     CPTXYAxis *y = axisSet.yAxis;
+
     y.axisLineStyle       = nil;
     y.majorTickLineStyle  = nil;
     y.minorTickLineStyle  = nil;
@@ -256,6 +275,7 @@
 
 // First bar plot
     CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor darkGrayColor] horizontalBars:NO];
+
     barPlot.baseValue  = @0.0;
     barPlot.dataSource = self;
     barPlot.barOffset  = @(-0.25);
@@ -295,6 +315,7 @@
 
 // Prepare a radial overlay gradient for shading/gloss
     CPTGradient *overlayGradient = [[CPTGradient alloc] init];
+
     overlayGradient.gradientType = CPTGradientTypeRadial;
     overlayGradient              = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:CPTFloat(0.0)] atPosition:CPTFloat(0.0)];
     overlayGradient              = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:CPTFloat(0.3)] atPosition:CPTFloat(0.9)];
@@ -302,6 +323,7 @@
 
 // Add pie chart
     CPTPieChart *newPlot = [[CPTPieChart alloc] init];
+
     newPlot.dataSource      = self;
     newPlot.pieRadius       = 130.0;
     newPlot.identifier      = @"Pie Chart 1";

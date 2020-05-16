@@ -35,6 +35,7 @@
     // Create graph from theme
     CPTXYGraph *newGraph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
     CPTTheme *theme      = [CPTTheme themeNamed:kCPTDarkGradientTheme];
+
     [newGraph applyTheme:theme];
 
     self.graph = newGraph;
@@ -43,6 +44,7 @@
 
     // Title
     CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
+
     textStyle.color            = [CPTColor whiteColor];
     textStyle.fontSize         = 18.0;
     textStyle.fontName         = @"Helvetica";
@@ -53,32 +55,39 @@
     // Setup scatter plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)newGraph.defaultPlotSpace;
     NSTimeInterval xLow       = oneDay * 0.5;
+
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@(xLow) length:@(oneDay * 5.0)];
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@1.0 length:@3.0];
 
     // Axes
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)newGraph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
+
     x.majorIntervalLength   = @(oneDay);
     x.orthogonalPosition    = @2.0;
     x.minorTicksPerInterval = 0;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+
     dateFormatter.dateStyle = kCFDateFormatterShortStyle;
     CPTTimeFormatter *timeFormatter = [[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter];
+
     timeFormatter.referenceDate = refDate;
     x.labelFormatter            = timeFormatter;
 
     CPTXYAxis *y = axisSet.yAxis;
+
     y.majorIntervalLength   = @0.5;
     y.minorTicksPerInterval = 5;
     y.orthogonalPosition    = @(oneDay);
 
     // Create a plot that uses the data source method
     CPTRangePlot *dataSourceLinePlot = [[CPTRangePlot alloc] init];
+
     dataSourceLinePlot.identifier = @"Date Plot";
 
     // Add line style
     CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
+
     lineStyle.lineWidth             = 1.0;
     lineStyle.lineColor             = [CPTColor greenColor];
     self.barLineStyle               = lineStyle;
@@ -96,10 +105,12 @@
 
     // Store area fill for use later
     CPTColor *transparentGreen = [[CPTColor greenColor] colorWithAlphaComponent:0.2];
+
     self.areaFill = [[CPTFill alloc] initWithColor:transparentGreen];
 
     // Add some data
     NSMutableArray<NSDictionary *> *newData = [NSMutableArray array];
+
     for ( NSUInteger i = 0; i < 5; i++ ) {
         NSTimeInterval xVal = oneDay * (i + 1.0);
 

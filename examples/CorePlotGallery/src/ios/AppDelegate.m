@@ -23,9 +23,11 @@
     [[PlotGallery sharedPlotGallery] sortByTitle];
 
     UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
+
     splitViewController.delegate = self;
 
     UINavigationController *navigationController = splitViewController.viewControllers.lastObject;
+
     navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem;
 
     return YES;

@@ -53,6 +53,7 @@ CPTThemeName const kCPTDarkGradientTheme = @"Dark Gradients";
     plotAreaFrame.fill = [CPTFill fillWithGradient:gradient];
 
     CPTMutableLineStyle *borderLineStyle = [CPTMutableLineStyle lineStyle];
+
     borderLineStyle.lineColor = [CPTColor colorWithGenericGray:CPTFloat(0.2)];
     borderLineStyle.lineWidth = CPTFloat(4.0);
 
@@ -69,15 +70,18 @@ CPTThemeName const kCPTDarkGradientTheme = @"Dark Gradients";
     majorLineStyle.lineWidth = CPTFloat(2.0);
 
     CPTMutableLineStyle *minorLineStyle = [CPTMutableLineStyle lineStyle];
+
     minorLineStyle.lineCap   = kCGLineCapSquare;
     minorLineStyle.lineColor = [CPTColor darkGrayColor];
     minorLineStyle.lineWidth = CPTFloat(1.0);
 
     CPTMutableTextStyle *whiteTextStyle = [[CPTMutableTextStyle alloc] init];
+
     whiteTextStyle.color    = [CPTColor whiteColor];
     whiteTextStyle.fontSize = CPTFloat(14.0);
 
     CPTMutableTextStyle *whiteMinorTickTextStyle = [[CPTMutableTextStyle alloc] init];
+
     whiteMinorTickTextStyle.color    = [CPTColor whiteColor];
     whiteMinorTickTextStyle.fontSize = CPTFloat(12.0);
 

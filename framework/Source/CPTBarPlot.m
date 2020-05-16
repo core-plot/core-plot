@@ -186,6 +186,7 @@ CPTBarPlotBinding const CPTBarPlotBindingBarWidths     = @"barWidths";     ///< 
     barPlot.barCornerRadius   = CPTFloat(2.0);
 
     CPTGradient *fillGradient = [CPTGradient gradientWithBeginningColor:color endingColor:[CPTColor blackColor]];
+
     fillGradient.angle = CPTFloat(horizontal ? -90.0 : 0.0);
     barPlot.fill       = [CPTFill fillWithGradient:fillGradient];
 
@@ -878,17 +879,20 @@ CPTBarPlotBinding const CPTBarPlotBindingBarWidths     = @"barWidths";     ///< 
 
     CPTMutableNumericData *cachedLocations = [self cachedNumbersForField:CPTBarPlotFieldBarLocation];
     CPTMutableNumericData *cachedLengths   = [self cachedNumbersForField:CPTBarPlotFieldBarTip];
+
     if ((cachedLocations == nil) || (cachedLengths == nil)) {
         return;
     }
 
     BOOL basesVary                     = self.barBasesVary;
     CPTMutableNumericData *cachedBases = [self cachedNumbersForField:CPTBarPlotFieldBarBase];
+
     if ( basesVary && (cachedBases == nil)) {
         return;
     }
 
     NSUInteger barCount = self.cachedDataCount;
+
     if ( barCount == 0 ) {
         return;
     }
@@ -1066,6 +1070,7 @@ CPTBarPlotBinding const CPTBarPlotBindingBarWidths     = @"barWidths";     ///< 
     }
 
     CGMutablePathRef path = CGPathCreateMutable();
+
     if ( radius == CPTFloat(0.0)) {
         if ( baseRadius == CPTFloat(0.0)) {
             // square corners
@@ -1307,11 +1312,13 @@ CPTBarPlotBinding const CPTBarPlotBindingBarWidths     = @"barWidths";     ///< 
     BOOL horizontalBars       = self.barsAreHorizontal;
     CPTCoordinate coordinate  = (horizontalBars ? CPTCoordinateX : CPTCoordinateY);
     CPTPlotRange *lengthRange = [self.plotSpace plotRangeForCoordinate:coordinate];
+
     if ( CPTDecimalLessThan(lengthRange.lengthDecimal, CPTDecimalFromInteger(0))) {
         positiveDirection = !positiveDirection;
     }
 
     NSNumber *offsetLocation;
+
     if ( self.doublePrecisionCache ) {
         offsetLocation = @(location.doubleValue + [self doubleLengthInPlotCoordinates:self.barOffset.decimalValue]);
     }
@@ -1475,6 +1482,7 @@ CPTBarPlotBinding const CPTBarPlotBindingBarWidths     = @"barWidths";     ///< 
     }
 
     id<CPTBarPlotDelegate> theDelegate = (id<CPTBarPlotDelegate>)self.delegate;
+
     if ( [theDelegate respondsToSelector:@selector(barPlot:barTouchDownAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(barPlot:barTouchDownAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(barPlot:barWasSelectedAtRecordIndex:)] ||
@@ -1544,6 +1552,7 @@ CPTBarPlotBinding const CPTBarPlotBindingBarWidths     = @"barWidths";     ///< 
     }
 
     id<CPTBarPlotDelegate> theDelegate = (id<CPTBarPlotDelegate>)self.delegate;
+
     if ( [theDelegate respondsToSelector:@selector(barPlot:barTouchUpAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(barPlot:barTouchUpAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(barPlot:barWasSelectedAtRecordIndex:)] ||

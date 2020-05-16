@@ -107,16 +107,16 @@
     else if ( [key isEqualToString:@"inputBorderColor"] ) {
         CGColorRef grayColor  = CGColorCreateGenericGray(0.0, 1.0);
         CPTDictionary *result = @{
-                                    QCPortAttributeNameKey: @"Border Color",
-                                    QCPortAttributeDefaultValueKey: (id)CFBridgingRelease(grayColor)
+            QCPortAttributeNameKey: @"Border Color",
+            QCPortAttributeDefaultValueKey: (id)CFBridgingRelease(grayColor)
         };
         return result;
     }
     else if ( [key isEqualToString:@"inputLabelColor"] ) {
         CGColorRef grayColor  = CGColorCreateGenericGray(1.0, 1.0);
         CPTDictionary *result = @{
-                                    QCPortAttributeNameKey: @"Label Color",
-                                    QCPortAttributeDefaultValueKey: (id)CFBridgingRelease(grayColor)
+            QCPortAttributeNameKey: @"Label Color",
+            QCPortAttributeDefaultValueKey: (id)CFBridgingRelease(grayColor)
         };
         return result;
     }
@@ -273,9 +273,11 @@
     NSString *label = dict[[NSString stringWithFormat:@"%lu", (unsigned long)index]];
 
     CPTTextLayer *layer = [[CPTTextLayer alloc] initWithText:label];
+
     [layer sizeToFit];
 
     CPTMutableTextStyle *style = [CPTMutableTextStyle textStyle];
+
     style.color     = [CPTColor colorWithCGColor:self.inputLabelColor];
     layer.textStyle = style;
 

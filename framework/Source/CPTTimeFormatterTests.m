@@ -16,6 +16,7 @@
     dateFormatter.dateStyle = NSDateFormatterShortStyle;
 
     CPTTimeFormatter *timeFormatter = [[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter];
+
     timeFormatter.referenceDate = refDate;
 
     CPTTimeFormatter *newTimeFormatter = [self archiveRoundTrip:timeFormatter];

@@ -26,6 +26,7 @@
     [super setFrameSize:newSize];
 
     id<PlotViewDelegate> theDelegate = self.delegate;
+
     if ( [theDelegate respondsToSelector:@selector(setFrameSize:)] ) {
         [theDelegate setFrameSize:newSize];
     }

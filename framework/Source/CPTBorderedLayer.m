@@ -175,6 +175,7 @@
     }
 
     CPTLineStyle *theLineStyle = self.borderLineStyle;
+
     if ( theLineStyle ) {
         CGFloat inset      = theLineStyle.lineWidth * CPTFloat(0.5);
         CGRect layerBounds = CGRectInset(self.bounds, inset, inset);

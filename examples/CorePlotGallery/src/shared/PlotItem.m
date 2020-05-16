@@ -84,6 +84,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
 
     // Remove the CPTLayerHostingView
     CPTGraphHostingView *hostingView = self.defaultLayerHostingView;
+
     if ( hostingView ) {
         [hostingView removeFromSuperview];
 

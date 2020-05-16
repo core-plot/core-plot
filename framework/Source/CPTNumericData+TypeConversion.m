@@ -66,6 +66,7 @@
     CPTNumericData *result = [CPTNumericData numericDataWithData:newData
                                                         dataType:newDataType
                                                            shape:self.shape];
+
     return result;
 }
 

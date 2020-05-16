@@ -58,6 +58,7 @@ static NSMutableSet<Class> *themes = nil;
     [coder encodeObject:[[self class] name] forKey:@"CPTTheme.name"];
 
     Class theGraphClass = self.graphClass;
+
     if ( theGraphClass ) {
         [coder encodeObject:NSStringFromClass(theGraphClass) forKey:@"CPTTheme.graphClass"];
     }
@@ -186,11 +187,13 @@ static NSMutableSet<Class> *themes = nil;
     [self applyThemeToBackground:graph];
 
     CPTPlotAreaFrame *plotAreaFrame = graph.plotAreaFrame;
+
     if ( plotAreaFrame ) {
         [self applyThemeToPlotArea:plotAreaFrame];
     }
 
     CPTAxisSet *axisSet = graph.axisSet;
+
     if ( axisSet ) {
         [self applyThemeToAxisSet:axisSet];
     }

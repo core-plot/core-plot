@@ -21,6 +21,7 @@
     [archiver finishEncoding];
 
     NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:archiveData];
+
     unarchiver.requiresSecureCoding = secure;
 
     return [unarchiver decodeObjectOfClass:archiveClass forKey:@"test"];

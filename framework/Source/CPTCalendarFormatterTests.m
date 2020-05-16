@@ -16,6 +16,7 @@
     dateFormatter.dateStyle = NSDateFormatterShortStyle;
 
     CPTCalendarFormatter *calendarFormatter = [[CPTCalendarFormatter alloc] initWithDateFormatter:dateFormatter];
+
     calendarFormatter.referenceDate = refDate;
 
     CPTCalendarFormatter *newCalendarFormatter = [self archiveRoundTrip:calendarFormatter];

@@ -63,6 +63,7 @@
     CGContextFlush(context);
 
     NSImage *image = [[NSImage alloc] initWithSize:NSSizeFromCGSize(boundsSize)];
+
     [image addRepresentation:layerImage];
 
     return image;

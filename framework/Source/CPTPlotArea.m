@@ -296,10 +296,12 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     [super renderAsVectorInContext:context];
 
     BOOL useMask = self.masksToBounds;
+
     self.masksToBounds = YES;
     CGContextSaveGState(context);
 
     CGPathRef maskPath = self.maskingPath;
+
     if ( maskPath ) {
         CGContextBeginPath(context);
         CGContextAddPath(context, maskPath);
@@ -345,8 +347,10 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 
     CALayer *superlayer   = self.superlayer;
     CGRect sublayerBounds = [self convertRect:superlayer.bounds fromLayer:superlayer];
+
     sublayerBounds.origin = CGPointZero;
     CGPoint sublayerPosition = [self convertPoint:self.bounds.origin toLayer:superlayer];
+
     sublayerPosition = CPTPointMake(-sublayerPosition.x, -sublayerPosition.y);
     CGRect sublayerFrame = CPTRectMake(sublayerPosition.x, sublayerPosition.y, sublayerBounds.size.width, sublayerBounds.size.height);
 
@@ -358,6 +362,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 
     // make the plot group the same size as the plot area to clip the plots
     CPTPlotGroup *thePlotGroup = self.plotGroup;
+
     if ( thePlotGroup ) {
         CGSize selfBoundsSize = self.bounds.size;
         thePlotGroup.frame = CPTRectMake(0.0, 0.0, selfBoundsSize.width, selfBoundsSize.height);
@@ -434,6 +439,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     }
 
     CPTNumberArray *tdLayerOrder = self.topDownLayerOrder;
+
     if ( tdLayerOrder ) {
         buLayerOrder = self.bottomUpLayerOrder;
 
@@ -703,6 +709,7 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     }
 
     id<CPTPlotAreaDelegate> theDelegate = (id<CPTPlotAreaDelegate>)self.delegate;
+
     if ( [theDelegate respondsToSelector:@selector(plotAreaTouchDown:)] ||
          [theDelegate respondsToSelector:@selector(plotAreaTouchDown:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(plotAreaWasSelected:)] ||
@@ -754,9 +761,11 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
     }
 
     CGPoint lastPoint = self.touchedPoint;
+
     self.touchedPoint = CPTPointMake(NAN, NAN);
 
     id<CPTPlotAreaDelegate> theDelegate = (id<CPTPlotAreaDelegate>)self.delegate;
+
     if ( [theDelegate respondsToSelector:@selector(plotAreaTouchUp:)] ||
          [theDelegate respondsToSelector:@selector(plotAreaTouchUp:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(plotAreaWasSelected:)] ||

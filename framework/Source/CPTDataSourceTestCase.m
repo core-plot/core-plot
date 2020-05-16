@@ -70,6 +70,7 @@ static const CGFloat CPTDataSourceTestCasePlotOffset = 0.5;
     [self buildData];
 
     CPTNumberArray *data = self.xData;
+
     return [self plotRangeForData:data];
 }
 

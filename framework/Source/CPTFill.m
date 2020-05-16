@@ -114,12 +114,14 @@
 
     id gradient = [coder decodeObjectOfClass:[CPTGradient class]
                                       forKey:@"_CPTFillGradient.fillGradient"];
+
     if ( gradient ) {
         return [self initWithGradient:gradient];
     }
 
     id image = [coder decodeObjectOfClass:[CPTImage class]
                                    forKey:@"_CPTFillImage.fillImage"];
+
     if ( image ) {
         return [self initWithImage:image];
     }

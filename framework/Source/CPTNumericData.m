@@ -1161,6 +1161,7 @@
     [encoder encodeObject:self.data forKey:@"CPTNumericData.data"];
 
     CPTNumericDataType selfDataType = self.dataType;
+
     [encoder encodeInteger:selfDataType.dataTypeFormat forKey:@"CPTNumericData.dataType.dataTypeFormat"];
     [encoder encodeInt64:(int64_t)selfDataType.sampleBytes forKey:@"CPTNumericData.dataType.sampleBytes"];
     [encoder encodeInt64:selfDataType.byteOrder forKey:@"CPTNumericData.dataType.byteOrder"];

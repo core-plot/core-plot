@@ -375,6 +375,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
     }
 
     NSString *myText = self.text;
+
     if ( myText.length > 0 ) {
         [super renderAsVectorInContext:context];
 

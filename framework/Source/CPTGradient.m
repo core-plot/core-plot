@@ -302,6 +302,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
     color1.position    = CPTFloat(0.0);
 
     CPTGradientElement color2;
+
     color2.color.red   = CPTFloat(0.42);
     color2.color.green = CPTFloat(0.68);
     color2.color.blue  = CPTFloat(0.90);
@@ -309,6 +310,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
     color2.position    = CPTFloat(0.5);
 
     CPTGradientElement color3;
+
     color3.color.red   = CPTFloat(0.64);
     color3.color.green = CPTFloat(0.80);
     color3.color.blue  = CPTFloat(0.94);
@@ -316,6 +318,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
     color3.position    = CPTFloat(0.5);
 
     CPTGradientElement color4;
+
     color4.color.red   = CPTFloat(0.56);
     color4.color.green = CPTFloat(0.70);
     color4.color.blue  = CPTFloat(0.90);
@@ -344,16 +347,19 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
     color1.position    = CPTFloat(0.0);
 
     CPTGradientElement color2;
+
     color2.color.red   = color2.color.green = color2.color.blue = CPTFloat(0.83);
     color2.color.alpha = CPTFloat(1.00);
     color2.position    = CPTFloat(0.5);
 
     CPTGradientElement color3;
+
     color3.color.red   = color3.color.green = color3.color.blue = CPTFloat(0.95);
     color3.color.alpha = CPTFloat(1.00);
     color3.position    = CPTFloat(0.5);
 
     CPTGradientElement color4;
+
     color4.color.red   = color4.color.green = color4.color.blue = CPTFloat(0.92);
     color4.color.alpha = CPTFloat(1.00);
     color4.position    = CPTFloat(1.0);
@@ -380,16 +386,19 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
     color1.position    = CPTFloat(0.0);
 
     CPTGradientElement color2;
+
     color2.color.red   = color2.color.green = color2.color.blue = CPTFloat(0.64);
     color2.color.alpha = CPTFloat(1.00);
     color2.position    = CPTFloat(0.5);
 
     CPTGradientElement color3;
+
     color3.color.red   = color3.color.green = color3.color.blue = CPTFloat(0.80);
     color3.color.alpha = CPTFloat(1.00);
     color3.position    = CPTFloat(0.5);
 
     CPTGradientElement color4;
+
     color4.color.red   = color4.color.green = color4.color.blue = CPTFloat(0.77);
     color4.color.alpha = CPTFloat(1.00);
     color4.position    = CPTFloat(1.0);
@@ -416,6 +425,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
     color1.position    = CPTFloat(0.0);
 
     CPTGradientElement color2;
+
     color2.color.red   = color2.color.green = color2.color.blue = CPTFloat(0.95);
     color2.color.alpha = CPTFloat(1.00);
     color2.position    = CPTFloat(1.0);
@@ -440,6 +450,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
     color1.position    = CPTFloat(0.0);
 
     CPTGradientElement color2;
+
     color2.color.red   = color2.color.green = color2.color.blue = CPTFloat(0.90);
     color2.color.alpha = CPTFloat(1.00);
     color2.position    = CPTFloat(1.0);
@@ -464,6 +475,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
     color1.position    = CPTFloat(0.0);
 
     CPTGradientElement color2;
+
     color2.color.red   = color2.color.green = color2.color.blue = CPTFloat(0.75);
     color2.color.alpha = CPTFloat(1.00);
     color2.position    = CPTFloat(1.0);
@@ -488,6 +500,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
     color1.position    = CPTFloat(0.0);
 
     CPTGradientElement color2;
+
     color2.color.red   = color2.color.green = color2.color.blue = CPTFloat(0.83);
     color2.color.alpha = CPTFloat(1.00);
     color2.position    = CPTFloat(1.0);
@@ -514,6 +527,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
     color1.position    = CPTFloat(0.0);
 
     CPTGradientElement color2;
+
     color2.color.red   = CPTFloat(0.30);
     color2.color.green = CPTFloat(0.60);
     color2.color.blue  = CPTFloat(0.92);
@@ -542,6 +556,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
     color1.position    = CPTFloat(0.0);
 
     CPTGradientElement color2;
+
     color2.color.red   = CPTFloat(0.60);
     color2.color.green = CPTFloat(0.60);
     color2.color.blue  = CPTFloat(0.60);
@@ -570,6 +585,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
     color1.position    = CPTFloat(0.0);
 
     CPTGradientElement color2;
+
     color2.color.red   = CPTFloat(0.54);
     color2.color.green = CPTFloat(0.00);
     color2.color.blue  = CPTFloat(1.00);
@@ -1100,6 +1116,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
                               fma(CGRectGetHeight(rect), theStartAnchor.y, CGRectGetMinY(rect)));
 
     CGPoint theEndAnchor = self.endAnchor;
+
     endPoint = CPTPointMake(fma(CGRectGetWidth(rect), theEndAnchor.x, CGRectGetMinX(rect)),
                             fma(CGRectGetHeight(rect), theEndAnchor.y, CGRectGetMinY(rect)));
 
@@ -1132,6 +1149,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
 
     // Choose what blending function to use
     CGFunctionEvaluateCallback evaluationFunction = NULL;
+
     switch ( blendingMode ) {
         case CPTLinearBlendingMode:
             evaluationFunction = &CPTLinearEvaluation;

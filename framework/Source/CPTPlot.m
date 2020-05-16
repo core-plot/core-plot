@@ -373,6 +373,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
     [super encodeWithCoder:coder];
 
     id<CPTPlotDataSource> theDataSource = self.dataSource;
+
     if ( [theDataSource conformsToProtocol:@protocol(NSCoding)] ) {
         [coder encodeConditionalObject:theDataSource forKey:@"CPTPlot.dataSource"];
     }
@@ -492,6 +493,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
     [super drawInContext:context];
 
     id<CPTPlotDelegate> theDelegate = (id<CPTPlotDelegate>)self.delegate;
+
     if ( [theDelegate respondsToSelector:@selector(didFinishDrawing:)] ) {
         [theDelegate didFinishDrawing:self];
     }
@@ -629,6 +631,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
     }
 
     CPTMutableAnnotationArray *labelArray = self.labelAnnotations;
+
     if ( labelArray ) {
         id nullObject        = [NSNull null];
         NSUInteger lastIndex = idx + numberOfRecords - 1;
@@ -1465,6 +1468,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
     CPTPlotRange *range            = nil;
 
     NSUInteger numberOfSamples = numbers.numberOfSamples;
+
     if ( numberOfSamples > 0 ) {
         if ( self.doublePrecisionCache ) {
             double min = (double)INFINITY;
@@ -1531,6 +1535,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
     }
 
     CPTMutablePlotRange *unionRange = nil;
+
     for ( NSNumber *field in fields ) {
         CPTPlotRange *currentRange = [self plotRangeForField:field.unsignedIntegerValue];
         if ( !unionRange ) {
@@ -1566,6 +1571,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
     }
 
     CPTMutablePlotRange *unionRange = nil;
+
     for ( NSNumber *field in fields ) {
         CPTPlotRange *currentRange = [self plotRangeEnclosingField:field.unsignedIntegerValue];
         if ( !unionRange ) {
@@ -1613,6 +1619,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 
     BOOL hasCachedLabels               = NO;
     CPTMutableLayerArray *cachedLabels = (CPTMutableLayerArray *)[self cachedArrayForKey:CPTPlotBindingDataLabels];
+
     for ( CPTLayer *label in cachedLabels ) {
         if ( ![label isKindOfClass:nullClass] ) {
             hasCachedLabels = YES;
@@ -1850,6 +1857,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
     }
 
     CPTLineStyle *theLineStyle = nil;
+
     if ( [theDelegate respondsToSelector:@selector(legend:lineStyleForSwatchAtIndex:forPlot:)] ) {
         theLineStyle = [theDelegate legend:legend lineStyleForSwatchAtIndex:idx forPlot:self];
     }
@@ -1909,6 +1917,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
     }
 
     id<CPTPlotDelegate> theDelegate = (id<CPTPlotDelegate>)self.delegate;
+
     if ( [theDelegate respondsToSelector:@selector(plot:dataLabelTouchDownAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(plot:dataLabelTouchDownAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(plot:dataLabelWasSelectedAtRecordIndex:)] ||
@@ -1987,6 +1996,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
     }
 
     id<CPTPlotDelegate> theDelegate = (id<CPTPlotDelegate>)self.delegate;
+
     if ( [theDelegate respondsToSelector:@selector(plot:dataLabelTouchUpAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(plot:dataLabelTouchUpAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(plot:dataLabelWasSelectedAtRecordIndex:)] ||

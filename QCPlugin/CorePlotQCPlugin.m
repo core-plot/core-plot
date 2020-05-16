@@ -36,6 +36,7 @@ void drawErrorText(CGContextRef __nonnull context, CGRect rect)
 
     // Compute the width of the text
     CGPoint r0 = CGContextGetTextPosition(context);
+
     CGContextSetTextDrawingMode(context, kCGTextInvisible);
     CGContextShowText(context, "ERROR", 5); // 10
     CGPoint r1 = CGContextGetTextPosition(context);
@@ -255,8 +256,8 @@ void drawErrorText(CGContextRef __nonnull context, CGRect rect)
     if ( [key isEqualToString:@"inputAxisColor"] ) {
         CGColorRef axisColor  = CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0);
         CPTDictionary *result = @{
-                                    QCPortAttributeNameKey: @"Axis Color",
-                                    QCPortAttributeDefaultValueKey: (id)CFBridgingRelease(axisColor)
+            QCPortAttributeNameKey: @"Axis Color",
+            QCPortAttributeDefaultValueKey: (id)CFBridgingRelease(axisColor)
         };
         return result;
     }
@@ -320,8 +321,8 @@ void drawErrorText(CGContextRef __nonnull context, CGRect rect)
     if ( [key isEqualToString:@"inputPlotAreaColor"] ) {
         CGColorRef plotAreaColor = CGColorCreateGenericRGB(0.0, 0.0, 0.0, 0.4);
         CPTDictionary *result    = @{
-                                       QCPortAttributeNameKey: @"Plot Area Color",
-                                       QCPortAttributeDefaultValueKey: (id)CFBridgingRelease(plotAreaColor)
+            QCPortAttributeNameKey: @"Plot Area Color",
+            QCPortAttributeDefaultValueKey: (id)CFBridgingRelease(plotAreaColor)
         };
         return result;
     }
@@ -447,14 +448,17 @@ void drawErrorText(CGContextRef __nonnull context, CGRect rect)
     set.yAxis.minorTickLineStyle = lineStyle;
 
     CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
+
     textStyle.color          = axisColor;
     set.xAxis.labelTextStyle = textStyle;
 
     double xrange = self.inputXMax - self.inputXMin;
+
     set.xAxis.majorIntervalLength   = @(xrange / (self.inputXMajorIntervals));
     set.xAxis.minorTicksPerInterval = self.inputXMinorIntervals;
 
     double yrange = self.inputYMax - self.inputYMin;
+
     set.yAxis.majorIntervalLength   = @(yrange / (self.inputYMajorIntervals));
     set.yAxis.minorTicksPerInterval = self.inputYMinorIntervals;
 
@@ -604,6 +608,7 @@ static void _BufferReleaseCallback(const void *__nonnull __unused address, void 
                                                     rowBytes,
                                                     [context colorSpace],
                                                     (CGBitmapInfo)kCGImageAlphaPremultipliedFirst);
+
     self.bitmapContext = newContext;
 
     if ( !newContext ) {
@@ -784,6 +789,7 @@ static void _BufferReleaseCallback(const void *__nonnull __unused address, void 
 
     // Configure the plot space and axis sets
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graph.defaultPlotSpace;
+
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@(self.inputXMin) length:@(self.inputXMax - self.inputXMin)];
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@(self.inputYMin) length:@(self.inputYMax - self.inputYMin)];
 
@@ -817,6 +823,7 @@ static void _BufferReleaseCallback(const void *__nonnull __unused address, void 
     // Draw the plot ...
     CGSize boundsSize      = self.graph.bounds.size;
     CGContextRef bmContext = self.bitmapContext;
+
     CGContextClearRect(bmContext, CPTRectMake(0.0, 0.0, boundsSize.width, boundsSize.height));
     CGContextSetRGBFillColor(bmContext, 0.0, 0.0, 0.0, 0.0);
     CGContextFillRect(bmContext, CPTRectMake(0, 0, boundsSize.width, boundsSize.height));
@@ -835,6 +842,7 @@ static void _BufferReleaseCallback(const void *__nonnull __unused address, void 
 
     // ... and put it on the output port
     id<QCPlugInOutputImageProvider> provider = self.imageProvider;
+
     if ( provider ) {
         self.outputImage = provider;
         return YES;

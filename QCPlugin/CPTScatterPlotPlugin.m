@@ -47,6 +47,7 @@
     ];
 
     CGColorRef lineColor = [self newDefaultColorForPlot:index alpha:1.0];
+
     [self addInputPortWithType:QCPortTypeColor
                         forKey:[NSString stringWithFormat:@"plotDataLineColor%lu", (unsigned long)index]
                 withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Plot Line Color %lu", (unsigned long)(index + 1)],
@@ -55,6 +56,7 @@
     ];
 
     CGColorRef fillColor = [self newDefaultColorForPlot:index alpha:0.25];
+
     [self addInputPortWithType:QCPortTypeColor
                         forKey:[NSString stringWithFormat:@"plotFillColor%lu", (unsigned long)index]
                 withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Plot Fill Color %lu", (unsigned long)(index + 1)],
@@ -81,6 +83,7 @@
     ];
 
     CGColorRef symbolColor = [self newDefaultColorForPlot:index alpha:0.25];
+
     [self addInputPortWithType:QCPortTypeColor
                         forKey:[NSString stringWithFormat:@"plotDataSymbolColor%lu", (unsigned long)index]
                 withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Data Symbol Color %lu", (unsigned long)(index + 1)],
@@ -90,12 +93,14 @@
 
     // Add the new plot to the graph
     CPTScatterPlot *scatterPlot = [[CPTScatterPlot alloc] init];
+
     scatterPlot.identifier = [NSString stringWithFormat:@"Data Source Plot %lu", (unsigned long)(index + 1)];
 
     // Line Style
     lineColor = [self newDefaultColorForPlot:index alpha:1.0];
     fillColor = [self newDefaultColorForPlot:index alpha:0.25];
     CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
+
     lineStyle.lineWidth       = 3.0;
     lineStyle.lineColor       = [CPTColor colorWithCGColor:lineColor];
     scatterPlot.dataLineStyle = lineStyle;

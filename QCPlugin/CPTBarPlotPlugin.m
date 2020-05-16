@@ -110,6 +110,7 @@
     ];
 
     CGColorRef lineColor = [self newDefaultColorForPlot:index alpha:1.0];
+
     [self addInputPortWithType:QCPortTypeColor
                         forKey:[NSString stringWithFormat:@"plotDataLineColor%lu", (unsigned long)index]
                 withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Plot Line Color %lu", (unsigned long)(index + 1)],
@@ -118,6 +119,7 @@
     ];
 
     CGColorRef fillColor = [self newDefaultColorForPlot:index alpha:0.25];
+
     [self addInputPortWithType:QCPortTypeColor
                         forKey:[NSString stringWithFormat:@"plotFillColor%lu", (unsigned long)index]
                 withAttributes:@{ QCPortAttributeNameKey: [NSString stringWithFormat:@"Plot Fill Color %lu", (unsigned long)(index + 1)],
@@ -135,6 +137,7 @@
 
     // Add the new plot to the graph
     CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor greenColor] horizontalBars:NO];
+
     barPlot.identifier = [NSString stringWithFormat:@"Bar Plot %lu", (unsigned long)(index + 1)];
     barPlot.dataSource = self;
     [self.graph addPlot:barPlot];

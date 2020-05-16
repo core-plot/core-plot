@@ -49,12 +49,14 @@
 
     // Color
     UIColor *styleColor = attributes[NSForegroundColorAttributeName];
+
     if ( styleColor ) {
         newStyle.color = [CPTColor colorWithCGColor:styleColor.CGColor];
     }
 
     // Text alignment and line break mode
     NSParagraphStyle *paragraphStyle = attributes[NSParagraphStyleAttributeName];
+
     if ( paragraphStyle ) {
         newStyle.textAlignment = (CPTTextAlignment)paragraphStyle.alignment;
         newStyle.lineBreakMode = paragraphStyle.lineBreakMode;
@@ -95,6 +97,7 @@
 
     // Text alignment and line break mode
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+
     paragraphStyle.alignment     = (NSTextAlignment)self.textAlignment;
     paragraphStyle.lineBreakMode = self.lineBreakMode;
 

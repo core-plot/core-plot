@@ -238,6 +238,7 @@
     CPTNumberArray *myDashPattern = self.dashPattern;
 
     NSUInteger dashCount = myDashPattern.count;
+
     if ( dashCount > 0 ) {
         CGFloat *dashLengths = (CGFloat *)calloc(dashCount, sizeof(CGFloat));
 

@@ -53,6 +53,7 @@ CPTThemeName const kCPTStocksTheme = @"Stocks";
     plotAreaFrame.fill             = [CPTFill fillWithGradient:stocksBackgroundGradient];
 
     CPTMutableLineStyle *borderLineStyle = [CPTMutableLineStyle lineStyle];
+
     borderLineStyle.lineColor = [CPTColor colorWithGenericGray:CPTFloat(0.2)];
     borderLineStyle.lineWidth = CPTFloat(0.0);
 
@@ -69,14 +70,17 @@ CPTThemeName const kCPTStocksTheme = @"Stocks";
     majorLineStyle.lineWidth = CPTFloat(3.0);
 
     CPTMutableLineStyle *minorLineStyle = [CPTMutableLineStyle lineStyle];
+
     minorLineStyle.lineColor = [CPTColor whiteColor];
     minorLineStyle.lineWidth = CPTFloat(3.0);
 
     CPTMutableTextStyle *whiteTextStyle = [[CPTMutableTextStyle alloc] init];
+
     whiteTextStyle.color    = [CPTColor whiteColor];
     whiteTextStyle.fontSize = CPTFloat(14.0);
 
     CPTMutableTextStyle *minorTickWhiteTextStyle = [[CPTMutableTextStyle alloc] init];
+
     minorTickWhiteTextStyle.color    = [CPTColor whiteColor];
     minorTickWhiteTextStyle.fontSize = CPTFloat(12.0);
 

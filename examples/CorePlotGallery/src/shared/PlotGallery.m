@@ -68,6 +68,7 @@ static PlotGallery *sharedPlotGallery = nil;
     [self.plotItems addObject:plotItem];
 
     NSString *sectionName = plotItem.section;
+
     if ( sectionName ) {
         [self.plotSections addObject:sectionName];
     }

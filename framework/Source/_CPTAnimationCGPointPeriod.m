@@ -22,6 +22,7 @@ CGPoint CPTCurrentPointValue(id __nonnull boundObject, SEL __nonnull boundGetter
     [invocation invoke];
 
     CGPoint value;
+
     [invocation getReturnValue:&value];
 
     return value;

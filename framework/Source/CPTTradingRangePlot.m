@@ -620,6 +620,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     CPTMutableNumericData *closes    = [self cachedNumbersForField:CPTTradingRangePlotFieldClose];
 
     NSUInteger sampleCount = locations.numberOfSamples;
+
     if ( sampleCount == 0 ) {
         return;
     }
@@ -869,6 +870,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     CPTAlignPointFunction alignmentFunction = CPTAlignPointToUserSpace;
 
     BOOL hasLineStyle = [theBorderLineStyle isKindOfClass:[CPTLineStyle class]];
+
     if ( hasLineStyle ) {
         [theBorderLineStyle setLineStyleInContext:context];
 
@@ -1303,6 +1305,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
                                 highValue,
                                 lowValue];
     CPTNumberArray *yValuesSorted = [yValues sortedArrayUsingSelector:@selector(compare:)];
+
     if ( positiveDirection ) {
         yValue = yValuesSorted.lastObject;
     }
@@ -1595,6 +1598,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     }
 
     id<CPTTradingRangePlotDelegate> theDelegate = (id<CPTTradingRangePlotDelegate>)self.delegate;
+
     if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchDownAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchDownAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(tradingRangePlot:barWasSelectedAtRecordIndex:)] ||
@@ -1664,6 +1668,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     }
 
     id<CPTTradingRangePlotDelegate> theDelegate = (id<CPTTradingRangePlotDelegate>)self.delegate;
+
     if ( [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchUpAtRecordIndex:)] ||
          [theDelegate respondsToSelector:@selector(tradingRangePlot:barTouchUpAtRecordIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(tradingRangePlot:barWasSelectedAtRecordIndex:)] ||

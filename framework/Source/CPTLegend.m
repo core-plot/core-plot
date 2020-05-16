@@ -571,6 +571,7 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
     NSUInteger columnCount               = computedColumnWidths.count;
     CGFloat *actualColumnWidths          = calloc(columnCount, sizeof(CGFloat));
     CGFloat *columnPositions             = calloc(columnCount, sizeof(CGFloat));
+
     columnPositions[0] = self.paddingLeft;
     CGFloat theOffset       = self.titleOffset;
     CGSize theSwatchSize    = self.swatchSize;
@@ -595,6 +596,7 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
     NSUInteger rowCount                = computedRowHeights.count;
     CGFloat *actualRowHeights          = calloc(rowCount, sizeof(CGFloat));
     CGFloat *rowPositions              = calloc(rowCount, sizeof(CGFloat));
+
     rowPositions[rowCount - 1] = self.paddingBottom;
     CGFloat theRowMargin  = self.rowMargin;
     CGFloat lastRowHeight = 0.0;
@@ -828,6 +830,7 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
     NSUInteger desiredColumnCount = columnCount;
 
     NSUInteger legendEntryCount = self.legendEntries.count;
+
     if ((rowCount == 0) && (columnCount == 0)) {
         rowCount    = (NSUInteger)lrint(sqrt((double)legendEntryCount));
         columnCount = rowCount;
@@ -906,12 +909,14 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
 
     // save row heights and column widths
     CPTMutableNumberArray *maxRowHeights = [[NSMutableArray alloc] initWithCapacity:rowCount];
+
     for ( NSUInteger i = 0; i < rowCount; i++ ) {
         [maxRowHeights addObject:@(maxTitleHeight[i])];
     }
     self.rowHeightsThatFit = maxRowHeights;
 
     CPTMutableNumberArray *maxColumnWidths = [[NSMutableArray alloc] initWithCapacity:columnCount];
+
     for ( NSUInteger i = 0; i < columnCount; i++ ) {
         [maxColumnWidths addObject:@(maxTitleWidth[i])];
     }
@@ -924,6 +929,7 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
     CGSize legendSize = CPTSizeMake(self.paddingLeft + self.paddingRight, self.paddingTop + self.paddingBottom);
 
     CGFloat lineWidth = self.borderLineStyle.lineWidth;
+
     legendSize.width  += lineWidth;
     legendSize.height += lineWidth;
 
@@ -944,6 +950,7 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
     }
 
     NSUInteger rows = row;
+
     if ( col ) {
         rows++;
     }
@@ -1172,6 +1179,7 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
 
     CPTTextStyle *theTextStyle       = self.textStyle;
     NSUInteger numberOfLegendEntries = [thePlot numberOfLegendEntries];
+
     for ( NSUInteger i = 0; i < numberOfLegendEntries; i++ ) {
         NSString *newTitle = [thePlot titleForLegendEntryAtIndex:i];
         if ( newTitle ) {
@@ -1285,6 +1293,7 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
     }
 
     id<CPTLegendDelegate> theDelegate = (id<CPTLegendDelegate>)self.delegate;
+
     if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchDownAtIndex:)] ||
          [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchDownAtIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:)] ||
@@ -1356,6 +1365,7 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
     }
 
     id<CPTLegendDelegate> theDelegate = (id<CPTLegendDelegate>)self.delegate;
+
     if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchUpAtIndex:)] ||
          [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchUpAtIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:)] ||
