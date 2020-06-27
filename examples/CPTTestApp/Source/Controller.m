@@ -111,7 +111,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     [graphTitle addAttribute:NSForegroundColorAttributeName value:[NSColor secondaryLabelColor] range:NSMakeRange(lineOne.length + 1, lineTwo.length)];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
 
-    paragraphStyle.alignment = CPTTextAlignmentCenter;
+    paragraphStyle.alignment = NSTextAlignmentCenter;
     [graphTitle addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, graphTitle.length)];
     NSFont *titleFont = [NSFont fontWithName:@"Helvetica-Bold" size:18.0];
 
@@ -187,7 +187,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     [xTitle addAttribute:NSForegroundColorAttributeName value:[NSColor tertiaryLabelColor] range:NSMakeRange(7, 6)];
     NSMutableParagraphStyle *xParagraphStyle = [[NSMutableParagraphStyle alloc] init];
 
-    xParagraphStyle.alignment = CPTTextAlignmentCenter;
+    xParagraphStyle.alignment = NSTextAlignmentCenter;
     [xTitle addAttribute:NSParagraphStyleAttributeName value:xParagraphStyle range:NSMakeRange(0, xTitle.length)];
     x.attributedTitle = xTitle;
 
@@ -216,7 +216,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     [yTitle addAttribute:NSForegroundColorAttributeName value:[NSColor tertiaryLabelColor] range:NSMakeRange(7, 6)];
     NSMutableParagraphStyle *yParagraphStyle = [[NSMutableParagraphStyle alloc] init];
 
-    yParagraphStyle.alignment = CPTTextAlignmentCenter;
+    yParagraphStyle.alignment = NSTextAlignmentCenter;
     [yTitle addAttribute:NSParagraphStyleAttributeName value:yParagraphStyle range:NSMakeRange(0, yTitle.length)];
     y.attributedTitle = yTitle;
 

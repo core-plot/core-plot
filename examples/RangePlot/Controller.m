@@ -68,7 +68,7 @@
     x.minorTicksPerInterval = 0;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 
-    dateFormatter.dateStyle = kCFDateFormatterShortStyle;
+    dateFormatter.dateStyle = NSDateFormatterShortStyle;
     CPTTimeFormatter *timeFormatter = [[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter];
 
     timeFormatter.referenceDate = refDate;

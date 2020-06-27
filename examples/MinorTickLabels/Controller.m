@@ -55,7 +55,7 @@
 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 
-    dateFormatter.dateStyle = kCFDateFormatterShortStyle;
+    dateFormatter.dateStyle = NSDateFormatterShortStyle;
     CPTTimeFormatter *myDateFormatter = [[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter];
 
     myDateFormatter.referenceDate = refDate;
@@ -63,7 +63,7 @@
 
     NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
 
-    timeFormatter.timeStyle = kCFDateFormatterShortStyle;
+    timeFormatter.timeStyle = NSDateFormatterShortStyle;
     CPTTimeFormatter *myTimeFormatter = [[CPTTimeFormatter alloc] initWithDateFormatter:timeFormatter];
 
     myTimeFormatter.referenceDate = refDate;
