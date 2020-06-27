@@ -1,3 +1,17 @@
+# Release 2.4 (TBD)
+
+## Release Notes
+
+This release updates Core Plot to be compatible with Xcode 12.
+
+The Mac deployment target is now macOS 10.9. The iOS deployment target is now iOS 9.0 for both the framework and the static library. The tvOS deployment target remains tvOS 9.0.
+
+## Details
+- **New**: TBD
+- **Changed**: Updated the deployment targets for all supported operating systems for the minimums required by Xcode 12. The Mac deployment target is now macOS 10.9. The iOS deployment target is now iOS 12.0 for both the framework and the static library. The tvOS deployment target is now tvOS 12.0.
+
+
+
 # Release 2.3 (January 10, 2020)
 
 ## Release Notes
