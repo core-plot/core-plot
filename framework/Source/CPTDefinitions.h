@@ -271,12 +271,12 @@ typedef NSArray<NSValue *> CPTValueArray;
 typedef NSMutableArray<NSValue *> CPTMutableValueArray;
 
 /**
- *  @brief An array of strings.
+ *  @brief A dictionary with string keys and object values.
  **/
 typedef NSDictionary<NSString *, id> CPTDictionary;
 
 /**
- *  @brief A mutable array of strings.
+ *  @brief A mutable dictionary with string keys and object values.
  **/
 typedef NSMutableDictionary<NSString *, id> CPTMutableDictionary;
 
