@@ -14,7 +14,7 @@
 #import "CPTXYPlotSpace.h"
 #import "NSCoderExtensions.h"
 #import "NSNumberExtensions.h"
-#import "tgmath.h"
+#import <tgmath.h>
 
 /** @defgroup plotAnimationRangePlot Range Plot
  *  @brief Range plot properties that can be animated using Core Animation.

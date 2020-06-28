@@ -6,7 +6,7 @@
 #import "CPTScatterPlot.h"
 #import "CPTUtilities.h"
 #import "CPTXYPlotSpace.h"
-#import "tgmath.h"
+#import <tgmath.h>
 
 /// @cond
 

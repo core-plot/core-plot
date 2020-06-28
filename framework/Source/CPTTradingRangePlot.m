@@ -13,7 +13,7 @@
 #import "CPTXYPlotSpace.h"
 #import "NSCoderExtensions.h"
 #import "NSNumberExtensions.h"
-#import "tgmath.h"
+#import <tgmath.h>
 
 /** @defgroup plotAnimationTradingRangePlot Trading Range Plot
  *  @brief Trading range plot properties that can be animated using Core Animation.

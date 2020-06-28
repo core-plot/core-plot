@@ -1,7 +1,7 @@
 #import "CPTPlatformSpecificCategories.h"
 
 #import "CPTPlatformSpecificFunctions.h"
-#import "tgmath.h"
+#import <tgmath.h>
 
 #pragma mark - CPTLayer
 
