@@ -3236,7 +3236,7 @@
 				C3490DF320E028D30089F309 /* Base */,
 			);
 			name = "CorePlot-CocoaTouch-Info.plist";
-			path = Info/Base.lproj;
+			path = Info;
 			sourceTree = "<group>";
 		};
 		C3490DF620E028D80089F309 /* CorePlot-iOS-Info.plist */ = {
@@ -3245,7 +3245,7 @@
 				C3490DF520E028D80089F309 /* Base */,
 			);
 			name = "CorePlot-iOS-Info.plist";
-			path = Info/Base.lproj;
+			path = Info;
 			sourceTree = "<group>";
 		};
 		C3490DF820E028DC0089F309 /* CorePlot-tvOS-Info.plist */ = {
@@ -3254,8 +3254,8 @@
 				C3490DF720E028DC0089F309 /* Base */,
 			);
 			name = "CorePlot-tvOS-Info.plist";
-			path = "/Users/eskroch/Projects/Core Plot/framework/Info/Base.lproj";
-			sourceTree = "<absolute>";
+			path = Info;
+			sourceTree = "<group>";
 		};
 		C37A406420E02B9D00C4FF48 /* CorePlot-tvOSTests-Info.plist */ = {
 			isa = PBXVariantGroup;
