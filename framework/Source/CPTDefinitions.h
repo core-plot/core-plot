@@ -42,6 +42,16 @@
 
 #define cpt_deprecated __attribute__((deprecated))
 
+// Requires super method attribute
+
+/**
+ *  @def cpt_requires_super
+ *  @hideinitializer
+ *  @brief Marks a method as requiring a call to the superclass.
+ **/
+
+#define cpt_requires_super __attribute__((objc_requires_super))
+
 // Unused parameter attribute (DEBUG only)
 
 /**

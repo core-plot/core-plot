@@ -15,9 +15,12 @@
     // nothing to draw
 }
 
--(void)renderAsVectorInContext:(nonnull CGContextRef __unused)context
+-(void)renderAsVectorInContext:(nonnull CGContextRef)context
 {
     // nothing to draw
+    if ( /* DISABLES CODE */ (NO)) {
+        [super renderAsVectorInContext:context];
+    }
 }
 
 /// @endcond

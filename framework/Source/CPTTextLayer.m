@@ -64,21 +64,17 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
 #pragma mark -
 #pragma mark Init/Dealloc
 
-/** @brief Initializes a newly allocated CPTTextLayer object with the provided text and style. This is the designated initializer.
+/** @brief Initializes a newly allocated CPTTextLayer object with the provided text and style.
  *  @param newText The text to display.
  *  @param newStyle The text style used to draw the text.
  *  @return The initialized CPTTextLayer object.
  **/
 -(nonnull instancetype)initWithText:(nullable NSString *)newText style:(nullable CPTTextStyle *)newStyle
 {
-    if ((self = [super initWithFrame:CGRectZero])) {
-        textStyle      = newStyle;
-        text           = [newText copy];
-        attributedText = nil;
-        maximumSize    = CGSizeZero;
-        inTextUpdate   = NO;
+    if ((self = [self initWithFrame:CGRectZero])) {
+        textStyle = newStyle;
+        text      = [newText copy];
 
-        self.needsDisplayOnBoundsChange = NO;
         [self sizeToFit];
     }
 
@@ -143,7 +139,17 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
  **/
 -(nonnull instancetype)initWithFrame:(CGRect __unused)newFrame
 {
-    return [self initWithText:nil style:nil];
+    if ((self = [super initWithFrame:CGRectZero])) {
+        text           = nil;
+        textStyle      = nil;
+        attributedText = nil;
+        maximumSize    = CGSizeZero;
+        inTextUpdate   = NO;
+
+        self.needsDisplayOnBoundsChange = NO;
+    }
+
+    return self;
 }
 
 /// @}

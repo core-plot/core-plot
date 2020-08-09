@@ -318,31 +318,31 @@ typedef NSMutableArray<__kindof CPTPlot *> CPTMutablePlotArray;
 /// @{
 -(void)setNeedsRelabel;
 -(void)relabel;
--(void)relabelIndexRange:(NSRange)indexRange;
+-(void)relabelIndexRange:(NSRange)indexRange cpt_requires_super;
 -(void)repositionAllLabelAnnotations;
 -(void)reloadDataLabels;
--(void)reloadDataLabelsInIndexRange:(NSRange)indexRange;
+-(void)reloadDataLabelsInIndexRange:(NSRange)indexRange cpt_requires_super;
 /// @}
 
 /// @name Data Loading
 /// @{
 -(void)setDataNeedsReloading;
--(void)reloadData;
--(void)reloadDataIfNeeded;
--(void)reloadDataInIndexRange:(NSRange)indexRange;
--(void)insertDataAtIndex:(NSUInteger)idx numberOfRecords:(NSUInteger)numberOfRecords;
--(void)deleteDataInIndexRange:(NSRange)indexRange;
--(void) reloadPlotData NS_SWIFT_NAME(CPTPlot.reloadPlotData());
+-(void)reloadData cpt_requires_super;
+-(void)reloadDataIfNeeded cpt_requires_super;
+-(void)reloadDataInIndexRange:(NSRange)indexRange cpt_requires_super;
+-(void)insertDataAtIndex:(NSUInteger)idx numberOfRecords:(NSUInteger)numberOfRecords cpt_requires_super;
+-(void)deleteDataInIndexRange:(NSRange)indexRange cpt_requires_super;
+-(void) reloadPlotData NS_SWIFT_NAME(CPTPlot.reloadPlotData()) cpt_requires_super;
 
--(void)reloadPlotDataInIndexRange:(NSRange) indexRange NS_SWIFT_NAME(CPTPlot.reloadPlotData(inIndexRange:));
+-(void)reloadPlotDataInIndexRange:(NSRange) indexRange NS_SWIFT_NAME(CPTPlot.reloadPlotData(inIndexRange:)) cpt_requires_super;
 
 /// @}
 
 /// @name Plot Data
 /// @{
 +(nonnull id)nilData;
--(nullable id)numbersFromDataSourceForField:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange;
--(BOOL)loadNumbersForAllFieldsFromDataSourceInRecordIndexRange:(NSRange)indexRange;
+-(nullable id)numbersFromDataSourceForField:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange cpt_requires_super;
+-(BOOL)loadNumbersForAllFieldsFromDataSourceInRecordIndexRange:(NSRange)indexRange cpt_requires_super;
 /// @}
 
 /// @name Data Cache
@@ -354,10 +354,10 @@ typedef NSMutableArray<__kindof CPTPlot *> CPTMutablePlotArray;
 -(nullable NSArray *)cachedArrayForKey:(nonnull NSString *)key;
 -(nullable id)cachedValueForKey:(nonnull NSString *)key recordIndex:(NSUInteger)idx;
 
--(void)cacheNumbers:(nullable id)numbers forField:(NSUInteger)fieldEnum;
--(void)cacheNumbers:(nullable id)numbers forField:(NSUInteger)fieldEnum atRecordIndex:(NSUInteger)idx;
--(void)cacheArray:(nullable NSArray *)array forKey:(nonnull NSString *)key;
--(void)cacheArray:(nullable NSArray *)array forKey:(nonnull NSString *)key atRecordIndex:(NSUInteger)idx;
+-(void)cacheNumbers:(nullable id)numbers forField:(NSUInteger)fieldEnum cpt_requires_super;
+-(void)cacheNumbers:(nullable id)numbers forField:(NSUInteger)fieldEnum atRecordIndex:(NSUInteger)idx cpt_requires_super;
+-(void)cacheArray:(nullable NSArray *)array forKey:(nonnull NSString *)key cpt_requires_super;
+-(void)cacheArray:(nullable NSArray *)array forKey:(nonnull NSString *)key atRecordIndex:(NSUInteger)idx cpt_requires_super;
 /// @}
 
 /// @name Plot Data Ranges
@@ -373,7 +373,7 @@ typedef NSMutableArray<__kindof CPTPlot *> CPTMutablePlotArray;
 -(NSUInteger)numberOfLegendEntries;
 -(nullable NSString *)titleForLegendEntryAtIndex:(NSUInteger)idx;
 -(nullable NSAttributedString *)attributedTitleForLegendEntryAtIndex:(NSUInteger)idx;
--(void)drawSwatchForLegend:(nonnull CPTLegend *)legend atIndex:(NSUInteger)idx inRect:(CGRect)rect inContext:(nonnull CGContextRef)context;
+-(void)drawSwatchForLegend:(nonnull CPTLegend *)legend atIndex:(NSUInteger)idx inRect:(CGRect)rect inContext:(nonnull CGContextRef)context cpt_requires_super;
 /// @}
 
 @end

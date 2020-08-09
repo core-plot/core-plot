@@ -114,6 +114,8 @@
         return;
     }
 
+    [super renderAsVectorInContext:context];
+
     CPTPlotArea *thePlotArea = self.plotArea;
 
     for ( CPTAxis *axis in thePlotArea.axisSet.axes ) {
