@@ -1062,7 +1062,6 @@
 				PRODUCT_NAME = "Plot Gallery";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
-				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -1088,7 +1087,6 @@
 				PRODUCT_NAME = "Plot Gallery";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
-				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Release;
 		};
