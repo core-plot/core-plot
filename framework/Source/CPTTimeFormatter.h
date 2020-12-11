@@ -1,3 +1,5 @@
+#import <Foundation/Foundation.h>
+
 @interface CPTTimeFormatter : NSNumberFormatter
 
 @property (nonatomic, readwrite, strong, nullable) NSDateFormatter *dateFormatter;

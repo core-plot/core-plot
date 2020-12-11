@@ -9,7 +9,7 @@
 /// @cond
 @interface CPTGraphHostingView()
 
-#if (TARGET_OS_SIMULATOR || TARGET_OS_IPHONE) && !TARGET_OS_TV
+#if (TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST) && !TARGET_OS_TV
 @property (nonatomic, readwrite, nullable, cpt_weak_property) UIPinchGestureRecognizer *pinchGestureRecognizer;
 
 -(void)handlePinchGesture:(nonnull UIPinchGestureRecognizer *)aPinchGestureRecognizer;
@@ -47,7 +47,7 @@
 
 /// @cond
 
-#if (TARGET_OS_SIMULATOR || TARGET_OS_IPHONE) && !TARGET_OS_TV
+#if (TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST) && !TARGET_OS_TV
 
 /** @internal
  *  @property nullable UIPinchGestureRecognizer *pinchGestureRecognizer
@@ -258,7 +258,7 @@
 
 /// @cond
 
-#if (TARGET_OS_SIMULATOR || TARGET_OS_IPHONE) && !TARGET_OS_TV
+#if (TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST) && !TARGET_OS_TV
 -(void)setAllowPinchScaling:(BOOL)allowScaling
 {
     if ( allowPinchScaling != allowScaling ) {

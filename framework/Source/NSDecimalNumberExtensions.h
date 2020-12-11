@@ -1,3 +1,5 @@
+#import <Foundation/Foundation.h>
+
 /** @category NSDecimalNumber(CPTExtensions)
  *  @brief Core Plot extensions to NSDecimalNumber.
  **/

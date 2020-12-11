@@ -1,6 +1,12 @@
 #import <Availability.h>
 #import <TargetConditionals.h>
 
+#if __has_include(<UIKit/UIKit.h>)
+#import <UIKit/UIKit.h>
+#else
+#import <Cocoa/Cocoa.h>
+#endif
+
 /// @file
 
 /**

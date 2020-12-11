@@ -11,7 +11,7 @@
 
 #if TARGET_OS_OSX
 @property (nonatomic, readonly, nullable) NSColor *nsColorCache;
-#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
 @property (nonatomic, readonly, nullable) UIColor *uiColorCache;
 #endif
 
@@ -55,7 +55,7 @@
     }
 }
 
-#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
 
 /** @internal
  *  @property nullable UIColor *uiColorCache
@@ -91,7 +91,7 @@
 {
 #if TARGET_OS_OSX
     return self.nsColor;
-#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
     return self.uiColor;
 #endif
 }
@@ -108,7 +108,7 @@
     if ( theNSColor ) {
         return theNSColor.CGColor;
     }
-#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
     UIColor *theUIColor = self.uiColorCache;
     if ( theUIColor ) {
         return theUIColor.CGColor;
@@ -433,7 +433,7 @@
     return [[self alloc] initWithNSColor:newNSColor];
 }
 
-#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
 
 /** @brief Creates and returns a new CPTColor instance initialized with the provided UIColor.
  *
@@ -460,7 +460,7 @@
 {
 #if TARGET_OS_OSX
     return [[self alloc] initWithNSColor:newColor];
-#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
     return [[self alloc] initWithUIColor:newColor];
 #endif
 }
@@ -522,7 +522,7 @@
     return self;
 }
 
-#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
 
 /** @brief Initializes a newly allocated CPTColor object with the provided UIColor.
  *
@@ -552,7 +552,7 @@
 {
 #if TARGET_OS_OSX
     return [self initWithNSColor:newColor];
-#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
     return [self initWithUIColor:newColor];
 #endif
 }
@@ -587,7 +587,7 @@
         NSColor *newNSColor = [theNSColor colorWithAlphaComponent:alpha];
         return [[self class] colorWithNSColor:newNSColor];
     }
-#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
     UIColor *theUIColor = self.uiColorCache;
     if ( theUIColor ) {
         UIColor *newUIColor = [theUIColor colorWithAlphaComponent:alpha];
@@ -622,7 +622,7 @@
 {
 #if TARGET_OS_OSX
     [coder encodeConditionalObject:self.nsColorCache forKey:@"CPTColor.nsColorCache"];
-#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
     [coder encodeConditionalObject:self.uiColorCache forKey:@"CPTColor.uiColorCache"];
 #endif
 
@@ -656,7 +656,7 @@
         if ( decodedNSColor ) {
             nsColorCache = decodedNSColor;
         }
-#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
         UIColor *decodedUIColor = [coder decodeObjectOfClass:[UIColor class]
                                                       forKey:@"CPTColor.uiColorCache"];
         if ( decodedUIColor ) {
@@ -708,7 +708,7 @@
         CPTColor *colorCopy = [[[self class] allocWithZone:zone] initWithNSColor:nsColorCopy];
         return colorCopy;
     }
-#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
     UIColor *uiColorCopy = [self.uiColorCache copyWithZone:zone];
     if ( uiColorCopy ) {
         CPTColor *colorCopy = [[[self class] allocWithZone:zone] initWithUIColor:uiColorCopy];
@@ -787,7 +787,7 @@
 
 -(nullable id)debugQuickLookObject
 {
-#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
     return self.uiColor;
 #else
     return self.nsColor;

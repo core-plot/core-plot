@@ -15,7 +15,7 @@
     const size_t height           = 50;
     const size_t bitsPerComponent = 8;
 
-#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
 #else
     CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);

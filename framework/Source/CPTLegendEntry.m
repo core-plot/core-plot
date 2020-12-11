@@ -150,7 +150,7 @@
  **/
 -(void)drawTitleInRect:(CGRect)rect inContext:(nonnull CGContextRef)context scale:(CGFloat)scale
 {
-#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
     CGContextSaveGState(context);
     CGContextTranslateCTM(context, CPTFloat(0.0), rect.origin.y);
     CGContextScaleCTM(context, CPTFloat(1.0), CPTFloat(-1.0));
@@ -189,7 +189,7 @@
                    inContext:context];
     }
 
-#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
     CGContextRestoreGState(context);
 #endif
 }

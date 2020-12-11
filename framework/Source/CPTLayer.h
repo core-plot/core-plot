@@ -68,7 +68,7 @@ typedef NSMutableSet<CALayer *> CPTMutableSublayerSet;
 /**
  *  @brief Layer delegate.
  **/
-#if ((TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_TV) && (__IPHONE_OS_VERSION_MAX_ALLOWED >= 100000)) \
+#if ((TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_TV || TARGET_OS_MACCATALYST) && (__IPHONE_OS_VERSION_MAX_ALLOWED >= 100000)) \
     || (TARGET_OS_MAC && (MAC_OS_X_VERSION_MAX_ALLOWED >= 101200))
 // CALayerDelegate is defined by Core Animation in iOS 10.0+, macOS 10.12+, and tvOS 10.0+
 @protocol CPTLayerDelegate<CALayerDelegate>

@@ -132,7 +132,7 @@
 
 -(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
-#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_TV
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_TV || TARGET_OS_MACCATALYST
     if ( self.font ) {
         // UIFont does not support NSCoding :(
         [coder encodeObject:[self.font fontDescriptor] forKey:@"CPTTextStyle.font+descriptor"];
@@ -152,7 +152,7 @@
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ((self = [super init])) {
-#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_TV
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_TV || TARGET_OS_MACCATALYST
         // UIFont does not support NSCoding :(
         UIFontDescriptor *fontDescriptor = [coder decodeObjectOfClass:[UIFontDescriptor class]
                                                                forKey:@"CPTTextStyle.font+descriptor"];

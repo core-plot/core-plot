@@ -48,7 +48,7 @@
  **/
 -(BOOL)pointingDeviceCancelledEvent:(nonnull CPTNativeEvent *)event;
 
-#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
 #else
 
 /**

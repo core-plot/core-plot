@@ -385,7 +385,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
     if ( myText.length > 0 ) {
         [super renderAsVectorInContext:context];
 
-#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
         CGContextSaveGState(context);
         CGContextTranslateCTM(context, CPTFloat(0.0), self.bounds.size.height);
         CGContextScaleCTM(context, CPTFloat(1.0), CPTFloat(-1.0));
@@ -393,7 +393,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
 
         CGRect newBounds = CGRectInset(self.bounds, kCPTTextLayerMarginWidth, kCPTTextLayerMarginWidth);
         newBounds.origin.x += self.paddingLeft;
-#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
         newBounds.origin.y += self.paddingTop;
 #else
         newBounds.origin.y += self.paddingBottom;
@@ -412,7 +412,7 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
                      inContext:context];
         }
 
-#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
         CGContextRestoreGState(context);
 #endif
     }

@@ -1,3 +1,6 @@
+#import <Foundation/Foundation.h>
+#import <CoreGraphics/CoreGraphics.h>
+
 @interface CPTColorSpace : NSObject<NSCoding, NSSecureCoding>
 
 @property (nonatomic, readonly, nonnull) CGColorSpaceRef cgColorSpace;

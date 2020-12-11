@@ -62,7 +62,7 @@
 
     size_t bytesPerRow = (4 * width + 15) & ~15ul;
 
-#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
 #else
     CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);

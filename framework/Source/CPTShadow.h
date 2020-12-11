@@ -1,3 +1,6 @@
+#import <Foundation/Foundation.h>
+#import <CoreGraphics/CoreGraphics.h>
+
 @class CPTColor;
 
 @interface CPTShadow : NSObject<NSCopying, NSMutableCopying, NSCoding, NSSecureCoding>

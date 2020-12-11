@@ -1,3 +1,5 @@
+#import <UIKit/UIKit.h>
+
 /// @file
 
 typedef UIColor CPTNativeColor; ///< Platform-native color.

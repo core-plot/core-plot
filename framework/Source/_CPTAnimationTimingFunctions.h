@@ -1,3 +1,5 @@
+#import <CoreGraphics/CoreGraphics.h>
+
 /// @file
 
 typedef CGFloat (*CPTAnimationTimingFunction)(CGFloat, CGFloat);

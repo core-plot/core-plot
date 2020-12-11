@@ -7,7 +7,7 @@
 
 #if TARGET_OS_OSX
 @property (nonatomic, readonly, nonnull) NSColor *nsColor;
-#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
 @property (nonatomic, readonly, nonnull) UIColor *uiColor;
 #endif
 @property (nonatomic, readonly, nonnull) CPTNativeColor *nativeColor;
@@ -39,7 +39,7 @@
 
 #if TARGET_OS_OSX
 +(nonnull instancetype)colorWithNSColor:(nonnull NSColor *)newNSColor;
-#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
 +(nonnull instancetype)colorWithUIColor:(nonnull UIColor *)newUIColor;
 #endif
 +(nonnull instancetype)colorWithNativeColor:(nonnull CPTNativeColor *)newColor;
@@ -54,7 +54,7 @@
 
 #if TARGET_OS_OSX
 -(nonnull instancetype)initWithNSColor:(nonnull NSColor *)newNSColor NS_DESIGNATED_INITIALIZER;
-#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+#elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
 -(nonnull instancetype)initWithUIColor:(nonnull UIColor *)newUIColor NS_DESIGNATED_INITIALIZER;
 #endif
 -(nonnull instancetype)initWithNativeColor:(nonnull CPTNativeColor *)newColor;

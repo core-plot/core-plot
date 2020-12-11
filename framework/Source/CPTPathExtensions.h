@@ -1,3 +1,4 @@
+#import <CoreGraphics/CoreGraphics.h>
 /// @file
 
 #if __cplusplus
