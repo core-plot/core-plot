@@ -15,12 +15,15 @@ function generate_spm_public_headers() {
     echo "Generate symbolic links for all public heders. *.h"
     echo "Generated under ./spm/Sources/core-plot/include"
 
-    public_headers_list=$(find "framework" -name "*.[h]" \
-        \! -name "*Test*.[hm]" \
-        \! -name "_*.[hm]" \
-        \! -name "CorePlot-CocoaTouch.h" \
-        -type f -not -path "*/MacOnly/*" \
-        -not -path "framework/CorePlot.h" | sed "s| \([^/]\)|:\1|g")
+    public_headers_list=$(
+        find "framework" -name "*.[h]" \
+            \! -name "*Test*.[hm]" \
+            \! -name "_*.[hm]" \
+            \! -name "CorePlot-CocoaTouch.h" \
+            \! -name "mainpage.h" \
+            -type f -not -path "*/MacOnly/*" \
+            -not -path "framework/CorePlot.h" | sed "s| \([^/]\)|:\1|g"
+    )
 
     SRC_ROOT=$(pwd)
     cd $SPM_PUBLIC_HEADERS_PATH
