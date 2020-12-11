@@ -1,6 +1,6 @@
-#if TARGET_OS_OSX
-
 #import "CPTPlatformSpecificCategories.h"
+
+#if TARGET_OS_OSX
 
 #import "CPTGraph.h"
 #import "CPTGraphHostingView.h"
@@ -120,8 +120,6 @@
 
 
 #else
-
-#import "CPTPlatformSpecificCategories.h"
 
 #import "CPTPlatformSpecificFunctions.h"
 #import <tgmath.h>

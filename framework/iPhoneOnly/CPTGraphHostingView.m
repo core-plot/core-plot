@@ -1,6 +1,6 @@
-#if TARGET_OS_OSX
-
 #import "CPTGraphHostingView.h"
+
+#if TARGET_OS_OSX
 
 #import "CPTGraph.h"
 #import "CPTPlotArea.h"
@@ -688,8 +688,6 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
 
 #else
-
-#import "CPTGraphHostingView.h"
 
 #import "CPTGraph.h"
 #import "CPTPlotArea.h"

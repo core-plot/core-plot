@@ -1,6 +1,6 @@
-#if TARGET_OS_OSX
-
 #import "CPTPlatformSpecificFunctions.h"
+
+#if TARGET_OS_OSX
 
 #pragma mark Graphics Context
 
@@ -145,8 +145,6 @@ CPTNativeImage *__nonnull CPTQuickLookImage(CGRect rect, __nonnull CPTQuickLookI
 
 
 #else
-
-#import "CPTPlatformSpecificFunctions.h"
 
 #import "CPTExceptions.h"
 

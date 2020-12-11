@@ -1,5 +1,7 @@
 /// @file
 
+#import <TargetConditionals.h>
+
 #if TARGET_OS_OSX
 
 #import <AppKit/AppKit.h>
