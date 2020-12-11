@@ -7,10 +7,9 @@ This release updates Core Plot to be compatible with Xcode 12.
 The Mac deployment target is now macOS 10.9. The iOS deployment target is now iOS 9.0 for both the framework and the static library. The tvOS deployment target remains tvOS 9.0.
 
 ## Details
-- **New**: TBD
+
+- **New**: Swift Package Manager support
 - **Changed**: Updated the deployment targets for all supported operating systems for the minimums required by Xcode 12. The Mac deployment target is now macOS 10.9. The iOS deployment target is now iOS 12.0 for both the framework and the static library. The tvOS deployment target is now tvOS 12.0.
-
-
 
 # Release 2.3 (January 10, 2020)
 
@@ -21,6 +20,7 @@ This release updates Core Plot to be compatible with Xcode 11 and Swift 5. It ad
 The Mac deployment target remains OS X 10.8. The iOS deployment target remains iOS 8.0 for both the framework and the static library. The tvOS deployment target remains tvOS 9.0.
 
 ## Details
+
 - **New**: Added support for platform native fonts (`NSFont` and `UIFont`).
 - **New**: Added support for platform native colors (`NSColor` and `UIColor`), including dynamic system colors.
 - **New**: Added support for variable bar widths in bar, range, and trading range plots.
@@ -33,8 +33,6 @@ The Mac deployment target remains OS X 10.8. The iOS deployment target remains i
 - **Removed**: Removed docset generation. Docsets are no longer supported under Xcode 9.3.
 - **Removed**: Removed the AAPLot and StockPlot example apps because the Yahoo finance API that both relied for data is no longer available.
 
-
-
 # Release 2.2 (September 18, 2016)
 
 ## Release Notes
@@ -44,25 +42,25 @@ This release updates Core Plot to be compatible with Xcode 8 and Swift 3.
 The Mac deployment target remains OS X 10.8. The iOS deployment target has changed to iOS 8.0 for both the framework and the static library. The tvOS deployment target remains tvOS 9.0. Core Plot no longer requires the Accelerate framework.
 
 ## Details
+
 - **New**: Increased the iOS deployment target to iOS 8.
 - **Changed**: Added Swift name mappings for all string constants.
 - **Changed**: Updated all Swift example apps to Swift 3.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 - **Removed**: Removed the dependency on the Accelerate framework.
 
-
-
 # Release 2.1 (April 16, 2016)
 
 ## Release Notes
 
-This release adds a tvOS framework and removes the deprecated `CorePlot-CocoaTouch.xcodeproj` project file. All Core Plot build targets for Mac, iOS, tvOS, and the documentation are in the `CorePlot.xcodeproj` project file. Annotated type definitions (e.g., `CPTNumberArray`) were changed to exclude the pointer star ("*") so they can be used interchangeably with class names.
+This release adds a tvOS framework and removes the deprecated `CorePlot-CocoaTouch.xcodeproj` project file. All Core Plot build targets for Mac, iOS, tvOS, and the documentation are in the `CorePlot.xcodeproj` project file. Annotated type definitions (e.g., `CPTNumberArray`) were changed to exclude the pointer star ("\*") so they can be used interchangeably with class names.
 
 Curved scatter plots received several improvements. This release adds options to use Catmull-Rom and Hermite cubic splines to draw curved scatter plot lines. When a Hermite spline is used to draw a monotonic data series, the curved line will be monotonic as well. Plot spaces have new methods to scale the plot space to fit entire plots.
 
 The Mac deployment target has increased to OS X 10.8. The iOS deployment target remains iOS 6.0 for the static library and iOS 8.0 for the framework. The tvOS deployment target is tvOS 9.0.
 
 ## Details
+
 - **New**: Increased the Mac deployment target to OS X 10.8.
 - **New**: Added a tvOS framework.
 - **New**: Added an option to anchor alternating band fills to a specific starting value.
@@ -71,11 +69,9 @@ The Mac deployment target has increased to OS X 10.8. The iOS deployment target 
 - **New**: Added an option to draw legend swatches to the left or right side of the title.
 - **New**: Added options to use Catmull-Rom and Hermite cubic splines to draw curved scatter plot lines.
 - **New**: Added a method to automatically scale the plot space to fit the entire plot.
-- **Changed**: Changed the annotated type definitions to exclude the pointer star ("*").
+- **Changed**: Changed the annotated type definitions to exclude the pointer star ("\*").
 - **Changed**: Miscellaneous bug fixes and cleanup.
 - **Removed**: Removed the deprecated `CorePlot-CocoaTouch.xcodeproj` project file.
-
-
 
 # Release 2.0 (October 4, 2015)
 
@@ -89,6 +85,7 @@ The Mac and iOS projects have been combined into one project file. The `CorePlot
 The deployment target has increased to iOS 6.0 for the static library and iOS 8.0 for the framework. The Mac deployment target remains OS X 10.7.
 
 ## Details
+
 - **New**: Combined the Mac and iOS projects and added an iOS framework target. The `CorePlot-CocoaTouch.xcodeproj` project file is deprecated.
 - **New**: Added histogram style options to `CPTScatterPlot`.
 - **New**: Added iOS unit tests.
@@ -103,8 +100,6 @@ The deployment target has increased to iOS 6.0 for the static library and iOS 8.
 - **Changed**: Renamed the `CPTXYAxis.orthogonalCoordinateDecimal` property to `CPTXYAxis.orthogonalPosition`.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 
-
-
 # Release 1.6 (May 9, 2015)
 
 ## Release Notes
@@ -112,20 +107,21 @@ The deployment target has increased to iOS 6.0 for the static library and iOS 8.
 This release adds support for @3x and stretchable images, plot area fill bands, new axis and plot delegate methods, and trackpad and scroll wheel gestures on the Mac. The behavior of all axis and plot xxxWasSelected delegate methods changed to require both a down and up event on the same element instead of only the down event. The deployment target has increased to iOS 5.0 and Mac OS X 10.7 and all iOS clients must now link against the Accelerate framework.
 
 ## Details
+
 - **New**: Added hand cursors to the Mac hosting view to indicate when user interaction is enabled and when dragging is in progress.
-- **New**: Added two additional initialization methods to `CPTImage`. 
+- **New**: Added two additional initialization methods to `CPTImage`.
 - **New**: Added a dependency on the Accelerate framework. All iOS clients must now link against this framework.
 - **New**: Added a shared header file for apps using Core Plot with CocoaPods.
 - **New**: Added support for pinch zoom gestures on the Mac.
 - **New**: Added support for trackpad and mouse wheel scrolling gestures on the Mac.
 - **New**: Added a scroll wheel event to `<CPTResponder>`.
 - **New**: Added axis and plot delegate methods for touch down and up events on labels.
-- **New**: Added scatter plot data line selection delegate methods. 
+- **New**: Added scatter plot data line selection delegate methods.
 - **New**: Added scatter plot area fill bands.
 - **New**: Added new methods to all plots to allow labels, styles, and plot symbols to be updated independent of the plot data.
 - **New**: Added support for stretchable images.
 - **New**: Added support for @3x images.
-- **New**: Added support for using an Objective-C block to calculate plot values in the function datasource class. 
+- **New**: Added support for using an Objective-C block to calculate plot values in the function datasource class.
 - **New**: Added support for categorical plot data.
 - **New**: Added `showBarBorder` property to `CPTTradingRangePlot`.
 - **Changed**: Increased the deployment target to iOS 5.0 and Mac OS X 10.7.
@@ -136,8 +132,6 @@ This release adds support for @3x and stretchable images, plot area fill bands, 
 - **Changed**: Miscellaneous bug fixes and cleanup.
 - **Removed**: Removed the deprecated plot space methods.
 
-
-
 # Release 1.5.1 (March 16, 2014)
 
 ## Release Notes
@@ -145,10 +139,9 @@ This release adds support for @3x and stretchable images, plot area fill bands, 
 This release updates release 1.5 to work with Xcode 5.1.
 
 ## Details
+
 - **Removed**: Removed the `-all_load` linker flag from the iOS project.
 - **Removed**: Removed support for garbage collection.
-
-
 
 # Release 1.5 (March 15, 2014)
 
@@ -159,6 +152,7 @@ and new customization options for legends, range plots, and axis titles. It also
 plot space properties to permit more fine-grained control of momentum scrolling.
 
 ## Details
+
 - **New**: Updated `CPTAnimation` to allow animations to start at the current value of the animated property instead of a fixed value.
 - **New**: Animations can now start when the value of the animated property enters the animated range.
 - **New**: Added an identifier and user info dictionary to animation operations.
@@ -175,14 +169,12 @@ plot space properties to permit more fine-grained control of momentum scrolling.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 - **Removed**: Removed the elastic global range properties from `CPTXYPlotSpace`. Turning on momentum scrolling now automatically allows elastic ranges, too.
 
-
-
 # Release 1.4 (September 28, 2013)
 
 ## Release Notes
 
 This release adds a helper class that makes it easy to create a datasource to plot a mathematical function.
-The function datasource can plot any c-style function that returns the value of *y* = *f*(*x*).
+The function datasource can plot any c-style function that returns the value of _y_ = _f_(_x_).
 The release also adds new delegate methods for legends and axis labels, a new line drawing style, new axis and
 data label positioning options, and support for label formatters that return styled text.
 
@@ -191,6 +183,7 @@ They have been replaced with equivalent methods that add an additional parameter
 the size of the array and will be removed in a future release.
 
 ## Details
+
 - **New**: Added properties to allow axis labels to be positioned independent of the tick direction.
 - **New**: Added legend delegate methods to notify the delegate when a legend entry is selected.
 - **New**: Added support for lines drawn with a gradient following the stroked path.
@@ -202,27 +195,24 @@ the size of the array and will be removed in a future release.
 - **Changed**: Updated all projects to support Xcode 5.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 
-
-
 # Release 1.3 (June 30, 2013)
 
 ## Release Notes
 
 This release adds support for styled text (via `NSAttributedString`) in all titles, labels, and text layers.
 It adds support for momentum scrolling and "rubber band" snap-back when scrolling beyond
-the global *x*- and *y*-ranges.
+the global _x_- and _y_-ranges.
 
 ## Details
+
 - **New**: Added support for styled text in all titles, labels, and text layers.
 - **New**: Added a minor tick label shadow property to `CPTAxis`.
 - **New**: Added a property to hide plot data labels.
 - **New**: Added support for momentum scrolling.
-- **New**: Added support for "rubber band" snap-back when scrolling reaches the global *x*- and *y*-ranges.
+- **New**: Added support for "rubber band" snap-back when scrolling reaches the global _x_- and _y_-ranges.
 - **New**: Added line break mode support to `CPTTextStyle`.
 - **New**: Added a maximum layer size to `CPTTextLayer`.
 - **Changed**: Miscellaneous bug fixes and cleanup.
-
-
 
 # Release 1.2 (April 6, 2013)
 
@@ -232,13 +222,12 @@ This release adds animation support for plot ranges, decimal values, and other p
 It also updates some of the example apps to use ARC.
 
 ## Details
+
 - **New**: Added animation support for plot ranges, decimal values, and other properties.
 - **New**: Added starting and ending anchor point properties for radial gradients.
 - **Changed**: Changed the type of all axis and plot label formatters from `NSNumberFormatter` to `NSFormatter`.
-- **Changed**: Updated all *CPTTestApp* example apps for Mac and iOS to use ARC.
+- **Changed**: Updated all _CPTTestApp_ example apps for Mac and iOS to use ARC.
 - **Changed**: Miscellaneous bug fixes and cleanup.
-
-
 
 # Release 1.1 (November 11, 2012)
 
@@ -247,6 +236,7 @@ It also updates some of the example apps to use ARC.
 This release adds many new plot properties, delegate methods, and data bindings.
 
 ## Details
+
 - **New**: Added Bezier curve interpolation option to `CPTScatterPlot`.
 - **New**: Added printing support to the OS X hosting view.
 - **New**: Added a plot data label selection delegate method.
@@ -269,8 +259,6 @@ This release adds many new plot properties, delegate methods, and data bindings.
 - **Changed**: Significant updates to the API documentation for organization and clarity.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 
-
-
 # Release 1.0 (February 20, 2012)
 
 ## Release Notes
@@ -290,6 +278,7 @@ compatibility with older systems, Core Plot itself does not use ARC but its head
 and binaries can be used in applications that do.
 
 ## Details
+
 - **New**: Added a script to automatically format the code following the coding standards using uncrustify.
 - **New**: Added support for automatic reference counting (ARC).
 - **New**: Added the HTML docs built with Doxygen to the source code repository so that they can be viewed online with a web browser.
@@ -306,8 +295,6 @@ and binaries can be used in applications that do.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 - **Removed**: Removed unused `NSException` extensions.
 - **Removed**: Removed unused methods from `CPTLayer` and `CPTTextLayer`.
-
-
 
 # Release 0.9 Beta (September 25, 2011)
 
@@ -345,8 +332,6 @@ and other line caps on axis lines, and animation support for many plot propertie
 - **Removed**: Removed deprecated properties and methods.
 - **Removed**: Removed the unused default z-position from all layers.
 
-
-
 # Release 0.4 Alpha (July 7, 2011)
 
 ## Release Notes
@@ -355,7 +340,7 @@ This release contains several changes that will break apps built against earlier
 versions. The class prefix for all Core Plot classes and public symbols changed from
 "CP" to "CPT". Also, the iOS SDK is no longer supported. iOS projects that were built
 against the SDK must be updated to include the Core Plot project file or link against the
-new universal static library instead. 
+new universal static library instead.
 
 ## Details
 
@@ -371,8 +356,6 @@ new universal static library instead.
 - **Changed**: Updates to suppress compiler warnings when using the LLVM compiler.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 - **Removed**: Removed the iOS SDK build and installer packaging scripts.
-
-
 
 # Release 0.3 Alpha (May 4, 2011)
 
@@ -400,8 +383,6 @@ updated to use the mutable versions.
 - **Changed**: Updated Doxygen configuration files and comments for Doxygen 1.7.3.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 
-
-
 # Release 0.2.2 Alpha (November 10, 2010)
 
 ## Release Notes
@@ -416,8 +397,6 @@ It also adds support for missing data in all plot types.
 - **New**: Added secondary scatter plot fill.
 - **Changed**: Updated the release packaging scripts.
 - **Changed**: Miscellaneous bug fixes and cleanup.
-
-
 
 # Release 0.2.1 Alpha (October 20, 2010)
 
@@ -435,8 +414,6 @@ data cache that changed. It also adds support for Xcode 3.2.4 and the iOS 4.1 SD
 - **Changed**: Optimized plot symbol drawing.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 - **Removed**: Removed the Core Plot animation classes.
-
-
 
 # Release 0.2 Alpha (September 10, 2010)
 
@@ -459,8 +436,6 @@ performance and simplifies the process of linking Core Plot into other projects.
 - **Changed**: Changed the plot data cache to use `CPNumericData`.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 - **Removed**: Removed all C++ code.
-
-
 
 # Release 0.1 Alpha (June 20, 2010)
 
