@@ -1,5 +1,5 @@
-#import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
+#import <Foundation/Foundation.h>
 
 /** @category NSCoder(CPTExtensions)
  *  @brief Core Plot extensions to NSCoder.

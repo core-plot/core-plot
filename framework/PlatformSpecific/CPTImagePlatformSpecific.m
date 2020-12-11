@@ -69,7 +69,6 @@
 
 @end
 
-
 #else
 
 #import "CPTImage.h"

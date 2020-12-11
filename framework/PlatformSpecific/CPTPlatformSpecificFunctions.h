@@ -35,7 +35,6 @@ CPTNativeImage *__nonnull CPTQuickLookImage(CGRect rect, __nonnull CPTQuickLookI
 }
 #endif
 
-
 #else
 
 #import "CPTDefinitions.h"

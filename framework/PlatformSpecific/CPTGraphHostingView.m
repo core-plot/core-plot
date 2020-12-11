@@ -686,7 +686,6 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
 @end
 
-
 #else
 
 #import "CPTGraph.h"

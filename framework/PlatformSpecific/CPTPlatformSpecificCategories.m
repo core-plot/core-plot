@@ -118,7 +118,6 @@
 
 @end
 
-
 #else
 
 #import "CPTPlatformSpecificFunctions.h"

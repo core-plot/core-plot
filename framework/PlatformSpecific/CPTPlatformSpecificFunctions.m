@@ -143,7 +143,6 @@ CPTNativeImage *__nonnull CPTQuickLookImage(CGRect rect, __nonnull CPTQuickLookI
     return image;
 }
 
-
 #else
 
 #import "CPTExceptions.h"
