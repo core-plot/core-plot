@@ -3,6 +3,10 @@
 #import <TargetConditionals.h>
 
 #if TARGET_OS_OSX
+
+#pragma mark macOS
+#pragma mark -
+
 #import <AppKit/AppKit.h>
 
 /**
@@ -27,6 +31,9 @@ typedef NS_ENUM (NSInteger, CPTTextAlignment) {
 #endif
 
 #else
+
+#pragma mark - iOS, tvOS, Mac Catalyst
+#pragma mark -
 
 #import <UIKit/UIKit.h>
 
