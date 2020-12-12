@@ -1,10 +1,13 @@
 #import <TargetConditionals.h>
 
-#if TARGET_OS_OSX
-
 #import "CPTColor.h"
 #import "CPTLayer.h"
 #import "CPTPlatformSpecificDefines.h"
+
+#if TARGET_OS_OSX
+
+#pragma mark macOS
+#pragma mark -
 
 #pragma mark CPTLayer
 
@@ -41,9 +44,7 @@
 
 #else
 
-#import "CPTColor.h"
-#import "CPTLayer.h"
-#import "CPTPlatformSpecificDefines.h"
+#pragma mark - iOS, tvOS, Mac Catalyst
 
 #pragma mark - CPTLayer
 

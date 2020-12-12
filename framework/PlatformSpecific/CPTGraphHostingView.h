@@ -1,14 +1,15 @@
-#import <TargetConditionals.h>
-
-#if TARGET_OS_OSX
-
-#import <Cocoa/Cocoa.h>
+#import "CPTDefinitions.h"
 
 @class CPTGraph;
 
+#if TARGET_OS_OSX
+
+#pragma mark macOS
+#pragma mark -
+
 @interface CPTGraphHostingView : NSView<NSCoding, NSSecureCoding>
 
-/// @name Hosted graph
+/// @name Hosted Graph
 /// @{
 @property (nonatomic, readwrite, strong, nullable) CPTGraph *hostedGraph;
 /// @}
@@ -33,15 +34,25 @@
 
 #else
 
-#import "CPTDefinitions.h"
-
-@class CPTGraph;
+#pragma mark - iOS, tvOS, Mac Catalyst
+#pragma mark -
 
 @interface CPTGraphHostingView : UIView<NSCoding, NSSecureCoding>
 
+/// @name Hosted Graph
+/// @{
 @property (nonatomic, readwrite, strong, nullable) CPTGraph *hostedGraph;
+/// @}
+
+/// @name Layer Structure
+/// @{
 @property (nonatomic, readwrite, assign) BOOL collapsesLayers;
+/// @}
+
+/// @name User Interaction
+/// @{
 @property (nonatomic, readwrite, assign) BOOL allowPinchScaling;
+/// @}
 
 @end
 
