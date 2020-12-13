@@ -78,13 +78,6 @@ iOSProductsDir = join(projectRoot, 'build/Release-iphoneuniversal')
 iOSFramework = join(iOSProductsDir, 'CorePlot.framework')
 copytree(iOSFramework, join(iosDir, 'CorePlot.framework'), symlinks=True)
 
-# Build iOS Static Library
-RunXcode('CorePlot.xcodeproj', 'Universal Library')
-iOSLibFile = join(join(projectRoot, 'build/Release-universal'), 'libCorePlot-CocoaTouch.a')
-copy(iOSLibFile, iosDir)
-iOSHeaderFile = join(join(projectRoot, 'build/Release-universal'), 'CorePlotHeaders')
-copytree(iOSHeaderFile, join(iosDir, 'CorePlotHeaders'))
-
 # Build tvOS Framework
 RunXcode('CorePlot.xcodeproj', 'Universal tvOS Framework')
 tvOSProductsDir = join(projectRoot, 'build/Release-appletvuniversal')

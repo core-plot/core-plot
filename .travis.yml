@@ -11,10 +11,6 @@ jobs:
   - env: PROJECT=framework/CorePlot TARGET="CorePlot iOS" SDK=iphonesimulator
   - env: PROJECT=framework/CorePlot TARGET="UnitTests iOS" SDK=iphonesimulator
   
-  # iOS static library
-  - env: PROJECT=framework/CorePlot TARGET="CorePlot-CocoaTouch" SDK=iphonesimulator
-  - env: PROJECT=framework/CorePlot TARGET="CorePlot-CocoaTouchTests" SDK=iphonesimulator
-  
   # tvOS framework
   - env: PROJECT=framework/CorePlot TARGET="CorePlot tvOS" SDK=appletvsimulator
   - env: PROJECT=framework/CorePlot TARGET="UnitTests tvOS" SDK=appletvsimulator
