@@ -44,7 +44,7 @@ jobs:
             "platform=macOS",
             "platform=tvOS Simulator,name=Apple TV 4k",
           ]
-        scheme: ["core-plot"]
+        scheme: ["CorePlot"]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
