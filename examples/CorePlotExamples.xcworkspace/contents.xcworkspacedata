@@ -37,11 +37,4 @@
          location = "group:CPTTestApp-iPhone/CPTTestApp-iPhone.xcodeproj">
       </FileRef>
    </Group>
-   <Group
-      location = "group:../QCPlugin"
-      name = "Quartz Composer">
-      <FileRef
-         location = "group:CorePlotQCPlugin.xcodeproj">
-      </FileRef>
-   </Group>
 </Workspace>

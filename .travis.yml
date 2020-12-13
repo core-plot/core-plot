@@ -39,6 +39,3 @@ script: xcodebuild -project examples/StockPlot/StockPlot.xcodeproj -target Stock
 
 # tvOS examples
 script: xcodebuild -project examples/CorePlotGallery/Plot_Gallery.xcodeproj -target "Plot Gallery-tvOS" -sdk ${TVSDK} -configuration Release
-
-# Quartz Composer plugin
-script: xcodebuild -project QCPlugin/CorePlotQCPlugin.xcodeproj -target CorePlotQCPlugin -configuration Release
