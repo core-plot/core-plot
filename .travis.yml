@@ -2,12 +2,12 @@ language: objective-c
 osx_image: xcode11
 
 ios_env:
-    SDK:iphonesimulator
-    SDK:iphoneos
+    SDK:iphonesimulator13.0
+    SDK:iphoneos13.0
 
 tvos_env:
-    TVSDK:appletvsimulator
-    TVSDK:appletvos
+    TVSDK:appletvsimulator13.0
+    TVSDK:appletvos13.0
 
 # Framework builds
 script: xcodebuild -project framework/CorePlot.xcodeproj -target "CorePlot Mac" -configuration Release
