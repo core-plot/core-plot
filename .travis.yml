@@ -1,41 +1,53 @@
 language: objective-c
 osx_image: xcode11
 
-ios_env:
-    SDK:iphonesimulator13.0
-    SDK:iphoneos13.0
+jobs:
+  include:
+  # Mac framework
+  - env: PROJECT=framework/CorePlot TARGET="CorePlot Mac" SDK=macosx
+  - env: PROJECT=framework/CorePlot TARGET="UnitTests Mac" SDK=macosx
+  
+  # iOS framework
+  - env: PROJECT=framework/CorePlot TARGET="CorePlot iOS" SDK=iphoneos
+  - env: PROJECT=framework/CorePlot TARGET="CorePlot iOS" SDK=iphonesimulator
+  - env: PROJECT=framework/CorePlot TARGET="UnitTests iOS" SDK=iphoneos
+  - env: PROJECT=framework/CorePlot TARGET="UnitTests iOS" SDK=iphonesimulator
+  
+  # iOS static library
+  - env: PROJECT=framework/CorePlot TARGET="CorePlot-CocoaTouch" SDK=iphoneos
+  - env: PROJECT=framework/CorePlot TARGET="CorePlot-CocoaTouch" SDK=iphonesimulator
+  - env: PROJECT=framework/CorePlot TARGET="CorePlot-CocoaTouchTests" SDK=iphoneos
+  - env: PROJECT=framework/CorePlot TARGET="CorePlot-CocoaTouchTests" SDK=iphonesimulator
+  
+  # tvOS framework
+  - env: PROJECT=framework/CorePlot TARGET="CorePlot tvOS" SDK=appletvos
+  - env: PROJECT=framework/CorePlot TARGET="CorePlot tvOS" SDK=appletvsimulator
+  - env: PROJECT=framework/CorePlot TARGET="UnitTests tvOS" SDK=appletvos
+  - env: PROJECT=framework/CorePlot TARGET="UnitTests tvOS" SDK=appletvsimulator
 
-tvos_env:
-    TVSDK:appletvsimulator13.0
-    TVSDK:appletvos13.0
+  # Mac examples
+  - env: PROJECT=examples/CorePlotGallery/Plot_Gallery TARGET="Plot Gallery-Mac" SDK=macosx
+  - env: PROJECT=examples/CPTTestApp/CPTTestApp TARGET="CPTTestApp" SDK=macosx
+  - env: PROJECT=examples/DatePlot/DatePlot TARGET="DatePlot" SDK=macosx
+  - env: PROJECT=examples/DropPlot/DropPlot TARGET="DropPlot" SDK=macosx
+  - env: PROJECT=examples/MinorTickLabels/minorTickFormatter TARGET="minorTickFormatter" SDK=macosx
+  - env: PROJECT=examples/RangePlot/RangePlot TARGET="RangePlot" SDK=macosx
 
-# Framework builds
-script: xcodebuild -project framework/CorePlot.xcodeproj -target "CorePlot Mac" -configuration Release
-script: xcodebuild -project framework/CorePlot.xcodeproj -target "CorePlot iOS" -sdk ${SDK} -configuration Release
-script: xcodebuild -project framework/CorePlot.xcodeproj -target "CorePlot tvOS" -sdk ${TVSDK} -configuration Release
-script: xcodebuild -project framework/CorePlot.xcodeproj -target "CorePlot-CocoaTouch" -sdk ${SDK} -configuration Release
+  # iOS examples
+  - env: PROJECT=examples/CorePlotGallery/Plot_Gallery TARGET="Plot Gallery-iOS" SDK=iphoneos
+  - env: PROJECT=examples/CorePlotGallery/Plot_Gallery TARGET="Plot Gallery-iOS" SDK=iphonesimulator
+  - env: PROJECT=examples/AAPLot/AAPLot TARGET="AAPLot" SDK=iphoneos
+  - env: PROJECT=examples/AAPLot/AAPLot TARGET="AAPLot" SDK=iphonesimulator
+  - env: PROJECT=examples/CPTTestApp-iPad/CPTTestApp-iPad TARGET="CPTTestApp-iPad" SDK=iphoneos
+  - env: PROJECT=examples/CPTTestApp-iPad/CPTTestApp-iPad TARGET="CPTTestApp-iPad" SDK=iphonesimulator
+  - env: PROJECT=examples/CPTTestApp-iPhone/CPTTestApp-iPhone TARGET="CPTTestApp-iPhone" SDK=iphoneos
+  - env: PROJECT=examples/CPTTestApp-iPhone/CPTTestApp-iPhone TARGET="CPTTestApp-iPhone" SDK=iphonesimulator
+  - env: PROJECT=examples/StockPlot/StockPlot TARGET="StockPlot" SDK=iphoneos
+  - env: PROJECT=examples/StockPlot/StockPlot TARGET="StockPlot" SDK=iphonesimulator
 
-# Unit tests
-script: xcodebuild -project framework/CorePlot.xcodeproj -target "UnitTests Mac" -configuration Release
-script: xcodebuild -project framework/CorePlot.xcodeproj -target "UnitTests iOS" -sdk ${SDK} -configuration Release
-script: xcodebuild -project framework/CorePlot.xcodeproj -target "UnitTests tvOS" -sdk ${TVSDK} -configuration Release
-script: xcodebuild -project framework/CorePlot.xcodeproj -target "CorePlot-CocoaTouchTests" -sdk ${SDK} -configuration Release
+  # tvOS examples
+  - env: PROJECT=examples/CorePlotGallery/Plot_Gallery TARGET="Plot Gallery-tvOS" SDK=appletvos
+  - env: PROJECT=examples/CorePlotGallery/Plot_Gallery TARGET="Plot Gallery-tvOS" SDK=appletvsimulator
 
-# Mac examples
-script: xcodebuild -project examples/CorePlotGallery/Plot_Gallery.xcodeproj -target "Plot Gallery-Mac" -configuration Release
-script: xcodebuild -project examples/CPTTestApp/CPTTestApp.xcodeproj -target CPTTestApp -configuration Release
-script: xcodebuild -project examples/DatePlot/DatePlot.xcodeproj -target DatePlot -configuration Release
-script: xcodebuild -project examples/DropPlot/DropPlot.xcodeproj -target DropPlot -configuration Release
-script: xcodebuild -project examples/MinorTickLabels/minorTickFormatter.xcodeproj -target minorTickFormatter -configuration Release
-script: xcodebuild -project examples/RangePlot/RangePlot.xcodeproj -target RangePlot -configuration Release
-
-# iOS examples
-script: xcodebuild -project examples/CorePlotGallery/Plot_Gallery.xcodeproj -target "Plot Gallery-iOS" -sdk ${SDK} -configuration Release
-script: xcodebuild -project examples/AAPLot/AAPLot.xcodeproj -target AAPLot -sdk ${SDK} -configuration Release
-script: xcodebuild -project examples/CPTTestApp-iPad/CPTTestApp-iPad.xcodeproj -target CPTTestApp-iPad -sdk ${SDK} -configuration Release
-script: xcodebuild -project examples/CPTTestApp-iPhone/CPTTestApp-iPhone.xcodeproj -target CPTTestApp-iPhone -sdk ${SDK} -configuration Release
-script: xcodebuild -project examples/CPTTestApp-iPhone-SpeedTest/CPTTestApp-iPhone.xcodeproj -CPTTestApp-iPhone AAPLot -sdk ${SDK} -configuration Release
-script: xcodebuild -project examples/StockPlot/StockPlot.xcodeproj -target StockPlot -sdk ${SDK} -configuration Release
-
-# tvOS examples
-script: xcodebuild -project examples/CorePlotGallery/Plot_Gallery.xcodeproj -target "Plot Gallery-tvOS" -sdk ${TVSDK} -configuration Release
+# Build script
+script: xcodebuild -project ${PROJECT}.xcodeproj -target ${TARGET} -sdk ${SDK} -configuration Release
