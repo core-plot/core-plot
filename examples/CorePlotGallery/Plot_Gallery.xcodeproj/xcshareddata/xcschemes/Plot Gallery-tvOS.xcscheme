@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C30D8AF51BCAF99D0003BB70"
-               BuildableName = "Plot Gallery tvOS.app"
-               BlueprintName = "Plot Gallery tvOS"
+               BuildableName = "Plot Gallery-tvOS.app"
+               BlueprintName = "Plot Gallery-tvOS"
                ReferencedContainer = "container:Plot_Gallery.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,8 +32,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C30D8AF51BCAF99D0003BB70"
-            BuildableName = "Plot Gallery tvOS.app"
-            BlueprintName = "Plot Gallery tvOS"
+            BuildableName = "Plot Gallery-tvOS.app"
+            BlueprintName = "Plot Gallery-tvOS"
             ReferencedContainer = "container:Plot_Gallery.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -55,8 +55,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C30D8AF51BCAF99D0003BB70"
-            BuildableName = "Plot Gallery tvOS.app"
-            BlueprintName = "Plot Gallery tvOS"
+            BuildableName = "Plot Gallery-tvOS.app"
+            BlueprintName = "Plot Gallery-tvOS"
             ReferencedContainer = "container:Plot_Gallery.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -72,8 +72,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C30D8AF51BCAF99D0003BB70"
-            BuildableName = "Plot Gallery tvOS.app"
-            BlueprintName = "Plot Gallery tvOS"
+            BuildableName = "Plot Gallery-tvOS.app"
+            BlueprintName = "Plot Gallery-tvOS"
             ReferencedContainer = "container:Plot_Gallery.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
