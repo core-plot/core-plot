@@ -20,9 +20,9 @@ Follow these steps to create a Core Plot release and post it to GitHub:
 
 6. Tag the current revision with the release version:
 
-    `$ git tag release_<version>`
+    `$ git tag <version>`
     
-    where **&lt;version&gt;** is the version number for this release.
+    where **&lt;version&gt;** is the semantic version number for this release, e.g., 2.5.0.
 
 7. Change to the **scripts** folder:
 
@@ -52,7 +52,7 @@ Follow these steps to create a Core Plot release and post it to GitHub:
 
 13. Click **Draft a new release**.
 
-14. Select the tag for the new release (`release_<version>`).
+14. Select the tag for the new release (`<version>`).
 
     Enter the following:
 
@@ -73,7 +73,7 @@ Follow these steps to create a Core Plot release and post it to GitHub:
 
 3. Tag the current documentation revision with the release version:
 
-    `$ git tag release_<version>`
+    `$ git tag <version>`
     
 4. Review the [wiki pages](https://github.com/core-plot/core-plot/wiki) and make any needed updates.
 
@@ -85,10 +85,10 @@ Follow these steps to create a Core Plot release and post it to GitHub:
 
     `s.version  = '<version>'`
 
-3. Add the git tag name (`release_<version>`) under the **source** tag.
+3. Add the git tag name (`<version>`) under the **source** tag.
 
     `s.source   = { :git => 'https://github.com/core-plot/core-plot.git', 
-                    :tag => 'release_<version>'}`
+                    :tag => '<version>'}`
 
 4. Submit the updated podspec to [CocoaPods](https://github.com/CocoaPods/CocoaPods).
 

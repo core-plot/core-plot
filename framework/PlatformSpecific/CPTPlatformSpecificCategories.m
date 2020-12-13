@@ -1,10 +1,13 @@
 #import "CPTPlatformSpecificCategories.h"
+#import "CPTPlatformSpecificFunctions.h"
 
 #if TARGET_OS_OSX
 
+#pragma mark macOS
+#pragma mark -
+
 #import "CPTGraph.h"
 #import "CPTGraphHostingView.h"
-#import "CPTPlatformSpecificFunctions.h"
 
 #pragma mark CPTLayer
 
@@ -120,7 +123,8 @@
 
 #else
 
-#import "CPTPlatformSpecificFunctions.h"
+#pragma mark - iOS, tvOS, Mac Catalyst
+
 #import <tgmath.h>
 
 #pragma mark - CPTLayer

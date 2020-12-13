@@ -1,1 +1,1 @@
-#import "CorePlot-CocoaTouch.h"
+#import <CorePlot/CorePlot.h>

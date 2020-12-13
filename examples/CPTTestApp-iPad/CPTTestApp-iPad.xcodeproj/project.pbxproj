@@ -14,11 +14,12 @@
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		28D7ACF80DDB3853001CB0EB /* CPTTestApp_iPadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* CPTTestApp_iPadViewController.m */; };
 		BC65758F116549890008F594 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC65758E116549890008F594 /* QuartzCore.framework */; };
+		C314514C2586970F00A857B2 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D414A61A7D843800B6F5D6 /* CorePlot.framework */; };
+		C314514D2586970F00A857B2 /* CorePlot.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C3D414A61A7D843800B6F5D6 /* CorePlot.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C3D0A1F520E019BF00BA2921 /* CPTTestApp_iPadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3D0A1F720E019BF00BA2921 /* CPTTestApp_iPadViewController.xib */; };
 		C3D0A20620E019CD00BA2921 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3D0A20820E019CD00BA2921 /* MainWindow.xib */; };
 		C3D0A20920E019D400BA2921 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3D0A20B20E019D400BA2921 /* Launch Screen.xib */; };
 		C3D3936019FD670400148319 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3D3935F19FD670400148319 /* Images.xcassets */; };
-		C3D414AD1A7D844400B6F5D6 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D414AA1A7D843800B6F5D6 /* libCorePlot-CocoaTouch.a */; };
 		C3F47B6E17BF99DE0075181F /* CorePlotIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F47B6C17BF99DE0075181F /* CorePlotIcon.png */; };
 		C3F47B6F17BF99DE0075181F /* CorePlotIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F47B6D17BF99DE0075181F /* CorePlotIcon@2x.png */; };
 /* End PBXBuildFile section */
@@ -66,21 +67,21 @@
 			remoteGlobalIDString = C38A09821A46185300D45436;
 			remoteInfo = CorePlot_iOSTests;
 		};
-		C3D414A91A7D843800B6F5D6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C3D414951A7D843800B6F5D6 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C38A09BA1A4619A900D45436;
-			remoteInfo = "CorePlot-CocoaTouch";
-		};
-		C3D414AB1A7D843800B6F5D6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C3D414951A7D843800B6F5D6 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C38A09C41A4619A900D45436;
-			remoteInfo = "CorePlot-CocoaTouchTests";
-		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C314514E2586970F00A857B2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C314514D2586970F00A857B2 /* CorePlot.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -114,8 +115,8 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
+				C314514C2586970F00A857B2 /* CorePlot.framework in Frameworks */,
 				BC65758F116549890008F594 /* QuartzCore.framework in Frameworks */,
-				C3D414AD1A7D844400B6F5D6 /* libCorePlot-CocoaTouch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,8 +201,6 @@
 				C3D414A41A7D843800B6F5D6 /* UnitTests.xctest */,
 				C3D414A61A7D843800B6F5D6 /* CorePlot.framework */,
 				C3D414A81A7D843800B6F5D6 /* UnitTests iOS.xctest */,
-				C3D414AA1A7D843800B6F5D6 /* libCorePlot-CocoaTouch.a */,
-				C3D414AC1A7D843800B6F5D6 /* CorePlot-CocoaTouchTests.xctest */,
 				C31D01E11D10F4FF008C1EF2 /* CorePlot.framework */,
 				C31D01E31D10F4FF008C1EF2 /* UnitTests tvOS.xctest */,
 			);
@@ -218,6 +217,7 @@
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+				C314514E2586970F00A857B2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -310,20 +310,6 @@
 			remoteRef = C3D414A71A7D843800B6F5D6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C3D414AA1A7D843800B6F5D6 /* libCorePlot-CocoaTouch.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libCorePlot-CocoaTouch.a";
-			remoteRef = C3D414A91A7D843800B6F5D6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C3D414AC1A7D843800B6F5D6 /* CorePlot-CocoaTouchTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "CorePlot-CocoaTouchTests.xctest";
-			remoteRef = C3D414AB1A7D843800B6F5D6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -406,8 +392,8 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CPTTestApp_iPad_Prefix.pch;
-				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/CPTTestApp_iPad-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.CorePlot.CPTTestAppiPad;
 				PRODUCT_NAME = "CPTTestApp-iPad";
 			};
@@ -427,8 +413,8 @@
 				DEVELOPMENT_TEAM = 28ZA45DE7D;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CPTTestApp_iPad_Prefix.pch;
-				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/CPTTestApp_iPad-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.CorePlot.CPTTestAppiPad;
 				PRODUCT_NAME = "CPTTestApp-iPad";
 				VALIDATE_PRODUCT = YES;
@@ -445,7 +431,6 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -455,7 +440,6 @@
 				SDKROOT = iphoneos;
 				SYMROOT = "$(SRCROOT)/../../build";
 				TARGETED_DEVICE_FAMILY = 2;
-				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework\" \"${PROJECT_DIR}/../../framework/Source\" \"${PROJECT_DIR}/../../framework/iPhoneOnly\"";
 			};
 			name = Debug;
 		};
@@ -468,7 +452,6 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = s;
-				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
@@ -478,7 +461,6 @@
 				SDKROOT = iphoneos;
 				SYMROOT = "$(SRCROOT)/../../build";
 				TARGETED_DEVICE_FAMILY = 2;
-				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework\" \"${PROJECT_DIR}/../../framework/Source\" \"${PROJECT_DIR}/../../framework/iPhoneOnly\"";
 			};
 			name = Release;
 		};

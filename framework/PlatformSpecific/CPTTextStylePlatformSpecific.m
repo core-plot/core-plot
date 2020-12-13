@@ -1,10 +1,13 @@
 #import "CPTTextStylePlatformSpecific.h"
 
-#if TARGET_OS_OSX
-
 #import "CPTMutableTextStyle.h"
 #import "CPTPlatformSpecificCategories.h"
 #import "CPTPlatformSpecificFunctions.h"
+
+#if TARGET_OS_OSX
+
+#pragma mark macOS
+#pragma mark -
 
 @implementation CPTTextStyle(CPTPlatformSpecificTextStyleExtensions)
 
@@ -280,10 +283,10 @@
 
 #else
 
+#pragma mark - iOS, tvOS, Mac Catalyst
+#pragma mark -
+
 #import "CPTColor.h"
-#import "CPTMutableTextStyle.h"
-#import "CPTPlatformSpecificCategories.h"
-#import "CPTPlatformSpecificFunctions.h"
 #import <tgmath.h>
 
 @implementation CPTTextStyle(CPTPlatformSpecificTextStyleExtensions)

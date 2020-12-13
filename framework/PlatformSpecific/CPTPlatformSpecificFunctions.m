@@ -2,6 +2,9 @@
 
 #if TARGET_OS_OSX
 
+#pragma mark macOS
+#pragma mark -
+
 #pragma mark Graphics Context
 
 // linked list to store saved contexts
@@ -144,6 +147,8 @@ CPTNativeImage *__nonnull CPTQuickLookImage(CGRect rect, __nonnull CPTQuickLookI
 }
 
 #else
+
+#pragma mark - iOS, tvOS, Mac Catalyst
 
 #import "CPTExceptions.h"
 

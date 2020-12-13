@@ -1,11 +1,14 @@
 #import "CPTGraphHostingView.h"
 
-#if TARGET_OS_OSX
-
 #import "CPTGraph.h"
 #import "CPTPlotArea.h"
 #import "CPTPlotAreaFrame.h"
 #import "CPTPlotSpace.h"
+
+#if TARGET_OS_OSX
+
+#pragma mark macOS
+#pragma mark -
 
 /// @cond
 
@@ -688,10 +691,9 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
 #else
 
-#import "CPTGraph.h"
-#import "CPTPlotArea.h"
-#import "CPTPlotAreaFrame.h"
-#import "CPTPlotSpace.h"
+#pragma mark - iOS, tvOS, Mac Catalyst
+#pragma mark -
+
 #import "NSNumberExtensions.h"
 
 /// @cond

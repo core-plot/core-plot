@@ -197,20 +197,6 @@
 			remoteGlobalIDString = C38A09821A46185300D45436;
 			remoteInfo = CorePlot_iOSTests;
 		};
-		C3D414721A7D824700B6F5D6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4F35EC1D1236AE6E007C3389 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C38A09BA1A4619A900D45436;
-			remoteInfo = "CorePlot-CocoaTouch";
-		};
-		C3D414741A7D824700B6F5D6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4F35EC1D1236AE6E007C3389 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C38A09C41A4619A900D45436;
-			remoteInfo = "CorePlot-CocoaTouchTests";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -276,7 +262,7 @@
 		C309C23323B3E12500DEDE9D /* PlotViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlotViewItem.xib; path = "Plot Gallery-Mac/PlotViewItem.xib"; sourceTree = "<group>"; };
 		C309C23523B3E21500DEDE9D /* PlotViewItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PlotViewItem.m; path = src/mac/PlotViewItem.m; sourceTree = "<group>"; };
 		C309C23723B3E29F00DEDE9D /* PlotViewItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PlotViewItem.h; path = src/mac/PlotViewItem.h; sourceTree = "<group>"; };
-		C30D8AF61BCAF99D0003BB70 /* Plot Gallery tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Plot Gallery tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C30D8AF61BCAF99D0003BB70 /* Plot Gallery-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Plot Gallery-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C30D8AF91BCAF99D0003BB70 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = src/tvOS/main.m; sourceTree = "<group>"; };
 		C30D8AFB1BCAF99D0003BB70 /* AppDelegateTV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegateTV.h; path = src/tvOS/AppDelegateTV.h; sourceTree = "<group>"; };
 		C30D8AFC1BCAF99D0003BB70 /* AppDelegateTV.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegateTV.m; path = src/tvOS/AppDelegateTV.m; sourceTree = "<group>"; };
@@ -411,7 +397,7 @@
 			children = (
 				8D1107320486CEB800E47090 /* Plot Gallery.app */,
 				C34CB52E1BC9A76A009270A0 /* Plot Gallery-iOS.app */,
-				C30D8AF61BCAF99D0003BB70 /* Plot Gallery tvOS.app */,
+				C30D8AF61BCAF99D0003BB70 /* Plot Gallery-tvOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -542,8 +528,6 @@
 				4F48928B1290FFCD00EDB93F /* UnitTests.xctest */,
 				C3D4146F1A7D824700B6F5D6 /* CorePlot.framework */,
 				C3D414711A7D824700B6F5D6 /* UnitTests iOS.xctest */,
-				C3D414731A7D824700B6F5D6 /* libCorePlot-CocoaTouch.a */,
-				C3D414751A7D824700B6F5D6 /* CorePlot-CocoaTouchTests.xctest */,
 				C30D8B181BCAF99D0003BB70 /* CorePlot.framework */,
 				C30D8B1A1BCAF99D0003BB70 /* UnitTests tvOS.xctest */,
 			);
@@ -651,9 +635,9 @@
 			productReference = 8D1107320486CEB800E47090 /* Plot Gallery.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C30D8AF51BCAF99D0003BB70 /* Plot Gallery tvOS */ = {
+		C30D8AF51BCAF99D0003BB70 /* Plot Gallery-tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C30D8B1B1BCAF99D0003BB70 /* Build configuration list for PBXNativeTarget "Plot Gallery tvOS" */;
+			buildConfigurationList = C30D8B1B1BCAF99D0003BB70 /* Build configuration list for PBXNativeTarget "Plot Gallery-tvOS" */;
 			buildPhases = (
 				C30D8AF21BCAF99D0003BB70 /* Sources */,
 				C30D8AF31BCAF99D0003BB70 /* Frameworks */,
@@ -664,9 +648,9 @@
 			dependencies = (
 				C30D8B1F1BCAFC080003BB70 /* PBXTargetDependency */,
 			);
-			name = "Plot Gallery tvOS";
+			name = "Plot Gallery-tvOS";
 			productName = "Plot Gallery tvOS";
-			productReference = C30D8AF61BCAF99D0003BB70 /* Plot Gallery tvOS.app */;
+			productReference = C30D8AF61BCAF99D0003BB70 /* Plot Gallery-tvOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 		C34CB52D1BC9A76A009270A0 /* Plot Gallery-iOS */ = {
@@ -730,7 +714,7 @@
 			targets = (
 				8D1107260486CEB800E47090 /* Plot Gallery-Mac */,
 				C34CB52D1BC9A76A009270A0 /* Plot Gallery-iOS */,
-				C30D8AF51BCAF99D0003BB70 /* Plot Gallery tvOS */,
+				C30D8AF51BCAF99D0003BB70 /* Plot Gallery-tvOS */,
 			);
 		};
 /* End PBXProject section */
@@ -776,20 +760,6 @@
 			fileType = wrapper.cfbundle;
 			path = "UnitTests iOS.xctest";
 			remoteRef = C3D414701A7D824700B6F5D6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C3D414731A7D824700B6F5D6 /* libCorePlot-CocoaTouch.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libCorePlot-CocoaTouch.a";
-			remoteRef = C3D414721A7D824700B6F5D6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C3D414751A7D824700B6F5D6 /* CorePlot-CocoaTouchTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "CorePlot-CocoaTouchTests.xctest";
-			remoteRef = C3D414741A7D824700B6F5D6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1151,7 +1121,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.Plot-Gallery-tvOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Plot Gallery-tvOS";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
@@ -1175,7 +1145,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.Plot-Gallery-tvOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Plot Gallery-tvOS";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
@@ -1257,7 +1227,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C30D8B1B1BCAF99D0003BB70 /* Build configuration list for PBXNativeTarget "Plot Gallery tvOS" */ = {
+		C30D8B1B1BCAF99D0003BB70 /* Build configuration list for PBXNativeTarget "Plot Gallery-tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C30D8B0A1BCAF99D0003BB70 /* Debug */,

@@ -1,8 +1,10 @@
+#import "CPTImage.h"
 #import <TargetConditionals.h>
 
 #if TARGET_OS_OSX
 
-#import "CPTImage.h"
+#pragma mark macOS
+#pragma mark -
 
 @implementation CPTImage(CPTPlatformSpecificImageExtensions)
 
@@ -71,7 +73,8 @@
 
 #else
 
-#import "CPTImage.h"
+#pragma mark - iOS, tvOS, Mac Catalyst
+#pragma mark -
 
 #import "CPTUtilities.h"
 

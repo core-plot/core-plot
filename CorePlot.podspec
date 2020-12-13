@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
                  'Eric Skroch'    => 'eskroch@mac.com',
                  'Barry Wark'     => 'barrywark@gmail.com' }
 
-  s.source   = { :git => 'https://github.com/core-plot/core-plot.git', :tag => 'release_2.3'}
+  s.source   = { :git => 'https://github.com/core-plot/core-plot.git', :tag => '2.3.0'}
 
   s.description = 'Core Plot is a plotting framework for macOS, iOS, and tvOS. It provides 2D visualization ' \
                   'of data, and is tightly integrated with Apple technologies like Core Animation, ' \
@@ -26,11 +26,10 @@ Pod::Spec.new do |s|
   s.osx.header_dir = 'osx'
   s.tvos.header_dir = 'tvos'
   
-  s.source_files = 'framework/Source/*.{h,m}', 'framework/CocoaPods/*.h'
+  s.source_files = 'framework/Source/*.{h,m}', 'framework/CocoaPods/*.h', 'framework/PlatformSpecific/*.{h,m}'
   s.exclude_files = '**/*{TestCase,Tests}.{h,m}', '**/mainpage.h'
-  s.ios.source_files = 'framework/CorePlot-CocoaTouch.h', 'framework/PlatformSpecific/*.{h,m}'
-  s.tvos.source_files = 'framework/PlatformSpecific/*.{h,m}'
-  s.osx.source_files = 'framework/MacOnly/*.{h,m}', 'framework/PlatformSpecific/*.{h,m}'
+  s.ios.source_files = 'framework/CorePlot-CocoaTouch.h'
+  s.osx.source_files = 'framework/MacOnly/*.{h,m}'
   s.private_header_files = '**/_*.h'
 
   s.requires_arc  = true

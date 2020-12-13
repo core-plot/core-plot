@@ -1,9 +1,11 @@
+#import "CPTDefinitions.h"
+#import "CPTPlatformSpecificDefines.h"
 #import <TargetConditionals.h>
 
 #if TARGET_OS_OSX
 
-#import "CPTDefinitions.h"
-#import "CPTPlatformSpecificDefines.h"
+#pragma mark macOS
+#pragma mark -
 
 /// @file
 
@@ -37,8 +39,8 @@ CPTNativeImage *__nonnull CPTQuickLookImage(CGRect rect, __nonnull CPTQuickLookI
 
 #else
 
-#import "CPTDefinitions.h"
-#import "CPTPlatformSpecificDefines.h"
+#pragma mark - iOS, tvOS, Mac Catalyst
+#pragma mark -
 
 /// @file
 
