@@ -8,21 +8,15 @@ jobs:
   - env: PROJECT=framework/CorePlot TARGET="UnitTests Mac" SDK=macosx
   
   # iOS framework
-  - env: PROJECT=framework/CorePlot TARGET="CorePlot iOS" SDK=iphoneos
   - env: PROJECT=framework/CorePlot TARGET="CorePlot iOS" SDK=iphonesimulator
-  - env: PROJECT=framework/CorePlot TARGET="UnitTests iOS" SDK=iphoneos
   - env: PROJECT=framework/CorePlot TARGET="UnitTests iOS" SDK=iphonesimulator
   
   # iOS static library
-  - env: PROJECT=framework/CorePlot TARGET="CorePlot-CocoaTouch" SDK=iphoneos
   - env: PROJECT=framework/CorePlot TARGET="CorePlot-CocoaTouch" SDK=iphonesimulator
-  - env: PROJECT=framework/CorePlot TARGET="CorePlot-CocoaTouchTests" SDK=iphoneos
   - env: PROJECT=framework/CorePlot TARGET="CorePlot-CocoaTouchTests" SDK=iphonesimulator
   
   # tvOS framework
-  - env: PROJECT=framework/CorePlot TARGET="CorePlot tvOS" SDK=appletvos
   - env: PROJECT=framework/CorePlot TARGET="CorePlot tvOS" SDK=appletvsimulator
-  - env: PROJECT=framework/CorePlot TARGET="UnitTests tvOS" SDK=appletvos
   - env: PROJECT=framework/CorePlot TARGET="UnitTests tvOS" SDK=appletvsimulator
 
   # Mac examples
@@ -34,19 +28,11 @@ jobs:
   - env: PROJECT=examples/RangePlot/RangePlot TARGET="RangePlot" SDK=macosx
 
   # iOS examples
-  - env: PROJECT=examples/CorePlotGallery/Plot_Gallery TARGET="Plot Gallery-iOS" SDK=iphoneos
   - env: PROJECT=examples/CorePlotGallery/Plot_Gallery TARGET="Plot Gallery-iOS" SDK=iphonesimulator
-  - env: PROJECT=examples/AAPLot/AAPLot TARGET="AAPLot" SDK=iphoneos
-  - env: PROJECT=examples/AAPLot/AAPLot TARGET="AAPLot" SDK=iphonesimulator
-  - env: PROJECT=examples/CPTTestApp-iPad/CPTTestApp-iPad TARGET="CPTTestApp-iPad" SDK=iphoneos
   - env: PROJECT=examples/CPTTestApp-iPad/CPTTestApp-iPad TARGET="CPTTestApp-iPad" SDK=iphonesimulator
-  - env: PROJECT=examples/CPTTestApp-iPhone/CPTTestApp-iPhone TARGET="CPTTestApp-iPhone" SDK=iphoneos
   - env: PROJECT=examples/CPTTestApp-iPhone/CPTTestApp-iPhone TARGET="CPTTestApp-iPhone" SDK=iphonesimulator
-  - env: PROJECT=examples/StockPlot/StockPlot TARGET="StockPlot" SDK=iphoneos
-  - env: PROJECT=examples/StockPlot/StockPlot TARGET="StockPlot" SDK=iphonesimulator
 
   # tvOS examples
-  - env: PROJECT=examples/CorePlotGallery/Plot_Gallery TARGET="Plot Gallery-tvOS" SDK=appletvos
   - env: PROJECT=examples/CorePlotGallery/Plot_Gallery TARGET="Plot Gallery-tvOS" SDK=appletvsimulator
 
 # Build script
