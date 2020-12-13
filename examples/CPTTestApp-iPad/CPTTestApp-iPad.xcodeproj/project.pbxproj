@@ -392,7 +392,6 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CPTTestApp_iPad_Prefix.pch;
-				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/CPTTestApp_iPad-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.CorePlot.CPTTestAppiPad;
@@ -414,7 +413,6 @@
 				DEVELOPMENT_TEAM = 28ZA45DE7D;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CPTTestApp_iPad_Prefix.pch;
-				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/CPTTestApp_iPad-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.CorePlot.CPTTestAppiPad;
@@ -433,7 +431,6 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -443,7 +440,6 @@
 				SDKROOT = iphoneos;
 				SYMROOT = "$(SRCROOT)/../../build";
 				TARGETED_DEVICE_FAMILY = 2;
-				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework\" \"${PROJECT_DIR}/../../framework/Source\" \"${PROJECT_DIR}/../../framework/iPhoneOnly\"";
 			};
 			name = Debug;
 		};
@@ -456,7 +452,6 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = s;
-				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
@@ -466,7 +461,6 @@
 				SDKROOT = iphoneos;
 				SYMROOT = "$(SRCROOT)/../../build";
 				TARGETED_DEVICE_FAMILY = 2;
-				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../../framework\" \"${PROJECT_DIR}/../../framework/Source\" \"${PROJECT_DIR}/../../framework/iPhoneOnly\"";
 			};
 			name = Release;
 		};
