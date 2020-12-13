@@ -26,10 +26,7 @@ jobs:
 
       - name: Run unit tests for tvOS
         run: xcodebuild -project framework/CorePlot.xcodeproj -target "UnitTests tvOS" -sdk "appletvsimulator" -destination "name=Apple TV 4K" -configuration Release ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO
-
-      - name: Run unit tests for CorePlot-CocoaTouch
-        run: xcodebuild -project framework/CorePlot.xcodeproj -target "CorePlot-CocoaTouchTests" -sdk "iphonesimulator" -destination "name=iPhone 12 Pro" -configuration Release ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO
-
+        
   SPM:
     name: Verify SPM build
     runs-on: macOS-latest
