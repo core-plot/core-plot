@@ -50,4 +50,4 @@ jobs:
   - env: PROJECT=examples/CorePlotGallery/Plot_Gallery TARGET="Plot Gallery-tvOS" SDK=appletvsimulator
 
 # Build script
-script: xcodebuild -project ${PROJECT}.xcodeproj -target ${TARGET} -sdk ${SDK} -configuration Release
+script: xcodebuild -project "${PROJECT}.xcodeproj" -target "${TARGET}" -sdk ${SDK} -configuration Release
