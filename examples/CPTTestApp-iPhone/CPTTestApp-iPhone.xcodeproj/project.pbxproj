@@ -44,6 +44,13 @@
 			remoteGlobalIDString = C37EA6B71BC83F2D0091C8F7;
 			remoteInfo = "UnitTests tvOS";
 		};
+		C326881E258704E80007B718 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3D414AE1A7D846500B6F5D6 /* CorePlot.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C38A09771A46185200D45436;
+			remoteInfo = "CorePlot iOS";
+		};
 		C3D414BA1A7D846500B6F5D6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C3D414AE1A7D846500B6F5D6 /* CorePlot.xcodeproj */;
@@ -233,6 +240,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C326881F258704E80007B718 /* PBXTargetDependency */,
 			);
 			name = "CPTTestApp-iPhone";
 			productName = "CPTTestApp-iPhone";
@@ -358,6 +366,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C326881F258704E80007B718 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "CorePlot iOS";
+			targetProxy = C326881E258704E80007B718 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C37A40F120E0322D00C4FF48 /* Info.plist */ = {

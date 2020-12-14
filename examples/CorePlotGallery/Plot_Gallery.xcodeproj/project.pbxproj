@@ -148,13 +148,6 @@
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = CorePlot;
 		};
-		C30B12451BCADD300084C567 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4F35EC1D1236AE6E007C3389 /* CorePlot.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = C38A09771A46185200D45436;
-			remoteInfo = "CorePlot iOS";
-		};
 		C30D8B171BCAF99D0003BB70 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4F35EC1D1236AE6E007C3389 /* CorePlot.xcodeproj */;
@@ -666,7 +659,6 @@
 			);
 			dependencies = (
 				C34CB57A1BC9B0D4009270A0 /* PBXTargetDependency */,
-				C30B12461BCADD300084C567 /* PBXTargetDependency */,
 			);
 			name = "Plot Gallery-iOS";
 			productName = "Plot Gallery-iOS";
@@ -919,11 +911,6 @@
 			isa = PBXTargetDependency;
 			name = CorePlot;
 			targetProxy = 4F4892921290FFED00EDB93F /* PBXContainerItemProxy */;
-		};
-		C30B12461BCADD300084C567 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "CorePlot iOS";
-			targetProxy = C30B12451BCADD300084C567 /* PBXContainerItemProxy */;
 		};
 		C30D8B1F1BCAFC080003BB70 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
