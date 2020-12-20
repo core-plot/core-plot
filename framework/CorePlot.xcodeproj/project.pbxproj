@@ -910,7 +910,6 @@
 		C31908A41998168C00B61898 /* CorePlot.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlot.xcconfig; path = xcconfig/CorePlot.xcconfig; sourceTree = "<group>"; };
 		C3226A451A69ED0900F77249 /* doxygen touch.config */ = {isa = PBXFileReference; lastKnownFileType = text; lineEnding = 0; name = "doxygen touch.config"; path = "../documentation/doxygen/doxygen touch.config"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "<none>"; };
 		C3226A461A69ED1F00F77249 /* doxygen-cocoa-touch-tags.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "doxygen-cocoa-touch-tags.xml"; path = "../documentation/doxygen/doxygen-cocoa-touch-tags.xml"; sourceTree = "<group>"; };
-		C3226A471A69EE9200F77249 /* CorePlot-CocoaTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorePlot-CocoaTouch.h"; sourceTree = "<group>"; };
 		C3226A511A69F6DA00F77249 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		C3226A531A69F6DF00F77249 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		C3226A551A69F6F000F77249 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
@@ -1454,7 +1453,6 @@
 			children = (
 				32DBCF5E0370ADEE00C91783 /* CorePlot_Prefix.pch */,
 				070CF7AE0F3CA7AB0001FFF4 /* CorePlot.h */,
-				C3226A471A69EE9200F77249 /* CorePlot-CocoaTouch.h */,
 				C3C9D08C1BB5A44800931F32 /* CorePlotDebug.xcconfig */,
 				C3C9D08D1BB5A45B00931F32 /* CorePlotRelease.xcconfig */,
 				C31908A41998168C00B61898 /* CorePlot.xcconfig */,
