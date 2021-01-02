@@ -912,7 +912,6 @@
 		C3226A461A69ED1F00F77249 /* doxygen-cocoa-touch-tags.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "doxygen-cocoa-touch-tags.xml"; path = "../documentation/doxygen/doxygen-cocoa-touch-tags.xml"; sourceTree = "<group>"; };
 		C3226A511A69F6DA00F77249 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		C3226A531A69F6DF00F77249 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		C3226A551A69F6F000F77249 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
 		C3226A571A69F6FA00F77249 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		C3286BFE15D8740100A436A8 /* _CPTMaskLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPTMaskLayer.h; sourceTree = "<group>"; };
 		C3286BFF15D8740100A436A8 /* _CPTMaskLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = _CPTMaskLayer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -984,7 +983,6 @@
 		C3B25EDF1AC23A7D0063CCD8 /* CorePlot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CorePlot.h; sourceTree = "<group>"; };
 		C3BB3C8C1C1661BE00B8742D /* _CPTAnimationNSNumberPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPTAnimationNSNumberPeriod.h; sourceTree = "<group>"; };
 		C3BB3C8D1C1661BE00B8742D /* _CPTAnimationNSNumberPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _CPTAnimationNSNumberPeriod.m; sourceTree = "<group>"; };
-		C3BB7D1416322F7E00BC9515 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C3BB93181B729BD200004527 /* CPTDebugQuickLook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTDebugQuickLook.h; sourceTree = "<group>"; };
 		C3C032C710B8DEDC003A11B6 /* CPTAxisLabelGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAxisLabelGroup.h; sourceTree = "<group>"; };
 		C3C032C810B8DEDC003A11B6 /* CPTAxisLabelGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CPTAxisLabelGroup.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -1441,7 +1439,6 @@
 		1058C7B0FEA5585E11CA2CBB /* Mac */ = {
 			isa = PBXGroup;
 			children = (
-				C3BB7D1416322F7E00BC9515 /* Accelerate.framework */,
 				C3EE4E971A6C1E890098F4E6 /* Cocoa.framework */,
 				07BF0D630F2B70B8002FCEA7 /* QuartzCore.framework */,
 			);
@@ -1670,7 +1667,6 @@
 		C39588531A6B2F6B009F9297 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				C3226A551A69F6F000F77249 /* Accelerate.framework */,
 				C3226A571A69F6FA00F77249 /* CoreGraphics.framework */,
 				C3226A511A69F6DA00F77249 /* QuartzCore.framework */,
 				C3226A531A69F6DF00F77249 /* UIKit.framework */,

@@ -68,20 +68,6 @@
 			remoteGlobalIDString = C38A09821A46185300D45436;
 			remoteInfo = CorePlot_iOSTests;
 		};
-		C3B345CB1B46195900844218 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C38A09BA1A4619A900D45436;
-			remoteInfo = "CorePlot-CocoaTouch";
-		};
-		C3B345CD1B46195900844218 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 076184BC0F3CAD5900A89A76 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C38A09C41A4619A900D45436;
-			remoteInfo = "CorePlot-CocoaTouchTests";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -140,8 +126,6 @@
 				07E0DF80109C4E9500F108D2 /* UnitTests.xctest */,
 				C3B345C81B46195900844218 /* CorePlot.framework */,
 				C3B345CA1B46195900844218 /* UnitTests iOS.xctest */,
-				C3B345CC1B46195900844218 /* libCorePlot-CocoaTouch.a */,
-				C3B345CE1B46195900844218 /* CorePlot-CocoaTouchTests.xctest */,
 				C310CE881C0A3DF700C4FCB4 /* CorePlot.framework */,
 				C310CE8A1C0A3DF700C4FCB4 /* UnitTests tvOS.xctest */,
 			);
@@ -332,20 +316,6 @@
 			remoteRef = C3B345C91B46195900844218 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C3B345CC1B46195900844218 /* libCorePlot-CocoaTouch.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libCorePlot-CocoaTouch.a";
-			remoteRef = C3B345CB1B46195900844218 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C3B345CE1B46195900844218 /* CorePlot-CocoaTouchTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "CorePlot-CocoaTouchTests.xctest";
-			remoteRef = C3B345CD1B46195900844218 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -465,7 +435,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SYMROOT = "$(SRCROOT)/../../build";
@@ -481,7 +451,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				SDKROOT = macosx;
 				SYMROOT = "$(SRCROOT)/../../build";
 			};

@@ -321,7 +321,7 @@
 
     pdfSavingDialog.allowedFileTypes = @[@"pdf"];
 
-    if ( [pdfSavingDialog runModal] == NSOKButton ) {
+    if ( [pdfSavingDialog runModal] == NSModalResponseOK ) {
         NSData *dataForPDF = [self.graph dataForPDFRepresentationOfLayer];
 
         NSURL *url = pdfSavingDialog.URL;
@@ -337,7 +337,7 @@
 
     pngSavingDialog.allowedFileTypes = @[@"png"];
 
-    if ( [pngSavingDialog runModal] == NSOKButton ) {
+    if ( [pngSavingDialog runModal] == NSModalResponseOK ) {
         NSImage *image            = [self.graph imageOfLayer];
         NSData *tiffData          = image.TIFFRepresentation;
         NSBitmapImageRep *tiffRep = [NSBitmapImageRep imageRepWithData:tiffData];

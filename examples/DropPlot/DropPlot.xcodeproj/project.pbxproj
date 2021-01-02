@@ -57,20 +57,6 @@
 			remoteGlobalIDString = C38A09821A46185300D45436;
 			remoteInfo = CorePlot_iOSTests;
 		};
-		C3B345AB1B46194500844218 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BC93AA7C0FDEFEAC00606226 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C38A09BA1A4619A900D45436;
-			remoteInfo = "CorePlot-CocoaTouch";
-		};
-		C3B345AD1B46194500844218 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BC93AA7C0FDEFEAC00606226 /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C38A09C41A4619A900D45436;
-			remoteInfo = "CorePlot-CocoaTouchTests";
-		};
 		C3CBFB791BE590A300519EE8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BC93AA7C0FDEFEAC00606226 /* CorePlot.xcodeproj */;
@@ -231,8 +217,6 @@
 				07E0DFAC109C4EB500F108D2 /* UnitTests.xctest */,
 				C3B345A81B46194500844218 /* CorePlot.framework */,
 				C3B345AA1B46194500844218 /* UnitTests iOS.xctest */,
-				C3B345AC1B46194500844218 /* libCorePlot-CocoaTouch.a */,
-				C3B345AE1B46194500844218 /* CorePlot-CocoaTouchTests.xctest */,
 				C3CBFB7A1BE590A300519EE8 /* CorePlot.framework */,
 				C3CBFB7C1BE590A300519EE8 /* UnitTests tvOS.xctest */,
 			);
@@ -323,20 +307,6 @@
 			fileType = wrapper.cfbundle;
 			path = "UnitTests iOS.xctest";
 			remoteRef = C3B345A91B46194500844218 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C3B345AC1B46194500844218 /* libCorePlot-CocoaTouch.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libCorePlot-CocoaTouch.a";
-			remoteRef = C3B345AB1B46194500844218 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C3B345AE1B46194500844218 /* CorePlot-CocoaTouchTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "CorePlot-CocoaTouchTests.xctest";
-			remoteRef = C3B345AD1B46194500844218 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		C3CBFB7A1BE590A300519EE8 /* CorePlot.framework */ = {
@@ -489,7 +459,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SYMROOT = "$(SRCROOT)/../../build";
@@ -504,7 +474,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = s;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				SDKROOT = macosx;
 				SYMROOT = "$(SRCROOT)/../../build";
 			};

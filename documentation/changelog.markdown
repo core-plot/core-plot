@@ -2,14 +2,15 @@
 
 ## Release Notes
 
-This release updates Core Plot to be compatible with Xcode 12.
+This release updates Core Plot to be compatible with Xcode 12, Mac Catalyst, and the Swift Package Manager.
 
-The Mac deployment target is now macOS 10.9. The iOS deployment target is now iOS 9.0. The tvOS deployment target remains tvOS 9.0. The iOS static is obsolete and has been removed.
+The Mac deployment target is now macOS 10.10. The iOS deployment target has changed to iOS 12.0. The tvOS deployment target has changed to tvOS 12.0. The iOS static library is obsolete and has been removed.
 
 ## Details
 
+- **New**: Mac Catalyst support
 - **New**: Swift Package Manager support
-- **Changed**: Updated the deployment targets for all supported operating systems for the minimums required by Xcode 12. The Mac deployment target is now macOS 10.9. The iOS deployment target is now iOS 9.0. The tvOS deployment target remains tvOS 9.0.
+- **Changed**: Updated the deployment targets for all supported operating systems for the minimums required by Xcode 12. The Mac deployment target is now macOS 10.10. The iOS deployment target is now iOS 12.0. The tvOS deployment target is now tvOS 12.0.
 - **Removed**: Removed the iOS static library.
 
 # Release 2.3 (January 10, 2020)
