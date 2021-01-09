@@ -77,3 +77,13 @@
 #import <CorePlot/CPTXYAxisSet.h>
 #import <CorePlot/CPTXYGraph.h>
 #import <CorePlot/CPTXYPlotSpace.h>
+// added S.Wainwright
+#import <CorePlot/CPTPolarAxis.h>
+#import <CorePlot/CPTPolarAxisSet.h>
+#import <CorePlot/CPTPolarGraph.h>
+#import <CorePlot/CPTPolarPlotSpace.h>
+#import <CorePlot/CPTPolarPlot.h>
+#import <CorePlot/CPTPolarPlotSpaceAnnotation.h>
+#import <CorePlot/CPTVectorFieldPlot.h>
+#import <CorePlot/CPTContourPlot.h>
+#import <CorePlot/CPTFieldFunctionDataSource.h>

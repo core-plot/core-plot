@@ -72,3 +72,13 @@
 #import "CPTXYAxisSet.h"
 #import "CPTXYGraph.h"
 #import "CPTXYPlotSpace.h"
+// added S.Wainwright
+#import "CPTPolarAxis.h"
+#import "CPTPolarAxisSet.h"
+#import "CPTPolarGraph.h"
+#import "CPTPolarPlotSpace.h"
+#import "CPTPolarPlot.h"
+#import "CPTPolarPlotSpaceAnnotation.h"
+#import "CPTVectorFieldPlot.h"
+#import "CPTContourPlot.h"
+#import "CPTFieldFunctionDataSource.h"
