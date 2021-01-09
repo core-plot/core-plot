@@ -12,6 +12,13 @@ extern CPTThemeName __nonnull const kCPTPlainBlackTheme;   ///< A graph theme wi
 extern CPTThemeName __nonnull const kCPTPlainWhiteTheme;   ///< A graph theme with white backgrounds and black lines.
 extern CPTThemeName __nonnull const kCPTSlateTheme;        ///< A graph theme with colors that match the default iPhone navigation bar, toolbar buttons, and table views.
 extern CPTThemeName __nonnull const kCPTStocksTheme;       ///< A graph theme with a gradient background and white lines.
+// added S.Wainwright
+extern CPTThemeName __nonnull const kCPTDarkGradientTheme_Polar; ///< A graph theme with dark gray gradient backgrounds and light gray lines.
+extern CPTThemeName __nonnull const kCPTPlainBlackTheme_Polar;   ///< A graph theme with black backgrounds and white lines.
+extern CPTThemeName __nonnull const kCPTPlainWhiteTheme_Polar;   ///< A graph theme with white backgrounds and black lines.
+extern CPTThemeName __nonnull const kCPTSlateTheme_Polar;        ///< A graph theme with colors that match the default iPhone navigation bar, toolbar buttons, and table views.
+extern CPTThemeName __nonnull const kCPTStocksTheme_Polar;       ///< A graph theme with a gradient background and white lines.
+/// @}
 /// @}
 
 @class CPTGraph;
