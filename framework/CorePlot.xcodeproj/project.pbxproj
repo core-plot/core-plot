@@ -740,6 +740,102 @@
 		E042459825841FCF00C61A67 /* CPTTextStylePlatformSpecific.m in Sources */ = {isa = PBXBuildFile; fileRef = C38A0A541A461F9700D45436 /* CPTTextStylePlatformSpecific.m */; };
 		E04245A725841FD300C61A67 /* CPTTextStylePlatformSpecific.h in Headers */ = {isa = PBXBuildFile; fileRef = C38A0A531A461F9700D45436 /* CPTTextStylePlatformSpecific.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E04245E02584204500C61A67 /* CPTImagePlatformSpecific.m in Sources */ = {isa = PBXBuildFile; fileRef = C38A0A591A4620B800D45436 /* CPTImagePlatformSpecific.m */; };
+		E3BB4BCD25A43B8800A7E5FB /* CPTPolarGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4BCB25A43B8800A7E5FB /* CPTPolarGraph.m */; };
+		E3BB4BCE25A43B8800A7E5FB /* CPTPolarGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4BCB25A43B8800A7E5FB /* CPTPolarGraph.m */; };
+		E3BB4BCF25A43B8800A7E5FB /* CPTPolarGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4BCB25A43B8800A7E5FB /* CPTPolarGraph.m */; };
+		E3BB4BD025A43B8800A7E5FB /* CPTPolarGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4BCC25A43B8800A7E5FB /* CPTPolarGraph.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3BB4BD125A43B8800A7E5FB /* CPTPolarGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4BCC25A43B8800A7E5FB /* CPTPolarGraph.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3BB4BD225A43B8800A7E5FB /* CPTPolarGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4BCC25A43B8800A7E5FB /* CPTPolarGraph.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3BB4BE125A43BCE00A7E5FB /* CPTPolarPlotSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4BDF25A43BCE00A7E5FB /* CPTPolarPlotSpace.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3BB4BE225A43BCE00A7E5FB /* CPTPolarPlotSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4BDF25A43BCE00A7E5FB /* CPTPolarPlotSpace.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3BB4BE325A43BCE00A7E5FB /* CPTPolarPlotSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4BDF25A43BCE00A7E5FB /* CPTPolarPlotSpace.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3BB4BE425A43BCE00A7E5FB /* CPTPolarPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4BE025A43BCE00A7E5FB /* CPTPolarPlotSpace.m */; };
+		E3BB4BE525A43BCE00A7E5FB /* CPTPolarPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4BE025A43BCE00A7E5FB /* CPTPolarPlotSpace.m */; };
+		E3BB4BE625A43BCE00A7E5FB /* CPTPolarPlotSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4BE025A43BCE00A7E5FB /* CPTPolarPlotSpace.m */; };
+		E3BB4C0325A43C3B00A7E5FB /* CPTPolarPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4BFF25A43C3B00A7E5FB /* CPTPolarPlot.m */; };
+		E3BB4C0425A43C3B00A7E5FB /* CPTPolarPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4BFF25A43C3B00A7E5FB /* CPTPolarPlot.m */; };
+		E3BB4C0525A43C3B00A7E5FB /* CPTPolarPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4BFF25A43C3B00A7E5FB /* CPTPolarPlot.m */; };
+		E3BB4C0625A43C3B00A7E5FB /* CPTContourPlot.mm in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C0025A43C3B00A7E5FB /* CPTContourPlot.mm */; };
+		E3BB4C0725A43C3B00A7E5FB /* CPTContourPlot.mm in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C0025A43C3B00A7E5FB /* CPTContourPlot.mm */; };
+		E3BB4C0825A43C3B00A7E5FB /* CPTContourPlot.mm in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C0025A43C3B00A7E5FB /* CPTContourPlot.mm */; };
+		E3BB4C0925A43C3B00A7E5FB /* CPTContourPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C0125A43C3B00A7E5FB /* CPTContourPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3BB4C0A25A43C3B00A7E5FB /* CPTContourPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C0125A43C3B00A7E5FB /* CPTContourPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3BB4C0B25A43C3B00A7E5FB /* CPTContourPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C0125A43C3B00A7E5FB /* CPTContourPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3BB4C0C25A43C3B00A7E5FB /* CPTPolarPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C0225A43C3B00A7E5FB /* CPTPolarPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3BB4C0D25A43C3B00A7E5FB /* CPTPolarPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C0225A43C3B00A7E5FB /* CPTPolarPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3BB4C0E25A43C3B00A7E5FB /* CPTPolarPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C0225A43C3B00A7E5FB /* CPTPolarPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3BB4C1D25A43C6C00A7E5FB /* CPTVectorFieldPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C1B25A43C6C00A7E5FB /* CPTVectorFieldPlot.m */; };
+		E3BB4C1E25A43C6C00A7E5FB /* CPTVectorFieldPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C1B25A43C6C00A7E5FB /* CPTVectorFieldPlot.m */; };
+		E3BB4C1F25A43C6C00A7E5FB /* CPTVectorFieldPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C1B25A43C6C00A7E5FB /* CPTVectorFieldPlot.m */; };
+		E3BB4C2025A43C6C00A7E5FB /* CPTVectorFieldPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C1C25A43C6C00A7E5FB /* CPTVectorFieldPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3BB4C2125A43C6C00A7E5FB /* CPTVectorFieldPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C1C25A43C6C00A7E5FB /* CPTVectorFieldPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3BB4C2225A43C6C00A7E5FB /* CPTVectorFieldPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C1C25A43C6C00A7E5FB /* CPTVectorFieldPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3BB4C3F25A43CCB00A7E5FB /* CPTPolarAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C3B25A43CCA00A7E5FB /* CPTPolarAxis.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3BB4C4025A43CCB00A7E5FB /* CPTPolarAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C3B25A43CCA00A7E5FB /* CPTPolarAxis.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3BB4C4125A43CCB00A7E5FB /* CPTPolarAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C3B25A43CCA00A7E5FB /* CPTPolarAxis.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3BB4C4225A43CCB00A7E5FB /* CPTPolarAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C3C25A43CCA00A7E5FB /* CPTPolarAxis.m */; };
+		E3BB4C4325A43CCB00A7E5FB /* CPTPolarAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C3C25A43CCA00A7E5FB /* CPTPolarAxis.m */; };
+		E3BB4C4425A43CCB00A7E5FB /* CPTPolarAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C3C25A43CCA00A7E5FB /* CPTPolarAxis.m */; };
+		E3BB4C4525A43CCB00A7E5FB /* CPTPolarAxisSet.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C3D25A43CCB00A7E5FB /* CPTPolarAxisSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3BB4C4625A43CCB00A7E5FB /* CPTPolarAxisSet.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C3D25A43CCB00A7E5FB /* CPTPolarAxisSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3BB4C4725A43CCB00A7E5FB /* CPTPolarAxisSet.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C3D25A43CCB00A7E5FB /* CPTPolarAxisSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3BB4C4825A43CCB00A7E5FB /* CPTPolarAxisSet.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C3E25A43CCB00A7E5FB /* CPTPolarAxisSet.m */; };
+		E3BB4C4925A43CCB00A7E5FB /* CPTPolarAxisSet.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C3E25A43CCB00A7E5FB /* CPTPolarAxisSet.m */; };
+		E3BB4C4A25A43CCB00A7E5FB /* CPTPolarAxisSet.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C3E25A43CCB00A7E5FB /* CPTPolarAxisSet.m */; };
+		E3BB4C6325A43D2700A7E5FB /* _CPTPolarTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C5725A43D2700A7E5FB /* _CPTPolarTheme.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E3BB4C6425A43D2700A7E5FB /* _CPTPolarTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C5725A43D2700A7E5FB /* _CPTPolarTheme.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E3BB4C6525A43D2700A7E5FB /* _CPTPolarTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C5725A43D2700A7E5FB /* _CPTPolarTheme.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E3BB4C6625A43D2700A7E5FB /* _CPTSlateTheme_Polar.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C5825A43D2700A7E5FB /* _CPTSlateTheme_Polar.m */; };
+		E3BB4C6725A43D2700A7E5FB /* _CPTSlateTheme_Polar.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C5825A43D2700A7E5FB /* _CPTSlateTheme_Polar.m */; };
+		E3BB4C6825A43D2700A7E5FB /* _CPTSlateTheme_Polar.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C5825A43D2700A7E5FB /* _CPTSlateTheme_Polar.m */; };
+		E3BB4C6925A43D2800A7E5FB /* _CPTPlainBlackTheme_Polar.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C5925A43D2700A7E5FB /* _CPTPlainBlackTheme_Polar.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E3BB4C6A25A43D2800A7E5FB /* _CPTPlainBlackTheme_Polar.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C5925A43D2700A7E5FB /* _CPTPlainBlackTheme_Polar.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E3BB4C6B25A43D2800A7E5FB /* _CPTPlainBlackTheme_Polar.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C5925A43D2700A7E5FB /* _CPTPlainBlackTheme_Polar.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E3BB4C6C25A43D2800A7E5FB /* _CPTPolarTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C5A25A43D2700A7E5FB /* _CPTPolarTheme.m */; };
+		E3BB4C6D25A43D2800A7E5FB /* _CPTPolarTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C5A25A43D2700A7E5FB /* _CPTPolarTheme.m */; };
+		E3BB4C6E25A43D2800A7E5FB /* _CPTPolarTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C5A25A43D2700A7E5FB /* _CPTPolarTheme.m */; };
+		E3BB4C6F25A43D2800A7E5FB /* _CPTDarkGradientTheme_Polar.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C5B25A43D2700A7E5FB /* _CPTDarkGradientTheme_Polar.m */; };
+		E3BB4C7025A43D2800A7E5FB /* _CPTDarkGradientTheme_Polar.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C5B25A43D2700A7E5FB /* _CPTDarkGradientTheme_Polar.m */; };
+		E3BB4C7125A43D2800A7E5FB /* _CPTDarkGradientTheme_Polar.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C5B25A43D2700A7E5FB /* _CPTDarkGradientTheme_Polar.m */; };
+		E3BB4C7225A43D2800A7E5FB /* _CPTPlainBlackTheme_Polar.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C5C25A43D2700A7E5FB /* _CPTPlainBlackTheme_Polar.m */; };
+		E3BB4C7325A43D2800A7E5FB /* _CPTPlainBlackTheme_Polar.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C5C25A43D2700A7E5FB /* _CPTPlainBlackTheme_Polar.m */; };
+		E3BB4C7425A43D2800A7E5FB /* _CPTPlainBlackTheme_Polar.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C5C25A43D2700A7E5FB /* _CPTPlainBlackTheme_Polar.m */; };
+		E3BB4C7525A43D2800A7E5FB /* _CPTSlateTheme_Polar.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C5D25A43D2700A7E5FB /* _CPTSlateTheme_Polar.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E3BB4C7625A43D2800A7E5FB /* _CPTSlateTheme_Polar.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C5D25A43D2700A7E5FB /* _CPTSlateTheme_Polar.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E3BB4C7725A43D2800A7E5FB /* _CPTSlateTheme_Polar.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C5D25A43D2700A7E5FB /* _CPTSlateTheme_Polar.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E3BB4C7825A43D2800A7E5FB /* _CPTStocksTheme_Polar.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C5E25A43D2700A7E5FB /* _CPTStocksTheme_Polar.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E3BB4C7925A43D2800A7E5FB /* _CPTStocksTheme_Polar.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C5E25A43D2700A7E5FB /* _CPTStocksTheme_Polar.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E3BB4C7A25A43D2800A7E5FB /* _CPTStocksTheme_Polar.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C5E25A43D2700A7E5FB /* _CPTStocksTheme_Polar.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E3BB4C7B25A43D2800A7E5FB /* _CPTPlainWhiteTheme_Polar.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C5F25A43D2700A7E5FB /* _CPTPlainWhiteTheme_Polar.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E3BB4C7C25A43D2800A7E5FB /* _CPTPlainWhiteTheme_Polar.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C5F25A43D2700A7E5FB /* _CPTPlainWhiteTheme_Polar.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E3BB4C7D25A43D2800A7E5FB /* _CPTPlainWhiteTheme_Polar.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C5F25A43D2700A7E5FB /* _CPTPlainWhiteTheme_Polar.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E3BB4C7E25A43D2800A7E5FB /* _CPTPlainWhiteTheme_Polar.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C6025A43D2700A7E5FB /* _CPTPlainWhiteTheme_Polar.m */; };
+		E3BB4C7F25A43D2800A7E5FB /* _CPTPlainWhiteTheme_Polar.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C6025A43D2700A7E5FB /* _CPTPlainWhiteTheme_Polar.m */; };
+		E3BB4C8025A43D2800A7E5FB /* _CPTPlainWhiteTheme_Polar.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C6025A43D2700A7E5FB /* _CPTPlainWhiteTheme_Polar.m */; };
+		E3BB4C8125A43D2800A7E5FB /* _CPTStocksTheme_Polar.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C6125A43D2700A7E5FB /* _CPTStocksTheme_Polar.m */; };
+		E3BB4C8225A43D2800A7E5FB /* _CPTStocksTheme_Polar.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C6125A43D2700A7E5FB /* _CPTStocksTheme_Polar.m */; };
+		E3BB4C8325A43D2800A7E5FB /* _CPTStocksTheme_Polar.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB4C6125A43D2700A7E5FB /* _CPTStocksTheme_Polar.m */; };
+		E3BB4C8425A43D2800A7E5FB /* _CPTDarkGradientTheme_Polar.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C6225A43D2700A7E5FB /* _CPTDarkGradientTheme_Polar.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E3BB4C8525A43D2800A7E5FB /* _CPTDarkGradientTheme_Polar.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C6225A43D2700A7E5FB /* _CPTDarkGradientTheme_Polar.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E3BB4C8625A43D2800A7E5FB /* _CPTDarkGradientTheme_Polar.h in Headers */ = {isa = PBXBuildFile; fileRef = E3BB4C6225A43D2700A7E5FB /* _CPTDarkGradientTheme_Polar.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E3CD535C25A9628400024CC1 /* libCorePlot-Contours_tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E3CD534925A9623400024CC1 /* libCorePlot-Contours_tvOS.a */; };
+		E3CD535D25A9628C00024CC1 /* libCorePlot-Contours_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E3CD534525A9623400024CC1 /* libCorePlot-Contours_iOS.a */; };
+		E3CD535E25A9629300024CC1 /* libCorePlot-Contours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E3CD534725A9623400024CC1 /* libCorePlot-Contours.a */; };
+		E3F64B5C25A56FD600E2B38B /* CPTFieldFunctionDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E3F64B5A25A56FD600E2B38B /* CPTFieldFunctionDataSource.m */; };
+		E3F64B5D25A56FD600E2B38B /* CPTFieldFunctionDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E3F64B5A25A56FD600E2B38B /* CPTFieldFunctionDataSource.m */; };
+		E3F64B5E25A56FD600E2B38B /* CPTFieldFunctionDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E3F64B5A25A56FD600E2B38B /* CPTFieldFunctionDataSource.m */; };
+		E3F64B5F25A56FD600E2B38B /* CPTFieldFunctionDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = E3F64B5B25A56FD600E2B38B /* CPTFieldFunctionDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3F64B6025A56FD600E2B38B /* CPTFieldFunctionDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = E3F64B5B25A56FD600E2B38B /* CPTFieldFunctionDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3F64B6125A56FD600E2B38B /* CPTFieldFunctionDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = E3F64B5B25A56FD600E2B38B /* CPTFieldFunctionDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3F64C7D25A5916C00E2B38B /* CPTPolarPlotSpaceAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = E3F64C7B25A5916B00E2B38B /* CPTPolarPlotSpaceAnnotation.m */; };
+		E3F64C7E25A5916C00E2B38B /* CPTPolarPlotSpaceAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = E3F64C7B25A5916B00E2B38B /* CPTPolarPlotSpaceAnnotation.m */; };
+		E3F64C7F25A5916C00E2B38B /* CPTPolarPlotSpaceAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = E3F64C7B25A5916B00E2B38B /* CPTPolarPlotSpaceAnnotation.m */; };
+		E3F64C8025A5916C00E2B38B /* CPTPolarPlotSpaceAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = E3F64C7C25A5916C00E2B38B /* CPTPolarPlotSpaceAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3F64C8125A5916C00E2B38B /* CPTPolarPlotSpaceAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = E3F64C7C25A5916C00E2B38B /* CPTPolarPlotSpaceAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3F64C8225A5916C00E2B38B /* CPTPolarPlotSpaceAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = E3F64C7C25A5916C00E2B38B /* CPTPolarPlotSpaceAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3F64CD325A5929200E2B38B /* CPTPolarPlotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E3F64C9B25A591A000E2B38B /* CPTPolarPlotTests.m */; };
+		E3F64CEC25A5929400E2B38B /* CPTPolarPlotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E3F64C9B25A591A000E2B38B /* CPTPolarPlotTests.m */; };
+		E3F64CF925A5929500E2B38B /* CPTPolarPlotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E3F64C9B25A591A000E2B38B /* CPTPolarPlotTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -763,6 +859,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = C37EA5C91BC83F2A0091C8F7;
 			remoteInfo = "CorePlot tvOS";
+		};
+		E3CD534425A9623400024CC1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E3CD533E25A9623300024CC1 /* CorePlot-Contours.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E33A5C76259F4B60008DF93A;
+			remoteInfo = "CorePlot-Contours_iOS";
+		};
+		E3CD534625A9623400024CC1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E3CD533E25A9623300024CC1 /* CorePlot-Contours.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E3F64D4225A5B7D700E2B38B;
+			remoteInfo = "CorePlot-Contours";
+		};
+		E3CD534825A9623400024CC1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E3CD533E25A9623300024CC1 /* CorePlot-Contours.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E3F64D7C25A5BCF500E2B38B;
+			remoteInfo = "CorePlot-Contours_tvOS";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -910,7 +1027,6 @@
 		C31908A41998168C00B61898 /* CorePlot.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlot.xcconfig; path = xcconfig/CorePlot.xcconfig; sourceTree = "<group>"; };
 		C3226A451A69ED0900F77249 /* doxygen touch.config */ = {isa = PBXFileReference; lastKnownFileType = text; lineEnding = 0; name = "doxygen touch.config"; path = "../documentation/doxygen/doxygen touch.config"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "<none>"; };
 		C3226A461A69ED1F00F77249 /* doxygen-cocoa-touch-tags.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "doxygen-cocoa-touch-tags.xml"; path = "../documentation/doxygen/doxygen-cocoa-touch-tags.xml"; sourceTree = "<group>"; };
-		C3226A471A69EE9200F77249 /* CorePlot-CocoaTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorePlot-CocoaTouch.h"; sourceTree = "<group>"; };
 		C3226A511A69F6DA00F77249 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		C3226A531A69F6DF00F77249 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		C3226A551A69F6F000F77249 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
@@ -1049,6 +1165,39 @@
 		E1FE6051100F27EF00895A91 /* CPTDarkGradientThemeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTDarkGradientThemeTests.m; sourceTree = "<group>"; };
 		E1FE6119100F3FB700895A91 /* CPTDerivedXYGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTDerivedXYGraph.h; sourceTree = "<group>"; };
 		E1FE611A100F3FB700895A91 /* CPTDerivedXYGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTDerivedXYGraph.m; sourceTree = "<group>"; };
+		E3BB4BCB25A43B8800A7E5FB /* CPTPolarGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTPolarGraph.m; sourceTree = "<group>"; };
+		E3BB4BCC25A43B8800A7E5FB /* CPTPolarGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPolarGraph.h; sourceTree = "<group>"; };
+		E3BB4BDF25A43BCE00A7E5FB /* CPTPolarPlotSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPolarPlotSpace.h; sourceTree = "<group>"; };
+		E3BB4BE025A43BCE00A7E5FB /* CPTPolarPlotSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTPolarPlotSpace.m; sourceTree = "<group>"; };
+		E3BB4BFF25A43C3B00A7E5FB /* CPTPolarPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTPolarPlot.m; sourceTree = "<group>"; };
+		E3BB4C0025A43C3B00A7E5FB /* CPTContourPlot.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CPTContourPlot.mm; sourceTree = "<group>"; };
+		E3BB4C0125A43C3B00A7E5FB /* CPTContourPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTContourPlot.h; sourceTree = "<group>"; };
+		E3BB4C0225A43C3B00A7E5FB /* CPTPolarPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPolarPlot.h; sourceTree = "<group>"; };
+		E3BB4C1B25A43C6C00A7E5FB /* CPTVectorFieldPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTVectorFieldPlot.m; sourceTree = "<group>"; };
+		E3BB4C1C25A43C6C00A7E5FB /* CPTVectorFieldPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTVectorFieldPlot.h; sourceTree = "<group>"; };
+		E3BB4C3B25A43CCA00A7E5FB /* CPTPolarAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPolarAxis.h; sourceTree = "<group>"; };
+		E3BB4C3C25A43CCA00A7E5FB /* CPTPolarAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTPolarAxis.m; sourceTree = "<group>"; };
+		E3BB4C3D25A43CCB00A7E5FB /* CPTPolarAxisSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPolarAxisSet.h; sourceTree = "<group>"; };
+		E3BB4C3E25A43CCB00A7E5FB /* CPTPolarAxisSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTPolarAxisSet.m; sourceTree = "<group>"; };
+		E3BB4C5725A43D2700A7E5FB /* _CPTPolarTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPTPolarTheme.h; sourceTree = "<group>"; };
+		E3BB4C5825A43D2700A7E5FB /* _CPTSlateTheme_Polar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _CPTSlateTheme_Polar.m; sourceTree = "<group>"; };
+		E3BB4C5925A43D2700A7E5FB /* _CPTPlainBlackTheme_Polar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPTPlainBlackTheme_Polar.h; sourceTree = "<group>"; };
+		E3BB4C5A25A43D2700A7E5FB /* _CPTPolarTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _CPTPolarTheme.m; sourceTree = "<group>"; };
+		E3BB4C5B25A43D2700A7E5FB /* _CPTDarkGradientTheme_Polar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _CPTDarkGradientTheme_Polar.m; sourceTree = "<group>"; };
+		E3BB4C5C25A43D2700A7E5FB /* _CPTPlainBlackTheme_Polar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _CPTPlainBlackTheme_Polar.m; sourceTree = "<group>"; };
+		E3BB4C5D25A43D2700A7E5FB /* _CPTSlateTheme_Polar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPTSlateTheme_Polar.h; sourceTree = "<group>"; };
+		E3BB4C5E25A43D2700A7E5FB /* _CPTStocksTheme_Polar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPTStocksTheme_Polar.h; sourceTree = "<group>"; };
+		E3BB4C5F25A43D2700A7E5FB /* _CPTPlainWhiteTheme_Polar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPTPlainWhiteTheme_Polar.h; sourceTree = "<group>"; };
+		E3BB4C6025A43D2700A7E5FB /* _CPTPlainWhiteTheme_Polar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _CPTPlainWhiteTheme_Polar.m; sourceTree = "<group>"; };
+		E3BB4C6125A43D2700A7E5FB /* _CPTStocksTheme_Polar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _CPTStocksTheme_Polar.m; sourceTree = "<group>"; };
+		E3BB4C6225A43D2700A7E5FB /* _CPTDarkGradientTheme_Polar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPTDarkGradientTheme_Polar.h; sourceTree = "<group>"; };
+		E3CD533E25A9623300024CC1 /* CorePlot-Contours.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-Contours.xcodeproj"; path = "CorePlot-Contours/CorePlot-Contours.xcodeproj"; sourceTree = "<group>"; };
+		E3F64B5A25A56FD600E2B38B /* CPTFieldFunctionDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTFieldFunctionDataSource.m; sourceTree = "<group>"; };
+		E3F64B5B25A56FD600E2B38B /* CPTFieldFunctionDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTFieldFunctionDataSource.h; sourceTree = "<group>"; };
+		E3F64C7B25A5916B00E2B38B /* CPTPolarPlotSpaceAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTPolarPlotSpaceAnnotation.m; sourceTree = "<group>"; };
+		E3F64C7C25A5916C00E2B38B /* CPTPolarPlotSpaceAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPolarPlotSpaceAnnotation.h; sourceTree = "<group>"; };
+		E3F64C9B25A591A000E2B38B /* CPTPolarPlotTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTPolarPlotTests.m; sourceTree = "<group>"; };
+		E3F64C9C25A591A000E2B38B /* CPTPolarPlotTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPolarPlotTests.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1066,6 +1215,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3CD535E25A9629300024CC1 /* libCorePlot-Contours.a in Frameworks */,
 				C3EE4E981A6C1E890098F4E6 /* Cocoa.framework in Frameworks */,
 				C3EE4E6E1A6C15890098F4E6 /* QuartzCore.framework in Frameworks */,
 			);
@@ -1077,6 +1227,7 @@
 			files = (
 				C37EA62B1BC83F2A0091C8F7 /* CoreGraphics.framework in Frameworks */,
 				C37EA62C1BC83F2A0091C8F7 /* QuartzCore.framework in Frameworks */,
+				E3CD535C25A9628400024CC1 /* libCorePlot-Contours_tvOS.a in Frameworks */,
 				C37EA62D1BC83F2A0091C8F7 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1094,6 +1245,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3CD535D25A9628C00024CC1 /* libCorePlot-Contours_iOS.a in Frameworks */,
 				C3226A5F1A69F75400F77249 /* CoreGraphics.framework in Frameworks */,
 				C3226A5E1A69F73800F77249 /* QuartzCore.framework in Frameworks */,
 				C3226A5C1A69F72900F77249 /* UIKit.framework in Frameworks */,
@@ -1206,20 +1358,32 @@
 		0772C91E0FE2F70000EC4C16 /* Themes */ = {
 			isa = PBXGroup;
 			children = (
-				0772C9250FE2F71600EC4C16 /* CPTTheme.h */,
-				0772C9260FE2F71600EC4C16 /* CPTTheme.m */,
-				C3DA34CB107AD7710051DA02 /* _CPTXYTheme.h */,
-				C3DA34CA107AD7710051DA02 /* _CPTXYTheme.m */,
+				E3BB4C6225A43D2700A7E5FB /* _CPTDarkGradientTheme_Polar.h */,
+				E3BB4C5B25A43D2700A7E5FB /* _CPTDarkGradientTheme_Polar.m */,
 				0772C92D0FE2F89000EC4C16 /* _CPTDarkGradientTheme.h */,
 				0772C92E0FE2F89000EC4C16 /* _CPTDarkGradientTheme.m */,
+				E3BB4C5925A43D2700A7E5FB /* _CPTPlainBlackTheme_Polar.h */,
+				E3BB4C5C25A43D2700A7E5FB /* _CPTPlainBlackTheme_Polar.m */,
 				BC55022C10059F22005DF982 /* _CPTPlainBlackTheme.h */,
 				BC55022D10059F22005DF982 /* _CPTPlainBlackTheme.m */,
+				E3BB4C5F25A43D2700A7E5FB /* _CPTPlainWhiteTheme_Polar.h */,
+				E3BB4C6025A43D2700A7E5FB /* _CPTPlainWhiteTheme_Polar.m */,
 				BC55022E10059F22005DF982 /* _CPTPlainWhiteTheme.h */,
 				BC55022F10059F22005DF982 /* _CPTPlainWhiteTheme.m */,
+				E3BB4C5725A43D2700A7E5FB /* _CPTPolarTheme.h */,
+				E3BB4C5A25A43D2700A7E5FB /* _CPTPolarTheme.m */,
+				E3BB4C5D25A43D2700A7E5FB /* _CPTSlateTheme_Polar.h */,
+				E3BB4C5825A43D2700A7E5FB /* _CPTSlateTheme_Polar.m */,
 				07FCF2C4115B54AE00E46606 /* _CPTSlateTheme.h */,
 				07FCF2C5115B54AE00E46606 /* _CPTSlateTheme.m */,
+				E3BB4C5E25A43D2700A7E5FB /* _CPTStocksTheme_Polar.h */,
+				E3BB4C6125A43D2700A7E5FB /* _CPTStocksTheme_Polar.m */,
 				BC55023010059F22005DF982 /* _CPTStocksTheme.h */,
 				BC55023110059F22005DF982 /* _CPTStocksTheme.m */,
+				C3DA34CB107AD7710051DA02 /* _CPTXYTheme.h */,
+				C3DA34CA107AD7710051DA02 /* _CPTXYTheme.m */,
+				0772C9250FE2F71600EC4C16 /* CPTTheme.h */,
+				0772C9260FE2F71600EC4C16 /* CPTTheme.m */,
 				E1620CBB100F034700A84E77 /* Tests */,
 			);
 			name = Themes;
@@ -1243,6 +1407,8 @@
 			children = (
 				07BF0D700F2B718F002FCEA7 /* CPTGraph.h */,
 				07BF0D710F2B718F002FCEA7 /* CPTGraph.m */,
+				E3BB4BCC25A43B8800A7E5FB /* CPTPolarGraph.h */,
+				E3BB4BCB25A43B8800A7E5FB /* CPTPolarGraph.m */,
 				07983EF40F2F9A3D008C8618 /* CPTXYGraph.h */,
 				07983EF50F2F9A3D008C8618 /* CPTXYGraph.m */,
 			);
@@ -1289,20 +1455,26 @@
 		07BF0D890F2B736D002FCEA7 /* Plots */ = {
 			isa = PBXGroup;
 			children = (
-				C3F31DE81045EB470058520A /* CPTPlotGroup.h */,
-				C3F31DE71045EB470058520A /* CPTPlotGroup.m */,
-				07BF0D7E0F2B72F6002FCEA7 /* CPTPlot.h */,
-				07BF0D7F0F2B72F6002FCEA7 /* CPTPlot.m */,
 				0799E0930F2BB5F300790525 /* CPTBarPlot.h */,
 				0799E0940F2BB5F300790525 /* CPTBarPlot.m */,
+				E3BB4C0125A43C3B00A7E5FB /* CPTContourPlot.h */,
+				E3BB4C0025A43C3B00A7E5FB /* CPTContourPlot.mm */,
 				BC74A32E10FC402600E7E90D /* CPTPieChart.h */,
 				BC74A32F10FC402600E7E90D /* CPTPieChart.m */,
+				07BF0D7E0F2B72F6002FCEA7 /* CPTPlot.h */,
+				07BF0D7F0F2B72F6002FCEA7 /* CPTPlot.m */,
+				C3F31DE81045EB470058520A /* CPTPlotGroup.h */,
+				C3F31DE71045EB470058520A /* CPTPlotGroup.m */,
+				E3BB4C0225A43C3B00A7E5FB /* CPTPolarPlot.h */,
+				E3BB4BFF25A43C3B00A7E5FB /* CPTPolarPlot.m */,
 				D0C0477C12D6560900DA8047 /* CPTRangePlot.h */,
 				D0C0477B12D6560900DA8047 /* CPTRangePlot.m */,
 				07BF0D950F2B73CA002FCEA7 /* CPTScatterPlot.h */,
 				07BF0D960F2B73CA002FCEA7 /* CPTScatterPlot.m */,
 				0772B43710E24D5C009CD04C /* CPTTradingRangePlot.h */,
 				0772B43810E24D5C009CD04C /* CPTTradingRangePlot.m */,
+				E3BB4C1C25A43C6C00A7E5FB /* CPTVectorFieldPlot.h */,
+				E3BB4C1B25A43C6C00A7E5FB /* CPTVectorFieldPlot.m */,
 				C34AFE5711021CE20041675A /* Plot Symbols */,
 				07FEBD5F110B7E6F00E44D37 /* Tests */,
 			);
@@ -1314,6 +1486,8 @@
 			children = (
 				07BF0D7A0F2B72B0002FCEA7 /* CPTPlotSpace.h */,
 				07BF0D7B0F2B72B0002FCEA7 /* CPTPlotSpace.m */,
+				E3BB4BDF25A43BCE00A7E5FB /* CPTPolarPlotSpace.h */,
+				E3BB4BE025A43BCE00A7E5FB /* CPTPolarPlotSpace.m */,
 				0799E0970F2BB6E800790525 /* CPTXYPlotSpace.h */,
 				90AF4FB90F36D39700753D26 /* CPTXYPlotSpace.m */,
 				076A776C0FBF0C36003F6D97 /* Tests */,
@@ -1356,19 +1530,21 @@
 		07BF0DEE0F2B7BE6002FCEA7 /* Types and Functions */ = {
 			isa = PBXGroup;
 			children = (
+				E3F64B5B25A56FD600E2B38B /* CPTFieldFunctionDataSource.h */,
+				E3F64B5A25A56FD600E2B38B /* CPTFieldFunctionDataSource.m */,
+				C3BB93181B729BD200004527 /* CPTDebugQuickLook.h */,
 				07BF0DF10F2B7BFB002FCEA7 /* CPTDefinitions.h */,
 				07BF0DF20F2B7BFB002FCEA7 /* CPTDefinitions.m */,
 				07321BBF0F37370D00F423D8 /* CPTExceptions.h */,
 				07321BC00F37370D00F423D8 /* CPTExceptions.m */,
-				07321BC40F37382D00F423D8 /* CPTUtilities.h */,
-				07321BC50F37382D00F423D8 /* CPTUtilities.m */,
-				32484B3F0F530E8B002151AD /* CPTPlotRange.h */,
-				32484B400F530E8B002151AD /* CPTPlotRange.m */,
-				C3A695E3146A19BC00AF5653 /* CPTMutablePlotRange.h */,
-				C3A695E4146A19BC00AF5653 /* CPTMutablePlotRange.m */,
 				C3F97F1C17A9E07B00A52FF2 /* CPTFunctionDataSource.h */,
 				C3F97F1D17A9E07B00A52FF2 /* CPTFunctionDataSource.m */,
-				C3BB93181B729BD200004527 /* CPTDebugQuickLook.h */,
+				C3A695E3146A19BC00AF5653 /* CPTMutablePlotRange.h */,
+				C3A695E4146A19BC00AF5653 /* CPTMutablePlotRange.m */,
+				32484B3F0F530E8B002151AD /* CPTPlotRange.h */,
+				32484B400F530E8B002151AD /* CPTPlotRange.m */,
+				07321BC40F37382D00F423D8 /* CPTUtilities.h */,
+				07321BC50F37382D00F423D8 /* CPTUtilities.m */,
 				076A775F0FBF0BFE003F6D97 /* Tests */,
 			);
 			name = "Types and Functions";
@@ -1379,12 +1555,14 @@
 			children = (
 				07E10BB411D10177000B8DAB /* CPTAnnotation.h */,
 				07E10BB511D10177000B8DAB /* CPTAnnotation.m */,
-				07E10BAF11D1016B000B8DAB /* CPTPlotSpaceAnnotation.h */,
-				07E10BB011D1016B000B8DAB /* CPTPlotSpaceAnnotation.m */,
-				07E10BB911D10183000B8DAB /* CPTLayerAnnotation.h */,
-				07E10BBA11D10183000B8DAB /* CPTLayerAnnotation.m */,
 				072161E911D1F6BD009CC871 /* CPTAnnotationHostLayer.h */,
 				072161EA11D1F6BD009CC871 /* CPTAnnotationHostLayer.m */,
+				07E10BB911D10183000B8DAB /* CPTLayerAnnotation.h */,
+				07E10BBA11D10183000B8DAB /* CPTLayerAnnotation.m */,
+				07E10BAF11D1016B000B8DAB /* CPTPlotSpaceAnnotation.h */,
+				07E10BB011D1016B000B8DAB /* CPTPlotSpaceAnnotation.m */,
+				E3F64C7C25A5916C00E2B38B /* CPTPolarPlotSpaceAnnotation.h */,
+				E3F64C7B25A5916B00E2B38B /* CPTPolarPlotSpaceAnnotation.m */,
 			);
 			name = Annotations;
 			sourceTree = "<group>";
@@ -1392,6 +1570,8 @@
 		07FEBD5F110B7E6F00E44D37 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				E3F64C9C25A591A000E2B38B /* CPTPolarPlotTests.h */,
+				E3F64C9B25A591A000E2B38B /* CPTPolarPlotTests.m */,
 				07FEBD60110B7E8B00E44D37 /* CPTScatterPlotTests.h */,
 				07FEBD61110B7E8B00E44D37 /* CPTScatterPlotTests.m */,
 			);
@@ -1401,6 +1581,7 @@
 		0867D691FE84028FC02AAC07 /* CorePlot */ = {
 			isa = PBXGroup;
 			children = (
+				E3CD533E25A9623300024CC1 /* CorePlot-Contours.xcodeproj */,
 				4C99408D0F45F71100DC824F /* Testing */,
 				07BF0D600F2B6FE1002FCEA7 /* Source */,
 				C38A0AA61A4621BC00D45436 /* Platform Specific */,
@@ -1410,6 +1591,7 @@
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
+				E3F64B9325A58FBA00E2B38B /* Frameworks */,
 			);
 			indentWidth = 4;
 			name = CorePlot;
@@ -1454,7 +1636,6 @@
 			children = (
 				32DBCF5E0370ADEE00C91783 /* CorePlot_Prefix.pch */,
 				070CF7AE0F3CA7AB0001FFF4 /* CorePlot.h */,
-				C3226A471A69EE9200F77249 /* CorePlot-CocoaTouch.h */,
 				C3C9D08C1BB5A44800931F32 /* CorePlotDebug.xcconfig */,
 				C3C9D08D1BB5A45B00931F32 /* CorePlotRelease.xcconfig */,
 				C31908A41998168C00B61898 /* CorePlot.xcconfig */,
@@ -1599,6 +1780,10 @@
 		C32B391D10AA4D31000470D4 /* Polar Axes */ = {
 			isa = PBXGroup;
 			children = (
+				E3BB4C3B25A43CCA00A7E5FB /* CPTPolarAxis.h */,
+				E3BB4C3C25A43CCA00A7E5FB /* CPTPolarAxis.m */,
+				E3BB4C3D25A43CCB00A7E5FB /* CPTPolarAxisSet.h */,
+				E3BB4C3E25A43CCB00A7E5FB /* CPTPolarAxisSet.m */,
 			);
 			name = "Polar Axes";
 			sourceTree = "<group>";
@@ -1782,6 +1967,23 @@
 			name = Tests;
 			sourceTree = "<group>";
 		};
+		E3CD533F25A9623300024CC1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E3CD534525A9623400024CC1 /* libCorePlot-Contours_iOS.a */,
+				E3CD534725A9623400024CC1 /* libCorePlot-Contours.a */,
+				E3CD534925A9623400024CC1 /* libCorePlot-Contours_tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E3F64B9325A58FBA00E2B38B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1790,9 +1992,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				070CF7B00F3CA7AB0001FFF4 /* CorePlot.h in Headers */,
+				E3BB4BE125A43BCE00A7E5FB /* CPTPolarPlotSpace.h in Headers */,
 				07BF0D720F2B718F002FCEA7 /* CPTGraph.h in Headers */,
 				07BF0D780F2B723A002FCEA7 /* CPTPlotAreaFrame.h in Headers */,
 				07BF0D7C0F2B72B0002FCEA7 /* CPTPlotSpace.h in Headers */,
+				E3BB4C8425A43D2800A7E5FB /* _CPTDarkGradientTheme_Polar.h in Headers */,
 				07BF0D800F2B72F6002FCEA7 /* CPTPlot.h in Headers */,
 				07BF0D840F2B7340002FCEA7 /* CPTAxisSet.h in Headers */,
 				07BF0D970F2B73CA002FCEA7 /* CPTScatterPlot.h in Headers */,
@@ -1829,8 +2033,11 @@
 				0706223C0FDF215C0066A6C4 /* CPTBorderedLayer.h in Headers */,
 				07C4679B0FE1A24C00299939 /* CPTMutableTextStyle.h in Headers */,
 				C3BB93191B729BD200004527 /* CPTDebugQuickLook.h in Headers */,
+				E3BB4C2025A43C6C00A7E5FB /* CPTVectorFieldPlot.h in Headers */,
+				E3BB4C3F25A43CCB00A7E5FB /* CPTPolarAxis.h in Headers */,
 				0772C9270FE2F71600EC4C16 /* CPTTheme.h in Headers */,
 				0772C92F0FE2F89000EC4C16 /* _CPTDarkGradientTheme.h in Headers */,
+				E3BB4C6925A43D2800A7E5FB /* _CPTPlainBlackTheme_Polar.h in Headers */,
 				BC55023210059F22005DF982 /* _CPTPlainBlackTheme.h in Headers */,
 				E04244CC25841F1200C61A67 /* CPTPlatformSpecificDefines.h in Headers */,
 				BC55023410059F22005DF982 /* _CPTPlainWhiteTheme.h in Headers */,
@@ -1855,14 +2062,19 @@
 				C38DD49311A04B7A002A68E7 /* CPTGridLineGroup.h in Headers */,
 				07E10BB111D1016B000B8DAB /* CPTPlotSpaceAnnotation.h in Headers */,
 				07E10BB611D10177000B8DAB /* CPTAnnotation.h in Headers */,
+				E3BB4C7525A43D2800A7E5FB /* _CPTSlateTheme_Polar.h in Headers */,
 				07E10BBB11D10183000B8DAB /* CPTLayerAnnotation.h in Headers */,
 				072161EB11D1F6BD009CC871 /* CPTAnnotationHostLayer.h in Headers */,
 				C318F4AD11EA188700595FF9 /* CPTLimitBand.h in Headers */,
 				C3CAFB261229E41F00F5C989 /* CPTMutableNumericData+TypeConversion.h in Headers */,
 				C3CCA03D13E8D85900CE6DB1 /* _CPTConstraintsFixed.h in Headers */,
 				C3CCA03F13E8D85900CE6DB1 /* _CPTConstraintsRelative.h in Headers */,
+				E3F64C8025A5916C00E2B38B /* CPTPolarPlotSpaceAnnotation.h in Headers */,
 				07B69A5D12B6215000F4C16C /* CPTTextStyle.h in Headers */,
+				E3BB4C7825A43D2800A7E5FB /* _CPTStocksTheme_Polar.h in Headers */,
 				E042455025841F3B00C61A67 /* CPTGraphHostingView.h in Headers */,
+				E3BB4C0C25A43C3B00A7E5FB /* CPTPolarPlot.h in Headers */,
+				E3BB4C7B25A43D2800A7E5FB /* _CPTPlainWhiteTheme_Polar.h in Headers */,
 				07B69B1712B62ABB00F4C16C /* CPTMutableLineStyle.h in Headers */,
 				D0C0477E12D6560900DA8047 /* CPTRangePlot.h in Headers */,
 				C3920AC41395B6500045F3BB /* CPTLegend.h in Headers */,
@@ -1873,17 +2085,22 @@
 				C32EE1C113EC4BE700038266 /* CPTMutableShadow.h in Headers */,
 				C3A695E5146A19BC00AF5653 /* CPTMutablePlotRange.h in Headers */,
 				C349DCB4151AAFBF00BFD6A7 /* CPTCalendarFormatter.h in Headers */,
+				E3BB4C6325A43D2700A7E5FB /* _CPTPolarTheme.h in Headers */,
+				E3BB4C4525A43CCB00A7E5FB /* CPTPolarAxisSet.h in Headers */,
 				C3286C0015D8740100A436A8 /* _CPTMaskLayer.h in Headers */,
 				C3408C3E15FC1C3E004F1D70 /* _CPTBorderLayer.h in Headers */,
 				C3D375ED1659474C003CC156 /* CPTAnimation.h in Headers */,
 				C3D375F016594752003CC156 /* _CPTAnimationTimingFunctions.h in Headers */,
 				C3C9CB0E165DB4D500739006 /* CPTAnimationOperation.h in Headers */,
+				E3BB4BD025A43B8800A7E5FB /* CPTPolarGraph.h in Headers */,
+				E3BB4C0925A43C3B00A7E5FB /* CPTContourPlot.h in Headers */,
 				C3C9CB13165DB50300739006 /* CPTAnimationPeriod.h in Headers */,
 				C3C9CB17165DB52C00739006 /* _CPTAnimationCGFloatPeriod.h in Headers */,
 				A92C09FB928DD364BDF0BF30 /* _CPTAnimationCGPointPeriod.h in Headers */,
 				A92C06A37F57EC3EF109682A /* _CPTAnimationCGSizePeriod.h in Headers */,
 				A92C00498745CB844AF563E0 /* _CPTAnimationCGRectPeriod.h in Headers */,
 				A92C0FF1D344D29225207775 /* _CPTAnimationNSDecimalPeriod.h in Headers */,
+				E3F64B5F25A56FD600E2B38B /* CPTFieldFunctionDataSource.h in Headers */,
 				A92C0C48A737EFEBA33ABC75 /* _CPTAnimationPlotRangePeriod.h in Headers */,
 				C3F97F1E17A9E07C00A52FF2 /* CPTFunctionDataSource.h in Headers */,
 			);
@@ -1895,9 +2112,12 @@
 			files = (
 				C37EA62F1BC83F2A0091C8F7 /* CPTLimitBand.h in Headers */,
 				C37EA6301BC83F2A0091C8F7 /* CPTDefinitions.h in Headers */,
+				E3BB4C7725A43D2800A7E5FB /* _CPTSlateTheme_Polar.h in Headers */,
 				C37EA6311BC83F2A0091C8F7 /* CPTPlotSymbol.h in Headers */,
 				C37EA6321BC83F2A0091C8F7 /* CPTTradingRangePlot.h in Headers */,
 				C37EA6331BC83F2A0091C8F7 /* CPTGraph.h in Headers */,
+				E3F64C8225A5916C00E2B38B /* CPTPolarPlotSpaceAnnotation.h in Headers */,
+				E3BB4C0B25A43C3B00A7E5FB /* CPTContourPlot.h in Headers */,
 				C37EA6341BC83F2A0091C8F7 /* CPTGridLines.h in Headers */,
 				C3BB3C901C1661BE00B8742D /* _CPTAnimationNSNumberPeriod.h in Headers */,
 				C37EA6351BC83F2A0091C8F7 /* CPTTextStyle.h in Headers */,
@@ -1924,11 +2144,15 @@
 				C37EA64A1BC83F2A0091C8F7 /* CPTMutableShadow.h in Headers */,
 				C37EA64B1BC83F2A0091C8F7 /* _CPTPlainBlackTheme.h in Headers */,
 				C37EA64C1BC83F2A0091C8F7 /* _CPTAnimationNSDecimalPeriod.h in Headers */,
+				E3BB4BD225A43B8800A7E5FB /* CPTPolarGraph.h in Headers */,
 				C37EA64D1BC83F2A0091C8F7 /* CPTCalendarFormatter.h in Headers */,
 				C37EA64E1BC83F2A0091C8F7 /* CPTTextLayer.h in Headers */,
+				E3F64B6125A56FD600E2B38B /* CPTFieldFunctionDataSource.h in Headers */,
 				C37EA64F1BC83F2A0091C8F7 /* CPTResponder.h in Headers */,
+				E3BB4C4725A43CCB00A7E5FB /* CPTPolarAxisSet.h in Headers */,
 				C37EA6501BC83F2A0091C8F7 /* CPTLayer.h in Headers */,
 				C37EA6511BC83F2A0091C8F7 /* CPTPlotAreaFrame.h in Headers */,
+				E3BB4C6525A43D2700A7E5FB /* _CPTPolarTheme.h in Headers */,
 				C37EA6521BC83F2A0091C8F7 /* CPTXYAxis.h in Headers */,
 				C37EA6531BC83F2A0091C8F7 /* _CPTStocksTheme.h in Headers */,
 				C37EA6541BC83F2A0091C8F7 /* CPTImage.h in Headers */,
@@ -1937,17 +2161,21 @@
 				C37EA6571BC83F2A0091C8F7 /* NSNumberExtensions.h in Headers */,
 				C37EA6581BC83F2A0091C8F7 /* _CPTConstraintsRelative.h in Headers */,
 				C37EA6591BC83F2A0091C8F7 /* CPTAnimationOperation.h in Headers */,
+				E3BB4C7D25A43D2800A7E5FB /* _CPTPlainWhiteTheme_Polar.h in Headers */,
 				C37EA65A1BC83F2A0091C8F7 /* _CPTDarkGradientTheme.h in Headers */,
 				C37EA65B1BC83F2A0091C8F7 /* CPTRangePlot.h in Headers */,
 				C37EA65C1BC83F2A0091C8F7 /* _CPTAnimationCGSizePeriod.h in Headers */,
 				C37EA65D1BC83F2A0091C8F7 /* CPTPlotGroup.h in Headers */,
 				C37EA65E1BC83F2A0091C8F7 /* CPTLegend.h in Headers */,
 				C37EA65F1BC83F2A0091C8F7 /* _CPTFillImage.h in Headers */,
+				E3BB4BE325A43BCE00A7E5FB /* CPTPolarPlotSpace.h in Headers */,
 				C37EA6601BC83F2A0091C8F7 /* _CPTAnimationCGRectPeriod.h in Headers */,
 				C37EA6611BC83F2A0091C8F7 /* CPTPlotSpaceAnnotation.h in Headers */,
 				C37EA6621BC83F2A0091C8F7 /* CPTConstraints.h in Headers */,
 				C37EA6631BC83F2A0091C8F7 /* NSCoderExtensions.h in Headers */,
 				C37EA6641BC83F2A0091C8F7 /* CPTNumericData+TypeConversion.h in Headers */,
+				E3BB4C8625A43D2800A7E5FB /* _CPTDarkGradientTheme_Polar.h in Headers */,
+				E3BB4C6B25A43D2800A7E5FB /* _CPTPlainBlackTheme_Polar.h in Headers */,
 				C37EA6651BC83F2A0091C8F7 /* _CPTFillColor.h in Headers */,
 				C37EA6661BC83F2A0091C8F7 /* _CPTXYTheme.h in Headers */,
 				C37EA6671BC83F2A0091C8F7 /* CPTLayerAnnotation.h in Headers */,
@@ -1958,6 +2186,7 @@
 				C37EA66C1BC83F2A0091C8F7 /* CPTGridLineGroup.h in Headers */,
 				C37EA66D1BC83F2A0091C8F7 /* CorePlot.h in Headers */,
 				C37EA66E1BC83F2A0091C8F7 /* CPTMutableLineStyle.h in Headers */,
+				E3BB4C0E25A43C3B00A7E5FB /* CPTPolarPlot.h in Headers */,
 				C37EA66F1BC83F2A0091C8F7 /* CPTAnimation.h in Headers */,
 				C37EA6701BC83F2A0091C8F7 /* CPTExceptions.h in Headers */,
 				C37EA6711BC83F2A0091C8F7 /* CPTPlot.h in Headers */,
@@ -1971,13 +2200,16 @@
 				C37EA6791BC83F2A0091C8F7 /* CPTTimeFormatter.h in Headers */,
 				C37EA67A1BC83F2A0091C8F7 /* CPTLegendEntry.h in Headers */,
 				C37EA67B1BC83F2A0091C8F7 /* CPTPlotArea.h in Headers */,
+				E3BB4C7A25A43D2800A7E5FB /* _CPTStocksTheme_Polar.h in Headers */,
 				C37EA67C1BC83F2A0091C8F7 /* _CPTMaskLayer.h in Headers */,
 				C37EA67D1BC83F2A0091C8F7 /* _CPTAnimationPlotRangePeriod.h in Headers */,
 				C37EA67E1BC83F2A0091C8F7 /* CPTFunctionDataSource.h in Headers */,
 				C37EA67F1BC83F2A0091C8F7 /* CPTGradient.h in Headers */,
 				C37EA6801BC83F2A0091C8F7 /* _CPTAnimationCGPointPeriod.h in Headers */,
+				E3BB4C2225A43C6C00A7E5FB /* CPTVectorFieldPlot.h in Headers */,
 				C37EA6811BC83F2A0091C8F7 /* NSDecimalNumberExtensions.h in Headers */,
 				C37EA6821BC83F2A0091C8F7 /* CPTAxis.h in Headers */,
+				E3BB4C4125A43CCB00A7E5FB /* CPTPolarAxis.h in Headers */,
 				C37EA6831BC83F2A0091C8F7 /* CPTPlatformSpecificFunctions.h in Headers */,
 				C37EA6841BC83F2A0091C8F7 /* CPTAnnotationHostLayer.h in Headers */,
 				C37EA6851BC83F2A0091C8F7 /* CPTAxisLabel.h in Headers */,
@@ -1998,9 +2230,12 @@
 			files = (
 				C38A0AAF1A46241100D45436 /* CPTLimitBand.h in Headers */,
 				C38A09EF1A461CD000D45436 /* CPTDefinitions.h in Headers */,
+				E3BB4C7625A43D2800A7E5FB /* _CPTSlateTheme_Polar.h in Headers */,
 				C38A0AD51A46256B00D45436 /* CPTPlotSymbol.h in Headers */,
 				C38A0AC61A46255C00D45436 /* CPTTradingRangePlot.h in Headers */,
 				C38A0AA71A46240300D45436 /* CPTGraph.h in Headers */,
+				E3F64C8125A5916C00E2B38B /* CPTPolarPlotSpaceAnnotation.h in Headers */,
+				E3BB4C0A25A43C3B00A7E5FB /* CPTContourPlot.h in Headers */,
 				C38A0ADA1A4625B100D45436 /* CPTGridLines.h in Headers */,
 				C3BB3C8F1C1661BE00B8742D /* _CPTAnimationNSNumberPeriod.h in Headers */,
 				C38A0A4A1A461F1500D45436 /* CPTTextStyle.h in Headers */,
@@ -2027,11 +2262,15 @@
 				C38A0A651A4620D400D45436 /* CPTMutableShadow.h in Headers */,
 				C38A0B001A46260B00D45436 /* _CPTPlainBlackTheme.h in Headers */,
 				C38A0A291A461EA300D45436 /* _CPTAnimationNSDecimalPeriod.h in Headers */,
+				E3BB4BD125A43B8800A7E5FB /* CPTPolarGraph.h in Headers */,
 				C38A0A951A46218B00D45436 /* CPTCalendarFormatter.h in Headers */,
 				C38A0A471A461F0C00D45436 /* CPTTextLayer.h in Headers */,
+				E3F64B6025A56FD600E2B38B /* CPTFieldFunctionDataSource.h in Headers */,
 				C38A0A111A461D6300D45436 /* CPTResponder.h in Headers */,
+				E3BB4C4625A43CCB00A7E5FB /* CPTPolarAxisSet.h in Headers */,
 				C38A0A051A461D3F00D45436 /* CPTLayer.h in Headers */,
 				C38A0AAD1A46241100D45436 /* CPTPlotAreaFrame.h in Headers */,
+				E3BB4C6425A43D2700A7E5FB /* _CPTPolarTheme.h in Headers */,
 				C38A0AF51A4625E800D45436 /* CPTXYAxis.h in Headers */,
 				C38A0B031A46260B00D45436 /* _CPTStocksTheme.h in Headers */,
 				C38A0A5F1A4620D400D45436 /* CPTImage.h in Headers */,
@@ -2040,17 +2279,21 @@
 				C38A0A9F1A4621A500D45436 /* NSNumberExtensions.h in Headers */,
 				C38A0A441A461EFA00D45436 /* _CPTConstraintsRelative.h in Headers */,
 				C38A0A171A461E5B00D45436 /* CPTAnimationOperation.h in Headers */,
+				E3BB4C7C25A43D2800A7E5FB /* _CPTPlainWhiteTheme_Polar.h in Headers */,
 				C38A0AFF1A46260B00D45436 /* _CPTDarkGradientTheme.h in Headers */,
 				C38A0AC41A46255C00D45436 /* CPTRangePlot.h in Headers */,
 				C38A0A231A461E8F00D45436 /* _CPTAnimationCGSizePeriod.h in Headers */,
 				C38A0AC01A46254E00D45436 /* CPTPlotGroup.h in Headers */,
 				C38A0AF71A4625F500D45436 /* CPTLegend.h in Headers */,
 				C38A0A7D1A4620EF00D45436 /* _CPTFillImage.h in Headers */,
+				E3BB4BE225A43BCE00A7E5FB /* CPTPolarPlotSpace.h in Headers */,
 				C38A0A261A461E9600D45436 /* _CPTAnimationCGRectPeriod.h in Headers */,
 				C38A0A351A461EC800D45436 /* CPTPlotSpaceAnnotation.h in Headers */,
 				C38A0A3E1A461EE600D45436 /* CPTConstraints.h in Headers */,
 				C38A0A9D1A4621A500D45436 /* NSCoderExtensions.h in Headers */,
 				C3D4147A1A7D82A500B6F5D6 /* CPTNumericData+TypeConversion.h in Headers */,
+				E3BB4C8525A43D2800A7E5FB /* _CPTDarkGradientTheme_Polar.h in Headers */,
+				E3BB4C6A25A43D2800A7E5FB /* _CPTPlainBlackTheme_Polar.h in Headers */,
 				C38A0A7B1A4620EF00D45436 /* _CPTFillColor.h in Headers */,
 				C38A0AFE1A46260B00D45436 /* _CPTXYTheme.h in Headers */,
 				C38A0A381A461ED000D45436 /* CPTLayerAnnotation.h in Headers */,
@@ -2061,6 +2304,7 @@
 				C38A0ADB1A4625B100D45436 /* CPTGridLineGroup.h in Headers */,
 				C3D414E01A7D867200B6F5D6 /* CorePlot.h in Headers */,
 				C38A0A621A4620D400D45436 /* CPTMutableLineStyle.h in Headers */,
+				E3BB4C0D25A43C3B00A7E5FB /* CPTPolarPlot.h in Headers */,
 				C38A0A141A461E5000D45436 /* CPTAnimation.h in Headers */,
 				C38A09F21A461CEE00D45436 /* CPTExceptions.h in Headers */,
 				C38A0AC11A46255C00D45436 /* CPTPlot.h in Headers */,
@@ -2074,13 +2318,16 @@
 				C38A0A961A46218B00D45436 /* CPTTimeFormatter.h in Headers */,
 				C38A0AF81A4625F500D45436 /* CPTLegendEntry.h in Headers */,
 				C38A0AAE1A46241100D45436 /* CPTPlotArea.h in Headers */,
+				E3BB4C7925A43D2800A7E5FB /* _CPTStocksTheme_Polar.h in Headers */,
 				C38A0A0E1A461D5B00D45436 /* _CPTMaskLayer.h in Headers */,
 				C38A0A2C1A461EAA00D45436 /* _CPTAnimationPlotRangePeriod.h in Headers */,
 				C38A09FE1A461D1800D45436 /* CPTFunctionDataSource.h in Headers */,
 				C38A0A5E1A4620D400D45436 /* CPTGradient.h in Headers */,
 				C38A0A201A461E8800D45436 /* _CPTAnimationCGPointPeriod.h in Headers */,
+				E3BB4C2125A43C6C00A7E5FB /* CPTVectorFieldPlot.h in Headers */,
 				C38A0A9E1A4621A500D45436 /* NSDecimalNumberExtensions.h in Headers */,
 				C38A0AF11A4625E800D45436 /* CPTAxis.h in Headers */,
+				E3BB4C4025A43CCB00A7E5FB /* CPTPolarAxis.h in Headers */,
 				C38A0B241A46264500D45436 /* CPTPlatformSpecificFunctions.h in Headers */,
 				C38A0A3B1A461EDA00D45436 /* CPTAnnotationHostLayer.h in Headers */,
 				C38A0AF31A4625E800D45436 /* CPTAxisLabel.h in Headers */,
@@ -2236,10 +2483,17 @@
 				de,
 				ja,
 				fr,
+				English,
 			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* CorePlot */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = E3CD533F25A9623300024CC1 /* Products */;
+					ProjectRef = E3CD533E25A9623300024CC1 /* CorePlot-Contours.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8DC2EF4F0486A6940098B216 /* CorePlot Mac */,
@@ -2257,6 +2511,30 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		E3CD534525A9623400024CC1 /* libCorePlot-Contours_iOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libCorePlot-Contours_iOS.a";
+			remoteRef = E3CD534425A9623400024CC1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E3CD534725A9623400024CC1 /* libCorePlot-Contours.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libCorePlot-Contours.a";
+			remoteRef = E3CD534625A9623400024CC1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E3CD534925A9623400024CC1 /* libCorePlot-Contours_tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libCorePlot-Contours_tvOS.a";
+			remoteRef = E3CD534825A9623400024CC1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		0730F5FB109492D800E95162 /* Resources */ = {
@@ -2412,6 +2690,7 @@
 				C3D979AF13D2337E00145DFF /* CPTColorSpaceTests.m in Sources */,
 				C3D979B213D233C100145DFF /* CPTGradientTests.m in Sources */,
 				C3D979B513D2340000145DFF /* CPTImageTests.m in Sources */,
+				E3F64CD325A5929200E2B38B /* CPTPolarPlotTests.m in Sources */,
 				C377B3BB1C122AA600891DF8 /* CPTCalendarFormatterTests.m in Sources */,
 				C3D979B813D2344100145DFF /* CPTLineStyleTests.m in Sources */,
 				C3D979BB13D2347400145DFF /* CPTFillTests.m in Sources */,
@@ -2425,6 +2704,7 @@
 			files = (
 				07BF0D730F2B718F002FCEA7 /* CPTGraph.m in Sources */,
 				07BF0D790F2B723A002FCEA7 /* CPTPlotAreaFrame.m in Sources */,
+				E3BB4C4225A43CCB00A7E5FB /* CPTPolarAxis.m in Sources */,
 				07BF0D7D0F2B72B0002FCEA7 /* CPTPlotSpace.m in Sources */,
 				07BF0D810F2B72F6002FCEA7 /* CPTPlot.m in Sources */,
 				07BF0D850F2B7340002FCEA7 /* CPTAxisSet.m in Sources */,
@@ -2432,8 +2712,10 @@
 				07BF0DF40F2B7BFB002FCEA7 /* CPTDefinitions.m in Sources */,
 				0799E0960F2BB5F300790525 /* CPTBarPlot.m in Sources */,
 				07983EF70F2F9A3D008C8618 /* CPTXYGraph.m in Sources */,
+				E3BB4C0625A43C3B00A7E5FB /* CPTContourPlot.mm in Sources */,
 				90AF4FBA0F36D39700753D26 /* CPTXYPlotSpace.m in Sources */,
 				07321BC20F37370D00F423D8 /* CPTExceptions.m in Sources */,
+				E3BB4C6625A43D2700A7E5FB /* _CPTSlateTheme_Polar.m in Sources */,
 				07321BC70F37382D00F423D8 /* CPTUtilities.m in Sources */,
 				906156BF0F375598001B75FC /* CPTLineStyle.m in Sources */,
 				07975C440F3B816600DE45DC /* CPTXYAxisSet.m in Sources */,
@@ -2441,6 +2723,7 @@
 				4CD7E7E80F4B4F8200F9BCBB /* CPTTextLayer.m in Sources */,
 				4CD7E7ED0F4B4F9600F9BCBB /* CPTLayer.m in Sources */,
 				4CD7E7F10F4B4FA700F9BCBB /* NSDecimalNumberExtensions.m in Sources */,
+				E3BB4C1D25A43C6C00A7E5FB /* CPTVectorFieldPlot.m in Sources */,
 				32484B440F530E8B002151AD /* CPTPlotRange.m in Sources */,
 				070A73DD0F5D8C910014FA84 /* CPTDecimalNumberValueTransformer.m in Sources */,
 				07CA11300FAC8F85000861CE /* CPTGradient.m in Sources */,
@@ -2448,10 +2731,14 @@
 				C34260210FAE096D00072842 /* _CPTFillGradient.m in Sources */,
 				C34260220FAE096D00072842 /* CPTFill.m in Sources */,
 				C34260240FAE096D00072842 /* _CPTFillColor.m in Sources */,
+				E3F64C7D25A5916C00E2B38B /* CPTPolarPlotSpaceAnnotation.m in Sources */,
 				C34260250FAE096D00072842 /* _CPTFillImage.m in Sources */,
+				E3BB4C8125A43D2800A7E5FB /* _CPTStocksTheme_Polar.m in Sources */,
 				079FC0B60FB975500037E990 /* CPTColor.m in Sources */,
 				079FC0BF0FB9762B0037E990 /* CPTColorSpace.m in Sources */,
 				0783DD560FBF097E006C3696 /* CPTXYAxis.m in Sources */,
+				E3BB4BE425A43BCE00A7E5FB /* CPTPolarPlotSpace.m in Sources */,
+				E3BB4C0325A43C3B00A7E5FB /* CPTPolarPlot.m in Sources */,
 				073FB0310FC991A3007A728E /* CPTAxisLabel.m in Sources */,
 				074E46F10FD6BF2900B18E16 /* CPTImage.m in Sources */,
 				070622330FDF1B250066A6C4 /* CPTPathExtensions.m in Sources */,
@@ -2465,9 +2752,12 @@
 				BC55023710059F22005DF982 /* _CPTStocksTheme.m in Sources */,
 				07A2E6FD102DF47900809BC5 /* CPTTimeFormatter.m in Sources */,
 				4C97EF02104D80C400B554F9 /* CPTNumericData.m in Sources */,
+				E3BB4C7225A43D2800A7E5FB /* _CPTPlainBlackTheme_Polar.m in Sources */,
+				E3F64B5C25A56FD600E2B38B /* CPTFieldFunctionDataSource.m in Sources */,
 				4C97EF04104D80C400B554F9 /* CPTNumericDataType.m in Sources */,
 				4C97EF13104D819100B554F9 /* CPTMutableNumericData.m in Sources */,
 				C3F31DE91045EB470058520A /* CPTPlotGroup.m in Sources */,
+				E3BB4C7E25A43D2800A7E5FB /* _CPTPlainWhiteTheme_Polar.m in Sources */,
 				C3DA34CC107AD7710051DA02 /* _CPTXYTheme.m in Sources */,
 				BCFC7C3810921FDB00DAECAA /* CPTAxisTitle.m in Sources */,
 				0772B43B10E24D5C009CD04C /* CPTTradingRangePlot.m in Sources */,
@@ -2489,7 +2779,9 @@
 				C3392A381225F667008DA6BD /* CPTNumericData+TypeConversion.m in Sources */,
 				C3CAFB6B1229F5FB00F5C989 /* CPTMutableNumericData+TypeConversion.m in Sources */,
 				07B69A5E12B6215000F4C16C /* CPTTextStyle.m in Sources */,
+				E3BB4C6C25A43D2800A7E5FB /* _CPTPolarTheme.m in Sources */,
 				07B69B1812B62ABB00F4C16C /* CPTMutableLineStyle.m in Sources */,
+				E3BB4C6F25A43D2800A7E5FB /* _CPTDarkGradientTheme_Polar.m in Sources */,
 				D0C0477D12D6560900DA8047 /* CPTRangePlot.m in Sources */,
 				E04244E925841F1A00C61A67 /* CPTPlatformSpecificDefines.m in Sources */,
 				C3920AC51395B6500045F3BB /* CPTLegend.m in Sources */,
@@ -2504,6 +2796,8 @@
 				C32EE1B713EC4AA800038266 /* CPTShadow.m in Sources */,
 				C32EE1C213EC4BE700038266 /* CPTMutableShadow.m in Sources */,
 				C3A695E6146A19BC00AF5653 /* CPTMutablePlotRange.m in Sources */,
+				E3BB4C4825A43CCB00A7E5FB /* CPTPolarAxisSet.m in Sources */,
+				E3BB4BCD25A43B8800A7E5FB /* CPTPolarGraph.m in Sources */,
 				C349DCB5151AAFBF00BFD6A7 /* CPTCalendarFormatter.m in Sources */,
 				C3286C0115D8740100A436A8 /* _CPTMaskLayer.m in Sources */,
 				C3408C3F15FC1C3E004F1D70 /* _CPTBorderLayer.m in Sources */,
@@ -2532,6 +2826,7 @@
 				C37EA5CF1BC83F2A0091C8F7 /* CPTColor.m in Sources */,
 				C37EA5D01BC83F2A0091C8F7 /* NSCoderExtensions.m in Sources */,
 				C37EA5D11BC83F2A0091C8F7 /* CPTMutableNumericData.m in Sources */,
+				E3F64B5E25A56FD600E2B38B /* CPTFieldFunctionDataSource.m in Sources */,
 				C37EA5D21BC83F2A0091C8F7 /* CPTNumericData+TypeConversion.m in Sources */,
 				C37EA5D31BC83F2A0091C8F7 /* CPTTheme.m in Sources */,
 				C37EA5D41BC83F2A0091C8F7 /* CPTDefinitions.m in Sources */,
@@ -2550,6 +2845,7 @@
 				C37EA5E11BC83F2A0091C8F7 /* CPTNumericData.m in Sources */,
 				C37EA5E31BC83F2A0091C8F7 /* CPTXYAxisSet.m in Sources */,
 				C37EA5E41BC83F2A0091C8F7 /* CPTLimitBand.m in Sources */,
+				E3BB4BCF25A43B8800A7E5FB /* CPTPolarGraph.m in Sources */,
 				C37EA5E51BC83F2A0091C8F7 /* CPTGridLines.m in Sources */,
 				C3BB3C941C1661BE00B8742D /* _CPTAnimationNSNumberPeriod.m in Sources */,
 				C37EA5E61BC83F2A0091C8F7 /* CPTPathExtensions.m in Sources */,
@@ -2557,10 +2853,12 @@
 				C37EA5E81BC83F2A0091C8F7 /* CPTPlotRange.m in Sources */,
 				C37EA5E91BC83F2A0091C8F7 /* CPTImage.m in Sources */,
 				C37EA5EA1BC83F2A0091C8F7 /* CPTPlotSymbol.m in Sources */,
+				E3BB4C6E25A43D2800A7E5FB /* _CPTPolarTheme.m in Sources */,
 				C37EA5EB1BC83F2A0091C8F7 /* CPTAxisSet.m in Sources */,
 				C37EA5EC1BC83F2A0091C8F7 /* CPTPlotGroup.m in Sources */,
 				C37EA5ED1BC83F2A0091C8F7 /* CPTAnimation.m in Sources */,
 				C37EA5EE1BC83F2A0091C8F7 /* _CPTAnimationNSDecimalPeriod.m in Sources */,
+				E3BB4C8325A43D2800A7E5FB /* _CPTStocksTheme_Polar.m in Sources */,
 				C37EA5EF1BC83F2A0091C8F7 /* _CPTAnimationPlotRangePeriod.m in Sources */,
 				C37EA5F01BC83F2A0091C8F7 /* CPTPlotAreaFrame.m in Sources */,
 				C37EA5F11BC83F2A0091C8F7 /* CPTAxisLabel.m in Sources */,
@@ -2573,12 +2871,16 @@
 				C37EA5F81BC83F2A0091C8F7 /* CPTLineCap.m in Sources */,
 				C37EA5F91BC83F2A0091C8F7 /* CPTScatterPlot.m in Sources */,
 				C37EA5FA1BC83F2A0091C8F7 /* _CPTSlateTheme.m in Sources */,
+				E3BB4C7425A43D2800A7E5FB /* _CPTPlainBlackTheme_Polar.m in Sources */,
 				C37EA5FB1BC83F2A0091C8F7 /* CPTAnimationPeriod.m in Sources */,
 				C37EA5FC1BC83F2A0091C8F7 /* CPTTextStylePlatformSpecific.m in Sources */,
 				C37EA5FD1BC83F2A0091C8F7 /* _CPTBorderLayer.m in Sources */,
 				C37EA5FE1BC83F2A0091C8F7 /* CPTLegendEntry.m in Sources */,
+				E3BB4C0825A43C3B00A7E5FB /* CPTContourPlot.mm in Sources */,
 				C37EA5FF1BC83F2A0091C8F7 /* CPTTradingRangePlot.m in Sources */,
 				C37EA6001BC83F2A0091C8F7 /* CPTTextLayer.m in Sources */,
+				E3BB4C1F25A43C6C00A7E5FB /* CPTVectorFieldPlot.m in Sources */,
+				E3BB4C7125A43D2800A7E5FB /* _CPTDarkGradientTheme_Polar.m in Sources */,
 				C37EA6011BC83F2A0091C8F7 /* _CPTConstraintsRelative.m in Sources */,
 				C37EA6021BC83F2A0091C8F7 /* CPTAnnotationHostLayer.m in Sources */,
 				C37EA6031BC83F2A0091C8F7 /* CPTAnimationOperation.m in Sources */,
@@ -2589,11 +2891,15 @@
 				C37EA6081BC83F2A0091C8F7 /* _CPTFillColor.m in Sources */,
 				C37EA6091BC83F2A0091C8F7 /* _CPTAnimationTimingFunctions.m in Sources */,
 				C37EA60A1BC83F2A0091C8F7 /* CPTMutableLineStyle.m in Sources */,
+				E3F64C7F25A5916C00E2B38B /* CPTPolarPlotSpaceAnnotation.m in Sources */,
 				C37EA60B1BC83F2A0091C8F7 /* NSDecimalNumberExtensions.m in Sources */,
 				C37EA60C1BC83F2A0091C8F7 /* CPTLegend.m in Sources */,
 				C37EA60D1BC83F2A0091C8F7 /* CPTAxisLabelGroup.m in Sources */,
 				C37EA60E1BC83F2A0091C8F7 /* CPTFill.m in Sources */,
+				E3BB4C4425A43CCB00A7E5FB /* CPTPolarAxis.m in Sources */,
+				E3BB4C0525A43C3B00A7E5FB /* CPTPolarPlot.m in Sources */,
 				C37EA60F1BC83F2A0091C8F7 /* CPTMutableNumericData+TypeConversion.m in Sources */,
+				E3BB4C6825A43D2700A7E5FB /* _CPTSlateTheme_Polar.m in Sources */,
 				C37EA6101BC83F2A0091C8F7 /* CPTRangePlot.m in Sources */,
 				C37EA6111BC83F2A0091C8F7 /* CPTGraph.m in Sources */,
 				C37EA6121BC83F2A0091C8F7 /* CPTMutablePlotRange.m in Sources */,
@@ -2601,6 +2907,7 @@
 				C37EA6141BC83F2A0091C8F7 /* CPTGridLineGroup.m in Sources */,
 				C37EA6151BC83F2A0091C8F7 /* CPTNumericDataType.m in Sources */,
 				C37EA6161BC83F2A0091C8F7 /* CPTPlot.m in Sources */,
+				E3BB4C8025A43D2800A7E5FB /* _CPTPlainWhiteTheme_Polar.m in Sources */,
 				C37EA6171BC83F2A0091C8F7 /* CPTPlatformSpecificCategories.m in Sources */,
 				C37EA6181BC83F2A0091C8F7 /* CPTConstraints.m in Sources */,
 				C37EA6191BC83F2A0091C8F7 /* CPTTextStyle.m in Sources */,
@@ -2618,6 +2925,8 @@
 				C37EA6251BC83F2A0091C8F7 /* CPTPlotArea.m in Sources */,
 				C37EA6261BC83F2A0091C8F7 /* _CPTConstraintsFixed.m in Sources */,
 				C37EA6271BC83F2A0091C8F7 /* CPTAxis.m in Sources */,
+				E3BB4BE625A43BCE00A7E5FB /* CPTPolarPlotSpace.m in Sources */,
+				E3BB4C4A25A43CCB00A7E5FB /* CPTPolarAxisSet.m in Sources */,
 				C37EA6281BC83F2A0091C8F7 /* CPTMutableTextStyle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2647,6 +2956,7 @@
 				C37EA6AA1BC83F2D0091C8F7 /* CPTMutableNumericDataTypeConversionTests.m in Sources */,
 				C37EA6AB1BC83F2D0091C8F7 /* CPTLineStyleTests.m in Sources */,
 				C37EA6AC1BC83F2D0091C8F7 /* CPTTextStyleTests.m in Sources */,
+				E3F64CF925A5929500E2B38B /* CPTPolarPlotTests.m in Sources */,
 				C377B3BE1C122AA600891DF8 /* CPTCalendarFormatterTests.m in Sources */,
 				C37EA6AD1BC83F2D0091C8F7 /* CPTTimeFormatterTests.m in Sources */,
 				C37EA6AE1BC83F2D0091C8F7 /* CPTLayerTests.m in Sources */,
@@ -2665,6 +2975,7 @@
 				C38A0A661A4620E200D45436 /* CPTColor.m in Sources */,
 				C38A0AA01A4621AC00D45436 /* NSCoderExtensions.m in Sources */,
 				C38A09DD1A461C8100D45436 /* CPTMutableNumericData.m in Sources */,
+				E3F64B5D25A56FD600E2B38B /* CPTFieldFunctionDataSource.m in Sources */,
 				C38A09DF1A461C8500D45436 /* CPTNumericData+TypeConversion.m in Sources */,
 				C38A0B041A46261700D45436 /* CPTTheme.m in Sources */,
 				C38A09F01A461CD900D45436 /* CPTDefinitions.m in Sources */,
@@ -2683,6 +2994,7 @@
 				C38A09DB1A461C7D00D45436 /* CPTNumericData.m in Sources */,
 				C38A0AE71A4625D400D45436 /* CPTXYAxisSet.m in Sources */,
 				C38A0AB21A46241700D45436 /* CPTLimitBand.m in Sources */,
+				E3BB4BCE25A43B8800A7E5FB /* CPTPolarGraph.m in Sources */,
 				C38A0AE11A4625D400D45436 /* CPTGridLines.m in Sources */,
 				C3BB3C921C1661BE00B8742D /* _CPTAnimationNSNumberPeriod.m in Sources */,
 				C38A0A6D1A4620E200D45436 /* CPTPathExtensions.m in Sources */,
@@ -2690,10 +3002,12 @@
 				C38A09F91A461D0B00D45436 /* CPTPlotRange.m in Sources */,
 				C38A0A691A4620E200D45436 /* CPTImage.m in Sources */,
 				C38A0AD61A46257100D45436 /* CPTPlotSymbol.m in Sources */,
+				E3BB4C6D25A43D2800A7E5FB /* _CPTPolarTheme.m in Sources */,
 				C38A0AE01A4625D400D45436 /* CPTAxisSet.m in Sources */,
 				C38A0AC71A46256500D45436 /* CPTPlotGroup.m in Sources */,
 				C38A0A151A461E5800D45436 /* CPTAnimation.m in Sources */,
 				C38A0A2A1A461EA600D45436 /* _CPTAnimationNSDecimalPeriod.m in Sources */,
+				E3BB4C8225A43D2800A7E5FB /* _CPTStocksTheme_Polar.m in Sources */,
 				C38A0A2D1A461EAD00D45436 /* _CPTAnimationPlotRangePeriod.m in Sources */,
 				C38A0AB01A46241700D45436 /* CPTPlotAreaFrame.m in Sources */,
 				C38A0AE31A4625D400D45436 /* CPTAxisLabel.m in Sources */,
@@ -2706,12 +3020,16 @@
 				C38A0A6A1A4620E200D45436 /* CPTLineCap.m in Sources */,
 				C38A0ACC1A46256500D45436 /* CPTScatterPlot.m in Sources */,
 				C38A0B091A46261700D45436 /* _CPTSlateTheme.m in Sources */,
+				E3BB4C7325A43D2800A7E5FB /* _CPTPlainBlackTheme_Polar.m in Sources */,
 				C38A0A1B1A461E6A00D45436 /* CPTAnimationPeriod.m in Sources */,
 				C38A0A561A461F9700D45436 /* CPTTextStylePlatformSpecific.m in Sources */,
 				C38A0A0C1A461D5700D45436 /* _CPTBorderLayer.m in Sources */,
 				C38A0AFA1A4625FA00D45436 /* CPTLegendEntry.m in Sources */,
+				E3BB4C0725A43C3B00A7E5FB /* CPTContourPlot.mm in Sources */,
 				C38A0ACD1A46256500D45436 /* CPTTradingRangePlot.m in Sources */,
 				C38A0A481A461F1100D45436 /* CPTTextLayer.m in Sources */,
+				E3BB4C1E25A43C6C00A7E5FB /* CPTVectorFieldPlot.m in Sources */,
+				E3BB4C7025A43D2800A7E5FB /* _CPTDarkGradientTheme_Polar.m in Sources */,
 				C38A0A451A461F0100D45436 /* _CPTConstraintsRelative.m in Sources */,
 				C38A0A3C1A461EDF00D45436 /* CPTAnnotationHostLayer.m in Sources */,
 				C38A0A181A461E6000D45436 /* CPTAnimationOperation.m in Sources */,
@@ -2722,11 +3040,15 @@
 				C38A0A7F1A4620F700D45436 /* _CPTFillColor.m in Sources */,
 				C38A0A301A461EB500D45436 /* _CPTAnimationTimingFunctions.m in Sources */,
 				C38A0A6C1A4620E200D45436 /* CPTMutableLineStyle.m in Sources */,
+				E3F64C7E25A5916C00E2B38B /* CPTPolarPlotSpaceAnnotation.m in Sources */,
 				C38A0AA11A4621AC00D45436 /* NSDecimalNumberExtensions.m in Sources */,
 				C38A0AF91A4625FA00D45436 /* CPTLegend.m in Sources */,
 				C38A0AE51A4625D400D45436 /* CPTAxisLabelGroup.m in Sources */,
 				C38A0A7E1A4620F700D45436 /* CPTFill.m in Sources */,
+				E3BB4C4325A43CCB00A7E5FB /* CPTPolarAxis.m in Sources */,
+				E3BB4C0425A43C3B00A7E5FB /* CPTPolarPlot.m in Sources */,
 				C38A09E11A461C8800D45436 /* CPTMutableNumericData+TypeConversion.m in Sources */,
+				E3BB4C6725A43D2700A7E5FB /* _CPTSlateTheme_Polar.m in Sources */,
 				C38A0ACB1A46256500D45436 /* CPTRangePlot.m in Sources */,
 				C38A0AA91A46240900D45436 /* CPTGraph.m in Sources */,
 				C38A09FC1A461D1300D45436 /* CPTMutablePlotRange.m in Sources */,
@@ -2734,6 +3056,7 @@
 				C38A0AE21A4625D400D45436 /* CPTGridLineGroup.m in Sources */,
 				C38A09D91A461C6B00D45436 /* CPTNumericDataType.m in Sources */,
 				C38A0AC81A46256500D45436 /* CPTPlot.m in Sources */,
+				E3BB4C7F25A43D2800A7E5FB /* _CPTPlainWhiteTheme_Polar.m in Sources */,
 				C38A0B1F1A46264500D45436 /* CPTPlatformSpecificCategories.m in Sources */,
 				C38A0A3F1A461EEB00D45436 /* CPTConstraints.m in Sources */,
 				C38A0A4B1A461F1A00D45436 /* CPTTextStyle.m in Sources */,
@@ -2751,6 +3074,8 @@
 				C38A0AB11A46241700D45436 /* CPTPlotArea.m in Sources */,
 				C38A0A421A461EF500D45436 /* _CPTConstraintsFixed.m in Sources */,
 				C38A0ADF1A4625D400D45436 /* CPTAxis.m in Sources */,
+				E3BB4BE525A43BCE00A7E5FB /* CPTPolarPlotSpace.m in Sources */,
+				E3BB4C4925A43CCB00A7E5FB /* CPTPolarAxisSet.m in Sources */,
 				C38A0A4E1A461F2200D45436 /* CPTMutableTextStyle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2780,6 +3105,7 @@
 				C38A09E61A461CB200D45436 /* CPTMutableNumericDataTypeConversionTests.m in Sources */,
 				C38A0A8B1A46210A00D45436 /* CPTLineStyleTests.m in Sources */,
 				C38A0A501A461F3D00D45436 /* CPTTextStyleTests.m in Sources */,
+				E3F64CEC25A5929400E2B38B /* CPTPolarPlotTests.m in Sources */,
 				C377B3BC1C122AA600891DF8 /* CPTCalendarFormatterTests.m in Sources */,
 				C38A0A9B1A46219600D45436 /* CPTTimeFormatterTests.m in Sources */,
 				C38A0A121A461D6A00D45436 /* CPTLayerTests.m in Sources */,
@@ -2928,7 +3254,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CorePlot;
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/MacOnly $(SRCROOT)/PlatformSpecific";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/MacOnly $(SRCROOT)/CorePlot-Contours/Contours $(SRCROOT)/PlatformSpecific";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -2946,7 +3272,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CorePlot;
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/MacOnly $(SRCROOT)/PlatformSpecific";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/MacOnly $(SRCROOT)/CorePlot-Contours/Contours $(SRCROOT)/PlatformSpecific";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
@@ -3044,7 +3370,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CorePlot;
 				SDKROOT = appletvos;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/PlatformSpecific";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/PlatformSpecific $(SRCROOT)/CorePlot-Contours/Contours";
 			};
 			name = Debug;
 		};
@@ -3065,7 +3391,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CorePlot;
 				SDKROOT = appletvos;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/PlatformSpecific";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/PlatformSpecific $(SRCROOT)/CorePlot-Contours/Contours";
 			};
 			name = Release;
 		};
@@ -3105,6 +3431,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CURRENT_PROJECT_VERSION = 2.4;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -3117,7 +3444,19 @@
 				PRODUCT_NAME = CorePlot;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/PlatformSpecific";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/PlatformSpecific $(SRCROOT)/CorePlot-Contours/Contours";
+				WARNING_CFLAGS = (
+					"-Weverything",
+					"-Wno-undef",
+					"-Wno-switch-enum",
+					"-Wno-float-equal",
+					"-Wno-custom-atomic-properties",
+					"-Wno-pedantic",
+					"-Wno-documentation",
+					"-Wno-documentation-unknown-command",
+					"-Wno-partial-availability",
+					"-Wno-objc-messaging-id",
+				);
 			};
 			name = Debug;
 		};
@@ -3127,6 +3466,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CURRENT_PROJECT_VERSION = 2.4;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -3139,7 +3479,19 @@
 				PRODUCT_NAME = CorePlot;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/PlatformSpecific";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/PlatformSpecific $(SRCROOT)/CorePlot-Contours/Contours";
+				WARNING_CFLAGS = (
+					"-Weverything",
+					"-Wno-undef",
+					"-Wno-switch-enum",
+					"-Wno-float-equal",
+					"-Wno-custom-atomic-properties",
+					"-Wno-pedantic",
+					"-Wno-documentation",
+					"-Wno-documentation-unknown-command",
+					"-Wno-partial-availability",
+					"-Wno-objc-messaging-id",
+				);
 			};
 			name = Release;
 		};
