@@ -776,6 +776,17 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
 }
 
 #pragma mark -
+#pragma mark Title Annotation
+
+// added S.Wainwright
+/** @brief Retrieve the title Layer Annotation of the graph.
+ **/
+-(CPTLayerAnnotation *)getTitleLayerAnnotation
+{
+    return self.titleAnnotation;
+}
+
+#pragma mark -
 #pragma mark Legend
 
 /// @cond

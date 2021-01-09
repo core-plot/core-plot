@@ -18,6 +18,7 @@
 #import "CPTTextLayer.h"
 #import "CPTUtilities.h"
 #import "NSCoderExtensions.h"
+#import "CPTPolarAxis.h"  // added S.Wainwright 2/12/2020
 
 /** @defgroup axisAnimation Axes
  *  @brief Axis properties that can be animated using Core Animation.
@@ -1037,8 +1038,15 @@ NSDecimal CPTNiceLength(NSDecimal length);
 
         case CPTScaleTypeLog:
             // supported scale type--check range
-            if ((range.minLimitDouble <= 0.0) || (range.maxLimitDouble <= 0.0)) {
-                valid = NO;
+            if ([self isKindOfClass:[CPTPolarAxis class]]) { // added S.Wainwright 2/12/2020
+                if ( (range.minLimitDouble == 0.0) || (range.maxLimitDouble == 0.0) ) {
+                    valid = NO;
+                }
+            }
+            else {
+                if ( (range.minLimitDouble <= 0.0) || (range.maxLimitDouble <= 0.0) ) {
+                    valid = NO;
+                }
             }
             break;
 
@@ -1150,7 +1158,11 @@ NSDecimal CPTNiceLength(NSDecimal length);
                 double minLimit = range.minLimitDouble;
                 double maxLimit = range.maxLimitDouble;
 
-                if ((minLimit > 0.0) && (maxLimit > 0.0)) {
+                // added S.Wainwright 2/12/2020
+                if ( (minLimit != 0.0) && (maxLimit != 0.0) && [self isKindOfClass:[CPTPolarAxis class]]) {
+                    
+                }
+                else if ((minLimit > 0.0) && (maxLimit > 0.0)) {
                     // Determine interval value
                     length = log10(maxLimit / minLimit);
 
@@ -2087,6 +2099,34 @@ NSDecimal CPTNiceLength(NSDecimal length)
 
     id<CPTAxisDelegate> theDelegate = (id<CPTAxisDelegate>)self.delegate;
 
+    // Title  added S.Wainwright
+    if ( [theDelegate respondsToSelector:@selector(axis:axisTitleTouchDown:atPoint:)] ||
+        [theDelegate respondsToSelector:@selector(axis:axisTitleTouchDown:withEvent:)] ) {
+        CPTLayer *contentLayer = self.axisTitle.contentLayer;
+        if ( contentLayer && !contentLayer.hidden ) {
+            CGPoint axisTitlePoint = [theGraph convertPoint:interactionPoint toLayer:contentLayer];
+            
+            if ( CGRectContainsPoint(contentLayer.bounds, axisTitlePoint) ) {
+                BOOL handled = NO;
+                
+                if ( [theDelegate respondsToSelector:@selector(axis:axisTitleTouchDown:atPoint:)] ) {
+                    handled = YES;
+                    [theDelegate axis:self axisTitleTouchDown:self.axisTitle atPoint:interactionPoint];
+                }
+                
+                if ( [theDelegate respondsToSelector:@selector(axis:axisTitleTouchDown:withEvent:)] ) {
+                    handled = YES;
+                    [theDelegate axis:self axisTitleTouchDown:self.axisTitle withEvent:event];
+                }
+                
+                if ( handled ) {
+                    return YES;
+                }
+            }
+        }
+    }
+
+    
     // Tick labels
     if ( [theDelegate respondsToSelector:@selector(axis:labelTouchDown:)] ||
          [theDelegate respondsToSelector:@selector(axis:labelTouchDown:withEvent:)] ||
@@ -2198,6 +2238,33 @@ NSDecimal CPTNiceLength(NSDecimal length)
 
     id<CPTAxisDelegate> theDelegate = (id<CPTAxisDelegate>)self.delegate;
 
+    // Title   added S.Wainwright
+    if ( [theDelegate respondsToSelector:@selector(axis:axisTitleTouchUp:atPoint:)] ||
+        [theDelegate respondsToSelector:@selector(axis:axisTitleTouchUp:withEvent:)]) {
+        CPTLayer *contentLayer = self.axisTitle.contentLayer;
+        if ( contentLayer && !contentLayer.hidden ) {
+            CGPoint axisTitlePoint = [theGraph convertPoint:interactionPoint toLayer:contentLayer];
+            
+            if ( CGRectContainsPoint(contentLayer.bounds, axisTitlePoint) ) {
+                BOOL handled = NO;
+                
+                if ( [theDelegate respondsToSelector:@selector(axis:axisTitleTouchUp:atPoint:)] ) {
+                    handled = YES;
+                    [theDelegate axis:self axisTitleTouchUp:self.axisTitle atPoint:interactionPoint];
+                }
+                
+                if ( [theDelegate respondsToSelector:@selector(axis:axisTitleTouchUp:withEvent:)] ) {
+                    handled = YES;
+                    [theDelegate axis:self axisTitleTouchUp:self.axisTitle withEvent:event];
+                }
+                
+                if ( handled ) {
+                    return YES;
+                }
+            }
+        }
+    }
+    
     // Tick labels
     if ( [theDelegate respondsToSelector:@selector(axis:labelTouchUp:)] ||
          [theDelegate respondsToSelector:@selector(axis:labelTouchUp:withEvent:)] ||

@@ -83,6 +83,47 @@ typedef NSMutableArray<__kindof CPTAxis *> CPTMutableAxisArray;
 
 /// @}
 
+// added S.Wainwright
+
+/// @name Title Selection
+/// @{
+
+/** @brief @optional Informs the delegate that an axis title
+ *  @if MacOnly was pressed. @endif
+ *  @if iOSOnly touch started. @endif
+ *  @param axis The axis.
+ *  @param title The selected axis title.
+ **/
+-(void)axis:(nonnull CPTAxis *)axis axisTitleTouchDown:(nullable CPTAxisTitle *)title atPoint:(CGPoint)point;
+
+/** @brief @optional Informs the delegate that an axis title
+ *  @if MacOnly was pressed. @endif
+ *  @if iOSOnly touch started. @endif
+ *  @param axis The axis.
+ *  @param title The selected axis title.
+ *  @param event The event that triggered the selection.
+ **/
+-(void)axis:(nonnull CPTAxis *)axis axisTitleTouchDown:(nullable CPTAxisTitle *)title withEvent:(nonnull CPTNativeEvent *)event;
+
+/** @brief @optional Informs the delegate that an axis title
+ *  @if MacOnly was released. @endif
+ *  @if iOSOnly touch ended. @endif
+ *  @param axis The axis.
+ *  @param title The selected axis title.
+ **/
+-(void)axis:(nonnull CPTAxis *)axis axisTitleTouchUp:(nullable CPTAxisTitle *)title atPoint:(CGPoint)point;
+
+/** @brief @optional Informs the delegate that an axis title
+ *  @if MacOnly was released. @endif
+ *  @if iOSOnly touch ended. @endif
+ *  @param axis The axis.
+ *  @param title The selected axis title.
+ *  @param event The event that triggered the selection.
+ **/
+-(void)axis:(nonnull CPTAxis *)axis axisTitleTouchUp:(nullable CPTAxisTitle *)title withEvent:(nonnull CPTNativeEvent *)event;
+
+/// @}
+
 /// @name Label Selection
 /// @{
 

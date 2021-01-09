@@ -1388,6 +1388,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
     return (self.cachedData)[key];
 }
 
+
 /** @brief Retrieves a single value from the cache.
  *  @param key The key identifying the field.
  *  @param idx The index of the desired data value.
@@ -1395,7 +1396,10 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
  **/
 -(nullable id)cachedValueForKey:(nonnull NSString *)key recordIndex:(NSUInteger)idx
 {
-    return [self cachedArrayForKey:key][idx];
+    if(idx < [[self cachedArrayForKey:key] count]) // modified S.Wainwright 02/09/2016
+        return [self cachedArrayForKey:key][idx];
+    else
+        return nil;
 }
 
 /** @brief Copies an array of arbitrary values to the cache.

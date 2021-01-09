@@ -142,6 +142,13 @@ typedef NS_ENUM (NSInteger, CPTGraphLayerType) {
 -(void)applyTheme:(nullable CPTTheme *)theme;
 /// @}
 
+// added S.Wainwright
+/// @name Retrieving Title Annotation
+/// @{
+-(nullable CPTLayerAnnotation *)getTitleLayerAnnotation;
+/// @}
+
+
 @end
 
 #pragma mark -

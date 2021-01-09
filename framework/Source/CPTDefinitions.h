@@ -185,6 +185,23 @@ typedef NS_ENUM (NSInteger, CPTCoordinate) {
 };
 
 /**
+ *  @brief Enumeration of polar axis coordinates
+ **/
+typedef NS_ENUM (NSInteger, CPTPolarCoordinate) {  // added S.Wainwright 02/12/2020
+    CPTPolarCoordinateTheta    = 0,           ///< Angle axis
+    CPTPolarCoordinateRadius    = 1,          ///< Radial axis
+    CPTPolarCoordinateNone = NSIntegerMax ///< Invalid coordinate value
+};
+
+/**
+ *  @brief Enumeration of polar angle mode types
+ **/
+typedef NS_ENUM (NSInteger, CPTPolarRadialAngleMode) {  // S.Wainwright
+    CPTPolarRadialAngleModeRadians, ///< radians.
+    CPTPolarRadialAngleModeDegrees  ///< degrees.
+};
+
+/**
  *  @brief RGBA color for gradients
  **/
 typedef struct _CPTRGBAColor {
