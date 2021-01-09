@@ -344,12 +344,18 @@ typedef struct CGPointVector CGPointVector;
         const double *xBytes     = (const double *)[self cachedNumbersForField:CPTVectorFieldPlotFieldX].data.bytes;
         const double *yBytes     = (const double *)[self cachedNumbersForField:CPTVectorFieldPlotFieldY].data.bytes;
         const double *lengthBytes   = (const double *)[self cachedNumbersForField:CPTVectorFieldPlotFieldVectorLength].data.bytes;
+        double maxLength = DBL_MIN;
+        for( NSUInteger i = 0; i < dataCount; i++) {
+            maxLength = MAX(maxLength, lengthBytes[i]);
+        }
+        self.maxVectorLength = maxLength;
+        double factor = (double)self.normalisedVectorLength / maxLength;
         const double *directionBytes   = (const double *)[self cachedNumbersForField:CPTVectorFieldPlotFieldVectorDirection].data.bytes;
         
         dispatch_apply(dataCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
             const double x     = xBytes[i];
             const double y     = yBytes[i];
-            const double length  = (double)self.normalisedVectorLength * lengthBytes[i];
+            const double length  = factor * lengthBytes[i];
             const double direction   = directionBytes[i];
             
             if ( !drawPointFlags[i] || isnan(x) || isnan(y) ) {
@@ -376,13 +382,18 @@ typedef struct CGPointVector CGPointVector;
         const NSDecimal *xBytes     = (const NSDecimal *)[self cachedNumbersForField:CPTVectorFieldPlotFieldX].data.bytes;
         const NSDecimal *yBytes     = (const NSDecimal *)[self cachedNumbersForField:CPTVectorFieldPlotFieldY].data.bytes;
         const NSDecimal *lengthBytes  = (const NSDecimal *)[self cachedNumbersForField:CPTVectorFieldPlotFieldVectorLength].data.bytes;
+        double maxLength = DBL_MIN;
+        for( NSUInteger i = 0; i < dataCount; i++) {
+            maxLength = MAX(maxLength, CPTDecimalDoubleValue(lengthBytes[i]));
+        }
+        self.maxVectorLength = maxLength;
+        NSDecimal factor = CPTDecimalFromDouble((double)self.normalisedVectorLength / maxLength);
         const NSDecimal *directionBytes   = (const NSDecimal *)[self cachedNumbersForField:CPTVectorFieldPlotFieldVectorDirection].data.bytes;
-        
         
         dispatch_apply(dataCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
             const NSDecimal x     = xBytes[i];
             const NSDecimal y     = yBytes[i];
-            const NSDecimal length  = CPTDecimalMultiply(lengthBytes[i], CPTDecimalFromCGFloat(self.normalisedVectorLength));
+            const NSDecimal length  = CPTDecimalMultiply(lengthBytes[i], factor);
             const NSDecimal direction   = directionBytes[i];
 
             if ( !drawPointFlags[i] || NSDecimalIsNotANumber(&x) || NSDecimalIsNotANumber(&y) ) {
@@ -1242,6 +1253,20 @@ typedef struct CGPointVector CGPointVector;
     }
 }
 
-/// @endcond
+//-(nullable NSNumber*)getXValueAtIndex:(NSUInteger)idx {
+//    return [self.xValues objectAtIndex:idx];
+//}
+//
+//-(nullable NSNumber*)getYValueAtIndex:(NSUInteger)idx {
+//    return [self.yValues objectAtIndex:idx];
+//}
+//
+//-(nullable NSNumber*)getLengthValueAtIndex:(NSUInteger)idx {
+//    return [self.lengthValues sampleValueAtIndex:idx];
+//}
+//
+//-(nullable NSNumber*)getDirectionAtIndex:(NSUInteger)idx {
+//    return [self.directionValues sampleValueAtIndex:idx];
+//}
 
 @end
