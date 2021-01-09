@@ -24,6 +24,9 @@ extern NSString *__nonnull const kPieCharts;
 extern NSString *__nonnull const kLinePlots;
 extern NSString *__nonnull const kBarPlots;
 extern NSString *__nonnull const kFinancialPlots;
+// Added S.Wainwright
+extern NSString *__nonnull const kFieldsPlots;
+extern NSString *__nonnull const kPolarPlots;
 
 @class CPTGraph;
 @class CPTTheme;
