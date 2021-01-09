@@ -46,8 +46,11 @@ static NSString *const kCollectionItem   = @"PlotViewItem";
     [self.themePopUpButton addItemWithTitle:kThemeTableViewControllerDefaultTheme];
     [self.themePopUpButton addItemWithTitle:kThemeTableViewControllerNoTheme];
 
+    // added S.Wainwright
     for ( Class c in [CPTTheme themeClasses] ) {
-        [self.themePopUpButton addItemWithTitle:[c name]];
+        if(![[c name] containsString:@" Polar"]) {
+            [self.themePopUpButton addItemWithTitle:[c name]];
+        }
     }
 
     self.currentThemeName = kThemeTableViewControllerDefaultTheme;

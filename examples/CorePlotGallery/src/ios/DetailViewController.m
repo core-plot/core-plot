@@ -98,8 +98,13 @@
 {
     if ( newThemeName != currentThemeName ) {
         currentThemeName = [newThemeName copy];
-
-        self.themeBarButton.title = [NSString stringWithFormat:@"Theme: %@", newThemeName];
+// added S.Wainwright
+        if ([newThemeName containsString:@" Polar"]) {
+            self.themeBarButton.title = [NSString stringWithFormat:@"Theme: %@", [newThemeName stringByReplacingOccurrencesOfString:@" Polar" withString:@""]];
+        }
+        else {
+            self.themeBarButton.title = [NSString stringWithFormat:@"Theme: %@", newThemeName];
+        }
     }
 }
 
@@ -136,9 +141,16 @@
     NSDictionary<NSString *, NSString *> *themeInfo = notification.userInfo;
 
     NSString *themeName = themeInfo[PlotGalleryThemeNameKey];
-
     if ( themeName ) {
-        [self themeSelectedWithName:themeName];
+        // added S.Wainwright
+        if ( [self.detailItem.section isEqualToString: kPolarPlots]) {
+            NSMutableString *mutableThemeName = [NSMutableString stringWithString: themeName];
+            [mutableThemeName appendString:@" Polar"];
+            [self themeSelectedWithName:mutableThemeName];
+        }
+        else {
+            [self themeSelectedWithName:themeName];
+        }
     }
 }
 

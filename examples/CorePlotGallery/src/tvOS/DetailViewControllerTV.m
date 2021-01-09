@@ -116,7 +116,19 @@
 {
     NSDictionary<NSString *, NSString *> *themeInfo = notification.userInfo;
 
-    [self themeSelectedWithName:themeInfo[PlotGalleryThemeNameKey]];
+//    [self themeSelectedWithName:themeInfo[PlotGalleryThemeNameKey]];
+    NSString *themeName = themeInfo[PlotGalleryThemeNameKey];
+    if ( themeName ) {
+        // added S.Wainwright
+        if ( [self.detailItem.section isEqualToString: kPolarPlots]) {
+            NSMutableString *mutableThemeName = [NSMutableString stringWithString: themeName];
+            [mutableThemeName appendString:@" Polar"];
+            [self themeSelectedWithName:mutableThemeName];
+        }
+        else {
+            [self themeSelectedWithName:themeName];
+        }
+    }
 }
 
 @end

@@ -33,7 +33,10 @@ NSString *const PlotGalleryThemeNameKey               = @"PlotGalleryThemeNameKe
     [themeList addObject:kThemeTableViewControllerNoTheme];
 
     for ( Class themeClass in [CPTTheme themeClasses] ) {
-        [themeList addObject:[themeClass name]];
+        // added S.Wainwright
+        if(![[themeClass name] containsString:@" Polar"]) {
+            [themeList addObject:[themeClass name]];
+        }
     }
 
     self.themes = themeList;
