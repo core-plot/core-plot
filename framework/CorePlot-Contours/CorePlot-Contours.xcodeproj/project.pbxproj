@@ -1,0 +1,536 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E33A5C8B259F4C02008DF93A /* Contours.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E33A5C84259F4C01008DF93A /* Contours.cpp */; };
+		E33A5C8C259F4C02008DF93A /* ListContour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E33A5C85259F4C02008DF93A /* ListContour.cpp */; };
+		E33A5C8D259F4C02008DF93A /* Contour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E33A5C89259F4C02008DF93A /* Contour.cpp */; };
+		E33A5C90259F4C1F008DF93A /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E33A5C8F259F4C1F008DF93A /* libc++.tbd */; };
+		E33A5CB0259F4DCE008DF93A /* Contours.h in Headers */ = {isa = PBXBuildFile; fileRef = E33A5C88259F4C02008DF93A /* Contours.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3F64D3725A5B7D700E2B38B /* Contours.h in Headers */ = {isa = PBXBuildFile; fileRef = E33A5C88259F4C02008DF93A /* Contours.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3F64D3925A5B7D700E2B38B /* ListContour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E33A5C85259F4C02008DF93A /* ListContour.cpp */; };
+		E3F64D3A25A5B7D700E2B38B /* Contours.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E33A5C84259F4C01008DF93A /* Contours.cpp */; };
+		E3F64D3B25A5B7D700E2B38B /* Contour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E33A5C89259F4C02008DF93A /* Contour.cpp */; };
+		E3F64D3D25A5B7D700E2B38B /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E33A5C8F259F4C1F008DF93A /* libc++.tbd */; };
+		E3F64D7125A5BCF400E2B38B /* Contours.h in Headers */ = {isa = PBXBuildFile; fileRef = E33A5C88259F4C02008DF93A /* Contours.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3F64D7325A5BCF400E2B38B /* ListContour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E33A5C85259F4C02008DF93A /* ListContour.cpp */; };
+		E3F64D7425A5BCF400E2B38B /* Contours.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E33A5C84259F4C01008DF93A /* Contours.cpp */; };
+		E3F64D7525A5BCF400E2B38B /* Contour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E33A5C89259F4C02008DF93A /* Contour.cpp */; };
+		E3F64D7725A5BCF400E2B38B /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E33A5C8F259F4C1F008DF93A /* libc++.tbd */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E33A5C74259F4B60008DF93A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E3F64D3E25A5B7D700E2B38B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E3F64D7825A5BCF400E2B38B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		E33A5C76259F4B60008DF93A /* libCorePlot-Contours_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libCorePlot-Contours_iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E33A5C84259F4C01008DF93A /* Contours.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Contours.cpp; sourceTree = "<group>"; };
+		E33A5C85259F4C02008DF93A /* ListContour.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ListContour.cpp; sourceTree = "<group>"; };
+		E33A5C86259F4C02008DF93A /* ListContour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListContour.h; sourceTree = "<group>"; };
+		E33A5C87259F4C02008DF93A /* Contour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contour.h; sourceTree = "<group>"; };
+		E33A5C88259F4C02008DF93A /* Contours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contours.h; sourceTree = "<group>"; };
+		E33A5C89259F4C02008DF93A /* Contour.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Contour.cpp; sourceTree = "<group>"; };
+		E33A5C8A259F4C02008DF93A /* stdhdr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stdhdr.h; sourceTree = "<group>"; };
+		E33A5C8F259F4C1F008DF93A /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.0.sdk/usr/lib/libc++.tbd"; sourceTree = DEVELOPER_DIR; };
+		E3F64D4225A5B7D700E2B38B /* libCorePlot-Contours.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libCorePlot-Contours.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E3F64D7C25A5BCF500E2B38B /* libCorePlot-Contours_tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libCorePlot-Contours_tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E33A5C73259F4B60008DF93A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E33A5C90259F4C1F008DF93A /* libc++.tbd in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E3F64D3C25A5B7D700E2B38B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E3F64D3D25A5B7D700E2B38B /* libc++.tbd in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E3F64D7625A5BCF400E2B38B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E3F64D7725A5BCF400E2B38B /* libc++.tbd in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E33A5C6D259F4B60008DF93A = {
+			isa = PBXGroup;
+			children = (
+				E33A5C78259F4B60008DF93A /* CorePlot-Contours */,
+				E33A5C77259F4B60008DF93A /* Products */,
+				E33A5C8E259F4C1F008DF93A /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		E33A5C77259F4B60008DF93A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E33A5C76259F4B60008DF93A /* libCorePlot-Contours_iOS.a */,
+				E3F64D4225A5B7D700E2B38B /* libCorePlot-Contours.a */,
+				E3F64D7C25A5BCF500E2B38B /* libCorePlot-Contours_tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E33A5C78259F4B60008DF93A /* CorePlot-Contours */ = {
+			isa = PBXGroup;
+			children = (
+				E33A5C89259F4C02008DF93A /* Contour.cpp */,
+				E33A5C87259F4C02008DF93A /* Contour.h */,
+				E33A5C84259F4C01008DF93A /* Contours.cpp */,
+				E33A5C88259F4C02008DF93A /* Contours.h */,
+				E33A5C85259F4C02008DF93A /* ListContour.cpp */,
+				E33A5C86259F4C02008DF93A /* ListContour.h */,
+				E33A5C8A259F4C02008DF93A /* stdhdr.h */,
+			);
+			name = "CorePlot-Contours";
+			path = Contours;
+			sourceTree = "<group>";
+		};
+		E33A5C8E259F4C1F008DF93A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E33A5C8F259F4C1F008DF93A /* libc++.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		E33A5CAF259F4DBE008DF93A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E33A5CB0259F4DCE008DF93A /* Contours.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E3F64D3625A5B7D700E2B38B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E3F64D3725A5B7D700E2B38B /* Contours.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E3F64D7025A5BCF400E2B38B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E3F64D7125A5BCF400E2B38B /* Contours.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		E33A5C75259F4B60008DF93A /* CorePlot-Contours_iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E33A5C7F259F4B60008DF93A /* Build configuration list for PBXNativeTarget "CorePlot-Contours_iOS" */;
+			buildPhases = (
+				E33A5CAF259F4DBE008DF93A /* Headers */,
+				E33A5C72259F4B60008DF93A /* Sources */,
+				E33A5C73259F4B60008DF93A /* Frameworks */,
+				E33A5C74259F4B60008DF93A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CorePlot-Contours_iOS";
+			productName = "CorePlot-Contours";
+			productReference = E33A5C76259F4B60008DF93A /* libCorePlot-Contours_iOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		E3F64D3525A5B7D700E2B38B /* CorePlot-Contours */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E3F64D3F25A5B7D700E2B38B /* Build configuration list for PBXNativeTarget "CorePlot-Contours" */;
+			buildPhases = (
+				E3F64D3625A5B7D700E2B38B /* Headers */,
+				E3F64D3825A5B7D700E2B38B /* Sources */,
+				E3F64D3C25A5B7D700E2B38B /* Frameworks */,
+				E3F64D3E25A5B7D700E2B38B /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CorePlot-Contours";
+			productName = "CorePlot-Contours";
+			productReference = E3F64D4225A5B7D700E2B38B /* libCorePlot-Contours.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		E3F64D6F25A5BCF400E2B38B /* CorePlot-Contours_tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E3F64D7925A5BCF400E2B38B /* Build configuration list for PBXNativeTarget "CorePlot-Contours_tvOS" */;
+			buildPhases = (
+				E3F64D7025A5BCF400E2B38B /* Headers */,
+				E3F64D7225A5BCF400E2B38B /* Sources */,
+				E3F64D7625A5BCF400E2B38B /* Frameworks */,
+				E3F64D7825A5BCF400E2B38B /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CorePlot-Contours_tvOS";
+			productName = "CorePlot-Contours";
+			productReference = E3F64D7C25A5BCF500E2B38B /* libCorePlot-Contours_tvOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E33A5C6E259F4B60008DF93A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1220;
+				TargetAttributes = {
+					E33A5C75259F4B60008DF93A = {
+						CreatedOnToolsVersion = 12.2;
+					};
+				};
+			};
+			buildConfigurationList = E33A5C71259F4B60008DF93A /* Build configuration list for PBXProject "CorePlot-Contours" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E33A5C6D259F4B60008DF93A;
+			productRefGroup = E33A5C77259F4B60008DF93A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E33A5C75259F4B60008DF93A /* CorePlot-Contours_iOS */,
+				E3F64D3525A5B7D700E2B38B /* CorePlot-Contours */,
+				E3F64D6F25A5BCF400E2B38B /* CorePlot-Contours_tvOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E33A5C72259F4B60008DF93A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E33A5C8C259F4C02008DF93A /* ListContour.cpp in Sources */,
+				E33A5C8B259F4C02008DF93A /* Contours.cpp in Sources */,
+				E33A5C8D259F4C02008DF93A /* Contour.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E3F64D3825A5B7D700E2B38B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E3F64D3925A5B7D700E2B38B /* ListContour.cpp in Sources */,
+				E3F64D3A25A5B7D700E2B38B /* Contours.cpp in Sources */,
+				E3F64D3B25A5B7D700E2B38B /* Contour.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E3F64D7225A5BCF400E2B38B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E3F64D7325A5BCF400E2B38B /* ListContour.cpp in Sources */,
+				E3F64D7425A5BCF400E2B38B /* Contours.cpp in Sources */,
+				E3F64D7525A5BCF400E2B38B /* Contour.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		E33A5C7D259F4B60008DF93A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		E33A5C7E259F4B60008DF93A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E33A5C80259F4B60008DF93A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HGMRL5A68M;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		E33A5C81259F4B60008DF93A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HGMRL5A68M;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
+		E3F64D4025A5B7D700E2B38B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HGMRL5A68M;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		E3F64D4125A5B7D700E2B38B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HGMRL5A68M;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
+		E3F64D7A25A5BCF400E2B38B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HGMRL5A68M;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		E3F64D7B25A5BCF400E2B38B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HGMRL5A68M;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E33A5C71259F4B60008DF93A /* Build configuration list for PBXProject "CorePlot-Contours" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E33A5C7D259F4B60008DF93A /* Debug */,
+				E33A5C7E259F4B60008DF93A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E33A5C7F259F4B60008DF93A /* Build configuration list for PBXNativeTarget "CorePlot-Contours_iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E33A5C80259F4B60008DF93A /* Debug */,
+				E33A5C81259F4B60008DF93A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E3F64D3F25A5B7D700E2B38B /* Build configuration list for PBXNativeTarget "CorePlot-Contours" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E3F64D4025A5B7D700E2B38B /* Debug */,
+				E3F64D4125A5B7D700E2B38B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E3F64D7925A5BCF400E2B38B /* Build configuration list for PBXNativeTarget "CorePlot-Contours_tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E3F64D7A25A5BCF400E2B38B /* Debug */,
+				E3F64D7B25A5BCF400E2B38B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E33A5C6E259F4B60008DF93A /* Project object */;
+}
