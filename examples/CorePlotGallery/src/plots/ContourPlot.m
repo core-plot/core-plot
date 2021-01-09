@@ -117,7 +117,7 @@ typedef NSFont CPTFont;
 
     CPTDictionary *textAttributes = x.titleTextStyle.attributes;
 
-    NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:titleString
+    NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(titleString, @"")
                                                                                   attributes:textAttributes];
 
     CPTFont *fontAttribute = textAttributes[NSFontAttributeName];
