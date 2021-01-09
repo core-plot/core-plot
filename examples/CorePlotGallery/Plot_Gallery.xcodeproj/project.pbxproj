@@ -122,6 +122,15 @@
 		C3F34F1512AB2598008FBDC3 /* DonutChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F34F1412AB2598008FBDC3 /* DonutChart.m */; };
 		C3F6216C1C9F365100301061 /* CurvedInterpolationDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = E9595DFB1C9973B9004129DA /* CurvedInterpolationDemo.m */; };
 		C3F97F1917A9DE2000A52FF2 /* FunctionPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F97F1817A9DE2000A52FF2 /* FunctionPlot.m */; };
+		E3FBF9F925A96D10000D0102 /* PolarPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = E3FBF95B25A96D0F000D0102 /* PolarPlot.m */; };
+		E3FBF9FA25A96D10000D0102 /* PolarPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = E3FBF95B25A96D0F000D0102 /* PolarPlot.m */; };
+		E3FBF9FB25A96D10000D0102 /* PolarPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = E3FBF95B25A96D0F000D0102 /* PolarPlot.m */; };
+		E3FBF9FC25A96D10000D0102 /* VectorFieldPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = E3FBF95C25A96D0F000D0102 /* VectorFieldPlot.m */; };
+		E3FBF9FD25A96D10000D0102 /* VectorFieldPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = E3FBF95C25A96D0F000D0102 /* VectorFieldPlot.m */; };
+		E3FBF9FE25A96D10000D0102 /* VectorFieldPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = E3FBF95C25A96D0F000D0102 /* VectorFieldPlot.m */; };
+		E3FBF9FF25A96D10000D0102 /* ContourPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = E3FBF95F25A96D0F000D0102 /* ContourPlot.m */; };
+		E3FBFA0025A96D10000D0102 /* ContourPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = E3FBF95F25A96D0F000D0102 /* ContourPlot.m */; };
+		E3FBFA0125A96D10000D0102 /* ContourPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = E3FBF95F25A96D0F000D0102 /* ContourPlot.m */; };
 		E9595DFC1C9973B9004129DA /* CurvedInterpolationDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = E9595DFB1C9973B9004129DA /* CurvedInterpolationDemo.m */; };
 		E9AB989C1C9A903700D23875 /* CurvedInterpolationDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = E9595DFB1C9973B9004129DA /* CurvedInterpolationDemo.m */; };
 /* End PBXBuildFile section */
@@ -326,6 +335,12 @@
 		C3F42A2714D3A75F0044B323 /* CurvedScatterPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 2; name = CurvedScatterPlot.m; path = src/plots/CurvedScatterPlot.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C3F97F1717A9DE2000A52FF2 /* FunctionPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FunctionPlot.h; path = src/plots/FunctionPlot.h; sourceTree = "<group>"; };
 		C3F97F1817A9DE2000A52FF2 /* FunctionPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = FunctionPlot.m; path = src/plots/FunctionPlot.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		E3FBF8E825A96D0F000D0102 /* PolarPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PolarPlot.h; path = src/plots/PolarPlot.h; sourceTree = "<group>"; };
+		E3FBF95B25A96D0F000D0102 /* PolarPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PolarPlot.m; path = src/plots/PolarPlot.m; sourceTree = "<group>"; };
+		E3FBF95C25A96D0F000D0102 /* VectorFieldPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VectorFieldPlot.m; path = src/plots/VectorFieldPlot.m; sourceTree = "<group>"; };
+		E3FBF95D25A96D0F000D0102 /* VectorFieldPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VectorFieldPlot.h; path = src/plots/VectorFieldPlot.h; sourceTree = "<group>"; };
+		E3FBF95E25A96D0F000D0102 /* ContourPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContourPlot.h; path = src/plots/ContourPlot.h; sourceTree = "<group>"; };
+		E3FBF95F25A96D0F000D0102 /* ContourPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContourPlot.m; path = src/plots/ContourPlot.m; sourceTree = "<group>"; };
 		E9595DFA1C9973B9004129DA /* CurvedInterpolationDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurvedInterpolationDemo.h; path = src/plots/CurvedInterpolationDemo.h; sourceTree = "<group>"; };
 		E9595DFB1C9973B9004129DA /* CurvedInterpolationDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CurvedInterpolationDemo.m; path = src/plots/CurvedInterpolationDemo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -474,12 +489,14 @@
 				C3A31A5514DF782A00734AB7 /* ColoredBarChart.m */,
 				4F22FF9A12342D7C006BF615 /* CompositePlot.h */,
 				4F22FF9B12342D7C006BF615 /* CompositePlot.m */,
+				E3FBF95E25A96D0F000D0102 /* ContourPlot.h */,
+				E3FBF95F25A96D0F000D0102 /* ContourPlot.m */,
 				C35597941437E07800B41DA7 /* ControlChart.h */,
 				C35597951437E07800B41DA7 /* ControlChart.m */,
-				C3F42A2614D3A75F0044B323 /* CurvedScatterPlot.h */,
-				C3F42A2714D3A75F0044B323 /* CurvedScatterPlot.m */,
 				E9595DFA1C9973B9004129DA /* CurvedInterpolationDemo.h */,
 				E9595DFB1C9973B9004129DA /* CurvedInterpolationDemo.m */,
+				C3F42A2614D3A75F0044B323 /* CurvedScatterPlot.h */,
+				C3F42A2714D3A75F0044B323 /* CurvedScatterPlot.m */,
 				4F8E1C12129077C200D2035F /* DatePlot.h */,
 				4F8E1C13129077C200D2035F /* DatePlot.m */,
 				C3F34F1312AB2598008FBDC3 /* DonutChart.h */,
@@ -498,16 +515,20 @@
 				C360E1C513B18AAF007994B6 /* OHLCPlot.m */,
 				C39C4E4213BFE1B400CD9194 /* PlotSpaceDemo.h */,
 				C39C4E4313BFE1B400CD9194 /* PlotSpaceDemo.m */,
+				E3FBF8E825A96D0F000D0102 /* PolarPlot.h */,
+				E3FBF95B25A96D0F000D0102 /* PolarPlot.m */,
 				C3A14BEA13AEB7E700D103EA /* RangePlot.h */,
 				C3A14BEB13AEB7E700D103EA /* RangePlot.m */,
 				C354C0D513C7CDBE00DA8822 /* RealTimePlot.h */,
 				C354C0D613C7CDBE00DA8822 /* RealTimePlot.m */,
-				4F8E1C84129083B000D2035F /* SteppedScatterPlot.h */,
-				4F8E1C85129083B000D2035F /* SteppedScatterPlot.m */,
 				4F22FF9E12342D7C006BF615 /* SimplePieChart.h */,
 				4F22FF9F12342D7C006BF615 /* SimplePieChart.m */,
 				4F22FFA012342D7C006BF615 /* SimpleScatterPlot.h */,
 				4F22FFA112342D7C006BF615 /* SimpleScatterPlot.m */,
+				4F8E1C84129083B000D2035F /* SteppedScatterPlot.h */,
+				4F8E1C85129083B000D2035F /* SteppedScatterPlot.m */,
+				E3FBF95D25A96D0F000D0102 /* VectorFieldPlot.h */,
+				E3FBF95C25A96D0F000D0102 /* VectorFieldPlot.m */,
 				4F22FFA212342D7C006BF615 /* VerticalBarChart.h */,
 				4F22FFA312342D7C006BF615 /* VerticalBarChart.m */,
 			);
@@ -818,6 +839,7 @@
 				C360E1E013B18CAF007994B6 /* CandlestickPlot.m in Sources */,
 				C39C4E4113BFE1A900CD9194 /* LabelingPolicyDemo.m in Sources */,
 				C39C4E4413BFE1B400CD9194 /* PlotSpaceDemo.m in Sources */,
+				E3FBF9FF25A96D10000D0102 /* ContourPlot.m in Sources */,
 				C354C0D713C7CDBE00DA8822 /* RealTimePlot.m in Sources */,
 				E9595DFC1C9973B9004129DA /* CurvedInterpolationDemo.m in Sources */,
 				C367249313E103910070F47A /* LineCapDemo.m in Sources */,
@@ -825,7 +847,9 @@
 				C3A31A5614DF782A00734AB7 /* ColoredBarChart.m in Sources */,
 				C3AC1410150EDE5C00631001 /* CurvedScatterPlot.m in Sources */,
 				C3F97F1917A9DE2000A52FF2 /* FunctionPlot.m in Sources */,
+				E3FBF9F925A96D10000D0102 /* PolarPlot.m in Sources */,
 				C3D70BA6175EB29E00F27173 /* ImageDemo.m in Sources */,
+				E3FBF9FC25A96D10000D0102 /* VectorFieldPlot.m in Sources */,
 				C3457A4D17AD7C5D000880F3 /* PiNumberFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -855,6 +879,7 @@
 				C30D8B371BCAFDE20003BB70 /* SimplePieChart.m in Sources */,
 				C30D8B241BCAFD3E0003BB70 /* PiNumberFormatter.m in Sources */,
 				C30D8B331BCAFDE20003BB70 /* PlotSpaceDemo.m in Sources */,
+				E3FBFA0125A96D10000D0102 /* ContourPlot.m in Sources */,
 				C30D8B321BCAFDE20003BB70 /* OHLCPlot.m in Sources */,
 				C30D8B341BCAFDE20003BB70 /* RangePlot.m in Sources */,
 				C30D8B251BCAFDE20003BB70 /* AxisDemo.m in Sources */,
@@ -862,7 +887,9 @@
 				C3B9C2711BCB237000BD560B /* ThemeTableViewControllerTV.m in Sources */,
 				C30D8B2D1BCAFDE20003BB70 /* FunctionPlot.m in Sources */,
 				C30D8B2A1BCAFDE20003BB70 /* CurvedScatterPlot.m in Sources */,
+				E3FBF9FB25A96D10000D0102 /* PolarPlot.m in Sources */,
 				C30D8B381BCAFDE20003BB70 /* SimpleScatterPlot.m in Sources */,
+				E3FBF9FE25A96D10000D0102 /* VectorFieldPlot.m in Sources */,
 				C3B9C2701BCB237000BD560B /* RootViewControllerTV.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -892,6 +919,7 @@
 				C34CB55A1BC9A889009270A0 /* RootViewController.m in Sources */,
 				C34CB57F1BC9B1C1009270A0 /* CompositePlot.m in Sources */,
 				C34CB5851BC9B1C1009270A0 /* GradientScatterPlot.m in Sources */,
+				E3FBFA0025A96D10000D0102 /* ContourPlot.m in Sources */,
 				C34CB58D1BC9B1C1009270A0 /* SteppedScatterPlot.m in Sources */,
 				C34CB58A1BC9B1C1009270A0 /* PlotSpaceDemo.m in Sources */,
 				C34CB57D1BC9B1C1009270A0 /* CandlestickPlot.m in Sources */,
@@ -899,7 +927,9 @@
 				C34CB58E1BC9B1C1009270A0 /* SimplePieChart.m in Sources */,
 				C34CB57E1BC9B1C1009270A0 /* ColoredBarChart.m in Sources */,
 				C34CB55B1BC9A889009270A0 /* ThemeTableViewController.m in Sources */,
+				E3FBF9FA25A96D10000D0102 /* PolarPlot.m in Sources */,
 				C34CB5571BC9A889009270A0 /* main.m in Sources */,
+				E3FBF9FD25A96D10000D0102 /* VectorFieldPlot.m in Sources */,
 				C34CB5841BC9B1C1009270A0 /* FunctionPlot.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
