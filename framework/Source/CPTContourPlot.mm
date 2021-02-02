@@ -27,8 +27,8 @@
 #import "CPTUtilities.h"
 #import "CPTXYPlotSpace.h"
 #import "NSCoderExtensions.h"
-#import "CPTFieldFunctionDataSource.h"
 #import "Contours.h"
+#import "CPTFieldFunctionDataSource.h"
 #import "tgmath.h"
 
 #define MAXISOCURVES 21
@@ -48,7 +48,6 @@
 CPTContourPlotBinding const CPTContourPlotBindingXValues       = @"xValues";       ///< X values.
 CPTContourPlotBinding const CPTContourPlotBindingYValues       = @"yValues";       ///< Y values.
 CPTContourPlotBinding const CPTContourPlotBindingFunctionValues    = @"functionValues"; //< Contour base point function values.
-CPTContourPlotBinding const CPTContourPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot symbols.
 
 /// @cond
 
@@ -109,20 +108,18 @@ void freeContourPoints(ContourPoints *a) {
 @property (nonatomic, readwrite, copy, nullable) CPTNumberArray *xValues;
 @property (nonatomic, readwrite, copy, nullable) CPTNumberArray *yValues;
 @property (nonatomic, readwrite, copy, nullable) CPTMutableNumericData *functionValues;
-@property (nonatomic, readwrite, strong, nullable) CPTPlotSymbolArray *plotSymbols;
 @property (nonatomic, readwrite, assign) NSUInteger pointingDeviceDownIndex;
 
 @property (nonatomic, readwrite, assign) BOOL needsIsoCurvesRelabel;
 @property (nonatomic, readwrite, assign) NSRange isoCurvesLabelIndexRange;
 @property (nonatomic, readwrite, strong, nullable) NSMutableArray<CPTMutableAnnotationArray*> *isoCurvesLabelAnnotations;
 @property (nonatomic, readwrite, strong, nullable) CPTMutableLineStyleArray *isoCurvesLineStyles;
+@property (nonatomic, readwrite, strong, nullable) CPTMutableFillArray *isoCurvesFills;
 @property (nonatomic, readwrite, strong, nullable) CPTMutableLayerArray *isoCurvesLabels;
 @property (nonatomic, readwrite, strong, nullable) CPTMutableNumberArray *isoCurvesValues;
 @property (nonatomic, readwrite, strong, nullable) CPTMutableNumberArray *isoCurvesNoStrips;
 @property (nonatomic, readwrite, strong, nullable) NSMutableArray<CPTMutableValueArray*> *isoCurvesLabelsPositions;
 
-@property (nonatomic, strong) CPTContourDataSourceBlock dataSourceBlock;
-@property (nonatomic, readwrite, strong) CPTMutableNumberArray *limits;       // left, right, bottom, top;
 @property (nonatomic, readwrite, assign) double stepX;
 @property (nonatomic, readwrite, assign) double stepY;
 @property (nonatomic, readwrite, assign) double scaleX;
@@ -136,7 +133,7 @@ void freeContourPoints(ContourPoints *a) {
 -(NSInteger)extremeDrawnPointIndexForFlags:(nonnull BOOL *)pointDrawFlags numberOfPoints:(NSUInteger)dataCount extremeNumIsLowerBound:(BOOL)isLowerBound;
 
 
--(CPTLineStyle *)contourLineStyleForIndex:(NSUInteger)idx;
+-(CPTLineStyle *)isoCurveLineStyleForIndex:(NSUInteger)idx;
 
 @end
 
@@ -156,24 +153,18 @@ void freeContourPoints(ContourPoints *a) {
 @dynamic xValues;
 @dynamic yValues;
 @dynamic functionValues;
-@dynamic plotSymbols;
+
 
 /** @property nullable id<CPTPlotDataSource> contourAppearanceDataSource
  *  @brief The appearance data source for the plot.
  **/
 @synthesize contourAppearanceDataSource;
 
-/** @property CPTLineStyle *contourLineStyle
+/** @property CPTLineStyle *isoCurveLineStyle
  *  @brief The line style of the contours.
  *  Set to @nil to have no Contours. Default is a black line style.
  **/
-@synthesize contourLineStyle;
-
-/** @property nullable CPTPlotSymbol *plotSymbol
- *  @brief The plot symbol drawn at each point if the data source does not provide symbols.
- *  If @nil, no symbol is drawn.
- **/
-@synthesize plotSymbol;
+@synthesize isoCurveLineStyle;
 
 /** @property double minFunctionValue
  *  @brief The minimum value of the Contour Function.
@@ -244,6 +235,11 @@ void freeContourPoints(ContourPoints *a) {
  *  @brief Mutable annotation array for isoCurves line styles.
  **/
 @synthesize isoCurvesLineStyles;
+
+/** @property CPTMutableFillArray *isoCurvesFills
+ *  @brief Mutable annotation array for isoCurves fills.
+ **/
+@synthesize isoCurvesFills;
 
 /** @property CPTMutableNumberArray *isoCurvesValues
  *  @brief Mutable number array to store the value of an isoCurve contour.
@@ -320,7 +316,6 @@ void freeContourPoints(ContourPoints *a) {
         [self exposeBinding:CPTContourPlotBindingXValues];
         [self exposeBinding:CPTContourPlotBindingYValues];
         [self exposeBinding:CPTContourPlotBindingFunctionValues];
-        [self exposeBinding:CPTContourPlotBindingPlotSymbols];
     }
 }
 
@@ -334,7 +329,7 @@ void freeContourPoints(ContourPoints *a) {
 /** @brief Initializes a newly allocated CPTContourPlot object with the provided frame rectangle.
  *
  *  This is the designated initializer. The initialized layer will have the following properties:
- *  - @ref contourLineStyle = default line style
+ *  - @ref isoCurveLineStyle = default line style
  *  - @ref labelField = #CPTContourPlotFieldX
  *
  *  @param newFrame The frame rectangle.
@@ -343,22 +338,16 @@ void freeContourPoints(ContourPoints *a) {
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
-        contourLineStyle        = [[CPTLineStyle alloc] init];
+        isoCurveLineStyle        = [[CPTLineStyle alloc] init];
         self.noIsoCurves = MAXISOCURVES;
-        isoCurvesLineStyles = [[CPTMutableLineStyleArray alloc] init];
-        for(NSUInteger i = 0; i < self.noIsoCurves; i++) {
-            [isoCurvesLineStyles addObject: [CPTMutableLineStyle lineStyleWithStyle: contourLineStyle]];
-        }
-        isoCurvesLabels = [[CPTMutableLayerArray alloc] init];
-        id nilObject                    = [CPTPlot nilData];
-        for(NSUInteger i = 0; i < self.noIsoCurves; i++) {
-            [isoCurvesLabels addObject: nilObject];
-        }
+
         scaleX = CPTDecimalDoubleValue(self.plotArea.widthDecimal);
         scaleY = CPTDecimalDoubleValue(self.plotArea.heightDecimal);
         maxWidthPixels = CPTDecimalDoubleValue(self.plotArea.widthDecimal);
         maxHeightPixels = CPTDecimalDoubleValue(self.plotArea.heightDecimal);
         limits = [CPTMutableNumberArray arrayWithObjects:@0, @0, @0, @0, nil];
+        maxFunctionValue = 0.0;
+        minFunctionValue = 0.0;
         
         self.labelField = CPTContourPlotFieldX; // but also need CPTContourPlotFieldY as 2 dimensional
     }
@@ -374,9 +363,7 @@ void freeContourPoints(ContourPoints *a) {
     if ( (self = [super initWithLayer:layer]) ) {
         CPTContourPlot *theLayer = static_cast<CPTContourPlot*>(layer);
 
-        contourLineStyle        = theLayer->contourLineStyle;
-        isoCurvesLineStyles      = theLayer->isoCurvesLineStyles;
-        isoCurvesLabels          = theLayer->isoCurvesLabels;
+        isoCurveLineStyle        = theLayer->isoCurveLineStyle;
 //        usesEvenOddClipRule = theLayer->usesEvenOddClipRule;
 
         pointingDeviceDownIndex = NSNotFound;
@@ -393,9 +380,17 @@ void freeContourPoints(ContourPoints *a) {
         [isoCurvesLineStyles removeAllObjects];
         isoCurvesLineStyles = nil;
     }
+    if(isoCurvesFills != nil) {
+        [isoCurvesFills removeAllObjects];
+        isoCurvesFills = nil;
+    }
     if(isoCurvesLabels != nil) {
         [isoCurvesLabels removeAllObjects];
         isoCurvesLabels = nil;
+    }
+    if(isoCurvesLabelAnnotations != nil) {
+        [isoCurvesLabelAnnotations removeAllObjects];
+        isoCurvesLabelAnnotations = nil;
     }
     if(isoCurvesLabelsPositions != nil) {
         [isoCurvesLabelsPositions removeAllObjects];
@@ -416,7 +411,7 @@ void freeContourPoints(ContourPoints *a) {
 {
     [super encodeWithCoder:coder];
     
-    [coder encodeObject:self.contourLineStyle forKey:@"CPTContourPlot.contourLineStyle"];
+    [coder encodeObject:self.isoCurveLineStyle forKey:@"CPTContourPlot.isoCurveLineStyle"];
 
     // No need to archive these properties:
     // pointingDeviceDownIndex
@@ -425,8 +420,8 @@ void freeContourPoints(ContourPoints *a) {
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ( (self = [super initWithCoder:coder]) ) {
-        contourLineStyle = [[coder decodeObjectOfClass:[CPTLineStyle class]
-                                            forKey:@"CPTContourPlot.contourLineStyle"] copy];
+        isoCurveLineStyle = [[coder decodeObjectOfClass:[CPTLineStyle class]
+                                            forKey:@"CPTContourPlot.isoCurveLineStyle"] copy];
         
         pointingDeviceDownIndex = NSNotFound;
     }
@@ -567,7 +562,7 @@ void freeContourPoints(ContourPoints *a) {
 -(void)alignViewPointsToUserSpace:(nonnull CGPoint*)viewPoints withContext:(nonnull CGContextRef)context drawPointFlags:(nonnull BOOL *)drawPointFlags numberOfPoints:(NSUInteger)dataCount {
     // Align to device pixels if there is a data line.
     // Otherwise, align to view space, so fills are sharp at edges.
-    if ( self.contourLineStyle.lineWidth > static_cast<CGFloat>(0.0) ) {
+    if ( self.isoCurveLineStyle.lineWidth > static_cast<CGFloat>(0.0) ) {
         dispatch_apply(dataCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
             if ( drawPointFlags[i] ) {
                 CGFloat x       = viewPoints[i].x;
@@ -621,14 +616,11 @@ void freeContourPoints(ContourPoints *a) {
 {
     [super reloadDataInIndexRange:indexRange];
     
-    // Update plot symbols
-    [self reloadPlotSymbolsInIndexRange:indexRange];
-
     // Contour line styles
-    [self reloadContourLineStylesInIsoCurveIndexRange:NSMakeRange(0, self.noIsoCurves)];
+    [self reloadContourLineStylesInIsoCurveIndexRange:NSMakeRange(0, self.isoCurvesValues.count)];
     
     // Labels for each isocurve
-    [self reloadContourLabelsInIsoCurveIndexRange:NSMakeRange(0, self.noIsoCurves)];
+    [self reloadContourLabelsInIsoCurveIndexRange:NSMakeRange(0, self.isoCurvesValues.count)];
 }
 
 -(void)reloadPlotDataInIndexRange:(NSRange)indexRange {
@@ -645,85 +637,15 @@ void freeContourPoints(ContourPoints *a) {
             id newFunctionValues = [self numbersFromDataSourceForField:CPTContourPlotFieldFunctionValue recordIndexRange:indexRange];
             [self cacheNumbers:newFunctionValues forField:CPTContourPlotFieldFunctionValue atRecordIndex:indexRange.location];
         }
-        else {
-            self.xValues     = nil;
-            self.yValues     = nil;
-            self.functionValues  = nil;
-        }
+//        else {
+//            self.xValues     = nil;
+//            self.yValues     = nil;
+//            self.functionValues  = nil;
+//        }
     }
 }
 
 /// @endcond
-
-/**
- *  @brief Reload all plot symbols from the data source immediately.
- **/
--(void)reloadPlotSymbols
-{
-    [self reloadPlotSymbolsInIndexRange:NSMakeRange(0, self.cachedDataCount)];
-}
-
-/** @brief Reload plot symbols in the given index range from the data source immediately.
- *  @param indexRange The index range to load.
- **/
--(void)reloadPlotSymbolsInIndexRange:(NSRange)indexRange
-{
-    id<CPTContourPlotDataSource> theDataSource = static_cast<id<CPTContourPlotDataSource>>(self.dataSource);
-
-    BOOL needsLegendUpdate = NO;
-
-    if ( [theDataSource respondsToSelector:@selector(symbolsForContourPlot:recordIndexRange:)] ) {
-        needsLegendUpdate = YES;
-
-        [self cacheArray:[theDataSource symbolsForContourPlot:self recordIndexRange:indexRange]
-                  forKey:CPTContourPlotBindingPlotSymbols
-           atRecordIndex:indexRange.location];
-    }
-    else if ( [theDataSource respondsToSelector:@selector(symbolForContourPlot:recordIndex:)] ) {
-        needsLegendUpdate = YES;
-
-        id nilObject                     = [CPTPlot nilData];
-        CPTMutablePlotSymbolArray *array = [[NSMutableArray alloc] initWithCapacity:indexRange.length];
-        NSUInteger maxIndex              = NSMaxRange(indexRange);
-
-        for ( NSUInteger idx = indexRange.location; idx < maxIndex; idx++ ) {
-            CPTPlotSymbol *symbol = [theDataSource symbolForContourPlot:self recordIndex:idx];
-            if ( symbol ) {
-                [array addObject:symbol];
-            }
-            else {
-                [array addObject:nilObject];
-            }
-        }
-
-        [self cacheArray:array forKey:CPTContourPlotBindingPlotSymbols atRecordIndex:indexRange.location];
-    }
-
-    // Legend
-    if ( needsLegendUpdate ) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
-    }
-
-    [self setNeedsDisplay];
-}
-
-#pragma mark -
-#pragma mark Symbols
-
-/** @brief Returns the plot symbol to use for a given index.
- *  @param idx The index of the record.
- *  @return The plot symbol to use, or @nil if no plot symbol should be drawn.
- **/
--(nullable CPTPlotSymbol *)plotSymbolForRecordIndex:(NSUInteger)idx
-{
-    CPTPlotSymbol *symbol = [self cachedValueForKey:CPTContourPlotBindingPlotSymbols recordIndex:idx];
-
-    if ( (symbol == nil) || (symbol == [CPTPlot nilData]) ) {
-        symbol = self.plotSymbol;
-    }
-
-    return symbol;
-}
 
 
 /**
@@ -788,6 +710,59 @@ void freeContourPoints(ContourPoints *a) {
 }
 
 /**
+ *  @brief Reload all fills  from the data source immediately.
+ **/
+-(void)reloadContourFills {
+    [self reloadContourFillsInIsoCurveIndexRange:NSMakeRange(0, self.noIsoCurves)];
+}
+
+/** @brief Reload contour fill in the given index range from the data source immediately.
+ *  @param indexRange The index range to load.
+ **/
+-(void)reloadContourFillsInIsoCurveIndexRange:(NSRange)indexRange {
+    id<CPTContourPlotDataSource> theDataSource = static_cast<id<CPTContourPlotDataSource>>(self.dataSource);
+    
+    if ([theDataSource isKindOfClass:[CPTFieldFunctionDataSource class]]) {
+        theDataSource = static_cast<id<CPTContourPlotDataSource>>(self.contourAppearanceDataSource);
+    }
+
+    if ( [theDataSource respondsToSelector:@selector(fillsForContourPlot:isoCurveIndexRange:)] ) {
+
+        id nilObject                    = [CPTPlot nilData];
+        NSUInteger maxIndex             = NSMaxRange(indexRange);
+        
+        CPTFillArray *dataSourceFills = [theDataSource fillsForContourPlot:self isoCurveIndexRange:indexRange];
+        for ( NSUInteger idx = indexRange.location; idx < maxIndex; idx++ ) {
+            CPTFill *dataSourceFill = [dataSourceFills objectAtIndex:idx];
+            if ( dataSourceFill ) {
+                [self.isoCurvesFills replaceObjectAtIndex:idx withObject:dataSourceFill];
+            }
+            else {
+                [self.isoCurvesFills replaceObjectAtIndex:idx withObject:nilObject];
+            }
+        }
+    }
+    else if ( [theDataSource respondsToSelector:@selector(fillForContourPlot:isoCurveIndex:)] ) {
+
+        id nilObject                    = [CPTPlot nilData];
+        NSUInteger maxIndex             = NSMaxRange(indexRange);
+
+        for ( NSUInteger idx = indexRange.location; idx < maxIndex; idx++ ) {
+            CPTFill *dataSourceFill = [theDataSource fillForContourPlot:self isoCurveIndex:idx];
+            if ( dataSourceFill ) {
+                [self.isoCurvesFills replaceObjectAtIndex:idx withObject:dataSourceFill];
+            }
+            else {
+                [self.isoCurvesFills replaceObjectAtIndex:idx withObject:nilObject];
+            }
+        }
+    }
+
+    [self setNeedsDisplay];
+}
+
+
+/**
  *  @brief Reload all data labels from the data source immediately.
  **/
 -(void)reloadContourLabels
@@ -844,6 +819,7 @@ void freeContourPoints(ContourPoints *a) {
     [self relabelIsoCurvesIndexRange:indexRange];
 }
 
+
 #pragma mark -
 #pragma mark Drawing
 
@@ -886,9 +862,9 @@ void freeContourPoints(ContourPoints *a) {
         
         BOOL pixelAlign = self.alignsPointsToPixels;
         
-        CPTFieldFunctionDataSource *contourFunctionDataSource = static_cast<CPTFieldFunctionDataSource*>(self.dataSource);
-        if (self.dataSourceBlock == NULL ) {
-           self.dataSourceBlock = contourFunctionDataSource.dataSourceBlock;
+        if ( self.dataSourceBlock == nil ) {
+            CPTFieldFunctionDataSource *contourFunctionDataSource = static_cast<CPTFieldFunctionDataSource*>(self.dataSource);
+            self.dataSourceBlock = contourFunctionDataSource.dataSourceBlock;
         }
         
         // here we are going to generate contour planes based on max/min FunctionValue
@@ -897,23 +873,34 @@ void freeContourPoints(ContourPoints *a) {
         double _adjustedMaxFunctionValue = lrint(ceil(self.maxFunctionValue));
         double step = (_adjustedMaxFunctionValue - _adjustedMinFunctionValue) / static_cast<double>(self.noIsoCurves - 1 < 2 ? 1 : self.noIsoCurves - 1);
         
-        double planesValues[MAXISOCURVES];
+        double *planesValues = static_cast<double*>(calloc(self.noIsoCurves, sizeof(double)));
         for (NSUInteger iPlane = 0; iPlane < self.noIsoCurves; iPlane++) {
             planesValues[iPlane] = _adjustedMinFunctionValue + static_cast<double>(iPlane) * step;
         }
         
+        double limit0, limit1;
         if (thePlotSpace.xRange.lengthDouble > thePlotSpace.yRange.lengthDouble) {
-            self.limits[0] = self.limits[2] = thePlotSpace.xRange.location;
-            self.limits[1] = self.limits[3] = thePlotSpace.xRange.end;
+            if ([self.limits[0] doubleValue] == -DBL_MAX && [self.limits[1] doubleValue] == DBL_MAX) {
+                limit0 = [thePlotSpace.xRange.location doubleValue];
+                limit1 = [thePlotSpace.xRange.end doubleValue];
+            }
+            else {
+                limit0 = [self.limits[0] doubleValue];
+                limit1 = [self.limits[1] doubleValue];
+            }
         }
         else {
-            self.limits[0] = self.limits[2] = thePlotSpace.yRange.location;
-            self.limits[1] = self.limits[3] = thePlotSpace.yRange.end;
+            if ([self.limits[2] doubleValue] == -DBL_MAX && [self.limits[3] doubleValue] == DBL_MAX) {
+                limit0 = [thePlotSpace.yRange.location doubleValue];
+                limit1 = [thePlotSpace.yRange.end doubleValue];
+            }
+            else {
+                limit0 = [self.limits[2] doubleValue];
+                limit1 = [self.limits[3] doubleValue];
+            }
         }
-        double _limits[4] = { [self.limits[0] doubleValue], [self.limits[1] doubleValue], [self.limits[2] doubleValue], [self.limits[3] doubleValue] };
-//        limits[0] = limits[2] = 0.0;
-//        limits[1] = limits[3] = 5.0;
-        COREPLOT_CONTOURS::CContours *contours = new COREPLOT_CONTOURS::CContours(static_cast<const int>(self.noIsoCurves), static_cast<double*>(_limits), planesValues);
+        double _limits[4] = { limit0 * 1.01, limit1 * 1.01, limit0 * 1.01, limit1 * 1.01 };
+        COREPLOT_CONTOURS::CContours *contours = new COREPLOT_CONTOURS::CContours(static_cast<const int>(self.noIsoCurves), planesValues, static_cast<double*>(_limits));
         contours->setFieldBlock(self.dataSourceBlock);
         contours->generate();
         
@@ -928,12 +915,30 @@ void freeContourPoints(ContourPoints *a) {
         ContourPoints stripContours;
         initContourPoints(&stripContours, 50);
         
-        self.scaleX = CPTDecimalDoubleValue(self.plotArea.widthDecimal) / (_limits[1] - _limits[0]);
-        self.scaleY = CPTDecimalDoubleValue(self.plotArea.heightDecimal) / (_limits[3] - _limits[2]);
+        self.scaleX = CPTDecimalDoubleValue(self.plotArea.widthDecimal) / thePlotSpace.xRange.lengthDouble;
+        self.scaleY = CPTDecimalDoubleValue(self.plotArea.heightDecimal) / thePlotSpace.yRange.lengthDouble;
         self.maxWidthPixels = CPTDecimalDoubleValue(self.plotArea.widthDecimal);
         self.maxHeightPixels = CPTDecimalDoubleValue(self.plotArea.heightDecimal);
         
-        if(self.isoCurvesValues == nil) {
+//        if(self.isoCurvesValues == nil) {
+            self.isoCurvesLineStyles = [[CPTMutableLineStyleArray alloc] init];
+            for(NSUInteger i = 0; i < self.noIsoCurves; i++) {
+                CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyleWithStyle: self.isoCurveLineStyle];
+                [self.isoCurvesLineStyles addObject: lineStyle];
+            }
+            self.isoCurvesFills = [[CPTMutableFillArray alloc] init];
+            for(NSUInteger i = 0; i < self.noIsoCurves; i++) {
+                id nilObject                    = [CPTPlot nilData];
+                [self.isoCurvesFills addObject: nilObject];
+            }
+            
+            self.isoCurvesLabels = [[CPTMutableLayerArray alloc] init];
+            for(NSUInteger i = 0; i < self.noIsoCurves; i++) {
+                id nilObject                    = [CPTPlot nilData];
+                [self.isoCurvesLabels addObject: nilObject];
+            }
+            self.needsIsoCurvesRelabel = YES;
+            
             self.isoCurvesValues = [CPTMutableNumberArray arrayWithCapacity:self.noIsoCurves];
             self.isoCurvesNoStrips = [CPTMutableNumberArray arrayWithCapacity:self.noIsoCurves];
             self.isoCurvesLabelsPositions = static_cast<NSMutableArray<CPTMutableValueArray*>*>([NSMutableArray arrayWithCapacity:self.noIsoCurves]);
@@ -942,8 +947,7 @@ void freeContourPoints(ContourPoints *a) {
                 if (pStripList->size() != 0) {
                     NSNumber *isoCurveValue = [NSNumber numberWithDouble: contours->getPlane(iPlane)];
                     [self.isoCurvesValues addObject:isoCurveValue];
-                    NSNumber *isoCurveNoStrips = [NSNumber numberWithDouble: pStripList->size()];
-                    [self.isoCurvesNoStrips addObject:isoCurveNoStrips];
+                    
                     CPTMutableValueArray *positionsPerStrip = [CPTMutableValueArray arrayWithCapacity:pStripList->size()];
                     for (pos=pStripList->begin(); pos != pStripList->end() ; pos++) {
                         pStrip = (*pos);
@@ -957,22 +961,34 @@ void freeContourPoints(ContourPoints *a) {
 #else
                         NSValue *positionValue = [NSValue valueWithCGPoint:point];
 #endif
-                        [positionsPerStrip addObject:positionValue];
+//                        if (x >= limit0 && x <= limit1 && y >= limit0 && y <= limit1) {
+                            [positionsPerStrip addObject:positionValue];
+//                        }
                     }
-                    [self.isoCurvesLabelsPositions addObject:positionsPerStrip];
+                    if (positionsPerStrip.count > 0) {
+                        NSNumber *isoCurveNoStrips = [NSNumber numberWithDouble: positionsPerStrip.count];
+                        [self.isoCurvesNoStrips addObject:isoCurveNoStrips];
+                        [self.isoCurvesLabelsPositions addObject:positionsPerStrip];
+                    }
                 }
             }
-            [self reloadContourLabels];
-        }
+//        }
+        [self reloadContourLineStyles];
+        [self reloadContourFills];
+        [self reloadContourLabels];
         
+        CGPathRef previousDataLinePath = NULL; // used for filling
+        CGPathRef dataLinePath = NULL;
         for ( unsigned int iPlane = 0; iPlane < contours->getNPlanes(); iPlane++ ) {
 //            contours->dumpPlane(iPlane);
-            
-            CPTMutableLineStyle *theContourLineStyle = [CPTMutableLineStyle lineStyleWithStyle: [self contourLineStyleForIndex:iPlane]];
+            CPTMutableLineStyle *theContourLineStyle = [CPTMutableLineStyle lineStyleWithStyle: [self isoCurveLineStyleForIndex:iPlane]];
             if(theContourLineStyle == nil) {
-                theContourLineStyle          = [self.contourLineStyle mutableCopy];
+                theContourLineStyle          = [self.isoCurveLineStyle mutableCopy];
                 theContourLineStyle.lineColor = [CPTColor colorWithComponentRed:static_cast<CGFloat>(static_cast<float>(iPlane) / static_cast<float>(contours->getNPlanes())) green:static_cast<CGFloat>(1.0f - static_cast<float>(iPlane) / static_cast<float>(contours->getNPlanes())) blue:0.0 alpha:1.0];
             }
+            theContourLineStyle.lineWidth = self.isoCurveLineStyle.lineWidth;
+            
+//            CPTFill *theFill = [self.isoCurvesFills objectAtIndex:iPlane];
             
             pStripList = contours->getListContour()->GetLines(iPlane);
 //            NSAssertParameter(pStripList);
@@ -989,33 +1005,61 @@ void freeContourPoints(ContourPoints *a) {
                     // drawing
                     x = contours->getListContour()->GetXi(static_cast<int>(index));
                     y = contours->getListContour()->GetYi(static_cast<int>(index));
-                    point = CGPointMake((x - _limits[0]) * self.scaleX, (y - _limits[2]) * self.scaleY);
-                    insertContourPoints(&stripContours, point);
+//                    if (x >= limit0 && x <= limit1 && y >= limit0 && y <= limit1) {
+                        point = CGPointMake((x - thePlotSpace.xRange.locationDouble) * self.scaleX, (y - thePlotSpace.yRange.locationDouble) * self.scaleY);
+                        insertContourPoints(&stripContours, point);
+//                    }
                 }
 
                 if ( pixelAlign ) {
                     [self alignViewPointsToUserSpace:stripContours.array withContext:context drawPointFlags:drawPointFlags numberOfPoints:stripContours.used];
                 }
 
+                if ( stripContours.used > 0 ) {
+                    dataLinePath = [self newDataLinePathForViewPoints:stripContours.array indexRange: NSMakeRange(0, stripContours.used)];
+                }
+                
+//                if ( theFill && previousDataLinePath != NULL ) {
+//                    CGContextSaveGState(context);
+//
+//                    CGContextBeginPath(context);
+//                    CGContextAddPath(context, previousDataLinePath);
+//                    CGContextAddPath(context, dataLinePath);
+//                    [theFill fillPathInContext:context];
+//
+//                    CGContextRestoreGState(context);
+//                }
+//
+//                if (theFill) {
+//                    CGPathRelease(previousDataLinePath);
+//                    previousDataLinePath = CGPathCreateCopy(dataLinePath);
+//                }
+                
                 // Draw line
-                if ( theContourLineStyle && stripContours.used > 0 ) {
-                    CGPathRef dataLinePath = [self newDataLinePathForViewPoints:stripContours.array indexRange: NSMakeRange(0, stripContours.used) ];
-
+                if ( theContourLineStyle && dataLinePath != NULL ) {
+                    
                     CGContextBeginPath(context);
                     CGContextAddPath(context, dataLinePath);
                     [theContourLineStyle setLineStyleInContext:context];
                     [theContourLineStyle strokePathInContext:context];
-                    CGPathRelease(dataLinePath);
                 }
+                CGPathRelease(dataLinePath);
+                dataLinePath = NULL;
                 clearContourPoints(&stripContours);
             }
         }
         freeContourPoints(&stripContours);
+        if (previousDataLinePath != NULL) {
+            CGPathRelease(previousDataLinePath);
+            previousDataLinePath = NULL;
+        }
+            
         
         if(contours != NULL) {
             delete contours;
             contours = NULL;
         }
+        free(planesValues);
     }
 
     free(viewPoints);
@@ -1564,7 +1608,7 @@ void freeContourPoints(ContourPoints *a) {
 
     if ( self.drawLegendSwatchDecoration ) {
         
-        CPTLineStyle *theContourLineStyle = [self contourLineStyleForIndex:idx];
+        CPTLineStyle *theContourLineStyle = [self isoCurveLineStyleForIndex:idx];
 
         if ( theContourLineStyle ) {
             [theContourLineStyle setLineStyleInContext:context];
@@ -1579,12 +1623,12 @@ void freeContourPoints(ContourPoints *a) {
     }
 }
 
--(nonnull CPTLineStyle *)contourLineStyleForIndex:(NSUInteger)idx
+-(nonnull CPTLineStyle *)isoCurveLineStyleForIndex:(NSUInteger)idx
 {
     CPTLineStyle *theLineStyle = [self.isoCurvesLineStyles objectAtIndex:idx];
     
     if ( (theLineStyle == nil) || (theLineStyle == [CPTPlot nilData]) ) {
-        theLineStyle = self.contourLineStyle;
+        theLineStyle = self.isoCurveLineStyle;
     }
 
     return theLineStyle;
@@ -1770,10 +1814,9 @@ void freeContourPoints(ContourPoints *a) {
 
         newLabelLayer.shadow = theShadow;
 
-        CPTPlotSpaceAnnotation *labelAnnotation;
         if ( i < oldLabelCount ) {
             for(NSUInteger j = 0; j < [[self.isoCurvesNoStrips objectAtIndex:i] unsignedIntegerValue]; j++) {
-                labelAnnotation = [[labelAnnotationsArray objectAtIndex:i] objectAtIndex:j];
+                CPTPlotSpaceAnnotation *labelAnnotation = [[labelAnnotationsArray objectAtIndex:i] objectAtIndex:j];
                 if ( newLabelLayer ) {
                     if ( [labelAnnotation isKindOfClass:nullClass] ) {
                         labelAnnotation = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:thePlotSpace anchorPlotPoint:nil];
@@ -1794,7 +1837,7 @@ void freeContourPoints(ContourPoints *a) {
             [labelAnnotationsArray addObject:stripAnnotations];
             for(NSUInteger j = 0; j < [[self.isoCurvesNoStrips objectAtIndex:i] unsignedIntegerValue]; j++) {
                 if ( newLabelLayer ) {
-                    labelAnnotation = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:thePlotSpace anchorPlotPoint:nil];
+                    CPTPlotSpaceAnnotation *labelAnnotation = [[CPTPlotSpaceAnnotation alloc] initWithPlotSpace:thePlotSpace anchorPlotPoint:nil];
                     [[labelAnnotationsArray objectAtIndex:i] addObject:labelAnnotation];
                     [self addAnnotation:labelAnnotation];
                 }
@@ -1806,7 +1849,7 @@ void freeContourPoints(ContourPoints *a) {
 
         if ( newLabelLayer ) {
             for(NSUInteger j = 0; j < [[self.isoCurvesNoStrips objectAtIndex:i] unsignedIntegerValue]; j++) {
-                labelAnnotation = [[labelAnnotationsArray objectAtIndex:i] objectAtIndex:j];
+                CPTPlotSpaceAnnotation *labelAnnotation = [[labelAnnotationsArray objectAtIndex:i] objectAtIndex:j];
                 labelAnnotation.contentLayer = newLabelLayer;
                 labelAnnotation.rotation     = theRotation;
                 [self positionIsoCurvesLabelAnnotation:labelAnnotation forStrip:i forIndex:j];
@@ -2097,9 +2140,9 @@ void freeContourPoints(ContourPoints *a) {
 
 /// @cond
 
--(void)setContourLineStyle:(nullable CPTLineStyle *)newLineStyle {
-    if ( contourLineStyle != newLineStyle ) {
-        contourLineStyle = [newLineStyle copy];
+-(void)setIsoCurveLineStyle:(nullable CPTLineStyle *)newLineStyle {
+    if ( isoCurveLineStyle != newLineStyle ) {
+        isoCurveLineStyle = [newLineStyle copy];
         [self setNeedsDisplay];
         [[NSNotificationCenter defaultCenter] postNotificationName:CPTLegendNeedsRedrawForPlotNotification object:self];
     }
@@ -2129,7 +2172,7 @@ void freeContourPoints(ContourPoints *a) {
     [self cacheNumbers:newValues forField:CPTContourPlotFieldFunctionValue];
 }
 
--(nullable CPTLineStyleArray *)contourLineStyles {
+-(nullable CPTLineStyleArray *)isoCurveLineStyles {
     return self.isoCurvesLineStyles;
 }
 
@@ -2148,6 +2191,10 @@ void freeContourPoints(ContourPoints *a) {
 
 -(nullable CPTNumberArray *)getIsoCurveValues {
     return self.isoCurvesValues;
+}
+
+-(NSUInteger)getNoDataPointsUsedForIsoCurves {
+    return 0;
 }
 
 -(void)setNeedsIsoCurvesRelabel:(BOOL)newNeedsRelabel

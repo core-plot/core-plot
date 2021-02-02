@@ -185,12 +185,4 @@ typedef NS_ENUM (NSInteger, CPTVectorFieldArrowType) {
 -(void)reloadVectorLineStylesInIndexRange:(NSRange)indexRange;
 /// @}
 
-///// @name Accessors
-///// @{
-//-(nullable NSNumber*)getXValueAtIndex:(NSUInteger)idx;
-//-(nullable NSNumber*)getYValueAtIndex:(NSUInteger)idx;
-//-(nullable NSNumber*)getLengthValueAtIndex:(NSUInteger)idx;
-//-(nullable NSNumber*)getDirectionAtIndex:(NSUInteger)idx;
-///// @}
-
 @end

@@ -7,11 +7,13 @@
 
 #import "CPTDefinitions.h"
 #import "CPTLineStyle.h"
+#import "CPTFill.h"
 #import "CPTPlot.h"
-#import "CPTPlotSymbol.h"
+#import "CPTFieldFunctionDataSource.h"
 
 @class CPTFill;
 @class CPTContourPlot;
+
 
 /**
  *  @brief Contour plot bindings.
@@ -23,7 +25,6 @@ typedef NSString *CPTContourPlotBinding cpt_swift_struct;
 extern CPTContourPlotBinding __nonnull const CPTContourPlotBindingXValues;
 extern CPTContourPlotBinding __nonnull const CPTContourPlotBindingYValues;
 extern CPTContourPlotBinding __nonnull const CPTContourPlotBindingFunctionValues;
-extern CPTContourPlotBinding __nonnull const CPTContourPlotBindingPlotSymbols;
 /// @}
 
 /**
@@ -68,26 +69,6 @@ double TestFunction(double x,double y);
 
 @optional
 
-/// @name Plot Symbols
-/// @{
-
-/** @brief @optional Gets a range of plot symbols for the given contour plot.
- *  @param plot The contour plot.
- *  @param indexRange The range of the data indexes of interest.
- *  @return An array of plot symbols.
- **/
--(nullable CPTPlotSymbolArray *)symbolsForContourPlot:(nonnull CPTContourPlot *)plot recordIndexRange:(NSRange)indexRange;
-
-/** @brief @optional Gets a single plot symbol for the given contour plot.
- *  This method will not be called if
- *  @link CPTContourPlotDataSource::symbolsForContourPlot:recordIndexRange: -symbolsForContourPlot:recordIndexRange: @endlink
- *  is also implemented in the datasource.
- *  @param plot The contour plot.
- *  @param idx The data index of interest.
- *  @return The plot symbol to show for the point with the given index.
- **/
--(nullable CPTPlotSymbol *)symbolForContourPlot:(nonnull CPTContourPlot *)plot recordIndex:(NSUInteger)idx;
-
 /// @}
 
 /// @name Contour  Style
@@ -110,6 +91,29 @@ double TestFunction(double x,double y);
  *  If the data source returns an NSNull object, no line is drawn.
  **/
 -(nullable CPTLineStyle *)lineStyleForContourPlot:(nonnull CPTContourPlot *)plot isoCurveIndex:(NSUInteger)idx;
+
+/// @}
+
+/// @name Contour  Fill
+/// @{
+
+/** @brief @optional Gets a range of contour fills for the given range plot.
+ *  @param plot The Contour plot.
+ *  @param indexRange The range of the isoCurve indexes of interest.
+ *  @return An array of fill styles.
+ **/
+-(nullable CPTFillArray *)fillsForContourPlot:(nonnull CPTContourPlot *)plot isoCurveIndexRange:(NSRange)indexRange;
+
+/** @brief @optional Gets a contour fill for the given range plot.
+ *  This method will not be called if
+ *  @link CPTContourPlotDataSource::lfillForContourPlot:recordIndexRange: -fillForContourPlot:recordIndexRange: @endlink
+ *  is also implemented in the datasource.
+ *  @param plot The range plot.
+ *  @param idx The data index of interest.
+ *  @return The fill for the isoCurve with the given index. If the data source returns @nil, no fill is used.
+ *  If the data source returns an NSNull object, no fill is drawn.
+ **/
+-(nullable CPTFill *)fillForContourPlot:(nonnull CPTContourPlot *)plot isoCurveIndex:(NSUInteger)idx;
 
 /// @}
 
@@ -223,6 +227,11 @@ double TestFunction(double x,double y);
 
 @interface CPTContourPlot : CPTPlot
 
+/// @name Contour Data Source
+/// @{
+@property (nonatomic, readwrite, strong, nullable) CPTContourDataSourceBlock dataSourceBlock;
+/// @}
+ 
 /// @name Contour Appearance Data Source
 /// @{
 @property (nonatomic, readwrite, cpt_weak_property, nullable) id<CPTPlotDataSource> contourAppearanceDataSource;
@@ -230,8 +239,7 @@ double TestFunction(double x,double y);
 
 /// @name Appearance
 /// @{
-@property (nonatomic, readwrite, copy, nullable) CPTLineStyle *contourLineStyle;
-@property (nonatomic, readwrite, copy, nullable) CPTPlotSymbol *plotSymbol;
+@property (nonatomic, readwrite, copy, nullable) CPTLineStyle *isoCurveLineStyle;
 @property (nonatomic, readwrite, assign) double minFunctionValue;
 @property (nonatomic, readwrite, assign) double maxFunctionValue;
 @property (nonatomic, readwrite, assign) NSUInteger noIsoCurves;
@@ -244,6 +252,7 @@ double TestFunction(double x,double y);
 @property (nonatomic, readwrite, strong, nullable) NSFormatter *isoCurvesLabelFormatter;
 @property (nonatomic, readwrite, strong, nullable) CPTShadow *isoCurvesLabelShadow;
 @property (nonatomic, readwrite, assign) BOOL showIsoCurvesLabels;
+@property (nonatomic, readwrite, strong, nonnull) CPTMutableNumberArray *limits;       // left, right, bottom, top;
 /// @}
 
 /// @name Contour IsoCurve Styles
@@ -261,6 +270,7 @@ double TestFunction(double x,double y);
 /// @name Accessors
 /// @{
 -(nullable CPTNumberArray *)getIsoCurveValues;
+-(NSUInteger)getNoDataPointsUsedForIsoCurves;
 /// @}
 
 @end

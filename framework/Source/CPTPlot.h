@@ -332,8 +332,14 @@ typedef NSMutableArray<__kindof CPTPlot *> CPTMutablePlotArray;
 -(void)reloadDataInIndexRange:(NSRange)indexRange cpt_requires_super;
 -(void)insertDataAtIndex:(NSUInteger)idx numberOfRecords:(NSUInteger)numberOfRecords cpt_requires_super;
 -(void)deleteDataInIndexRange:(NSRange)indexRange cpt_requires_super;
+-(void)replaceDataAtIndex:(NSUInteger)idx numberOfRecords:(NSUInteger)numberOfRecords cpt_requires_super; // added S.Wainwright 21/01/2021
+//-(void)insertRowDataAtIndex:(NSUInteger)idx numberOfRecords:(NSUInteger)numberOfRecords columnCount:(NSUInteger)columnCount rowCount:(NSUInteger)rowCount cpt_requires_super;  // added S.Wainwright 21/01/2021
+-(void)replaceRowDataShiftDown:(BOOL)shiftDown numberOfRecords:(NSUInteger)numberOfRecords columnCount:(NSUInteger)columnCount rowCount:(NSUInteger)rowCount cpt_requires_super;  // added S.Wainwright 21/01/2021
+//-(void)deleteRowDataAtIndex:(NSUInteger)idx numberOfRecords:(NSUInteger)numberOfRecords columnCount:(NSUInteger)columnCount rowCount:(NSUInteger)rowCount cpt_requires_super;  // added S.Wainwright 21/01/2021
+//-(void)insertColumnDataAtIndex:(NSUInteger)idx numberOfRecords:(NSUInteger)numberOfRecords columnCount:(NSUInteger)columnCount rowCount:(NSUInteger)rowCount cpt_requires_super;  // added S.Wainwright 15/01/2021
+-(void)replaceColumnDataShiftLeft:(BOOL)shiftRight numberOfRecords:(NSUInteger)numberOfRecords columnCount:(NSUInteger)columnCount rowCount:(NSUInteger)rowCount cpt_requires_super;  // added S.Wainwright 21/01/2021
+//-(void)deleteColumnDataAtIndex:(NSUInteger)idx numberOfRecords:(NSUInteger)numberOfRecords columnCount:(NSUInteger)columnCount rowCount:(NSUInteger)rowCount cpt_requires_super;  // added S.Wainwright 20/01/2021
 -(void) reloadPlotData NS_SWIFT_NAME(CPTPlot.reloadPlotData()) cpt_requires_super;
-
 -(void)reloadPlotDataInIndexRange:(NSRange) indexRange NS_SWIFT_NAME(CPTPlot.reloadPlotData(inIndexRange:)) cpt_requires_super;
 
 /// @}

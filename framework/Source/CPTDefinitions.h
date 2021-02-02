@@ -201,6 +201,7 @@ typedef NS_ENUM (NSInteger, CPTPolarRadialAngleMode) {  // S.Wainwright
     CPTPolarRadialAngleModeDegrees  ///< degrees.
 };
 
+
 /**
  *  @brief RGBA color for gradients
  **/

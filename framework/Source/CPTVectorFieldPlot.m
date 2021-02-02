@@ -182,6 +182,7 @@ typedef struct CGPointVector CGPointVector;
 {
     if ( (self = [super initWithFrame:newFrame]) ) {
         normalisedVectorLength = 1.0;
+        maxVectorLength = 0.0;
         vectorLineStyle        = [[CPTLineStyle alloc] init];
         arrowSize              = CGSizeMake(5.0, 5.0);
         arrowType               = CPTVectorFieldArrowTypeSolid;
@@ -219,7 +220,10 @@ typedef struct CGPointVector CGPointVector;
 
 -(void)dealloc
 {
-    CGPathRelease(cachedArrowHeadPath);
+    if (cachedArrowHeadPath != NULL) {
+        CGPathRelease(cachedArrowHeadPath);
+        cachedArrowHeadPath = NULL;
+    }
 }
 
 /// @endcond
@@ -413,8 +417,8 @@ typedef struct CGPointVector CGPointVector;
                     double _length = CPTDecimalDoubleValue(length);
                     double _direction = CPTDecimalDoubleValue(direction);
                     
-                    NSDecimal deltaX = CPTDecimalFromDouble(_length * cos(_direction));
-                    NSDecimal deltaY = CPTDecimalFromDouble(_length * sin(_direction));
+                    NSDecimal deltaX = CPTDecimalFromDouble(_length * sin(_direction));
+                    NSDecimal deltaY = CPTDecimalFromDouble(_length * cos(_direction));
                     NSDecimal x_tip, y_tip;
                     NSDecimalAdd(&x_tip, &x, &deltaX, NSRoundPlain);
                     NSDecimalAdd(&y_tip, &y, &deltaY, NSRoundPlain);
@@ -526,12 +530,12 @@ typedef struct CGPointVector CGPointVector;
             id newDirectionValues = [self numbersFromDataSourceForField:CPTVectorFieldPlotFieldVectorDirection recordIndexRange:indexRange];
             [self cacheNumbers:newDirectionValues forField:CPTVectorFieldPlotFieldVectorDirection atRecordIndex:indexRange.location];
         }
-        else {
-            self.xValues     = nil;
-            self.yValues     = nil;
-            self.lengthValues  = nil;
-            self.directionValues   = nil;
-        }
+//        else {
+//            self.xValues     = nil;
+//            self.yValues     = nil;
+//            self.lengthValues  = nil;
+//            self.directionValues   = nil;
+//        }
     }
 }
 
@@ -593,6 +597,7 @@ typedef struct CGPointVector CGPointVector;
     [self setNeedsDisplay];
 }
 
+
 #pragma mark -
 #pragma mark Drawing
 
@@ -638,6 +643,8 @@ typedef struct CGPointVector CGPointVector;
     if ( firstDrawnPointIndex != NSNotFound ) {
         
         BOOL alignPoints     = self.alignsPointsToPixels;
+        
+        [self reloadVectorLineStylesInIndexRange:NSMakeRange((NSUInteger)firstDrawnPointIndex, (NSUInteger)(lastDrawnPointIndex - firstDrawnPointIndex))];
 
         for ( NSUInteger i = (NSUInteger)firstDrawnPointIndex; i <= (NSUInteger)lastDrawnPointIndex; i++ ) {
             [self drawVectorInContext:context
@@ -1252,21 +1259,5 @@ typedef struct CGPointVector CGPointVector;
         cachedArrowHeadPath = CGPathRetain(newPath);
     }
 }
-
-//-(nullable NSNumber*)getXValueAtIndex:(NSUInteger)idx {
-//    return [self.xValues objectAtIndex:idx];
-//}
-//
-//-(nullable NSNumber*)getYValueAtIndex:(NSUInteger)idx {
-//    return [self.yValues objectAtIndex:idx];
-//}
-//
-//-(nullable NSNumber*)getLengthValueAtIndex:(NSUInteger)idx {
-//    return [self.lengthValues sampleValueAtIndex:idx];
-//}
-//
-//-(nullable NSNumber*)getDirectionAtIndex:(NSUInteger)idx {
-//    return [self.directionValues sampleValueAtIndex:idx];
-//}
 
 @end
