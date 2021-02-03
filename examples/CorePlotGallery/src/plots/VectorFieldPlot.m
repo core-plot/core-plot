@@ -7,6 +7,7 @@
 
 #import "VectorFieldPlot.h"
 
+#import "PiNumberFormatter.h"
 
 @interface VectorFieldPlot()
 
@@ -43,10 +44,10 @@
     if ( self.plotData.count == 0 ) {
         NSMutableArray<NSDictionary *> *newData = [NSMutableArray array];
         
-        double x = -5.0;
-        while (x <= 5.0) {
-            double y = -5.0;
-            while (y <= 5.0) {
+        double x = -2.0 * M_PI;
+        while (x <= 2.0 * M_PI) {
+            double y = -2.0 * M_PI;
+            while (y <= 2.0 * M_PI) {
                 double fx = sin(x);
                 double fy = sin(y);
                 double length = sqrt(fx * fx + fy * fy) / sqrt(2.0);
@@ -59,9 +60,9 @@
                        @(CPTVectorFieldPlotFieldVectorDirection): @(direction)
                     }
                  ];
-                y += 0.5;
+                y += M_PI / 8.0;
             }
-            x += 0.5;
+            x += M_PI / 8.0;
         }
 
         self.plotData = newData;
@@ -94,30 +95,34 @@
 
     // Setup scatter plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)newGraph.defaultPlotSpace;
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@(-6.0) length:@(12.0)];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@(-6.0) length:@(12.0)];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:@(-2.0 * M_PI) length:@(4.0 * M_PI)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:@(-2.0 * M_PI) length:@(4.0 * M_PI)];
 
+    PiNumberFormatter *formatter = [[PiNumberFormatter alloc] init];
+    formatter.multiplier = @4;
+    
     // Axes
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)newGraph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
-    x.majorIntervalLength   = @(1.0);
+    x.majorIntervalLength   = @(M_PI / 2.0);
     x.orthogonalPosition    = @(0.0);
-    x.minorTicksPerInterval = 5;
-
+    x.minorTicksPerInterval = 3;
+    x.labelFormatter = formatter;
 
     CPTXYAxis *y = axisSet.yAxis;
-    y.majorIntervalLength   = @1.0;
-    y.minorTicksPerInterval = 5;
+    y.majorIntervalLength   = @(M_PI / 2.0);
+    y.minorTicksPerInterval = 3;
     y.orthogonalPosition    = @(0.0);
+    y.labelFormatter = formatter;
 
     // Create a plot that uses the data source method
     CPTVectorFieldPlot *vectorFieldPlot = [[CPTVectorFieldPlot alloc] init];
-    vectorFieldPlot.identifier   = @"Vector Field sin(x)sin(y)";
+    vectorFieldPlot.identifier   = @"Vector Field [sin(x)\nsin(y)]";
     vectorFieldPlot.dataSource   = self;
     vectorFieldPlot.delegate     = self;
 
     // Vector properties
-    vectorFieldPlot.maxVectorLength = 0.25;
+    vectorFieldPlot.normalisedVectorLength = 0.25;
     vectorFieldPlot.arrowSize = CGSizeMake(5.0, 5.0);
     vectorFieldPlot.arrowType  = CPTVectorFieldArrowTypeSolid;
     
