@@ -20,7 +20,7 @@ namespace COREPLOT_CONTOURS {
     {
     public:
         CListContour();
-        CListContour(unsigned int noPlanes, const std::vector<double>& vPlanes);
+        CListContour(unsigned int noPlanes, const std::vector<double>& vPlanes, double limits[]);
         virtual ~CListContour();
 
         // retrieving list of line strip for the i-th contour

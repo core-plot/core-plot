@@ -20,7 +20,7 @@ CContours::CContours() {
     this->p_listContour = new CListContour;
 }
 
-CContours::CContours(const int noPlanes, double* limits, double vPlanes[]) {
+CContours::CContours(const int noPlanes, double vPlanes[], double limits[]) {
     this->noPlanes = noPlanes;
     for(int i =0; i < 4; i++) {
         //assert(limits[i]);
@@ -31,7 +31,7 @@ CContours::CContours(const int noPlanes, double* limits, double vPlanes[]) {
     for(int i = 0; i < noPlanes; i++) {
         m_vPlanes[i] = vPlanes[i];
     }
-    this->p_listContour = new CListContour(noPlanes, m_vPlanes);
+    this->p_listContour = new CListContour(noPlanes, m_vPlanes, this->pLimits);
 }
 
 

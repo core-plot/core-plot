@@ -32,47 +32,48 @@ double TestFunction(double x,double y)
 CContour::CContour() {
 //    m_iColFir=m_iRowFir=32;
 //    m_iColSec=m_iRowSec=256;
-    m_iColFir=m_iRowFir=256;
-    m_iColSec=m_iRowSec=2048;
-    m_dDx=m_dDy=0;
-    m_pFieldFcn=NULL;
-    m_pFieldBlk=NULL;
-    m_pLimits[0]=-6.0;
-    m_pLimits[1]=6.0;
-    m_pLimits[2]=-6.0;
-    m_pLimits[3]=6.0;
-    m_ppFnData=NULL;
+    m_iColFir = m_iRowFir=256;
+    m_iColSec = m_iRowSec = 2048;
+    m_dDx = m_dDy = 0;
+    m_pFieldFcn = NULL;
+    m_pFieldBlk = NULL;
+    m_pLimits[0] = -1.0;
+    m_pLimits[1] = 1.0;
+    m_pLimits[2] = -1.0;
+    m_pLimits[3] = 1.0;
+    m_ppFnData = NULL;
     noPlanes = 21;
 
     // temporary stuff
 //    m_pFieldFcn=TestFunction;
     m_vPlanes.resize(noPlanes);
     for (uint i=0;i<m_vPlanes.size();i++) {
-        m_vPlanes[i]=(i-m_vPlanes.size()/2.0)*0.1;
+        m_vPlanes[i] = (i - m_vPlanes.size() / 2.0) * 0.1;
     }
 }
 
-CContour::CContour(unsigned int _noPlanes, const std::vector<double>& vPlanes) {
-    m_iColFir=m_iRowFir=256;
-    m_iColSec=m_iRowSec=2048;
-    m_dDx=m_dDy=0;
-    m_pFieldFcn=NULL;
-    m_pFieldBlk=NULL;
-    m_pLimits[0]=-6.0;
-    m_pLimits[1]=6.0;
-    m_pLimits[2]=-6.0;
-    m_pLimits[3]=6.0;
-    m_ppFnData=NULL;
+CContour::CContour(unsigned int _noPlanes, const std::vector<double>& vPlanes, double limits[]) {
+    m_iColFir = m_iRowFir = 256;
+    m_iColSec = m_iRowSec = 2048;
+    m_dDx = m_dDy = 0;
+    m_pFieldFcn = NULL;
+    m_pFieldBlk = NULL;
+    m_pLimits[0] = limits[0];
+    m_pLimits[1] = limits[1];
+    m_pLimits[2] = limits[2];
+    m_pLimits[3] = limits[3];
+    m_ppFnData = NULL;
 
     noPlanes = _noPlanes;
     m_vPlanes.resize(noPlanes);
-    for (uint i=0;i<m_vPlanes.size();i++) {
-        m_vPlanes[i]=vPlanes[i];
+    for (uint i = 0;i < m_vPlanes.size(); i++) {
+        m_vPlanes[i] = vPlanes[i];
     }
 }
 
 CContour::~CContour() {
     CleanMemory();
+    m_vPlanes.clear();
 }
 
 void CContour::InitMemory() {
@@ -99,17 +100,16 @@ void CContour::CleanMemory() {
 void CContour::Generate() {
     int i, j;
     int x3, x4, y3, y4, x, y, oldx3, xlow;
-    const int cols=m_iColSec+1;
-    const int rows=m_iRowSec+1;
-    double xoff,yoff;
+    const int cols = m_iColSec + 1;
+    const int rows = m_iRowSec + 1;
     
     // Initialize memroy if needed
     InitMemory();
 
     m_dDx = (m_pLimits[1]-m_pLimits[0])/(double)(m_iColSec);
-    xoff = m_pLimits[0];
+//    double xoff = m_pLimits[0];
     m_dDy = (m_pLimits[3]-m_pLimits[2])/(double)(m_iRowSec);
-    yoff = m_pLimits[2];
+//    double yoff = m_pLimits[2];
 
     xlow = 0;
     oldx3 = 0;

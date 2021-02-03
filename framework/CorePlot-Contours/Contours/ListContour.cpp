@@ -28,7 +28,7 @@ static char THIS_FILE[]=__FILE__;
 CListContour::CListContour(): CContour() {
 }
 
-CListContour::CListContour(unsigned int _noPlanes, const std::vector<double>& vPlanes): CContour{ _noPlanes, vPlanes } {
+CListContour::CListContour(unsigned int _noPlanes, const std::vector<double>& vPlanes, double limits[]): CContour{ _noPlanes, vPlanes, limits } {
 }
 
 CListContour::~CListContour() {
@@ -91,6 +91,7 @@ void CListContour::CleanMemory()
         }
         m_vStripLists[i].clear();
     }
+    m_vStripLists.clear();
 }
 
 void CListContour::ExportLine(int iPlane,int x1, int y1, int x2, int y2)
@@ -335,18 +336,25 @@ void CListContour::CompactStrips()
             {
                 pStrip=(*pos2);
                 CLineStrip::iterator pos1 = pStrip->begin(),pos3;
-                while (pos1!=pStrip->end())
+                int j = 0;
+                while (pos1 != pStrip->end())
                 {
                     pos3 = pos1;
                     pos3++;
-                    if ( (*pos1) == (*pos3))
+                    if ( (*pos1) == (*pos3)) {
                         pStrip->erase(pos3);
-                    else
+                    }
+                    else {
                         pos1++;
+                    }
+                    if (j > 2000) { // safety break
+                        break;
+                    }
+                    j++;
                 }
                 
                 //if (!(pStrip->front()==pStrip->back() && pStrip->size()==2))
-                if (pStrip->size()!=1)
+                if (pStrip->size() != 1)
                     m_vStripLists[i].insert(m_vStripLists[i].begin(),pStrip );
                 else
                     delete pStrip;
@@ -461,13 +469,15 @@ void CListContour::CompactStrips()
                     {
 //                        TRACE(_T("unpaird open strip at 1!"));
                         cout << "unpaired open strip at 1!" << endl;
-                        exit(0);
+                        DumpPlane(i);
+            //            exit(0);
+                        break;
                     }
                 }
             } // while(newList.size()>1);
 
 
-            if (newList.size() ==1)
+            if (newList.size() == 1)
             {
                 pStripBase = newList.front();
                 if (OnBoundary(pStripBase))
@@ -482,7 +492,7 @@ void CListContour::CompactStrips()
 //                    TRACE(_T("unpaird open strip at 2!"));
                     cout << "unpaired open strip at 2!" << endl;
                     DumpPlane(i);
-                    exit(0);
+//exit(0);
                 }
             }
             
@@ -511,7 +521,7 @@ void CListContour::CompactStrips()
 //                TRACE(_T("unpaird open strip at 3!"));
                 cout << "unpaird open strip at 3!" << endl;
                 DumpPlane(i);
-                exit(0);
+               // exit(0);
             }
         }
 
@@ -522,24 +532,24 @@ void CListContour::CompactStrips()
 
 bool CListContour::OnBoundary(CLineStrip* pStrip)
 {
-    bool e1,e2;
-
-    int index = pStrip->front();
-    double x = GetXi(index), y = GetYi(index);
-    if (x==m_pLimits[0] || x == m_pLimits[1] ||
-        y == m_pLimits[2] || y == m_pLimits[3])
-        e1 = true;
-    else
-        e1 = false;
-    
-    index = pStrip->back();
-    x = GetXi(index); y = GetYi(index);
-    if (x==m_pLimits[0] || x == m_pLimits[1] ||
-        y == m_pLimits[2] || y == m_pLimits[3])
-        e2 = true;
-    else
-        e2 = false;
-    
+    bool e1 = false,e2 = false;
+    if (pStrip != NULL) {
+        int index = pStrip->front();
+        double x = GetXi(index), y = GetYi(index);
+        if (x==m_pLimits[0] || x == m_pLimits[1] ||
+            y == m_pLimits[2] || y == m_pLimits[3])
+            e1 = true;
+        else
+            e1 = false;
+        
+        index = pStrip->back();
+        x = GetXi(index); y = GetYi(index);
+        if (x==m_pLimits[0] || x == m_pLimits[1] ||
+            y == m_pLimits[2] || y == m_pLimits[3])
+            e2 = true;
+        else
+            e2 = false;
+        }
     return (e1 && e2);
 }
 
@@ -594,9 +604,7 @@ double CListContour::Area(CLineStrip* Line)
         Ar += (y1-y)*(x1+x)-(x1-x)*(y1+y);
         x = x1;
         y = y1;
-        
     }
-    
     
     //Ar += (x0-x)*(y0+y);
     Ar += (y0-y)*(x0+x)-(x0-x)*(y0+y);
@@ -659,6 +667,6 @@ bool CListContour::PrintEdgeWeightContour(char *fname)
         }
     }
     file.close();
-    return true;
     
+    return true;
 }

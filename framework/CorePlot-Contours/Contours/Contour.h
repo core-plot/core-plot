@@ -55,7 +55,7 @@ namespace COREPLOT_CONTOURS {
     {
     public:
         CContour();
-        CContour(unsigned int noPlanes, const std::vector<double>& vPlanes);
+        CContour(unsigned int _noPlanes, const std::vector<double>& vPlanes, double limits[]);
         virtual ~CContour();
 
         // Initialize memory. Called in Generate

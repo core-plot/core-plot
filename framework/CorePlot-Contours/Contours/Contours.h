@@ -30,11 +30,11 @@ namespace COREPLOT_CONTOURS {
              *  The constructor sets the initial state of the contours generator
              *
              * @param[in] noPlanes - number of isocurves
-             * @param[in] limits - the limit in x-y coordinates
              * @param[in] vPlanes - the isoCurve values
+             * @param[in] limits - the limit in x-y coordinates
              *
              */
-            CContours(const int noPlanes, double* limits, double vPlanes[]);
+            CContours(const int noPlanes, double vPlanes[], double limits[]);
         
             /**
              *  The constructor sets the initial state of the contours generator
