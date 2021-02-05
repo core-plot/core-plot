@@ -253,11 +253,6 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1100;
-				TargetAttributes = {
-					8D15AC270486D014006FF6A4 = {
-						ProvisioningStyle = Automatic;
-					};
-				};
 			};
 			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "DropPlot" */;
 			compatibilityVersion = "Xcode 6.3";
@@ -418,10 +413,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -431,7 +424,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.CorePlot.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = DropPlot;
-				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -443,10 +435,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = DropPlot_Prefix.pch;
@@ -456,7 +446,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.CorePlot.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = DropPlot;
-				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
