@@ -11,16 +11,14 @@
 {
     const BOOL secure = ![archiveClass isSubclassOfClass:[NSNumberFormatter class]];
 
-    NSMutableData *archiveData = [[NSMutableData alloc] init];
-
-    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:archiveData];
-
-    archiver.requiresSecureCoding = secure;
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initRequiringSecureCoding:secure];
 
     [archiver encodeObject:object forKey:@"test"];
     [archiver finishEncoding];
 
-    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:archiveData];
+    NSData *archiveData = [archiver encodedData];
+
+    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:archiveData error:NULL];
 
     unarchiver.requiresSecureCoding = secure;
 
