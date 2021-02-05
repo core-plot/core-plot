@@ -641,7 +641,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 
     pdfSavingDialog.allowedFileTypes = @[@"pdf"];
 
-    if ( [pdfSavingDialog runModal] == NSOKButton ) {
+    if ( [pdfSavingDialog runModal] == NSModalResponseOK ) {
         NSData *dataForPDF = [self.graph dataForPDFRepresentationOfLayer];
 
         NSURL *url = pdfSavingDialog.URL;
@@ -657,7 +657,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
 
     pngSavingDialog.allowedFileTypes = @[@"png"];
 
-    if ( [pngSavingDialog runModal] == NSOKButton ) {
+    if ( [pngSavingDialog runModal] == NSModalResponseOK ) {
         NSImage *image            = [self.graph imageOfLayer];
         NSData *tiffData          = image.TIFFRepresentation;
         NSBitmapImageRep *tiffRep = [NSBitmapImageRep imageRepWithData:tiffData];
