@@ -125,7 +125,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
 #if TARGET_OS_TV
     size = 36.0;
 #elif TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
-    switch ( UI_USER_INTERFACE_IDIOM()) {
+    switch ( [UIDevice currentDevice].userInterfaceIdiom ) {
         case UIUserInterfaceIdiomPad:
             size = 24.0;
             break;
