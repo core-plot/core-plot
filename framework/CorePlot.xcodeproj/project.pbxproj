@@ -2118,6 +2118,7 @@
 				8DC2EF520486A6940098B216 /* Resources */,
 				8DC2EF540486A6940098B216 /* Sources */,
 				8DC2EF560486A6940098B216 /* Frameworks */,
+				C3E0731F25CF059A009B3E2B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2137,6 +2138,7 @@
 				C37EA6291BC83F2A0091C8F7 /* Frameworks */,
 				C37EA62E1BC83F2A0091C8F7 /* Headers */,
 				C37EA68E1BC83F2A0091C8F7 /* Resources */,
+				C3E0738125CF07C8009B3E2B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2173,6 +2175,7 @@
 				C38A09741A46185200D45436 /* Frameworks */,
 				C38A09751A46185200D45436 /* Headers */,
 				C38A09761A46185200D45436 /* Resources */,
+				C3E0738025CF07B6009B3E2B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2377,6 +2380,57 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "UFW_MAC_TARGET=\"CorePlot Mac\"\nUFW_IOS_TARGET=\"CorePlot iOS\"\nUFW_TVOS_TARGET=\"CorePlot tvOS\"\n\nUFW_BUILD_DIR=\"${PROJECT_DIR}/../build\"\n\n# Mac SDK\n# Use the latest macOS SDK available\nUFW_GREP_RESULT=$(xcodebuild -showsdks | grep -o \"[^.]macosx.*$\")\nwhile read -r line; do\nUFW_MAC_SDK_VERSION=\"${line}\"\ndone <<< \"${UFW_GREP_RESULT}\"\nUFW_MAC_SDK_VERSION=$(echo \"${UFW_MAC_SDK_VERSION}\" | grep -o \"[0-9].*$\")\n\n# iOS SDK\n# Use the latest iOS SDK available\nUFW_GREP_RESULT=$(xcodebuild -showsdks | grep -o \"iphoneos.*$\")\nwhile read -r line; do\nUFW_IOS_SDK_VERSION=\"${line}\"\ndone <<< \"${UFW_GREP_RESULT}\"\nUFW_IOS_SDK_VERSION=$(echo \"${UFW_IOS_SDK_VERSION}\" | grep -o \"[0-9].*$\")\n\n# tvOS SDK\n# Use the latest tvOS SDK available\nUFW_GREP_RESULT=$(xcodebuild -showsdks | grep -o \"appletvos.*$\")\nwhile read -r line; do\nUFW_TVOS_SDK_VERSION=\"${line}\"\ndone <<< \"${UFW_GREP_RESULT}\"\nUFW_TVOS_SDK_VERSION=$(echo \"${UFW_TVOS_SDK_VERSION}\" | grep -o \"[0-9].*$\")\n\nFRAMEWORK_NAME=\"${PROJECT_NAME}\"\n\nUFW_MAC_PATH=\"${UFW_BUILD_DIR}/Release/${FRAMEWORK_NAME}.framework\"\nUFW_CATALYST_PATH=\"${UFW_BUILD_DIR}/Release-maccatalyst/${FRAMEWORK_NAME}.framework\"\nUFW_IOS_PATH=\"${UFW_BUILD_DIR}/Release-iphoneos/${FRAMEWORK_NAME}.framework\"\nUFW_IOS_SIMULATOR_PATH=\"${UFW_BUILD_DIR}/Release-iphonesimulator/${FRAMEWORK_NAME}.framework\"\nUFW_TVOS_PATH=\"${UFW_BUILD_DIR}/Release-appletvos/${FRAMEWORK_NAME}.framework\"\nUFW_TVOS_SIMULATOR_PATH=\"${UFW_BUILD_DIR}/Release-appletvsimulator/${FRAMEWORK_NAME}.framework\"\n\nUFW_UNIVERSAL_DIR=\"${UFW_BUILD_DIR}/Release-universal\"\nUFW_FRAMEWORK=\"${UFW_UNIVERSAL_DIR}/${FRAMEWORK_NAME}.xcframework\"\n\n# Build Framework\n\nrm -rf \"${UFW_UNIVERSAL_DIR}\"\n\n# macOS\nxcodebuild -scheme \"${UFW_MAC_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk macosx${UFW_MAC_SDK_VERSION} clean build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\n# Mac Catalyst\nxcodebuild -scheme \"${UFW_IOS_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk iphoneos${UFW_IOS_SDK_VERSION} -destination \"platform=macOS,variant=Mac Catalyst\" build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\n# iOS\nxcodebuild -scheme \"${UFW_IOS_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk iphoneos${UFW_IOS_SDK_VERSION} build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\nxcodebuild -scheme \"${UFW_IOS_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk iphonesimulator${UFW_IOS_SDK_VERSION} build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\n#tvOS\nxcodebuild -scheme \"${UFW_TVOS_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk appletvos${UFW_TVOS_SDK_VERSION} build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\nxcodebuild -scheme \"${UFW_TVOS_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk appletvsimulator${UFW_TVOS_SDK_VERSION} build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\n\nmkdir -p \"${UFW_UNIVERSAL_DIR}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: mkdir failed\"; exit 1; fi\n\nxcodebuild -create-xcframework -output \"${UFW_FRAMEWORK}\" \\\n    -framework \"${UFW_MAC_PATH}\" \\\n    -framework \"${UFW_CATALYST_PATH}\" \\\n    -framework \"${UFW_IOS_PATH}\" \\\n    -framework \"${UFW_IOS_SIMULATOR_PATH}\" \\\n    -framework \"${UFW_TVOS_PATH}\" \\\n    -framework \"${UFW_TVOS_SIMULATOR_PATH}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: create XCFramework failed\"; exit 1; fi\n\n";
+		};
+		C3E0731F25CF059A009B3E2B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${SOURCE_ROOT}/../scripts/generate_spm_sources_layout.sh\"\n";
+		};
+		C3E0738025CF07B6009B3E2B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${SOURCE_ROOT}/../scripts/generate_spm_sources_layout.sh\"\n";
+		};
+		C3E0738125CF07C8009B3E2B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${SOURCE_ROOT}/../scripts/generate_spm_sources_layout.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

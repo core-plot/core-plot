@@ -92,6 +92,8 @@ function generate_spm_public_sources() {
 }
 
 ########## SPM generator pipeline #############
+#0
+cd ..
 #1
 cleanup
 #2

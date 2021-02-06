@@ -2,10 +2,10 @@ Swift Package Manager [has some strict requirements] (https://github.com/apple/s
 
 ### Generate SPM layout for core-plot
 
-1. From **project's root** run:
+1. From the **scripts** folder under **project's root** run:
 
    `bash scripts/generate_spm_sources_layout.sh`
 
 2. Commit Changes
 
-Repeate those steps each time you modify/add project's files. **Make sure** to have this CI step which will check that `generate_spm_sources_layout.sh` is not broken.
+This script is run automatically when building the Core Plot project for any platform.
