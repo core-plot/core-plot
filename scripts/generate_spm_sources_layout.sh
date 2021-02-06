@@ -12,7 +12,7 @@ function cleanup() {
 }
 
 function generate_spm_public_headers() {
-    echo "Generate symbolic links for all public heders. *.h"
+    echo "Generate symbolic links for all public headers. *.h"
     echo "Generated under ./spm/Sources/core-plot/include"
 
     public_headers_list=$(
@@ -39,7 +39,7 @@ function generate_spm_public_headers() {
 }
 
 function generate_spm_private_sources() {
-    echo "Generate symbolic links for all private heders/implementations. _*.h && _*.m"
+    echo "Generate symbolic links for all private headers/implementations. _*.h && _*.m"
     echo "Generated under ./spm/Sources/core-plot"
 
     private_sources_list=$(find "framework" \
