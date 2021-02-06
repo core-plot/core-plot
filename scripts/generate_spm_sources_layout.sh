@@ -62,7 +62,7 @@ function generate_spm_private_sources() {
 }
 
 function generate_spm_public_sources() {
-    echo "Generate symbolic links for all public implementtions. *.m"
+    echo "Generate symbolic links for all public implementations. *.m"
     echo "Generated under ./spm/Sources/core-plot"
 
     public_sources_list=$(find "framework" -name "*.[m]" \
