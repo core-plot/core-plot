@@ -8,7 +8,6 @@
 /// @{
 @property (nonatomic, readonly, strong, nullable) NSNumber *orthogonalPosition;
 @property (nonatomic, readwrite, strong, nullable) CPTConstraints *axisConstraints;
-@property (nonatomic, readwrite, strong, nullable) NSSet *alteredMajorTickLocations;
 
 /// @}
 

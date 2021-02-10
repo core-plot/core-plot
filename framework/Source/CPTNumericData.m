@@ -731,7 +731,7 @@
         return (const void *)((const char *)self.bytes + sample * self.sampleBytes);
     }
     else {
-        return NULL;
+        return nil;
     }
 }
 
@@ -1091,6 +1091,244 @@
 
     return sampleData;
 }
+
+//// added S.Wainwright
+///** @brief Sets a new value at pointer to a given sample in the data buffer.
+// *  @param idx The zero-based indices into a multi-dimensional sample array. Each index should of type @ref NSUInteger and the number of indices
+// *  (including @par{idx}) should match the @ref numberOfDimensions.
+// *  @return A flag YES/NO to indicate if the sample has been alltered ,or NO if any of the sample indices are out of bounds.
+// **/
+//-(BOOL)setValueToSamplePointer:(NSUInteger)sample Value:(nonnull const void*)ptrNewValue
+//{
+//    if ( sample < self.numberOfSamples ) {
+//        void * samplePointer = (const void *)[self samplePointer:sample];
+////        void * samplePointer = nil;
+//        switch (self.dataTypeFormat) {
+//            case CPTUndefinedDataType:
+//                break;
+//            case CPTIntegerDataType:
+//            {
+//                switch ( self.sampleBytes ) {
+//                    case sizeof(int8_t):
+//                    { // int8_t
+//                        *(int8_t *)samplePointer = *(const int8_t *)ptrNewValue;
+//                    }
+//                        break;
+//                        
+//                    case sizeof(int16_t):
+//                    { // int16_t
+//                        *(int16_t *)samplePointer = *(const int16_t *)ptrNewValue;
+//                    }
+//                        break;
+//                        
+//                    case sizeof(int32_t):
+//                    { // int32_t
+//                        *(int32_t *)samplePointer = *(const int32_t *)ptrNewValue;
+//                    }
+//                        break;
+//                        
+//                    case sizeof(int64_t):
+//                    { // int64_t
+//                        *(int64_t *)samplePointer = *(const int64_t *)ptrNewValue;
+//                    }
+//                        break;
+//                }
+//            }
+//                break;
+//            case CPTUnsignedIntegerDataType:
+//                switch ( self.sampleBytes ) {
+//                    case sizeof(uint8_t):
+//                    { // int8_t
+//                        *(uint8_t *)samplePointer = *(const uint8_t *)ptrNewValue;
+//                    }
+//                        break;
+//                        
+//                    case sizeof(uint16_t):
+//                    { // uint16_t
+//                        *(uint16_t *)samplePointer = *(const uint16_t *)ptrNewValue;
+//                    }
+//                        break;
+//                        
+//                    case sizeof(uint32_t):
+//                    { // uint32_t
+//                        *(uint32_t *)samplePointer = *(const uint32_t *)ptrNewValue;
+//                    }
+//                        break;
+//                        
+//                    case sizeof(uint64_t):
+//                    { // uint64_t
+//                        *(uint64_t *)samplePointer = *(const uint64_t *)ptrNewValue;
+//                    }
+//                        break;
+//                }
+//                break;
+//            case CPTFloatingPointDataType:
+//                switch ( self.sampleBytes ) {
+//                    case sizeof(float):
+//                    { // float
+//                        *(float *)samplePointer = *(const float *)ptrNewValue;
+//                    }
+//                        break;
+//                        
+//                    case sizeof(double):
+//                    { // double
+//                        *(double *)samplePointer = *(const double *)ptrNewValue;
+//                    }
+//                        break;
+//                }
+//                break;
+//            case CPTComplexFloatingPointDataType:
+//                switch ( self.sampleBytes ) {
+//                    case sizeof(float complex):
+//                    { // float complex
+//                        *(float complex *)samplePointer = *(const float complex *)ptrNewValue;
+//                    }
+//                        break;
+//                        
+//                    case sizeof(double complex):
+//                    { // double complex
+//                        *(double complex *)samplePointer = *(const double complex *)ptrNewValue;
+//                    }
+//                        break;
+//                }
+//                break;
+//            case CPTDecimalDataType:
+//                switch ( self.sampleBytes ) {
+//                    case sizeof(NSDecimal):
+//                    { // NSDecimal
+//                        *(NSDecimal *)samplePointer = *(const NSDecimal *)ptrNewValue;
+//                    }
+//                        break;
+//                }
+//                break;
+//                
+//        }
+//        return YES;
+//    }
+//    else {
+//        return NO;
+//    }
+//}
+
+// added S.Wainwright
+
+/** @brief Sets a new value at pointer to a given sample in the data buffer.
+ *  @param idx The zero-based indices into a multi-dimensional sample array. Each index should of type @ref NSUInteger and the number of indices
+ *  (including @par{idx}) should match the @ref numberOfDimensions.
+ *  @return A flag YES/NO to indicate if the sample has been alltered ,or NO if any of the sample indices are out of bounds.
+ **/
+//-(BOOL)multiplyByFactorSamplePointer:(NSUInteger)sample Factor:(nonnull const void*)ptrFactor
+//{
+//    if ( sample < self.numberOfSamples ) {
+//        void *samplePointer = [self samplePointer:sample];
+//        switch (self.dataTypeFormat) {
+//            case CPTUndefinedDataType:
+//                break;
+//            case CPTIntegerDataType:
+//            {
+//                switch ( self.sampleBytes ) {
+//                    case sizeof(int8_t):
+//                    { // int8_t
+////                        int8_t *samplePointer = [self samplePointer:sample];
+//                        *(int8_t *)samplePointer*= *(const int8_t *)ptrFactor;
+//                    }
+//                        break;
+//                        
+//                    case sizeof(int16_t):
+//                    { // int16_t
+//                        *(int16_t *)samplePointer*= *(const int16_t *)ptrFactor;
+//                    }
+//                        break;
+//                        
+//                    case sizeof(int32_t):
+//                    { // int32_t
+//                        *(int32_t *)samplePointer*= *(const int32_t *)ptrFactor;
+//                    }
+//                        break;
+//                        
+//                    case sizeof(int64_t):
+//                    { // int64_t
+//                        *(int64_t *)samplePointer*= *(const int64_t *)ptrFactor;
+//                    }
+//                        break;
+//                }
+//            }
+//                break;
+//            case CPTUnsignedIntegerDataType:
+//                switch ( self.sampleBytes ) {
+//                    case sizeof(uint8_t):
+//                    { // int8_t
+//                        *(uint8_t *)samplePointer*= *(const uint8_t *)ptrFactor;
+//                    }
+//                        break;
+//                        
+//                    case sizeof(uint16_t):
+//                    { // uint16_t
+//                        *(uint16_t *)samplePointer*= *(const uint16_t *)ptrFactor;
+//                    }
+//                        break;
+//                        
+//                    case sizeof(uint32_t):
+//                    { // uint32_t
+//                        *(uint32_t *)samplePointer*= *(const uint32_t *)ptrFactor;
+//                    }
+//                        break;
+//                        
+//                    case sizeof(uint64_t):
+//                    { // uint64_t
+//                        *(uint64_t *)samplePointer*= *(const uint64_t *)ptrFactor;
+//                    }
+//                        break;
+//                }
+//                break;
+//            case CPTFloatingPointDataType:
+//                switch ( self.sampleBytes ) {
+//                    case sizeof(float):
+//                    { // float
+//                        *(float *)samplePointer*= *(const float *)ptrFactor;
+//                    }
+//                        break;
+//                        
+//                    case sizeof(double):
+//                    { // double
+//                        *(double *)samplePointer*= *(const double *)ptrFactor;
+//                    }
+//                        break;
+//                }
+//                break;
+//            case CPTComplexFloatingPointDataType:
+//                switch ( self.sampleBytes ) {
+//                    case sizeof(float complex):
+//                    { // float complex
+//                        *(float complex *)samplePointer*= *(const float complex *)ptrFactor;
+//                    }
+//                        break;
+//                        
+//                    case sizeof(double complex):
+//                    { // double complex
+//                        *(double complex *)samplePointer*= *(const double complex *)ptrFactor;
+//                    }
+//                        break;
+//                }
+//                break;
+//            case CPTDecimalDataType:
+//                switch ( self.sampleBytes ) {
+//                    case sizeof(NSDecimal):
+//                    { // NSDecimal
+//                        NSDecimalMultiply(samplePointer, samplePointer, (const NSDecimal *)ptrFactor, NSRoundPlain);
+//                    }
+//                        break;
+//                }
+//                break;
+//                
+//        }
+//        return YES;
+//    }
+//    else {
+//        return NO;
+//    }
+//}
+
 
 /// @endcond
 

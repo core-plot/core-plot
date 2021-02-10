@@ -9,6 +9,7 @@
 #import "CPTLineCap.h"
 #import "CPTLineStyle.h"
 #import "CPTMutablePlotRange.h"
+#import "CPTPlotAreaFrame.h"
 #import "CPTPlotArea.h"
 #import "CPTPlotSpace.h"
 #import "CPTGraphHostingView.h"
@@ -24,6 +25,9 @@
 
 -(void)orthogonalCoordinateViewLowerBound:(nonnull CGFloat *)lower upperBound:(nonnull CGFloat *)upper;
 -(CGPoint)viewPointForOrthogonalCoordinate:(nullable NSNumber *)orthogonalCoord axisCoordinate:(nullable NSNumber *)coordinateValue;
+
+extern NSDecimal CPTNiceNum(NSDecimal x);
+extern NSDecimal CPTNiceLength(NSDecimal length);
 
 @end
 
@@ -51,11 +55,6 @@
  *  @see @ref orthogonalPosition
  **/
 @synthesize axisConstraints;
-
-/** @property nullable CPTNumberSet *alteredMajorTickLocations
- *  @brief A set of radial axis coordinates for all extended major tick marks.
- **/
-@synthesize alteredMajorTickLocations;
 
 /** @property nullable NSNumber *radialLabelLocation
  *  @brief The position along the axis where the axis title should be centered.
@@ -115,7 +114,6 @@
 -(void)dealloc
 {
     axisConstraints = nil;
-    alteredMajorTickLocations = nil;
     radialLabelLocation = nil;
 }
 
@@ -209,13 +207,8 @@
         CGPoint radialLabelLocationPoint =  [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2] fromLayer:thePlotArea];
         CGFloat radialLabelLocationRadius = radialLabelLocationPoint.x - centreViewPoint.x;
         
-        CGPoint labelPosition;
-        if (((CPTPolarPlotSpace*)self.plotSpace).radialAngleOption == CPTPolarRadialAngleModeDegrees) {
-            labelPosition = CGPointMake(radialLabelLocationRadius * (CGFloat)sin([coordinateValue doubleValue] / 180.0 * M_PI) + centreViewPoint.x, radialLabelLocationRadius * (CGFloat)cos([coordinateValue doubleValue] / 180.0 * M_PI) + centreViewPoint.y);
-        }
-        else {
-            labelPosition = CGPointMake(radialLabelLocationRadius * (CGFloat)sin([coordinateValue floatValue]) + centreViewPoint.x, radialLabelLocationRadius * (CGFloat)cos([coordinateValue floatValue]) + centreViewPoint.y);
-        }
+        CGPoint labelPosition = CGPointMake(radialLabelLocationRadius * (CGFloat)sin([coordinateValue floatValue]) + centreViewPoint.x, radialLabelLocationRadius * (CGFloat)cos([coordinateValue floatValue]) + centreViewPoint.y);
+
         return labelPosition;
     }
     else
@@ -229,12 +222,14 @@
         
         CPTPlotArea *thePlotArea = self.plotArea;
         
-        CGPoint labelPosition = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2] fromLayer:thePlotArea];;
+        CGPoint labelPosition = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:plotPoint numberOfCoordinates:2] fromLayer:thePlotArea];
         if ( self.coordinate == CPTCoordinateY ) {
-//            CPTPolarPlotSpace *thePolarPlotSpace = (CPTPolarPlotSpace*)self.plotSpace;
-//            double ratio = thePolarPlotSpace.minorRange.lengthDouble / thePolarPlotSpace.majorRange.lengthDouble;
-            double ratio = CPTDecimalDoubleValue(thePlotArea.heightDecimal) / CPTDecimalDoubleValue(thePlotArea.widthDecimal);
-            labelPosition.y = (labelPosition.y - thePlotArea.bounds.size.height / 2.0) / ratio + thePlotArea.bounds.size.height / 2.0;
+            double ratio = CPTDecimalDoubleValue(CPTDecimalDivide(thePlotArea.widthDecimal, thePlotArea.heightDecimal));
+            NSDecimal centrePoint[2];
+            centrePoint[0]         = CPTDecimalFromDouble(0.0);
+            centrePoint[1]         = CPTDecimalFromDouble(0.0);
+            CGPoint centrePosition = [self convertPoint:[self.plotSpace plotAreaViewPointForPlotPoint:centrePoint numberOfCoordinates:2] fromLayer:thePlotArea];
+            labelPosition.y = (labelPosition.y - centrePosition.y) * ratio + centrePosition.y;
         }
         return labelPosition;
     }
@@ -299,15 +294,127 @@
     if ( !lineStyle ) {
         return;
     }
+    
+    CPTPolarPlotSpace *thePlotSpace      = (CPTPolarPlotSpace*)self.plotSpace;
+//        NSSet *locations                     = (major ? self.majorTickLocations : self.minorTickLocations);
+    CPTCoordinate selfCoordinate         = self.coordinate;
+    CPTCoordinate orthogonalCoordinate   = CPTOrthogonalCoordinate(selfCoordinate);
+    
+    NSSet<NSNumber*> *adjustedLocations;
+    if(self.coordinate == CPTCoordinateY)
+    {
+        CPTPlotArea *thePlotArea = self.plotArea;
+        CGPoint originTransformed = [self convertPoint:self.frame.origin fromLayer:thePlotArea];
+        
+        NSDecimal centrePlotPoint[2];
+        centrePlotPoint[0] = CPTDecimalFromDouble(0.0);
+        centrePlotPoint[1] = CPTDecimalFromDouble(0.0);
+        
+        CGPoint centreViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:centrePlotPoint numberOfCoordinates:2];
+        centreViewPoint.x += originTransformed.x;
+        centreViewPoint.y += originTransformed.y;
+        
+        CGFloat lineWidth = lineStyle.lineWidth;
+        
+        CPTAlignPointFunction alignmentFunction = NULL;
+        if ( ( self.contentsScale > CPTFloat(1.0) ) && (round(lineWidth) == lineWidth) ) {
+            alignmentFunction = CPTAlignIntegralPointToUserSpace;
+        }
+        else {
+            alignmentFunction = CPTAlignPointToUserSpace;
+        }
+
+        centreViewPoint   = alignmentFunction(context, centreViewPoint);
+        CGSize totalSize = CGSizeMake(CPTDecimalDoubleValue(thePlotArea.widthDecimal), CPTDecimalDoubleValue(thePlotArea.heightDecimal));
+        double centreToTopLeft = sqrt(pow((double)centreViewPoint.x, 2.0) + pow((double)totalSize.height-(double)centreViewPoint.y, 2.0));
+        double centreToTopRight = sqrt(pow((double)totalSize.width-(double)centreViewPoint.x, 2.0) + pow((double)totalSize.height-(double)centreViewPoint.y, 2.0));
+        double centreToBtmRight = sqrt(pow((double)totalSize.width-(double)centreViewPoint.x, 2.0) + pow((double)centreViewPoint.y, 2.0));
+        double centreToBtmLeft = sqrt(pow((double)centreViewPoint.x, 2.0) + pow((double)centreViewPoint.y, 2.0));
+        
+        double maxLength = MAX(centreToTopLeft, MAX(centreToTopRight, MAX(centreToBtmRight, centreToBtmLeft)));
+        
+        NSDecimal startPlotPoint[2];
+        startPlotPoint[orthogonalCoordinate] = centrePlotPoint[CPTCoordinateY];
+        CGContextBeginPath(context);
+        //CGContextSetStrokeColorWithColor(context, lineStyle.lineColor);
+        
+        double ratio = maxLength / MAX(((double)totalSize.width / 2.0), ((double)totalSize.height / 2.0));
+//#if TARGET_OS_IOS
+//        if ( UIInterfaceOrientationIsPortrait([[[[[UIApplication sharedApplication] windows] firstObject] windowScene] interfaceOrientation])) {
+//            ratio = maxLength / ((double)totalSize.width / 2.0);
+//        }
+//        else {
+//            ratio = maxLength / ((double)totalSize.height / 2.0);
+//        }
+//#else
+//        ratio = maxLength / MAX(((double)totalSize.width / 2.0), ((double)totalSize.height / 2.0));
+//#endif
+        if ( thePlotSpace.majorScaleType == CPTScaleTypeLinear || thePlotSpace.majorScaleType == CPTScaleTypeCategory ) {
+            ratio *= 1.25;
+        }
+        else {
+            ratio *= pow(10, ceil(ratio));
+        }
+        // Get plot range
+        
+        CPTMutablePlotRange *extendedMajorRange = [thePlotSpace.majorRange mutableCopy];
+        NSNumber *factor = [NSNumber numberWithDouble: ratio];
+        [extendedMajorRange expandRangeByFactor: factor];
+        
+        CPTMutableNumberSet *newMajorLocations = nil;
+        CPTMutableNumberSet *newMinorLocations = nil;
+
+        switch ( self.labelingPolicy ) {
+            case CPTAxisLabelingPolicyNone:
+            case CPTAxisLabelingPolicyLocationsProvided:
+                // Locations are set by user
+                break;
+
+            case CPTAxisLabelingPolicyFixedInterval:
+                [self generateFixedIntervalMajorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations plotRange:extendedMajorRange];
+                break;
+
+            case CPTAxisLabelingPolicyAutomatic:
+                [self autoGenerateMajorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations plotRange:extendedMajorRange];
+                break;
+
+            case CPTAxisLabelingPolicyEqualDivisions:
+                [self generateEqualMajorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations plotRange:extendedMajorRange];
+                break;
+        }
+
+        switch ( self.labelingPolicy ) {
+            case CPTAxisLabelingPolicyNone:
+            case CPTAxisLabelingPolicyLocationsProvided:
+                // Locations are set by user--no filtering required
+                break;
+
+            default:
+                // Filter and set tick locations
+                newMajorLocations = [[self filteredMajorTickLocations:newMajorLocations] mutableCopy];
+                newMinorLocations = [[self filteredMinorTickLocations:newMinorLocations] mutableCopy];
+        }
+
+        if ( major) {
+            adjustedLocations = newMajorLocations;
+        }
+        else {
+            adjustedLocations = newMinorLocations;
+        }
+    }
+    else
+    {
+        adjustedLocations = locations;
+    }
 
     [lineStyle setLineStyleInContext:context];
     CGContextBeginPath(context);
 
-    for ( NSDecimalNumber * __strong tickLocation in locations )
+    for ( NSDecimalNumber * __strong tickLocation in adjustedLocations )
     {
-//        if(self.coordinate == CPTCoordinateZ && ((CPTPolarPlotSpace*)self.plotSpace).radialAngleOption == CPTPolarRadialAngleModeDegrees) {
-//            tickLocation = [tickLocation decimalNumberByMultiplyingBy: (NSDecimalNumber *)[NSDecimalNumber numberWithDouble: M_PI / 180.0]];
-//        }
+        if(self.coordinate == CPTCoordinateZ && ((CPTPolarPlotSpace*)self.plotSpace).radialAngleOption == CPTPolarRadialAngleModeDegrees) {
+            tickLocation = [tickLocation decimalNumberByMultiplyingBy: (NSDecimalNumber *)[NSDecimalNumber numberWithDouble: M_PI / 180.0]];
+        }
         if ( labeledRange && ![labeledRange containsNumber:tickLocation] ) {
             continue;
         }
@@ -350,10 +457,10 @@
                 break;
             
             case CPTCoordinateZ:
-                startViewPoint.x += length * startFactor;
-                startViewPoint.y += length * startFactor;
-                endViewPoint.x   += length * endFactor;
-                endViewPoint.y   += length * endFactor;
+                startViewPoint.x += length * startFactor * sin(tickLocation.doubleValue);
+                startViewPoint.y += length * startFactor * cos(tickLocation.doubleValue);
+                endViewPoint.x   += length * endFactor* sin(tickLocation.doubleValue);
+                endViewPoint.y   += length * endFactor * cos(tickLocation.doubleValue);
                 break;
 
 
@@ -419,7 +526,7 @@
             range = [theVisibleAxisRange mutableCopy];
         }
         CPTAlignPointFunction alignmentFunction = CPTAlignPointToUserSpace;
-        if ( theLineStyle ) {
+        if ( theLineStyle && self.coordinate != CPTCoordinateZ ) {
             CGPoint startViewPoint = alignmentFunction(context, [self viewPointForCoordinateValue:range.location]);
             CGPoint endViewPoint   = alignmentFunction(context, [self viewPointForCoordinateValue:range.end]);
             [theLineStyle setLineStyleInContext:context];
@@ -461,7 +568,6 @@
         }
     }
 
-//    [range release];
     range = nil;
 }
 
@@ -482,7 +588,7 @@
         [self relabel];
 
         CPTPolarPlotSpace *thePlotSpace      = (CPTPolarPlotSpace*)self.plotSpace;
-        NSSet *locations                     = (major ? self.majorTickLocations : self.minorTickLocations);
+//        NSSet *locations                     = (major ? self.majorTickLocations : self.minorTickLocations);
         CPTCoordinate selfCoordinate         = self.coordinate;
         CPTCoordinate orthogonalCoordinate   = CPTOrthogonalCoordinate(selfCoordinate);
         CPTMutablePlotRange *orthogonalRange = [[thePlotSpace plotRangeForCoordinate:orthogonalCoordinate] mutableCopy];
@@ -533,15 +639,14 @@
             alignmentFunction = CPTAlignPointToUserSpace;
         }
 
-        centreViewPoint   = CPTAlignPointToUserSpace(context, centreViewPoint);
-        CGSize totalSize = self.graph.frame.size;
+        centreViewPoint   = alignmentFunction(context, centreViewPoint);
+        CGSize totalSize = CGSizeMake(CPTDecimalDoubleValue(thePlotArea.widthDecimal), CPTDecimalDoubleValue(thePlotArea.heightDecimal));
         double centreToTopLeft = sqrt(pow((double)centreViewPoint.x, 2.0) + pow((double)totalSize.height-(double)centreViewPoint.y, 2.0));
         double centreToTopRight = sqrt(pow((double)totalSize.width-(double)centreViewPoint.x, 2.0) + pow((double)totalSize.height-(double)centreViewPoint.y, 2.0));
         double centreToBtmRight = sqrt(pow((double)totalSize.width-(double)centreViewPoint.x, 2.0) + pow((double)centreViewPoint.y, 2.0));
         double centreToBtmLeft = sqrt(pow((double)centreViewPoint.x, 2.0) + pow((double)centreViewPoint.y, 2.0));
         
         double maxLength = MAX(centreToTopLeft, MAX(centreToTopRight, MAX(centreToBtmRight, centreToBtmLeft)));
-        maxLength*= 2.0;
         
         NSDecimal startPlotPoint[2];
         
@@ -551,65 +656,73 @@
             CGContextBeginPath(context);               
             //CGContextSetStrokeColorWithColor(context, lineStyle.lineColor);
             
-            NSMutableSet *mutableLocations = [NSMutableSet setWithSet:locations];
-            
-            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"doubleValue" ascending:YES];
-            NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
-            NSArray *sortedArraySet = [locations sortedArrayUsingDescriptors:sortDescriptors];
-            double minDecimalNumber = [[sortedArraySet firstObject] doubleValue];
-            double maxDecimalNumber = [[sortedArraySet lastObject] doubleValue];
-
-            double intervalLength = major ? [self.majorIntervalLength doubleValue] : [self.majorIntervalLength doubleValue] / (double)(((CPTPolarPlotSpace*)self.plotSpace).majorScaleType == CPTScaleTypeLogModulus ? self.minorTicksPerInterval+2 : self.minorTicksPerInterval+1);
-            double newNoLocations = 0;
-
-            if(major)
-            {
-                double length = (totalSize.width < totalSize.height ? (double)totalSize.width : (double)totalSize.height);
-                if(maxLength / length > 1.0) {
-                    if ( ((CPTPolarPlotSpace*)self.plotSpace).majorScaleType == CPTScaleTypeLog ) {
-                        newNoLocations = ceil((double)[locations count] * log10((maxLength / length))) + 1;
-                    }
-                    else if ( ((CPTPolarPlotSpace*)self.plotSpace).majorScaleType == CPTScaleTypeLogModulus ) {
-                        newNoLocations = ceil((double)[locations count] * CPTLogModulus((maxLength / length))) + 1;
-                    }
-                    else {
-                        newNoLocations = ceil((double)[locations count] * (maxLength / length)) + 1;
-                    }
-                }
+            double ratio = maxLength / MAX(((double)totalSize.width / 2.0), ((double)totalSize.height / 2.0));
+//#if TARGET_OS_IOS
+//            if ( UIInterfaceOrientationIsPortrait([[[[[UIApplication sharedApplication] windows] firstObject] windowScene] interfaceOrientation])) {
+//                ratio = maxLength / ((double)totalSize.width / 2.0);
+//            }
+//                else {
+//                ratio = maxLength / ((double)totalSize.height / 2.0);
+//            }
+//#else
+//            ratio = maxLength / MAX(((double)totalSize.width / 2.0), ((double)totalSize.height / 2.0));         
+//#endif
+            if ( thePlotSpace.majorScaleType == CPTScaleTypeLinear || thePlotSpace.majorScaleType == CPTScaleTypeCategory ) {
+                ratio *= 1.25;
             }
             else {
-                newNoLocations = [self.alteredMajorTickLocations count] * self.minorTicksPerInterval;
+                ratio *= pow(10, ceil(ratio));
+            }
+            // Get plot range
+            
+            CPTMutablePlotRange *extendedMajorRange = [thePlotSpace.majorRange mutableCopy];
+            NSNumber *factor = [NSNumber numberWithDouble: ratio];
+            [extendedMajorRange expandRangeByFactor: factor];
+            
+            CPTMutableNumberSet *newMajorLocations = nil;
+            CPTMutableNumberSet *newMinorLocations = nil;
+
+            switch ( self.labelingPolicy ) {
+                case CPTAxisLabelingPolicyNone:
+                case CPTAxisLabelingPolicyLocationsProvided:
+                    // Locations are set by user
+                    break;
+
+                case CPTAxisLabelingPolicyFixedInterval:
+                    [self generateFixedIntervalMajorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations plotRange:extendedMajorRange];
+                    break;
+
+                case CPTAxisLabelingPolicyAutomatic:
+                    [self autoGenerateMajorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations plotRange:extendedMajorRange];
+                    break;
+
+                case CPTAxisLabelingPolicyEqualDivisions:
+                    [self generateEqualMajorTickLocations:&newMajorLocations minorTickLocations:&newMinorLocations plotRange:extendedMajorRange];
+                    break;
             }
 
-            double i = (double)[locations count];
-            double increasingPower = ceil(log10(intervalLength));
-            while(i < newNoLocations)
-            {
-                if ( ((CPTPolarPlotSpace*)self.plotSpace).majorScaleType == CPTScaleTypeLog || ((CPTPolarPlotSpace*)self.plotSpace).majorScaleType == CPTScaleTypeLogModulus ) {
-                    if( fmod((maxDecimalNumber / intervalLength), 9) == 0.0 ) {
-                        maxDecimalNumber+= intervalLength;
-                        minDecimalNumber-= intervalLength;
-                        increasingPower = ceil(log10(maxDecimalNumber));
-                    }
-                    intervalLength = pow(10.0, increasingPower);
-                }
-                maxDecimalNumber+=  intervalLength;
-                minDecimalNumber-=  intervalLength;
+            switch ( self.labelingPolicy ) {
+                case CPTAxisLabelingPolicyNone:
+                case CPTAxisLabelingPolicyLocationsProvided:
+                    // Locations are set by user--no filtering required
+                    break;
 
-                if(!major)
-                {
-                    if([self.alteredMajorTickLocations containsObject:[NSDecimalNumber numberWithDouble:minDecimalNumber]] || [self.alteredMajorTickLocations containsObject:[NSDecimalNumber numberWithDouble:maxDecimalNumber]])
-                        continue;
-                }
-                [mutableLocations addObject:[NSDecimalNumber numberWithDouble:minDecimalNumber]];
-                [mutableLocations addObject:[NSDecimalNumber numberWithDouble:maxDecimalNumber]];
-                i+=2.0;
+                default:
+                    // Filter and set tick locations
+                    newMajorLocations = [[self filteredMajorTickLocations:newMajorLocations] mutableCopy];
+                    newMinorLocations = [[self filteredMinorTickLocations:newMinorLocations] mutableCopy];
             }
-            if(major) {
-                self.alteredMajorTickLocations = [NSSet setWithSet:[mutableLocations copy]];
+
+            
+            NSSet *locations;
+            if ( major) {
+                locations = newMajorLocations;
+            }
+            else {
+                locations = newMinorLocations;
             }
             
-            for ( NSDecimalNumber *location in mutableLocations )
+            for ( NSDecimalNumber *location in locations )
             {
                 NSDecimal locationDecimal = location.decimalValue;
                 
@@ -634,16 +747,18 @@
             }
         }
         else if(selfCoordinate == CPTCoordinateY)
+        {
             ;
+        }
         else if(selfCoordinate == CPTCoordinateZ)
         {
             CGContextBeginPath(context);
             //Base lines
             
-            double maxSize = maxLength / 2.0;//orthogonalRange.lengthDouble;
+            double maxSize = maxLength * 1.25;//orthogonalRange.lengthDouble;
             CGPoint endViewPoint = CGPointZero;
             double mvr = [self.majorIntervalLength doubleValue];
-            if(((CPTPolarPlotSpace*)self.plotSpace).radialAngleOption == CPTPolarRadialAngleModeDegrees)
+            if(thePlotSpace.radialAngleOption == CPTPolarRadialAngleModeDegrees)
                 mvr*= (M_PI/180.0);
                 
             if(!major)
@@ -651,7 +766,6 @@
             int noRadialLines = (int)(2.0*M_PI / mvr);
             for (int i = 0; i < noRadialLines; i++)
             {
-                
                 double a = (mvr * (double)i) - M_PI_2;
                 double x = maxSize * cos(a);
                 double y = maxSize * sin(a);
@@ -659,8 +773,8 @@
                 CGContextMoveToPoint(context, centreViewPoint.x, centreViewPoint.y);
                 
                 // End point
-                endViewPoint.x = (CGFloat)x + originTransformed.x;
-                endViewPoint.y = (CGFloat)y + originTransformed.y;
+                endViewPoint.x = (CGFloat)x;
+                endViewPoint.y = (CGFloat)y;
                 
                 // Align to pixels
                 endViewPoint = CPTAlignPointToUserSpace(context, endViewPoint);
@@ -1070,6 +1184,515 @@
 }
 
 /// @endcond
+
+#pragma mark -
+#pragma mark Ticks
+
+/// @cond
+
+/**
+ *  @internal
+ *  @brief Generate major and minor tick locations using the fixed interval labeling policy.
+ *  @param newMajorLocations A new NSSet containing the major tick locations.
+ *  @param newMinorLocations A new NSSet containing the minor tick locations.
+ */
+-(void)generateFixedIntervalMajorTickLocations:(CPTNumberSet *__autoreleasing *)newMajorLocations minorTickLocations:(CPTNumberSet *__autoreleasing *)newMinorLocations plotRange:(CPTPlotRange*)plotRange
+{
+    CPTMutableNumberSet *majorLocations = [NSMutableSet set];
+    CPTMutableNumberSet *minorLocations = [NSMutableSet set];
+
+    NSDecimal zero          = CPTDecimalFromInteger(0);
+    NSDecimal majorInterval = self.majorIntervalLength.decimalValue;
+
+    if ( CPTDecimalGreaterThan(majorInterval, zero)) {
+        CPTMutablePlotRange *range = [plotRange mutableCopy];
+        if ( range ) {
+            CPTPlotRange *theVisibleRange = self.visibleRange;
+            if ( theVisibleRange ) {
+                [range intersectionPlotRange:theVisibleRange];
+            }
+
+            NSDecimal rangeMin = range.minLimitDecimal;
+            NSDecimal rangeMax = range.maxLimitDecimal;
+
+            NSDecimal minorInterval;
+            NSUInteger minorTickCount = self.minorTicksPerInterval;
+            if ( minorTickCount > 0 ) {
+                minorInterval = CPTDecimalDivide(majorInterval, CPTDecimalFromUnsignedInteger(minorTickCount + 1));
+            }
+            else {
+                minorInterval = zero;
+            }
+
+            // Set starting coord--should be the smallest value >= rangeMin that is a whole multiple of majorInterval away from the labelingOrigin
+            NSDecimal origin = self.labelingOrigin.decimalValue;
+            NSDecimal coord  = CPTDecimalDivide(CPTDecimalSubtract(rangeMin, origin), majorInterval);
+            NSDecimalRound(&coord, &coord, 0, NSRoundUp);
+            coord = CPTDecimalAdd(CPTDecimalMultiply(coord, majorInterval), origin);
+
+            // Set minor ticks between the starting point and rangeMin
+            if ( minorTickCount > 0 ) {
+                NSDecimal minorCoord = CPTDecimalSubtract(coord, minorInterval);
+
+                for ( NSUInteger minorTickIndex = 0; minorTickIndex < minorTickCount; minorTickIndex++ ) {
+                    if ( CPTDecimalLessThan(minorCoord, rangeMin)) {
+                        break;
+                    }
+                    [minorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:minorCoord]];
+                    minorCoord = CPTDecimalSubtract(minorCoord, minorInterval);
+                }
+            }
+
+            // Set tick locations
+            while ( CPTDecimalLessThanOrEqualTo(coord, rangeMax)) {
+                // Major tick
+                [majorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:coord]];
+
+                // Minor ticks
+                if ( minorTickCount > 0 ) {
+                    NSDecimal minorCoord = CPTDecimalAdd(coord, minorInterval);
+
+                    for ( NSUInteger minorTickIndex = 0; minorTickIndex < minorTickCount; minorTickIndex++ ) {
+                        if ( CPTDecimalGreaterThan(minorCoord, rangeMax)) {
+                            break;
+                        }
+                        [minorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:minorCoord]];
+                        minorCoord = CPTDecimalAdd(minorCoord, minorInterval);
+                    }
+                }
+
+                coord = CPTDecimalAdd(coord, majorInterval);
+            }
+        }
+    }
+
+    *newMajorLocations = majorLocations;
+    *newMinorLocations = minorLocations;
+}
+
+/**
+ *  @internal
+ *  @brief Generate major and minor tick locations using the automatic labeling policy.
+ *  @param newMajorLocations A new NSSet containing the major tick locations.
+ *  @param newMinorLocations A new NSSet containing the minor tick locations.
+ */
+-(void)autoGenerateMajorTickLocations:(CPTNumberSet *__autoreleasing *)newMajorLocations minorTickLocations:(CPTNumberSet *__autoreleasing *)newMinorLocations plotRange:(CPTPlotRange*)plotRange
+{
+    // Create sets for locations
+    CPTMutableNumberSet *majorLocations = [NSMutableSet set];
+    CPTMutableNumberSet *minorLocations = [NSMutableSet set];
+
+    // Get plot range
+    CPTMutablePlotRange *range    = [plotRange mutableCopy];
+    CPTPlotRange *theVisibleRange = self.visibleRange;
+
+    if ( theVisibleRange ) {
+        [range intersectionPlotRange:theVisibleRange];
+    }
+
+    // Validate scale type
+    BOOL valid             = YES;
+    CPTScaleType scaleType = [self.plotSpace scaleTypeForCoordinate:self.coordinate];
+
+    switch ( scaleType ) {
+        case CPTScaleTypeLinear:
+            // supported scale type
+            break;
+
+        case CPTScaleTypeLog:
+            // supported scale type--check range
+            if ([self isKindOfClass:[CPTPolarAxis class]]) { // added S.Wainwright 2/12/2020
+                if ( (range.minLimitDouble == 0.0) || (range.maxLimitDouble == 0.0) ) {
+                    valid = NO;
+                }
+            }
+            else {
+                if ( (range.minLimitDouble <= 0.0) || (range.maxLimitDouble <= 0.0) ) {
+                    valid = NO;
+                }
+            }
+            break;
+
+        case CPTScaleTypeLogModulus:
+            // supported scale type
+            break;
+
+        default:
+            // unsupported scale type--bail out
+            valid = NO;
+            break;
+    }
+
+    if ( !valid ) {
+        *newMajorLocations = majorLocations;
+        *newMinorLocations = minorLocations;
+        return;
+    }
+
+    // Cache some values
+    NSUInteger numTicks   = self.preferredNumberOfMajorTicks;
+    NSUInteger minorTicks = self.minorTicksPerInterval + 1;
+    double length         = fabs(range.lengthDouble);
+
+    // Filter troublesome values and return empty sets
+    if ((length != 0.0) && !isinf(length)) {
+        switch ( scaleType ) {
+            case CPTScaleTypeLinear:
+            {
+                // Determine interval value
+                switch ( numTicks ) {
+                    case 0:
+                        numTicks = 5;
+                        break;
+
+                    case 1:
+                        numTicks = 2;
+                        break;
+
+                    default:
+                        // ok
+                        break;
+                }
+
+                NSDecimal zero = CPTDecimalFromInteger(0);
+                NSDecimal one  = CPTDecimalFromInteger(1);
+
+                NSDecimal majorInterval;
+                if ( numTicks == 2 ) {
+                    majorInterval = CPTNiceLength(range.lengthDecimal);
+                }
+                else {
+                    majorInterval = CPTDecimalDivide(range.lengthDecimal, CPTDecimalFromUnsignedInteger(numTicks - 1));
+                    majorInterval = CPTNiceNum(majorInterval);
+                }
+                if ( CPTDecimalLessThan(majorInterval, zero)) {
+                    majorInterval = CPTDecimalMultiply(majorInterval, CPTDecimalFromInteger(-1));
+                }
+
+                NSDecimal minorInterval;
+                if ( minorTicks > 1 ) {
+                    minorInterval = CPTDecimalDivide(majorInterval, CPTDecimalFromUnsignedInteger(minorTicks));
+                }
+                else {
+                    minorInterval = zero;
+                }
+
+                // Calculate actual range limits
+                NSDecimal minLimit = range.minLimitDecimal;
+                NSDecimal maxLimit = range.maxLimitDecimal;
+
+                // Determine the initial and final major indexes for the actual visible range
+                NSDecimal initialIndex = CPTDecimalDivide(minLimit, majorInterval);
+                NSDecimalRound(&initialIndex, &initialIndex, 0, NSRoundDown);
+
+                NSDecimal finalIndex = CPTDecimalDivide(maxLimit, majorInterval);
+                NSDecimalRound(&finalIndex, &finalIndex, 0, NSRoundUp);
+
+                // Iterate through the indexes with visible ticks and build the locations sets
+                for ( NSDecimal i = initialIndex; CPTDecimalLessThanOrEqualTo(i, finalIndex); i = CPTDecimalAdd(i, one)) {
+                    NSDecimal pointLocation      = CPTDecimalMultiply(majorInterval, i);
+                    NSDecimal minorPointLocation = pointLocation;
+
+                    for ( NSUInteger j = 1; j < minorTicks; j++ ) {
+                        minorPointLocation = CPTDecimalAdd(minorPointLocation, minorInterval);
+
+                        if ( CPTDecimalLessThan(minorPointLocation, minLimit)) {
+                            continue;
+                        }
+                        if ( CPTDecimalGreaterThan(minorPointLocation, maxLimit)) {
+                            continue;
+                        }
+                        [minorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:minorPointLocation]];
+                    }
+
+                    if ( CPTDecimalLessThan(pointLocation, minLimit)) {
+                        continue;
+                    }
+                    if ( CPTDecimalGreaterThan(pointLocation, maxLimit)) {
+                        continue;
+                    }
+                    [majorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:pointLocation]];
+                }
+            }
+            break;
+
+            case CPTScaleTypeLog:
+            {
+                double minLimit = range.minLimitDouble;
+                double maxLimit = range.maxLimitDouble;
+
+                // added S.Wainwright 2/12/2020
+                /*if ( (minLimit != 0.0) && (maxLimit != 0.0) && [self isKindOfClass:[CPTPolarAxis class]]) {
+                    
+                }
+                else*/ if ((minLimit > 0.0) && (maxLimit > 0.0)) {
+                    // Determine interval value
+                    length = log10(maxLimit / minLimit);
+
+                    double interval     = signbit(length) ? -1.0 : 1.0;
+                    double intervalStep = pow(10.0, fabs(interval));
+
+                    // Determine minor interval
+                    double minorInterval = intervalStep * 0.9 * pow(10.0, floor(log10(minLimit))) / minorTicks;
+
+                    // Determine the initial and final major indexes for the actual visible range
+                    NSInteger initialIndex = (NSInteger)lrint(floor(log10(minLimit / fabs(interval)))); // can be negative
+                    NSInteger finalIndex   = (NSInteger)lrint(ceil(log10(maxLimit / fabs(interval))));  // can be negative
+
+                    // Iterate through the indexes with visible ticks and build the locations sets
+                    for ( NSInteger i = initialIndex; i <= finalIndex; i++ ) {
+                        double pointLocation = pow(10.0, i * interval);
+                        for ( NSUInteger j = 1; j < minorTicks; j++ ) {
+                            double minorPointLocation = pointLocation + minorInterval * j;
+                            if ( minorPointLocation < minLimit ) {
+                                continue;
+                            }
+                            if ( minorPointLocation > maxLimit ) {
+                                continue;
+                            }
+                            [minorLocations addObject:@(minorPointLocation)];
+                        }
+                        minorInterval *= intervalStep;
+
+                        if ( pointLocation < minLimit ) {
+                            continue;
+                        }
+                        if ( pointLocation > maxLimit ) {
+                            continue;
+                        }
+                        [majorLocations addObject:@(pointLocation)];
+                    }
+                }
+            }
+            break;
+
+            case CPTScaleTypeLogModulus:
+            {
+                double minLimit = range.minLimitDouble;
+                double maxLimit = range.maxLimitDouble;
+
+                // Determine interval value
+                double modMinLimit = CPTLogModulus(minLimit);
+                double modMaxLimit = CPTLogModulus(maxLimit);
+
+                double multiplier = pow(10.0, floor(log10(length)));
+                multiplier = (multiplier < 1.0) ? multiplier : 1.0;
+
+                double intervalStep = 10.0;
+
+                // Determine the initial and final major indexes for the actual visible range
+                NSInteger initialIndex = (NSInteger)lrint(floor(modMinLimit / multiplier)); // can be negative
+                NSInteger finalIndex   = (NSInteger)lrint(ceil(modMaxLimit / multiplier));  // can be negative
+
+                if ( initialIndex < 0 ) {
+                    // Determine minor interval
+                    double minorInterval = intervalStep * 0.9 * multiplier / minorTicks;
+
+                    for ( NSInteger i = MIN(0, finalIndex); i >= initialIndex; i-- ) {
+                        double pointLocation;
+                        double sign = -multiplier;
+
+                        if ( multiplier < 1.0 ) {
+                            pointLocation = sign * pow(10.0, fabs((double)i) - 1.0);
+                        }
+                        else {
+                            pointLocation = sign * pow(10.0, fabs((double)i));
+                        }
+
+                        for ( NSUInteger j = 1; j < minorTicks; j++ ) {
+                            double minorPointLocation = pointLocation + sign * minorInterval * j;
+                            if ( minorPointLocation < minLimit ) {
+                                continue;
+                            }
+                            if ( minorPointLocation > maxLimit ) {
+                                continue;
+                            }
+                            [minorLocations addObject:@(minorPointLocation)];
+                        }
+                        minorInterval *= intervalStep;
+
+                        if ( i == 0 ) {
+                            pointLocation = 0.0;
+                        }
+                        if ( pointLocation < minLimit ) {
+                            continue;
+                        }
+                        if ( pointLocation > maxLimit ) {
+                            continue;
+                        }
+                        [majorLocations addObject:@(pointLocation)];
+                    }
+                }
+
+                if ( finalIndex >= 0 ) {
+                    // Determine minor interval
+                    double minorInterval = intervalStep * 0.9 * multiplier / minorTicks;
+
+                    for ( NSInteger i = MAX(0, initialIndex); i <= finalIndex; i++ ) {
+                        double pointLocation;
+                        double sign = multiplier;
+
+                        if ( multiplier < 1.0 ) {
+                            pointLocation = sign * pow(10.0, fabs((double)i) - 1.0);
+                        }
+                        else {
+                            pointLocation = sign * pow(10.0, fabs((double)i));
+                        }
+
+                        for ( NSUInteger j = 1; j < minorTicks; j++ ) {
+                            double minorPointLocation = pointLocation + sign * minorInterval * j;
+                            if ( minorPointLocation < minLimit ) {
+                                continue;
+                            }
+                            if ( minorPointLocation > maxLimit ) {
+                                continue;
+                            }
+                            [minorLocations addObject:@(minorPointLocation)];
+                        }
+                        minorInterval *= intervalStep;
+
+                        if ( i == 0 ) {
+                            pointLocation = 0.0;
+                        }
+                        if ( pointLocation < minLimit ) {
+                            continue;
+                        }
+                        if ( pointLocation > maxLimit ) {
+                            continue;
+                        }
+                        [majorLocations addObject:@(pointLocation)];
+                    }
+                }
+            }
+            break;
+
+            default:
+                break;
+        }
+    }
+
+    // Return tick locations sets
+    *newMajorLocations = majorLocations;
+    *newMinorLocations = minorLocations;
+}
+
+/**
+ *  @internal
+ *  @brief Generate major and minor tick locations using the equal divisions labeling policy.
+ *  @param newMajorLocations A new NSSet containing the major tick locations.
+ *  @param newMinorLocations A new NSSet containing the minor tick locations.
+ */
+-(void)generateEqualMajorTickLocations:(CPTNumberSet *__autoreleasing *)newMajorLocations minorTickLocations:(CPTNumberSet *__autoreleasing *)newMinorLocations plotRange:(CPTPlotRange*)plotRange
+{
+    CPTMutableNumberSet *majorLocations = [NSMutableSet set];
+    CPTMutableNumberSet *minorLocations = [NSMutableSet set];
+
+    CPTMutablePlotRange *range = [plotRange mutableCopy];
+
+    if ( range ) {
+        CPTPlotRange *theVisibleRange = self.visibleRange;
+        if ( theVisibleRange ) {
+            [range intersectionPlotRange:theVisibleRange];
+        }
+
+        if ( range.lengthDouble != 0.0 ) {
+            NSDecimal zero     = CPTDecimalFromInteger(0);
+            NSDecimal rangeMin = range.minLimitDecimal;
+            NSDecimal rangeMax = range.maxLimitDecimal;
+
+            NSUInteger majorTickCount = self.preferredNumberOfMajorTicks;
+
+            if ( majorTickCount < 2 ) {
+                majorTickCount = 2;
+            }
+            NSDecimal majorInterval = CPTDecimalDivide(range.lengthDecimal, CPTDecimalFromUnsignedInteger(majorTickCount - 1));
+            if ( CPTDecimalLessThan(majorInterval, zero)) {
+                majorInterval = CPTDecimalMultiply(majorInterval, CPTDecimalFromInteger(-1));
+            }
+
+            NSDecimal minorInterval;
+            NSUInteger minorTickCount = self.minorTicksPerInterval;
+            if ( minorTickCount > 0 ) {
+                minorInterval = CPTDecimalDivide(majorInterval, CPTDecimalFromUnsignedInteger(minorTickCount + 1));
+            }
+            else {
+                minorInterval = zero;
+            }
+
+            NSDecimal coord = rangeMin;
+
+            // Set tick locations
+            while ( CPTDecimalLessThanOrEqualTo(coord, rangeMax)) {
+                // Major tick
+                [majorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:coord]];
+
+                // Minor ticks
+                if ( minorTickCount > 0 ) {
+                    NSDecimal minorCoord = CPTDecimalAdd(coord, minorInterval);
+
+                    for ( NSUInteger minorTickIndex = 0; minorTickIndex < minorTickCount; minorTickIndex++ ) {
+                        if ( CPTDecimalGreaterThan(minorCoord, rangeMax)) {
+                            break;
+                        }
+                        [minorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:minorCoord]];
+                        minorCoord = CPTDecimalAdd(minorCoord, minorInterval);
+                    }
+                }
+
+                coord = CPTDecimalAdd(coord, majorInterval);
+            }
+        }
+    }
+
+    *newMajorLocations = majorLocations;
+    *newMinorLocations = minorLocations;
+}
+
+/**
+ *  @internal
+ *  @brief Removes any tick locations falling inside the label exclusion ranges from a set of tick locations.
+ *  @param allLocations A set of tick locations.
+ *  @return The filtered set of tick locations.
+ */
+-(nullable CPTNumberSet *)filteredTickLocations:(nullable CPTNumberSet *)allLocations
+{
+    CPTPlotRangeArray *exclusionRanges = self.labelExclusionRanges;
+
+    if ( exclusionRanges ) {
+        CPTMutableNumberSet *filteredLocations = [allLocations mutableCopy];
+        for ( CPTPlotRange *range in exclusionRanges ) {
+            for ( NSNumber *location in allLocations ) {
+                if ( [range containsNumber:location] ) {
+                    [filteredLocations removeObject:location];
+                }
+            }
+        }
+        return filteredLocations;
+    }
+    else {
+        return allLocations;
+    }
+}
+
+/// @endcond
+
+/** @brief Removes any major ticks falling inside the label exclusion ranges from the set of tick locations.
+ *  @param allLocations A set of major tick locations.
+ *  @return The filtered set.
+ **/
+-(nullable CPTNumberSet *)filteredMajorTickLocations:(nullable CPTNumberSet *)allLocations
+{
+    return [self filteredTickLocations:allLocations];
+}
+
+/** @brief Removes any minor ticks falling inside the label exclusion ranges from the set of tick locations.
+ *  @param allLocations A set of minor tick locations.
+ *  @return The filtered set.
+ **/
+-(nullable CPTNumberSet *)filteredMinorTickLocations:(nullable CPTNumberSet *)allLocations
+{
+    return [self filteredTickLocations:allLocations];
+}
 
 #pragma mark -
 #pragma mark Accessors

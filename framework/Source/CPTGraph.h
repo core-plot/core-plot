@@ -148,7 +148,6 @@ typedef NS_ENUM (NSInteger, CPTGraphLayerType) {
 -(nullable CPTLayerAnnotation *)getTitleLayerAnnotation;
 /// @}
 
-
 @end
 
 #pragma mark -

@@ -412,9 +412,11 @@ extern CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
     switch ( coordinate ) {
         case CPTCoordinateX:
             self.majorScaleType = newType;
+            self.minorScaleType = newType;
             break;
 
         case CPTCoordinateY:
+            self.majorScaleType = newType;
             self.minorScaleType = newType;
             break;
             
@@ -1146,77 +1148,32 @@ extern CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
         return viewPoint;
     }
     
-    CPTPlotRange *dominantRange = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorRange : self.minorRange;
-    CPTScaleType dominantScaleType = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorScaleType : self.minorScaleType;
-    
-    switch ( dominantScaleType ) {
+    switch ( self.majorScaleType ) {
         case CPTScaleTypeLinear:
         case CPTScaleTypeCategory:
-            viewPoint.x = [self viewCoordinateForViewLength:plotArea.widthDecimal linearPlotRange:dominantRange plotCoordinateValue:[plotPoint[CPTCoordinateX] decimalValue]];
-            viewPoint.y = [self viewCoordinateForViewLength:plotArea.heightDecimal linearPlotRange:dominantRange plotCoordinateValue:[plotPoint[CPTCoordinateY] decimalValue]];
+            viewPoint.x = [self viewCoordinateForViewLength:plotArea.widthDecimal linearPlotRange:self.majorRange plotCoordinateValue:[plotPoint[CPTCoordinateX] decimalValue]];
+            viewPoint.y = [self viewCoordinateForViewLength:plotArea.heightDecimal linearPlotRange:self.majorRange plotCoordinateValue:[plotPoint[CPTCoordinateY] decimalValue]];
             break;
-            
+
         case CPTScaleTypeLog:
         {
-            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logPlotRange:dominantRange doublePrecisionPlotCoordinateValue:[plotPoint[CPTCoordinateX] doubleValue]];
-            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logPlotRange:dominantRange doublePrecisionPlotCoordinateValue:[plotPoint[CPTCoordinateY] doubleValue]];
+           // CPTPlotRange *dominantRange = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorRange : self.minorRange;
+            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logPlotRange:self.majorRange doublePrecisionPlotCoordinateValue:[plotPoint[CPTCoordinateX] doubleValue]];
+            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logPlotRange:self.majorRange doublePrecisionPlotCoordinateValue:[plotPoint[CPTCoordinateY] doubleValue]];
         }
             break;
-            
+
         case CPTScaleTypeLogModulus:
         {
-            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logModulusPlotRange:dominantRange doublePrecisionPlotCoordinateValue:[plotPoint[CPTCoordinateX] doubleValue]];
-            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logModulusPlotRange:dominantRange doublePrecisionPlotCoordinateValue:[plotPoint[CPTCoordinateY] doubleValue]];
+//            CPTPlotRange *dominantRange = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorRange : self.minorRange;
+            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logModulusPlotRange:self.majorRange doublePrecisionPlotCoordinateValue:[plotPoint[CPTCoordinateX] doubleValue]];
+            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logModulusPlotRange:self.majorRange doublePrecisionPlotCoordinateValue:[plotPoint[CPTCoordinateY] doubleValue]];
         }
             break;
-            
+
         default:
             [NSException raise:CPTException format:@"Scale type not supported in CPTPolarPlotSpace"];
     }
-    
-//    switch ( self.majorScaleType ) {
-//        case CPTScaleTypeLinear:
-//        case CPTScaleTypeCategory:
-//            viewPoint.x = [self viewCoordinateForViewLength:plotArea.widthDecimal linearPlotRange:self.majorRange plotCoordinateValue:[plotPoint[CPTCoordinateX] decimalValue]];
-//            break;
-//            
-//        case CPTScaleTypeLog:
-//        {
-//            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logPlotRange:self.majorRange doublePrecisionPlotCoordinateValue:[plotPoint[CPTCoordinateX] doubleValue]];
-//        }
-//            break;
-//            
-//        case CPTScaleTypeLogModulus:
-//        {
-//            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logModulusPlotRange:self.majorRange doublePrecisionPlotCoordinateValue:[plotPoint[CPTCoordinateX] doubleValue]];
-//        }
-//            break;
-//            
-//        default:
-//            [NSException raise:CPTException format:@"Scale type not supported in CPTPolarPlotSpace"];
-//    }
-//    
-//    switch ( self.minorScaleType ) {
-//        case CPTScaleTypeLinear:
-//        case CPTScaleTypeCategory:
-//            viewPoint.y = [self viewCoordinateForViewLength:plotArea.heightDecimal linearPlotRange:self.minorRange plotCoordinateValue:[plotPoint[CPTCoordinateY] decimalValue]];
-//            break;
-//            
-//        case CPTScaleTypeLog:
-//        {
-//            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logPlotRange:self.minorRange doublePrecisionPlotCoordinateValue:[plotPoint[CPTCoordinateY] doubleValue]];
-//        }
-//            break;
-//            
-//        case CPTScaleTypeLogModulus:
-//        {
-//            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logModulusPlotRange:self.minorRange doublePrecisionPlotCoordinateValue:[plotPoint[CPTCoordinateY] doubleValue]];
-//        }
-//            break;
-//            
-//        default:
-//            [NSException raise:CPTException format:@"Scale type not supported in CPTPolarPlotSpace"];
-//    }
     
     return viewPoint;
 }
@@ -1236,85 +1193,37 @@ extern CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
         return viewPoint;
     }
     
-    CPTPlotRange *dominantRange = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorRange : self.minorRange;
-    CPTScaleType dominantScaleType = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorScaleType : self.minorScaleType;
-    
-    switch ( dominantScaleType ) {
+
+    switch ( self.majorScaleType ) {
         case CPTScaleTypeLinear:
         case CPTScaleTypeCategory:
-            viewPoint.x = [self viewCoordinateForViewLength:plotArea.widthDecimal linearPlotRange:dominantRange plotCoordinateValue:plotPoint[CPTCoordinateX]];
-            viewPoint.y = [self viewCoordinateForViewLength:plotArea.heightDecimal linearPlotRange:dominantRange plotCoordinateValue:plotPoint[CPTCoordinateY]];
+            viewPoint.x = [self viewCoordinateForViewLength:plotArea.widthDecimal linearPlotRange:self.majorRange plotCoordinateValue:plotPoint[CPTCoordinateX]];
+            viewPoint.y = [self viewCoordinateForViewLength:plotArea.heightDecimal linearPlotRange:self.majorRange plotCoordinateValue:plotPoint[CPTCoordinateY]];
             break;
-            
+
         case CPTScaleTypeLog:
         {
+//            CPTPlotRange *dominantRange = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorRange : self.minorRange;
             double x = CPTDecimalDoubleValue(plotPoint[CPTCoordinateX]);
-            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logPlotRange:dominantRange doublePrecisionPlotCoordinateValue:x];
+            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logPlotRange:self.majorRange doublePrecisionPlotCoordinateValue:x];
             double y = CPTDecimalDoubleValue(plotPoint[CPTCoordinateY]);
-            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logPlotRange:dominantRange doublePrecisionPlotCoordinateValue:y];
+            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logPlotRange:self.majorRange doublePrecisionPlotCoordinateValue:y];
         }
             break;
-            
+
         case CPTScaleTypeLogModulus:
         {
+//            CPTPlotRange *dominantRange = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorRange : self.minorRange;
             double x = CPTDecimalDoubleValue(plotPoint[CPTCoordinateX]);
-            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logModulusPlotRange:dominantRange doublePrecisionPlotCoordinateValue:x];
+            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logModulusPlotRange:self.majorRange doublePrecisionPlotCoordinateValue:x];
             double y = CPTDecimalDoubleValue(plotPoint[CPTCoordinateY]);
-            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logModulusPlotRange:dominantRange doublePrecisionPlotCoordinateValue:y];
+            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logModulusPlotRange:self.majorRange doublePrecisionPlotCoordinateValue:y];
         }
             break;
-            
+
         default:
             [NSException raise:CPTException format:@"Scale type not supported in CPTPolarPlotSpace"];
     }
-    
-//    switch ( self.majorScaleType ) {
-//        case CPTScaleTypeLinear:
-//        case CPTScaleTypeCategory:
-//            viewPoint.x = [self viewCoordinateForViewLength:plotArea.widthDecimal linearPlotRange:self.majorRange plotCoordinateValue:plotPoint[CPTCoordinateX]];
-//            break;
-//
-//        case CPTScaleTypeLog:
-//        {
-//            double x = CPTDecimalDoubleValue(plotPoint[CPTCoordinateX]);
-//            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logPlotRange:self.majorRange doublePrecisionPlotCoordinateValue:x];
-//        }
-//            break;
-//
-//        case CPTScaleTypeLogModulus:
-//        {
-//            double x = CPTDecimalDoubleValue(plotPoint[CPTCoordinateX]);
-//            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logModulusPlotRange:self.majorRange doublePrecisionPlotCoordinateValue:x];
-//        }
-//            break;
-//
-//        default:
-//            [NSException raise:CPTException format:@"Scale type not supported in CPTPolarPlotSpace"];
-//    }
-//
-//    switch ( self.minorScaleType ) {
-//        case CPTScaleTypeLinear:
-//        case CPTScaleTypeCategory:
-//            viewPoint.y = [self viewCoordinateForViewLength:plotArea.heightDecimal linearPlotRange:self.minorRange plotCoordinateValue:plotPoint[CPTCoordinateY]];
-//            break;
-//
-//        case CPTScaleTypeLog:
-//        {
-//            double y = CPTDecimalDoubleValue(plotPoint[CPTCoordinateY]);
-//            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logPlotRange:self.minorRange doublePrecisionPlotCoordinateValue:y];
-//        }
-//            break;
-//
-//        case CPTScaleTypeLogModulus:
-//        {
-//            double y = CPTDecimalDoubleValue(plotPoint[CPTCoordinateY]);
-//            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logModulusPlotRange:self.minorRange doublePrecisionPlotCoordinateValue:y];
-//        }
-//            break;
-//
-//        default:
-//            [NSException raise:CPTException format:@"Scale type not supported in CPTPolarPlotSpace"];
-//    }
     
     return viewPoint;
 }
@@ -1334,64 +1243,32 @@ extern CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
         return viewPoint;
     }
     
-    CPTPlotRange *dominantRange = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorRange : self.minorRange;
-    CPTScaleType dominantScaleType = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorScaleType : self.minorScaleType;
-    
-    switch ( dominantScaleType ) {
+    switch ( self.majorScaleType ) {
         case CPTScaleTypeLinear:
         case CPTScaleTypeCategory:
-            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width linearPlotRange:dominantRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateX]];
-            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height linearPlotRange:dominantRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY]];
+            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width linearPlotRange:self.majorRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateX]];
+            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height linearPlotRange:self.majorRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY]];
             break;
-            
+
         case CPTScaleTypeLog:
-            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logPlotRange:dominantRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateX]];
-            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logPlotRange:dominantRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY]];
+        {
+//            CPTPlotRange *dominantRange = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorRange : self.minorRange;
+            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logPlotRange:self.majorRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateX]];
+            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logPlotRange:self.majorRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY]];
+        }
             break;
-            
+
         case CPTScaleTypeLogModulus:
-            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logModulusPlotRange:dominantRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateX]];
-            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logModulusPlotRange:dominantRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY]];
+        {
+//            CPTPlotRange *dominantRange = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorRange : self.minorRange;
+            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logModulusPlotRange:self.majorRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateX]];
+            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logModulusPlotRange:self.majorRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY]];
+        }
             break;
-            
+
         default:
-            [NSException raise:CPTException format:@"Scale type not supported in CPTXYPlotSpace"];
+            [NSException raise:CPTException format:@"Scale type not supported in CPTPolarPlotSpace"];
     }
-//    switch ( self.majorScaleType ) {
-//        case CPTScaleTypeLinear:
-//        case CPTScaleTypeCategory:
-//            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width linearPlotRange:self.majorRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateX]];
-//            break;
-//
-//        case CPTScaleTypeLog:
-//            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logPlotRange:self.majorRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateX]];
-//            break;
-//
-//        case CPTScaleTypeLogModulus:
-//            viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logModulusPlotRange:self.majorRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateX]];
-//            break;
-//
-//        default:
-//            [NSException raise:CPTException format:@"Scale type not supported in CPTXYPlotSpace"];
-//    }
-//
-//    switch ( self.minorScaleType ) {
-//        case CPTScaleTypeLinear:
-//        case CPTScaleTypeCategory:
-//            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height linearPlotRange:self.minorRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY]];
-//            break;
-//
-//        case CPTScaleTypeLog:
-//            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logPlotRange:self.minorRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY]];
-//            break;
-//
-//        case CPTScaleTypeLogModulus:
-//            viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logModulusPlotRange:self.minorRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY]];
-//            break;
-//
-//        default:
-//            [NSException raise:CPTException format:@"Scale type not supported in CPTPolarPlotSpace"];
-//    }
     
     return viewPoint;
 }
@@ -1416,65 +1293,32 @@ extern CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
         plotPoint = [NSMutableArray arrayWithCapacity:self.numberOfCoordinates];
     }
     
-    CPTPlotRange *dominantRange = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorRange : self.minorRange;
-    CPTScaleType dominantScaleType = self.majorRange.lengthDouble > self.minorRange.lengthDouble ?  self.majorScaleType : self.minorScaleType;
-    
-    switch ( dominantScaleType ) {
+    switch ( self.majorScaleType ) {
         case CPTScaleTypeLinear:
         case CPTScaleTypeCategory:
-            plotPoint[CPTCoordinateX] = [NSDecimalNumber decimalNumberWithDecimal:[self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.x) linearPlotRange:dominantRange boundsLength:plotArea.widthDecimal]];
-            plotPoint[CPTCoordinateY] = [NSDecimalNumber decimalNumberWithDecimal:[self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.y) linearPlotRange:dominantRange boundsLength:plotArea.heightDecimal]];
+            plotPoint[CPTCoordinateX] = [NSDecimalNumber decimalNumberWithDecimal:[self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.x) linearPlotRange:self.majorRange boundsLength:plotArea.widthDecimal]];
+            plotPoint[CPTCoordinateY] = [NSDecimalNumber decimalNumberWithDecimal:[self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.y) linearPlotRange:self.majorRange boundsLength:plotArea.widthDecimal]];
             break;
-            
+
         case CPTScaleTypeLog:
-            plotPoint[CPTCoordinateX] = @([self doublePrecisionPlotCoordinateForViewLength:point.x logPlotRange:dominantRange boundsLength:boundsSize.width]);
-            plotPoint[CPTCoordinateY] = @([self doublePrecisionPlotCoordinateForViewLength:point.y logPlotRange:dominantRange boundsLength:boundsSize.height]);
+        {
+//            CPTPlotRange *dominantRange = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorRange : self.minorRange;
+            plotPoint[CPTCoordinateX] = @([self doublePrecisionPlotCoordinateForViewLength:point.x logPlotRange:self.majorRange boundsLength:boundsSize.width]);
+            plotPoint[CPTCoordinateY] = @([self doublePrecisionPlotCoordinateForViewLength:point.y logPlotRange:self.majorRange boundsLength:boundsSize.width]);
+        }
             break;
-            
+
         case CPTScaleTypeLogModulus:
-            plotPoint[CPTCoordinateX] = @([self doublePrecisionPlotCoordinateForViewLength:point.x logModulusPlotRange:dominantRange boundsLength:boundsSize.width]);
-            plotPoint[CPTCoordinateY] = @([self doublePrecisionPlotCoordinateForViewLength:point.y logModulusPlotRange:dominantRange boundsLength:boundsSize.height]);
+        {
+//            CPTPlotRange *dominantRange = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorRange : self.minorRange;
+            plotPoint[CPTCoordinateX] = @([self doublePrecisionPlotCoordinateForViewLength:point.x logModulusPlotRange:self.majorRange boundsLength:boundsSize.width]);
+            plotPoint[CPTCoordinateY] = @([self doublePrecisionPlotCoordinateForViewLength:point.y logModulusPlotRange:self.majorRange boundsLength:boundsSize.width]);
+        }
             break;
-            
+
         default:
             [NSException raise:CPTException format:@"Scale type not supported in CPTPolarPlotSpace"];
     }
-    
-//    switch ( self.majorScaleType ) {
-//        case CPTScaleTypeLinear:
-//        case CPTScaleTypeCategory:
-//            plotPoint[CPTCoordinateX] = [NSDecimalNumber decimalNumberWithDecimal:[self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.x) linearPlotRange:self.majorRange boundsLength:plotArea.widthDecimal]];
-//            break;
-//
-//        case CPTScaleTypeLog:
-//            plotPoint[CPTCoordinateX] = @([self doublePrecisionPlotCoordinateForViewLength:point.x logPlotRange:self.majorRange boundsLength:boundsSize.width]);
-//            break;
-//
-//        case CPTScaleTypeLogModulus:
-//            plotPoint[CPTCoordinateX] = @([self doublePrecisionPlotCoordinateForViewLength:point.x logModulusPlotRange:self.majorRange boundsLength:boundsSize.width]);
-//            break;
-//
-//        default:
-//            [NSException raise:CPTException format:@"Scale type not supported in CPTPolarPlotSpace"];
-//    }
-//
-//    switch ( self.minorScaleType ) {
-//        case CPTScaleTypeLinear:
-//        case CPTScaleTypeCategory:
-//            plotPoint[CPTCoordinateY] = [NSDecimalNumber decimalNumberWithDecimal:[self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.y) linearPlotRange:self.minorRange boundsLength:plotArea.heightDecimal]];
-//            break;
-//
-//        case CPTScaleTypeLog:
-//            plotPoint[CPTCoordinateY] = @([self doublePrecisionPlotCoordinateForViewLength:point.y logPlotRange:self.minorRange boundsLength:boundsSize.height]);
-//            break;
-//
-//        case CPTScaleTypeLogModulus:
-//            plotPoint[CPTCoordinateY] = @([self doublePrecisionPlotCoordinateForViewLength:point.y logModulusPlotRange:self.minorRange boundsLength:boundsSize.height]);
-//            break;
-//
-//        default:
-//            [NSException raise:CPTException format:@"Scale type not supported in CPTPolarPlotSpace"];
-//    }
     
     return plotPoint;
 }
@@ -1497,65 +1341,32 @@ extern CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
         return;
     }
     
-    CPTPlotRange *dominantRange = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorRange : self.minorRange;
-    CPTScaleType dominantScaleType = self.majorRange.lengthDouble > self.minorRange.lengthDouble ?  self.majorScaleType : self.minorScaleType;
-    
-    switch ( dominantScaleType ) {
+    switch ( self.majorScaleType ) {
         case CPTScaleTypeLinear:
         case CPTScaleTypeCategory:
-            plotPoint[CPTCoordinateX] = [self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.x) linearPlotRange:dominantRange boundsLength:plotArea.widthDecimal];
-            plotPoint[CPTCoordinateY] = [self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.y) linearPlotRange:dominantRange boundsLength:plotArea.heightDecimal];
+            plotPoint[CPTCoordinateX] = [self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.x) linearPlotRange:self.majorRange boundsLength:plotArea.widthDecimal];
+            plotPoint[CPTCoordinateY] = [self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.y) linearPlotRange:self.majorRange boundsLength:plotArea.widthDecimal];
             break;
-            
+
         case CPTScaleTypeLog:
-            plotPoint[CPTCoordinateX] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.x logPlotRange:dominantRange boundsLength:boundsSize.width]);
-            plotPoint[CPTCoordinateY] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.y logPlotRange:dominantRange boundsLength:boundsSize.height]);
+        {
+//            CPTPlotRange *dominantRange = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorRange : self.minorRange;
+            plotPoint[CPTCoordinateX] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.x logPlotRange:self.majorRange boundsLength:boundsSize.width]);
+            plotPoint[CPTCoordinateY] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.y logPlotRange:self.majorRange boundsLength:boundsSize.width]);
+        }
             break;
-            
+
         case CPTScaleTypeLogModulus:
-            plotPoint[CPTCoordinateX] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.x logModulusPlotRange:dominantRange boundsLength:boundsSize.width]);
-            plotPoint[CPTCoordinateY] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.y logModulusPlotRange:dominantRange boundsLength:boundsSize.height]);
+        {
+//            CPTPlotRange *dominantRange = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorRange : self.minorRange;
+            plotPoint[CPTCoordinateX] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.x logModulusPlotRange:self.majorRange boundsLength:boundsSize.width]);
+            plotPoint[CPTCoordinateY] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.y logModulusPlotRange:self.majorRange boundsLength:boundsSize.width]);
+        }
             break;
-            
+
         default:
             [NSException raise:CPTException format:@"Scale type not supported in CPTPolarPlotSpace"];
     }
-    
-//    switch ( self.majorScaleType ) {
-//        case CPTScaleTypeLinear:
-//        case CPTScaleTypeCategory:
-//            plotPoint[CPTCoordinateX] = [self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.x) linearPlotRange:self.majorRange boundsLength:plotArea.widthDecimal];
-//            break;
-//
-//        case CPTScaleTypeLog:
-//            plotPoint[CPTCoordinateX] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.x logPlotRange:self.majorRange boundsLength:boundsSize.width]);
-//            break;
-//
-//        case CPTScaleTypeLogModulus:
-//            plotPoint[CPTCoordinateX] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.x logModulusPlotRange:self.majorRange boundsLength:boundsSize.width]);
-//            break;
-//
-//        default:
-//            [NSException raise:CPTException format:@"Scale type not supported in CPTPolarPlotSpace"];
-//    }
-//
-//    switch ( self.minorScaleType ) {
-//        case CPTScaleTypeLinear:
-//        case CPTScaleTypeCategory:
-//            plotPoint[CPTCoordinateY] = [self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.y) linearPlotRange:self.minorRange boundsLength:plotArea.heightDecimal];
-//            break;
-//
-//        case CPTScaleTypeLog:
-//            plotPoint[CPTCoordinateY] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.y logPlotRange:self.minorRange boundsLength:boundsSize.height]);
-//            break;
-//
-//        case CPTScaleTypeLogModulus:
-//            plotPoint[CPTCoordinateY] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.y logModulusPlotRange:self.minorRange boundsLength:boundsSize.height]);
-//            break;
-//
-//        default:
-//            [NSException raise:CPTException format:@"Scale type not supported in CPTPolarPlotSpace"];
-//    }
 }
 
 -(void)doublePrecisionPlotPoint:(nonnull double *)plotPoint numberOfCoordinates:(NSUInteger)count forPlotAreaViewPoint:(CGPoint)point
@@ -1575,65 +1386,32 @@ extern CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
         return;
     }
     
-    CPTPlotRange *dominantRange = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorRange : self.minorRange;
-    CPTScaleType dominantScaleType = self.majorRange.lengthDouble > self.minorRange.lengthDouble ?  self.majorScaleType : self.minorScaleType;
-    
-    switch ( dominantScaleType ) {
+    switch ( self.majorScaleType ) {
         case CPTScaleTypeLinear:
         case CPTScaleTypeCategory:
-            plotPoint[CPTCoordinateX] = [self doublePrecisionPlotCoordinateForViewLength:point.x linearPlotRange:dominantRange boundsLength:boundsSize.width];
-            plotPoint[CPTCoordinateY] = [self doublePrecisionPlotCoordinateForViewLength:point.y linearPlotRange:dominantRange boundsLength:boundsSize.height];
+            plotPoint[CPTCoordinateX] = [self doublePrecisionPlotCoordinateForViewLength:point.x linearPlotRange:self.majorRange boundsLength:boundsSize.width];
+            plotPoint[CPTCoordinateY] = [self doublePrecisionPlotCoordinateForViewLength:point.y linearPlotRange:self.majorRange boundsLength:boundsSize.width];
             break;
-            
+
         case CPTScaleTypeLog:
-            plotPoint[CPTCoordinateX] = [self doublePrecisionPlotCoordinateForViewLength:point.x logPlotRange:dominantRange boundsLength:boundsSize.width];
-            plotPoint[CPTCoordinateY] = [self doublePrecisionPlotCoordinateForViewLength:point.y logPlotRange:dominantRange boundsLength:boundsSize.height];
+        {
+//            CPTPlotRange *dominantRange = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorRange : self.minorRange;
+            plotPoint[CPTCoordinateX] = [self doublePrecisionPlotCoordinateForViewLength:point.x logPlotRange:self.majorRange boundsLength:boundsSize.width];
+            plotPoint[CPTCoordinateY] = [self doublePrecisionPlotCoordinateForViewLength:point.y logPlotRange:self.majorRange boundsLength:boundsSize.width];
+        }
             break;
-            
+
         case CPTScaleTypeLogModulus:
-            plotPoint[CPTCoordinateX] = [self doublePrecisionPlotCoordinateForViewLength:point.x logModulusPlotRange:dominantRange boundsLength:boundsSize.width];
-            plotPoint[CPTCoordinateY] = [self doublePrecisionPlotCoordinateForViewLength:point.y logModulusPlotRange:dominantRange boundsLength:boundsSize.height];
+        {
+//            CPTPlotRange *dominantRange = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorRange : self.minorRange;
+            plotPoint[CPTCoordinateX] = [self doublePrecisionPlotCoordinateForViewLength:point.x logModulusPlotRange:self.majorRange boundsLength:boundsSize.width];
+            plotPoint[CPTCoordinateY] = [self doublePrecisionPlotCoordinateForViewLength:point.y logModulusPlotRange:self.majorRange boundsLength:boundsSize.width];
+        }
             break;
-            
+
         default:
             [NSException raise:CPTException format:@"Scale type not supported in CPTPolarPlotSpace"];
     }
-    
-//    switch ( self.majorScaleType ) {
-//        case CPTScaleTypeLinear:
-//        case CPTScaleTypeCategory:
-//            plotPoint[CPTCoordinateX] = [self doublePrecisionPlotCoordinateForViewLength:point.x linearPlotRange:self.majorRange boundsLength:boundsSize.width];
-//            break;
-//
-//        case CPTScaleTypeLog:
-//            plotPoint[CPTCoordinateX] = [self doublePrecisionPlotCoordinateForViewLength:point.x logPlotRange:self.majorRange boundsLength:boundsSize.width];
-//            break;
-//
-//        case CPTScaleTypeLogModulus:
-//            plotPoint[CPTCoordinateX] = [self doublePrecisionPlotCoordinateForViewLength:point.x logModulusPlotRange:self.majorRange boundsLength:boundsSize.width];
-//            break;
-//
-//        default:
-//            [NSException raise:CPTException format:@"Scale type not supported in CPTXYPlotSpace"];
-//    }
-//
-//    switch ( self.minorScaleType ) {
-//        case CPTScaleTypeLinear:
-//        case CPTScaleTypeCategory:
-//            plotPoint[CPTCoordinateY] = [self doublePrecisionPlotCoordinateForViewLength:point.y linearPlotRange:self.minorRange boundsLength:boundsSize.height];
-//            break;
-//
-//        case CPTScaleTypeLog:
-//            plotPoint[CPTCoordinateY] = [self doublePrecisionPlotCoordinateForViewLength:point.y logPlotRange:self.minorRange boundsLength:boundsSize.height];
-//            break;
-//
-//        case CPTScaleTypeLogModulus:
-//            plotPoint[CPTCoordinateY] = [self doublePrecisionPlotCoordinateForViewLength:point.y logModulusPlotRange:self.minorRange boundsLength:boundsSize.height];
-//            break;
-//
-//        default:
-//            [NSException raise:CPTException format:@"Scale type not supported in CPTPolarPlotSpace"];
-//    }
 }
 
 // Plot area view point for event

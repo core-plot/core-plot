@@ -1433,6 +1433,16 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
 
 /// @cond
 
+-(nullable NSMutableArray*)getLegendEntries  //added S.Wainwright
+{
+    return self.legendEntries;
+}
+
+-(void)setNewLegendEntries:(nonnull NSMutableArray*)entries //added S.Wainwright
+{
+    self.legendEntries = entries;
+}
+
 -(void)setTextStyle:(nullable CPTTextStyle *)newTextStyle
 {
     if ( newTextStyle != textStyle ) {
@@ -1700,16 +1710,6 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
         [self recalculateLayout];
     }
     return columnWidthsThatFit;
-}
-
--(nullable NSMutableArray*)getLegendEntries  //added S.Wainwright
-{
-    return self.legendEntries;
-}
-
--(void)setNewLegendEntries:(nonnull NSMutableArray*)entries //added S.Wainwright
-{
-    self.legendEntries = entries;
 }
 
 /// @endcond

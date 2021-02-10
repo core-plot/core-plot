@@ -70,15 +70,15 @@
 
     if ( (self = [super init]) ) {
         plotSpace            = newPlotSpace;
-        if ( plotSpace.radialAngleOption == CPTPolarRadialAngleModeDegrees && newPlotPoint != nil ) {
-            NSNumber *theta = newPlotPoint[0];
-            theta = [NSNumber numberWithDouble: [theta doubleValue] * M_PI / 180.0];
-            CPTNumberArray *adjustedNewPlotPoint = [CPTNumberArray arrayWithObjects: theta, newPlotPoint[1], nil];
-            self.anchorPlotPoint = adjustedNewPlotPoint;
-        }
-        else {
+//        if ( plotSpace.radialAngleOption == CPTPolarRadialAngleModeDegrees && newPlotPoint != nil ) {
+//            NSNumber *theta = newPlotPoint[0];
+//            theta = [NSNumber numberWithDouble: [theta doubleValue] * M_PI / 180.0];
+//            CPTNumberArray *adjustedNewPlotPoint = [CPTNumberArray arrayWithObjects: theta, newPlotPoint[1], nil];
+//            self.anchorPlotPoint = adjustedNewPlotPoint;
+//        }
+//        else {
             self.anchorPlotPoint = newPlotPoint;
-        }
+//        }
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(setContentNeedsLayout)
                                                      name:CPTPlotSpaceCoordinateMappingDidChangeNotification
@@ -180,6 +180,9 @@
                 CPTPolarPlotSpace *thePlotSpace      = self.plotSpace;
 
                 double theta = CPTDecimalDoubleValue(self.decimalAnchor[0]);
+                if (thePlotSpace.radialAngleOption == CPTPolarRadialAngleModeDegrees) {
+                    theta *= M_PI / 180.0;
+                }
                 
                 double plotPoint[2];
                 plotPoint[CPTCoordinateX] = CPTDecimalDoubleValue(self.decimalAnchor[1]);

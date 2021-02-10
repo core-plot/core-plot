@@ -19,6 +19,7 @@
 #import "CPTUtilities.h"
 #import "NSCoderExtensions.h"
 #import "CPTPolarAxis.h"  // added S.Wainwright 2/12/2020
+#import "CPTPolarPlotSpace.h" // added S.Wainwright
 
 /** @defgroup axisAnimation Axes
  *  @brief Axis properties that can be animated using Core Animation.
@@ -1159,10 +1160,10 @@ NSDecimal CPTNiceLength(NSDecimal length);
                 double maxLimit = range.maxLimitDouble;
 
                 // added S.Wainwright 2/12/2020
-                if ( (minLimit != 0.0) && (maxLimit != 0.0) && [self isKindOfClass:[CPTPolarAxis class]]) {
+                /*if ( (minLimit != 0.0) && (maxLimit != 0.0) && [self isKindOfClass:[CPTPolarAxis class]]) {
                     
                 }
-                else if ((minLimit > 0.0) && (maxLimit > 0.0)) {
+                else*/ if ((minLimit > 0.0) && (maxLimit > 0.0)) {
                     // Determine interval value
                     length = log10(maxLimit / minLimit);
 
@@ -1671,6 +1672,11 @@ NSDecimal CPTNiceLength(NSDecimal length)
             newAxisLabel.tickLocation = tickLocation;
             needsNewContentLayer      = YES;
         }
+        // added S.Wainwright
+        if (self.coordinate == CPTCoordinateZ && [self isKindOfClass:[CPTPolarAxis class]] && ((CPTPolarPlotSpace*)thePlotSpace).radialAngleOption == CPTPolarRadialAngleModeDegrees) {
+            NSNumber *adjustedTickLocation = [NSNumber numberWithDouble:[tickLocation doubleValue] / 180.0 * M_PI];
+            newAxisLabel.tickLocation = adjustedTickLocation;
+        }
 
         newAxisLabel.rotation  = theLabelRotation;
         newAxisLabel.offset    = theLabelOffset;
@@ -2098,7 +2104,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
     }
 
     id<CPTAxisDelegate> theDelegate = (id<CPTAxisDelegate>)self.delegate;
-
+    
     // Title  added S.Wainwright
     if ( [theDelegate respondsToSelector:@selector(axis:axisTitleTouchDown:atPoint:)] ||
         [theDelegate respondsToSelector:@selector(axis:axisTitleTouchDown:withEvent:)] ) {
@@ -2126,7 +2132,6 @@ NSDecimal CPTNiceLength(NSDecimal length)
         }
     }
 
-    
     // Tick labels
     if ( [theDelegate respondsToSelector:@selector(axis:labelTouchDown:)] ||
          [theDelegate respondsToSelector:@selector(axis:labelTouchDown:withEvent:)] ||

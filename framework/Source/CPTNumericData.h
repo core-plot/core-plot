@@ -62,6 +62,10 @@
 -(nullable NSNumber *)sampleValue:(NSUInteger)sample;
 -(nullable NSNumber *)sampleValueAtIndex:(NSUInteger)idx, ...;
 -(nonnull CPTNumberArray *)sampleArray;
+
+//-(BOOL)setValueToSamplePointer:(NSUInteger)sample Value:(nonnull const void*)ptrNewValue;  // added S.Wainwright
+//-(BOOL)multiplyByFactorSamplePointer:(NSUInteger)sample Factor:(nonnull const void*)ptrFactor; // added S.Wainwright
+
 /// @}
 
 @end

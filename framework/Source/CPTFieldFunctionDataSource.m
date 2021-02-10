@@ -378,13 +378,13 @@ static void *CPTContourFunctionDataSourceKVOContext = (void *)&CPTContourFunctio
     if ( [cachedXRange containsRange:plotXRange] && [cachedYRange containsRange:plotYRange]) {
         // no new data needed
     }
-    else if ( ![cachedXRange intersectsRange:plotXRange] || (stepX == 0.0) ) {
+    else if ( ![cachedXRange intersectsRange:plotXRange] || (stepX == 0.0) || plotXRange.maxLimitDouble > cachedXRange.maxLimitDouble || plotXRange.minLimitDouble < cachedXRange.minLimitDouble )  {
         self.cachedXCount     = 0;
         self.cachedPlotXRange = plotXRange;
 
         [self plotBoundsChanged];
     }
-    else if ( ![cachedYRange intersectsRange:plotYRange] || (stepY == 0.0) ) {
+    else if ( ![cachedYRange intersectsRange:plotYRange] || (stepY == 0.0) || plotYRange.maxLimitDouble > cachedYRange.maxLimitDouble || plotYRange.minLimitDouble < cachedYRange.minLimitDouble ) {
         self.cachedYCount     = 0;
         self.cachedPlotYRange = plotYRange;
 
