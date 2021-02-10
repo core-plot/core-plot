@@ -15,14 +15,22 @@
 @property (nonatomic, readwrite, strong, nonnull) NSArray<NSArray<NSDictionary *>*> *plotDatum;
 @property (nonatomic, readwrite, assign) CPTPolarPlotCurvedInterpolationOption curvedOption;
 
+@property (nonatomic, readwrite, assign) CPTScaleType radialScaleType;
+@property (nonatomic, readwrite, assign) CPTPolarRadialAngleMode angleMode;
+
+@property (nonatomic, readwrite, strong, nonnull) PiNumberFormatter *piFormatter;
+@property (nonatomic, readwrite, strong, nonnull) NSNumberFormatter *formatter;
+
 @end
 
 @implementation PolarPlot
 
-
 @synthesize symbolTextAnnotation;
 @synthesize plotDatum;
 @synthesize curvedOption;
+
+@synthesize radialScaleType, angleMode;
+@synthesize piFormatter, formatter;
 
 +(void)load
 {
@@ -36,6 +44,11 @@
         self.section = kPolarPlots;
 
         self.curvedOption = CPTPolarPlotCurvedInterpolationNormal;
+        self.radialScaleType = CPTScaleTypeLinear;
+        self.angleMode = CPTPolarRadialAngleModeDegrees;
+        
+        self.piFormatter = [[PiNumberFormatter alloc] init];
+        self.formatter = [[NSNumberFormatter alloc] init];
     }
 
     return self;
@@ -52,20 +65,18 @@
             self.symbolTextAnnotation = nil;
         }
     }
-
+    
     [super killGraph];
 }
 
 -(void)generateData
 {
     if ( self.plotDatum.count == 0 ) {
-        
         NSMutableArray<NSDictionary *> *contentArray1 = [NSMutableArray array];
         for ( NSUInteger i = 0; i < 49; i++ ) {
             NSNumber *theta = @((double)i / 24.0 * M_PI);
             NSNumber *radius = @(1.2 * arc4random() / (double)UINT32_MAX + 0.5);
-            [contentArray1 addObject:@{ @"theta": theta, @"radius": radius }
-            ];
+            [contentArray1 addObject:@{ @"theta": theta, @"radius": radius } ];
         }
         
         NSMutableArray<NSDictionary *> *contentArray2 = [NSMutableArray array];
@@ -73,8 +84,7 @@
         for ( NSUInteger i = 0; i < 49; i++ ) {
             NSNumber *theta = @( M_PI_4 - sin(t) );
             NSNumber *radius = @( 0.5 + 1.5 * cos(3.0 * t) );
-            [contentArray2 addObject:@{ @"theta": theta, @"radius": radius }
-            ];
+            [contentArray2 addObject:@{ @"theta": theta, @"radius": radius } ];
             t += M_PI / 24.0;
         }
         
@@ -103,7 +113,7 @@
     plotSpace.delegate              = self;
     plotSpace.majorScaleType = CPTScaleTypeLinear;
     plotSpace.minorScaleType = CPTScaleTypeLinear;
-    plotSpace.radialAngleOption = CPTPolarRadialAngleModeDegrees;
+    plotSpace.radialAngleOption = self.angleMode;
     
     // Create a plot that uses the data source method
     CPTPolarPlot *dataSourcePolarPlot1 = [[CPTPolarPlot alloc] init];
@@ -161,19 +171,20 @@
     CPTPolarAxis *majorAxis          = axisSet.majorAxis;
     majorAxis.labelingPolicy = CPTAxisLabelingPolicyFixedInterval;
     majorAxis.majorIntervalLength = @1;
-    majorAxis.minorTicksPerInterval = 8;
+    majorAxis.minorTicksPerInterval = 9;
     majorAxis.majorGridLineStyle    = majorGridLineStyle;
     majorAxis.minorGridLineStyle    = minorGridLineStyle;
 
     majorAxis.title         = @"Radius";
     majorAxis.titleOffset   = 30.0;
     majorAxis.titleLocation = @1.25;
+    majorAxis.delegate = self;
 
     // Label minor with an automatic label policy.
     CPTPolarAxis *minorAxis = axisSet.minorAxis;
     minorAxis.labelingPolicy              = CPTAxisLabelingPolicyFixedInterval;
     minorAxis.majorIntervalLength = @1;
-    minorAxis.minorTicksPerInterval       = 8;
+    minorAxis.minorTicksPerInterval       = 9;
     minorAxis.majorGridLineStyle          = majorGridLineStyle;
     minorAxis.minorGridLineStyle          = minorGridLineStyle;
     minorAxis.labelOffset                 = 10.0;
@@ -181,19 +192,18 @@
     minorAxis.title         = @"Radius";
     minorAxis.titleOffset   = 30.0;
     minorAxis.titleLocation = @1.25;
+    minorAxis.delegate = self;
     
     // RADIAL AXIS ie polar  in degrees
     CPTPolarAxis *radialaxis = axisSet.radialAxis;
     if( plotSpace.radialAngleOption == CPTPolarRadialAngleModeRadians) {
-        PiNumberFormatter *piFormatter = [[PiNumberFormatter alloc] init];
-        piFormatter.multiplier = @16;
-        radialaxis.labelFormatter = piFormatter;
+        self.piFormatter.multiplier = @16;
+        radialaxis.labelFormatter = self.piFormatter;
         radialaxis.majorIntervalLength = [NSNumber numberWithDouble: M_PI / 8.0];
     }
     else {
-        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-        formatter.maximumFractionDigits = 1;
-        radialaxis.labelFormatter = formatter;
+        self.formatter.maximumFractionDigits = 1;
+        radialaxis.labelFormatter = self.formatter;
         radialaxis.majorIntervalLength = @22.5;
     }
     radialaxis.labelingPolicy = CPTAxisLabelingPolicyFixedInterval;
@@ -208,7 +218,7 @@
     CPTMutableTextStyle *radialAxisTextStyle = [CPTMutableTextStyle textStyle];
     radialAxisTextStyle.fontName = @"Helvetica";
     radialAxisTextStyle.fontSize = 14.0;
-    radialAxisTextStyle.color = [[CPTColor colorWithGenericGray:CPTFloat(0.5)] colorWithAlphaComponent:CPTFloat(0.5)];
+//    radialAxisTextStyle.color = [[CPTColor colorWithGenericGray:CPTFloat(0.5)] colorWithAlphaComponent:CPTFloat(0.8)];
     radialaxis.labelTextStyle = radialAxisTextStyle;
     radialaxis.minorTickLabelTextStyle = nil;
     radialaxis.minorTickLength = 0.0;
@@ -225,7 +235,7 @@
     CPTPlotSymbol *plotSymbol = [CPTPlotSymbol ellipsePlotSymbol];
     plotSymbol.fill               = [CPTFill fillWithColor:[CPTColor blueColor]];
     plotSymbol.lineStyle          = symbolLineStyle;
-    plotSymbol.size               = CGSizeMake(10.0, 10.0);
+    plotSymbol.size               = CGSizeMake(5.0, 5.0);
     dataSourcePolarPlot1.plotSymbol = plotSymbol;
 
     // Set plot delegate, to know when symbols have been touched
@@ -243,6 +253,22 @@
     graph.legend.cornerRadius    = 5.0;
     graph.legendAnchor           = CPTRectAnchorBottom;
     graph.legendDisplacement     = CGPointMake(0.0, 12.0);
+    
+    CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
+    textStyle.fontName      = @"Helvetica";
+    textStyle.fontSize      = self.titleSize * CPTFloat(0.4);
+    textStyle.textAlignment = CPTTextAlignmentCenter;
+
+    CPTPlotArea *thePlotArea = graph.plotAreaFrame.plotArea;
+
+    // Note
+    CPTTextLayer *explanationLayer = [[CPTTextLayer alloc] initWithText:@"Tap on a radial angle label to toggle between degress & radians.\nTap on major/minor axis label to toggle between linear scale and log-modulus."
+                                                            style:textStyle];
+    CPTLayerAnnotation *explantionAnnotation = [[CPTLayerAnnotation alloc] initWithAnchorLayer:thePlotArea];
+    explantionAnnotation.rectAnchor         = CPTRectAnchorTop;
+    explantionAnnotation.contentLayer       = explanationLayer;
+    explantionAnnotation.contentAnchorPoint = CGPointMake(0.5, 1.0);
+    [thePlotArea addAnnotation:explantionAnnotation];
 }
 
 #pragma mark -
@@ -268,7 +294,7 @@
     else {
         num = self.plotDatum[1][index][key];
     }
-    if( [key isEqualToString: @"theta"] && ((CPTPolarPlotSpace*)plot.plotSpace).radialAngleOption == CPTPolarRadialAngleModeDegrees) {
+    if( [key isEqualToString: @"theta"] && self.angleMode == CPTPolarRadialAngleModeDegrees) {
         num = [NSNumber numberWithDouble:[num doubleValue] / M_PI * 180.0];
     }
 
@@ -282,15 +308,29 @@
 {
     // Impose a limit on how far user can scroll in x
     if ( coordinate == CPTCoordinateX || coordinate == CPTCoordinateY ) {
-        CPTMutablePlotRange *maxRange            = [CPTMutablePlotRange plotRangeWithLocation:@(-2.125) length:@4.25];
-        if( coordinate == CPTCoordinateY ) {
-            NSDecimalNumber *ratio = [NSDecimalNumber decimalNumberWithDecimal: CPTDecimalDivide(self.graphs[0].plotAreaFrame.plotArea.heightDecimal, self.graphs[0].plotAreaFrame.plotArea.widthDecimal)];
-            [maxRange expandRangeByFactor:ratio];
+        if (self.radialScaleType == CPTScaleTypeLinear) {
+            CPTMutablePlotRange *maxRange            = [CPTMutablePlotRange plotRangeWithLocation:@(-4.5) length:@8.5];
+            if( coordinate == CPTCoordinateY ) {
+                NSDecimalNumber *ratio = [NSDecimalNumber decimalNumberWithDecimal: CPTDecimalDivide(self.graphs[0].plotAreaFrame.plotArea.heightDecimal, self.graphs[0].plotAreaFrame.plotArea.widthDecimal)];
+                [maxRange expandRangeByFactor:ratio];
+            }
+            CPTMutablePlotRange *changedRange = [newRange mutableCopy];
+            [changedRange shiftEndToFitInRange:maxRange];
+            [changedRange shiftLocationToFitInRange:maxRange];
+            newRange = changedRange;
         }
-        CPTMutablePlotRange *changedRange = [newRange mutableCopy];
-        [changedRange shiftEndToFitInRange:maxRange];
-        [changedRange shiftLocationToFitInRange:maxRange];
-        newRange = changedRange;
+        else {
+            double maxXPow = pow(10.0, ceil(CPTLogModulus(2.125)));
+            CPTMutablePlotRange *maxRange = [CPTMutablePlotRange plotRangeWithLocation:[NSNumber numberWithDouble: -maxXPow * 100.0] length:[NSNumber numberWithDouble: 200.0 * maxXPow]];
+            if( coordinate == CPTCoordinateY ) {
+                NSDecimalNumber *ratio = [NSDecimalNumber decimalNumberWithDecimal: CPTDecimalDivide(self.graphs[0].plotAreaFrame.plotArea.heightDecimal, self.graphs[0].plotAreaFrame.plotArea.widthDecimal)];
+                [maxRange expandRangeByFactor:ratio];
+            }
+            CPTMutablePlotRange *changedRange = [newRange mutableCopy];
+            [changedRange shiftEndToFitInRange:maxRange];
+            [changedRange shiftLocationToFitInRange:maxRange];
+            newRange = changedRange;
+        }
     }
 
     return newRange;
@@ -323,6 +363,10 @@
     if ([(NSString*)plot.identifier isEqualToString:@"Polar Source Plot"]) {
         dataPoint = self.plotDatum[0][index];
         theta = dataPoint[@"theta"];
+        if (self.angleMode == CPTPolarRadialAngleModeDegrees) {
+            double _theta = [theta doubleValue] * 180.0 / M_PI;
+            theta = [NSNumber numberWithDouble:_theta];;
+        }
         radius = dataPoint[@"radius"];
     }
     else {
@@ -330,36 +374,45 @@
         theta = dataPoint[@"theta"];
         radius = dataPoint[@"radius"];
         double _theta = [theta doubleValue];
+        if (self.angleMode == CPTPolarRadialAngleModeDegrees) {
+            _theta *= 180.0 / M_PI;
+        }
         double _radius = [radius doubleValue];
         if ( _theta < 0 ) {
-            theta = [NSNumber numberWithDouble: 2.0 * M_PI + _theta];
+            if (self.angleMode == CPTPolarRadialAngleModeRadians) {
+                theta = [NSNumber numberWithDouble: 2.0 * M_PI + _theta];
+            }
+            else {
+                theta = [NSNumber numberWithDouble: 360.0 + _theta];
+            }
         }
         if ( _radius < 0 ) {
             radius = [NSNumber numberWithDouble: fabs(_radius)];
-            theta = [NSNumber numberWithDouble: M_PI + _theta];
+            if (self.angleMode == CPTPolarRadialAngleModeRadians) {
+                theta = [NSNumber numberWithDouble: M_PI + _theta];
+            }
+            else {
+                theta = [NSNumber numberWithDouble: 180.0 + _theta];
+            }
         }
     }
 
     // Now add the annotation to the plot area
     CPTPolarPlotSpace *defaultSpace = (CPTPolarPlotSpace*)graph.defaultPlotSpace;
     
-    if (defaultSpace.radialAngleOption == CPTPolarRadialAngleModeDegrees) {
-        theta = [NSNumber numberWithDouble:[theta doubleValue] / M_PI * 180.0];
-    }
-    
     CPTNumberArray *anchorPoint = @[theta, radius];
     // Add annotation
     NSString *annotationString;
-    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    formatter.maximumFractionDigits = 2;
-    if( defaultSpace.radialAngleOption == CPTPolarRadialAngleModeRadians ) {
-        PiNumberFormatter *piFormatter = [[PiNumberFormatter alloc] init];
-        piFormatter.multiplier = @32;
-        annotationString = [NSString stringWithFormat:@"%@rads, %@", [piFormatter stringFromNumber:theta], [formatter stringFromNumber:radius]];
+    self.formatter.maximumFractionDigits = 2;
+    if( self.angleMode == CPTPolarRadialAngleModeRadians ) {
+        self.piFormatter.multiplier = @32;
+        annotationString = [NSString stringWithFormat:@"%@rads, %@", [self.piFormatter stringFromNumber:theta], [self.formatter stringFromNumber:radius]];
+        self.piFormatter.multiplier = @16;
     }
     else {
-        annotationString = [NSString stringWithFormat:@"%@°, %@", [formatter stringFromNumber:theta], [formatter stringFromNumber:radius]];
+        annotationString = [NSString stringWithFormat:@"%@°, %@", [self.formatter stringFromNumber:theta], [self.formatter stringFromNumber:radius]];
     }
+    self.formatter.maximumFractionDigits = 1;
     
     if ( defaultSpace ) {
         CPTTextLayer *textLayer = [[CPTTextLayer alloc] initWithText:annotationString style:hitAnnotationTextStyle];
@@ -420,6 +473,172 @@
             dataSourceLinePlot2.curvedInterpolationOption = self.curvedOption;
         }
     }
+}
+
+#pragma mark -
+#pragma mark Axis Delegate Methods
+
+-(BOOL)axis:(CPTAxis *)axis shouldUpdateAxisLabelsAtLocations:(CPTNumberSet *)locations {
+
+    NSNumberFormatter *axisFormatter = (NSNumberFormatter*)axis.labelFormatter;
+    CGFloat labelOffset = axis.labelOffset;
+    CGFloat labelRotation = axis.labelRotation;
+    NSSet<NSNumber*> *_locations = locations;
+    
+    if (axis.coordinate == CPTCoordinateZ) {
+        NSMutableSet<NSNumber*> *newLocations = [[NSMutableSet alloc] init]; // get rid of 180/pi from location as already got 0
+        for (NSNumber *tickLocation in locations) {
+            if (self.angleMode == CPTPolarRadialAngleModeRadians) {
+                if ([tickLocation doubleValue] == 2.0 * M_PI) {
+                    continue;
+                }
+            }
+            else {
+                if ([tickLocation doubleValue] == 360.0) {
+                    continue;
+                }
+            }
+            [newLocations addObject:tickLocation];
+        }
+        _locations = [NSSet setWithSet: newLocations];
+        
+        if ([axisFormatter isKindOfClass: [PiNumberFormatter class]]) {
+            ((PiNumberFormatter*)axisFormatter).multiplier = @16;
+        }
+    }
+    NSMutableSet<CPTAxisLabel*> *newLabels = [[NSMutableSet alloc] init];
+    for (NSNumber *tickLocation in _locations) {
+        NSNumber *adjustedTickLocation = tickLocation;
+        NSString *labelString;
+        if ( axis.coordinate == CPTCoordinateZ ) {
+            if ( self.angleMode == CPTPolarRadialAngleModeRadians ) {
+                labelString = [(PiNumberFormatter*)axisFormatter stringFromNumber: tickLocation];
+            }
+            else {
+                labelString = [NSString stringWithFormat:@"%@°", [axisFormatter stringFromNumber:tickLocation]];
+                adjustedTickLocation = [NSNumber numberWithDouble:[tickLocation doubleValue] / 180.0 * M_PI];
+            }
+        }
+        else {
+            if ([tickLocation doubleValue] < 0.0 ) {
+                labelString = [axisFormatter stringFromNumber: [NSNumber numberWithDouble: -[tickLocation doubleValue]]];
+            }
+            else {
+//                if ( [tickLocation doubleValue] == 0.0 && ((CPTPolarPlotSpace*)axis.plotSpace).majorScaleType == CPTScaleTypeLogModulus) {
+//                    labelString = @"1";
+//                }
+//                else {
+                    labelString = [axisFormatter stringFromNumber: tickLocation];
+//                }
+            }
+        }
+        CPTTextLayer *newLabelLayer = [[CPTTextLayer alloc] initWithText: labelString style: axis.labelTextStyle];
+        
+        CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithContentLayer: newLabelLayer];
+        newLabel.tickLocation = adjustedTickLocation;
+        
+        newLabel.offset = labelOffset;
+        newLabel.rotation = labelRotation;
+        [newLabels addObject: newLabel];
+        
+    }
+    axis.axisLabels = newLabels;
+    return FALSE;
+}
+    
+-(void)axis:(nonnull CPTAxis *)axis labelWasSelected:(nonnull CPTAxisLabel *)label {
+    if (axis.coordinate == CPTCoordinateZ) {
+        [self changeRadialAngleMode];
+    }
+    else {
+        [self changeRadialScale];
+    }
+}
+
+- (void) changeRadialAngleMode {
+    
+    if (self.plotDatum.count > 0) {
+        CPTGraph *graph = (self.graphs)[0];
+        CPTPolarPlotSpace *plotSpace = (CPTPolarPlotSpace *)graph.defaultPlotSpace;
+        
+        self.angleMode = (self.angleMode == CPTPolarRadialAngleModeRadians) ? CPTPolarRadialAngleModeDegrees : CPTPolarRadialAngleModeRadians;
+        
+        CPTPolarAxisSet *axisSet = (CPTPolarAxisSet *)graph.axisSet;
+        // RADIAL AXIS ie polar  in degrees
+        CPTPolarAxis *radialaxis = axisSet.radialAxis;
+        radialaxis.axisLabels = nil;
+        [radialaxis relabel];
+        if( self.angleMode == CPTPolarRadialAngleModeRadians) {
+            self.piFormatter.multiplier = @16;
+            radialaxis.labelFormatter = self.piFormatter;
+            radialaxis.majorIntervalLength = [NSNumber numberWithDouble: M_PI / 8.0];
+        }
+        else {
+            
+            self.formatter.maximumFractionDigits = 1;
+            radialaxis.labelFormatter = self.formatter;
+            radialaxis.majorIntervalLength = @22.5;
+        }
+        [radialaxis relabel];
+        plotSpace.radialAngleOption = self.angleMode;
+
+//        [self.angleButton setTitle:plotSpace.radialAngleOption == CPTPolarRadialAngleModeRadians ? NSLocalizedString(@"Degs", @"Degs") : NSLocalizedString(@"Rads", @"Degs") forState:UIControlStateNormal];
+
+    }
+}
+
+- (void) changeRadialScale {
+    CPTGraph *graph = (self.graphs)[0];
+    CPTPolarPlotSpace *plotSpace = (CPTPolarPlotSpace *)graph.defaultPlotSpace;
+    
+    self.radialScaleType = (self.radialScaleType == CPTScaleTypeLinear) ? CPTScaleTypeLogModulus :  CPTScaleTypeLinear;
+    CPTPolarAxisSet *axisSet = (CPTPolarAxisSet *)graph.axisSet;
+    axisSet.radialAxis.axisLabels = nil;
+    [axisSet.radialAxis relabel];
+    
+    axisSet.majorAxis.majorTickLocations = nil;
+    axisSet.majorAxis.minorTickLocations = nil;
+    axisSet.minorAxis.majorTickLocations = nil;
+    axisSet.minorAxis.minorTickLocations = nil;
+    
+    if (self.radialScaleType == CPTScaleTypeLogModulus) {
+//        plotSpace.centrePosition = [CPTNumberArray arrayWithObjects:@1, @1, nil];
+        double maxXPow = pow(10.0, ceil(CPTLogModulus(2.125)));
+        CPTMutablePlotRange *majorRange = [CPTMutablePlotRange plotRangeWithLocation:[NSNumber numberWithDouble: -maxXPow * 10.0] length:[NSNumber numberWithDouble: 20.0 * maxXPow]];
+        NSDecimalNumber *ratio = [NSDecimalNumber decimalNumberWithDecimal: CPTDecimalDivide(graph.plotAreaFrame.plotArea.heightDecimal, graph.plotAreaFrame.plotArea.widthDecimal)];
+        CPTMutablePlotRange *minorRange = [majorRange mutableCopy];
+        [minorRange expandRangeByFactor:ratio];
+        
+        plotSpace.majorRange = majorRange;
+        plotSpace.minorRange = minorRange;
+        
+        axisSet.majorAxis.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
+        axisSet.minorAxis.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
+ 
+        axisSet.radialAxis.radialLabelLocation = [NSNumber numberWithDouble: plotSpace.majorRange.midPointDouble + plotSpace.majorRange.lengthDouble * 0.4];
+    }
+    else {
+        CPTMutablePlotRange *majorRange = [CPTMutablePlotRange plotRangeWithLocation:@-2.125 length:@4.25];
+        NSDecimalNumber *ratio = [NSDecimalNumber decimalNumberWithDecimal: CPTDecimalDivide(graph.plotAreaFrame.plotArea.heightDecimal, graph.plotAreaFrame.plotArea.widthDecimal)];
+        CPTMutablePlotRange *minorRange = [majorRange mutableCopy];
+        [minorRange expandRangeByFactor:ratio];
+        
+        plotSpace.majorRange = majorRange;
+        plotSpace.minorRange = minorRange;
+        
+        axisSet.majorAxis.labelingPolicy = CPTAxisLabelingPolicyFixedInterval;
+        axisSet.minorAxis.labelingPolicy = CPTAxisLabelingPolicyFixedInterval;
+        axisSet.minorAxis.minorTicksPerInterval = 9;
+        
+        axisSet.radialAxis.radialLabelLocation = [NSNumber numberWithDouble: plotSpace.majorRange.midPointDouble + plotSpace.majorRange.lengthDouble * 0.5];
+    }
+    plotSpace.majorScaleType = self.radialScaleType;
+    plotSpace.minorScaleType = self.radialScaleType;
+    [graph reloadData];
+    
+
+//    [self.scaleButton setTitle:plotSpace.majorScaleType == CPTScaleTypeLinear ? NSLocalizedString(@"Log", @"Log") : NSLocalizedString(@"Linear", @"Linear") forState:UIControlStateNormal];
+
 }
 
 @end

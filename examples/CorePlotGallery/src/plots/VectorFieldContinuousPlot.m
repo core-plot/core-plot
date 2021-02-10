@@ -88,6 +88,7 @@
     y.minorTicksPerInterval = 3;
     y.axisConstraints             = [CPTConstraints constraintWithLowerOffset:0.0];
     y.labelFormatter = formatter;
+    y.tickLabelDirection = CPTSignPositive;
 
     // Create a plot that uses the data source method
     CPTVectorFieldPlot *vectorFieldPlot = [[CPTVectorFieldPlot alloc] init];
