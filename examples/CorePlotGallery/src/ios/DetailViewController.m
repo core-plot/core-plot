@@ -130,7 +130,6 @@
     self.currentThemeName = themeName;
 
     UIView *hostView = self.hostingView;
-
     if ( hostView ) {
         [self.detailItem renderInView:hostView withTheme:[self currentTheme] animated:YES];
     }
@@ -143,7 +142,7 @@
     NSString *themeName = themeInfo[PlotGalleryThemeNameKey];
     if ( themeName ) {
         // added S.Wainwright
-        if ( [self.detailItem.section isEqualToString: kPolarPlots]) {
+        if ( [self.detailItem.section isEqualToString: kPolarPlots] && !([themeName isEqualToString:kThemeTableViewControllerNoTheme] || [themeName isEqualToString:kThemeTableViewControllerDefaultTheme])) {
             NSMutableString *mutableThemeName = [NSMutableString stringWithString: themeName];
             [mutableThemeName appendString:@" Polar"];
             [self themeSelectedWithName:mutableThemeName];
