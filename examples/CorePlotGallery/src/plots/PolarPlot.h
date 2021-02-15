@@ -11,7 +11,7 @@
 @interface PolarPlot : PlotItem<CPTPlotAreaDelegate,
                                         CPTPlotSpaceDelegate,
                                         CPTPlotDataSource,
-                                        CPTPolarPlotDelegate, CPTAxisDelegate, CPTLegendDelegate>
+                                        CPTPolarPlotDelegate, CPTAxisDelegate, CPTLegendDelegate> 
 
 
 @end

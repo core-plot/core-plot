@@ -12,11 +12,22 @@
 @interface PolarPlot()
 
 @property (nonatomic, readwrite, strong, nullable) CPTPolarPlotSpaceAnnotation *symbolTextAnnotation;
-@property (nonatomic, readwrite, strong, nonnull) NSArray<NSArray<NSDictionary *>*> *plotDatum;
+@property (nonatomic, readwrite, strong, nonnull) NSMutableArray<NSMutableArray<NSMutableDictionary *>*> *plotDatum;
 @property (nonatomic, readwrite, assign) CPTPolarPlotCurvedInterpolationOption curvedOption;
+
+@property (nonatomic, readwrite, strong, nullable) CPTLayerAnnotation *titleLayerAnnotation;
 
 @property (nonatomic, readwrite, assign) CPTScaleType radialScaleType;
 @property (nonatomic, readwrite, assign) CPTPolarRadialAngleMode angleMode;
+@property (nonatomic, readwrite, assign) BOOL titleLayerAnnotationDraggable;
+@property (nonatomic, readwrite, assign) BOOL symbolDraggable;
+@property (nonatomic, readwrite, assign) BOOL hasSymbolBeenDragged;
+
+@property (nonatomic, readwrite, assign) NSUInteger plotBeingDraggedIndex;
+@property (nonatomic, readwrite, assign) NSUInteger plotBeingDraggedDataIndex;
+
+@property (nonatomic, readwrite, assign) CGPoint originalTitleLayerAnnotationPoint;
+@property (nonatomic, readwrite, assign) CGPoint originalSymbolPoint;
 
 @property (nonatomic, readwrite, strong, nonnull) PiNumberFormatter *piFormatter;
 @property (nonatomic, readwrite, strong, nonnull) NSNumberFormatter *formatter;
@@ -26,11 +37,14 @@
 @implementation PolarPlot
 
 @synthesize symbolTextAnnotation;
+@synthesize titleLayerAnnotation;
 @synthesize plotDatum;
 @synthesize curvedOption;
 
-@synthesize radialScaleType, angleMode;
+@synthesize radialScaleType, angleMode, titleLayerAnnotationDraggable, symbolDraggable, hasSymbolBeenDragged;
+@synthesize plotBeingDraggedIndex, plotBeingDraggedDataIndex;
 @synthesize piFormatter, formatter;
+@synthesize originalTitleLayerAnnotationPoint, originalSymbolPoint;
 
 +(void)load
 {
@@ -72,23 +86,25 @@
 -(void)generateData
 {
     if ( self.plotDatum.count == 0 ) {
-        NSMutableArray<NSDictionary *> *contentArray1 = [NSMutableArray array];
+        NSMutableArray<NSMutableDictionary *> *contentArray1 = [NSMutableArray array];
         for ( NSUInteger i = 0; i < 49; i++ ) {
             NSNumber *theta = @((double)i / 24.0 * M_PI);
             NSNumber *radius = @(1.2 * arc4random() / (double)UINT32_MAX + 0.5);
-            [contentArray1 addObject:@{ @"theta": theta, @"radius": radius } ];
+            NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:theta, @"theta", radius, @"radius", nil];
+            [contentArray1 addObject: dict];
         }
         
-        NSMutableArray<NSDictionary *> *contentArray2 = [NSMutableArray array];
+        NSMutableArray<NSMutableDictionary *> *contentArray2 = [NSMutableArray array];
         double t = 0.0;
         for ( NSUInteger i = 0; i < 49; i++ ) {
             NSNumber *theta = @( M_PI_4 - sin(t) );
             NSNumber *radius = @( 0.5 + 1.5 * cos(3.0 * t) );
-            [contentArray2 addObject:@{ @"theta": theta, @"radius": radius } ];
+            NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:theta, @"theta", radius, @"radius", nil];
+            [contentArray2 addObject: dict];
             t += M_PI / 24.0;
         }
         
-        self.plotDatum = [NSArray arrayWithObjects:contentArray1, contentArray2, nil];
+        self.plotDatum = [NSMutableArray arrayWithObjects:contentArray1, contentArray2, nil];
     }
 }
 
@@ -265,19 +281,28 @@
     
     CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
     textStyle.fontName      = @"Helvetica";
-    textStyle.fontSize      = self.titleSize * CPTFloat(0.4);
+    textStyle.fontSize      = self.titleSize * CPTFloat(0.6);
     textStyle.textAlignment = CPTTextAlignmentCenter;
 
     CPTPlotArea *thePlotArea = graph.plotAreaFrame.plotArea;
 
     // Note
-    CPTTextLayer *explanationLayer = [[CPTTextLayer alloc] initWithText:@"Tap on a radial angle label to toggle between degress & radians.\nTap on major/minor axis label to toggle between linear scale and log-modulus."
+    CPTTextLayer *explanationLayer = [[CPTTextLayer alloc] initWithText:@"Tap and Drag to reposition title.\nTap on a radial angle label to toggle between degress & radians.\nTap on major/minor axis label to toggle between linear scale and log-modulus.\n Tap and drag one of the plot symbols."
                                                             style:textStyle];
     CPTLayerAnnotation *explantionAnnotation = [[CPTLayerAnnotation alloc] initWithAnchorLayer:thePlotArea];
     explantionAnnotation.rectAnchor         = CPTRectAnchorTop;
     explantionAnnotation.contentLayer       = explanationLayer;
     explantionAnnotation.contentAnchorPoint = CGPointMake(0.5, 1.0);
     [thePlotArea addAnnotation:explantionAnnotation];
+    graph.title = @"Tap on a radial angle label to toggle between degress & radians.\nTap on major/minor axis label to toggle between linear scale and log-modulus.";
+    
+    self.titleLayerAnnotation = [graph getTitleLayerAnnotation];
+    self.titleLayerAnnotationDraggable = NO;
+    
+    self.plotBeingDraggedIndex = NSNotFound;
+    self.plotBeingDraggedDataIndex = NSNotFound;
+    self.symbolDraggable = NO;
+    self.hasSymbolBeenDragged = NO;
 }
 
 #pragma mark -
@@ -312,6 +337,115 @@
 
 #pragma mark -
 #pragma mark Plot Space Delegate Methods
+
+-(BOOL)plotSpace:(nonnull CPTPlotSpace *)space shouldHandlePointingDeviceDownEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)point {
+    
+    if ( self.titleLayerAnnotation != nil && self.titleLayerAnnotation.contentLayer != nil ) {
+        CGRect titleContentLayerFrame = CGRectMake(self.titleLayerAnnotation.contentLayer.position.x - self.titleLayerAnnotation.contentLayer.bounds.size.width / 2.0, self.titleLayerAnnotation.contentLayer.position.y - self.titleLayerAnnotation.contentLayer.bounds.size.height, self.titleLayerAnnotation.contentLayer.bounds.size.width, self.titleLayerAnnotation.contentLayer.bounds.size.height);
+    
+        if( CGRectContainsPoint(titleContentLayerFrame, point) ) {
+            self.titleLayerAnnotationDraggable = YES;
+            self.originalTitleLayerAnnotationPoint = point;
+            CPTTextLayer *textLayer = (CPTTextLayer*)self.titleLayerAnnotation.contentLayer;
+            CPTColor *fillColour = [CPTColor colorWithComponentRed:1.0 green:1.0 blue:0.762 alpha:0.6];
+            textLayer.fill = [CPTFill fillWithColor: fillColour];
+            CPTMutableLineStyle *lineStyleBorder = [[CPTMutableLineStyle alloc] init];
+            CPTColor *gray = [CPTColor grayColor];
+            lineStyleBorder.lineColor = gray;
+            lineStyleBorder.lineWidth = 2.0;
+            textLayer.borderLineStyle = lineStyleBorder;
+            textLayer.cornerRadius = 5.0;
+            CPTPolarGraph *graph = (self.graphs)[0];
+            graph.defaultPlotSpace.allowsUserInteraction = NO;
+            
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
+-(BOOL)plotSpace:(nonnull CPTPlotSpace *)space shouldHandlePointingDeviceDraggedEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)point {
+    
+    if( self.titleLayerAnnotationDraggable ) {
+        CPTPolarGraph *graph = (self.graphs)[0];
+        graph.titleDisplacement = CGPointMake(graph.titleDisplacement.x + point.x - self.originalTitleLayerAnnotationPoint.x, graph.titleDisplacement.y + point.y - self.originalTitleLayerAnnotationPoint.y);
+        self.originalTitleLayerAnnotationPoint = point;
+        
+        return YES;
+    }
+    else if (self.symbolDraggable) {
+        double plotPoint[2];
+        CPTPolarPlotSpace *polarSpace = (CPTPolarPlotSpace*)space;
+        [polarSpace doublePrecisionPlotPoint:plotPoint numberOfCoordinates:2 forPlotAreaViewPoint:point];
+        
+        CPTPolarGraph *graph = (self.graphs)[0];
+        CPTPolarPlot *plot = (CPTPolarPlot *)[graph plotAtIndex:self.plotBeingDraggedIndex];
+        NSMutableArray<NSMutableDictionary*> *plotData = self.plotDatum[self.plotBeingDraggedIndex];
+        NSMutableDictionary *dataPoint = plotData[self.plotBeingDraggedDataIndex];
+        NSNumber *newRadius = [NSNumber numberWithDouble:plotPoint[CPTPolarCoordinateRadius]];
+        [dataPoint setObject:newRadius forKey:@"radius"];
+        
+        NSRange range = NSMakeRange(self.plotBeingDraggedDataIndex, 1);
+        [plot reloadDataInIndexRange:range];
+        self.originalSymbolPoint = point;
+//        originalSymbolPolar = CGPoint(x: dataPoint.x/*plotPoint[CPTPolarCoordinate.theta.rawValue]*/, y: plotPoint[CPTPolarCoordinate.radius.rawValue])
+        self.hasSymbolBeenDragged = YES;
+    }
+    return NO;
+}
+
+-(BOOL)plotSpace:(nonnull CPTPlotSpace *)space shouldHandlePointingDeviceCancelledEvent:(nonnull CPTNativeEvent *)event {
+    
+    if( self.titleLayerAnnotationDraggable && self.titleLayerAnnotation.contentLayer != nil) {
+        self.titleLayerAnnotationDraggable = NO;
+        CPTColor *clear = [CPTColor clearColor];
+        CPTTextLayer *textLayer = (CPTTextLayer*)self.titleLayerAnnotation.contentLayer;
+        textLayer.fill = [CPTFill fillWithColor: clear];
+        CPTMutableLineStyle *lineStyleBorder = [[CPTMutableLineStyle alloc] init];
+        lineStyleBorder.lineColor = clear;
+        lineStyleBorder.lineWidth = 0.0;
+        textLayer.borderLineStyle = lineStyleBorder;
+        textLayer.cornerRadius = 0.0;
+        CPTPolarGraph *graph = (self.graphs)[0];
+        graph.defaultPlotSpace.allowsUserInteraction = YES;
+        return YES;
+    }
+    else if ( self.symbolDraggable ){
+        self.symbolDraggable = NO;
+        self.hasSymbolBeenDragged = NO;
+//        symbolTextAnnotationDraggable = false
+        self.plotBeingDraggedIndex = NSNotFound;
+        self.plotBeingDraggedDataIndex = NSNotFound;
+//        labelAnnotationBeingDragged = nil
+        CPTPolarGraph *graph = (self.graphs)[0];
+        graph.defaultPlotSpace.allowsUserInteraction = YES;
+        return YES;
+    }
+            
+    return NO;
+}
+
+-(BOOL)plotSpace:(nonnull CPTPlotSpace *)space shouldHandlePointingDeviceUpEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)point {
+    
+    if (self.titleLayerAnnotationDraggable) {
+        CPTPolarGraph *graph = (self.graphs)[0];
+        graph.titleDisplacement = CGPointMake(graph.titleDisplacement.x + point.x - self.originalTitleLayerAnnotationPoint.x, graph.titleDisplacement.y + point.y - self.originalTitleLayerAnnotationPoint.y);
+        self.titleLayerAnnotationDraggable = NO;
+        CPTTextLayer *textLayer = (CPTTextLayer*)self.titleLayerAnnotation.contentLayer;
+        CPTColor *clear = [CPTColor clearColor];
+        textLayer.fill = [CPTFill fillWithColor: clear];
+        CPTMutableLineStyle *lineStyleBorder = [[CPTMutableLineStyle alloc] init];
+        lineStyleBorder.lineColor = clear;
+        lineStyleBorder.lineWidth = 0.0;
+        textLayer.borderLineStyle = lineStyleBorder;
+        textLayer.cornerRadius = 0.0;
+        (graph.defaultPlotSpace).allowsUserInteraction = YES;
+        
+        return YES;
+    }
+    return NO;
+}
 
 -(nullable CPTPlotRange *)plotSpace:(nonnull CPTPlotSpace *)space willChangePlotRangeTo:(nonnull CPTPlotRange *)newRange forCoordinate:(CPTCoordinate)coordinate
 {
@@ -432,6 +566,47 @@
         [graph.plotAreaFrame.plotArea addAnnotation:annotation];
     }
 }
+
+-(void)polarPlot:(CPTPolarPlot *)plot plotSymbolTouchDownAtRecordIndex:(NSUInteger)idx withEvent:(nonnull CPTNativeEvent *)event {
+    self.plotBeingDraggedDataIndex = idx;
+    
+    if ([(NSString*)plot.identifier isEqualToString: @"Polar Source Plot"]) {
+        self.plotBeingDraggedIndex = 0;
+    }
+    
+    
+    if (self.plotBeingDraggedIndex != NSNotFound && self.plotBeingDraggedDataIndex != NSNotFound) {
+        NSDecimal plotPoint[2];
+        [(CPTPolarPlotSpace*)(plot.plotSpace) plotPoint:plotPoint numberOfCoordinates:2 forEvent:event];
+        
+        // if there's a label annotation for this plot point you are moving, remove it from graph, but keep for redraw on touch up
+//        if plotBeingDraggedIndex < plotLabelAnnotations.count && plotBeingDraggedDataIndex < plotLabelAnnotations[plotBeingDraggedIndex].count {
+//            labelAnnotationBeingDragged = plotLabelAnnotations[plotBeingDraggedIndex][plotBeingDraggedDataIndex]
+//        }
+    
+        self.originalSymbolPoint = CGPointMake(CPTDecimalDoubleValue(plotPoint[CPTPolarCoordinateTheta]), CPTDecimalDoubleValue(plotPoint[CPTPolarCoordinateRadius]));
+        
+        self.symbolDraggable = YES;
+        self.hasSymbolBeenDragged = NO;
+//        symbolTextAnnotationDraggable = false
+        CPTPolarGraph *graph = (self.graphs)[0];
+        graph.defaultPlotSpace.allowsUserInteraction = NO;
+    }
+}
+
+-(void)polarPlot:(CPTPolarPlot *)plot plotSymbolTouchUpAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event {
+    if ( self.symbolDraggable ){
+        self.symbolDraggable = NO;
+        self.hasSymbolBeenDragged = NO;
+        self.originalSymbolPoint = CGPointZero;
+    }
+    self.plotBeingDraggedDataIndex = NSNotFound;
+    self.plotBeingDraggedIndex = NSNotFound;
+//    labelAnnotationBeingDragged = nil
+    CPTPolarGraph *graph = (self.graphs)[0];
+    graph.defaultPlotSpace.allowsUserInteraction = YES;
+}
+
 
 -(void)polarPlotDataLineWasSelected:(nonnull CPTPolarPlot *)plot
 {
