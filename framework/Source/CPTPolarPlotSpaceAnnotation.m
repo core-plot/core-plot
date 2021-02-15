@@ -195,9 +195,6 @@
                 CGPoint centrePoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:centrePlotPoint numberOfCoordinates:self.anchorCount];
                 CGPoint plotAreaViewAnchorPoint = [thePlotSpace plotAreaViewPointForDoublePrecisionPlotPoint:plotPoint numberOfCoordinates:2];
                 plotAreaViewAnchorPoint = CPTPointMake((plotAreaViewAnchorPoint.x - centrePoint.x) * sin(theta) + centrePoint.x, (plotAreaViewAnchorPoint.x - centrePoint.x) * cos(theta) + centrePoint.y);
-                
-//                CGPoint plotAreaViewAnchorPoint = [thePlotSpace plotAreaViewPointForPlotPoint:self.decimalAnchor numberOfCoordinates:self.anchorCount];
-                
 
                 CGPoint newPosition;
                 CPTGraph *theGraph    = thePlotSpace.graph;

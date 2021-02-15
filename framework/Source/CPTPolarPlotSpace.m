@@ -22,11 +22,7 @@
 typedef NSMutableArray<CPTAnimationOperation *> *CPTMutableAnimationArray;
 
 /// @cond
-@interface CPTPolarPlotSpace() /*{
-    @private
-    // Added S.Wainwright 18/06/2020
-    CPTPolarRadialAngleMode __radialAngleOption;
-}*/
+@interface CPTPolarPlotSpace()
 
 -(CGFloat)viewCoordinateForViewLength:(NSDecimal)viewLength linearPlotRange:(CPTPlotRange *)range plotCoordinateValue:(NSDecimal)plotCoord;
 
@@ -1151,8 +1147,8 @@ extern CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
     switch ( self.majorScaleType ) {
         case CPTScaleTypeLinear:
         case CPTScaleTypeCategory:
-            viewPoint.x = [self viewCoordinateForViewLength:plotArea.widthDecimal linearPlotRange:self.majorRange plotCoordinateValue:[plotPoint[CPTCoordinateX] decimalValue]];
-            viewPoint.y = [self viewCoordinateForViewLength:plotArea.heightDecimal linearPlotRange:self.majorRange plotCoordinateValue:[plotPoint[CPTCoordinateY] decimalValue]];
+            viewPoint.x = [self viewCoordinateForViewLength:plotArea.widthDecimal linearPlotRange:self.majorRange plotCoordinateValue:[plotPoint[CPTPolarCoordinateTheta] decimalValue]];
+            viewPoint.y = [self viewCoordinateForViewLength:plotArea.heightDecimal linearPlotRange:self.majorRange plotCoordinateValue:[plotPoint[CPTPolarCoordinateRadius] decimalValue]];
             break;
 
         case CPTScaleTypeLog:
@@ -1292,33 +1288,44 @@ extern CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
     if ( !plotPoint ) {
         plotPoint = [NSMutableArray arrayWithCapacity:self.numberOfCoordinates];
     }
+    NSDecimal cartestianPlotPoint[2];
     
     switch ( self.majorScaleType ) {
         case CPTScaleTypeLinear:
         case CPTScaleTypeCategory:
-            plotPoint[CPTCoordinateX] = [NSDecimalNumber decimalNumberWithDecimal:[self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.x) linearPlotRange:self.majorRange boundsLength:plotArea.widthDecimal]];
-            plotPoint[CPTCoordinateY] = [NSDecimalNumber decimalNumberWithDecimal:[self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.y) linearPlotRange:self.majorRange boundsLength:plotArea.widthDecimal]];
+            cartestianPlotPoint[CPTCoordinateX] = [self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.x) linearPlotRange:self.majorRange boundsLength:plotArea.widthDecimal];
+//            cartestianPlotPoint[CPTCoordinateY] = [self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.y - centrePoint.y) linearPlotRange:self.majorRange boundsLength:plotArea.widthDecimal];
+            cartestianPlotPoint[CPTCoordinateY] = [self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.y) linearPlotRange:self.minorRange boundsLength:plotArea.heightDecimal];
             break;
 
         case CPTScaleTypeLog:
         {
-//            CPTPlotRange *dominantRange = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorRange : self.minorRange;
-            plotPoint[CPTCoordinateX] = @([self doublePrecisionPlotCoordinateForViewLength:point.x logPlotRange:self.majorRange boundsLength:boundsSize.width]);
-            plotPoint[CPTCoordinateY] = @([self doublePrecisionPlotCoordinateForViewLength:point.y logPlotRange:self.majorRange boundsLength:boundsSize.width]);
+            cartestianPlotPoint[CPTCoordinateX] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.x logPlotRange:self.majorRange boundsLength:boundsSize.width]);
+            cartestianPlotPoint[CPTCoordinateY] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.y logPlotRange:self.minorRange boundsLength:boundsSize.height]);
         }
             break;
 
         case CPTScaleTypeLogModulus:
         {
-//            CPTPlotRange *dominantRange = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorRange : self.minorRange;
-            plotPoint[CPTCoordinateX] = @([self doublePrecisionPlotCoordinateForViewLength:point.x logModulusPlotRange:self.majorRange boundsLength:boundsSize.width]);
-            plotPoint[CPTCoordinateY] = @([self doublePrecisionPlotCoordinateForViewLength:point.y logModulusPlotRange:self.majorRange boundsLength:boundsSize.width]);
+            cartestianPlotPoint[CPTCoordinateX] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.x logModulusPlotRange:self.majorRange boundsLength:boundsSize.width]);
+            cartestianPlotPoint[CPTCoordinateY] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.y logModulusPlotRange:self.minorRange boundsLength:boundsSize.height]);
         }
             break;
 
         default:
             [NSException raise:CPTException format:@"Scale type not supported in CPTPolarPlotSpace"];
     }
+    double thetaDouble = atan2(CPTDecimalDoubleValue(cartestianPlotPoint[CPTCoordinateX]), CPTDecimalDoubleValue(cartestianPlotPoint[CPTCoordinateY]));
+    if ( thetaDouble < 0.0 ) {
+        thetaDouble += 2.0 * M_PI;
+    }
+    if ( self.radialAngleOption == CPTPolarRadialAngleModeDegrees ) {
+        thetaDouble *= 180.0 / M_PI;
+    }
+    plotPoint[CPTPolarCoordinateTheta] =  [NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromDouble(thetaDouble)];
+    double radiusDouble = sqrt(CPTDecimalDoubleValue(CPTDecimalAdd(CPTDecimalMultiply(cartestianPlotPoint[CPTCoordinateX], cartestianPlotPoint[CPTCoordinateX]), CPTDecimalMultiply(cartestianPlotPoint[CPTCoordinateY], cartestianPlotPoint[CPTCoordinateY]))));
+    plotPoint[CPTPolarCoordinateRadius] = [NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromDouble(radiusDouble)];
+    
     
     return plotPoint;
 }
@@ -1336,37 +1343,50 @@ extern CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
     }
     else {
         NSDecimal zero = CPTDecimalFromInteger(0);
-        plotPoint[CPTCoordinateX] = zero;
-        plotPoint[CPTCoordinateY] = zero;
+        plotPoint[CPTPolarCoordinateTheta] = zero;
+        plotPoint[CPTPolarCoordinateRadius] = zero;
         return;
     }
+    
+    NSDecimal cartestianPlotPoint[2];
     
     switch ( self.majorScaleType ) {
         case CPTScaleTypeLinear:
         case CPTScaleTypeCategory:
-            plotPoint[CPTCoordinateX] = [self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.x) linearPlotRange:self.majorRange boundsLength:plotArea.widthDecimal];
-            plotPoint[CPTCoordinateY] = [self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.y) linearPlotRange:self.majorRange boundsLength:plotArea.widthDecimal];
+        {
+            cartestianPlotPoint[CPTCoordinateX] = [self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.x) linearPlotRange:self.majorRange boundsLength:plotArea.widthDecimal];
+//            cartestianPlotPoint[CPTCoordinateY] = [self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.y - centrePoint.y) linearPlotRange:self.majorRange boundsLength:plotArea.widthDecimal];
+            cartestianPlotPoint[CPTCoordinateY] = [self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.y) linearPlotRange:self.minorRange boundsLength:plotArea.heightDecimal];
+        }
             break;
 
         case CPTScaleTypeLog:
         {
-//            CPTPlotRange *dominantRange = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorRange : self.minorRange;
-            plotPoint[CPTCoordinateX] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.x logPlotRange:self.majorRange boundsLength:boundsSize.width]);
-            plotPoint[CPTCoordinateY] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.y logPlotRange:self.majorRange boundsLength:boundsSize.width]);
+            cartestianPlotPoint[CPTCoordinateX] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.x logPlotRange:self.majorRange boundsLength:boundsSize.width]);
+            cartestianPlotPoint[CPTCoordinateY] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.y logPlotRange:self.minorRange boundsLength:boundsSize.height]);
         }
             break;
 
         case CPTScaleTypeLogModulus:
         {
-//            CPTPlotRange *dominantRange = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorRange : self.minorRange;
-            plotPoint[CPTCoordinateX] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.x logModulusPlotRange:self.majorRange boundsLength:boundsSize.width]);
-            plotPoint[CPTCoordinateY] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.y logModulusPlotRange:self.majorRange boundsLength:boundsSize.width]);
+            cartestianPlotPoint[CPTCoordinateX] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.x logModulusPlotRange:self.majorRange boundsLength:boundsSize.width]);
+            cartestianPlotPoint[CPTCoordinateY] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.y logModulusPlotRange:self.minorRange boundsLength:boundsSize.height]);
         }
             break;
 
         default:
             [NSException raise:CPTException format:@"Scale type not supported in CPTPolarPlotSpace"];
     }
+    double thetaDouble = atan2(CPTDecimalDoubleValue(cartestianPlotPoint[CPTCoordinateX]), CPTDecimalDoubleValue(cartestianPlotPoint[CPTCoordinateY]));
+    if ( thetaDouble < 0.0 ) {
+        thetaDouble += 2.0 * M_PI;
+    }
+    if ( self.radialAngleOption == CPTPolarRadialAngleModeDegrees ) {
+        thetaDouble *= 180.0 / M_PI;
+    }
+    plotPoint[CPTPolarCoordinateTheta] = CPTDecimalFromDouble(thetaDouble);
+    double radiusDouble = sqrt(CPTDecimalDoubleValue(CPTDecimalAdd(CPTDecimalMultiply(cartestianPlotPoint[CPTCoordinateX], cartestianPlotPoint[CPTCoordinateX]), CPTDecimalMultiply(cartestianPlotPoint[CPTCoordinateY], cartestianPlotPoint[CPTCoordinateY]))));
+    plotPoint[CPTPolarCoordinateRadius] = CPTDecimalFromDouble(radiusDouble);
 }
 
 -(void)doublePrecisionPlotPoint:(nonnull double *)plotPoint numberOfCoordinates:(NSUInteger)count forPlotAreaViewPoint:(CGPoint)point
@@ -1381,37 +1401,49 @@ extern CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
         boundsSize = plotArea.bounds.size;
     }
     else {
-        plotPoint[CPTCoordinateX] = 0.0;
-        plotPoint[CPTCoordinateY] = 0.0;
+        plotPoint[CPTPolarCoordinateTheta] = 0.0;
+        plotPoint[CPTPolarCoordinateRadius] = 0.0;
         return;
     }
+    
+    double cartestianPlotPoint[2];
     
     switch ( self.majorScaleType ) {
         case CPTScaleTypeLinear:
         case CPTScaleTypeCategory:
-            plotPoint[CPTCoordinateX] = [self doublePrecisionPlotCoordinateForViewLength:point.x linearPlotRange:self.majorRange boundsLength:boundsSize.width];
-            plotPoint[CPTCoordinateY] = [self doublePrecisionPlotCoordinateForViewLength:point.y linearPlotRange:self.majorRange boundsLength:boundsSize.width];
+        {
+            cartestianPlotPoint[CPTCoordinateX] = [self doublePrecisionPlotCoordinateForViewLength:(point.x) linearPlotRange:self.majorRange boundsLength:boundsSize.width];
+//            cartestianPlotPoint[CPTCoordinateY] = [self doublePrecisionPlotCoordinateForViewLength:(point.y  - centrePoint.y) linearPlotRange:self.majorRange boundsLength:boundsSize.width];
+            cartestianPlotPoint[CPTCoordinateY] = [self doublePrecisionPlotCoordinateForViewLength:(point.y) linearPlotRange:self.minorRange boundsLength:boundsSize.height];
+        }
             break;
 
         case CPTScaleTypeLog:
         {
-//            CPTPlotRange *dominantRange = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorRange : self.minorRange;
-            plotPoint[CPTCoordinateX] = [self doublePrecisionPlotCoordinateForViewLength:point.x logPlotRange:self.majorRange boundsLength:boundsSize.width];
-            plotPoint[CPTCoordinateY] = [self doublePrecisionPlotCoordinateForViewLength:point.y logPlotRange:self.majorRange boundsLength:boundsSize.width];
+            cartestianPlotPoint[CPTCoordinateX] = [self doublePrecisionPlotCoordinateForViewLength:point.x logPlotRange:self.majorRange boundsLength:boundsSize.width];
+            cartestianPlotPoint[CPTCoordinateY] = [self doublePrecisionPlotCoordinateForViewLength:point.y logPlotRange:self.minorRange boundsLength:boundsSize.height];
         }
             break;
 
         case CPTScaleTypeLogModulus:
         {
-//            CPTPlotRange *dominantRange = self.majorRange.lengthDouble > self.minorRange.lengthDouble ? self.majorRange : self.minorRange;
-            plotPoint[CPTCoordinateX] = [self doublePrecisionPlotCoordinateForViewLength:point.x logModulusPlotRange:self.majorRange boundsLength:boundsSize.width];
-            plotPoint[CPTCoordinateY] = [self doublePrecisionPlotCoordinateForViewLength:point.y logModulusPlotRange:self.majorRange boundsLength:boundsSize.width];
+            cartestianPlotPoint[CPTCoordinateX] = [self doublePrecisionPlotCoordinateForViewLength:point.x logModulusPlotRange:self.majorRange boundsLength:boundsSize.width];
+            cartestianPlotPoint[CPTCoordinateY] = [self doublePrecisionPlotCoordinateForViewLength:point.y logModulusPlotRange:self.minorRange boundsLength:boundsSize.height];
         }
             break;
 
         default:
             [NSException raise:CPTException format:@"Scale type not supported in CPTPolarPlotSpace"];
     }
+    double theta = atan(cartestianPlotPoint[CPTCoordinateX] / cartestianPlotPoint[CPTCoordinateY]);
+    if ( theta < 0.0 ) {
+        theta += 2.0 * M_PI;
+    }
+    if ( self.radialAngleOption == CPTPolarRadialAngleModeDegrees ) {
+        theta *= 180.0 / M_PI;
+    }
+    plotPoint[CPTPolarCoordinateTheta] = theta;
+    plotPoint[CPTPolarCoordinateRadius] = sqrt(cartestianPlotPoint[CPTCoordinateX] * cartestianPlotPoint[CPTCoordinateX] + cartestianPlotPoint[CPTCoordinateY] * cartestianPlotPoint[CPTCoordinateY]);
 }
 
 // Plot area view point for event
