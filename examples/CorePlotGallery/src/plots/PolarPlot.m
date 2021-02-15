@@ -248,11 +248,20 @@
     // Add legend
     graph.legend                 = [CPTLegend legendWithGraph:graph];
     graph.legend.textStyle       = majorAxis.titleTextStyle;
-    graph.legend.fill            = [CPTFill fillWithColor:[CPTColor lightGrayColor]];
+    graph.legend.fill            = [CPTFill fillWithColor:[[CPTColor lightGrayColor] colorWithAlphaComponent:0.5]];
     graph.legend.borderLineStyle = majorAxis.axisLineStyle;
     graph.legend.cornerRadius    = 5.0;
     graph.legendAnchor           = CPTRectAnchorBottom;
     graph.legendDisplacement     = CGPointMake(0.0, 12.0);
+    graph.legend.numberOfRows    = graph.allPlots.count;
+    graph.legend.delegate        = self;
+    // in order to place the correct index in the Legend Entry must assign otherwise index = 0
+    NSUInteger index = 0;
+    NSMutableArray *legendEntries = [graph.legend getLegendEntries];
+    for(CPTLegendEntry *legendEntry in legendEntries) {
+        legendEntry.index = index;
+        index++;
+    }
     
     CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
     textStyle.fontName      = @"Helvetica";
@@ -581,9 +590,6 @@
         }
         [radialaxis relabel];
         plotSpace.radialAngleOption = self.angleMode;
-
-//        [self.angleButton setTitle:plotSpace.radialAngleOption == CPTPolarRadialAngleModeRadians ? NSLocalizedString(@"Degs", @"Degs") : NSLocalizedString(@"Rads", @"Degs") forState:UIControlStateNormal];
-
     }
 }
 
@@ -635,10 +641,13 @@
     plotSpace.majorScaleType = self.radialScaleType;
     plotSpace.minorScaleType = self.radialScaleType;
     [graph reloadData];
-    
+}
 
-//    [self.scaleButton setTitle:plotSpace.majorScaleType == CPTScaleTypeLinear ? NSLocalizedString(@"Log", @"Log") : NSLocalizedString(@"Linear", @"Linear") forState:UIControlStateNormal];
+#pragma mark -
+#pragma mark Legend Delegate Methods
 
+-(void)legend:(nonnull CPTLegend *)legend legendEntryForPlot:(nonnull CPTPlot *)plot wasSelectedAtIndex:(NSUInteger)idx {
+    NSLog(@"Legend Entry for plot: %@, index: %ld", (NSString*)plot.identifier, idx);
 }
 
 @end
