@@ -15,6 +15,7 @@
 #import "CPTShadow.h"
 #import "CPTTextLayer.h"
 #import "CPTUtilities.h"
+#import "CPTFunctionDataSource.h"  // S.Wainwright
 #import "NSCoderExtensions.h"
 #import <tgmath.h>
 
@@ -107,6 +108,13 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
  *  @brief The data source for the plot.
  **/
 @synthesize dataSource;
+
+/** @property nullable id<CPTPlotDataSource> appearanceDataSource
+ *  @brief the  data source for a function plot with continuous limits.
+ *
+ *  Default is nil.
+ **/
+@synthesize appearanceDataSource;  // Added S.Wainwright
 
 /** @property nullable NSString *title
  *  @brief The title of the plot displayed in the legend.
@@ -1165,7 +1173,14 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
  **/
 -(void)reloadDataLabelsInIndexRange:(NSRange)indexRange
 {
-    id<CPTPlotDataSource> theDataSource = (id<CPTPlotDataSource>)self.dataSource;
+    id<CPTPlotDataSource> theDataSource; //= (id<CPTPlotDataSource>)self.dataSource;
+    
+    if ([self.dataSource isKindOfClass:[CPTFunctionDataSource class]]) {  // Added S.Wainwright
+        theDataSource = (id<CPTPlotDataSource>)self.appearanceDataSource;
+    }
+    else {
+        theDataSource = (id<CPTPlotDataSource>)self.dataSource;
+    }
 
     if ( [theDataSource respondsToSelector:@selector(dataLabelsForPlot:recordIndexRange:)] ) {
         [self cacheArray:[theDataSource dataLabelsForPlot:self recordIndexRange:indexRange]

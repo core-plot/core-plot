@@ -261,6 +261,12 @@ typedef NSMutableArray<__kindof CPTPlot *> CPTMutablePlotArray;
 @property (nonatomic, readwrite, cpt_weak_property, nullable) id<CPTPlotDataSource> dataSource;
 /// @}
 
+// Added S.Wainwright
+/// @name Appearance Data Source
+/// @{
+@property (nonatomic, readwrite, cpt_weak_property, nullable) id<CPTPlotDataSource> appearanceDataSource;
+/// @}
+
 /// @name Identification
 /// @{
 @property (nonatomic, readwrite, copy, nullable) NSString *title;
