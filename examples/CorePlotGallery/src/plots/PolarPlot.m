@@ -15,19 +15,19 @@
 @property (nonatomic, readwrite, strong, nonnull) NSMutableArray<NSMutableArray<NSMutableDictionary *>*> *plotDatum;
 @property (nonatomic, readwrite, assign) CPTPolarPlotCurvedInterpolationOption curvedOption;
 
-@property (nonatomic, readwrite, strong, nullable) CPTLayerAnnotation *titleLayerAnnotation;
-
 @property (nonatomic, readwrite, assign) CPTScaleType radialScaleType;
 @property (nonatomic, readwrite, assign) CPTPolarRadialAngleMode angleMode;
 @property (nonatomic, readwrite, assign) BOOL titleLayerAnnotationDraggable;
 @property (nonatomic, readwrite, assign) BOOL symbolDraggable;
 @property (nonatomic, readwrite, assign) BOOL hasSymbolBeenDragged;
+@property (nonatomic, readwrite, assign) BOOL legendDraggable;
 
 @property (nonatomic, readwrite, assign) NSUInteger plotBeingDraggedIndex;
 @property (nonatomic, readwrite, assign) NSUInteger plotBeingDraggedDataIndex;
 
 @property (nonatomic, readwrite, assign) CGPoint originalTitleLayerAnnotationPoint;
 @property (nonatomic, readwrite, assign) CGPoint originalSymbolPoint;
+@property (nonatomic, readwrite, assign) CGPoint originalLegendPoint;
 
 @property (nonatomic, readwrite, strong, nonnull) PiNumberFormatter *piFormatter;
 @property (nonatomic, readwrite, strong, nonnull) NSNumberFormatter *formatter;
@@ -37,14 +37,13 @@
 @implementation PolarPlot
 
 @synthesize symbolTextAnnotation;
-@synthesize titleLayerAnnotation;
 @synthesize plotDatum;
 @synthesize curvedOption;
 
-@synthesize radialScaleType, angleMode, titleLayerAnnotationDraggable, symbolDraggable, hasSymbolBeenDragged;
+@synthesize radialScaleType, angleMode, titleLayerAnnotationDraggable, symbolDraggable, hasSymbolBeenDragged, legendDraggable;
 @synthesize plotBeingDraggedIndex, plotBeingDraggedDataIndex;
 @synthesize piFormatter, formatter;
-@synthesize originalTitleLayerAnnotationPoint, originalSymbolPoint;
+@synthesize originalTitleLayerAnnotationPoint, originalSymbolPoint, originalLegendPoint;
 
 +(void)load
 {
@@ -267,8 +266,8 @@
     graph.legend.fill            = [CPTFill fillWithColor:[[CPTColor lightGrayColor] colorWithAlphaComponent:0.5]];
     graph.legend.borderLineStyle = majorAxis.axisLineStyle;
     graph.legend.cornerRadius    = 5.0;
-    graph.legendAnchor           = CPTRectAnchorBottom;
-    graph.legendDisplacement     = CGPointMake(0.0, 12.0);
+    graph.legendAnchor           = CPTRectAnchorCenter;
+    graph.legendDisplacement     = CGPointMake(0.0, -graph.plotAreaFrame.plotArea.bounds.size.height / 2.0 + 32.0);
     graph.legend.numberOfRows    = graph.allPlots.count;
     graph.legend.delegate        = self;
     // in order to place the correct index in the Legend Entry must assign otherwise index = 0
@@ -287,22 +286,20 @@
     CPTPlotArea *thePlotArea = graph.plotAreaFrame.plotArea;
 
     // Note
-    CPTTextLayer *explanationLayer = [[CPTTextLayer alloc] initWithText:@"Tap and Drag to reposition title.\nTap on a radial angle label to toggle between degress & radians.\nTap on major/minor axis label to toggle between linear scale and log-modulus.\n Tap and drag one of the plot symbols."
+    CPTTextLayer *explanationLayer = [[CPTTextLayer alloc] initWithText:@"Tap and Drag to reposition title.\nTap on a radial angle label to toggle between degress & radians.\nTap on major/minor axis label to toggle between linear scale and log-modulus.\n Tap and drag one of the plot symbols.\nTap & Drag to reposition legend."
                                                             style:textStyle];
     CPTLayerAnnotation *explantionAnnotation = [[CPTLayerAnnotation alloc] initWithAnchorLayer:thePlotArea];
     explantionAnnotation.rectAnchor         = CPTRectAnchorTop;
     explantionAnnotation.contentLayer       = explanationLayer;
     explantionAnnotation.contentAnchorPoint = CGPointMake(0.5, 1.0);
     [thePlotArea addAnnotation:explantionAnnotation];
-    graph.title = @"Tap on a radial angle label to toggle between degress & radians.\nTap on major/minor axis label to toggle between linear scale and log-modulus.";
     
-    self.titleLayerAnnotation = [graph getTitleLayerAnnotation];
     self.titleLayerAnnotationDraggable = NO;
-    
     self.plotBeingDraggedIndex = NSNotFound;
     self.plotBeingDraggedDataIndex = NSNotFound;
     self.symbolDraggable = NO;
     self.hasSymbolBeenDragged = NO;
+    self.legendDraggable = NO;
 }
 
 #pragma mark -
@@ -340,13 +337,15 @@
 
 -(BOOL)plotSpace:(nonnull CPTPlotSpace *)space shouldHandlePointingDeviceDownEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)point {
     
-    if ( self.titleLayerAnnotation != nil && self.titleLayerAnnotation.contentLayer != nil ) {
-        CGRect titleContentLayerFrame = CGRectMake(self.titleLayerAnnotation.contentLayer.position.x - self.titleLayerAnnotation.contentLayer.bounds.size.width / 2.0, self.titleLayerAnnotation.contentLayer.position.y - self.titleLayerAnnotation.contentLayer.bounds.size.height, self.titleLayerAnnotation.contentLayer.bounds.size.width, self.titleLayerAnnotation.contentLayer.bounds.size.height);
+    CPTPolarGraph *graph = (self.graphs)[0];
+    CPTLayerAnnotation *titleLayerAnnotation = [graph getTitleLayerAnnotation];
+    if ( titleLayerAnnotation != nil && titleLayerAnnotation.contentLayer != nil ) {
+        CGRect titleContentLayerFrame = CGRectMake(titleLayerAnnotation.contentLayer.position.x - titleLayerAnnotation.contentLayer.bounds.size.width / 2.0, titleLayerAnnotation.contentLayer.position.y - titleLayerAnnotation.contentLayer.bounds.size.height, titleLayerAnnotation.contentLayer.bounds.size.width, titleLayerAnnotation.contentLayer.bounds.size.height);
     
         if( CGRectContainsPoint(titleContentLayerFrame, point) ) {
             self.titleLayerAnnotationDraggable = YES;
             self.originalTitleLayerAnnotationPoint = point;
-            CPTTextLayer *textLayer = (CPTTextLayer*)self.titleLayerAnnotation.contentLayer;
+            CPTTextLayer *textLayer = (CPTTextLayer*)titleLayerAnnotation.contentLayer;
             CPTColor *fillColour = [CPTColor colorWithComponentRed:1.0 green:1.0 blue:0.762 alpha:0.6];
             textLayer.fill = [CPTFill fillWithColor: fillColour];
             CPTMutableLineStyle *lineStyleBorder = [[CPTMutableLineStyle alloc] init];
@@ -355,11 +354,25 @@
             lineStyleBorder.lineWidth = 2.0;
             textLayer.borderLineStyle = lineStyleBorder;
             textLayer.cornerRadius = 5.0;
-            CPTPolarGraph *graph = (self.graphs)[0];
             graph.defaultPlotSpace.allowsUserInteraction = NO;
             
             return YES;
         }
+    }
+    
+    if ( CGRectContainsPoint(graph.legend.frame, point)) {
+        self.legendDraggable = YES;
+        self.originalLegendPoint = point;
+        CPTMutableLineStyle *borderLineStyle = [graph.legend.borderLineStyle mutableCopy];
+        CPTColor *gray = [CPTColor grayColor];
+        borderLineStyle.lineColor = gray;
+        borderLineStyle.lineWidth = 2.0;
+        graph.legend.borderLineStyle = borderLineStyle;
+        CPTColor *fillColour = [CPTColor colorWithComponentRed:1.0 green:1.0 blue:0.762 alpha:0.6];
+        graph.legend.fill = [CPTFill fillWithColor: fillColour];
+        graph.defaultPlotSpace.allowsUserInteraction = NO;
+        
+        return YES;
     }
     
     return NO;
@@ -392,34 +405,49 @@
 //        originalSymbolPolar = CGPoint(x: dataPoint.x/*plotPoint[CPTPolarCoordinate.theta.rawValue]*/, y: plotPoint[CPTPolarCoordinate.radius.rawValue])
         self.hasSymbolBeenDragged = YES;
     }
+    else if (self.legendDraggable) {
+        CPTPolarGraph *graph = (self.graphs)[0];
+//        graph.legendDisplacement =  CGPointMake(graph.legendDisplacement.x + point.x - self.originalLegendPoint.x, graph.legendDisplacement.y + point.y - self.originalLegendPoint.y);
+        graph.legendDisplacement =  CGPointMake(point.x - graph.plotAreaFrame.plotArea.bounds.size.height / 2.0,  point.y - graph.plotAreaFrame.plotArea.bounds.size.height / 2.0);
+        self.originalTitleLayerAnnotationPoint = point;
+        return YES;
+    }
     return NO;
 }
 
 -(BOOL)plotSpace:(nonnull CPTPlotSpace *)space shouldHandlePointingDeviceCancelledEvent:(nonnull CPTNativeEvent *)event {
-    
-    if( self.titleLayerAnnotationDraggable && self.titleLayerAnnotation.contentLayer != nil) {
+    CPTPolarGraph *graph = (self.graphs)[0];
+    if( self.titleLayerAnnotationDraggable ) {
+        graph.titleDisplacement = self.originalTitleLayerAnnotationPoint;
         self.titleLayerAnnotationDraggable = NO;
         CPTColor *clear = [CPTColor clearColor];
-        CPTTextLayer *textLayer = (CPTTextLayer*)self.titleLayerAnnotation.contentLayer;
+        CPTLayerAnnotation *titleLayerAnnotation = [graph getTitleLayerAnnotation];
+        CPTTextLayer *textLayer = (CPTTextLayer*)titleLayerAnnotation.contentLayer;
         textLayer.fill = [CPTFill fillWithColor: clear];
         CPTMutableLineStyle *lineStyleBorder = [[CPTMutableLineStyle alloc] init];
         lineStyleBorder.lineColor = clear;
         lineStyleBorder.lineWidth = 0.0;
         textLayer.borderLineStyle = lineStyleBorder;
         textLayer.cornerRadius = 0.0;
-        CPTPolarGraph *graph = (self.graphs)[0];
         graph.defaultPlotSpace.allowsUserInteraction = YES;
         return YES;
     }
-    else if ( self.symbolDraggable ){
+    else if ( self.symbolDraggable ) {
         self.symbolDraggable = NO;
         self.hasSymbolBeenDragged = NO;
-//        symbolTextAnnotationDraggable = false
         self.plotBeingDraggedIndex = NSNotFound;
         self.plotBeingDraggedDataIndex = NSNotFound;
-//        labelAnnotationBeingDragged = nil
-        CPTPolarGraph *graph = (self.graphs)[0];
         graph.defaultPlotSpace.allowsUserInteraction = YES;
+        
+        return YES;
+    }
+    else if ( self.legendDraggable ) {
+        self.legendDraggable = NO;
+        graph.legendDisplacement = self.originalLegendPoint;
+        graph.legend.fill            = [CPTFill fillWithColor:[[CPTColor lightGrayColor] colorWithAlphaComponent:0.5]];
+        graph.legend.borderLineStyle = graph.axisSet.axes[0].axisLineStyle;
+        graph.defaultPlotSpace.allowsUserInteraction = YES;
+        
         return YES;
     }
             
@@ -427,12 +455,11 @@
 }
 
 -(BOOL)plotSpace:(nonnull CPTPlotSpace *)space shouldHandlePointingDeviceUpEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)point {
-    
-    if (self.titleLayerAnnotationDraggable) {
-        CPTPolarGraph *graph = (self.graphs)[0];
-        graph.titleDisplacement = CGPointMake(graph.titleDisplacement.x + point.x - self.originalTitleLayerAnnotationPoint.x, graph.titleDisplacement.y + point.y - self.originalTitleLayerAnnotationPoint.y);
+    CPTPolarGraph *graph = (self.graphs)[0];
+    if ( self.titleLayerAnnotationDraggable ) {
         self.titleLayerAnnotationDraggable = NO;
-        CPTTextLayer *textLayer = (CPTTextLayer*)self.titleLayerAnnotation.contentLayer;
+        CPTLayerAnnotation *titleLayerAnnotation = [graph getTitleLayerAnnotation];
+        CPTTextLayer *textLayer = (CPTTextLayer*)titleLayerAnnotation.contentLayer;
         CPTColor *clear = [CPTColor clearColor];
         textLayer.fill = [CPTFill fillWithColor: clear];
         CPTMutableLineStyle *lineStyleBorder = [[CPTMutableLineStyle alloc] init];
@@ -440,10 +467,19 @@
         lineStyleBorder.lineWidth = 0.0;
         textLayer.borderLineStyle = lineStyleBorder;
         textLayer.cornerRadius = 0.0;
-        (graph.defaultPlotSpace).allowsUserInteraction = YES;
+        graph.defaultPlotSpace.allowsUserInteraction = YES;
         
         return YES;
     }
+    else if ( self.legendDraggable ) {
+        self.legendDraggable = NO;
+        graph.legend.fill            = [CPTFill fillWithColor:[[CPTColor lightGrayColor] colorWithAlphaComponent:0.5]];
+        graph.legend.borderLineStyle = graph.axisSet.axes[0].axisLineStyle;
+        graph.defaultPlotSpace.allowsUserInteraction = YES;
+        
+        return YES;
+    }
+    
     return NO;
 }
 
