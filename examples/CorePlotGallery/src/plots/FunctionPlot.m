@@ -5,6 +5,8 @@
 @interface FunctionPlot()
 
 @property (nonatomic, readwrite, strong) NSMutableSet<CPTFunctionDataSource *> *dataSources;
+@property (nonatomic, readwrite, strong) CPTMutableTextStyle *textStyle;
+@property (nonatomic, readwrite, strong) PiNumberFormatter *formatter;
 
 -(nullable CPTNativeFont *)italicFontForFont:(nonnull CPTNativeFont *)oldFont;
 
@@ -15,6 +17,8 @@
 @implementation FunctionPlot
 
 @synthesize dataSources;
+@synthesize textStyle;
+@synthesize formatter;
 
 #pragma mark -
 
@@ -74,15 +78,15 @@
     minorGridLineStyle.lineColor = [[CPTColor whiteColor] colorWithAlphaComponent:CPTFloat(0.1)];
 
     // Axes
-    PiNumberFormatter *formatter = [[PiNumberFormatter alloc] init];
-    formatter.multiplier = @4;
+    self.formatter = [[PiNumberFormatter alloc] init];
+    self.formatter.multiplier = @4;
 
     // Label x axis with a fixed interval policy
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
     x.majorIntervalLength   = @(M_PI_4);
     x.minorTicksPerInterval = 3;
-    x.labelFormatter        = formatter;
+    x.labelFormatter        = self.formatter;
     x.majorGridLineStyle    = majorGridLineStyle;
     x.minorGridLineStyle    = minorGridLineStyle;
     x.axisConstraints       = [CPTConstraints constraintWithRelativeOffset:0.5];
@@ -102,9 +106,15 @@
 
     y.title       = @"Y Axis";
     y.titleOffset = self.titleSize * CPTFloat(1.25);
+    
+    // Labels TextSyles
+    UIFont *textFont = [UIFont fontWithName:@"Helvetica" size: 10.0];
+    self.textStyle = [[CPTMutableTextStyle alloc] init];
+    self.textStyle.font = textFont;
+    self.textStyle.textAlignment = CPTTextAlignmentLeft;
 
     // Create some function plots
-    for ( NSUInteger plotNum = 0; plotNum < 2; plotNum++ ) {
+    for ( NSUInteger plotNum = 0; plotNum < 3; plotNum++ ) {
         NSString *titleString          = nil;
         CPTDataSourceFunction function = NULL;
         CPTDataSourceBlock block       = nil;
@@ -127,7 +137,16 @@
 
             case 2:
                 titleString = NSLocalizedString(@"y = tan(x)", @"y = tan(x)");
-                function    = &tan;
+                block       = ^(double xVal) {
+                    double f = tan(xVal);
+                    if (f > 3.0 || f < -3.0) {
+                        double nan = (double)NAN;
+                        return nan;
+                    }
+                    else {
+                        return tan(xVal);
+                    }
+                };
                 lineColor   = [CPTColor blueColor];
                 break;
         }
@@ -178,6 +197,8 @@
         plotDataSource.resolution = 2.0;
 
         [self.dataSources addObject:plotDataSource];
+        
+        linePlot.appearanceDataSource = self;
 
         [graph addPlot:linePlot];
     }
@@ -239,6 +260,38 @@
 }
 
 #endif
+
+#pragma  mark - Data Label Source
+
+-(nullable CPTLayer *)dataLabelForPlot:(nonnull CPTPlot *)plot recordIndex:(NSUInteger)idx {
+    CPTTextLayer *labelLayer = nil;
+    if( idx % 20  == 0.0 ) {
+        double x = [plot cachedDoubleForField:CPTScatterPlotFieldX recordIndex:idx];
+        double y = [plot cachedDoubleForField:CPTScatterPlotFieldY recordIndex:idx];
+        
+        self.formatter.multiplier = @32;
+        NSString *theta = [self.formatter stringFromNumber:[NSNumber numberWithDouble:x]];
+        NSString *annotationString = [NSString stringWithFormat:@"%@\n%0.3f", theta, y];
+        self.formatter.multiplier = @4;
+        
+        CPTMutableTextStyle *plotTextStyle = [self.textStyle mutableCopy];
+        plotTextStyle.color = ((CPTScatterPlot*)plot).dataLineStyle.lineColor;
+        labelLayer = [[CPTTextLayer alloc] initWithText:annotationString style:plotTextStyle];
+        
+        CPTMutableLineStyle *lineStyleBorder = [[CPTMutableLineStyle alloc] init];
+        lineStyleBorder.lineColor = [CPTColor blackColor];
+        lineStyleBorder.lineWidth = 0.5;
+        labelLayer.borderLineStyle = lineStyleBorder;
+        labelLayer.cornerRadius = 5.0;
+
+    }
+    return labelLayer;
+}
+
+- (NSUInteger)numberOfRecordsForPlot:(nonnull CPTPlot *)plot {
+    return 0;
+}
+
 
 #pragma mark - Legend delegate
 
