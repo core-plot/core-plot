@@ -336,7 +336,7 @@ typedef NSMutableArray<CPTAnimationOperation *> CPTMutableAnimationArray;
                     CPTDictionary *parameters = @{
                         CPTAnimationOperationKey: animationOperation,
                         CPTAnimationValueKey: [period tweenedValueForProgress:progress],
-                        CPTAnimationValueClassKey: valueClass ? valueClass : [NSNull null],
+                        CPTAnimationValueClassKey: valueClass ? valueClass : [NSNull class],
                         CPTAnimationStartedKey: @(started),
                         CPTAnimationFinishedKey: @(currentTime >= endTime)
                     };
@@ -379,7 +379,7 @@ typedef NSMutableArray<CPTAnimationOperation *> CPTMutableAnimationArray;
     if ( !canceled ) {
         @try {
             Class valueClass = parameters[CPTAnimationValueClassKey];
-            if ( [valueClass isKindOfClass:[NSNull class]] ) {
+            if ( [valueClass isEqual:[NSNull class]] ) {
                 valueClass = Nil;
             }
 
