@@ -329,8 +329,9 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
         // Workaround since @available macro is not there
 
         if ( [NSView instancesRespondToSelector:@selector(effectiveAppearance)] ) {
+            CPTGraphHostingView *hostingView = [self findHostingView];
             NSAppearance *oldAppearance = NSAppearance.currentAppearance;
-            NSAppearance.currentAppearance = ((NSView *)self.graph.hostingView).effectiveAppearance;
+            NSAppearance.currentAppearance = ((NSView *)hostingView).effectiveAppearance;
             [super display];
             NSAppearance.currentAppearance = oldAppearance;
         }
@@ -341,7 +342,8 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
 #ifdef __IPHONE_13_0
         if ( @available(iOS 13, *)) {
             if ( [UITraitCollection instancesRespondToSelector:@selector(performAsCurrentTraitCollection:)] ) {
-                UITraitCollection *traitCollection = ((UIView *)self.graph.hostingView).traitCollection;
+                CPTGraphHostingView *hostingView = [self findHostingView];
+                UITraitCollection *traitCollection = ((UIView *)hostingView).traitCollection;
                 if ( traitCollection ) {
                     [traitCollection performAsCurrentTraitCollection: ^{
                         [super display];
@@ -364,6 +366,29 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
 #endif
 #pragma clang diagnostic pop
     }
+}
+
+- (CPTGraphHostingView *)findHostingView {
+
+    CPTGraphHostingView *hostingView = self.graph.hostingView;
+    if (!hostingView &&
+        [self respondsToSelector:@selector(hostingView)]) {
+        hostingView = [self performSelector:@selector(hostingView)];
+    }
+    
+    CALayer *superlayer = self.superlayer;
+    while (superlayer && !hostingView) {
+        if ([superlayer isKindOfClass:CPTLayer.class]) {
+            CPTLayer *curLayer = (CPTLayer *)superlayer;
+            hostingView = curLayer.graph.hostingView;
+            if (!hostingView &&
+                [superlayer respondsToSelector:@selector(hostingView)]) {
+                hostingView = [superlayer performSelector:@selector(hostingView)];
+            }
+        }
+        superlayer = superlayer.superlayer;
+    }
+    return hostingView;
 }
 
 -(void)drawInContext:(nonnull CGContextRef)context
