@@ -2395,7 +2395,7 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
+			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${SOURCE_ROOT}/../scripts/generate_spm_sources_layout.sh\"\n";
 		};
 		C3E0738025CF07B6009B3E2B /* ShellScript */ = {
@@ -2412,7 +2412,7 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
+			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${SOURCE_ROOT}/../scripts/generate_spm_sources_layout.sh\"\n";
 		};
 		C3E0738125CF07C8009B3E2B /* ShellScript */ = {

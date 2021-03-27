@@ -27,6 +27,7 @@ function generate_spm_public_headers() {
 
     SRC_ROOT="$(pwd)"
 
+    mkdir -p "$SPM_PUBLIC_HEADERS_PATH"
     cd "$SPM_PUBLIC_HEADERS_PATH"
 
     for public_file in $public_headers_list; do
@@ -51,6 +52,7 @@ function generate_spm_private_sources() {
 
     SRC_ROOT="$(pwd)"
 
+    mkdir -p "$SPM_SOURCES_PATH"
     cd "$SPM_SOURCES_PATH"
 
     for private_file in $private_sources_list; do
@@ -77,6 +79,7 @@ function generate_spm_public_sources() {
 
     SRC_ROOT="$(pwd)"
 
+    mkdir -p "$SPM_SOURCES_PATH"
     cd "$SPM_SOURCES_PATH"
 
     for public_file in $public_sources_list; do
