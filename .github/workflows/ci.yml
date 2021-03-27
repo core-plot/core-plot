@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - "release-2.4"
   pull_request:
     branches:
       - "*"
