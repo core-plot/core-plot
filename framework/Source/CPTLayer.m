@@ -330,7 +330,7 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
 
         if ( [NSView instancesRespondToSelector:@selector(effectiveAppearance)] ) {
             CPTGraphHostingView *hostingView = [self findHostingView];
-            NSAppearance *oldAppearance = NSAppearance.currentAppearance;
+            NSAppearance *oldAppearance      = NSAppearance.currentAppearance;
             NSAppearance.currentAppearance = ((NSView *)hostingView).effectiveAppearance;
             [super display];
             NSAppearance.currentAppearance = oldAppearance;
@@ -342,7 +342,7 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
 #ifdef __IPHONE_13_0
         if ( @available(iOS 13, *)) {
             if ( [UITraitCollection instancesRespondToSelector:@selector(performAsCurrentTraitCollection:)] ) {
-                CPTGraphHostingView *hostingView = [self findHostingView];
+                CPTGraphHostingView *hostingView   = [self findHostingView];
                 UITraitCollection *traitCollection = ((UIView *)hostingView).traitCollection;
                 if ( traitCollection ) {
                     [traitCollection performAsCurrentTraitCollection: ^{
@@ -368,21 +368,23 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
     }
 }
 
-- (CPTGraphHostingView *)findHostingView {
-
+-(CPTGraphHostingView *)findHostingView
+{
     CPTGraphHostingView *hostingView = self.graph.hostingView;
-    if (!hostingView &&
-        [self respondsToSelector:@selector(hostingView)]) {
+
+    if ( !hostingView &&
+         [self respondsToSelector:@selector(hostingView)] ) {
         hostingView = [self performSelector:@selector(hostingView)];
     }
-    
+
     CALayer *superlayer = self.superlayer;
-    while (superlayer && !hostingView) {
-        if ([superlayer isKindOfClass:CPTLayer.class]) {
+
+    while ( superlayer && !hostingView ) {
+        if ( [superlayer isKindOfClass:CPTLayer.class] ) {
             CPTLayer *curLayer = (CPTLayer *)superlayer;
             hostingView = curLayer.graph.hostingView;
-            if (!hostingView &&
-                [superlayer respondsToSelector:@selector(hostingView)]) {
+            if ( !hostingView &&
+                 [superlayer respondsToSelector:@selector(hostingView)] ) {
                 hostingView = [superlayer performSelector:@selector(hostingView)];
             }
         }
