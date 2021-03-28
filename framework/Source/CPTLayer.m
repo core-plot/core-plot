@@ -1,6 +1,7 @@
 #import "CPTLayer.h"
 
 #import "CPTGraph.h"
+#import "CPTGraphHostingView.h"
 #import "CPTPathExtensions.h"
 #import "CPTPlatformSpecificCategories.h"
 #import "CPTPlatformSpecificFunctions.h"
@@ -32,6 +33,8 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
 
 -(void)applyTransform:(CATransform3D)transform toContext:(nonnull CGContextRef)context;
 -(nonnull NSString *)subLayersAtIndex:(NSUInteger)idx;
+
+-(CPTGraphHostingView *)findHostingView;
 
 @end
 
@@ -331,7 +334,7 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
         if ( [NSView instancesRespondToSelector:@selector(effectiveAppearance)] ) {
             CPTGraphHostingView *hostingView = [self findHostingView];
             NSAppearance *oldAppearance      = NSAppearance.currentAppearance;
-            NSAppearance.currentAppearance = ((NSView *)hostingView).effectiveAppearance;
+            NSAppearance.currentAppearance = hostingView.effectiveAppearance;
             [super display];
             NSAppearance.currentAppearance = oldAppearance;
         }
@@ -343,7 +346,7 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
         if ( @available(iOS 13, *)) {
             if ( [UITraitCollection instancesRespondToSelector:@selector(performAsCurrentTraitCollection:)] ) {
                 CPTGraphHostingView *hostingView   = [self findHostingView];
-                UITraitCollection *traitCollection = ((UIView *)hostingView).traitCollection;
+                UITraitCollection *traitCollection = hostingView.traitCollection;
                 if ( traitCollection ) {
                     [traitCollection performAsCurrentTraitCollection: ^{
                         [super display];
