@@ -1,1 +1,0 @@
-../../../../framework/Source/CPTAnimationPeriod.h

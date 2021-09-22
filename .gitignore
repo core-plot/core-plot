@@ -49,3 +49,4 @@ build/*
 # SwiftPM
 .build
 .swiftpm
+spm/
