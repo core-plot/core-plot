@@ -2,7 +2,7 @@
 
 set -e
 
-SPM_SOURCES_PATH="spm/Sources/core-plot"
+SPM_SOURCES_PATH="$SOURCE_ROOT/../spm/Sources/core-plot"
 SPM_PUBLIC_HEADERS_PATH="$SPM_SOURCES_PATH/include"
 
 # Delete all symbolik links from `spm` folder
