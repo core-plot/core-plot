@@ -3,8 +3,7 @@ name: "core-plot CI"
 on:
   push:
     branches:
-      - master
-      - "release-2.4"
+      - "*"
   pull_request:
     branches:
       - "*"
@@ -46,9 +45,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Generate SPM layout
-        run: ./scripts/generate_spm_sources_layout.sh
 
       - name: spm's xcodebuild - ${{ matrix.destination }}
         run: xcodebuild clean build -scheme "${{ matrix.scheme }}" -destination "${{ matrix.destination }}" -configuration Release
