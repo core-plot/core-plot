@@ -2,13 +2,7 @@
 
 *Cocoa plotting framework for macOS, iOS, and tvOS.*
 
-[![Build Status](https://secure.travis-ci.org/core-plot/core-plot.svg)](http://travis-ci.org/core-plot/core-plot)
-[![core-plot CI](https://github.com/core-plot/core-plot/actions/workflows/ci.yml/badge.svg)](https://github.com/core-plot/core-plot/actions/workflows/ci.yml)
-[![Version Status](https://img.shields.io/cocoapods/v/CorePlot.svg)](https://cocoapods.org/pods/CorePlot)
-[![license MIT](https://img.shields.io/cocoapods/l/CorePlot.svg)](http://opensource.org/licenses/BSD-3-Clause)
-[![Platform](https://img.shields.io/cocoapods/p/CorePlot.svg)](http://core-plot.github.io)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![Swift Package Manager compatible](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
+[![Build Status](https://secure.travis-ci.org/core-plot/core-plot.svg)](http://travis-ci.org/core-plot/core-plot) [![core-plot CI](https://github.com/core-plot/core-plot/actions/workflows/ci.yml/badge.svg)](https://github.com/core-plot/core-plot/actions/workflows/ci.yml) [![Version Status](https://img.shields.io/cocoapods/v/CorePlot.svg)](https://cocoapods.org/pods/CorePlot) [![license MIT](https://img.shields.io/cocoapods/l/CorePlot.svg)](http://opensource.org/licenses/BSD-3-Clause) [![Platform](https://img.shields.io/cocoapods/p/CorePlot.svg)](http://core-plot.github.io) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Swift Package Manager compatible](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
 
 # Introduction
 
