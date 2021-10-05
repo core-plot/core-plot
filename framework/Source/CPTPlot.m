@@ -986,6 +986,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
     if ( numbers ) {
         switch ( [thePlotSpace scaleTypeForCoordinate:coordinate] ) {
             case CPTScaleTypeLinear:
+            case CPTScaleTypeSkew:
             case CPTScaleTypeLog:
             case CPTScaleTypeLogModulus:
             {
@@ -1082,6 +1083,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 
         switch ( [thePlotSpace scaleTypeForCoordinate:coordinate] ) {
             case CPTScaleTypeLinear:
+            case CPTScaleTypeSkew:
             case CPTScaleTypeLog:
             case CPTScaleTypeLogModulus:
             {

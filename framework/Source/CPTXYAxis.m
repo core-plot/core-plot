@@ -817,6 +817,7 @@
         CPTScaleType scaleType = [thePlotSpace scaleTypeForCoordinate:theCoordinate];
 
         switch ( scaleType ) {
+            case CPTScaleTypeSkew:
             case CPTScaleTypeLinear:
                 location = axisRange.midPoint;
                 break;

@@ -1034,6 +1034,10 @@ NSDecimal CPTNiceLength(NSDecimal length);
         case CPTScaleTypeLinear:
             // supported scale type
             break;
+            
+        case CPTScaleTypeSkew:
+            // supported scale type
+            break;
 
         case CPTScaleTypeLog:
             // supported scale type--check range
@@ -1066,6 +1070,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
     // Filter troublesome values and return empty sets
     if ((length != 0.0) && !isinf(length)) {
         switch ( scaleType ) {
+            case CPTScaleTypeSkew:
             case CPTScaleTypeLinear:
             {
                 // Determine interval value
