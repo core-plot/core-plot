@@ -407,7 +407,7 @@
 
         [self relabel];
 
-        CPTPlotSpace *thePlotSpace           = self.plotSpace;
+        CPTXYPlotSpace *thePlotSpace          = (CPTXYPlotSpace *)self.plotSpace;
         CPTNumberSet *locations              = (major ? self.majorTickLocations : self.minorTickLocations);
         CPTCoordinate selfCoordinate         = self.coordinate;
         CPTCoordinate orthogonalCoordinate   = CPTOrthogonalCoordinate(selfCoordinate);
@@ -457,7 +457,11 @@
         for ( NSDecimalNumber *location in locations ) {
             NSDecimal locationDecimal = location.decimalValue;
 
-            if ( labeledRange && ![labeledRange contains:locationDecimal] ) {
+            // In the case of a skewed X plot space range, we will be providing the tick locations.
+            // Because of this, we don't want to mask out the tick locations without labels. Keep
+            // the labeled locations AND the skew lines that come from out of frame.
+            if ( labeledRange && ![labeledRange contains:locationDecimal] &&
+                !(thePlotSpace.xScaleType == CPTScaleTypeSkew) && !(self.coordinate == CPTCoordinateX)) {
                 continue;
             }
 
@@ -468,6 +472,15 @@
             CGPoint startViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:startPlotPoint numberOfCoordinates:2];
             startViewPoint.x += originTransformed.x;
             startViewPoint.y += originTransformed.y;
+                        
+            // In the case of a skewed coordinate axis system, the Y axis lines will not connect with the origin
+            // but instead only connect to the minimum slanted X axis line. This says to connect Y axis grid lines
+            // all the way to the left hand side.
+            if (thePlotSpace.xScaleType == CPTScaleTypeSkew) {
+                if (self.coordinate == CPTCoordinateY) {
+                    startViewPoint.x = 0;
+                }
+            }
 
             // End point
             CGPoint endViewPoint = [thePlotSpace plotAreaViewPointForPlotPoint:endPlotPoint numberOfCoordinates:2];
