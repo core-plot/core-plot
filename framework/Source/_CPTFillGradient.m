@@ -27,8 +27,8 @@
 #pragma mark Init/Dealloc
 
 /** @brief Initializes a newly allocated _CPTFillGradient object with the provided gradient.
- *  @param aGradient The gradient.
- *  @return The initialized _CPTFillGradient object.
+ *  @param  aGradient The gradient.
+ *  @return           The initialized _CPTFillGradient object.
  **/
 -(nonnull instancetype)initWithGradient:(nonnull CPTGradient *)aGradient
 {
@@ -42,7 +42,7 @@
 #pragma mark Drawing
 
 /** @brief Draws the gradient into the given graphics context inside the provided rectangle.
- *  @param rect The rectangle to draw into.
+ *  @param rect    The rectangle to draw into.
  *  @param context The graphics context to draw into.
  **/
 -(void)fillRect:(CGRect)rect inContext:(nonnull CGContextRef)context
@@ -100,8 +100,8 @@
 /// @endcond
 
 /** @brief Returns an object initialized from data in a given unarchiver.
- *  @param coder An unarchiver object.
- *  @return An object initialized from data in a given unarchiver.
+ *  @param  coder An unarchiver object.
+ *  @return       An object initialized from data in a given unarchiver.
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {

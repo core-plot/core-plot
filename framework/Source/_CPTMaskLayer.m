@@ -13,8 +13,8 @@
  *  This is the designated initializer. The initialized layer will have the following properties:
  *  - @ref needsDisplayOnBoundsChange = @YES
  *
- *  @param newFrame The frame rectangle.
- *  @return The initialized CPTMaskLayer object.
+ *  @param  newFrame The frame rectangle.
+ *  @return          The initialized CPTMaskLayer object.
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {

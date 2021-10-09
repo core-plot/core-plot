@@ -58,9 +58,9 @@ typedef NS_ENUM (NSInteger, CPTTradingRangePlotField) {
 /// @{
 
 /** @brief @optional Gets a range of fills used with a candlestick plot when close >= open for the given plot.
- *  @param plot The trading range plot.
- *  @param indexRange The range of the data indexes of interest.
- *  @return An array of fills.
+ *  @param  plot       The trading range plot.
+ *  @param  indexRange The range of the data indexes of interest.
+ *  @return            An array of fills.
  **/
 -(nullable CPTFillArray *)increaseFillsForTradingRangePlot:(nonnull CPTTradingRangePlot *)plot recordIndexRange:(NSRange)indexRange;
 
@@ -68,15 +68,15 @@ typedef NS_ENUM (NSInteger, CPTTradingRangePlotField) {
  *  This method will not be called if
  *  @link CPTTradingRangePlotDataSource::increaseFillsForTradingRangePlot:recordIndexRange: -increaseFillsForTradingRangePlot:recordIndexRange: @endlink
  *  is also implemented in the datasource.
- *  @param plot The trading range plot.
- *  @param idx The data index of interest.
- *  @return The bar fill for the bar with the given index. If the data source returns @nil, the default increase fill is used.
+ *  @param  plot The trading range plot.
+ *  @param  idx  The data index of interest.
+ *  @return      The bar fill for the bar with the given index. If the data source returns @nil, the default increase fill is used.
  *  If the data source returns an NSNull object, no fill is drawn.
  **/
 -(nullable CPTFill *)increaseFillForTradingRangePlot:(nonnull CPTTradingRangePlot *)plot recordIndex:(NSUInteger)idx;
 
 /** @brief @optional Gets a range of fills used with a candlestick plot when close < open for the given plot.
- *  @param plot The trading range plot.
+ *  @param plot       The trading range plot.
  *  @param indexRange The range of the data indexes of interest.
  **/
 -(nullable CPTFillArray *)decreaseFillsForTradingRangePlot:(nonnull CPTTradingRangePlot *)plot recordIndexRange:(NSRange)indexRange;
@@ -85,17 +85,17 @@ typedef NS_ENUM (NSInteger, CPTTradingRangePlotField) {
  *  This method will not be called if
  *  @link CPTTradingRangePlotDataSource::decreaseFillsForTradingRangePlot:recordIndexRange: -decreaseFillsForTradingRangePlot:recordIndexRange: @endlink
  *  is also implemented in the datasource.
- *  @param plot The trading range plot.
- *  @param idx The data index of interest.
- *  @return The bar fill for the bar with the given index. If the data source returns @nil, the default decrease fill is used.
+ *  @param  plot The trading range plot.
+ *  @param  idx  The data index of interest.
+ *  @return      The bar fill for the bar with the given index. If the data source returns @nil, the default decrease fill is used.
  *  If the data source returns an NSNull object, no fill is drawn.
  **/
 -(nullable CPTFill *)decreaseFillForTradingRangePlot:(nonnull CPTTradingRangePlot *)plot recordIndex:(NSUInteger)idx;
 
 /** @brief @optional Gets an array of bar widths for the given trading range plot.
- *  @param plot The trading range plot.
- *  @param indexRange The range of the data indexes of interest.
- *  @return An array of bar widths.
+ *  @param  plot       The trading range plot.
+ *  @param  indexRange The range of the data indexes of interest.
+ *  @return            An array of bar widths.
  **/
 -(nullable CPTNumberArray *)barWidthsForTradingRangePlot:(nonnull CPTTradingRangePlot *)plot recordIndexRange:(NSRange)indexRange;
 
@@ -103,9 +103,9 @@ typedef NS_ENUM (NSInteger, CPTTradingRangePlotField) {
  *  This method will not be called if
  *  @link CPTTradingRangePlotDataSource::barWidthsForTradingRangePlot:recordIndexRange: -barWidthsForTradingRangePlot:recordIndexRange: @endlink
  *  is also implemented in the datasource.
- *  @param plot The trading range plot.
- *  @param idx The data index of interest.
- *  @return The bar width for the bar with the given index. If the data source returns @nil, the default barWidth is used.
+ *  @param  plot The trading range plot.
+ *  @param  idx  The data index of interest.
+ *  @return      The bar width for the bar with the given index. If the data source returns @nil, the default barWidth is used.
  **/
 -(nullable NSNumber *)barWidthForTradingRangePlot:(nonnull CPTTradingRangePlot *)plot recordIndex:(NSUInteger)idx;
 
@@ -115,9 +115,9 @@ typedef NS_ENUM (NSInteger, CPTTradingRangePlotField) {
 /// @{
 
 /** @brief @optional Gets a range of line styles used to draw candlestick or OHLC symbols for the given trading range plot.
- *  @param plot The trading range plot.
- *  @param indexRange The range of the data indexes of interest.
- *  @return An array of line styles.
+ *  @param  plot       The trading range plot.
+ *  @param  indexRange The range of the data indexes of interest.
+ *  @return            An array of line styles.
  **/
 -(nullable CPTLineStyleArray *)lineStylesForTradingRangePlot:(nonnull CPTTradingRangePlot *)plot recordIndexRange:(NSRange)indexRange;
 
@@ -125,17 +125,17 @@ typedef NS_ENUM (NSInteger, CPTTradingRangePlotField) {
  *  This method will not be called if
  *  @link CPTTradingRangePlotDataSource::lineStylesForTradingRangePlot:recordIndexRange: -lineStylesForTradingRangePlot:recordIndexRange: @endlink
  *  is also implemented in the datasource.
- *  @param plot The trading range plot.
- *  @param idx The data index of interest.
- *  @return The line style for the symbol with the given index. If the data source returns @nil, the default line style is used.
+ *  @param  plot The trading range plot.
+ *  @param  idx  The data index of interest.
+ *  @return      The line style for the symbol with the given index. If the data source returns @nil, the default line style is used.
  *  If the data source returns an NSNull object, no line is drawn.
  **/
 -(nullable CPTLineStyle *)lineStyleForTradingRangePlot:(nonnull CPTTradingRangePlot *)plot recordIndex:(NSUInteger)idx;
 
 /** @brief @optional Gets a range of line styles used to outline candlestick symbols when close >= open for the given trading range plot.
- *  @param plot The trading range plot.
- *  @param indexRange The range of the data indexes of interest.
- *  @return An array of line styles.
+ *  @param  plot       The trading range plot.
+ *  @param  indexRange The range of the data indexes of interest.
+ *  @return            An array of line styles.
  **/
 -(nullable CPTLineStyleArray *)increaseLineStylesForTradingRangePlot:(nonnull CPTTradingRangePlot *)plot recordIndexRange:(NSRange)indexRange;
 
@@ -143,17 +143,17 @@ typedef NS_ENUM (NSInteger, CPTTradingRangePlotField) {
  *  This method will not be called if
  *  @link CPTTradingRangePlotDataSource::increaseLineStylesForTradingRangePlot:recordIndexRange: -increaseLineStylesForTradingRangePlot:recordIndexRange: @endlink
  *  is also implemented in the datasource.
- *  @param plot The trading range plot.
- *  @param idx The data index of interest.
- *  @return The line line style for the symbol with the given index. If the data source returns @nil, the default increase line style is used.
+ *  @param  plot The trading range plot.
+ *  @param  idx  The data index of interest.
+ *  @return      The line line style for the symbol with the given index. If the data source returns @nil, the default increase line style is used.
  *  If the data source returns an NSNull object, no line is drawn.
  **/
 -(nullable CPTLineStyle *)increaseLineStyleForTradingRangePlot:(nonnull CPTTradingRangePlot *)plot recordIndex:(NSUInteger)idx;
 
 /** @brief @optional Gets a range of line styles used to outline candlestick symbols when close < open for the given trading range plot.
- *  @param plot The trading range plot.
- *  @param indexRange The range of the data indexes of interest.
- *  @return An array of line styles.
+ *  @param  plot       The trading range plot.
+ *  @param  indexRange The range of the data indexes of interest.
+ *  @return            An array of line styles.
  **/
 -(nullable CPTLineStyleArray *)decreaseLineStylesForTradingRangePlot:(nonnull CPTTradingRangePlot *)plot recordIndexRange:(NSRange)indexRange;
 
@@ -161,9 +161,9 @@ typedef NS_ENUM (NSInteger, CPTTradingRangePlotField) {
  *  This method will not be called if
  *  @link CPTTradingRangePlotDataSource::decreaseLineStylesForTradingRangePlot:recordIndexRange: -decreaseLineStylesForTradingRangePlot:recordIndexRange: @endlink
  *  is also implemented in the datasource.
- *  @param plot The trading range plot.
- *  @param idx The data index of interest.
- *  @return The line line style for the symbol with the given index. If the data source returns @nil, the default decrease line style is used.
+ *  @param  plot The trading range plot.
+ *  @param  idx  The data index of interest.
+ *  @return      The line line style for the symbol with the given index. If the data source returns @nil, the default decrease line style is used.
  *  If the data source returns an NSNull object, no line is drawn.
  **/
 -(nullable CPTLineStyle *)decreaseLineStyleForTradingRangePlot:(nonnull CPTTradingRangePlot *)plot recordIndex:(NSUInteger)idx;
@@ -188,7 +188,7 @@ typedef NS_ENUM (NSInteger, CPTTradingRangePlotField) {
  *  @if MacOnly was both pressed and released. @endif
  *  @if iOSOnly received both the touch down and up events. @endif
  *  @param plot The trading range plot.
- *  @param idx The index of the
+ *  @param idx  The index of the
  *  @if MacOnly clicked bar. @endif
  *  @if iOSOnly touched bar. @endif
  **/
@@ -197,8 +197,8 @@ typedef NS_ENUM (NSInteger, CPTTradingRangePlotField) {
 /** @brief @optional Informs the delegate that a bar
  *  @if MacOnly was both pressed and released. @endif
  *  @if iOSOnly received both the touch down and up events. @endif
- *  @param plot The trading range plot.
- *  @param idx The index of the
+ *  @param plot  The trading range plot.
+ *  @param idx   The index of the
  *  @if MacOnly clicked bar. @endif
  *  @if iOSOnly touched bar. @endif
  *  @param event The event that triggered the selection.
@@ -209,7 +209,7 @@ typedef NS_ENUM (NSInteger, CPTTradingRangePlotField) {
  *  @if MacOnly was pressed. @endif
  *  @if iOSOnly touch started. @endif
  *  @param plot The trading range plot.
- *  @param idx The index of the
+ *  @param idx  The index of the
  *  @if MacOnly clicked bar. @endif
  *  @if iOSOnly touched bar. @endif
  **/
@@ -218,8 +218,8 @@ typedef NS_ENUM (NSInteger, CPTTradingRangePlotField) {
 /** @brief @optional Informs the delegate that a bar
  *  @if MacOnly was pressed. @endif
  *  @if iOSOnly touch started. @endif
- *  @param plot The trading range plot.
- *  @param idx The index of the
+ *  @param plot  The trading range plot.
+ *  @param idx   The index of the
  *  @if MacOnly clicked bar. @endif
  *  @if iOSOnly touched bar. @endif
  *  @param event The event that triggered the selection.
@@ -230,7 +230,7 @@ typedef NS_ENUM (NSInteger, CPTTradingRangePlotField) {
  *  @if MacOnly was released. @endif
  *  @if iOSOnly touch ended. @endif
  *  @param plot The trading range plot.
- *  @param idx The index of the
+ *  @param idx  The index of the
  *  @if MacOnly clicked bar. @endif
  *  @if iOSOnly touched bar. @endif
  **/
@@ -239,8 +239,8 @@ typedef NS_ENUM (NSInteger, CPTTradingRangePlotField) {
 /** @brief @optional Informs the delegate that a bar
  *  @if MacOnly was released. @endif
  *  @if iOSOnly touch ended. @endif
- *  @param plot The trading range plot.
- *  @param idx The index of the
+ *  @param plot  The trading range plot.
+ *  @param idx   The index of the
  *  @if MacOnly clicked bar. @endif
  *  @if iOSOnly touched bar. @endif
  *  @param event The event that triggered the selection.

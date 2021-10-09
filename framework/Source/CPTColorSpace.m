@@ -50,8 +50,8 @@
 /** @brief Initializes a newly allocated colorspace object with the specified color space.
  *  This is the designated initializer.
  *
- *  @param colorSpace The color space.
- *  @return The initialized CPTColorSpace object.
+ *  @param  colorSpace The color space.
+ *  @return            The initialized CPTColorSpace object.
  **/
 -(nonnull instancetype)initWithCGColorSpace:(nonnull CGColorSpaceRef)colorSpace
 {
@@ -101,8 +101,8 @@
 /// @endcond
 
 /** @brief Returns an object initialized from data in a given unarchiver.
- *  @param coder An unarchiver object.
- *  @return An object initialized from data in a given unarchiver.
+ *  @param  coder An unarchiver object.
+ *  @return       An object initialized from data in a given unarchiver.
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {

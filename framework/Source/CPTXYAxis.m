@@ -62,8 +62,8 @@
  *  - @ref orthogonalPosition = @num{0}
  *  - @ref axisConstraints = @nil
  *
- *  @param newFrame The frame rectangle.
- *  @return The initialized CPTXYAxis object.
+ *  @param  newFrame The frame rectangle.
+ *  @return          The initialized CPTXYAxis object.
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {

@@ -349,8 +349,8 @@
 }
 
 /** @brief Creates and returns a new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeCustom.
- *  @param aPath The bounding path for the custom line cap.
- *  @return A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeCustom.
+ *  @param  aPath The bounding path for the custom line cap.
+ *  @return       A new CPTLineCap instance initialized with a line cap type of #CPTLineCapTypeCustom.
  **/
 +(nonnull instancetype)customLineCapWithPath:(nullable CGPathRef)aPath
 {
@@ -392,8 +392,8 @@
 #pragma mark Drawing
 
 /** @brief Draws the line cap into the given graphics context centered at the provided point.
- *  @param context The graphics context to draw into.
- *  @param center The center point of the line cap.
+ *  @param context   The graphics context to draw into.
+ *  @param center    The center point of the line cap.
  *  @param direction The direction the line is pointing.
  **/
 -(void)renderAsVectorInContext:(nonnull CGContextRef)context atPoint:(CGPoint)center inDirection:(CGPoint)direction

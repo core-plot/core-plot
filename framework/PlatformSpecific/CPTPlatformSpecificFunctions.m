@@ -77,8 +77,8 @@ void CPTPopCGContext(void)
  *
  *  The caller must release the returned @ref CGColorRef. Pattern colors are not supported.
  *
- *  @param nsColor The NSColor.
- *  @return The @ref CGColorRef.
+ *  @param  nsColor The NSColor.
+ *  @return         The @ref CGColorRef.
  **/
 __nonnull CGColorRef CPTCreateCGColorFromNSColor(NSColor *__nonnull nsColor)
 {
@@ -93,8 +93,8 @@ __nonnull CGColorRef CPTCreateCGColorFromNSColor(NSColor *__nonnull nsColor)
  *
  *  Pattern colors are not supported.
  *
- *  @param nsColor The NSColor.
- *  @return The CPTRGBAColor.
+ *  @param  nsColor The NSColor.
+ *  @return         The CPTRGBAColor.
  **/
 CPTRGBAColor CPTRGBAColorFromNSColor(NSColor *__nonnull nsColor)
 {

@@ -114,8 +114,8 @@
  *
  *  The line style will be initialized with values from the given @par{lineStyle}.
  *
- *  @param lineStyle An existing CPTLineStyle.
- *  @return A new line style instance.
+ *  @param  lineStyle An existing CPTLineStyle.
+ *  @return           A new line style instance.
  **/
 +(nonnull instancetype)lineStyleWithStyle:(nullable CPTLineStyle *)lineStyle
 {
@@ -281,7 +281,7 @@
 /** @brief Stroke a rectangular path in the given graphics context.
  *  Call @link CPTLineStyle::setLineStyleInContext: -setLineStyleInContext: @endlink first to set up the drawing properties.
  *
- *  @param rect The rectangle to draw.
+ *  @param rect    The rectangle to draw.
  *  @param context The graphics context.
  **/
 -(void)strokeRect:(CGRect)rect inContext:(nonnull CGContextRef)context

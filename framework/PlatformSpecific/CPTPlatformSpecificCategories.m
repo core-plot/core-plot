@@ -81,7 +81,7 @@
 @implementation NSAttributedString(CPTPlatformSpecificAttributedStringExtensions)
 
 /** @brief Draws the styled text into the given graphics context.
- *  @param rect The bounding rectangle in which to draw the text.
+ *  @param rect    The bounding rectangle in which to draw the text.
  *  @param context The graphics context to draw into.
  **/
 -(void)drawInRect:(CGRect)rect inContext:(nonnull CGContextRef)context
@@ -166,8 +166,8 @@
 @implementation NSNumber(CPTPlatformSpecificNumberExtensions)
 
 /** @brief Returns a Boolean value that indicates whether the receiver is less than another given number.
- *  @param other The other number to compare to the receiver.
- *  @return @YES if the receiver is less than other, otherwise @NO.
+ *  @param  other The other number to compare to the receiver.
+ *  @return       @YES if the receiver is less than other, otherwise @NO.
  **/
 -(BOOL)isLessThan:(nonnull NSNumber *)other
 {
@@ -175,8 +175,8 @@
 }
 
 /** @brief Returns a Boolean value that indicates whether the receiver is less than or equal to another given number.
- *  @param other The other number to compare to the receiver.
- *  @return @YES if the receiver is less than or equal to other, otherwise @NO.
+ *  @param  other The other number to compare to the receiver.
+ *  @return       @YES if the receiver is less than or equal to other, otherwise @NO.
  **/
 -(BOOL)isLessThanOrEqualTo:(nonnull NSNumber *)other
 {
@@ -184,8 +184,8 @@
 }
 
 /** @brief Returns a Boolean value that indicates whether the receiver is greater than another given number.
- *  @param other The other number to compare to the receiver.
- *  @return @YES if the receiver is greater than other, otherwise @NO.
+ *  @param  other The other number to compare to the receiver.
+ *  @return       @YES if the receiver is greater than other, otherwise @NO.
  **/
 -(BOOL)isGreaterThan:(nonnull NSNumber *)other
 {
@@ -193,8 +193,8 @@
 }
 
 /** @brief Returns a Boolean value that indicates whether the receiver is greater than or equal to another given number.
- *  @param other The other number to compare to the receiver.
- *  @return @YES if the receiver is greater than or equal to other, otherwise @NO.
+ *  @param  other The other number to compare to the receiver.
+ *  @return       @YES if the receiver is greater than or equal to other, otherwise @NO.
  **/
 -(BOOL)isGreaterThanOrEqualTo:(nonnull NSNumber *)other
 {
@@ -208,9 +208,9 @@
 @implementation NSAttributedString(CPTPlatformSpecificAttributedStringExtensions)
 
 /** @brief Draws the styled text into the given graphics context.
- *  @param rect The bounding rectangle in which to draw the text.
+ *  @param rect    The bounding rectangle in which to draw the text.
  *  @param context The graphics context to draw into.
- *  @since Available on iOS 6.0 and later. Does nothing on earlier versions.
+ *  @since         Available on iOS 6.0 and later. Does nothing on earlier versions.
  **/
 -(void)drawInRect:(CGRect)rect inContext:(nonnull CGContextRef)context
 {

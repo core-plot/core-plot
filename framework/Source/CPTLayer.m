@@ -164,8 +164,8 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
  *  - @ref opaque = @NO
  *  - @ref masksToBounds = @NO
  *
- *  @param newFrame The frame rectangle.
- *  @return The initialized object.
+ *  @param  newFrame The frame rectangle.
+ *  @return          The initialized object.
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
@@ -205,8 +205,8 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
 /// @}
 
 /** @brief Override to copy or initialize custom fields of the specified layer.
- *  @param layer The layer from which custom fields should be copied.
- *  @return A layer instance with any custom instance variables copied from @par{layer}.
+ *  @param  layer The layer from which custom fields should be copied.
+ *  @return       A layer instance with any custom instance variables copied from @par{layer}.
  */
 -(nonnull instancetype)initWithLayer:(nonnull id)layer
 {
@@ -266,8 +266,8 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
 /// @endcond
 
 /** @brief Returns an object initialized from data in a given unarchiver.
- *  @param coder An unarchiver object.
- *  @return An object initialized from data in a given unarchiver.
+ *  @param  coder An unarchiver object.
+ *  @return       An object initialized from data in a given unarchiver.
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
@@ -757,9 +757,9 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
 /// @endcond
 
 /** @brief Returns the margins that should be left between the bounds of the receiver and all sublayers.
- *  @param left The left margin.
- *  @param top The top margin.
- *  @param right The right margin.
+ *  @param left   The left margin.
+ *  @param top    The top margin.
+ *  @param right  The right margin.
  *  @param bottom The bottom margin.
  **/
 -(void)sublayerMarginLeft:(nonnull CGFloat *)left top:(nonnull CGFloat *)top right:(nonnull CGFloat *)right bottom:(nonnull CGFloat *)bottom
@@ -873,9 +873,9 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
  *  The clipping path is built by recursively climbing the layer tree and combining the sublayer masks from
  *  each super layer. The tree traversal stops when a layer is encountered that is not a CPTLayer.
  *
- *  @param context The graphics context to clip.
+ *  @param context  The graphics context to clip.
  *  @param sublayer The sublayer that called this method.
- *  @param offset The cumulative position offset between the receiver and the first layer in the recursive calling chain.
+ *  @param offset   The cumulative position offset between the receiver and the first layer in the recursive calling chain.
  **/
 -(void)applySublayerMaskToContext:(nonnull CGContextRef)context forSublayer:(nonnull CPTLayer *)sublayer withOffset:(CGPoint)offset
 {

@@ -3,8 +3,8 @@
 @implementation NSNumber(CPTExtensions)
 
 /** @brief Creates and returns an NSNumber object containing a given value, treating it as a @ref CGFloat.
- *  @param number The value for the new number.
- *  @return An NSNumber object containing value, treating it as a @ref CGFloat.
+ *  @param  number The value for the new number.
+ *  @return        An NSNumber object containing value, treating it as a @ref CGFloat.
  **/
 +(nonnull instancetype)numberWithCGFloat:(CGFloat)number
 {
@@ -24,8 +24,8 @@
 }
 
 /** @brief Returns an NSNumber object initialized to contain a given value, treated as a @ref CGFloat.
- *  @param number The value for the new number.
- *  @return An NSNumber object containing value, treating it as a @ref CGFloat.
+ *  @param  number The value for the new number.
+ *  @return        An NSNumber object containing value, treating it as a @ref CGFloat.
  **/
 -(nonnull instancetype)initWithCGFloat:(CGFloat)number
 {

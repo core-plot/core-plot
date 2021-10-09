@@ -38,10 +38,10 @@
 
 /** @brief Initializes a newly allocated CPTXYGraph object with the provided frame rectangle and scale types.
  *
- *  @param newFrame The frame rectangle.
- *  @param newXScaleType The scale type for the x-axis.
- *  @param newYScaleType The scale type for the y-axis.
- *  @return The initialized CPTXYGraph object.
+ *  @param  newFrame      The frame rectangle.
+ *  @param  newXScaleType The scale type for the x-axis.
+ *  @param  newYScaleType The scale type for the y-axis.
+ *  @return               The initialized CPTXYGraph object.
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame xScaleType:(CPTScaleType)newXScaleType yScaleType:(CPTScaleType)newYScaleType
 {
@@ -61,9 +61,9 @@
  *  - @link CPTXYPlotSpace::xScaleType xScaleType @endlink = #CPTScaleTypeLinear
  *  - @link CPTXYPlotSpace::yScaleType yScaleType @endlink = #CPTScaleTypeLinear
  *
- *  @param newFrame The frame rectangle.
- *  @return The initialized CPTXYGraph object.
- *  @see @link CPTXYGraph::initWithFrame:xScaleType:yScaleType: -initWithFrame:xScaleType:yScaleType: @endlink
+ *  @param  newFrame The frame rectangle.
+ *  @return          The initialized CPTXYGraph object.
+ *  @see             @link CPTXYGraph::initWithFrame:xScaleType:yScaleType: -initWithFrame:xScaleType:yScaleType: @endlink
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {

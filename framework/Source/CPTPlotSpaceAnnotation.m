@@ -52,9 +52,9 @@
  *  This is the designated initializer. The initialized layer will be anchored to
  *  a point in plot coordinates.
  *
- *  @param newPlotSpace The plot space which the anchor is defined in. Must be non-@nil.
- *  @param newPlotPoint An array of NSDecimalNumber objects giving the anchor plot coordinates.
- *  @return The initialized CPTPlotSpaceAnnotation object.
+ *  @param  newPlotSpace The plot space which the anchor is defined in. Must be non-@nil.
+ *  @param  newPlotPoint An array of NSDecimalNumber objects giving the anchor plot coordinates.
+ *  @return              The initialized CPTPlotSpaceAnnotation object.
  **/
 -(nonnull instancetype)initWithPlotSpace:(nonnull CPTPlotSpace *)newPlotSpace anchorPlotPoint:(nullable CPTNumberArray *)newPlotPoint
 {
@@ -107,8 +107,8 @@
 /// @endcond
 
 /** @brief Returns an object initialized from data in a given unarchiver.
- *  @param coder An unarchiver object.
- *  @return An object initialized from data in a given unarchiver.
+ *  @param  coder An unarchiver object.
+ *  @return       An object initialized from data in a given unarchiver.
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {

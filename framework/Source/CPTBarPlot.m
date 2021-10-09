@@ -168,9 +168,9 @@ CPTBarPlotBinding const CPTBarPlotBindingBarWidths     = @"barWidths";     ///< 
 #pragma mark Convenience Factory Methods
 
 /** @brief Creates and returns a new CPTBarPlot instance initialized with a bar fill consisting of a linear gradient between black and the given color.
- *  @param color The beginning color.
- *  @param horizontal If @YES, the bars will have a horizontal orientation, otherwise they will be vertical.
- *  @return A new CPTBarPlot instance initialized with a linear gradient bar fill.
+ *  @param  color      The beginning color.
+ *  @param  horizontal If @YES, the bars will have a horizontal orientation, otherwise they will be vertical.
+ *  @return            A new CPTBarPlot instance initialized with a linear gradient bar fill.
  **/
 +(nonnull instancetype)tubularBarPlotWithColor:(nonnull CPTColor *)color horizontalBars:(BOOL)horizontal
 {
@@ -238,8 +238,8 @@ CPTBarPlotBinding const CPTBarPlotBindingBarWidths     = @"barWidths";     ///< 
  *  - @ref labelOffset = @num{10.0}
  *  - @ref labelField = #CPTBarPlotFieldBarTip
  *
- *  @param newFrame The frame rectangle.
- *  @return The initialized CPTBarPlot object.
+ *  @param  newFrame The frame rectangle.
+ *  @return          The initialized CPTBarPlot object.
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
@@ -1381,8 +1381,8 @@ CPTBarPlotBinding const CPTBarPlotBindingBarWidths     = @"barWidths";     ///< 
 
 /** @internal
  *  @brief The title text of a legend entry.
- *  @param idx The index of the desired title.
- *  @return The title of the legend entry at the requested index.
+ *  @param  idx The index of the desired title.
+ *  @return     The title of the legend entry at the requested index.
  **/
 -(nullable NSString *)titleForLegendEntryAtIndex:(NSUInteger)idx
 {
@@ -1402,8 +1402,8 @@ CPTBarPlotBinding const CPTBarPlotBindingBarWidths     = @"barWidths";     ///< 
 
 /** @internal
  *  @brief The styled title text of a legend entry.
- *  @param idx The index of the desired title.
- *  @return The styled title of the legend entry at the requested index.
+ *  @param  idx The index of the desired title.
+ *  @return     The styled title of the legend entry at the requested index.
  **/
 -(nullable NSAttributedString *)attributedTitleForLegendEntryAtIndex:(NSUInteger)idx
 {
@@ -1468,9 +1468,9 @@ CPTBarPlotBinding const CPTBarPlotBindingBarWidths     = @"barWidths";     ///< 
  *  index where the @par{interactionPoint} is inside a bar.
  *  This method returns @NO if the @par{interactionPoint} is outside all of the bars.
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceDownEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
@@ -1534,9 +1534,9 @@ CPTBarPlotBinding const CPTBarPlotBindingBarWidths     = @"barWidths";     ///< 
  *  @link CPTBarPlotDelegate::barPlot:barWasSelectedAtRecordIndex:withEvent: -barPlot:barWasSelectedAtRecordIndex:withEvent: @endlink
  *  methods, these will be called.
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceUpEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {

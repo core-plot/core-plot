@@ -74,9 +74,9 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotHistogramOption) {
 /// @{
 
 /** @brief @optional Gets a range of plot symbols for the given scatter plot.
- *  @param plot The scatter plot.
- *  @param indexRange The range of the data indexes of interest.
- *  @return An array of plot symbols.
+ *  @param  plot       The scatter plot.
+ *  @param  indexRange The range of the data indexes of interest.
+ *  @return            An array of plot symbols.
  **/
 -(nullable CPTPlotSymbolArray *)symbolsForScatterPlot:(nonnull CPTScatterPlot *)plot recordIndexRange:(NSRange)indexRange;
 
@@ -84,9 +84,9 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotHistogramOption) {
  *  This method will not be called if
  *  @link CPTScatterPlotDataSource::symbolsForScatterPlot:recordIndexRange: -symbolsForScatterPlot:recordIndexRange: @endlink
  *  is also implemented in the datasource.
- *  @param plot The scatter plot.
- *  @param idx The data index of interest.
- *  @return The plot symbol to show for the point with the given index.
+ *  @param  plot The scatter plot.
+ *  @param  idx  The data index of interest.
+ *  @return      The plot symbol to show for the point with the given index.
  **/
 -(nullable CPTPlotSymbol *)symbolForScatterPlot:(nonnull CPTScatterPlot *)plot recordIndex:(NSUInteger)idx;
 
@@ -110,7 +110,7 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotHistogramOption) {
  *  @if MacOnly was both pressed and released. @endif
  *  @if iOSOnly received both the touch down and up events. @endif
  *  @param plot The scatter plot.
- *  @param idx The index of the
+ *  @param idx  The index of the
  *  @if MacOnly clicked data point. @endif
  *  @if iOSOnly touched data point. @endif
  **/
@@ -119,8 +119,8 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotHistogramOption) {
 /** @brief @optional Informs the delegate that a data point
  *  @if MacOnly was both pressed and released. @endif
  *  @if iOSOnly received both the touch down and up events. @endif
- *  @param plot The scatter plot.
- *  @param idx The index of the
+ *  @param plot  The scatter plot.
+ *  @param idx   The index of the
  *  @if MacOnly clicked data point. @endif
  *  @if iOSOnly touched data point. @endif
  *  @param event The event that triggered the selection.
@@ -131,7 +131,7 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotHistogramOption) {
  *  @if MacOnly was pressed. @endif
  *  @if iOSOnly touch started. @endif
  *  @param plot The scatter plot.
- *  @param idx The index of the
+ *  @param idx  The index of the
  *  @if MacOnly clicked data point. @endif
  *  @if iOSOnly touched data point. @endif
  **/
@@ -140,8 +140,8 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotHistogramOption) {
 /** @brief @optional Informs the delegate that a data point
  *  @if MacOnly was pressed. @endif
  *  @if iOSOnly touch started. @endif
- *  @param plot The scatter plot.
- *  @param idx The index of the
+ *  @param plot  The scatter plot.
+ *  @param idx   The index of the
  *  @if MacOnly clicked data point. @endif
  *  @if iOSOnly touched data point. @endif
  *  @param event The event that triggered the selection.
@@ -152,7 +152,7 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotHistogramOption) {
  *  @if MacOnly was released. @endif
  *  @if iOSOnly touch ended. @endif
  *  @param plot The scatter plot.
- *  @param idx The index of the
+ *  @param idx  The index of the
  *  @if MacOnly clicked data point. @endif
  *  @if iOSOnly touched data point. @endif
  **/
@@ -161,8 +161,8 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotHistogramOption) {
 /** @brief @optional Informs the delegate that a data point
  *  @if MacOnly was released. @endif
  *  @if iOSOnly touch ended. @endif
- *  @param plot The scatter plot.
- *  @param idx The index of the
+ *  @param plot  The scatter plot.
+ *  @param idx   The index of the
  *  @if MacOnly clicked data point. @endif
  *  @if iOSOnly touched data point. @endif
  *  @param event The event that triggered the selection.
@@ -184,7 +184,7 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotHistogramOption) {
 /** @brief @optional Informs the delegate that
  *  @if MacOnly the mouse was both pressed and released on the plot line.@endif
  *  @if iOSOnly the plot line received both the touch down and up events. @endif
- *  @param plot The scatter plot.
+ *  @param plot  The scatter plot.
  *  @param event The event that triggered the selection.
  **/
 -(void)scatterPlot:(nonnull CPTScatterPlot *)plot dataLineWasSelectedWithEvent:(nonnull CPTNativeEvent *)event;
@@ -201,7 +201,7 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotHistogramOption) {
  *  @if MacOnly the mouse was pressed @endif
  *  @if iOSOnly touch started @endif
  *  while over the plot line.
- *  @param plot The scatter plot.
+ *  @param plot  The scatter plot.
  *  @param event The event that triggered the selection.
  **/
 -(void)scatterPlot:(nonnull CPTScatterPlot *)plot dataLineTouchDownWithEvent:(nonnull CPTNativeEvent *)event;
@@ -218,7 +218,7 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotHistogramOption) {
  *  @if MacOnly the mouse was released @endif
  *  @if iOSOnly touch ended @endif
  *  while over the plot line.
- *  @param plot The scatter plot.
+ *  @param plot  The scatter plot.
  *  @param event The event that triggered the selection.
  **/
 -(void)scatterPlot:(nonnull CPTScatterPlot *)plot dataLineTouchUpWithEvent:(nonnull CPTNativeEvent *)event;
@@ -231,9 +231,9 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotHistogramOption) {
 /** @brief @optional Gives the delegate an opportunity to do something just before the
  *  plot line will be drawn. A common operation is to draw a selection indicator for the
  *  plot line. This is called after the plot fill has been drawn.
- *  @param plot The scatter plot.
+ *  @param plot         The scatter plot.
  *  @param dataLinePath The CGPath describing the plot line that is about to be drawn.
- *  @param context The graphics context in which the plot line will be drawn.
+ *  @param context      The graphics context in which the plot line will be drawn.
  **/
 -(void)scatterPlot:(nonnull CPTScatterPlot *)plot prepareForDrawingPlotLine:(nonnull CGPathRef)dataLinePath inContext:(nonnull CGContextRef)context;
 

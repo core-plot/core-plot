@@ -51,8 +51,8 @@
  *  - @ref masksToBorder = @YES
  *  - @ref needsDisplayOnBoundsChange = @YES
  *
- *  @param newFrame The frame rectangle.
- *  @return The initialized CPTPlotAreaFrame object.
+ *  @param  newFrame The frame rectangle.
+ *  @return          The initialized CPTPlotAreaFrame object.
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
@@ -130,9 +130,9 @@
  *  @if MacOnly pressed the mouse button. @endif
  *  @if iOSOnly touched the screen. @endif
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceDownEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
@@ -149,9 +149,9 @@
  *  @if MacOnly released the mouse button. @endif
  *  @if iOSOnly lifted their finger off the screen. @endif
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceUpEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
@@ -168,9 +168,9 @@
  *  @if MacOnly the mouse with the button pressed. @endif
  *  @if iOSOnly their finger while touching the screen. @endif
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceDraggedEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
@@ -188,8 +188,8 @@
  *  @if iOSOnly touches @endif
  *  has been cancelled for any reason.
  *
- *  @param event The OS event.
- *  @return Whether the event was handled or not.
+ *  @param  event The OS event.
+ *  @return       Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceCancelledEvent:(nonnull CPTNativeEvent *)event
 {

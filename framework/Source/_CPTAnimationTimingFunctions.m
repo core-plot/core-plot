@@ -9,9 +9,9 @@
 
 /**
  *  @brief Computes a linear animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionLinear(CGFloat elapsedTime, CGFloat duration)
 {
@@ -33,9 +33,9 @@ CGFloat CPTAnimationTimingFunctionLinear(CGFloat elapsedTime, CGFloat duration)
 
 /**
  *  @brief Computes a backing in animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionBackIn(CGFloat elapsedTime, CGFloat duration)
 {
@@ -56,9 +56,9 @@ CGFloat CPTAnimationTimingFunctionBackIn(CGFloat elapsedTime, CGFloat duration)
 
 /**
  *  @brief Computes a backing out animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionBackOut(CGFloat elapsedTime, CGFloat duration)
 {
@@ -79,9 +79,9 @@ CGFloat CPTAnimationTimingFunctionBackOut(CGFloat elapsedTime, CGFloat duration)
 
 /**
  *  @brief Computes a backing in and out animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionBackInOut(CGFloat elapsedTime, CGFloat duration)
 {
@@ -112,9 +112,9 @@ CGFloat CPTAnimationTimingFunctionBackInOut(CGFloat elapsedTime, CGFloat duratio
 
 /**
  *  @brief Computes a bounce in animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionBounceIn(CGFloat elapsedTime, CGFloat duration)
 {
@@ -123,9 +123,9 @@ CGFloat CPTAnimationTimingFunctionBounceIn(CGFloat elapsedTime, CGFloat duration
 
 /**
  *  @brief Computes a bounce out animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionBounceOut(CGFloat elapsedTime, CGFloat duration)
 {
@@ -161,9 +161,9 @@ CGFloat CPTAnimationTimingFunctionBounceOut(CGFloat elapsedTime, CGFloat duratio
 
 /**
  *  @brief Computes a bounce in and out animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionBounceInOut(CGFloat elapsedTime, CGFloat duration)
 {
@@ -181,9 +181,9 @@ CGFloat CPTAnimationTimingFunctionBounceInOut(CGFloat elapsedTime, CGFloat durat
 
 /**
  *  @brief Computes a circular in animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionCircularIn(CGFloat elapsedTime, CGFloat duration)
 {
@@ -202,9 +202,9 @@ CGFloat CPTAnimationTimingFunctionCircularIn(CGFloat elapsedTime, CGFloat durati
 
 /**
  *  @brief Computes a circular out animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionCircularOut(CGFloat elapsedTime, CGFloat duration)
 {
@@ -223,9 +223,9 @@ CGFloat CPTAnimationTimingFunctionCircularOut(CGFloat elapsedTime, CGFloat durat
 
 /**
  *  @brief Computes a circular in and out animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionCircularInOut(CGFloat elapsedTime, CGFloat duration)
 {
@@ -254,9 +254,9 @@ CGFloat CPTAnimationTimingFunctionCircularInOut(CGFloat elapsedTime, CGFloat dur
 
 /**
  *  @brief Computes a elastic in animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionElasticIn(CGFloat elapsedTime, CGFloat duration)
 {
@@ -280,9 +280,9 @@ CGFloat CPTAnimationTimingFunctionElasticIn(CGFloat elapsedTime, CGFloat duratio
 
 /**
  *  @brief Computes a elastic out animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionElasticOut(CGFloat elapsedTime, CGFloat duration)
 {
@@ -304,9 +304,9 @@ CGFloat CPTAnimationTimingFunctionElasticOut(CGFloat elapsedTime, CGFloat durati
 
 /**
  *  @brief Computes a elastic in and out animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionElasticInOut(CGFloat elapsedTime, CGFloat duration)
 {
@@ -338,9 +338,9 @@ CGFloat CPTAnimationTimingFunctionElasticInOut(CGFloat elapsedTime, CGFloat dura
 
 /**
  *  @brief Computes a exponential in animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionExponentialIn(CGFloat elapsedTime, CGFloat duration)
 {
@@ -359,9 +359,9 @@ CGFloat CPTAnimationTimingFunctionExponentialIn(CGFloat elapsedTime, CGFloat dur
 
 /**
  *  @brief Computes a exponential out animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionExponentialOut(CGFloat elapsedTime, CGFloat duration)
 {
@@ -380,9 +380,9 @@ CGFloat CPTAnimationTimingFunctionExponentialOut(CGFloat elapsedTime, CGFloat du
 
 /**
  *  @brief Computes a exponential in and out animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionExponentialInOut(CGFloat elapsedTime, CGFloat duration)
 {
@@ -410,9 +410,9 @@ CGFloat CPTAnimationTimingFunctionExponentialInOut(CGFloat elapsedTime, CGFloat 
 
 /**
  *  @brief Computes a sinusoidal in animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionSinusoidalIn(CGFloat elapsedTime, CGFloat duration)
 {
@@ -431,9 +431,9 @@ CGFloat CPTAnimationTimingFunctionSinusoidalIn(CGFloat elapsedTime, CGFloat dura
 
 /**
  *  @brief Computes a sinusoidal out animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionSinusoidalOut(CGFloat elapsedTime, CGFloat duration)
 {
@@ -452,9 +452,9 @@ CGFloat CPTAnimationTimingFunctionSinusoidalOut(CGFloat elapsedTime, CGFloat dur
 
 /**
  *  @brief Computes a sinusoidal in and out animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionSinusoidalInOut(CGFloat elapsedTime, CGFloat duration)
 {
@@ -476,9 +476,9 @@ CGFloat CPTAnimationTimingFunctionSinusoidalInOut(CGFloat elapsedTime, CGFloat d
 
 /**
  *  @brief Computes a cubic in animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionCubicIn(CGFloat elapsedTime, CGFloat duration)
 {
@@ -497,9 +497,9 @@ CGFloat CPTAnimationTimingFunctionCubicIn(CGFloat elapsedTime, CGFloat duration)
 
 /**
  *  @brief Computes a cubic out animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionCubicOut(CGFloat elapsedTime, CGFloat duration)
 {
@@ -518,9 +518,9 @@ CGFloat CPTAnimationTimingFunctionCubicOut(CGFloat elapsedTime, CGFloat duration
 
 /**
  *  @brief Computes a cubic in and out animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionCubicInOut(CGFloat elapsedTime, CGFloat duration)
 {
@@ -549,9 +549,9 @@ CGFloat CPTAnimationTimingFunctionCubicInOut(CGFloat elapsedTime, CGFloat durati
 
 /**
  *  @brief Computes a quadratic in animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionQuadraticIn(CGFloat elapsedTime, CGFloat duration)
 {
@@ -570,9 +570,9 @@ CGFloat CPTAnimationTimingFunctionQuadraticIn(CGFloat elapsedTime, CGFloat durat
 
 /**
  *  @brief Computes a quadratic out animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionQuadraticOut(CGFloat elapsedTime, CGFloat duration)
 {
@@ -591,9 +591,9 @@ CGFloat CPTAnimationTimingFunctionQuadraticOut(CGFloat elapsedTime, CGFloat dura
 
 /**
  *  @brief Computes a quadratic in and out animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionQuadraticInOut(CGFloat elapsedTime, CGFloat duration)
 {
@@ -622,9 +622,9 @@ CGFloat CPTAnimationTimingFunctionQuadraticInOut(CGFloat elapsedTime, CGFloat du
 
 /**
  *  @brief Computes a quartic in animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionQuarticIn(CGFloat elapsedTime, CGFloat duration)
 {
@@ -643,9 +643,9 @@ CGFloat CPTAnimationTimingFunctionQuarticIn(CGFloat elapsedTime, CGFloat duratio
 
 /**
  *  @brief Computes a quartic out animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionQuarticOut(CGFloat elapsedTime, CGFloat duration)
 {
@@ -664,9 +664,9 @@ CGFloat CPTAnimationTimingFunctionQuarticOut(CGFloat elapsedTime, CGFloat durati
 
 /**
  *  @brief Computes a quartic in and out animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionQuarticInOut(CGFloat elapsedTime, CGFloat duration)
 {
@@ -695,9 +695,9 @@ CGFloat CPTAnimationTimingFunctionQuarticInOut(CGFloat elapsedTime, CGFloat dura
 
 /**
  *  @brief Computes a quintic in animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionQuinticIn(CGFloat elapsedTime, CGFloat duration)
 {
@@ -716,9 +716,9 @@ CGFloat CPTAnimationTimingFunctionQuinticIn(CGFloat elapsedTime, CGFloat duratio
 
 /**
  *  @brief Computes a quintic out animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionQuinticOut(CGFloat elapsedTime, CGFloat duration)
 {
@@ -737,9 +737,9 @@ CGFloat CPTAnimationTimingFunctionQuinticOut(CGFloat elapsedTime, CGFloat durati
 
 /**
  *  @brief Computes a quintic in and out animation timing function.
- *  @param elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
- *  @param duration The overall duration of the animation in seconds.
- *  @return The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
+ *  @param  elapsedTime The elapsed time of the animation between zero (@num{0}) and @par{duration}.
+ *  @param  duration    The overall duration of the animation in seconds.
+ *  @return             The animation progress in the range zero (@num{0}) to one (@num{1}) at the given @par{elapsedTime}.
  **/
 CGFloat CPTAnimationTimingFunctionQuinticInOut(CGFloat elapsedTime, CGFloat duration)
 {

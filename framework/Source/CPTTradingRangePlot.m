@@ -206,8 +206,8 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
  *  - @ref showBarBorder = @YES
  *  - @ref labelField = #CPTTradingRangePlotFieldClose
  *
- *  @param newFrame The frame rectangle.
- *  @return The initialized CPTTradingRangePlot object.
+ *  @param  newFrame The frame rectangle.
+ *  @return          The initialized CPTTradingRangePlot object.
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
@@ -1584,9 +1584,9 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
  *  index where the @par{interactionPoint} is inside a bar.
  *  This method returns @NO if the @par{interactionPoint} is outside all of the bars.
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceDownEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
@@ -1650,9 +1650,9 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
  *  @link CPTTradingRangePlotDelegate::tradingRangePlot:barWasSelectedAtRecordIndex:withEvent: -tradingRangePlot:barWasSelectedAtRecordIndex:withEvent: @endlink
  *  methods, these will be called.
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceUpEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {

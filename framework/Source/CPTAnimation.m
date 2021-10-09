@@ -156,12 +156,12 @@ typedef NSMutableArray<CPTAnimationOperation *> CPTMutableAnimationArray;
 #pragma mark - Property Animation
 
 /** @brief Creates an animation operation with the given properties and adds it to the animation queue.
- *  @param object The object to animate.
- *  @param property The name of the property of @par{object} to animate. The property must have both getter and setter methods.
- *  @param period The animation period.
- *  @param animationCurve The animation curve used to animate the new operation.
- *  @param delegate The animation delegate (can be @nil).
- *  @return The queued animation operation.
+ *  @param  object         The object to animate.
+ *  @param  property       The name of the property of @par{object} to animate. The property must have both getter and setter methods.
+ *  @param  period         The animation period.
+ *  @param  animationCurve The animation curve used to animate the new operation.
+ *  @param  delegate       The animation delegate (can be @nil).
+ *  @return                The queued animation operation.
  **/
 +(nonnull CPTAnimationOperation *)animate:(nonnull id)object property:(nonnull NSString *)property period:(nonnull CPTAnimationPeriod *)period animationCurve:(CPTAnimationCurve)animationCurve delegate:(nullable id<CPTAnimationDelegate>)delegate
 {
@@ -192,8 +192,8 @@ typedef NSMutableArray<CPTAnimationOperation *> CPTMutableAnimationArray;
 #pragma mark - Animation Management
 
 /** @brief Adds an animation operation to the animation queue.
- *  @param animationOperation The animation operation to add.
- *  @return The queued animation operation.
+ *  @param  animationOperation The animation operation to add.
+ *  @return                    The queued animation operation.
  **/
 -(CPTAnimationOperation *)addAnimationOperation:(nonnull CPTAnimationOperation *)animationOperation
 {
@@ -238,8 +238,8 @@ typedef NSMutableArray<CPTAnimationOperation *> CPTMutableAnimationArray;
 #pragma mark - Retrieving Animation Operations
 
 /** @brief Gets the animation operation with the given identifier from the animation operation array.
- *  @param identifier An animation operation identifier.
- *  @return The animation operation with the given identifier or @nil if it was not found.
+ *  @param  identifier An animation operation identifier.
+ *  @return            The animation operation with the given identifier or @nil if it was not found.
  **/
 -(nullable CPTAnimationOperation *)operationWithIdentifier:(nullable id<NSCopying, NSObject>)identifier
 {

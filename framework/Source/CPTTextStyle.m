@@ -75,8 +75,8 @@
  *
  *  The text style will be initalized with values from the given @par{textStyle}.
  *
- *  @param textStyle An existing CPTTextStyle.
- *  @return A new text style instance.
+ *  @param  textStyle An existing CPTTextStyle.
+ *  @return           A new text style instance.
  **/
 +(nonnull instancetype)textStyleWithStyle:(nullable CPTTextStyle *)textStyle
 {

@@ -38,8 +38,8 @@
 
 /** @brief Returns a boolean value that indicates whether the received is equal to the given object.
  *  Axis titles are equal if they have the same @ref tickLocation, @ref rotation, and @ref contentLayer.
- *  @param object The object to be compared with the receiver.
- *  @return @YES if @par{object} is equal to the receiver, @NO otherwise.
+ *  @param  object The object to be compared with the receiver.
+ *  @return        @YES if @par{object} is equal to the receiver, @NO otherwise.
  **/
 -(BOOL)isEqual:(nullable id)object
 {

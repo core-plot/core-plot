@@ -63,8 +63,8 @@
  *  - @ref inLayout = @NO
  *  - @ref needsDisplayOnBoundsChange = @YES
  *
- *  @param newFrame The frame rectangle.
- *  @return The initialized CPTBorderedLayer object.
+ *  @param  newFrame The frame rectangle.
+ *  @return          The initialized CPTBorderedLayer object.
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
@@ -202,9 +202,9 @@
 /// @{
 
 /** @brief Increases the sublayer margin on all four sides by half the width of the border line style.
- *  @param left The left margin.
- *  @param top The top margin.
- *  @param right The right margin.
+ *  @param left   The left margin.
+ *  @param top    The top margin.
+ *  @param right  The right margin.
  *  @param bottom The bottom margin.
  **/
 -(void)sublayerMarginLeft:(nonnull CGFloat *)left top:(nonnull CGFloat *)top right:(nonnull CGFloat *)right bottom:(nonnull CGFloat *)bottom

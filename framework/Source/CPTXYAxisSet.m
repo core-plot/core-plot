@@ -37,8 +37,8 @@
  *  <tr><td>@ref yAxis</td><td>#CPTCoordinateY</td><td>#CPTSignNegative</td></tr>
  *  </table>
  *
- *  @param newFrame The frame rectangle.
- *  @return The initialized CPTXYAxisSet object.
+ *  @param  newFrame The frame rectangle.
+ *  @return          The initialized CPTXYAxisSet object.
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {

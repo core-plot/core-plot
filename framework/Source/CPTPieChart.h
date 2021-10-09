@@ -50,9 +50,9 @@ typedef NS_CLOSED_ENUM(NSInteger, CPTPieDirection) {
 /// @{
 
 /** @brief @optional Gets a range of slice fills for the given pie chart.
- *  @param pieChart The pie chart.
- *  @param indexRange The range of the data indexes of interest.
- *  @return An array of pie slice fills.
+ *  @param  pieChart   The pie chart.
+ *  @param  indexRange The range of the data indexes of interest.
+ *  @return            An array of pie slice fills.
  **/
 -(nullable CPTFillArray *)sliceFillsForPieChart:(nonnull CPTPieChart *)pieChart recordIndexRange:(NSRange)indexRange;
 
@@ -60,9 +60,9 @@ typedef NS_CLOSED_ENUM(NSInteger, CPTPieDirection) {
  *  This method will not be called if
  *  @link CPTPieChartDataSource::sliceFillsForPieChart:recordIndexRange: -sliceFillsForPieChart:recordIndexRange: @endlink
  *  is also implemented in the datasource.
- *  @param pieChart The pie chart.
- *  @param idx The data index of interest.
- *  @return The pie slice fill for the slice with the given index. If the datasource returns @nil, the default fill is used.
+ *  @param  pieChart The pie chart.
+ *  @param  idx      The data index of interest.
+ *  @return          The pie slice fill for the slice with the given index. If the datasource returns @nil, the default fill is used.
  *  If the data source returns an NSNull object, no fill is drawn.
  **/
 -(nullable CPTFill *)sliceFillForPieChart:(nonnull CPTPieChart *)pieChart recordIndex:(NSUInteger)idx;
@@ -73,9 +73,9 @@ typedef NS_CLOSED_ENUM(NSInteger, CPTPieDirection) {
 /// @{
 
 /** @brief @optional Gets a range of slice offsets for the given pie chart.
- *  @param pieChart The pie chart.
- *  @param indexRange The range of the data indexes of interest.
- *  @return An array of radial offsets.
+ *  @param  pieChart   The pie chart.
+ *  @param  indexRange The range of the data indexes of interest.
+ *  @return            An array of radial offsets.
  **/
 -(nullable CPTNumberArray *)radialOffsetsForPieChart:(nonnull CPTPieChart *)pieChart recordIndexRange:(NSRange)indexRange;
 
@@ -83,9 +83,9 @@ typedef NS_CLOSED_ENUM(NSInteger, CPTPieDirection) {
  *  This method will not be called if
  *  @link CPTPieChartDataSource::radialOffsetsForPieChart:recordIndexRange: -radialOffsetsForPieChart:recordIndexRange: @endlink
  *  is also implemented in the datasource.
- *  @param pieChart The pie chart.
- *  @param idx The data index of interest.
- *  @return The radial offset in view coordinates. Zero is no offset.
+ *  @param  pieChart The pie chart.
+ *  @param  idx      The data index of interest.
+ *  @return          The radial offset in view coordinates. Zero is no offset.
  **/
 -(CGFloat)radialOffsetForPieChart:(nonnull CPTPieChart *)pieChart recordIndex:(NSUInteger)idx;
 
@@ -95,16 +95,16 @@ typedef NS_CLOSED_ENUM(NSInteger, CPTPieDirection) {
 /// @{
 
 /** @brief @optional Gets the legend title for the given pie chart slice.
- *  @param pieChart The pie chart.
- *  @param idx The data index of interest.
- *  @return The title text for the legend entry for the point with the given index.
+ *  @param  pieChart The pie chart.
+ *  @param  idx      The data index of interest.
+ *  @return          The title text for the legend entry for the point with the given index.
  **/
 -(nullable NSString *)legendTitleForPieChart:(nonnull CPTPieChart *)pieChart recordIndex:(NSUInteger)idx;
 
 /** @brief @optional Gets the styled legend title for the given pie chart slice.
- *  @param pieChart The pie chart.
- *  @param idx The data index of interest.
- *  @return The styled title text for the legend entry for the point with the given index.
+ *  @param  pieChart The pie chart.
+ *  @param  idx      The data index of interest.
+ *  @return          The styled title text for the legend entry for the point with the given index.
  **/
 -(nullable NSAttributedString *)attributedLegendTitleForPieChart:(nonnull CPTPieChart *)pieChart recordIndex:(NSUInteger)idx;
 
@@ -127,7 +127,7 @@ typedef NS_CLOSED_ENUM(NSInteger, CPTPieDirection) {
  *  @if MacOnly was both pressed and released. @endif
  *  @if iOSOnly received both the touch down and up events. @endif
  *  @param plot The pie chart.
- *  @param idx The index of the
+ *  @param idx  The index of the
  *  @if MacOnly clicked pie slice. @endif
  *  @if iOSOnly touched pie slice. @endif
  **/
@@ -136,8 +136,8 @@ typedef NS_CLOSED_ENUM(NSInteger, CPTPieDirection) {
 /** @brief @optional Informs the delegate that a pie slice
  *  @if MacOnly was both pressed and released. @endif
  *  @if iOSOnly received both the touch down and up events. @endif
- *  @param plot The pie chart.
- *  @param idx The index of the
+ *  @param plot  The pie chart.
+ *  @param idx   The index of the
  *  @if MacOnly clicked pie slice. @endif
  *  @if iOSOnly touched pie slice. @endif
  *  @param event The event that triggered the selection.
@@ -148,7 +148,7 @@ typedef NS_CLOSED_ENUM(NSInteger, CPTPieDirection) {
  *  @if MacOnly was pressed. @endif
  *  @if iOSOnly touch started. @endif
  *  @param plot The pie chart.
- *  @param idx The index of the
+ *  @param idx  The index of the
  *  @if MacOnly clicked pie slice. @endif
  *  @if iOSOnly touched pie slice. @endif
  **/
@@ -157,8 +157,8 @@ typedef NS_CLOSED_ENUM(NSInteger, CPTPieDirection) {
 /** @brief @optional Informs the delegate that a pie slice
  *  @if MacOnly was pressed. @endif
  *  @if iOSOnly touch started. @endif
- *  @param plot The pie chart.
- *  @param idx The index of the
+ *  @param plot  The pie chart.
+ *  @param idx   The index of the
  *  @if MacOnly clicked pie slice. @endif
  *  @if iOSOnly touched pie slice. @endif
  *  @param event The event that triggered the selection.
@@ -169,7 +169,7 @@ typedef NS_CLOSED_ENUM(NSInteger, CPTPieDirection) {
  *  @if MacOnly was released. @endif
  *  @if iOSOnly touch ended. @endif
  *  @param plot The pie chart.
- *  @param idx The index of the
+ *  @param idx  The index of the
  *  @if MacOnly clicked pie slice. @endif
  *  @if iOSOnly touched pie slice. @endif
  **/
@@ -178,8 +178,8 @@ typedef NS_CLOSED_ENUM(NSInteger, CPTPieDirection) {
 /** @brief @optional Informs the delegate that a pie slice
  *  @if MacOnly was released. @endif
  *  @if iOSOnly touch ended. @endif
- *  @param plot The pie chart.
- *  @param idx The index of the
+ *  @param plot  The pie chart.
+ *  @param idx   The index of the
  *  @if MacOnly clicked pie slice. @endif
  *  @if iOSOnly touched pie slice. @endif
  *  @param event The event that triggered the selection.

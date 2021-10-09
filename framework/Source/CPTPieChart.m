@@ -162,8 +162,8 @@ static const CGFloat colorLookupTable[10][3] = {
 };
 
 /** @brief Creates and returns a CPTColor that acts as the default color for that pie chart index.
- *  @param pieSliceIndex The pie slice index to return a color for.
- *  @return A new CPTColor instance corresponding to the default value for this pie slice index.
+ *  @param  pieSliceIndex The pie slice index to return a color for.
+ *  @return               A new CPTColor instance corresponding to the default value for this pie slice index.
  **/
 
 +(nonnull CPTColor *)defaultPieSliceColorForIndex:(NSUInteger)pieSliceIndex
@@ -212,8 +212,8 @@ static const CGFloat colorLookupTable[10][3] = {
  *  - @ref labelOffset = @num{10.0}
  *  - @ref labelField = #CPTPieChartFieldSliceWidth
  *
- *  @param newFrame The frame rectangle.
- *  @return The initialized CPTPieChart object.
+ *  @param  newFrame The frame rectangle.
+ *  @return          The initialized CPTPieChart object.
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
@@ -813,8 +813,8 @@ static const CGFloat colorLookupTable[10][3] = {
 #pragma mark Information
 
 /** @brief Searches the pie slices for one corresponding to the given angle.
- *  @param angle An angle in radians.
- *  @return The index of the pie slice that matches the given angle. Returns @ref NSNotFound if no such pie slice exists.
+ *  @param  angle An angle in radians.
+ *  @return       The index of the pie slice that matches the given angle. Returns @ref NSNotFound if no such pie slice exists.
  **/
 -(NSUInteger)pieSliceIndexAtAngle:(CGFloat)angle
 {
@@ -851,8 +851,8 @@ static const CGFloat colorLookupTable[10][3] = {
 }
 
 /** @brief Computes the halfway-point between the starting and ending angles of a given pie slice.
- *  @param idx A pie slice index.
- *  @return The angle that is halfway between the slice's starting and ending angles, or @NAN if
+ *  @param  idx A pie slice index.
+ *  @return     The angle that is halfway between the slice's starting and ending angles, or @NAN if
  *  an angle matching the given index cannot be found.
  **/
 -(CGFloat)medianAngleForPieSliceIndex:(NSUInteger)idx
@@ -1006,8 +1006,8 @@ static const CGFloat colorLookupTable[10][3] = {
 
 /** @internal
  *  @brief The title text of a legend entry.
- *  @param idx The index of the desired title.
- *  @return The title of the legend entry at the requested index.
+ *  @param  idx The index of the desired title.
+ *  @return     The title of the legend entry at the requested index.
  **/
 -(nullable NSString *)titleForLegendEntryAtIndex:(NSUInteger)idx
 {
@@ -1027,8 +1027,8 @@ static const CGFloat colorLookupTable[10][3] = {
 
 /** @internal
  *  @brief The styled title text of a legend entry.
- *  @param idx The index of the desired title.
- *  @return The styled title of the legend entry at the requested index.
+ *  @param  idx The index of the desired title.
+ *  @return     The styled title of the legend entry at the requested index.
  **/
 -(nullable NSAttributedString *)attributedTitleForLegendEntryAtIndex:(NSUInteger)idx
 {
@@ -1109,9 +1109,9 @@ static const CGFloat colorLookupTable[10][3] = {
  *  index where the @par{interactionPoint} is inside a pie slice.
  *  This method returns @NO if the @par{interactionPoint} is outside all of the slices.
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceDownEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
@@ -1175,9 +1175,9 @@ static const CGFloat colorLookupTable[10][3] = {
  *  @link CPTPieChartDelegate::pieChart:sliceWasSelectedAtRecordIndex:withEvent: -pieChart:sliceWasSelectedAtRecordIndex:withEvent: @endlink
  *  methods, these will be called.
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceUpEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {

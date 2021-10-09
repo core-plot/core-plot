@@ -53,7 +53,7 @@
 
 /** @brief Add a plot to this plot group at the given index.
  *  @param plot The plot.
- *  @param idx The index at which to insert the plot. This value must not be greater than the count of elements in the sublayer array.
+ *  @param idx  The index at which to insert the plot. This value must not be greater than the count of elements in the sublayer array.
  **/
 -(void)insertPlot:(nonnull CPTPlot *)plot atIndex:(NSUInteger)idx
 {

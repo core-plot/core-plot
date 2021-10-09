@@ -28,8 +28,8 @@
  *  - @ref maskedLayer = @nil
  *  - @ref needsDisplayOnBoundsChange = @YES
  *
- *  @param newFrame The frame rectangle.
- *  @return The initialized CPTBorderLayer object.
+ *  @param  newFrame The frame rectangle.
+ *  @return          The initialized CPTBorderLayer object.
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
