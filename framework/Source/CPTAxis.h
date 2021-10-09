@@ -52,8 +52,8 @@ typedef NSMutableArray<__kindof CPTAxis *> CPTMutableAxisArray;
 /// @{
 
 /** @brief @optional Determines if the axis should relabel itself now.
- *  @param axis The axis.
- *  @return @YES if the axis should relabel now.
+ *  @param  axis The axis.
+ *  @return      @YES if the axis should relabel now.
  **/
 -(BOOL)axisShouldRelabel:(nonnull CPTAxis *)axis;
 
@@ -66,18 +66,18 @@ typedef NSMutableArray<__kindof CPTAxis *> CPTMutableAxisArray;
 /** @brief @optional This method gives the delegate a chance to create custom labels for each tick.
  *  It can be used with any labeling policy. Returning @NO will cause the axis not
  *  to update the labels. It is then the delegate&rsquo;s responsibility to do this.
- *  @param axis The axis.
- *  @param locations The locations of the major ticks.
- *  @return @YES if the axis class should proceed with automatic labeling.
+ *  @param  axis      The axis.
+ *  @param  locations The locations of the major ticks.
+ *  @return           @YES if the axis class should proceed with automatic labeling.
  **/
 -(BOOL)axis:(nonnull CPTAxis *)axis shouldUpdateAxisLabelsAtLocations:(nonnull CPTNumberSet *)locations;
 
 /** @brief @optional This method gives the delegate a chance to create custom labels for each minor tick.
  *  It can be used with any labeling policy. Returning @NO will cause the axis not
  *  to update the labels. It is then the delegate&rsquo;s responsibility to do this.
- *  @param axis The axis.
- *  @param locations The locations of the minor ticks.
- *  @return @YES if the axis class should proceed with automatic labeling.
+ *  @param  axis      The axis.
+ *  @param  locations The locations of the minor ticks.
+ *  @return           @YES if the axis class should proceed with automatic labeling.
  **/
 -(BOOL)axis:(nonnull CPTAxis *)axis shouldUpdateMinorAxisLabelsAtLocations:(nonnull CPTNumberSet *)locations;
 
@@ -89,7 +89,7 @@ typedef NSMutableArray<__kindof CPTAxis *> CPTMutableAxisArray;
 /** @brief @optional Informs the delegate that an axis label
  *  @if MacOnly was both pressed and released. @endif
  *  @if iOSOnly received both the touch down and up events. @endif
- *  @param axis The axis.
+ *  @param axis  The axis.
  *  @param label The selected axis label.
  **/
 -(void)axis:(nonnull CPTAxis *)axis labelWasSelected:(nonnull CPTAxisLabel *)label;
@@ -97,7 +97,7 @@ typedef NSMutableArray<__kindof CPTAxis *> CPTMutableAxisArray;
 /** @brief @optional Informs the delegate that an axis label
  *  @if MacOnly was both pressed and released. @endif
  *  @if iOSOnly received both the touch down and up events. @endif
- *  @param axis The axis.
+ *  @param axis  The axis.
  *  @param label The selected axis label.
  *  @param event The event that triggered the selection.
  **/
@@ -106,7 +106,7 @@ typedef NSMutableArray<__kindof CPTAxis *> CPTMutableAxisArray;
 /** @brief @optional Informs the delegate that a minor tick axis label
  *  @if MacOnly was both pressed and released. @endif
  *  @if iOSOnly received both the touch down and up events. @endif
- *  @param axis The axis.
+ *  @param axis  The axis.
  *  @param label The selected minor tick axis label.
  **/
 -(void)axis:(nonnull CPTAxis *)axis minorTickLabelWasSelected:(nonnull CPTAxisLabel *)label;
@@ -114,7 +114,7 @@ typedef NSMutableArray<__kindof CPTAxis *> CPTMutableAxisArray;
 /** @brief @optional Informs the delegate that a minor tick axis label
  *  @if MacOnly was both pressed and released. @endif
  *  @if iOSOnly received both the touch down and up events. @endif
- *  @param axis The axis.
+ *  @param axis  The axis.
  *  @param label The selected minor tick axis label.
  *  @param event The event that triggered the selection.
  **/
@@ -123,7 +123,7 @@ typedef NSMutableArray<__kindof CPTAxis *> CPTMutableAxisArray;
 /** @brief @optional Informs the delegate that an axis label
  *  @if MacOnly was pressed. @endif
  *  @if iOSOnly touch started. @endif
- *  @param axis The axis.
+ *  @param axis  The axis.
  *  @param label The selected axis label.
  **/
 -(void)axis:(nonnull CPTAxis *)axis labelTouchDown:(nonnull CPTAxisLabel *)label;
@@ -131,7 +131,7 @@ typedef NSMutableArray<__kindof CPTAxis *> CPTMutableAxisArray;
 /** @brief @optional Informs the delegate that an axis label
  *  @if MacOnly was pressed. @endif
  *  @if iOSOnly touch started. @endif
- *  @param axis The axis.
+ *  @param axis  The axis.
  *  @param label The selected axis label.
  *  @param event The event that triggered the selection.
  **/
@@ -140,7 +140,7 @@ typedef NSMutableArray<__kindof CPTAxis *> CPTMutableAxisArray;
 /** @brief @optional Informs the delegate that an axis label
  *  @if MacOnly was released. @endif
  *  @if iOSOnly touch ended. @endif
- *  @param axis The axis.
+ *  @param axis  The axis.
  *  @param label The selected axis label.
  **/
 -(void)axis:(nonnull CPTAxis *)axis labelTouchUp:(nonnull CPTAxisLabel *)label;
@@ -148,7 +148,7 @@ typedef NSMutableArray<__kindof CPTAxis *> CPTMutableAxisArray;
 /** @brief @optional Informs the delegate that an axis label
  *  @if MacOnly was released. @endif
  *  @if iOSOnly touch ended. @endif
- *  @param axis The axis.
+ *  @param axis  The axis.
  *  @param label The selected axis label.
  *  @param event The event that triggered the selection.
  **/
@@ -157,7 +157,7 @@ typedef NSMutableArray<__kindof CPTAxis *> CPTMutableAxisArray;
 /** @brief @optional Informs the delegate that a minor tick axis label
  *  @if MacOnly was pressed. @endif
  *  @if iOSOnly touch started. @endif
- *  @param axis The axis.
+ *  @param axis  The axis.
  *  @param label The selected minor tick axis label.
  **/
 -(void)axis:(nonnull CPTAxis *)axis minorTickTouchDown:(nonnull CPTAxisLabel *)label;
@@ -165,7 +165,7 @@ typedef NSMutableArray<__kindof CPTAxis *> CPTMutableAxisArray;
 /** @brief @optional Informs the delegate that a minor tick axis label
  *  @if MacOnly was pressed. @endif
  *  @if iOSOnly touch started. @endif
- *  @param axis The axis.
+ *  @param axis  The axis.
  *  @param label The selected minor tick axis label.
  *  @param event The event that triggered the selection.
  **/
@@ -174,7 +174,7 @@ typedef NSMutableArray<__kindof CPTAxis *> CPTMutableAxisArray;
 /** @brief @optional Informs the delegate that a minor tick axis label
  *  @if MacOnly was released. @endif
  *  @if iOSOnly touch ended. @endif
- *  @param axis The axis.
+ *  @param axis  The axis.
  *  @param label The selected minor tick axis label.
  **/
 -(void)axis:(nonnull CPTAxis *)axis minorTickTouchUp:(nonnull CPTAxisLabel *)label;
@@ -182,7 +182,7 @@ typedef NSMutableArray<__kindof CPTAxis *> CPTMutableAxisArray;
 /** @brief @optional Informs the delegate that a minor tick axis label
  *  @if MacOnly was released. @endif
  *  @if iOSOnly touch ended. @endif
- *  @param axis The axis.
+ *  @param axis  The axis.
  *  @param label The selected minor tick axis label.
  *  @param event The event that triggered the selection.
  **/

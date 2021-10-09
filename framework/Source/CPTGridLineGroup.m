@@ -35,8 +35,8 @@
  *  - @ref major = @NO
  *  - @ref needsDisplayOnBoundsChange = @YES
  *
- *  @param newFrame The frame rectangle.
- *  @return The initialized CPTGridLineGroup object.
+ *  @param  newFrame The frame rectangle.
+ *  @return          The initialized CPTGridLineGroup object.
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {

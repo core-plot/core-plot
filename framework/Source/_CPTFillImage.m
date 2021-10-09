@@ -27,8 +27,8 @@
 #pragma mark Init/Dealloc
 
 /** @brief Initializes a newly allocated _CPTFillImage object with the provided image.
- *  @param anImage The image.
- *  @return The initialized _CPTFillImage object.
+ *  @param  anImage The image.
+ *  @return         The initialized _CPTFillImage object.
  **/
 -(nonnull instancetype)initWithImage:(nonnull CPTImage *)anImage
 {
@@ -42,7 +42,7 @@
 #pragma mark Drawing
 
 /** @brief Draws the image into the given graphics context inside the provided rectangle.
- *  @param rect The rectangle to draw into.
+ *  @param rect    The rectangle to draw into.
  *  @param context The graphics context to draw into.
  **/
 -(void)fillRect:(CGRect)rect inContext:(nonnull CGContextRef)context
@@ -107,8 +107,8 @@
 /// @endcond
 
 /** @brief Returns an object initialized from data in a given unarchiver.
- *  @param coder An unarchiver object.
- *  @return An object initialized from data in a given unarchiver.
+ *  @param  coder An unarchiver object.
+ *  @return       An object initialized from data in a given unarchiver.
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {

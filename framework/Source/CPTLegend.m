@@ -239,8 +239,8 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
 #pragma mark Factory Methods
 
 /** @brief Creates and returns a new CPTLegend instance with legend entries for each plot in the given array.
- *  @param newPlots An array of plots.
- *  @return A new CPTLegend instance.
+ *  @param  newPlots An array of plots.
+ *  @return          A new CPTLegend instance.
  **/
 +(nonnull instancetype)legendWithPlots:(nullable CPTPlotArray *)newPlots
 {
@@ -248,8 +248,8 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
 }
 
 /** @brief Creates and returns a new CPTLegend instance with legend entries for each plot in the given graph.
- *  @param graph The graph.
- *  @return A new CPTLegend instance.
+ *  @param  graph The graph.
+ *  @return       A new CPTLegend instance.
  **/
 +(nonnull instancetype)legendWithGraph:(nullable __kindof CPTGraph *)graph
 {
@@ -296,8 +296,8 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
  *  - @ref paddingBottom = @num{5.0}
  *  - @ref needsDisplayOnBoundsChange = @YES
  *
- *  @param newFrame The frame rectangle.
- *  @return The initialized CPTLegend object.
+ *  @param  newFrame The frame rectangle.
+ *  @return          The initialized CPTLegend object.
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
@@ -345,8 +345,8 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
 /// @}
 
 /** @brief Initializes a newly allocated CPTLegend object and adds legend entries for each plot in the given array.
- *  @param newPlots An array of plots.
- *  @return The initialized CPTLegend object.
+ *  @param  newPlots An array of plots.
+ *  @return          The initialized CPTLegend object.
  **/
 -(nonnull instancetype)initWithPlots:(nullable CPTPlotArray *)newPlots
 {
@@ -359,8 +359,8 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
 }
 
 /** @brief Initializes a newly allocated CPTLegend object and adds legend entries for each plot in the given graph.
- *  @param graph A graph.
- *  @return The initialized CPTLegend object.
+ *  @param  graph A graph.
+ *  @return       The initialized CPTLegend object.
  **/
 -(nonnull instancetype)initWithGraph:(nullable __kindof CPTGraph *)graph
 {
@@ -984,8 +984,8 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
 }
 
 /** @brief Gets the plot at the given index in the plot array.
- *  @param idx An index within the bounds of the plot array.
- *  @return The plot at the given index.
+ *  @param  idx An index within the bounds of the plot array.
+ *  @return     The plot at the given index.
  **/
 -(nullable CPTPlot *)plotAtIndex:(NSUInteger)idx
 {
@@ -998,8 +998,8 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
 }
 
 /** @brief Gets the plot with the given identifier from the plot array.
- *  @param identifier A plot identifier.
- *  @return The plot with the given identifier or nil if it was not found.
+ *  @param  identifier A plot identifier.
+ *  @return            The plot with the given identifier or nil if it was not found.
  **/
 -(nullable CPTPlot *)plotWithIdentifier:(nullable id<NSCopying>)identifier
 {
@@ -1044,7 +1044,7 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
 
 /** @brief Add a plot to the legend at the given index in the plot array.
  *  @param plot The plot.
- *  @param idx An index within the bounds of the plot array.
+ *  @param idx  An index within the bounds of the plot array.
  **/
 -(void)insertPlot:(nonnull CPTPlot *)plot atIndex:(NSUInteger)idx
 {
@@ -1282,9 +1282,9 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
  *  The delegate method will be called and this method returns @YES if the @par{interactionPoint} is within a legend entry.
  *  This method returns @NO if the @par{interactionPoint} is too far away from all of the legend entries.
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceDownEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
@@ -1350,9 +1350,9 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
  *  @link CPTLegendDelegate::legend:legendEntryForPlot:wasSelectedAtIndex:withEvent: -legend:legendEntryForPlot:wasSelectedAtIndex:withEvent: @endlink
  *  methods, these will be called.
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceUpEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {

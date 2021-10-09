@@ -15,8 +15,8 @@ static BOOL cacheValueInitialized[kCacheSize] = { NO, NO, NO, NO };
 
 /**
  *  @brief Converts an @ref NSDecimal value to an 8-bit integer.
- *  @param decimalNumber The @ref NSDecimal value.
- *  @return The converted value.
+ *  @param  decimalNumber The @ref NSDecimal value.
+ *  @return               The converted value.
  **/
 int8_t CPTDecimalCharValue(NSDecimal decimalNumber)
 {
@@ -25,8 +25,8 @@ int8_t CPTDecimalCharValue(NSDecimal decimalNumber)
 
 /**
  *  @brief Converts an @ref NSDecimal value to a 16-bit integer.
- *  @param decimalNumber The @ref NSDecimal value.
- *  @return The converted value.
+ *  @param  decimalNumber The @ref NSDecimal value.
+ *  @return               The converted value.
  **/
 int16_t CPTDecimalShortValue(NSDecimal decimalNumber)
 {
@@ -35,8 +35,8 @@ int16_t CPTDecimalShortValue(NSDecimal decimalNumber)
 
 /**
  *  @brief Converts an @ref NSDecimal value to a 32-bit integer.
- *  @param decimalNumber The @ref NSDecimal value.
- *  @return The converted value.
+ *  @param  decimalNumber The @ref NSDecimal value.
+ *  @return               The converted value.
  **/
 int32_t CPTDecimalLongValue(NSDecimal decimalNumber)
 {
@@ -55,8 +55,8 @@ int32_t CPTDecimalLongValue(NSDecimal decimalNumber)
 
 /**
  *  @brief Converts an @ref NSDecimal value to a 64-bit integer.
- *  @param decimalNumber The @ref NSDecimal value.
- *  @return The converted value.
+ *  @param  decimalNumber The @ref NSDecimal value.
+ *  @return               The converted value.
  **/
 int64_t CPTDecimalLongLongValue(NSDecimal decimalNumber)
 {
@@ -75,8 +75,8 @@ int64_t CPTDecimalLongLongValue(NSDecimal decimalNumber)
 
 /**
  *  @brief Converts an @ref NSDecimal value to an @int.
- *  @param decimalNumber The @ref NSDecimal value.
- *  @return The converted value.
+ *  @param  decimalNumber The @ref NSDecimal value.
+ *  @return               The converted value.
  **/
 int CPTDecimalIntValue(NSDecimal decimalNumber)
 {
@@ -85,8 +85,8 @@ int CPTDecimalIntValue(NSDecimal decimalNumber)
 
 /**
  *  @brief Converts an @ref NSDecimal value to an @ref NSInteger.
- *  @param decimalNumber The @ref NSDecimal value.
- *  @return The converted value.
+ *  @param  decimalNumber The @ref NSDecimal value.
+ *  @return               The converted value.
  **/
 NSInteger CPTDecimalIntegerValue(NSDecimal decimalNumber)
 {
@@ -105,8 +105,8 @@ NSInteger CPTDecimalIntegerValue(NSDecimal decimalNumber)
 
 /**
  *  @brief Converts an @ref NSDecimal value to an unsigned 8-bit integer.
- *  @param decimalNumber The @ref NSDecimal value.
- *  @return The converted value.
+ *  @param  decimalNumber The @ref NSDecimal value.
+ *  @return               The converted value.
  **/
 uint8_t CPTDecimalUnsignedCharValue(NSDecimal decimalNumber)
 {
@@ -115,8 +115,8 @@ uint8_t CPTDecimalUnsignedCharValue(NSDecimal decimalNumber)
 
 /**
  *  @brief Converts an @ref NSDecimal value to an unsigned 16-bit integer.
- *  @param decimalNumber The @ref NSDecimal value.
- *  @return The converted value.
+ *  @param  decimalNumber The @ref NSDecimal value.
+ *  @return               The converted value.
  **/
 uint16_t CPTDecimalUnsignedShortValue(NSDecimal decimalNumber)
 {
@@ -125,8 +125,8 @@ uint16_t CPTDecimalUnsignedShortValue(NSDecimal decimalNumber)
 
 /**
  *  @brief Converts an @ref NSDecimal value to an unsigned 32-bit integer.
- *  @param decimalNumber The @ref NSDecimal value.
- *  @return The converted value.
+ *  @param  decimalNumber The @ref NSDecimal value.
+ *  @return               The converted value.
  **/
 uint32_t CPTDecimalUnsignedLongValue(NSDecimal decimalNumber)
 {
@@ -145,8 +145,8 @@ uint32_t CPTDecimalUnsignedLongValue(NSDecimal decimalNumber)
 
 /**
  *  @brief Converts an @ref NSDecimal value to an unsigned 64-bit integer.
- *  @param decimalNumber The @ref NSDecimal value.
- *  @return The converted value.
+ *  @param  decimalNumber The @ref NSDecimal value.
+ *  @return               The converted value.
  **/
 uint64_t CPTDecimalUnsignedLongLongValue(NSDecimal decimalNumber)
 {
@@ -165,8 +165,8 @@ uint64_t CPTDecimalUnsignedLongLongValue(NSDecimal decimalNumber)
 
 /**
  *  @brief Converts an @ref NSDecimal value to an @uint.
- *  @param decimalNumber The @ref NSDecimal value.
- *  @return The converted value.
+ *  @param  decimalNumber The @ref NSDecimal value.
+ *  @return               The converted value.
  **/
 unsigned int CPTDecimalUnsignedIntValue(NSDecimal decimalNumber)
 {
@@ -175,8 +175,8 @@ unsigned int CPTDecimalUnsignedIntValue(NSDecimal decimalNumber)
 
 /**
  *  @brief Converts an @ref NSDecimal value to an @ref NSUInteger.
- *  @param decimalNumber The @ref NSDecimal value.
- *  @return The converted value.
+ *  @param  decimalNumber The @ref NSDecimal value.
+ *  @return               The converted value.
  **/
 NSUInteger CPTDecimalUnsignedIntegerValue(NSDecimal decimalNumber)
 {
@@ -195,8 +195,8 @@ NSUInteger CPTDecimalUnsignedIntegerValue(NSDecimal decimalNumber)
 
 /**
  *  @brief Converts an @ref NSDecimal value to a @float.
- *  @param decimalNumber The @ref NSDecimal value.
- *  @return The converted value.
+ *  @param  decimalNumber The @ref NSDecimal value.
+ *  @return               The converted value.
  **/
 float CPTDecimalFloatValue(NSDecimal decimalNumber)
 {
@@ -205,8 +205,8 @@ float CPTDecimalFloatValue(NSDecimal decimalNumber)
 
 /**
  *  @brief Converts an @ref NSDecimal value to a @double.
- *  @param decimalNumber The @ref NSDecimal value.
- *  @return The converted value.
+ *  @param  decimalNumber The @ref NSDecimal value.
+ *  @return               The converted value.
  **/
 double CPTDecimalDoubleValue(NSDecimal decimalNumber)
 {
@@ -215,8 +215,8 @@ double CPTDecimalDoubleValue(NSDecimal decimalNumber)
 
 /**
  *  @brief Converts an @ref NSDecimal value to a @ref CGFloat.
- *  @param decimalNumber The @ref NSDecimal value.
- *  @return The converted value.
+ *  @param  decimalNumber The @ref NSDecimal value.
+ *  @return               The converted value.
  **/
 CGFloat CPTDecimalCGFloatValue(NSDecimal decimalNumber)
 {
@@ -229,8 +229,8 @@ CGFloat CPTDecimalCGFloatValue(NSDecimal decimalNumber)
 
 /**
  *  @brief Converts an @ref NSDecimal value to an NSString.
- *  @param decimalNumber The @ref NSDecimal value.
- *  @return The converted value.
+ *  @param  decimalNumber The @ref NSDecimal value.
+ *  @return               The converted value.
  **/
 NSString *__nonnull CPTDecimalStringValue(NSDecimal decimalNumber)
 {
@@ -242,8 +242,8 @@ NSString *__nonnull CPTDecimalStringValue(NSDecimal decimalNumber)
 
 /**
  *  @brief Converts an 8-bit integer value to an @ref NSDecimal.
- *  @param anInt The integer value.
- *  @return The converted value.
+ *  @param  anInt The integer value.
+ *  @return       The converted value.
  **/
 NSDecimal CPTDecimalFromChar(int8_t anInt)
 {
@@ -265,8 +265,8 @@ NSDecimal CPTDecimalFromChar(int8_t anInt)
 
 /**
  *  @brief Converts a 16-bit integer value to an @ref NSDecimal.
- *  @param anInt The integer value.
- *  @return The converted value.
+ *  @param  anInt The integer value.
+ *  @return       The converted value.
  **/
 NSDecimal CPTDecimalFromShort(int16_t anInt)
 {
@@ -288,8 +288,8 @@ NSDecimal CPTDecimalFromShort(int16_t anInt)
 
 /**
  *  @brief Converts a 32-bit integer value to an @ref NSDecimal.
- *  @param anInt The integer value.
- *  @return The converted value.
+ *  @param  anInt The integer value.
+ *  @return       The converted value.
  **/
 NSDecimal CPTDecimalFromLong(int32_t anInt)
 {
@@ -311,8 +311,8 @@ NSDecimal CPTDecimalFromLong(int32_t anInt)
 
 /**
  *  @brief Converts a 64-bit integer value to an @ref NSDecimal.
- *  @param anInt The integer value.
- *  @return The converted value.
+ *  @param  anInt The integer value.
+ *  @return       The converted value.
  **/
 NSDecimal CPTDecimalFromLongLong(int64_t anInt)
 {
@@ -334,8 +334,8 @@ NSDecimal CPTDecimalFromLongLong(int64_t anInt)
 
 /**
  *  @brief Converts an @int value to an @ref NSDecimal.
- *  @param anInt The @int value.
- *  @return The converted value.
+ *  @param  anInt The @int value.
+ *  @return       The converted value.
  **/
 NSDecimal CPTDecimalFromInt(int anInt)
 {
@@ -357,8 +357,8 @@ NSDecimal CPTDecimalFromInt(int anInt)
 
 /**
  *  @brief Converts an @ref NSInteger value to an @ref NSDecimal.
- *  @param anInt The @ref NSInteger value.
- *  @return The converted value.
+ *  @param  anInt The @ref NSInteger value.
+ *  @return       The converted value.
  **/
 NSDecimal CPTDecimalFromInteger(NSInteger anInt)
 {
@@ -380,8 +380,8 @@ NSDecimal CPTDecimalFromInteger(NSInteger anInt)
 
 /**
  *  @brief Converts an unsigned 8-bit integer value to an @ref NSDecimal.
- *  @param anInt The unsigned integer value.
- *  @return The converted value.
+ *  @param  anInt The unsigned integer value.
+ *  @return       The converted value.
  **/
 NSDecimal CPTDecimalFromUnsignedChar(uint8_t anInt)
 {
@@ -403,8 +403,8 @@ NSDecimal CPTDecimalFromUnsignedChar(uint8_t anInt)
 
 /**
  *  @brief Converts an unsigned 16-bit integer value to an @ref NSDecimal.
- *  @param anInt The unsigned integer value.
- *  @return The converted value.
+ *  @param  anInt The unsigned integer value.
+ *  @return       The converted value.
  **/
 NSDecimal CPTDecimalFromUnsignedShort(uint16_t anInt)
 {
@@ -426,8 +426,8 @@ NSDecimal CPTDecimalFromUnsignedShort(uint16_t anInt)
 
 /**
  *  @brief Converts an unsigned 32-bit integer value to an @ref NSDecimal.
- *  @param anInt The unsigned integer value.
- *  @return The converted value.
+ *  @param  anInt The unsigned integer value.
+ *  @return       The converted value.
  **/
 NSDecimal CPTDecimalFromUnsignedLong(uint32_t anInt)
 {
@@ -449,8 +449,8 @@ NSDecimal CPTDecimalFromUnsignedLong(uint32_t anInt)
 
 /**
  *  @brief Converts an unsigned 64-bit integer value to an @ref NSDecimal.
- *  @param anInt The unsigned integer value.
- *  @return The converted value.
+ *  @param  anInt The unsigned integer value.
+ *  @return       The converted value.
  **/
 NSDecimal CPTDecimalFromUnsignedLongLong(uint64_t anInt)
 {
@@ -472,8 +472,8 @@ NSDecimal CPTDecimalFromUnsignedLongLong(uint64_t anInt)
 
 /**
  *  @brief Converts an @uint value to an @ref NSDecimal.
- *  @param anInt The @uint value.
- *  @return The converted value.
+ *  @param  anInt The @uint value.
+ *  @return       The converted value.
  **/
 NSDecimal CPTDecimalFromUnsignedInt(unsigned int anInt)
 {
@@ -495,8 +495,8 @@ NSDecimal CPTDecimalFromUnsignedInt(unsigned int anInt)
 
 /**
  *  @brief Converts an @ref NSUInteger value to an @ref NSDecimal.
- *  @param anInt The @ref NSUInteger value.
- *  @return The converted value.
+ *  @param  anInt The @ref NSUInteger value.
+ *  @return       The converted value.
  **/
 NSDecimal CPTDecimalFromUnsignedInteger(NSUInteger anInt)
 {
@@ -518,8 +518,8 @@ NSDecimal CPTDecimalFromUnsignedInteger(NSUInteger anInt)
 
 /**
  *  @brief Converts a @float value to an @ref NSDecimal.
- *  @param aFloat The @float value.
- *  @return The converted value.
+ *  @param  aFloat The @float value.
+ *  @return        The converted value.
  **/
 NSDecimal CPTDecimalFromFloat(float aFloat)
 {
@@ -536,8 +536,8 @@ NSDecimal CPTDecimalFromFloat(float aFloat)
 
 /**
  *  @brief Converts a @double value to an @ref NSDecimal.
- *  @param aDouble The @double value.
- *  @return The converted value.
+ *  @param  aDouble The @double value.
+ *  @return         The converted value.
  **/
 NSDecimal CPTDecimalFromDouble(double aDouble)
 {
@@ -554,8 +554,8 @@ NSDecimal CPTDecimalFromDouble(double aDouble)
 
 /**
  *  @brief Converts a @ref CGFloat value to an @ref NSDecimal.
- *  @param aCGFloat The @ref CGFloat value.
- *  @return The converted value.
+ *  @param  aCGFloat The @ref CGFloat value.
+ *  @return          The converted value.
  **/
 NSDecimal CPTDecimalFromCGFloat(CGFloat aCGFloat)
 {
@@ -572,8 +572,8 @@ NSDecimal CPTDecimalFromCGFloat(CGFloat aCGFloat)
 
 /**
  *  @brief Parses a string and extracts the numeric value as an @ref NSDecimal.
- *  @param stringRepresentation The string value.
- *  @return The numeric value extracted from the string.
+ *  @param  stringRepresentation The string value.
+ *  @return                      The numeric value extracted from the string.
  **/
 NSDecimal CPTDecimalFromString(NSString *__nonnull stringRepresentation)
 {
@@ -597,9 +597,9 @@ NSDecimal CPTDecimalFromString(NSString *__nonnull stringRepresentation)
 
 /**
  *  @brief Adds two @ref NSDecimal structs together.
- *  @param leftOperand The left-hand side of the addition operation.
- *  @param rightOperand The right-hand side of the addition operation.
- *  @return The result of the addition.
+ *  @param  leftOperand  The left-hand side of the addition operation.
+ *  @param  rightOperand The right-hand side of the addition operation.
+ *  @return              The result of the addition.
  **/
 NSDecimal CPTDecimalAdd(NSDecimal leftOperand, NSDecimal rightOperand)
 {
@@ -611,9 +611,9 @@ NSDecimal CPTDecimalAdd(NSDecimal leftOperand, NSDecimal rightOperand)
 
 /**
  *  @brief Subtracts one @ref NSDecimal from another.
- *  @param leftOperand The left-hand side of the subtraction operation.
- *  @param rightOperand The right-hand side of the subtraction operation.
- *  @return The result of the subtraction.
+ *  @param  leftOperand  The left-hand side of the subtraction operation.
+ *  @param  rightOperand The right-hand side of the subtraction operation.
+ *  @return              The result of the subtraction.
  **/
 NSDecimal CPTDecimalSubtract(NSDecimal leftOperand, NSDecimal rightOperand)
 {
@@ -625,9 +625,9 @@ NSDecimal CPTDecimalSubtract(NSDecimal leftOperand, NSDecimal rightOperand)
 
 /**
  *  @brief Multiplies two @ref NSDecimal structs together.
- *  @param leftOperand The left-hand side of the multiplication operation.
- *  @param rightOperand The right-hand side of the multiplication operation.
- *  @return The result of the multiplication.
+ *  @param  leftOperand  The left-hand side of the multiplication operation.
+ *  @param  rightOperand The right-hand side of the multiplication operation.
+ *  @return              The result of the multiplication.
  **/
 NSDecimal CPTDecimalMultiply(NSDecimal leftOperand, NSDecimal rightOperand)
 {
@@ -639,9 +639,9 @@ NSDecimal CPTDecimalMultiply(NSDecimal leftOperand, NSDecimal rightOperand)
 
 /**
  *  @brief Divides one @ref NSDecimal by another.
- *  @param numerator The numerator of the multiplication operation.
- *  @param denominator The denominator of the multiplication operation.
- *  @return The result of the division.
+ *  @param  numerator   The numerator of the multiplication operation.
+ *  @param  denominator The denominator of the multiplication operation.
+ *  @return             The result of the division.
  **/
 NSDecimal CPTDecimalDivide(NSDecimal numerator, NSDecimal denominator)
 {
@@ -667,9 +667,9 @@ NSDecimal CPTDecimalDivide(NSDecimal numerator, NSDecimal denominator)
 
 /**
  *  @brief Checks to see if one @ref NSDecimal is greater than another.
- *  @param leftOperand The left side of the comparison.
- *  @param rightOperand The right side of the comparison.
- *  @return @YES if the left operand is greater than the right, @NO otherwise.
+ *  @param  leftOperand  The left side of the comparison.
+ *  @param  rightOperand The right side of the comparison.
+ *  @return              @YES if the left operand is greater than the right, @NO otherwise.
  **/
 BOOL CPTDecimalGreaterThan(NSDecimal leftOperand, NSDecimal rightOperand)
 {
@@ -678,9 +678,9 @@ BOOL CPTDecimalGreaterThan(NSDecimal leftOperand, NSDecimal rightOperand)
 
 /**
  *  @brief Checks to see if one @ref NSDecimal is greater than or equal to another.
- *  @param leftOperand The left side of the comparison.
- *  @param rightOperand The right side of the comparison.
- *  @return @YES if the left operand is greater than or equal to the right, @NO otherwise.
+ *  @param  leftOperand  The left side of the comparison.
+ *  @param  rightOperand The right side of the comparison.
+ *  @return              @YES if the left operand is greater than or equal to the right, @NO otherwise.
  **/
 BOOL CPTDecimalGreaterThanOrEqualTo(NSDecimal leftOperand, NSDecimal rightOperand)
 {
@@ -689,9 +689,9 @@ BOOL CPTDecimalGreaterThanOrEqualTo(NSDecimal leftOperand, NSDecimal rightOperan
 
 /**
  *  @brief Checks to see if one @ref NSDecimal is less than another.
- *  @param leftOperand The left side of the comparison.
- *  @param rightOperand The right side of the comparison.
- *  @return @YES if the left operand is less than the right, @NO otherwise.
+ *  @param  leftOperand  The left side of the comparison.
+ *  @param  rightOperand The right side of the comparison.
+ *  @return              @YES if the left operand is less than the right, @NO otherwise.
  **/
 BOOL CPTDecimalLessThan(NSDecimal leftOperand, NSDecimal rightOperand)
 {
@@ -700,9 +700,9 @@ BOOL CPTDecimalLessThan(NSDecimal leftOperand, NSDecimal rightOperand)
 
 /**
  *  @brief Checks to see if one @ref NSDecimal is less than or equal to another.
- *  @param leftOperand The left side of the comparison.
- *  @param rightOperand The right side of the comparison.
- *  @return @YES if the left operand is less than or equal to the right, @NO otherwise.
+ *  @param  leftOperand  The left side of the comparison.
+ *  @param  rightOperand The right side of the comparison.
+ *  @return              @YES if the left operand is less than or equal to the right, @NO otherwise.
  **/
 BOOL CPTDecimalLessThanOrEqualTo(NSDecimal leftOperand, NSDecimal rightOperand)
 {
@@ -711,9 +711,9 @@ BOOL CPTDecimalLessThanOrEqualTo(NSDecimal leftOperand, NSDecimal rightOperand)
 
 /**
  *  @brief Checks to see if one @ref NSDecimal is equal to another.
- *  @param leftOperand The left side of the comparison.
- *  @param rightOperand The right side of the comparison.
- *  @return @YES if the left operand is equal to the right, @NO otherwise.
+ *  @param  leftOperand  The left side of the comparison.
+ *  @param  rightOperand The right side of the comparison.
+ *  @return              @YES if the left operand is equal to the right, @NO otherwise.
  **/
 BOOL CPTDecimalEquals(NSDecimal leftOperand, NSDecimal rightOperand)
 {
@@ -737,9 +737,9 @@ NSDecimal CPTDecimalNaN(void)
 
 /**
  *  @brief Determines the smaller of two @ref NSDecimal values.
- *  @param leftOperand The first value to compare.
- *  @param rightOperand The second value to compare.
- *  @return The smaller of the two arguments.
+ *  @param  leftOperand  The first value to compare.
+ *  @param  rightOperand The second value to compare.
+ *  @return              The smaller of the two arguments.
  **/
 NSDecimal CPTDecimalMin(NSDecimal leftOperand, NSDecimal rightOperand)
 {
@@ -759,9 +759,9 @@ NSDecimal CPTDecimalMin(NSDecimal leftOperand, NSDecimal rightOperand)
 
 /**
  *  @brief Determines the larger of two @ref NSDecimal values.
- *  @param leftOperand The first value to compare.
- *  @param rightOperand The second value to compare.
- *  @return The larger of the two arguments.
+ *  @param  leftOperand  The first value to compare.
+ *  @param  rightOperand The second value to compare.
+ *  @return              The larger of the two arguments.
  **/
 NSDecimal CPTDecimalMax(NSDecimal leftOperand, NSDecimal rightOperand)
 {
@@ -781,8 +781,8 @@ NSDecimal CPTDecimalMax(NSDecimal leftOperand, NSDecimal rightOperand)
 
 /**
  *  @brief Determines the absolute value of an @ref NSDecimal value.
- *  @param value The input value for the calculation.
- *  @return The absolute value of the argument.
+ *  @param  value The input value for the calculation.
+ *  @return       The absolute value of the argument.
  **/
 NSDecimal CPTDecimalAbs(NSDecimal value)
 {
@@ -802,9 +802,9 @@ NSDecimal CPTDecimalAbs(NSDecimal value)
  *
  *  The @par{location} of the resulting NSRange will be non-negative.
  *
- *  @param range The NSRange to expand.
- *  @param expandBy The amount the expand the range by.
- *  @return The expanded range.
+ *  @param  range    The NSRange to expand.
+ *  @param  expandBy The amount the expand the range by.
+ *  @return          The expanded range.
  **/
 NSRange CPTExpandedRange(NSRange range, NSInteger expandBy)
 {
@@ -823,8 +823,8 @@ NSRange CPTExpandedRange(NSRange range, NSInteger expandBy)
  *
  *  Supports RGBA and grayscale color spaces.
  *
- *  @param color The color.
- *  @return The RGBA components of the color.
+ *  @param  color The color.
+ *  @return       The RGBA components of the color.
  **/
 CPTRGBAColor CPTRGBAColorFromCGColor(__nonnull CGColorRef color)
 {
@@ -859,8 +859,8 @@ CPTRGBAColor CPTRGBAColorFromCGColor(__nonnull CGColorRef color)
  *
  *  The current implementation is two-dimensional—X is orthogonal to Y and Y is orthogonal to X.
  *
- *  @param coord The CPTCoordinate.
- *  @return The orthogonal CPTCoordinate.
+ *  @param  coord The CPTCoordinate.
+ *  @return       The orthogonal CPTCoordinate.
  **/
 CPTCoordinate CPTOrthogonalCoordinate(CPTCoordinate coord)
 {
@@ -876,9 +876,9 @@ CPTCoordinate CPTOrthogonalCoordinate(CPTCoordinate coord)
  *  Ensures that the x and y coordinates are at a pixel corner in device space.
  *  Drawn from <i>Programming with Quartz</i> by D. Gelphman, B. Laden.
  *
- *  @param context The graphics context.
- *  @param point The point in user space.
- *  @return The device aligned point in user space.
+ *  @param  context The graphics context.
+ *  @param  point   The point in user space.
+ *  @return         The device aligned point in user space.
  **/
 CGPoint CPTAlignPointToUserSpace(__nonnull CGContextRef context, CGPoint point)
 {
@@ -900,9 +900,9 @@ CGPoint CPTAlignPointToUserSpace(__nonnull CGContextRef context, CGPoint point)
  *  Ensures that the width and height are an integer number of device pixels.
  *  Drawn from <i>Programming with Quartz</i> by D. Gelphman, B. Laden.
  *
- *  @param context The graphics context.
- *  @param size The size in user space.
- *  @return The device aligned size in user space.
+ *  @param  context The graphics context.
+ *  @param  size    The size in user space.
+ *  @return         The device aligned size in user space.
  **/
 CGSize CPTAlignSizeToUserSpace(__nonnull CGContextRef context, CGSize size)
 {
@@ -924,9 +924,9 @@ CGSize CPTAlignSizeToUserSpace(__nonnull CGContextRef context, CGSize size)
  *  and the width and height are an integer number of device pixels.
  *  Drawn from <i>Programming with Quartz</i> by D. Gelphman, B. Laden.
  *
- *  @param context The graphics context.
- *  @param rect The rectangle in user space.
- *  @return The device aligned rectangle in user space.
+ *  @param  context The graphics context.
+ *  @param  rect    The rectangle in user space.
+ *  @return         The device aligned rectangle in user space.
  **/
 CGRect CPTAlignRectToUserSpace(__nonnull CGContextRef context, CGRect rect)
 {
@@ -952,9 +952,9 @@ CGRect CPTAlignRectToUserSpace(__nonnull CGContextRef context, CGRect rect)
  *
  *  Ensures that the x and y coordinates are between pixels in device space.
  *
- *  @param context The graphics context.
- *  @param point The point in user space.
- *  @return The device aligned point in user space.
+ *  @param  context The graphics context.
+ *  @param  point   The point in user space.
+ *  @return         The device aligned point in user space.
  **/
 CGPoint CPTAlignIntegralPointToUserSpace(__nonnull CGContextRef context, CGPoint point)
 {
@@ -972,9 +972,9 @@ CGPoint CPTAlignIntegralPointToUserSpace(__nonnull CGContextRef context, CGPoint
  *  Ensures that the x and y coordinates are between pixels in device space
  *  and the width and height are an integer number of device pixels.
  *
- *  @param context The graphics context.
- *  @param rect The rectangle in user space.
- *  @return The device aligned rectangle in user space.
+ *  @param  context The graphics context.
+ *  @param  rect    The rectangle in user space.
+ *  @return         The device aligned rectangle in user space.
  **/
 CGRect CPTAlignIntegralRectToUserSpace(__nonnull CGContextRef context, CGRect rect)
 {
@@ -1021,8 +1021,8 @@ CGRect CPTAlignBorderedRectToUserSpace(__nonnull CGContextRef context, CGRect re
 #pragma mark String formatting for Core Graphics structs
 
 /** @brief Creates a string representation of the given point.
- *  @param point The point.
- *  @return A string with the format <code> {x, y}</code>.
+ *  @param  point The point.
+ *  @return       A string with the format <code> {x, y}</code>.
  **/
 NSString *__nonnull CPTStringFromPoint(CGPoint point)
 {
@@ -1030,8 +1030,8 @@ NSString *__nonnull CPTStringFromPoint(CGPoint point)
 }
 
 /** @brief Creates a string representation of the given size.
- *  @param size The size.
- *  @return A string with the format <code> {width, height}</code>.
+ *  @param  size The size.
+ *  @return      A string with the format <code> {width, height}</code>.
  **/
 NSString *__nonnull CPTStringFromSize(CGSize size)
 {
@@ -1039,8 +1039,8 @@ NSString *__nonnull CPTStringFromSize(CGSize size)
 }
 
 /** @brief Creates a string representation of the given rectangle.
- *  @param rect The rectangle.
- *  @return A string with the format <code> {{x, y}, {width, height}}</code>.
+ *  @param  rect The rectangle.
+ *  @return      A string with the format <code> {{x, y}, {width, height}}</code>.
  **/
 NSString *__nonnull CPTStringFromRect(CGRect rect)
 {
@@ -1048,8 +1048,8 @@ NSString *__nonnull CPTStringFromRect(CGRect rect)
 }
 
 /** @brief Creates a string representation of the given vector.
- *  @param vector The vector.
- *  @return A string with the format <code> {dx, dy}</code>.
+ *  @param  vector The vector.
+ *  @return        A string with the format <code> {dx, dy}</code>.
  **/
 NSString *__nonnull CPTStringFromVector(CGVector vector)
 {
@@ -1060,9 +1060,9 @@ NSString *__nonnull CPTStringFromVector(CGVector vector)
 #pragma mark CGPoint utilities
 
 /** @brief Computes the square of the distance between two points.
- *  @param point1 The first point.
- *  @param point2 The second point.
- *  @return The square of the distance between the two points.
+ *  @param  point1 The first point.
+ *  @param  point2 The second point.
+ *  @return        The square of the distance between the two points.
  **/
 CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 {
@@ -1077,11 +1077,11 @@ CGFloat squareOfDistanceBetweenPoints(CGPoint point1, CGPoint point2)
 #pragma mark Edge Inset Utilities
 
 /** @brief Returns a CPTEdgeInsets struct with the given insets.
- *  @param top The top inset.
- *  @param left The left inset.
- *  @param bottom The bottom inset.
- *  @param right The right inset.
- *  @return A CPTEdgeInsets struct with the given insets.
+ *  @param  top    The top inset.
+ *  @param  left   The left inset.
+ *  @param  bottom The bottom inset.
+ *  @param  right  The right inset.
+ *  @return        A CPTEdgeInsets struct with the given insets.
  **/
 CPTEdgeInsets CPTEdgeInsetsMake(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right)
 {
@@ -1096,9 +1096,9 @@ CPTEdgeInsets CPTEdgeInsetsMake(CGFloat top, CGFloat left, CGFloat bottom, CGFlo
 }
 
 /** @brief Compares two CPTEdgeInsets structstructs.
- *  @param insets1 The first inset.
- *  @param insets2 The second inset.
- *  @return @YES if the two CPTEdgeInsets structs are equal.
+ *  @param  insets1 The first inset.
+ *  @param  insets2 The second inset.
+ *  @return         @YES if the two CPTEdgeInsets structs are equal.
  **/
 BOOL CPTEdgeInsetsEqualToEdgeInsets(CPTEdgeInsets insets1, CPTEdgeInsets insets2)
 {
@@ -1112,9 +1112,9 @@ BOOL CPTEdgeInsetsEqualToEdgeInsets(CPTEdgeInsets insets1, CPTEdgeInsets insets2
 #pragma mark Log Modulus
 
 /** @brief Computes the log modulus of the given value.
- *  @param value The value.
- *  @return The log modulus of the given value.
- *  @see <a href="https://blogs.sas.com/content/iml/2014/07/14/log-transformation-of-pos-neg.html">A log transformation of positive and negative values</a> for more information about the log-modulus transformation.
+ *  @param  value The value.
+ *  @return       The log modulus of the given value.
+ *  @see          <a href="https://blogs.sas.com/content/iml/2014/07/14/log-transformation-of-pos-neg.html">A log transformation of positive and negative values</a> for more information about the log-modulus transformation.
  **/
 double CPTLogModulus(double value)
 {
@@ -1129,8 +1129,8 @@ double CPTLogModulus(double value)
 }
 
 /** @brief Computes the inverse log modulus of the given value.
- *  @param value The value.
- *  @return The inverse log modulus of the given value.
+ *  @param  value The value.
+ *  @return       The inverse log modulus of the given value.
  **/
 double CPTInverseLogModulus(double value)
 {

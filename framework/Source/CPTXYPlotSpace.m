@@ -1538,9 +1538,9 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
  *  @link CPTPlotAreaFrame::plotArea plotArea @endlink, a drag operation starts and
  *  this method returns @YES.
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceDownEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
@@ -1595,9 +1595,9 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
  *  Otherwise, if a drag operation is in progress, it ends and
  *  this method returns @YES.
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceUpEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
@@ -1694,9 +1694,9 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
  *  and @ref yRange are shifted to follow the drag and
  *  this method returns @YES.
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceDraggedEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
@@ -1819,10 +1819,10 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
  *  delegate method is called. If it returns @NO, this method returns @YES
  *  to indicate that the event has been handled and no further processing should occur.
  *
- *  @param event The OS event.
- *  @param fromPoint The starting coordinates of the interaction.
- *  @param toPoint The ending coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event     The OS event.
+ *  @param  fromPoint The starting coordinates of the interaction.
+ *  @param  toPoint   The ending coordinates of the interaction.
+ *  @return           Whether the event was handled or not.
  **/
 -(BOOL)scrollWheelEvent:(nonnull CPTNativeEvent *)event fromPoint:(CGPoint)fromPoint toPoint:(CGPoint)toPoint
 {

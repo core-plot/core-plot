@@ -140,9 +140,9 @@
 #pragma mark Init/Dealloc
 
 /** @brief Creates and returns a new CPTPlotRange instance initialized with the provided location and length.
- *  @param loc The starting location of the range.
- *  @param len The length of the range.
- *  @return A new CPTPlotRange instance initialized with the provided location and length.
+ *  @param  loc The starting location of the range.
+ *  @param  len The length of the range.
+ *  @return     A new CPTPlotRange instance initialized with the provided location and length.
  **/
 +(nonnull instancetype)plotRangeWithLocation:(nonnull NSNumber *)loc length:(nonnull NSNumber *)len
 {
@@ -150,9 +150,9 @@
 }
 
 /** @brief Creates and returns a new CPTPlotRange instance initialized with the provided location and length.
- *  @param loc The starting location of the range.
- *  @param len The length of the range.
- *  @return A new CPTPlotRange instance initialized with the provided location and length.
+ *  @param  loc The starting location of the range.
+ *  @param  len The length of the range.
+ *  @return     A new CPTPlotRange instance initialized with the provided location and length.
  **/
 +(nonnull instancetype)plotRangeWithLocationDecimal:(NSDecimal)loc lengthDecimal:(NSDecimal)len
 {
@@ -160,9 +160,9 @@
 }
 
 /** @brief Initializes a newly allocated CPTPlotRange object with the provided location and length.
- *  @param loc The starting location of the range.
- *  @param len The length of the range.
- *  @return The initialized CPTPlotRange object.
+ *  @param  loc The starting location of the range.
+ *  @param  len The length of the range.
+ *  @return     The initialized CPTPlotRange object.
  **/
 -(nonnull instancetype)initWithLocation:(nonnull NSNumber *)loc length:(nonnull NSNumber *)len
 {
@@ -190,9 +190,9 @@
 }
 
 /** @brief Initializes a newly allocated CPTPlotRange object with the provided location and length.
- *  @param loc The starting location of the range.
- *  @param len The length of the range.
- *  @return The initialized CPTPlotRange object.
+ *  @param  loc The starting location of the range.
+ *  @param  len The length of the range.
+ *  @return     The initialized CPTPlotRange object.
  **/
 -(nonnull instancetype)initWithLocationDecimal:(NSDecimal)loc lengthDecimal:(NSDecimal)len
 {
@@ -468,8 +468,8 @@
 /// @endcond
 
 /** @brief Returns an object initialized from data in a given unarchiver.
- *  @param decoder An unarchiver object.
- *  @return An object initialized from data in a given unarchiver.
+ *  @param  decoder An unarchiver object.
+ *  @return         An object initialized from data in a given unarchiver.
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)decoder
 {
@@ -500,8 +500,8 @@
 #pragma mark Checking Containership
 
 /** @brief Determines whether a given number is inside the range.
- *  @param number The number to check.
- *  @return @YES if @ref location ≤ @par{number} ≤ @ref end.
+ *  @param  number The number to check.
+ *  @return        @YES if @ref location ≤ @par{number} ≤ @ref end.
  **/
 -(BOOL)contains:(NSDecimal)number
 {
@@ -529,8 +529,8 @@
 }
 
 /** @brief Determines whether a given number is inside the range.
- *  @param number The number to check.
- *  @return @YES if @ref locationDouble ≤ @par{number} ≤ @ref endDouble.
+ *  @param  number The number to check.
+ *  @return        @YES if @ref locationDouble ≤ @par{number} ≤ @ref endDouble.
  **/
 -(BOOL)containsDouble:(double)number
 {
@@ -538,8 +538,8 @@
 }
 
 /** @brief Determines whether a given number is inside the range.
- *  @param number The number to check.
- *  @return @YES if @ref location ≤ @par{number} ≤ @ref end.
+ *  @param  number The number to check.
+ *  @return        @YES if @ref location ≤ @par{number} ≤ @ref end.
  **/
 -(BOOL)containsNumber:(nullable NSNumber *)number
 {
@@ -552,8 +552,8 @@
 }
 
 /** @brief Determines whether a given range is equal to the range of the receiver.
- *  @param otherRange The range to check.
- *  @return @YES if the ranges both have the same location and length.
+ *  @param  otherRange The range to check.
+ *  @return            @YES if the ranges both have the same location and length.
  **/
 -(BOOL)isEqualToRange:(nullable CPTPlotRange *)otherRange
 {
@@ -569,8 +569,8 @@
 }
 
 /** @brief Determines whether the receiver entirely contains another range.
- *  @param otherRange The range to check.
- *  @return @YES if the other range fits entirely within the range of the receiver.
+ *  @param  otherRange The range to check.
+ *  @return            @YES if the other range fits entirely within the range of the receiver.
  **/
 -(BOOL)containsRange:(nullable CPTPlotRange *)otherRange
 {
@@ -602,8 +602,8 @@
 }
 
 /** @brief Determines whether a given range intersects the receiver.
- *  @param otherRange The range to check.
- *  @return @YES if the ranges intersect.
+ *  @param  otherRange The range to check.
+ *  @return            @YES if the ranges intersect.
  **/
 -(BOOL)intersectsRange:(nullable CPTPlotRange *)otherRange
 {
@@ -662,8 +662,8 @@
 }
 
 /** @brief Compares a number to the range, determining if it is in the range, or above or below it.
- *  @param number The number to check.
- *  @return The comparison result.
+ *  @param  number The number to check.
+ *  @return        The comparison result.
  **/
 -(CPTPlotRangeComparisonResult)compareToNumber:(nonnull NSNumber *)number
 {
@@ -679,8 +679,8 @@
 }
 
 /** @brief Compares a number to the range, determining if it is in the range, or above or below it.
- *  @param number The number to check.
- *  @return The comparison result.
+ *  @param  number The number to check.
+ *  @return        The comparison result.
  **/
 -(CPTPlotRangeComparisonResult)compareToDecimal:(NSDecimal)number
 {
@@ -702,8 +702,8 @@
 }
 
 /** @brief Compares a number to the range, determining if it is in the range, or above or below it.
- *  @param number The number to check.
- *  @return The comparison result.
+ *  @param  number The number to check.
+ *  @return        The comparison result.
  **/
 -(CPTPlotRangeComparisonResult)compareToDouble:(double)number
 {

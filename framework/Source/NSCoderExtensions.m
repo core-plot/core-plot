@@ -14,7 +14,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element);
 
 /** @brief Encodes a @ref CGFloat and associates it with the string @par{key}.
  *  @param number The number to encode.
- *  @param key The key to associate with the number.
+ *  @param key    The key to associate with the number.
  **/
 -(void)encodeCGFloat:(CGFloat)number forKey:(nonnull NSString *)key
 {
@@ -27,7 +27,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element);
 
 /** @brief Encodes a @ref CGPoint and associates it with the string @par{key}.
  *  @param point The point to encode.
- *  @param key The key to associate with the point.
+ *  @param key   The key to associate with the point.
  **/
 -(void)encodeCPTPoint:(CGPoint)point forKey:(nonnull NSString *)key
 {
@@ -41,7 +41,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element);
 
 /** @brief Encodes a @ref CGSize and associates it with the string @par{key}.
  *  @param size The size to encode.
- *  @param key The key to associate with the size.
+ *  @param key  The key to associate with the size.
  **/
 -(void)encodeCPTSize:(CGSize)size forKey:(nonnull NSString *)key
 {
@@ -55,7 +55,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element);
 
 /** @brief Encodes a @ref CGRect and associates it with the string @par{key}.
  *  @param rect The rectangle to encode.
- *  @param key The key to associate with the rectangle.
+ *  @param key  The key to associate with the rectangle.
  **/
 -(void)encodeCPTRect:(CGRect)rect forKey:(nonnull NSString *)key
 {
@@ -69,7 +69,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element);
 
 /** @brief Encodes a color space and associates it with the string @par{key}.
  *  @param colorSpace The @ref CGColorSpaceRef to encode.
- *  @param key The key to associate with the color space.
+ *  @param key        The key to associate with the color space.
  *  @note The current implementation only works with named color spaces.
  **/
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
@@ -126,7 +126,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
             break;
     }
 
-    NSMutableArray<NSMutableDictionary<NSString *, NSNumber *> *> *pathData = (__bridge NSMutableArray<NSMutableDictionary<NSString *, NSNumber *> *> *)info;
+    NSMutableArray<NSMutableDictionary<NSString *, NSNumber *> *> *pathData = (__bridge NSMutableArray<NSMutableDictionary<NSString *, NSNumber *> *> *) info;
 
     [pathData addObject:elementData];
 }
@@ -135,7 +135,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 
 /** @brief Encodes a path and associates it with the string @par{key}.
  *  @param path The @ref CGPathRef to encode.
- *  @param key The key to associate with the path.
+ *  @param key  The key to associate with the path.
  **/
 -(void)encodeCGPath:(nullable CGPathRef)path forKey:(nonnull NSString *)key
 {
@@ -189,7 +189,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 
 /** @brief Encodes an image and associates it with the string @par{key}.
  *  @param image The @ref CGImageRef to encode.
- *  @param key The key to associate with the image.
+ *  @param key   The key to associate with the image.
  **/
 -(void)encodeCGImage:(nullable CGImageRef)image forKey:(nonnull NSString *)key
 {
@@ -253,7 +253,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 
 /** @brief Encodes an @ref NSDecimal and associates it with the string @par{key}.
  *  @param number The number to encode.
- *  @param key The key to associate with the number.
+ *  @param key    The key to associate with the number.
  **/
 -(void)encodeDecimal:(NSDecimal)number forKey:(nonnull NSString *)key
 {
@@ -266,8 +266,8 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 /** @brief Decodes and returns a number that was previously encoded with
  *  @link NSCoder::encodeCGFloat:forKey: -encodeCGFloat:forKey: @endlink
  *  and associated with the string @par{key}.
- *  @param key The key associated with the number.
- *  @return The number as a @ref CGFloat.
+ *  @param  key The key associated with the number.
+ *  @return     The number as a @ref CGFloat.
  **/
 -(CGFloat)decodeCGFloatForKey:(nonnull NSString *)key
 {
@@ -281,8 +281,8 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 /** @brief Decodes and returns a point that was previously encoded with
  *  @link NSCoder::encodeCPTPoint:forKey: -encodeCPTPoint:forKey: @endlink
  *  and associated with the string @par{key}.
- *  @param key The key associated with the point.
- *  @return The point.
+ *  @param  key The key associated with the point.
+ *  @return     The point.
  **/
 -(CGPoint)decodeCPTPointForKey:(nonnull NSString *)key
 {
@@ -301,8 +301,8 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 /** @brief Decodes and returns a size that was previously encoded with
  *  @link NSCoder::encodeCPTSize:forKey: -encodeCPTSize:forKey:@endlink
  *  and associated with the string @par{key}.
- *  @param key The key associated with the size.
- *  @return The size.
+ *  @param  key The key associated with the size.
+ *  @return     The size.
  **/
 -(CGSize)decodeCPTSizeForKey:(nonnull NSString *)key
 {
@@ -321,8 +321,8 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 /** @brief Decodes and returns a rectangle that was previously encoded with
  *  @link NSCoder::encodeCPTRect:forKey: -encodeCPTRect:forKey:@endlink
  *  and associated with the string @par{key}.
- *  @param key The key associated with the rectangle.
- *  @return The rectangle.
+ *  @param  key The key associated with the rectangle.
+ *  @return     The rectangle.
  **/
 -(CGRect)decodeCPTRectForKey:(nonnull NSString *)key
 {
@@ -341,8 +341,8 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 /** @brief Decodes and returns an new color space object that was previously encoded with
  *  @link NSCoder::encodeCGColorSpace:forKey: -encodeCGColorSpace:forKey:@endlink
  *  and associated with the string @par{key}.
- *  @param key The key associated with the color space.
- *  @return The new path.
+ *  @param  key The key associated with the color space.
+ *  @return     The new path.
  *  @note The current implementation only works with named color spaces.
  **/
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
@@ -381,8 +381,8 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 /** @brief Decodes and returns a new path object that was previously encoded with
  *  @link NSCoder::encodeCGPath:forKey: -encodeCGPath:forKey:@endlink
  *  and associated with the string @par{key}.
- *  @param key The key associated with the path.
- *  @return The new path.
+ *  @param  key The key associated with the path.
+ *  @return     The new path.
  **/
 -(nullable CGPathRef)newCGPathDecodeForKey:(nonnull NSString *)key
 {
@@ -449,8 +449,8 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 /** @brief Decodes and returns a new image object that was previously encoded with
  *  @link NSCoder::encodeCGImage:forKey: -encodeCGImage:forKey:@endlink
  *  and associated with the string @par{key}.
- *  @param key The key associated with the image.
- *  @return The new image.
+ *  @param  key The key associated with the image.
+ *  @return     The new image.
  **/
 -(nullable CGImageRef)newCGImageDecodeForKey:(nonnull NSString *)key
 {
@@ -527,8 +527,8 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 /** @brief Decodes and returns a decimal number that was previously encoded with
  *  @link NSCoder::encodeDecimal:forKey: -encodeDecimal:forKey:@endlink
  *  and associated with the string @par{key}.
- *  @param key The key associated with the number.
- *  @return The number as an @ref NSDecimal.
+ *  @param  key The key associated with the number.
+ *  @return     The number as an @ref NSDecimal.
  **/
 -(NSDecimal)decodeDecimalForKey:(nonnull NSString *)key
 {

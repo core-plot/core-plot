@@ -67,13 +67,13 @@
  *  - @ref identifier = @nil
  *  - @ref userInfo = @nil
  *
- *  @param animationPeriod The animation period.
- *  @param curve The animation curve.
- *  @param object The object to update for each animation frame.
- *  @param getter The @ref boundObject getter method for the property to update for each animation frame.
- *  @param setter The @ref boundObject setter method for the property to update for each animation frame.
+ *  @param  animationPeriod The animation period.
+ *  @param  curve           The animation curve.
+ *  @param  object          The object to update for each animation frame.
+ *  @param  getter          The @ref boundObject getter method for the property to update for each animation frame.
+ *  @param  setter          The @ref boundObject setter method for the property to update for each animation frame.
  *
- *  @return The initialized object.
+ *  @return                 The initialized object.
  **/
 -(nonnull instancetype)initWithAnimationPeriod:(nonnull CPTAnimationPeriod *)animationPeriod animationCurve:(CPTAnimationCurve)curve object:(nonnull id)object getter:(nonnull SEL)getter setter:(nonnull SEL)setter
 {

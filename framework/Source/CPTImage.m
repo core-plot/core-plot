@@ -116,8 +116,8 @@ CPTImageSlices;
 
 /** @brief Initializes a CPTImage instance with the contents of a file.
  *
- *  @param path The full or partial path to the image file.
- *  @return A CPTImage instance initialized from the file at the given path.
+ *  @param  path The full or partial path to the image file.
+ *  @return      A CPTImage instance initialized from the file at the given path.
  **/
 -(nonnull instancetype)initWithContentsOfFile:(nonnull NSString *)path
 {
@@ -128,9 +128,9 @@ CPTImageSlices;
  *
  *  This is the designated initializer.
  *
- *  @param anImage The image to wrap.
- *  @param newScale The image scale. Must be greater than zero.
- *  @return A CPTImage instance initialized with the provided @ref CGImageRef.
+ *  @param  anImage  The image to wrap.
+ *  @param  newScale The image scale. Must be greater than zero.
+ *  @return          A CPTImage instance initialized with the provided @ref CGImageRef.
  **/
 -(nonnull instancetype)initWithCGImage:(nullable CGImageRef)anImage scale:(CGFloat)newScale
 {
@@ -150,8 +150,8 @@ CPTImageSlices;
 }
 
 /** @brief Initializes a CPTImage instance with the provided @ref CGImageRef and scale @num{1.0}.
- *  @param anImage The image to wrap.
- *  @return A CPTImage instance initialized with the provided @ref CGImageRef.
+ *  @param  anImage The image to wrap.
+ *  @return         A CPTImage instance initialized with the provided @ref CGImageRef.
  **/
 -(nonnull instancetype)initWithCGImage:(nullable CGImageRef)anImage
 {
@@ -211,8 +211,8 @@ CPTImageSlices;
 /// @endcond
 
 /** @brief Returns an object initialized from data in a given unarchiver.
- *  @param coder An unarchiver object.
- *  @return An object initialized from data in a given unarchiver.
+ *  @param  coder An unarchiver object.
+ *  @return       An object initialized from data in a given unarchiver.
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
@@ -280,8 +280,8 @@ CPTImageSlices;
 
 /** @brief Initializes a CPTImage instance with the named image.
  *
- *  @param name The name of the image to load.
- *  @return A new CPTImage instance initialized with the named image.
+ *  @param  name The name of the image to load.
+ *  @return      A new CPTImage instance initialized with the named image.
  **/
 +(nonnull instancetype)imageNamed:(nonnull NSString *)name
 {
@@ -290,8 +290,8 @@ CPTImageSlices;
 
 /** @brief Initializes a CPTImage instance with the provided platform-native image.
  *
- *  @param anImage The platform-native image.
- *  @return A new CPTImage instance initialized with the provided image.
+ *  @param  anImage The platform-native image.
+ *  @return         A new CPTImage instance initialized with the provided image.
  **/
 +(nonnull instancetype)imageWithNativeImage:(nullable CPTNativeImage *)anImage
 {
@@ -300,8 +300,8 @@ CPTImageSlices;
 
 /** @brief Initializes a CPTImage instance with the contents of a file.
  *
- *  @param path The full or partial path to the image file.
- *  @return A new CPTImage instance initialized from the file at the given path.
+ *  @param  path The full or partial path to the image file.
+ *  @return      A new CPTImage instance initialized from the file at the given path.
  **/
 +(nonnull instancetype)imageWithContentsOfFile:(nonnull NSString *)path
 {
@@ -309,9 +309,9 @@ CPTImageSlices;
 }
 
 /** @brief Creates and returns a new CPTImage instance initialized with the provided @ref CGImageRef.
- *  @param anImage The image to wrap.
- *  @param newScale The image scale.
- *  @return A new CPTImage instance initialized with the provided @ref CGImageRef.
+ *  @param  anImage  The image to wrap.
+ *  @param  newScale The image scale.
+ *  @return          A new CPTImage instance initialized with the provided @ref CGImageRef.
  **/
 +(nonnull instancetype)imageWithCGImage:(nullable CGImageRef)anImage scale:(CGFloat)newScale
 {
@@ -319,8 +319,8 @@ CPTImageSlices;
 }
 
 /** @brief Creates and returns a new CPTImage instance initialized with the provided @ref CGImageRef and scale @num{1.0}.
- *  @param anImage The image to wrap.
- *  @return A new CPTImage instance initialized with the provided @ref CGImageRef.
+ *  @param  anImage The image to wrap.
+ *  @return         A new CPTImage instance initialized with the provided @ref CGImageRef.
  **/
 +(nonnull instancetype)imageWithCGImage:(nullable CGImageRef)anImage
 {
@@ -333,8 +333,8 @@ CPTImageSlices;
  *  double-resolution image with the given name followed by @quote{@2x}. If the @quote{@2x} image
  *  is not available, the named image file will be loaded.
  *
- *  @param path The file system path of the file.
- *  @return A new CPTImage instance initialized with the contents of the PNG file.
+ *  @param  path The file system path of the file.
+ *  @return      A new CPTImage instance initialized with the contents of the PNG file.
  **/
 +(nonnull instancetype)imageForPNGFile:(nonnull NSString *)path
 {
@@ -349,8 +349,8 @@ CPTImageSlices;
 
 /** @brief Returns a boolean value that indicates whether the received is equal to the given object.
  *  Images are equal if they have the same @ref scale, @ref tiled, @ref tileAnchoredToContext, image size, color space, bit depth, and image data.
- *  @param object The object to be compared with the receiver.
- *  @return @YES if @par{object} is equal to the receiver, @NO otherwise.
+ *  @param  object The object to be compared with the receiver.
+ *  @return        @YES if @par{object} is equal to the receiver, @NO otherwise.
  **/
 -(BOOL)isEqual:(nullable id)object
 {
@@ -725,7 +725,7 @@ CPTImageSlices;
  *  If the tiled property is @YES, the image is repeatedly drawn to fill the clipping region, otherwise the image is
  *  scaled to fit in @par{rect}.
  *
- *  @param rect The rectangle to draw into.
+ *  @param rect    The rectangle to draw into.
  *  @param context The graphics context to draw into.
  **/
 -(void)drawInRect:(CGRect)rect inContext:(nonnull CGContextRef)context

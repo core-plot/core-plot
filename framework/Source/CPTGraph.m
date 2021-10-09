@@ -195,8 +195,8 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
  *  a @ref defaultPlotSpace created with the @link CPTGraph::newPlotSpace -newPlotSpace @endlink method,
  *  and an @ref axisSet created with the @link CPTGraph::newAxisSet -newAxisSet @endlink method.
  *
- *  @param newFrame The frame rectangle.
- *  @return The initialized CPTGraph object.
+ *  @param  newFrame The frame rectangle.
+ *  @return          The initialized CPTGraph object.
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
@@ -478,8 +478,8 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
 }
 
 /** @brief Gets the plot at the given index in the plot array.
- *  @param idx An index within the bounds of the plot array.
- *  @return The plot at the given index.
+ *  @param  idx An index within the bounds of the plot array.
+ *  @return     The plot at the given index.
  **/
 -(nullable CPTPlot *)plotAtIndex:(NSUInteger)idx
 {
@@ -492,8 +492,8 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
 }
 
 /** @brief Gets the plot with the given identifier from the plot array.
- *  @param identifier A plot identifier.
- *  @return The plot with the given identifier or @nil if it was not found.
+ *  @param  identifier A plot identifier.
+ *  @return            The plot with the given identifier or @nil if it was not found.
  **/
 -(nullable CPTPlot *)plotWithIdentifier:(nullable id<NSCopying>)identifier
 {
@@ -517,7 +517,7 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
 }
 
 /** @brief Add a plot to the given plot space.
- *  @param plot The plot.
+ *  @param plot  The plot.
  *  @param space The plot space.
  **/
 -(void)addPlot:(nonnull CPTPlot *)plot toPlotSpace:(nullable CPTPlotSpace *)space
@@ -552,7 +552,7 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
 
 /** @brief Add a plot to the default plot space at the given index in the plot array.
  *  @param plot The plot.
- *  @param idx An index within the bounds of the plot array.
+ *  @param idx  An index within the bounds of the plot array.
  **/
 -(void)insertPlot:(nonnull CPTPlot *)plot atIndex:(NSUInteger)idx
 {
@@ -560,8 +560,8 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
 }
 
 /** @brief Add a plot to the given plot space at the given index in the plot array.
- *  @param plot The plot.
- *  @param idx An index within the bounds of the plot array.
+ *  @param plot  The plot.
+ *  @param idx   An index within the bounds of the plot array.
  *  @param space The plot space.
  **/
 -(void)insertPlot:(nonnull CPTPlot *)plot atIndex:(NSUInteger)idx intoPlotSpace:(nullable CPTPlotSpace *)space
@@ -606,8 +606,8 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
 }
 
 /** @brief Gets the plot space at the given index in the plot space array.
- *  @param idx An index within the bounds of the plot space array.
- *  @return The plot space at the given index.
+ *  @param  idx An index within the bounds of the plot space array.
+ *  @return     The plot space at the given index.
  **/
 -(nullable CPTPlotSpace *)plotSpaceAtIndex:(NSUInteger)idx
 {
@@ -615,8 +615,8 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
 }
 
 /** @brief Gets the plot space with the given identifier from the plot space array.
- *  @param identifier A plot space identifier.
- *  @return The plot space with the given identifier or @nil if it was not found.
+ *  @param  identifier A plot space identifier.
+ *  @return            The plot space with the given identifier or @nil if it was not found.
  **/
 -(nullable CPTPlotSpace *)plotSpaceWithIdentifier:(nullable id<NSCopying>)identifier
 {
@@ -1073,9 +1073,9 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
  *  this method immediately returns @YES. If none of the layers
  *  handle the event, it is passed to all plot spaces whether they handle it or not.
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceDownEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
@@ -1135,9 +1135,9 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
  *  this method immediately returns @YES. If none of the layers
  *  handle the event, it is passed to all plot spaces whether they handle it or not.
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceUpEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
@@ -1200,9 +1200,9 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
  *  this method immediately returns @YES. If none of the layers
  *  handle the event, it is passed to all plot spaces whether they handle it or not.
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceDraggedEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
@@ -1263,8 +1263,8 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
  *  this method immediately returns @YES. If none of the layers
  *  handle the event, it is passed to all plot spaces whether they handle it or not.
  *
- *  @param event The OS event.
- *  @return Whether the event was handled or not.
+ *  @param  event The OS event.
+ *  @return       Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceCancelledEvent:(nonnull CPTNativeEvent *)event
 {
@@ -1323,10 +1323,10 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
  *  this method immediately returns @YES. If none of the layers
  *  handle the event, it is passed to all plot spaces whether they handle it or not.
  *
- *  @param event The OS event.
- *  @param fromPoint The starting coordinates of the interaction.
- *  @param toPoint The ending coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event     The OS event.
+ *  @param  fromPoint The starting coordinates of the interaction.
+ *  @param  toPoint   The ending coordinates of the interaction.
+ *  @return           Whether the event was handled or not.
  **/
 -(BOOL)scrollWheelEvent:(nonnull CPTNativeEvent *)event fromPoint:(CGPoint)fromPoint toPoint:(CGPoint)toPoint
 {

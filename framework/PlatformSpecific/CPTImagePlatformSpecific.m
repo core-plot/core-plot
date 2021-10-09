@@ -13,8 +13,8 @@
 
 /** @brief Initializes a CPTImage instance with the provided platform-native image.
  *
- *  @param anImage The platform-native image.
- *  @return A CPTImage instance initialized with the provided image.
+ *  @param  anImage The platform-native image.
+ *  @return         A CPTImage instance initialized with the provided image.
  **/
 -(nonnull instancetype)initWithNativeImage:(nullable CPTNativeImage *)anImage
 {
@@ -31,8 +31,8 @@
  *  double-resolution image with the given name followed by @quote{@2x}. If the @quote{@2x} image
  *  is not available, the named image file will be loaded.
  *
- *  @param path The file system path of the file.
- *  @return A CPTImage instance initialized with the contents of the PNG file.
+ *  @param  path The file system path of the file.
+ *  @return      A CPTImage instance initialized with the contents of the PNG file.
  **/
 -(nonnull instancetype)initForPNGFile:(nonnull NSString *)path
 {
@@ -85,8 +85,8 @@
 
 /** @brief Initializes a CPTImage instance with the provided platform-native image.
  *
- *  @param anImage The platform-native image.
- *  @return A CPTImage instance initialized with the provided image.
+ *  @param  anImage The platform-native image.
+ *  @return         A CPTImage instance initialized with the provided image.
  **/
 -(nonnull instancetype)initWithNativeImage:(nullable CPTNativeImage *)anImage
 {
@@ -106,8 +106,8 @@
  *  double-resolution image with the given name followed by @quote{@2x}. If the @quote{@2x} image
  *  is not available, the named image file will be loaded.
  *
- *  @param path The file system path of the file.
- *  @return A CPTImage instance initialized with the contents of the PNG file.
+ *  @param  path The file system path of the file.
+ *  @return      A CPTImage instance initialized with the contents of the PNG file.
  **/
 -(nonnull instancetype)initForPNGFile:(nonnull NSString *)path
 {

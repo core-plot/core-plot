@@ -6,10 +6,10 @@
 @implementation CPTNumericData(TypeConversion)
 
 /** @brief Copies the current numeric data and converts the data to a new data type.
- *  @param newDataType The new data type format.
- *  @param newSampleBytes The number of bytes used to store each sample.
- *  @param newByteOrder The new byte order.
- *  @return A copy of the current numeric data converted to the new data type.
+ *  @param  newDataType    The new data type format.
+ *  @param  newSampleBytes The number of bytes used to store each sample.
+ *  @param  newByteOrder   The new byte order.
+ *  @return                A copy of the current numeric data converted to the new data type.
  **/
 -(nonnull CPTNumericData *)dataByConvertingToType:(CPTDataTypeFormat)newDataType
                                       sampleBytes:(size_t)newSampleBytes
@@ -19,8 +19,8 @@
 }
 
 /** @brief Copies the current numeric data and converts the data to a new data type.
- *  @param newDataType The new data type.
- *  @return A copy of the current numeric data converted to the new data type.
+ *  @param  newDataType The new data type.
+ *  @return             A copy of the current numeric data converted to the new data type.
  **/
 -(nonnull CPTNumericData *)dataByConvertingToDataType:(CPTNumericDataType)newDataType
 {
@@ -76,10 +76,10 @@
 /** @brief Copies a data buffer and converts the data to a new data type without changing the byte order.
  *
  *  The data is assumed to be in host byte order and no byte order conversion is performed.
- *  @param sourceData The source data buffer.
+ *  @param sourceData     The source data buffer.
  *  @param sourceDataType The data type of the source.
- *  @param destData The destination data buffer.
- *  @param destDataType The new data type.
+ *  @param destData       The destination data buffer.
+ *  @param destDataType   The new data type.
  **/
 -(void)convertData:(nonnull NSData *)sourceData
           dataType:(nonnull CPTNumericDataType *)sourceDataType

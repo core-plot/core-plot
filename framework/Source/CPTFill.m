@@ -21,8 +21,8 @@
 #pragma mark Init/Dealloc
 
 /** @brief Creates and returns a new CPTFill instance initialized with a given color.
- *  @param aColor The color.
- *  @return A new CPTFill instance initialized with the given color.
+ *  @param  aColor The color.
+ *  @return        A new CPTFill instance initialized with the given color.
  **/
 +(nonnull instancetype)fillWithColor:(nonnull CPTColor *)aColor
 {
@@ -30,8 +30,8 @@
 }
 
 /** @brief Creates and returns a new CPTFill instance initialized with a given gradient.
- *  @param aGradient The gradient.
- *  @return A new CPTFill instance initialized with the given gradient.
+ *  @param  aGradient The gradient.
+ *  @return           A new CPTFill instance initialized with the given gradient.
  **/
 +(nonnull instancetype)fillWithGradient:(nonnull CPTGradient *)aGradient
 {
@@ -39,8 +39,8 @@
 }
 
 /** @brief Creates and returns a new CPTFill instance initialized with a given image.
- *  @param anImage The image.
- *  @return A new CPTFill instance initialized with the given image.
+ *  @param  anImage The image.
+ *  @return         A new CPTFill instance initialized with the given image.
  **/
 +(nonnull instancetype)fillWithImage:(nonnull CPTImage *)anImage
 {
@@ -48,8 +48,8 @@
 }
 
 /** @brief Initializes a newly allocated CPTFill object with the provided color.
- *  @param aColor The color.
- *  @return The initialized CPTFill object.
+ *  @param  aColor The color.
+ *  @return        The initialized CPTFill object.
  **/
 -(nonnull instancetype)initWithColor:(nonnull CPTColor *)aColor
 {
@@ -59,8 +59,8 @@
 }
 
 /** @brief Initializes a newly allocated CPTFill object with the provided gradient.
- *  @param aGradient The gradient.
- *  @return The initialized CPTFill object.
+ *  @param  aGradient The gradient.
+ *  @return           The initialized CPTFill object.
  **/
 -(nonnull instancetype)initWithGradient:(nonnull CPTGradient *)aGradient
 {
@@ -70,8 +70,8 @@
 }
 
 /** @brief Initializes a newly allocated CPTFill object with the provided image.
- *  @param anImage The image.
- *  @return The initialized CPTFill object.
+ *  @param  anImage The image.
+ *  @return         The initialized CPTFill object.
  **/
 -(nonnull instancetype)initWithImage:(nonnull CPTImage *)anImage
 {
@@ -185,7 +185,7 @@
 #pragma mark Drawing
 
 /** @brief Draws the gradient into the given graphics context inside the provided rectangle.
- *  @param rect The rectangle to draw into.
+ *  @param rect    The rectangle to draw into.
  *  @param context The graphics context to draw into.
  **/
 -(void)fillRect:(CGRect __unused)rect inContext:(nonnull CGContextRef __unused)context

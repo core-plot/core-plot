@@ -4,9 +4,9 @@
 
 /** @brief Creates a rectangular path with rounded corners.
  *
- *  @param rect The bounding rectangle for the path.
- *  @param cornerRadius The radius of the rounded corners.
- *  @return The new path. Caller is responsible for releasing this.
+ *  @param  rect         The bounding rectangle for the path.
+ *  @param  cornerRadius The radius of the rounded corners.
+ *  @return              The new path. Caller is responsible for releasing this.
  **/
 __nonnull CGPathRef CPTCreateRoundedRectPath(CGRect rect, CGFloat cornerRadius)
 {
@@ -48,8 +48,8 @@ __nonnull CGPathRef CPTCreateRoundedRectPath(CGRect rect, CGFloat cornerRadius)
 
 /** @brief Adds a rectangular path with rounded corners to a graphics context.
  *
- *  @param context The graphics context.
- *  @param rect The bounding rectangle for the path.
+ *  @param context      The graphics context.
+ *  @param rect         The bounding rectangle for the path.
  *  @param cornerRadius The radius of the rounded corners.
  **/
 void CPTAddRoundedRectPath(__nonnull CGContextRef context, CGRect rect, CGFloat cornerRadius)

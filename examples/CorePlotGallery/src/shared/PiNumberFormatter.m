@@ -16,8 +16,8 @@ double gcd(double a, double b);
 
 /**
  *  @brief Converts a number into multiples of π. Use the @link NSNumberFormatter::multiplier multiplier @endlink to control the maximum fraction denominator.
- *  @param coordinateValue The numeric value.
- *  @return The formatted string.
+ *  @param  coordinateValue The numeric value.
+ *  @return                 The formatted string.
  **/
 -(nullable NSString *)stringForObjectValue:(nullable id)coordinateValue
 {

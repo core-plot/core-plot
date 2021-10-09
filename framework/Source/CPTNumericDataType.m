@@ -10,10 +10,10 @@ static CFByteOrder ByteOrderForDataTypeString(NSString *__nonnull dataTypeString
 #pragma mark Data type utilities
 
 /** @brief Initializes a CPTNumericDataType struct with the given parameter values.
- *  @param format The data type format.
- *  @param sampleBytes The number of bytes in each sample.
- *  @param byteOrder The byte order used to store the data samples.
- *  @return The initialized CPTNumericDataType struct.
+ *  @param  format      The data type format.
+ *  @param  sampleBytes The number of bytes in each sample.
+ *  @param  byteOrder   The byte order used to store the data samples.
+ *  @return             The initialized CPTNumericDataType struct.
  **/
 CPTNumericDataType CPTDataType(CPTDataTypeFormat format, size_t sampleBytes, CFByteOrder byteOrder)
 {
@@ -27,8 +27,8 @@ CPTNumericDataType CPTDataType(CPTDataTypeFormat format, size_t sampleBytes, CFB
 }
 
 /** @brief Initializes a CPTNumericDataType struct from a data type string.
- *  @param dataTypeString The data type string.
- *  @return The initialized CPTNumericDataType struct.
+ *  @param  dataTypeString The data type string.
+ *  @return                The initialized CPTNumericDataType struct.
  **/
 CPTNumericDataType CPTDataTypeWithDataTypeString(NSString *__nonnull dataTypeString)
 {
@@ -43,8 +43,8 @@ CPTNumericDataType CPTDataTypeWithDataTypeString(NSString *__nonnull dataTypeStr
 }
 
 /** @brief Generates a string representation of the given data type.
- *  @param dataType The data type.
- *  @return The string representation of the given data type.
+ *  @param  dataType The data type.
+ *  @return          The string representation of the given data type.
  **/
 NSString *CPTDataTypeStringFromDataType(CPTNumericDataType dataType)
 {
@@ -96,8 +96,8 @@ NSString *CPTDataTypeStringFromDataType(CPTNumericDataType dataType)
 }
 
 /** @brief Validates a data type format.
- *  @param format The data type format.
- *  @return Returns @YES if the format is supported by CPTNumericData, @NO otherwise.
+ *  @param  format The data type format.
+ *  @return        Returns @YES if the format is supported by CPTNumericData, @NO otherwise.
  **/
 BOOL CPTDataTypeIsSupported(CPTNumericDataType format)
 {
@@ -179,9 +179,9 @@ BOOL CPTDataTypeIsSupported(CPTNumericDataType format)
 }
 
 /** @brief Compares two data types for equality.
- *  @param dataType1 The first data type format.
- *  @param dataType2 The second data type format.
- *  @return Returns @YES if the two data types have the same format, size, and byte order.
+ *  @param  dataType1 The first data type format.
+ *  @param  dataType2 The second data type format.
+ *  @return           Returns @YES if the two data types have the same format, size, and byte order.
  **/
 BOOL CPTDataTypeEqualToDataType(CPTNumericDataType dataType1, CPTNumericDataType dataType2)
 {

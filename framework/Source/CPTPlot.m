@@ -287,8 +287,8 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
  *  - @ref masksToBounds = @YES
  *  - @ref needsDisplayOnBoundsChange = @YES
  *
- *  @param newFrame The frame rectangle.
- *  @return The initialized CPTPlot object.
+ *  @param  newFrame The frame rectangle.
+ *  @return          The initialized CPTPlot object.
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
@@ -598,7 +598,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 }
 
 /** @brief Insert records into the plot data cache at the given index.
- *  @param idx The starting index of the new records.
+ *  @param idx             The starting index of the new records.
  *  @param numberOfRecords The number of records to insert.
  **/
 -(void)insertDataAtIndex:(NSUInteger)idx numberOfRecords:(NSUInteger)numberOfRecords
@@ -771,9 +771,9 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 }
 
 /** @brief Gets a range of plot data for the given plot and field.
- *  @param fieldEnum The field index.
- *  @param indexRange The range of the data indexes of interest.
- *  @return An array of data points.
+ *  @param  fieldEnum  The field index.
+ *  @param  indexRange The range of the data indexes of interest.
+ *  @return            An array of data points.
  **/
 -(nullable id)numbersFromDataSourceForField:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange
 {
@@ -840,8 +840,8 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 }
 
 /** @brief Gets a range of plot data for the given plot.
- *  @param indexRange The range of the data indexes of interest.
- *  @return Returns @YES if the datasource implements the
+ *  @param  indexRange The range of the data indexes of interest.
+ *  @return            Returns @YES if the datasource implements the
  *  @link CPTPlotDataSource::dataForPlot:recordIndexRange: -dataForPlot:recordIndexRange: @endlink
  *  method and it returns valid data.
  **/
@@ -973,7 +973,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 }
 
 /** @brief Copies an array of numbers to the cache.
- *  @param numbers An array of numbers to cache. Can be a CPTNumericData, NSArray, or NSData (NSData is assumed to be a c-style array of type @double).
+ *  @param numbers   An array of numbers to cache. Can be a CPTNumericData, NSArray, or NSData (NSData is assumed to be a c-style array of type @double).
  *  @param fieldEnum The field enumerator identifying the field.
  **/
 -(void)cacheNumbers:(nullable id)numbers forField:(NSUInteger)fieldEnum
@@ -1065,9 +1065,9 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 }
 
 /** @brief Copies an array of numbers to replace a part of the cache.
- *  @param numbers An array of numbers to cache. Can be a CPTNumericData, NSArray, or NSData (NSData is assumed to be a c-style array of type @double).
+ *  @param numbers   An array of numbers to cache. Can be a CPTNumericData, NSArray, or NSData (NSData is assumed to be a c-style array of type @double).
  *  @param fieldEnum The field enumerator identifying the field.
- *  @param idx The index of the first data point to replace.
+ *  @param idx       The index of the first data point to replace.
  **/
 -(void)cacheNumbers:(nullable id)numbers forField:(NSUInteger)fieldEnum atRecordIndex:(NSUInteger)idx
 {
@@ -1243,8 +1243,8 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 }
 
 /** @brief Retrieves an array of numbers from the cache.
- *  @param fieldEnum The field enumerator identifying the field.
- *  @return The array of cached numbers.
+ *  @param  fieldEnum The field enumerator identifying the field.
+ *  @return           The array of cached numbers.
  **/
 -(nullable CPTMutableNumericData *)cachedNumbersForField:(NSUInteger)fieldEnum
 {
@@ -1252,9 +1252,9 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 }
 
 /** @brief Retrieves a single number from the cache.
- *  @param fieldEnum The field enumerator identifying the field.
- *  @param idx The index of the desired data value.
- *  @return The cached number.
+ *  @param  fieldEnum The field enumerator identifying the field.
+ *  @param  idx       The index of the desired data value.
+ *  @return           The cached number.
  **/
 -(nullable NSNumber *)cachedNumberForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx
 {
@@ -1264,9 +1264,9 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 }
 
 /** @brief Retrieves a single number from the cache.
- *  @param fieldEnum The field enumerator identifying the field.
- *  @param idx The index of the desired data value.
- *  @return The cached number or @NAN if no data is cached for the requested field.
+ *  @param  fieldEnum The field enumerator identifying the field.
+ *  @param  idx       The index of the desired data value.
+ *  @return           The cached number or @NAN if no data is cached for the requested field.
  **/
 -(double)cachedDoubleForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx
 {
@@ -1301,9 +1301,9 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 }
 
 /** @brief Retrieves a single number from the cache.
- *  @param fieldEnum The field enumerator identifying the field.
- *  @param idx The index of the desired data value.
- *  @return The cached number or @NAN if no data is cached for the requested field.
+ *  @param  fieldEnum The field enumerator identifying the field.
+ *  @param  idx       The index of the desired data value.
+ *  @return           The cached number or @NAN if no data is cached for the requested field.
  **/
 -(NSDecimal)cachedDecimalForField:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx
 {
@@ -1380,8 +1380,8 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 }
 
 /** @brief Retrieves an array of values from the cache.
- *  @param key The key identifying the field.
- *  @return The array of cached values.
+ *  @param  key The key identifying the field.
+ *  @return     The array of cached values.
  **/
 -(nullable NSArray *)cachedArrayForKey:(nonnull NSString *)key
 {
@@ -1389,9 +1389,9 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 }
 
 /** @brief Retrieves a single value from the cache.
- *  @param key The key identifying the field.
- *  @param idx The index of the desired data value.
- *  @return The cached value or @nil if no data is cached for the requested key.
+ *  @param  key The key identifying the field.
+ *  @param  idx The index of the desired data value.
+ *  @return     The cached value or @nil if no data is cached for the requested key.
  **/
 -(nullable id)cachedValueForKey:(nonnull NSString *)key recordIndex:(NSUInteger)idx
 {
@@ -1400,7 +1400,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 
 /** @brief Copies an array of arbitrary values to the cache.
  *  @param array An array of arbitrary values to cache.
- *  @param key The key identifying the field.
+ *  @param key   The key identifying the field.
  **/
 -(void)cacheArray:(nullable NSArray *)array forKey:(nonnull NSString *)key
 {
@@ -1423,8 +1423,8 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 
 /** @brief Copies an array of arbitrary values to replace a part of the cache.
  *  @param array An array of arbitrary values to cache.
- *  @param key The key identifying the field.
- *  @param idx The index of the first data point to replace.
+ *  @param key   The key identifying the field.
+ *  @param idx   The index of the first data point to replace.
  **/
 -(void)cacheArray:(nullable NSArray *)array forKey:(nonnull NSString *)key atRecordIndex:(NSUInteger)idx
 {
@@ -1456,8 +1456,8 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 #pragma mark Data Ranges
 
 /** @brief Determines the smallest plot range that fully encloses the data for a particular field.
- *  @param fieldEnum The field enumerator identifying the field.
- *  @return The plot range enclosing the data.
+ *  @param  fieldEnum The field enumerator identifying the field.
+ *  @return           The plot range enclosing the data.
  **/
 -(nullable CPTPlotRange *)plotRangeForField:(NSUInteger)fieldEnum
 {
@@ -1523,8 +1523,8 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 }
 
 /** @brief Determines the smallest plot range that fully encloses the data for a particular coordinate.
- *  @param coord The coordinate identifier.
- *  @return The plot range enclosing the data.
+ *  @param  coord The coordinate identifier.
+ *  @return       The plot range enclosing the data.
  **/
 -(nullable CPTPlotRange *)plotRangeForCoordinate:(CPTCoordinate)coord
 {
@@ -1550,8 +1550,8 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 }
 
 /** @brief Determines the smallest plot range that fully encloses the entire plot for a particular field.
- *  @param fieldEnum The field enumerator identifying the field.
- *  @return The plot range enclosing the data.
+ *  @param  fieldEnum The field enumerator identifying the field.
+ *  @return           The plot range enclosing the data.
  **/
 -(nullable CPTPlotRange *)plotRangeEnclosingField:(NSUInteger)fieldEnum
 {
@@ -1559,8 +1559,8 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 }
 
 /** @brief Determines the smallest plot range that fully encloses the entire plot for a particular coordinate.
- *  @param coord The coordinate identifier.
- *  @return The plot range enclosing the data.
+ *  @param  coord The coordinate identifier.
+ *  @return       The plot range enclosing the data.
  **/
 -(nullable CPTPlotRange *)plotRangeEnclosingCoordinate:(CPTCoordinate)coord
 {
@@ -1733,7 +1733,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 
 /** @brief Marks the receiver as needing to update a range of data labels before the content is next drawn.
  *  @param indexRange The index range needing update.
- *  @see setNeedsRelabel()
+ *  @see              setNeedsRelabel()
  **/
 -(void)relabelIndexRange:(NSRange)indexRange
 {
@@ -1799,8 +1799,8 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 }
 
 /** @brief The title text of a legend entry.
- *  @param idx The index of the desired title.
- *  @return The title of the legend entry at the requested index.
+ *  @param  idx The index of the desired title.
+ *  @return     The title of the legend entry at the requested index.
  **/
 -(nullable NSString *)titleForLegendEntryAtIndex:(NSUInteger __unused)idx
 {
@@ -1818,8 +1818,8 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 }
 
 /** @brief The styled title text of a legend entry.
- *  @param idx The index of the desired title.
- *  @return The styled title of the legend entry at the requested index.
+ *  @param  idx The index of the desired title.
+ *  @return     The styled title of the legend entry at the requested index.
  **/
 -(nullable NSAttributedString *)attributedTitleForLegendEntryAtIndex:(NSUInteger __unused)idx
 {
@@ -1838,9 +1838,9 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 
 /** @brief Draws the legend swatch of a legend entry.
  *  Subclasses should call @super to draw the background fill and border.
- *  @param legend The legend being drawn.
- *  @param idx The index of the desired swatch.
- *  @param rect The bounding rectangle where the swatch should be drawn.
+ *  @param legend  The legend being drawn.
+ *  @param idx     The index of the desired swatch.
+ *  @param rect    The bounding rectangle where the swatch should be drawn.
  *  @param context The graphics context to draw into.
  **/
 -(void)drawSwatchForLegend:(nonnull CPTLegend *)legend atIndex:(NSUInteger)idx inRect:(CGRect)rect inContext:(nonnull CGContextRef)context
@@ -1902,9 +1902,9 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
  *  The delegate method will be called and this method returns @YES if the @par{interactionPoint} is within a label.
  *  This method returns @NO if the @par{interactionPoint} is too far away from all of the data labels.
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceDownEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
@@ -1979,9 +1979,9 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
  *  @link CPTPlotDelegate::plot:dataLabelWasSelectedAtRecordIndex:withEvent: -plot:dataLabelWasSelectedAtRecordIndex:withEvent: @endlink
  *  methods, these will be called.
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceUpEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
@@ -2270,8 +2270,8 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 }
 
 /** @brief The field identifiers that correspond to a particular coordinate.
- *  @param coord The coordinate for which the corresponding field identifiers are desired.
- *  @return Array of NSNumber objects for the field identifiers.
+ *  @param  coord The coordinate for which the corresponding field identifiers are desired.
+ *  @return       Array of NSNumber objects for the field identifiers.
  **/
 -(nonnull CPTNumberArray *)fieldIdentifiersForCoordinate:(CPTCoordinate __unused)coord
 {
@@ -2279,8 +2279,8 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 }
 
 /** @brief The coordinate value that corresponds to a particular field identifier.
- *  @param field The field identifier for which the corresponding coordinate is desired.
- *  @return The coordinate that corresponds to a particular field identifier or #CPTCoordinateNone if there is no matching coordinate.
+ *  @param  field The field identifier for which the corresponding coordinate is desired.
+ *  @return       The coordinate that corresponds to a particular field identifier or #CPTCoordinateNone if there is no matching coordinate.
  */
 -(CPTCoordinate)coordinateForFieldIdentifier:(NSUInteger __unused)field
 {
@@ -2292,7 +2292,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 
 /** @brief Adjusts the position of the data label annotation for the plot point at the given index.
  *  @param label The annotation for the data label.
- *  @param idx The data index for the label.
+ *  @param idx   The data index for the label.
  **/
 -(void)positionLabelAnnotation:(nonnull CPTPlotSpaceAnnotation *__unused)label forIndex:(NSUInteger __unused)idx
 {
@@ -2304,8 +2304,8 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 
 /**
  *  @brief Determines the index of the data element that is under the given point.
- *  @param point The coordinates of the interaction.
- *  @return The index of the data point that is under the given point or @ref NSNotFound if none was found.
+ *  @param  point The coordinates of the interaction.
+ *  @return       The index of the data point that is under the given point or @ref NSNotFound if none was found.
  */
 -(NSUInteger)dataIndexFromInteractionPoint:(CGPoint __unused)point
 {

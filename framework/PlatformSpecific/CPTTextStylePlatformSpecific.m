@@ -34,8 +34,8 @@
  *
  *  Properties associated with missing keys will be inialized to their default values.
  *
- *  @param attributes A dictionary of standard text attributes.
- *  @return A new CPTTextStyle instance.
+ *  @param  attributes A dictionary of standard text attributes.
+ *  @return            A new CPTTextStyle instance.
  **/
 +(nonnull instancetype)textStyleWithAttributes:(nullable CPTDictionary *)attributes
 {
@@ -145,8 +145,8 @@
  *
  *  Properties associated with missing keys will be inialized to their default values.
  *
- *  @param attributes A dictionary of standard text attributes.
- *  @return A new CPTMutableTextStyle instance.
+ *  @param  attributes A dictionary of standard text attributes.
+ *  @return            A new CPTMutableTextStyle instance.
  **/
 +(nonnull instancetype)textStyleWithAttributes:(nullable CPTDictionary *)attributes
 {
@@ -206,8 +206,8 @@
 #pragma mark Layout
 
 /** @brief Determines the size of text drawn with the given style.
- *  @param style The text style.
- *  @return The size of the text when drawn with the given style.
+ *  @param  style The text style.
+ *  @return       The size of the text when drawn with the given style.
  **/
 -(CGSize)sizeWithTextStyle:(nullable CPTTextStyle *)style
 {
@@ -237,8 +237,8 @@
 #pragma mark Drawing
 
 /** @brief Draws the text into the given graphics context using the given style.
- *  @param rect The bounding rectangle in which to draw the text.
- *  @param style The text style.
+ *  @param rect    The bounding rectangle in which to draw the text.
+ *  @param style   The text style.
  *  @param context The graphics context to draw into.
  **/
 -(void)drawInRect:(CGRect)rect withTextStyle:(nullable CPTTextStyle *)style inContext:(nonnull CGContextRef)context
@@ -314,8 +314,8 @@
  *
  *  Properties associated with missing keys will be inialized to their default values.
  *
- *  @param attributes A dictionary of standard text attributes.
- *  @return A new CPTTextStyle instance.
+ *  @param  attributes A dictionary of standard text attributes.
+ *  @return            A new CPTTextStyle instance.
  **/
 +(nonnull instancetype)textStyleWithAttributes:(nullable CPTDictionary *)attributes
 {
@@ -408,8 +408,8 @@
  *
  *  Properties associated with missing keys will be inialized to their default values.
  *
- *  @param attributes A dictionary of standard text attributes.
- *  @return A new CPTMutableTextStyle instance.
+ *  @param  attributes A dictionary of standard text attributes.
+ *  @return            A new CPTMutableTextStyle instance.
  **/
 +(nonnull instancetype)textStyleWithAttributes:(nullable CPTDictionary *)attributes
 {
@@ -452,8 +452,8 @@
 #pragma mark Layout
 
 /** @brief Determines the size of text drawn with the given style.
- *  @param style The text style.
- *  @return The size of the text when drawn with the given style.
+ *  @param  style The text style.
+ *  @return       The size of the text when drawn with the given style.
  **/
 -(CGSize)sizeWithTextStyle:(nullable CPTTextStyle *)style
 {
@@ -474,8 +474,8 @@
 #pragma mark Drawing
 
 /** @brief Draws the text into the given graphics context using the given style.
- *  @param rect The bounding rectangle in which to draw the text.
- *  @param style The text style.
+ *  @param rect    The bounding rectangle in which to draw the text.
+ *  @param style   The text style.
  *  @param context The graphics context to draw into.
  **/
 -(void)drawInRect:(CGRect)rect withTextStyle:(nullable CPTTextStyle *)style inContext:(nonnull CGContextRef)context

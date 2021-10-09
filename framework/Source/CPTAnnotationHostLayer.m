@@ -38,8 +38,8 @@
  *  This is the designated initializer. The initialized layer will have an empty
  *  @ref annotations array.
  *
- *  @param newFrame The frame rectangle.
- *  @return The initialized CPTAnnotationHostLayer object.
+ *  @param  newFrame The frame rectangle.
+ *  @return          The initialized CPTAnnotationHostLayer object.
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
@@ -221,9 +221,9 @@
  *  If any layer handles the event, subsequent layers are not notified and
  *  this method immediately returns @YES.
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceDownEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
@@ -252,9 +252,9 @@
  *  If any layer handles the event, subsequent layers are not notified and
  *  this method immediately returns @YES.
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceUpEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
@@ -283,9 +283,9 @@
  *  If any layer handles the event, subsequent layers are not notified and
  *  this method immediately returns @YES.
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceDraggedEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
@@ -315,8 +315,8 @@
  *  If any layer handles the event, subsequent layers are not notified and
  *  this method immediately returns @YES.
  *
- *  @param event The OS event.
- *  @return Whether the event was handled or not.
+ *  @param  event The OS event.
+ *  @return       Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceCancelledEvent:(nonnull CPTNativeEvent *)event
 {

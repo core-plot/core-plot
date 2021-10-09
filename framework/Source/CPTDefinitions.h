@@ -131,8 +131,8 @@
  *  @def CPTRectInset
  *  @hideinitializer
  *  @param rect The rectangle to offset.
- *  @param dx The x-offset.
- *  @param dy The y-offset.
+ *  @param dx   The x-offset.
+ *  @param dy   The y-offset.
  *  @brief A replacement for @ref CGRectInset(), casting each offset parameter to @ref CGFloat.
  **/
 #define CPTRectInset(rect, dx, dy) CGRectInset(rect, (CGFloat)(dx), (CGFloat)(dy))

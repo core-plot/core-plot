@@ -144,9 +144,9 @@
 #pragma mark Drawing
 
 /** @brief Draws the legend title centered vertically in the given rectangle.
- *  @param rect The bounding rectangle where the title should be drawn.
+ *  @param rect    The bounding rectangle where the title should be drawn.
  *  @param context The graphics context to draw into.
- *  @param scale The drawing scale factor. Must be greater than zero (@num{0}).
+ *  @param scale   The drawing scale factor. Must be greater than zero (@num{0}).
  **/
 -(void)drawTitleInRect:(CGRect)rect inContext:(nonnull CGContextRef)context scale:(CGFloat)scale
 {

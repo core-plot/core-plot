@@ -22,9 +22,9 @@
 #pragma mark Init/Dealloc
 
 /** @brief Creates and returns a new CPTLimitBand instance initialized with the provided range and fill.
- *  @param newRange The range of the band.
- *  @param newFill The fill used to draw the interior of the band.
- *  @return A new CPTLimitBand instance initialized with the provided range and fill.
+ *  @param  newRange The range of the band.
+ *  @param  newFill  The fill used to draw the interior of the band.
+ *  @return          A new CPTLimitBand instance initialized with the provided range and fill.
  **/
 +(nonnull instancetype)limitBandWithRange:(nullable CPTPlotRange *)newRange fill:(nullable CPTFill *)newFill
 {
@@ -32,9 +32,9 @@
 }
 
 /** @brief Initializes a newly allocated CPTLimitBand object with the provided range and fill.
- *  @param newRange The range of the band.
- *  @param newFill The fill used to draw the interior of the band.
- *  @return The initialized CPTLimitBand object.
+ *  @param  newRange The range of the band.
+ *  @param  newFill  The fill used to draw the interior of the band.
+ *  @return          The initialized CPTLimitBand object.
  **/
 -(nonnull instancetype)initWithRange:(nullable CPTPlotRange *)newRange fill:(nullable CPTFill *)newFill
 {
@@ -86,8 +86,8 @@
 /// @endcond
 
 /** @brief Returns an object initialized from data in a given unarchiver.
- *  @param decoder An unarchiver object.
- *  @return An object initialized from data in a given unarchiver.
+ *  @param  decoder An unarchiver object.
+ *  @return         An object initialized from data in a given unarchiver.
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)decoder
 {

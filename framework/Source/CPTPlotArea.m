@@ -147,8 +147,8 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
  *  - @ref plotGroup = a new CPTPlotGroup with the same frame rectangle
  *  - @ref needsDisplayOnBoundsChange = @YES
  *
- *  @param newFrame The frame rectangle.
- *  @return The initialized CPTPlotArea object.
+ *  @param  newFrame The frame rectangle.
+ *  @return          The initialized CPTPlotArea object.
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
@@ -632,9 +632,9 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
 }
 
 /** @brief Computes the sublayer index for the given layer type and axis.
- *  @param axis The axis of interest.
- *  @param layerType The layer type being updated.
- *  @return The sublayer index for the given layer type.
+ *  @param  axis      The axis of interest.
+ *  @param  layerType The layer type being updated.
+ *  @return           The sublayer index for the given layer type.
  **/
 -(unsigned)sublayerIndexForAxis:(nonnull CPTAxis *)axis layerType:(CPTGraphLayerType)layerType
 {
@@ -696,9 +696,9 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
  *  methods, the delegate method will be called and this method returns @YES if the @par{interactionPoint} is within the
  *  plot area bounds.
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceDownEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
@@ -748,9 +748,9 @@ static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arran
  *  methods, the delegate method will be called and this method returns @YES if the @par{interactionPoint} is within the
  *  plot area bounds.
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceUpEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {

@@ -54,9 +54,9 @@ typedef NS_ENUM (NSInteger, CPTRangePlotFillDirection) {
 /// @{
 
 /** @brief @optional Gets a range of bar line styles for the given range plot.
- *  @param plot The range plot.
- *  @param indexRange The range of the data indexes of interest.
- *  @return An array of line styles.
+ *  @param  plot       The range plot.
+ *  @param  indexRange The range of the data indexes of interest.
+ *  @return            An array of line styles.
  **/
 -(nullable CPTLineStyleArray *)barLineStylesForRangePlot:(nonnull CPTRangePlot *)plot recordIndexRange:(NSRange)indexRange;
 
@@ -64,17 +64,17 @@ typedef NS_ENUM (NSInteger, CPTRangePlotFillDirection) {
  *  This method will not be called if
  *  @link CPTRangePlotDataSource::barLineStylesForRangePlot:recordIndexRange: -barLineStylesForRangePlot:recordIndexRange: @endlink
  *  is also implemented in the datasource.
- *  @param plot The range plot.
- *  @param idx The data index of interest.
- *  @return The bar line style for the bar with the given index. If the data source returns @nil, the default line style is used.
+ *  @param  plot The range plot.
+ *  @param  idx  The data index of interest.
+ *  @return      The bar line style for the bar with the given index. If the data source returns @nil, the default line style is used.
  *  If the data source returns an NSNull object, no line is drawn.
  **/
 -(nullable CPTLineStyle *)barLineStyleForRangePlot:(nonnull CPTRangePlot *)plot recordIndex:(NSUInteger)idx;
 
 /** @brief @optional Gets an array of bar widths for the given range plot.
- *  @param plot The range plot.
- *  @param indexRange The range of the data indexes of interest.
- *  @return An array of bar widths.
+ *  @param  plot       The range plot.
+ *  @param  indexRange The range of the data indexes of interest.
+ *  @return            An array of bar widths.
  **/
 -(nullable CPTNumberArray *)barWidthsForRangePlot:(nonnull CPTRangePlot *)plot recordIndexRange:(NSRange)indexRange;
 
@@ -82,9 +82,9 @@ typedef NS_ENUM (NSInteger, CPTRangePlotFillDirection) {
  *  This method will not be called if
  *  @link CPTRangePlotDataSource::barWidthsForRangePlot:recordIndexRange: -barWidthsForRangePlot:recordIndexRange: @endlink
  *  is also implemented in the datasource.
- *  @param plot The range plot.
- *  @param idx The data index of interest.
- *  @return The bar width for the bar with the given index. If the data source returns @nil, the default barWidth is used.
+ *  @param  plot The range plot.
+ *  @param  idx  The data index of interest.
+ *  @return      The bar width for the bar with the given index. If the data source returns @nil, the default barWidth is used.
  **/
 -(nullable NSNumber *)barWidthForRangePlot:(nonnull CPTRangePlot *)plot recordIndex:(NSUInteger)idx;
 
@@ -108,7 +108,7 @@ typedef NS_ENUM (NSInteger, CPTRangePlotFillDirection) {
  *  @if MacOnly was both pressed and released. @endif
  *  @if iOSOnly received both the touch down and up events. @endif
  *  @param plot The range plot.
- *  @param idx The index of the
+ *  @param idx  The index of the
  *  @if MacOnly clicked bar. @endif
  *  @if iOSOnly touched bar. @endif
  **/
@@ -117,8 +117,8 @@ typedef NS_ENUM (NSInteger, CPTRangePlotFillDirection) {
 /** @brief @optional Informs the delegate that a bar
  *  @if MacOnly was both pressed and released. @endif
  *  @if iOSOnly received both the touch down and up events. @endif
- *  @param plot The range plot.
- *  @param idx The index of the
+ *  @param plot  The range plot.
+ *  @param idx   The index of the
  *  @if MacOnly clicked bar. @endif
  *  @if iOSOnly touched bar. @endif
  *  @param event The event that triggered the selection.
@@ -129,7 +129,7 @@ typedef NS_ENUM (NSInteger, CPTRangePlotFillDirection) {
  *  @if MacOnly was pressed. @endif
  *  @if iOSOnly touch started. @endif
  *  @param plot The range plot.
- *  @param idx The index of the
+ *  @param idx  The index of the
  *  @if MacOnly clicked bar. @endif
  *  @if iOSOnly touched bar. @endif
  **/
@@ -138,8 +138,8 @@ typedef NS_ENUM (NSInteger, CPTRangePlotFillDirection) {
 /** @brief @optional Informs the delegate that a bar
  *  @if MacOnly was pressed. @endif
  *  @if iOSOnly touch started. @endif
- *  @param plot The range plot.
- *  @param idx The index of the
+ *  @param plot  The range plot.
+ *  @param idx   The index of the
  *  @if MacOnly clicked bar. @endif
  *  @if iOSOnly touched bar. @endif
  *  @param event The event that triggered the selection.
@@ -150,7 +150,7 @@ typedef NS_ENUM (NSInteger, CPTRangePlotFillDirection) {
  *  @if MacOnly was released. @endif
  *  @if iOSOnly touch ended. @endif
  *  @param plot The range plot.
- *  @param idx The index of the
+ *  @param idx  The index of the
  *  @if MacOnly clicked bar. @endif
  *  @if iOSOnly touched bar. @endif
  **/
@@ -159,8 +159,8 @@ typedef NS_ENUM (NSInteger, CPTRangePlotFillDirection) {
 /** @brief @optional Informs the delegate that a bar
  *  @if MacOnly was released. @endif
  *  @if iOSOnly touch ended. @endif
- *  @param plot The range plot.
- *  @param idx The index of the
+ *  @param plot  The range plot.
+ *  @param idx   The index of the
  *  @if MacOnly clicked bar. @endif
  *  @if iOSOnly touched bar. @endif
  *  @param event The event that triggered the selection.

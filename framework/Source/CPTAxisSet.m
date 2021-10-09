@@ -33,8 +33,8 @@
  *  - @ref borderLineStyle = @nil
  *  - @ref needsDisplayOnBoundsChange = @YES
  *
- *  @param newFrame The frame rectangle.
- *  @return The initialized CPTAxisSet object.
+ *  @param  newFrame The frame rectangle.
+ *  @return          The initialized CPTAxisSet object.
  **/
 -(nonnull instancetype)initWithFrame:(CGRect)newFrame
 {
@@ -139,9 +139,9 @@
  *  For example, to find the second x-axis, use a @par{coordinate} of #CPTCoordinateX
  *  and @par{idx} of @num{1}.
  *
- *  @param coordinate The axis coordinate.
- *  @param idx The zero-based index.
- *  @return The axis matching the given coordinate and index, or @nil if no match is found.
+ *  @param  coordinate The axis coordinate.
+ *  @param  idx        The zero-based index.
+ *  @return            The axis matching the given coordinate and index, or @nil if no match is found.
  **/
 -(nullable CPTAxis *)axisForCoordinate:(CPTCoordinate)coordinate atIndex:(NSUInteger)idx
 {
@@ -178,9 +178,9 @@
  *  The event will be passed to each axis belonging to the receiver in turn. This method
  *  returns @YES if any of its axes handle the event.
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceDownEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {
@@ -202,9 +202,9 @@
  *  The event will be passed to each axis belonging to the receiver in turn. This method
  *  returns @YES if any of its axes handle the event.
  *
- *  @param event The OS event.
- *  @param interactionPoint The coordinates of the interaction.
- *  @return Whether the event was handled or not.
+ *  @param  event            The OS event.
+ *  @param  interactionPoint The coordinates of the interaction.
+ *  @return                  Whether the event was handled or not.
  **/
 -(BOOL)pointingDeviceUpEvent:(nonnull CPTNativeEvent *)event atPoint:(CGPoint)interactionPoint
 {

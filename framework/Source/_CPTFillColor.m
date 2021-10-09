@@ -27,8 +27,8 @@
 #pragma mark Init/Dealloc
 
 /** @brief Initializes a newly allocated _CPTFillColor object with the provided color.
- *  @param aColor The color.
- *  @return The initialized _CPTFillColor object.
+ *  @param  aColor The color.
+ *  @return        The initialized _CPTFillColor object.
  **/
 -(nonnull instancetype)initWithColor:(nonnull CPTColor *)aColor
 {
@@ -42,7 +42,7 @@
 #pragma mark Drawing
 
 /** @brief Draws the color into the given graphics context inside the provided rectangle.
- *  @param rect The rectangle to draw into.
+ *  @param rect    The rectangle to draw into.
  *  @param context The graphics context to draw into.
  **/
 -(void)fillRect:(CGRect)rect inContext:(nonnull CGContextRef)context
@@ -114,8 +114,8 @@
 /// @endcond
 
 /** @brief Returns an object initialized from data in a given unarchiver.
- *  @param coder An unarchiver object.
- *  @return An object initialized from data in a given unarchiver.
+ *  @param  coder An unarchiver object.
+ *  @return       An object initialized from data in a given unarchiver.
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {

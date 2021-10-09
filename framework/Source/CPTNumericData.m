@@ -110,10 +110,10 @@
 #pragma mark Factory Methods
 
 /** @brief Creates and returns a new CPTNumericData instance.
- *  @param newData The data buffer.
- *  @param newDataType The type of data stored in the buffer.
- *  @param shapeArray The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
- *  @return A new CPTNumericData instance.
+ *  @param  newData     The data buffer.
+ *  @param  newDataType The type of data stored in the buffer.
+ *  @param  shapeArray  The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
+ *  @return             A new CPTNumericData instance.
  **/
 +(nonnull instancetype)numericDataWithData:(nonnull NSData *)newData
                                   dataType:(CPTNumericDataType)newDataType
@@ -125,10 +125,10 @@
 }
 
 /** @brief Creates and returns a new CPTNumericData instance.
- *  @param newData The data buffer.
- *  @param newDataTypeString The type of data stored in the buffer.
- *  @param shapeArray The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
- *  @return A new CPTNumericData instance.
+ *  @param  newData           The data buffer.
+ *  @param  newDataTypeString The type of data stored in the buffer.
+ *  @param  shapeArray        The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
+ *  @return                   A new CPTNumericData instance.
  **/
 +(nonnull instancetype)numericDataWithData:(nonnull NSData *)newData
                             dataTypeString:(nonnull NSString *)newDataTypeString
@@ -144,10 +144,10 @@
  *  Objects in newData should be instances of NSNumber, NSDecimalNumber, NSString, or NSNull.
  *  Numbers and strings will be converted to @par{newDataType} and stored in the receiver.
  *  Any instances of NSNull will be treated as @quote{not a number} (@NAN) values for floating point types and zero (@num{0}) for integer types.
- *  @param newData An array of numbers.
- *  @param newDataType The type of data stored in the buffer.
- *  @param shapeArray The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
- *  @return A new CPTNumericData instance.
+ *  @param  newData     An array of numbers.
+ *  @param  newDataType The type of data stored in the buffer.
+ *  @param  shapeArray  The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
+ *  @return             A new CPTNumericData instance.
  **/
 +(nonnull instancetype)numericDataWithArray:(nonnull CPTNumberArray *)newData
                                    dataType:(CPTNumericDataType)newDataType
@@ -163,10 +163,10 @@
  *  Objects in newData should be instances of NSNumber, NSDecimalNumber, NSString, or NSNull.
  *  Numbers and strings will be converted to newDataTypeString and stored in the receiver.
  *  Any instances of NSNull will be treated as @quote{not a number} (@NAN) values for floating point types and zero (@num{0}) for integer types.
- *  @param newData An array of numbers.
- *  @param newDataTypeString The type of data stored in the buffer.
- *  @param shapeArray The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
- *  @return A new CPTNumericData instance.
+ *  @param  newData           An array of numbers.
+ *  @param  newDataTypeString The type of data stored in the buffer.
+ *  @param  shapeArray        The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
+ *  @return                   A new CPTNumericData instance.
  **/
 +(nonnull instancetype)numericDataWithArray:(nonnull CPTNumberArray *)newData
                              dataTypeString:(nonnull NSString *)newDataTypeString
@@ -178,11 +178,11 @@
 }
 
 /** @brief Creates and returns a new CPTNumericData instance.
- *  @param newData The data buffer.
- *  @param newDataType The type of data stored in the buffer.
- *  @param shapeArray The shape of the data buffer array.
- *  @param order The data order for a multi-dimensional data array (row-major or column-major).
- *  @return A new CPTNumericData instance.
+ *  @param  newData     The data buffer.
+ *  @param  newDataType The type of data stored in the buffer.
+ *  @param  shapeArray  The shape of the data buffer array.
+ *  @param  order       The data order for a multi-dimensional data array (row-major or column-major).
+ *  @return             A new CPTNumericData instance.
  **/
 +(nonnull instancetype)numericDataWithData:(nonnull NSData *)newData
                                   dataType:(CPTNumericDataType)newDataType
@@ -196,11 +196,11 @@
 }
 
 /** @brief Creates and returns a new CPTNumericData instance.
- *  @param newData The data buffer.
- *  @param newDataTypeString The type of data stored in the buffer.
- *  @param shapeArray The shape of the data buffer array.
- *  @param order The data order for a multi-dimensional data array (row-major or column-major).
- *  @return A new CPTNumericData instance.
+ *  @param  newData           The data buffer.
+ *  @param  newDataTypeString The type of data stored in the buffer.
+ *  @param  shapeArray        The shape of the data buffer array.
+ *  @param  order             The data order for a multi-dimensional data array (row-major or column-major).
+ *  @return                   A new CPTNumericData instance.
  **/
 +(nonnull instancetype)numericDataWithData:(nonnull NSData *)newData
                             dataTypeString:(nonnull NSString *)newDataTypeString
@@ -218,11 +218,11 @@
  *  Objects in newData should be instances of NSNumber, NSDecimalNumber, NSString, or NSNull.
  *  Numbers and strings will be converted to @par{newDataType} and stored in the receiver.
  *  Any instances of NSNull will be treated as @quote{not a number} (@NAN) values for floating point types and zero (@num{0}) for integer types.
- *  @param newData An array of numbers.
- *  @param newDataType The type of data stored in the buffer.
- *  @param shapeArray The shape of the data buffer array.
- *  @param order The data order for a multi-dimensional data array (row-major or column-major).
- *  @return A new CPTNumericData instance.
+ *  @param  newData     An array of numbers.
+ *  @param  newDataType The type of data stored in the buffer.
+ *  @param  shapeArray  The shape of the data buffer array.
+ *  @param  order       The data order for a multi-dimensional data array (row-major or column-major).
+ *  @return             A new CPTNumericData instance.
  **/
 +(nonnull instancetype)numericDataWithArray:(nonnull CPTNumberArray *)newData
                                    dataType:(CPTNumericDataType)newDataType
@@ -240,11 +240,11 @@
  *  Objects in newData should be instances of NSNumber, NSDecimalNumber, NSString, or NSNull.
  *  Numbers and strings will be converted to newDataTypeString and stored in the receiver.
  *  Any instances of NSNull will be treated as @quote{not a number} (@NAN) values for floating point types and zero (@num{0}) for integer types.
- *  @param newData An array of numbers.
- *  @param newDataTypeString The type of data stored in the buffer.
- *  @param shapeArray The shape of the data buffer array.
- *  @param order The data order for a multi-dimensional data array (row-major or column-major).
- *  @return A new CPTNumericData instance.
+ *  @param  newData           An array of numbers.
+ *  @param  newDataTypeString The type of data stored in the buffer.
+ *  @param  shapeArray        The shape of the data buffer array.
+ *  @param  order             The data order for a multi-dimensional data array (row-major or column-major).
+ *  @return                   A new CPTNumericData instance.
  **/
 +(nonnull instancetype)numericDataWithArray:(nonnull CPTNumberArray *)newData
                              dataTypeString:(nonnull NSString *)newDataTypeString
@@ -261,10 +261,10 @@
 #pragma mark Init/Dealloc
 
 /** @brief Initializes a newly allocated CPTNumericData object with the provided data.
- *  @param newData The data buffer.
- *  @param newDataType The type of data stored in the buffer.
- *  @param shapeArray The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
- *  @return The initialized CPTNumericData instance.
+ *  @param  newData     The data buffer.
+ *  @param  newDataType The type of data stored in the buffer.
+ *  @param  shapeArray  The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
+ *  @return             The initialized CPTNumericData instance.
  **/
 -(nonnull instancetype)initWithData:(nonnull NSData *)newData
                            dataType:(CPTNumericDataType)newDataType
@@ -277,10 +277,10 @@
 }
 
 /** @brief Initializes a newly allocated CPTNumericData object with the provided data.
- *  @param newData The data buffer.
- *  @param newDataTypeString The type of data stored in the buffer.
- *  @param shapeArray The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
- *  @return The initialized CPTNumericData instance.
+ *  @param  newData           The data buffer.
+ *  @param  newDataTypeString The type of data stored in the buffer.
+ *  @param  shapeArray        The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
+ *  @return                   The initialized CPTNumericData instance.
  **/
 -(nonnull instancetype)initWithData:(nonnull NSData *)newData
                      dataTypeString:(nonnull NSString *)newDataTypeString
@@ -296,10 +296,10 @@
  *  Objects in newData should be instances of NSNumber, NSDecimalNumber, NSString, or NSNull.
  *  Numbers and strings will be converted to @par{newDataType} and stored in the receiver.
  *  Any instances of NSNull will be treated as @quote{not a number} (@NAN) values for floating point types and zero (@num{0}) for integer types.
- *  @param newData An array of numbers.
- *  @param newDataType The type of data stored in the buffer.
- *  @param shapeArray The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
- *  @return The initialized CPTNumericData instance.
+ *  @param  newData     An array of numbers.
+ *  @param  newDataType The type of data stored in the buffer.
+ *  @param  shapeArray  The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
+ *  @return             The initialized CPTNumericData instance.
  **/
 -(nonnull instancetype)initWithArray:(nonnull CPTNumberArray *)newData
                             dataType:(CPTNumericDataType)newDataType
@@ -315,10 +315,10 @@
  *  Objects in newData should be instances of NSNumber, NSDecimalNumber, NSString, or NSNull.
  *  Numbers and strings will be converted to newDataTypeString and stored in the receiver.
  *  Any instances of NSNull will be treated as @quote{not a number} (@NAN) values for floating point types and zero (@num{0}) for integer types.
- *  @param newData An array of numbers.
- *  @param newDataTypeString The type of data stored in the buffer.
- *  @param shapeArray The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
- *  @return The initialized CPTNumericData instance.
+ *  @param  newData           An array of numbers.
+ *  @param  newDataTypeString The type of data stored in the buffer.
+ *  @param  shapeArray        The shape of the data buffer array. Multi-dimensional data arrays will be assumed to be stored in #CPTDataOrderRowsFirst.
+ *  @return                   The initialized CPTNumericData instance.
  **/
 -(nonnull instancetype)initWithArray:(nonnull CPTNumberArray *)newData
                       dataTypeString:(nonnull NSString *)newDataTypeString
@@ -330,11 +330,11 @@
 }
 
 /** @brief Initializes a newly allocated CPTNumericData object with the provided data. This is the designated initializer.
- *  @param newData The data buffer.
- *  @param newDataType The type of data stored in the buffer.
- *  @param shapeArray The shape of the data buffer array.
- *  @param order The data order for a multi-dimensional data array (row-major or column-major).
- *  @return The initialized CPTNumericData instance.
+ *  @param  newData     The data buffer.
+ *  @param  newDataType The type of data stored in the buffer.
+ *  @param  shapeArray  The shape of the data buffer array.
+ *  @param  order       The data order for a multi-dimensional data array (row-major or column-major).
+ *  @return             The initialized CPTNumericData instance.
  **/
 -(nonnull instancetype)initWithData:(nonnull NSData *)newData
                            dataType:(CPTNumericDataType)newDataType
@@ -352,11 +352,11 @@
 }
 
 /** @brief Initializes a newly allocated CPTNumericData object with the provided data.
- *  @param newData The data buffer.
- *  @param newDataTypeString The type of data stored in the buffer.
- *  @param shapeArray The shape of the data buffer array.
- *  @param order The data order for a multi-dimensional data array (row-major or column-major).
- *  @return The initialized CPTNumericData instance.
+ *  @param  newData           The data buffer.
+ *  @param  newDataTypeString The type of data stored in the buffer.
+ *  @param  shapeArray        The shape of the data buffer array.
+ *  @param  order             The data order for a multi-dimensional data array (row-major or column-major).
+ *  @return                   The initialized CPTNumericData instance.
  **/
 -(nonnull instancetype)initWithData:(nonnull NSData *)newData
                      dataTypeString:(nonnull NSString *)newDataTypeString
@@ -374,11 +374,11 @@
  *  Objects in newData should be instances of NSNumber, NSDecimalNumber, NSString, or NSNull.
  *  Numbers and strings will be converted to @par{newDataType} and stored in the receiver.
  *  Any instances of NSNull will be treated as @quote{not a number} (@NAN) values for floating point types and zero (@num{0}) for integer types.
- *  @param newData An array of numbers.
- *  @param newDataType The type of data stored in the buffer.
- *  @param shapeArray The shape of the data buffer array.
- *  @param order The data order for a multi-dimensional data array (row-major or column-major).
- *  @return The initialized CPTNumericData instance.
+ *  @param  newData     An array of numbers.
+ *  @param  newDataType The type of data stored in the buffer.
+ *  @param  shapeArray  The shape of the data buffer array.
+ *  @param  order       The data order for a multi-dimensional data array (row-major or column-major).
+ *  @return             The initialized CPTNumericData instance.
  **/
 -(nonnull instancetype)initWithArray:(nonnull CPTNumberArray *)newData
                             dataType:(CPTNumericDataType)newDataType
@@ -396,11 +396,11 @@
  *  Objects in newData should be instances of NSNumber, NSDecimalNumber, NSString, or NSNull.
  *  Numbers and strings will be converted to newDataTypeString and stored in the receiver.
  *  Any instances of NSNull will be treated as @quote{not a number} (@NAN) values for floating point types and zero (@num{0}) for integer types.
- *  @param newData An array of numbers.
- *  @param newDataTypeString The type of data stored in the buffer.
- *  @param shapeArray The shape of the data buffer array.
- *  @param order The data order for a multi-dimensional data array (row-major or column-major).
- *  @return The initialized CPTNumericData instance.
+ *  @param  newData           An array of numbers.
+ *  @param  newDataTypeString The type of data stored in the buffer.
+ *  @param  shapeArray        The shape of the data buffer array.
+ *  @param  order             The data order for a multi-dimensional data array (row-major or column-major).
+ *  @return                   The initialized CPTNumericData instance.
  **/
 -(nonnull instancetype)initWithArray:(nonnull CPTNumberArray *)newData
                       dataTypeString:(nonnull NSString *)newDataTypeString
@@ -575,9 +575,9 @@
 #pragma mark Samples
 
 /** @brief Gets the offset of a given sample in the data buffer.
- *  @param idx The zero-based indices into a multi-dimensional sample array. Each index should of type @ref NSUInteger and the number of indices
+ *  @param  idx The zero-based indices into a multi-dimensional sample array. Each index should of type @ref NSUInteger and the number of indices
  *  (including @par{idx}) should match the @ref numberOfDimensions.
- *  @return The sample offset in the data buffer. To get the byte offset, multiply this value by
+ *  @return     The sample offset in the data buffer. To get the byte offset, multiply this value by
  *  @ref sampleBytes. If any index is greater than or equal to the corresponding
  *  dimension of the data buffer, this method returns @ref NSNotFound.
  **/
@@ -595,8 +595,8 @@
 }
 
 /** @brief Gets the value of a given sample in the data buffer.
- *  @param sample The zero-based index into the sample array. The array is treated as if it only has one dimension.
- *  @return The sample value wrapped in an instance of NSNumber or @nil if the sample index is out of bounds.
+ *  @param  sample The zero-based index into the sample array. The array is treated as if it only has one dimension.
+ *  @return        The sample value wrapped in an instance of NSNumber or @nil if the sample index is out of bounds.
  *
  *  @note NSNumber does not support complex numbers. Complex number types will be cast to
  *  @float or @double before being wrapped in an instance of NSNumber.
@@ -695,9 +695,9 @@
 }
 
 /** @brief Gets the value of a given sample in the data buffer.
- *  @param idx The zero-based indices into a multi-dimensional sample array. Each index should of type @ref NSUInteger and the number of indices
+ *  @param  idx The zero-based indices into a multi-dimensional sample array. Each index should of type @ref NSUInteger and the number of indices
  *  (including @par{idx}) should match the @ref numberOfDimensions.
- *  @return The sample value wrapped in an instance of NSNumber or @nil if any of the sample indices are out of bounds.
+ *  @return     The sample value wrapped in an instance of NSNumber or @nil if any of the sample indices are out of bounds.
  *
  *  @note NSNumber does not support complex numbers. Complex number types will be cast to
  *  @float or @double before being wrapped in an instance of NSNumber.
@@ -722,8 +722,8 @@
 }
 
 /** @brief Gets a pointer to a given sample in the data buffer.
- *  @param sample The zero-based index into the sample array. The array is treated as if it only has one dimension.
- *  @return A pointer to the sample or @NULL if the sample index is out of bounds.
+ *  @param  sample The zero-based index into the sample array. The array is treated as if it only has one dimension.
+ *  @return        A pointer to the sample or @NULL if the sample index is out of bounds.
  **/
 -(nullable const void *)samplePointer:(NSUInteger)sample
 {
@@ -736,9 +736,9 @@
 }
 
 /** @brief Gets a pointer to a given sample in the data buffer.
- *  @param idx The zero-based indices into a multi-dimensional sample array. Each index should of type @ref NSUInteger and the number of indices
+ *  @param  idx The zero-based indices into a multi-dimensional sample array. Each index should of type @ref NSUInteger and the number of indices
  *  (including @par{idx}) should match the @ref numberOfDimensions.
- *  @return A pointer to the sample or @NULL if any of the sample indices are out of bounds.
+ *  @return     A pointer to the sample or @NULL if any of the sample indices are out of bounds.
  **/
 -(nullable const void *)samplePointerAtIndex:(NSUInteger)idx, ...
 {
@@ -788,10 +788,10 @@
 /** @internal
  *  @brief Gets the offset of a given sample in the data buffer. This method does not call @par{va_end()}
  *  on the @par{indexList}.
- *  @param idx The zero-based indices into a multi-dimensional sample array. Each index should of type @ref NSUInteger and the number of indices
+ *  @param  idx       The zero-based indices into a multi-dimensional sample array. Each index should of type @ref NSUInteger and the number of indices
  *  (including @par{idx}) should match the @ref numberOfDimensions.
- *  @param indexList A @par{va_list} of the additional indices.
- *  @return The sample offset in the data buffer. To get the byte offset, multiply this value by
+ *  @param  indexList A @par{va_list} of the additional indices.
+ *  @return           The sample offset in the data buffer. To get the byte offset, multiply this value by
  *  @ref sampleBytes. If any index is greater than or equal to the corresponding
  *  dimension of the data buffer, this method returns @ref NSNotFound.
  **/
@@ -1173,8 +1173,8 @@
 /// @endcond
 
 /** @brief Returns an object initialized from data in a given unarchiver.
- *  @param decoder An unarchiver object.
- *  @return An object initialized from data in a given unarchiver.
+ *  @param  decoder An unarchiver object.
+ *  @return         An object initialized from data in a given unarchiver.
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)decoder
 {

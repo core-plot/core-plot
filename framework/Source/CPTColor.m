@@ -385,8 +385,8 @@
 #pragma mark Factory Methods
 
 /** @brief Creates and returns a new CPTColor instance initialized with the provided @ref CGColorRef.
- *  @param newCGColor The color to wrap.
- *  @return A new CPTColor instance initialized with the provided @ref CGColorRef.
+ *  @param  newCGColor The color to wrap.
+ *  @return            A new CPTColor instance initialized with the provided @ref CGColorRef.
  **/
 +(nonnull instancetype)colorWithCGColor:(nonnull CGColorRef)newCGColor
 {
@@ -394,11 +394,11 @@
 }
 
 /** @brief Creates and returns a new CPTColor instance initialized with the provided RGBA color components.
- *  @param red The red component (@num{0} ≤ @par{red} ≤ @num{1}).
- *  @param green The green component (@num{0} ≤ @par{green} ≤ @num{1}).
- *  @param blue The blue component (@num{0} ≤ @par{blue} ≤ @num{1}).
- *  @param alpha The alpha component (@num{0} ≤ @par{alpha} ≤ @num{1}).
- *  @return A new CPTColor instance initialized with the provided RGBA color components.
+ *  @param  red   The red component (@num{0} ≤ @par{red} ≤ @num{1}).
+ *  @param  green The green component (@num{0} ≤ @par{green} ≤ @num{1}).
+ *  @param  blue  The blue component (@num{0} ≤ @par{blue} ≤ @num{1}).
+ *  @param  alpha The alpha component (@num{0} ≤ @par{alpha} ≤ @num{1}).
+ *  @return       A new CPTColor instance initialized with the provided RGBA color components.
  **/
 +(nonnull instancetype)colorWithComponentRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha
 {
@@ -406,8 +406,8 @@
 }
 
 /** @brief Creates and returns a new CPTColor instance initialized with the provided gray level.
- *  @param gray The gray level (@num{0} ≤ @par{gray} ≤ @num{1}).
- *  @return A new CPTColor instance initialized with the provided gray level.
+ *  @param  gray The gray level (@num{0} ≤ @par{gray} ≤ @num{1}).
+ *  @return      A new CPTColor instance initialized with the provided gray level.
  **/
 +(nonnull instancetype)colorWithGenericGray:(CGFloat)gray
 {
@@ -425,8 +425,8 @@
  *
  *  The NSColor can be a dynamic system color or catalog color. This adds support for Dark Mode in macOS 10.14.
  *
- *  @param newNSColor The color to wrap.
- *  @return A new CPTColor instance initialized with the provided NSColor.
+ *  @param  newNSColor The color to wrap.
+ *  @return            A new CPTColor instance initialized with the provided NSColor.
  **/
 +(nonnull instancetype)colorWithNSColor:(nonnull NSColor *)newNSColor
 {
@@ -439,8 +439,8 @@
  *
  *  The UIColor can be a dynamic system color or catalog color. This adds support for Dark Mode in iOS 13.
  *
- *  @param newUIColor The color to wrap.
- *  @return A new CPTColor instance initialized with the provided UIColor.
+ *  @param  newUIColor The color to wrap.
+ *  @return            A new CPTColor instance initialized with the provided UIColor.
  **/
 +(nonnull instancetype)colorWithUIColor:(nonnull UIColor *)newUIColor
 {
@@ -453,8 +453,8 @@
  *
  *  The color can be a dynamic system color or catalog color. This adds support for Dark Mode in iOS13.
  *
- *  @param newColor The color to wrap.
- *  @return A new CPTColor instance initialized with the provided platform-native color.
+ *  @param  newColor The color to wrap.
+ *  @return          A new CPTColor instance initialized with the provided platform-native color.
  **/
 +(nonnull instancetype)colorWithNativeColor:(nonnull CPTNativeColor *)newColor
 {
@@ -470,8 +470,8 @@
 
 /** @brief Initializes a newly allocated CPTColor object with the provided @ref CGColorRef.
  *
- *  @param newCGColor The color to wrap.
- *  @return The initialized CPTColor object.
+ *  @param  newCGColor The color to wrap.
+ *  @return            The initialized CPTColor object.
  **/
 -(nonnull instancetype)initWithCGColor:(nonnull CGColorRef)newCGColor
 {
@@ -484,11 +484,11 @@
 
 /** @brief Initializes a newly allocated CPTColor object with the provided RGBA color components.
  *
- *  @param red The red component (@num{0} ≤ @par{red} ≤ @num{1}).
- *  @param green The green component (@num{0} ≤ @par{green} ≤ @num{1}).
- *  @param blue The blue component (@num{0} ≤ @par{blue} ≤ @num{1}).
- *  @param alpha The alpha component (@num{0} ≤ @par{alpha} ≤ @num{1}).
- *  @return The initialized CPTColor object.
+ *  @param  red   The red component (@num{0} ≤ @par{red} ≤ @num{1}).
+ *  @param  green The green component (@num{0} ≤ @par{green} ≤ @num{1}).
+ *  @param  blue  The blue component (@num{0} ≤ @par{blue} ≤ @num{1}).
+ *  @param  alpha The alpha component (@num{0} ≤ @par{alpha} ≤ @num{1}).
+ *  @return       The initialized CPTColor object.
  **/
 -(nonnull instancetype)initWithComponentRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha
 {
@@ -511,8 +511,8 @@
  *
  *  The NSColor can be a dynamic system color or catalog color. This adds support for Dark Mode in macOS 10.14.
  *
- *  @param newNSColor The color to wrap.
- *  @return The initialized CPTColor object.
+ *  @param  newNSColor The color to wrap.
+ *  @return            The initialized CPTColor object.
  **/
 -(nonnull instancetype)initWithNSColor:(nonnull NSColor *)newNSColor
 {
@@ -528,8 +528,8 @@
  *
  *  The UIColor can be a dynamic system color or catalog color. This adds support for Dark Mode in iOS 13.
  *
- *  @param newUIColor The color to wrap.
- *  @return The initialized CPTColor object.
+ *  @param  newUIColor The color to wrap.
+ *  @return            The initialized CPTColor object.
  **/
 -(nonnull instancetype)initWithUIColor:(nonnull UIColor *)newUIColor
 {
@@ -545,8 +545,8 @@
  *
  *  The color can be a dynamic system color or catalog color. This adds support for Dark Mode in macOS 10.14 and iOS 13.
  *
- *  @param newColor The color to wrap.
- *  @return The initialized CPTColor object.
+ *  @param  newColor The color to wrap.
+ *  @return          The initialized CPTColor object.
  **/
 -(nonnull instancetype)initWithNativeColor:(nonnull CPTNativeColor *)newColor
 {
@@ -576,8 +576,8 @@
 
 /** @brief Creates and returns a new CPTColor instance having color components identical to the current object
  *  but having the provided alpha component.
- *  @param alpha The alpha component (@num{0} ≤ @par{alpha} ≤ @num{1}).
- *  @return A new CPTColor instance having the provided alpha component.
+ *  @param  alpha The alpha component (@num{0} ≤ @par{alpha} ≤ @num{1}).
+ *  @return       A new CPTColor instance having the provided alpha component.
  **/
 -(nonnull instancetype)colorWithAlphaComponent:(CGFloat)alpha
 {
@@ -644,8 +644,8 @@
 /// @endcond
 
 /** @brief Returns an object initialized from data in a given unarchiver.
- *  @param coder An unarchiver object.
- *  @return An object initialized from data in a given unarchiver.
+ *  @param  coder An unarchiver object.
+ *  @return       An object initialized from data in a given unarchiver.
  */
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
@@ -740,8 +740,8 @@
 
 /** @brief Returns a boolean value that indicates whether the received is equal to the given object.
  *  Colors are equal if they have equal @ref cgColor properties.
- *  @param object The object to be compared with the receiver.
- *  @return @YES if @par{object} is equal to the receiver, @NO otherwise.
+ *  @param  object The object to be compared with the receiver.
+ *  @return        @YES if @par{object} is equal to the receiver, @NO otherwise.
  **/
 -(BOOL)isEqual:(nullable id)object
 {
