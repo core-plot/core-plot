@@ -531,7 +531,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
 
     CPTPlotRange *theGlobalRange = globalRange;
 
-    if (CPTDecimalGreaterThanOrEqualTo(existingRange.lengthDecimal, CPTDecimalFromInteger(0))) {
+    if ( CPTDecimalGreaterThanOrEqualTo(existingRange.lengthDecimal, CPTDecimalFromInteger(0))) {
         if ( CPTDecimalGreaterThanOrEqualTo(existingRange.lengthDecimal, theGlobalRange.lengthDecimal)) {
             return [theGlobalRange copy];
         }
@@ -553,7 +553,6 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
             return newRange;
         }
     }
-
 }
 
 -(void)animateRangeForCoordinate:(CPTCoordinate)coordinate shift:(NSDecimal)shift momentumTime:(CGFloat)momentumTime speed:(CGFloat)speed acceleration:(CGFloat)acceleration
