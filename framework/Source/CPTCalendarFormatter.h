@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-@interface CPTCalendarFormatter : NSNumberFormatter
+@interface CPTCalendarFormatter : NSNumberFormatter<NSSecureCoding>
 
 @property (nonatomic, readwrite, strong, nullable) NSDateFormatter *dateFormatter;
 @property (nonatomic, readwrite, copy, nullable) NSDate *referenceDate;

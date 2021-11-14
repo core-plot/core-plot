@@ -100,13 +100,28 @@
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ((self = [super init])) {
-        dateFormatter         = [coder decodeObjectForKey:@"CPTCalendarFormatter.dateFormatter"];
-        referenceDate         = [[coder decodeObjectForKey:@"CPTCalendarFormatter.referenceDate"] copy];
-        referenceCalendar     = [[coder decodeObjectForKey:@"CPTCalendarFormatter.referenceCalendar"] copy];
+        dateFormatter = [coder decodeObjectOfClass:[NSDateFormatter class]
+                                            forKey:@"CPTCalendarFormatter.dateFormatter"];
+        referenceDate = [[coder decodeObjectOfClass:[NSDate class]
+                                             forKey:@"CPTCalendarFormatter.referenceDate"] copy];
+        referenceCalendar = [[coder decodeObjectOfClass:[NSCalendar class]
+                                                 forKey:@"CPTCalendarFormatter.referenceCalendar"] copy];
         referenceCalendarUnit = (NSCalendarUnit)[coder decodeIntegerForKey:@"CPTCalendarFormatter.referenceCalendarUnit"];
     }
     return self;
 }
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
+/// @endcond
 
 #pragma mark -
 #pragma mark NSCopying Methods

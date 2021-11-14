@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-@interface CPTTimeFormatter : NSNumberFormatter
+@interface CPTTimeFormatter : NSNumberFormatter<NSSecureCoding>
 
 @property (nonatomic, readwrite, strong, nullable) NSDateFormatter *dateFormatter;
 @property (nonatomic, readwrite, copy, nullable) NSDate *referenceDate;

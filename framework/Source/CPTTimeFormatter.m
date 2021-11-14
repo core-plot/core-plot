@@ -78,11 +78,25 @@
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ((self = [super init])) {
-        dateFormatter = [coder decodeObjectForKey:@"CPTTimeFormatter.dateFormatter"];
-        referenceDate = [[coder decodeObjectForKey:@"CPTTimeFormatter.referenceDate"] copy];
+        dateFormatter = [coder decodeObjectOfClass:[NSDateFormatter class]
+                                            forKey:@"CPTTimeFormatter.dateFormatter"];
+        referenceDate = [[coder decodeObjectOfClass:[NSDate class]
+                                             forKey:@"CPTTimeFormatter.referenceDate"] copy];
     }
     return self;
 }
+
+#pragma mark -
+#pragma mark NSSecureCoding Methods
+
+/// @cond
+
++(BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
+/// @endcond
 
 #pragma mark -
 #pragma mark NSCopying Methods
