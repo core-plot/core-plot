@@ -424,8 +424,8 @@
                 if ( theVisibleRange ) {
                     [labeledRange intersectionPlotRange:theVisibleRange];
                 }
+                break;
             }
-            break;
 
             default:
                 break;
@@ -543,14 +543,11 @@
                 break;
 
             case CPTAxisLabelingPolicyFixedInterval:
-            {
                 majorInterval = self.majorIntervalLength.decimalValue;
-            }
-            break;
+                break;
 
             case CPTAxisLabelingPolicyLocationsProvided:
             case CPTAxisLabelingPolicyNone:
-            {
                 // user provided tick locations; they're not guaranteed to be evenly spaced, but band drawing always starts with the first location
                 if ( range.lengthDouble >= 0.0 ) {
                     for ( NSNumber *location in sortedLocations ) {
@@ -572,8 +569,7 @@
                 }
 
                 bandIndex = bandIndex % bandCount;
-            }
-            break;
+                break;
         }
 
         if ( !CPTDecimalEquals(majorInterval, zero)) {
@@ -832,8 +828,8 @@
                 else {
                     location = axisRange.midPoint;
                 }
+                break;
             }
-            break;
 
             case CPTScaleTypeLogModulus:
             {
@@ -841,8 +837,8 @@
                 double end = axisRange.endDouble;
 
                 location = @(CPTInverseLogModulus((CPTLogModulus(loc) + CPTLogModulus(end)) / 2.0));
+                break;
             }
-            break;
 
             default:
                 location = axisRange.midPoint;

@@ -892,8 +892,8 @@
                             *toBytes++ = 0;
                         }
                     }
+                    break;
                 }
-                break;
 
                 case sizeof(int16_t):
                 {
@@ -906,8 +906,8 @@
                             *toBytes++ = 0;
                         }
                     }
+                    break;
                 }
-                break;
 
                 case sizeof(int32_t):
                 {
@@ -920,8 +920,8 @@
                             *toBytes++ = 0;
                         }
                     }
+                    break;
                 }
-                break;
 
                 case sizeof(int64_t):
                 {
@@ -934,8 +934,8 @@
                             *toBytes++ = 0;
                         }
                     }
+                    break;
                 }
-                break;
             }
             break;
 
@@ -952,8 +952,8 @@
                             *toBytes++ = 0;
                         }
                     }
+                    break;
                 }
-                break;
 
                 case sizeof(uint16_t):
                 {
@@ -966,8 +966,8 @@
                             *toBytes++ = 0;
                         }
                     }
+                    break;
                 }
-                break;
 
                 case sizeof(uint32_t):
                 {
@@ -980,8 +980,8 @@
                             *toBytes++ = 0;
                         }
                     }
+                    break;
                 }
-                break;
 
                 case sizeof(uint64_t):
                 {
@@ -994,8 +994,8 @@
                             *toBytes++ = 0;
                         }
                     }
+                    break;
                 }
-                break;
             }
             break;
 
@@ -1012,8 +1012,8 @@
                             *toBytes++ = NAN;
                         }
                     }
+                    break;
                 }
-                break;
 
                 case sizeof(double):
                 {
@@ -1026,8 +1026,8 @@
                             *toBytes++ = (double)NAN;
                         }
                     }
+                    break;
                 }
-                break;
             }
             break;
 
@@ -1044,8 +1044,8 @@
                             *toBytes++ = CMPLXF(NAN, NAN);
                         }
                     }
+                    break;
                 }
-                break;
 
                 case sizeof(double complex):
                 {
@@ -1058,8 +1058,8 @@
                             *toBytes++ = CMPLX(NAN, NAN);
                         }
                     }
+                    break;
                 }
-                break;
             }
             break;
 
@@ -1076,8 +1076,8 @@
                             *toBytes++ = CPTDecimalNaN();
                         }
                     }
+                    break;
                 }
-                break;
             }
             break;
     }

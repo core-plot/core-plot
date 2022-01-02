@@ -375,8 +375,8 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
                 CGPoint pointOfMouseDrag   = NSPointToCGPoint([self convertPoint:scrolledPointOfMouse fromView:nil]);
                 CGPoint pointInHostedGraph = [self.layer convertPoint:pointOfMouseDrag toLayer:theGraph];
                 handled = handled || [theGraph pointingDeviceDraggedEvent:theEvent atPoint:pointInHostedGraph];
+                break;
             }
-            break;
 
             case NSEventPhaseEnded:
             {
@@ -389,8 +389,8 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
                 CGPoint pointOfMouseUp     = NSPointToCGPoint([self convertPoint:scrolledPointOfMouse fromView:nil]);
                 CGPoint pointInHostedGraph = [self.layer convertPoint:pointOfMouseUp toLayer:theGraph];
                 handled = [theGraph pointingDeviceUpEvent:theEvent atPoint:pointInHostedGraph];
+                break;
             }
-            break;
 
             case NSEventPhaseNone:
                 if ( theEvent.momentumPhase == NSEventPhaseNone ) {

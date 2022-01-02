@@ -937,8 +937,8 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
                                 [self cacheNumbers:tempNumericData forField:fieldNum atRecordIndex:indexRange.location];
                             }
                             hasData = YES;
+                            break;
                         }
-                        break;
 
                         case CPTDataOrderColumnsFirst:
                             for ( NSUInteger fieldNum = 0; fieldNum < fieldCount; fieldNum++ ) {
@@ -1015,8 +1015,8 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
                         [self setCachedDataType:self.decimalDataType];
                         break;
                 }
+                break;
             }
-            break;
 
             case CPTScaleTypeCategory:
             {
@@ -1049,8 +1049,8 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
                 else {
                     [self.cachedData removeObjectForKey:cacheKey];
                 }
+                break;
             }
-            break;
 
             default:
                 break;
@@ -1101,20 +1101,20 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
                             CPTNumericDataType newType = self.doubleDataType;
                             [self setCachedDataType:newType];
                             mutableNumbers.dataType = newType;
+                            break;
                         }
-                        break;
 
                         case CPTPlotCachePrecisionDecimal:
                         {
                             CPTNumericDataType newType = self.decimalDataType;
                             [self setCachedDataType:newType];
                             mutableNumbers.dataType = newType;
+                            break;
                         }
-                        break;
                     }
                 }
+                break;
             }
-            break;
 
             case CPTScaleTypeCategory:
             {
@@ -1136,8 +1136,8 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
                                                                                 shape:nil];
                     }
                 }
+                break;
             }
-            break;
 
             default:
                 [self.cachedData removeObjectForKey:cacheKey];
@@ -1228,8 +1228,8 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
                     break;
                 }
             }
+            break;
         }
-        break;
 
         case CPTPlotCachePrecisionDouble:
             result = YES;
@@ -1280,8 +1280,8 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
                 if ( doubleNumber ) {
                     return *doubleNumber;
                 }
+                break;
             }
-            break;
 
             case CPTDecimalDataType:
             {
@@ -1289,8 +1289,8 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
                 if ( decimalNumber ) {
                     return CPTDecimalDoubleValue(*decimalNumber);
                 }
+                break;
             }
-            break;
 
             default:
                 [NSException raise:CPTException format:@"Unsupported data type format"];
@@ -1317,8 +1317,8 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
                 if ( doubleNumber ) {
                     return CPTDecimalFromDouble(*doubleNumber);
                 }
+                break;
             }
-            break;
 
             case CPTDecimalDataType:
             {
@@ -1326,8 +1326,8 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
                 if ( decimalNumber ) {
                     return *decimalNumber;
                 }
+                break;
             }
-            break;
 
             default:
                 [NSException raise:CPTException format:@"Unsupported data type format"];

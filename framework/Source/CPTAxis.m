@@ -1142,8 +1142,8 @@ NSDecimal CPTNiceLength(NSDecimal length);
                     }
                     [majorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:pointLocation]];
                 }
+                break;
             }
-            break;
 
             case CPTScaleTypeLog:
             {
@@ -1188,8 +1188,8 @@ NSDecimal CPTNiceLength(NSDecimal length);
                         [majorLocations addObject:@(pointLocation)];
                     }
                 }
+                break;
             }
-            break;
 
             case CPTScaleTypeLogModulus:
             {
@@ -1288,8 +1288,8 @@ NSDecimal CPTNiceLength(NSDecimal length);
                         [majorLocations addObject:@(pointLocation)];
                     }
                 }
+                break;
             }
-            break;
 
             default:
                 break;
@@ -1800,8 +1800,8 @@ NSDecimal CPTNiceLength(NSDecimal length)
             [self updateAxisLabelsAtLocations:self.minorTickLocations
                                       inRange:labeledRange
                            useMajorAxisLabels:NO];
+            break;
         }
-        break;
 
         default:
             [self updateAxisLabelsAtLocations:self.majorTickLocations

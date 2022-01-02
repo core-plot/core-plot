@@ -585,8 +585,8 @@
                                                          CGAffineTransformMakeTranslation(-halfSize.width, -halfSize.height));
                 CGPathAddPath(lineCapPath, &scaleTransform, customPath);
             }
+            break;
         }
-        break;
     }
     return lineCapPath;
 }

@@ -185,7 +185,7 @@ static const double precision           = 1.0e-6;
 
     uint64_t end = *(const uint64_t *)numericData.bytes;
     union swap {
-        double           v;
+        double v;
         CFSwappedFloat64 sv;
     }
     result;

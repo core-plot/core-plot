@@ -781,8 +781,8 @@
                                                          CGAffineTransformMakeTranslation(-halfSize.width, -halfSize.height));
                 CGPathAddPath(symbolPath, &scaleTransform, customPath);
             }
+            break;
         }
-        break;
     }
 
     return symbolPath;
