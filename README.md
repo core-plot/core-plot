@@ -52,4 +52,4 @@ Core Plot is intended to be applied in scientific, financial, and other domains 
 
 # Support Core Plot
 
-<a href="https://flattr.com/submit/auto?user_id=CorePlot&url=https%3A%2F%2Fgithub.com%2Fcore-plot" target="_blank"><img src="https://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0"></a>
+<a href="https://flattr.com/submit/auto?user_id=eskroch&url=https%3A%2F%2Fgithub.com%2Fcore-plot" target="_blank"><img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0"></a>
