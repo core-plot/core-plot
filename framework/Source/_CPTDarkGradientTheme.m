@@ -21,7 +21,7 @@ CPTThemeName const kCPTDarkGradientTheme = @"Dark Gradients";
  **/
 @implementation _CPTDarkGradientTheme
 
-+(void)load
++(void)initialize
 {
     [self registerTheme:self];
 }

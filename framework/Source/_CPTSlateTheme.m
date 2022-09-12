@@ -21,7 +21,7 @@ CPTThemeName const kCPTSlateTheme = @"Slate";
  **/
 @implementation _CPTSlateTheme
 
-+(void)load
++(void)initialize
 {
     [self registerTheme:self];
 }

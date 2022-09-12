@@ -18,7 +18,7 @@ CPTThemeName const kCPTPlainWhiteTheme = @"Plain White";
  **/
 @implementation _CPTPlainWhiteTheme
 
-+(void)load
++(void)initialize
 {
     [self registerTheme:self];
 }

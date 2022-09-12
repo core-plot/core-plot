@@ -18,7 +18,7 @@ CPTThemeName const kCPTPlainBlackTheme = @"Plain Black";
  **/
 @implementation _CPTPlainBlackTheme
 
-+(void)load
++(void)initialize
 {
     [self registerTheme:self];
 }

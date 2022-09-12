@@ -19,7 +19,7 @@ CPTThemeName const kCPTStocksTheme = @"Stocks";
  **/
 @implementation _CPTStocksTheme
 
-+(void)load
++(void)initialize
 {
     [self registerTheme:self];
 }
