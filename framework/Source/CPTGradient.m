@@ -1673,13 +1673,13 @@ void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2) // H va
 
     return CPTQuickLookImage(rect, ^(CGContextRef context, CGFloat __unused scale, CGRect bounds) {
         switch ( self.gradientType ) {
-            case CPTGradientTypeAxial:
-                CGContextAddRect(context, bounds);
-                break;
+        case CPTGradientTypeAxial:
+            CGContextAddRect(context, bounds);
+            break;
 
-            case CPTGradientTypeRadial:
-                CGContextAddEllipseInRect(context, bounds);
-                break;
+        case CPTGradientTypeRadial:
+            CGContextAddEllipseInRect(context, bounds);
+            break;
         }
         [self fillPathInContext:context];
     });

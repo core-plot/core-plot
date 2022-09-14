@@ -62,7 +62,7 @@ static NSString *const hermiteCubicIdentifier          = @"Hermite Cubic";
                 [generatedData addObject:@{
                      @"x": x,
                      @"y": y
-                }];
+                 }];
             }
         }
         self.plotData = generatedData;

@@ -337,7 +337,7 @@ typedef NSMutableArray<CPTAnimationOperation *> CPTMutableAnimationArray;
                         CPTAnimationOperationKey: animationOperation,
                         CPTAnimationValueKey: [period tweenedValueForProgress:progress],
                         CPTAnimationValueClassKey: valueClass ? valueClass : [NSNull class],
-                        CPTAnimationStartedKey: @(started),
+                        CPTAnimationStartedKey : @(started),
                         CPTAnimationFinishedKey: @(currentTime >= endTime)
                     };
 
