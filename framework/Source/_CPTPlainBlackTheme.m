@@ -18,12 +18,7 @@ CPTThemeName const kCPTPlainBlackTheme = @"Plain Black";
  **/
 @implementation _CPTPlainBlackTheme
 
-+(void)load
-{
-    [self registerTheme:self];
-}
-
-+(nonnull NSString *)name
++(nonnull CPTThemeName)name
 {
     return kCPTPlainBlackTheme;
 }

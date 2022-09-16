@@ -2,13 +2,35 @@
 
 #import "CPTExceptions.h"
 #import "CPTGraph.h"
+#import <objc/runtime.h>
+
+/// @cond
+
+/**
+ *  @brief A dictionary with CPTThemeName keys and Class values.
+ **/
+typedef NSDictionary<CPTThemeName, Class> CPTThemeDictionary;
+
+/**
+ *  @brief A mutable dictionary with CPTThemeName keys and Class values.
+ **/
+typedef NSMutableDictionary<CPTThemeName, Class> CPTMutableThemeDictionary;
+
+@interface CPTTheme()
+
+NSArray * ClassGetSubclasses(Class parentClass);
+
++(nonnull CPTThemeDictionary *)themeDictionary;
+
+@end
+
+#pragma mark -
+
+/// @endcond
 
 /** @defgroup themeNames Theme Names
  *  @brief Names of the predefined themes.
  **/
-
-// Registered themes
-static NSMutableDictionary<CPTThemeName, Class> *themes = nil;
 
 /** @brief Creates a CPTGraph instance formatted with a predefined style.
  *
@@ -96,6 +118,86 @@ static NSMutableDictionary<CPTThemeName, Class> *themes = nil;
 #pragma mark -
 #pragma mark Theme management
 
+/// @cond
+
+// Code from https://stackoverflow.com/questions/7923586/objective-c-get-list-of-subclasses-from-superclass/23038932
+NSArray<Class> *ClassGetSubclasses()
+{
+    Class parentClass = [CPTTheme class];
+
+    int numClasses = objc_getClassList(NULL, 0);
+
+    // According to the docs of objc_getClassList we should check
+    // if numClasses is bigger than 0.
+    if ( numClasses <= 0 ) {
+        return [NSArray array];
+    }
+
+    size_t memSize = sizeof(Class) * (size_t)numClasses;
+    Class *classes = (__unsafe_unretained Class *)malloc(memSize);
+
+    if ((classes == NULL) && memSize ) {
+        return [NSArray array];
+    }
+
+    numClasses = objc_getClassList(classes, numClasses);
+
+    NSMutableArray<Class> *result = [NSMutableArray new];
+
+    for ( NSInteger i = 0; i < numClasses; i++ ) {
+        Class superClass = classes[i];
+
+        // Don't add the parent class to list of sublcasses
+        if ( superClass == parentClass ) {
+            continue;
+        }
+
+        // Using a do while loop, like pointed out in Cocoa with Love,
+        // can lead to EXC_I386_GPFLT, which stands for General
+        // Protection Fault and means we are doing something we
+        // shouldn't do. It's safer to use a regular while loop to
+        // check if superClass is valid.
+        while ( superClass && superClass != parentClass ) {
+            superClass = class_getSuperclass(superClass);
+        }
+
+        if ( superClass ) {
+            [result addObject:classes[i]];
+        }
+    }
+
+    free(classes);
+
+    return result;
+}
+
+/** @brief A shared CPTAnimation instance responsible for scheduling and executing animations.
+ *  @return The shared CPTAnimation instance.
+ **/
++(nonnull CPTThemeDictionary *)themeDictionary
+{
+    static dispatch_once_t once = 0;
+    static CPTThemeDictionary *themes;
+
+    dispatch_once(&once, ^{
+        CPTMutableThemeDictionary *mutThemes = [[CPTMutableThemeDictionary alloc] init];
+
+        for ( Class cls in ClassGetSubclasses(self)) {
+            CPTThemeName themeName = [cls name];
+
+            if ( themeName.length > 0 ) {
+                [mutThemes setObject:cls forKey:themeName];
+            }
+        }
+
+        themes = [mutThemes copy];
+    });
+
+    return themes;
+}
+
+/// @endcond
+
 /** @brief List of the available theme classes, sorted by name.
  *  @return An NSArray containing all available theme classes, sorted by name.
  **/
@@ -103,7 +205,7 @@ static NSMutableDictionary<CPTThemeName, Class> *themes = nil;
 {
     NSSortDescriptor *nameSort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)];
 
-    return [themes.allValues sortedArrayUsingDescriptors:@[nameSort]];
+    return [[self themeDictionary].allValues sortedArrayUsingDescriptors:@[nameSort]];
 }
 
 /** @brief Gets a named theme.
@@ -118,28 +220,11 @@ static NSMutableDictionary<CPTThemeName, Class> *themes = nil;
     CPTThemeName theName = themeName;
 
     if ( theName ) {
-        Class themeClass = themes[theName];
+        Class themeClass = [self themeDictionary][theName];
         newTheme = [[themeClass alloc] init];
     }
 
     return newTheme;
-}
-
-/** @brief Register a theme class.
- *  @param themeClass Theme class to register.
- **/
-+(void)registerTheme:(nonnull Class)themeClass
-{
-    NSParameterAssert([themeClass isSubclassOfClass:self]);
-    NSParameterAssert([themeClass name]);
-
-    @synchronized ( self ) {
-        if ( !themes ) {
-            themes = [[NSMutableDictionary alloc] init];
-        }
-
-        [themes setObject:themeClass forKey:[themeClass name]];
-    }
 }
 
 /** @brief The name used for this theme class.
@@ -147,7 +232,7 @@ static NSMutableDictionary<CPTThemeName, Class> *themes = nil;
  **/
 +(nonnull CPTThemeName)name
 {
-    return NSStringFromClass(self);
+    return @"";
 }
 
 #pragma mark -

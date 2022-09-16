@@ -19,12 +19,7 @@ CPTThemeName const kCPTStocksTheme = @"Stocks";
  **/
 @implementation _CPTStocksTheme
 
-+(void)load
-{
-    [self registerTheme:self];
-}
-
-+(nonnull NSString *)name
++(nonnull CPTThemeName)name
 {
     return kCPTStocksTheme;
 }

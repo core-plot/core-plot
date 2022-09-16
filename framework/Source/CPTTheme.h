@@ -25,7 +25,6 @@ extern CPTThemeName __nonnull const kCPTStocksTheme;       ///< A graph theme wi
 
 /// @name Theme Management
 /// @{
-+(void)registerTheme:(nonnull Class)themeClass;
 +(nullable NSArray<Class> *)themeClasses;
 +(nullable instancetype)themeNamed:(nullable CPTThemeName)themeName;
 +(nonnull CPTThemeName)name;

@@ -21,12 +21,7 @@ CPTThemeName const kCPTSlateTheme = @"Slate";
  **/
 @implementation _CPTSlateTheme
 
-+(void)load
-{
-    [self registerTheme:self];
-}
-
-+(nonnull NSString *)name
++(nonnull CPTThemeName)name
 {
     return kCPTSlateTheme;
 }
