@@ -17,11 +17,6 @@ static const BOOL kUseHorizontalBars = NO;
 
 @synthesize symbolTextAnnotation;
 
-+(void)load
-{
-    [super registerPlotItem:self];
-}
-
 -(nonnull instancetype)init
 {
     if ((self = [super init])) {

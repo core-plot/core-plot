@@ -36,21 +36,6 @@ NSString *const kFinancialPlots = @"Financial Plots";
 @synthesize cachedImage;
 @dynamic titleSize;
 
-+(void)registerPlotItem:(nonnull id)item
-{
-    NSLog(@"registerPlotItem for class %@", [item class]);
-
-    Class itemClass = [item class];
-
-    if ( itemClass ) {
-        // There's no autorelease pool here yet...
-        PlotItem *plotItem = [[itemClass alloc] init];
-        if ( plotItem ) {
-            [[PlotGallery sharedPlotGallery] addPlotItem:plotItem];
-        }
-    }
-}
-
 -(nonnull instancetype)init
 {
     if ((self = [super init])) {

@@ -19,11 +19,6 @@
 @synthesize plotData;
 @synthesize histogramOption;
 
-+(void)load
-{
-    [super registerPlotItem:self];
-}
-
 -(nonnull instancetype)init
 {
     if ((self = [super init])) {

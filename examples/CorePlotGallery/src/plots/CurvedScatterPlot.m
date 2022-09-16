@@ -27,11 +27,6 @@ static NSString *const kSecond = @"Second Derivative";
 @synthesize plotData1;
 @synthesize plotData2;
 
-+(void)load
-{
-    [super registerPlotItem:self];
-}
-
 -(nonnull instancetype)init
 {
     if ((self = [super init])) {

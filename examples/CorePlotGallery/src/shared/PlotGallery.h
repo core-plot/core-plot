@@ -13,8 +13,6 @@
 
 +(nonnull PlotGallery *)sharedPlotGallery;
 
--(void)addPlotItem:(nonnull PlotItem *)plotItem;
-
 -(void)sortByTitle;
 
 -(nonnull PlotItem *)objectInSection:(NSUInteger)section atIndex:(NSUInteger)index;

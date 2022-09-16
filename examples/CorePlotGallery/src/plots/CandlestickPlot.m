@@ -19,11 +19,6 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 @synthesize graph;
 @synthesize plotData;
 
-+(void)load
-{
-    [super registerPlotItem:self];
-}
-
 -(nonnull instancetype)init
 {
     if ((self = [super init])) {

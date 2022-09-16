@@ -7,11 +7,6 @@
 
 @implementation AxisDemo
 
-+(void)load
-{
-    [super registerPlotItem:self];
-}
-
 -(nonnull instancetype)init
 {
     if ((self = [super init])) {

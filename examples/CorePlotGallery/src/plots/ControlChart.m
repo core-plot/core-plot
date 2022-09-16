@@ -21,11 +21,6 @@ static const NSUInteger numberOfPoints = 11;
 @synthesize meanValue;
 @synthesize standardError;
 
-+(void)load
-{
-    [super registerPlotItem:self];
-}
-
 -(nonnull instancetype)init
 {
     if ((self = [super init])) {

@@ -23,11 +23,6 @@ static const NSTimeInterval oneDay = 24 * 60 * 60;
 @synthesize areaFill;
 @synthesize barLineStyle;
 
-+(void)load
-{
-    [super registerPlotItem:self];
-}
-
 -(nonnull instancetype)init
 {
     if ((self = [super init])) {

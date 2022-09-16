@@ -4,11 +4,16 @@
 //
 
 #import "PlotGallery.h"
+#import <objc/runtime.h>
 
 @interface PlotGallery()
 
 @property (nonatomic, readwrite, strong) NSMutableArray<PlotItem *> *plotItems;
 @property (nonatomic, readwrite, strong) NSCountedSet *plotSections;
+
+NSArray<Class> *ClassGetSubclasses(Class parentClass);
+
+-(void)addPlotItem:(nonnull PlotItem *)plotItem;
 
 @end
 
@@ -18,6 +23,55 @@
 
 @synthesize plotItems;
 @synthesize plotSections;
+
+// Code from https://stackoverflow.com/questions/7923586/objective-c-get-list-of-subclasses-from-superclass/23038932
+NSArray<Class> *ClassGetSubclasses(Class parentClass)
+{
+    int numClasses = objc_getClassList(NULL, 0);
+
+    // According to the docs of objc_getClassList we should check
+    // if numClasses is bigger than 0.
+    if ( numClasses <= 0 ) {
+        return [NSArray array];
+    }
+
+    size_t memSize = sizeof(Class) * (size_t)numClasses;
+    Class *classes = (__unsafe_unretained Class *)malloc(memSize);
+
+    if ((classes == NULL) && memSize ) {
+        return [NSArray array];
+    }
+
+    numClasses = objc_getClassList(classes, numClasses);
+
+    NSMutableArray<Class> *result = [NSMutableArray new];
+
+    for ( NSInteger i = 0; i < numClasses; i++ ) {
+        Class superClass = classes[i];
+
+        // Don't add the parent class to list of sublcasses
+        if ( superClass == parentClass ) {
+            continue;
+        }
+
+        // Using a do while loop, like pointed out in Cocoa with Love,
+        // can lead to EXC_I386_GPFLT, which stands for General
+        // Protection Fault and means we are doing something we
+        // shouldn't do. It's safer to use a regular while loop to
+        // check if superClass is valid.
+        while ( superClass && superClass != parentClass ) {
+            superClass = class_getSuperclass(superClass);
+        }
+
+        if ( superClass ) {
+            [result addObject:classes[i]];
+        }
+    }
+
+    free(classes);
+
+    return result;
+}
 
 static PlotGallery *sharedPlotGallery = nil;
 
@@ -51,6 +105,14 @@ static PlotGallery *sharedPlotGallery = nil;
                 sharedPlotGallery = self;
                 plotItems         = [[NSMutableArray alloc] init];
                 plotSections      = [[NSCountedSet alloc] init];
+
+                for ( Class itemClass in ClassGetSubclasses([PlotItem class])) {
+                    PlotItem *plotItem = [[itemClass alloc] init];
+
+                    if ( plotItem ) {
+                        [self addPlotItem:plotItem];
+                    }
+                }
             }
         }
     }
@@ -65,6 +127,8 @@ static PlotGallery *sharedPlotGallery = nil;
 
 -(void)addPlotItem:(nonnull PlotItem *)plotItem
 {
+    NSLog(@"addPlotItem for class %@", [plotItem class]);
+
     [self.plotItems addObject:plotItem];
 
     NSString *sectionName = plotItem.section;

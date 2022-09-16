@@ -18,11 +18,6 @@
 
 #pragma mark -
 
-+(void)load
-{
-    [super registerPlotItem:self];
-}
-
 #pragma mark -
 
 -(nonnull instancetype)init

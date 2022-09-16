@@ -25,11 +25,6 @@ static NSString *const kPlotIdentifier = @"Data Source Plot";
 @synthesize currentIndex;
 @synthesize dataTimer;
 
-+(void)load
-{
-    [super registerPlotItem:self];
-}
-
 -(nonnull instancetype)init
 {
     if ((self = [super init])) {

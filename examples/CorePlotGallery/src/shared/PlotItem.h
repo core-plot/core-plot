@@ -38,8 +38,6 @@ extern NSString *__nonnull const kFinancialPlots;
 
 @property (nonatomic, readonly) CGFloat titleSize;
 
-+(void)registerPlotItem:(nonnull id)item;
-
 -(void)renderInView:(nonnull PlotGalleryNativeView *)hostingView withTheme:(nullable CPTTheme *)theme animated:(BOOL)animated;
 -(nonnull CPTNativeImage *)image;
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
