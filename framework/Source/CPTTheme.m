@@ -8,7 +8,7 @@
  **/
 
 // Registered themes
-static NSMutableSet<Class> *themes = nil;
+static NSMutableDictionary<CPTThemeName, Class> *themes = nil;
 
 /** @brief Creates a CPTGraph instance formatted with a predefined style.
  *
@@ -103,7 +103,7 @@ static NSMutableSet<Class> *themes = nil;
 {
     NSSortDescriptor *nameSort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)];
 
-    return [themes sortedArrayUsingDescriptors:@[nameSort]];
+    return [themes.allValues sortedArrayUsingDescriptors:@[nameSort]];
 }
 
 /** @brief Gets a named theme.
@@ -115,11 +115,11 @@ static NSMutableSet<Class> *themes = nil;
 {
     CPTTheme *newTheme = nil;
 
-    for ( Class themeClass in themes ) {
-        if ( [themeName isEqualToString:[themeClass name]] ) {
-            newTheme = [[themeClass alloc] init];
-            break;
-        }
+    CPTThemeName theName = themeName;
+
+    if ( theName ) {
+        Class themeClass = themes[theName];
+        newTheme = [[themeClass alloc] init];
     }
 
     return newTheme;
@@ -130,19 +130,15 @@ static NSMutableSet<Class> *themes = nil;
  **/
 +(void)registerTheme:(nonnull Class)themeClass
 {
-    NSParameterAssert(themeClass);
+    NSParameterAssert([themeClass isSubclassOfClass:self]);
+    NSParameterAssert([themeClass name]);
 
     @synchronized ( self ) {
         if ( !themes ) {
-            themes = [[NSMutableSet alloc] init];
+            themes = [[NSMutableDictionary alloc] init];
         }
 
-        if ( [themes containsObject:themeClass] ) {
-            [NSException raise:CPTException format:@"Theme class already registered: %@", themeClass];
-        }
-        else {
-            [themes addObject:themeClass];
-        }
+        [themes setObject:themeClass forKey:[themeClass name]];
     }
 }
 
