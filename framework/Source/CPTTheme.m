@@ -121,10 +121,8 @@ NSArray * ClassGetSubclasses(Class parentClass);
 /// @cond
 
 // Code from https://stackoverflow.com/questions/7923586/objective-c-get-list-of-subclasses-from-superclass/23038932
-NSArray<Class> *ClassGetSubclasses()
+NSArray<Class> *ClassGetSubclasses(Class parentClass)
 {
-    Class parentClass = [CPTTheme class];
-
     int numClasses = objc_getClassList(NULL, 0);
 
     // According to the docs of objc_getClassList we should check
