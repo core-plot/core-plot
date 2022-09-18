@@ -10,11 +10,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Set Xcode version
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: latest-stable
-
       - name: Run unit tests for macOS
         run: xcodebuild -project framework/CorePlot.xcodeproj -target "UnitTests Mac" -configuration Release ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO
 
@@ -27,8 +22,6 @@ jobs:
   SPM:
     name: Verify SPM build
     runs-on: macOS-latest
-    env:
-      DEVELOPER_DIR: /Applications/Xcode_12.2.app/Contents/Developer
     strategy:
       matrix:
         destination:
@@ -42,11 +35,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Set Xcode version
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: latest-stable
 
       - name: spm's xcodebuild - ${{ matrix.destination }}
         run: xcodebuild clean build -scheme "${{ matrix.scheme }}" -destination "${{ matrix.destination }}" -configuration Release
