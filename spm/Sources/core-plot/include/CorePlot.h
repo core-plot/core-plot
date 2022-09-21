@@ -1,1 +1,1 @@
-../../../../framework/CocoaPods/CorePlot.h
+../../../../framework/SPM Umbrella Header/CorePlot.h

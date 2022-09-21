@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 47;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -775,6 +775,27 @@
 			remoteGlobalIDString = C37EA5C91BC83F2A0091C8F7;
 			remoteInfo = "CorePlot tvOS";
 		};
+		C3F244C028DBCBA1008DB9A1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C36BE54226FF6857004287F2;
+			remoteInfo = "Update SPM Files";
+		};
+		C3F244C228DBCBAE008DB9A1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C36BE54226FF6857004287F2;
+			remoteInfo = "Update SPM Files";
+		};
+		C3F244C428DBCBB4008DB9A1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C36BE54226FF6857004287F2;
+			remoteInfo = "Update SPM Files";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -1044,6 +1065,7 @@
 		C3DA34CA107AD7710051DA02 /* _CPTXYTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = _CPTXYTheme.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C3DA34CB107AD7710051DA02 /* _CPTXYTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPTXYTheme.h; sourceTree = "<group>"; };
 		C3EE4E971A6C1E890098F4E6 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		C3F244BF28DBCABB008DB9A1 /* CorePlot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CorePlot.h; sourceTree = "<group>"; };
 		C3F31DE71045EB470058520A /* CPTPlotGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CPTPlotGroup.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C3F31DE81045EB470058520A /* CPTPlotGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPlotGroup.h; sourceTree = "<group>"; };
 		C3F97F1C17A9E07B00A52FF2 /* CPTFunctionDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CPTFunctionDataSource.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -1414,6 +1436,7 @@
 				C38A0AA61A4621BC00D45436 /* Platform Specific */,
 				9021E4920FC5C6DD00443472 /* Documentation */,
 				C3B25EDE1AC23A7D0063CCD8 /* CocoaPods */,
+				C3F244BE28DBCABB008DB9A1 /* SPM Umbrella Header */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
@@ -1772,6 +1795,14 @@
 				C3D979B713D2344000145DFF /* CPTLineStyleTests.m */,
 			);
 			name = Tests;
+			sourceTree = "<group>";
+		};
+		C3F244BE28DBCABB008DB9A1 /* SPM Umbrella Header */ = {
+			isa = PBXGroup;
+			children = (
+				C3F244BF28DBCABB008DB9A1 /* CorePlot.h */,
+			);
+			path = "SPM Umbrella Header";
 			sourceTree = "<group>";
 		};
 		E1620CBB100F034700A84E77 /* Tests */ = {
@@ -2133,6 +2164,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C3F244C128DBCBA1008DB9A1 /* PBXTargetDependency */,
 			);
 			name = "CorePlot Mac";
 			productInstallPath = "$(HOME)/Library/Frameworks";
@@ -2152,6 +2184,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C3F244C528DBCBB4008DB9A1 /* PBXTargetDependency */,
 			);
 			name = "CorePlot tvOS";
 			productName = "CorePlot-iOS";
@@ -2188,6 +2221,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C3F244C328DBCBAE008DB9A1 /* PBXTargetDependency */,
 			);
 			name = "CorePlot iOS";
 			productName = "CorePlot-iOS";
@@ -2332,6 +2366,7 @@
 		};
 		C36BE54626FF6865004287F2 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -2833,6 +2868,21 @@
 			target = C37EA5C91BC83F2A0091C8F7 /* CorePlot tvOS */;
 			targetProxy = C3B4D4951BC997F600450C37 /* PBXContainerItemProxy */;
 		};
+		C3F244C128DBCBA1008DB9A1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C36BE54226FF6857004287F2 /* Update SPM Files */;
+			targetProxy = C3F244C028DBCBA1008DB9A1 /* PBXContainerItemProxy */;
+		};
+		C3F244C328DBCBAE008DB9A1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C36BE54226FF6857004287F2 /* Update SPM Files */;
+			targetProxy = C3F244C228DBCBAE008DB9A1 /* PBXContainerItemProxy */;
+		};
+		C3F244C528DBCBB4008DB9A1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C36BE54226FF6857004287F2 /* Update SPM Files */;
+			targetProxy = C3F244C428DBCBB4008DB9A1 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -2927,7 +2977,11 @@
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				PRODUCT_NAME = UnitTests;
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/MacOnly $(SRCROOT)/PlatformSpecific";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Source",
+					"$(SRCROOT)/MacOnly",
+					"$(SRCROOT)/PlatformSpecific",
+				);
 			};
 			name = Debug;
 		};
@@ -2939,7 +2993,11 @@
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				PRODUCT_NAME = UnitTests;
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/MacOnly $(SRCROOT)/PlatformSpecific";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Source",
+					"$(SRCROOT)/MacOnly",
+					"$(SRCROOT)/PlatformSpecific",
+				);
 			};
 			name = Release;
 		};
@@ -2956,7 +3014,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CorePlot;
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/MacOnly $(SRCROOT)/PlatformSpecific";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Source",
+					"$(SRCROOT)/MacOnly",
+					"$(SRCROOT)/PlatformSpecific",
+				);
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -2974,7 +3036,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CorePlot;
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/MacOnly $(SRCROOT)/PlatformSpecific";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Source",
+					"$(SRCROOT)/MacOnly",
+					"$(SRCROOT)/PlatformSpecific",
+				);
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
@@ -3083,12 +3149,19 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-tvOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CorePlot;
 				SDKROOT = appletvos;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/PlatformSpecific";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Source",
+					"$(SRCROOT)/PlatformSpecific",
+				);
 			};
 			name = Debug;
 		};
@@ -3102,12 +3175,19 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-tvOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CorePlot;
 				SDKROOT = appletvos;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/PlatformSpecific";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Source",
+					"$(SRCROOT)/PlatformSpecific",
+				);
 			};
 			name = Release;
 		};
@@ -3116,12 +3196,19 @@
 			baseConfigurationReference = C3C9D08C1BB5A44800931F32 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-tvOSTests-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/PlatformSpecific";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Source",
+					"$(SRCROOT)/PlatformSpecific",
+				);
 			};
 			name = Debug;
 		};
@@ -3130,12 +3217,19 @@
 			baseConfigurationReference = C3C9D08D1BB5A45B00931F32 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-tvOSTests-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/PlatformSpecific";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Source",
+					"$(SRCROOT)/PlatformSpecific",
+				);
 			};
 			name = Release;
 		};
@@ -3149,13 +3243,20 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CorePlot;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/PlatformSpecific";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Source",
+					"$(SRCROOT)/PlatformSpecific",
+				);
 			};
 			name = Debug;
 		};
@@ -3169,13 +3270,20 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CorePlot;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/PlatformSpecific";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Source",
+					"$(SRCROOT)/PlatformSpecific",
+				);
 			};
 			name = Release;
 		};
@@ -3184,13 +3292,20 @@
 			baseConfigurationReference = C3C9D08C1BB5A44800931F32 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-iOSTests-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/PlatformSpecific";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Source",
+					"$(SRCROOT)/PlatformSpecific",
+				);
 			};
 			name = Debug;
 		};
@@ -3199,13 +3314,20 @@
 			baseConfigurationReference = C3C9D08D1BB5A45B00931F32 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-iOSTests-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CorePlot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Source $(SRCROOT)/PlatformSpecific";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Source",
+					"$(SRCROOT)/PlatformSpecific",
+				);
 			};
 			name = Release;
 		};

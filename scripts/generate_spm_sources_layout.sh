@@ -22,7 +22,8 @@ function generate_spm_public_headers() {
             \! -name "CorePlot-CocoaTouch.h" \
             \! -name "mainpage.h" \
             -type f -not -path "*/MacOnly/*" \
-            -not -path "framework/CorePlot.h" | sed "s| \([^/]\)|:\1|g"
+            -not -path "framework/CorePlot.h" \
+            -not -path "framework/CocoaPods/CorePlot.h" | sed "s| \([^/]\)|:\1|g"
     )
 
     SRC_ROOT="$(pwd)"
