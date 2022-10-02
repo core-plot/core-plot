@@ -661,20 +661,17 @@ CPTScatterPlotBinding const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; /
 {
     // Align to device pixels if there is a data line.
     // Otherwise, align to view space, so fills are sharp at edges.
+    CPTAlignPointFunction alignmentFunction = CPTAlignIntegralPointToUserSpace;
+
     if ( self.dataLineStyle.lineWidth > CPTFloat(0.0)) {
-        dispatch_apply(dataCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
-            if ( drawPointFlags[i] ) {
-                viewPoints[i] = CPTAlignPointToUserSpace(context, viewPoints[i]);
-            }
-        });
+        alignmentFunction = CPTAlignPointToUserSpace;
     }
-    else {
-        dispatch_apply(dataCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
-            if ( drawPointFlags[i] ) {
-                viewPoints[i] = CPTAlignIntegralPointToUserSpace(context, viewPoints[i]);
-            }
-        });
-    }
+
+    dispatch_apply(dataCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
+        if ( drawPointFlags[i] ) {
+            viewPoints[i] = alignmentFunction(context, viewPoints[i]);
+        }
+    });
 }
 
 -(NSInteger)extremeDrawnPointIndexForFlags:(nonnull BOOL *)pointDrawFlags numberOfPoints:(NSUInteger)dataCount extremeNumIsLowerBound:(BOOL)isLowerBound
