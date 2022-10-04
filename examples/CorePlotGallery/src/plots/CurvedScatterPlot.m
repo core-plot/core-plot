@@ -69,7 +69,7 @@ static NSString *const kSecond = @"Second Derivative";
         self.plotData = contentArray;
     }
 
-    if ( self.plotData1 == nil ) {
+    if ( !self.plotData1 ) {
         NSMutableArray<NSDictionary<NSString *, NSNumber *> *> *contentArray = [NSMutableArray array];
 
         NSArray<NSDictionary<NSString *, NSNumber *> *> *dataArray = self.plotData;
@@ -96,7 +96,7 @@ static NSString *const kSecond = @"Second Derivative";
         self.plotData1 = contentArray;
     }
 
-    if ( self.plotData2 == nil ) {
+    if ( !self.plotData2 ) {
         NSMutableArray<NSDictionary<NSString *, NSNumber *> *> *contentArray = [NSMutableArray array];
 
         NSArray<NSDictionary<NSString *, NSNumber *> *> *dataArray = self.plotData1;

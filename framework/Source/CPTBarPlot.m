@@ -880,14 +880,14 @@ CPTBarPlotBinding const CPTBarPlotBindingBarWidths     = @"barWidths";     ///< 
     CPTMutableNumericData *cachedLocations = [self cachedNumbersForField:CPTBarPlotFieldBarLocation];
     CPTMutableNumericData *cachedLengths   = [self cachedNumbersForField:CPTBarPlotFieldBarTip];
 
-    if ((cachedLocations == nil) || (cachedLengths == nil)) {
+    if ( !cachedLocations || !cachedLengths ) {
         return;
     }
 
     BOOL basesVary                     = self.barBasesVary;
     CPTMutableNumericData *cachedBases = [self cachedNumbersForField:CPTBarPlotFieldBarBase];
 
-    if ( basesVary && (cachedBases == nil)) {
+    if ( basesVary && !cachedBases ) {
         return;
     }
 
@@ -1157,7 +1157,7 @@ CPTBarPlotBinding const CPTBarPlotBindingBarWidths     = @"barWidths";     ///< 
 {
     CPTFill *theBarFill = [self cachedValueForKey:CPTBarPlotBindingBarFills recordIndex:idx];
 
-    if ((theBarFill == nil) || (theBarFill == [CPTPlot nilData])) {
+    if ( !theBarFill || (theBarFill == [CPTPlot nilData])) {
         theBarFill = self.fill;
     }
 
@@ -1168,7 +1168,7 @@ CPTBarPlotBinding const CPTBarPlotBindingBarWidths     = @"barWidths";     ///< 
 {
     CPTLineStyle *theBarLineStyle = [self cachedValueForKey:CPTBarPlotBindingBarLineStyles recordIndex:idx];
 
-    if ((theBarLineStyle == nil) || (theBarLineStyle == [CPTPlot nilData])) {
+    if ( !theBarLineStyle || (theBarLineStyle == [CPTPlot nilData])) {
         theBarLineStyle = self.lineStyle;
     }
 
@@ -1179,7 +1179,7 @@ CPTBarPlotBinding const CPTBarPlotBindingBarWidths     = @"barWidths";     ///< 
 {
     NSNumber *theBarWidth = [self cachedValueForKey:CPTBarPlotBindingBarWidths recordIndex:idx];
 
-    if ((theBarWidth == nil) || (theBarWidth == [CPTPlot nilData])) {
+    if ( !theBarWidth || (theBarWidth == [CPTPlot nilData])) {
         theBarWidth = self.barWidth;
     }
 

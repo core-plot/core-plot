@@ -230,7 +230,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
 
 -(nonnull CPTNativeImage *)image
 {
-    if ( self.cachedImage == nil ) {
+    if ( !self.cachedImage ) {
         CGRect imageFrame = CGRectMake(0, 0, 400, 300);
         UIView *imageView = [[UIView alloc] initWithFrame:imageFrame];
         [imageView setOpaque:YES];
@@ -275,7 +275,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
 
 -(nonnull CPTNativeImage *)image
 {
-    if ( self.cachedImage == nil ) {
+    if ( !self.cachedImage ) {
         CGRect imageFrame = CGRectMake(0, 0, 400, 300);
 
         NSView *imageView = [[NSView alloc] initWithFrame:NSRectFromCGRect(imageFrame)];
@@ -300,7 +300,7 @@ NSString *const kFinancialPlots = @"Financial Plots";
 
 -(void)applyTheme:(nullable CPTTheme *)theme toGraph:(nonnull CPTGraph *)graph withDefault:(nullable CPTTheme *)defaultTheme
 {
-    if ( theme == nil ) {
+    if ( !theme ) {
         [graph applyTheme:defaultTheme];
     }
     else if ( ![theme isKindOfClass:[NSNull class]] ) {

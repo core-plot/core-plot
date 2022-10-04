@@ -624,7 +624,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
     if ( sampleCount == 0 ) {
         return;
     }
-    if ((opens == nil) || (highs == nil) || (lows == nil) || (closes == nil)) {
+    if ( !opens || !highs || !lows || !closes ) {
         return;
     }
 
@@ -1113,7 +1113,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 {
     CPTFill *theFill = [self cachedValueForKey:CPTTradingRangePlotBindingIncreaseFills recordIndex:idx];
 
-    if ((theFill == nil) || (theFill == [CPTPlot nilData])) {
+    if ( !theFill || (theFill == [CPTPlot nilData])) {
         theFill = self.increaseFill;
     }
 
@@ -1124,7 +1124,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 {
     CPTFill *theFill = [self cachedValueForKey:CPTTradingRangePlotBindingDecreaseFills recordIndex:idx];
 
-    if ((theFill == nil) || (theFill == [CPTPlot nilData])) {
+    if ( !theFill || (theFill == [CPTPlot nilData])) {
         theFill = self.decreaseFill;
     }
 
@@ -1135,7 +1135,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 {
     CPTLineStyle *theLineStyle = [self cachedValueForKey:CPTTradingRangePlotBindingLineStyles recordIndex:idx];
 
-    if ((theLineStyle == nil) || (theLineStyle == [CPTPlot nilData])) {
+    if ( !theLineStyle || (theLineStyle == [CPTPlot nilData])) {
         theLineStyle = self.lineStyle;
     }
 
@@ -1146,11 +1146,11 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 {
     CPTLineStyle *theLineStyle = [self cachedValueForKey:CPTTradingRangePlotBindingIncreaseLineStyles recordIndex:idx];
 
-    if ((theLineStyle == nil) || (theLineStyle == [CPTPlot nilData])) {
+    if ( !theLineStyle || (theLineStyle == [CPTPlot nilData])) {
         theLineStyle = self.increaseLineStyle;
     }
 
-    if ( theLineStyle == nil ) {
+    if ( !theLineStyle ) {
         theLineStyle = [self lineStyleForIndex:idx];
     }
 
@@ -1161,11 +1161,11 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 {
     CPTLineStyle *theLineStyle = [self cachedValueForKey:CPTTradingRangePlotBindingDecreaseLineStyles recordIndex:idx];
 
-    if ((theLineStyle == nil) || (theLineStyle == [CPTPlot nilData])) {
+    if ( !theLineStyle || (theLineStyle == [CPTPlot nilData])) {
         theLineStyle = self.decreaseLineStyle;
     }
 
-    if ( theLineStyle == nil ) {
+    if ( !theLineStyle ) {
         theLineStyle = [self lineStyleForIndex:idx];
     }
 
@@ -1176,7 +1176,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 {
     NSNumber *theBarWidth = [self cachedValueForKey:CPTTradingRangePlotBindingBarWidths recordIndex:idx];
 
-    if ((theBarWidth == nil) || (theBarWidth == [CPTPlot nilData])) {
+    if ( !theBarWidth || (theBarWidth == [CPTPlot nilData])) {
         theBarWidth = @(self.barWidth);
     }
 

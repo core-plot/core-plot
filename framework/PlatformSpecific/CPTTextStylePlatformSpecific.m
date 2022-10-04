@@ -98,7 +98,7 @@
     NSFont *styleFont  = self.font;
     NSString *fontName = self.fontName;
 
-    if ((styleFont == nil) && fontName ) {
+    if ( !styleFont && fontName ) {
         styleFont = [NSFont fontWithName:fontName size:self.fontSize];
     }
 
@@ -243,7 +243,7 @@
  **/
 -(void)drawInRect:(CGRect)rect withTextStyle:(nullable CPTTextStyle *)style inContext:(nonnull CGContextRef)context
 {
-    if ( style.color == nil ) {
+    if ( !style.color ) {
         return;
     }
 
@@ -257,7 +257,7 @@
     NSFont *theFont    = style.font;
     NSString *fontName = style.fontName;
 
-    if ((theFont == nil) && fontName ) {
+    if ( !theFont && fontName ) {
         theFont = [NSFont fontWithName:fontName size:style.fontSize];
     }
 
@@ -361,7 +361,7 @@
     UIFont *styleFont  = self.font;
     NSString *fontName = self.fontName;
 
-    if ((styleFont == nil) && fontName ) {
+    if ( !styleFont && fontName ) {
         styleFont = [UIFont fontWithName:fontName size:self.fontSize];
     }
 
@@ -480,7 +480,7 @@
  **/
 -(void)drawInRect:(CGRect)rect withTextStyle:(nullable CPTTextStyle *)style inContext:(nonnull CGContextRef)context
 {
-    if ( style.color == nil ) {
+    if ( !style.color ) {
         return;
     }
 
@@ -513,7 +513,7 @@
         UIFont *theFont    = style.font;
         NSString *fontName = style.fontName;
 
-        if ((theFont == nil) && fontName ) {
+        if ( !theFont && fontName ) {
             theFont = [UIFont fontWithName:fontName size:style.fontSize];
         }
 
@@ -530,7 +530,7 @@
     [styleColor set];
 
     UIFont *theFont = self.font;
-    if ( theFont == nil ) {
+    if ( !theFont ) {
         theFont = [UIFont fontWithName:style.fontName size:style.fontSize];
     }
 

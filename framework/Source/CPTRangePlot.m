@@ -694,7 +694,7 @@ typedef struct CGPointError CGPointError;
     CPTMutableNumericData *xValueData = [self cachedNumbersForField:CPTRangePlotFieldX];
     CPTMutableNumericData *yValueData = [self cachedNumbersForField:CPTRangePlotFieldY];
 
-    if ((xValueData == nil) || (yValueData == nil)) {
+    if ( !xValueData || !yValueData ) {
         return;
     }
     NSUInteger dataCount = self.cachedDataCount;
@@ -1010,7 +1010,7 @@ typedef struct CGPointError CGPointError;
 {
     CPTLineStyle *theBarLineStyle = [self cachedValueForKey:CPTRangePlotBindingBarLineStyles recordIndex:idx];
 
-    if ((theBarLineStyle == nil) || (theBarLineStyle == [CPTPlot nilData])) {
+    if ( !theBarLineStyle || (theBarLineStyle == [CPTPlot nilData])) {
         theBarLineStyle = self.barLineStyle;
     }
 
@@ -1021,7 +1021,7 @@ typedef struct CGPointError CGPointError;
 {
     NSNumber *theBarWidth = [self cachedValueForKey:CPTRangePlotBindingBarWidths recordIndex:idx];
 
-    if ((theBarWidth == nil) || (theBarWidth == [CPTPlot nilData])) {
+    if ( !theBarWidth || (theBarWidth == [CPTPlot nilData])) {
         theBarWidth = @(self.barWidth);
     }
 

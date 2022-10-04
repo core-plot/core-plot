@@ -38,7 +38,7 @@ NSArray<Class> *ClassGetSubclasses(Class parentClass)
     size_t memSize = sizeof(Class) * (size_t)numClasses;
     Class *classes = (__unsafe_unretained Class *)malloc(memSize);
 
-    if ((classes == NULL) && memSize ) {
+    if ( !classes && memSize ) {
         return [NSArray array];
     }
 
@@ -78,7 +78,7 @@ static PlotGallery *sharedPlotGallery = nil;
 +(nonnull PlotGallery *)sharedPlotGallery
 {
     @synchronized ( self ) {
-        if ( sharedPlotGallery == nil ) {
+        if ( !sharedPlotGallery ) {
             sharedPlotGallery = [[self alloc] init];
         }
     }
@@ -88,7 +88,7 @@ static PlotGallery *sharedPlotGallery = nil;
 +(id)allocWithZone:(NSZone *)zone
 {
     @synchronized ( self ) {
-        if ( sharedPlotGallery == nil ) {
+        if ( !sharedPlotGallery ) {
             return [super allocWithZone:zone];
         }
     }
@@ -100,7 +100,7 @@ static PlotGallery *sharedPlotGallery = nil;
     Class thisClass = [self class];
 
     @synchronized ( thisClass ) {
-        if ( sharedPlotGallery == nil ) {
+        if ( !sharedPlotGallery ) {
             if ((self = [super init])) {
                 sharedPlotGallery = self;
                 plotItems         = [[NSMutableArray alloc] init];

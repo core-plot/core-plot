@@ -134,7 +134,7 @@ NSArray<Class> *ClassGetSubclasses(Class parentClass)
     size_t memSize = sizeof(Class) * (size_t)numClasses;
     Class *classes = (__unsafe_unretained Class *)malloc(memSize);
 
-    if ((classes == NULL) && memSize ) {
+    if ( !classes && memSize ) {
         return [NSArray array];
     }
 

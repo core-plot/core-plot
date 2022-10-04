@@ -99,7 +99,7 @@
 
     UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:cellId];
 
-    if ( cell == nil ) {
+    if ( !cell ) {
         cell               = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         cell.accessoryType = UITableViewCellAccessoryNone;
     }

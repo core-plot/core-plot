@@ -1668,7 +1668,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
         else {
             newLabelLayer = [self cachedValueForKey:CPTPlotBindingDataLabels recordIndex:i];
 
-            if (((newLabelLayer == nil) || (newLabelLayer == nilObject)) && plotProvidesLabels ) {
+            if ((!newLabelLayer || (newLabelLayer == nilObject)) && plotProvidesLabels ) {
                 if ( hasAttributedFormatter ) {
                     NSAttributedString *labelString = [dataLabelFormatter attributedStringForObjectValue:dataValue withDefaultAttributes:textAttributes];
                     newLabelLayer = [[CPTTextLayer alloc] initWithAttributedText:labelString];

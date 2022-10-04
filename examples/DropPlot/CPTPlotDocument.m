@@ -141,7 +141,7 @@
 
     // For applications targeted for Panther or earlier systems, you should use the deprecated API -dataRepresentationOfType:. In this case you can also choose to override -fileWrapperRepresentationOfType: or -writeToFile:ofType: instead.
 
-    if ( outError != NULL ) {
+    if ( outError ) {
         *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
     }
     return nil;
@@ -225,7 +225,7 @@
         self.maximumValueForYAxis = maxY;
     }
 
-    if ( outError != NULL ) {
+    if ( outError ) {
         *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
     }
     return YES;

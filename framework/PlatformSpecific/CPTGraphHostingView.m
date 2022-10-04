@@ -612,7 +612,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
 -(void)setHostedGraph:(nullable CPTGraph *)newGraph
 {
-    NSParameterAssert((newGraph == nil) || [newGraph isKindOfClass:[CPTGraph class]]);
+    NSParameterAssert(!newGraph || [newGraph isKindOfClass:[CPTGraph class]]);
 
     if ( newGraph != hostedGraph ) {
         self.wantsLayer = YES;
@@ -1058,7 +1058,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
 -(void)setHostedGraph:(nullable CPTGraph *)newLayer
 {
-    NSParameterAssert((newLayer == nil) || [newLayer isKindOfClass:[CPTGraph class]]);
+    NSParameterAssert(!newLayer || [newLayer isKindOfClass:[CPTGraph class]]);
 
     if ( newLayer == hostedGraph ) {
         return;

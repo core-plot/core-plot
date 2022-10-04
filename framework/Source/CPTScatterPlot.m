@@ -456,7 +456,7 @@ CPTScatterPlotBinding const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; /
 {
     CPTPlotSymbol *symbol = [self cachedValueForKey:CPTScatterPlotBindingPlotSymbols recordIndex:idx];
 
-    if ((symbol == nil) || (symbol == [CPTPlot nilData])) {
+    if ( !symbol || (symbol == [CPTPlot nilData])) {
         symbol = self.plotSymbol;
     }
 
@@ -785,7 +785,7 @@ CPTScatterPlotBinding const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; /
     CPTMutableNumericData *xValueData = [self cachedNumbersForField:CPTScatterPlotFieldX];
     CPTMutableNumericData *yValueData = [self cachedNumbersForField:CPTScatterPlotFieldY];
 
-    if ((xValueData == nil) || (yValueData == nil)) {
+    if ( !xValueData || !yValueData ) {
         return;
     }
     NSUInteger dataCount = self.cachedDataCount;

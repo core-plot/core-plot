@@ -773,7 +773,7 @@ static const CGFloat colorLookupTable[10][3] = {
 {
     CPTFill *currentFill = [self cachedValueForKey:CPTPieChartBindingPieSliceFills recordIndex:idx];
 
-    if ((currentFill == nil) || (currentFill == [CPTPlot nilData])) {
+    if ( !currentFill || (currentFill == [CPTPlot nilData])) {
         currentFill = [CPTFill fillWithColor:[CPTPieChart defaultPieSliceColorForIndex:idx]];
     }
 

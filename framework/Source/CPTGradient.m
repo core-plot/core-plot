@@ -159,7 +159,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
 
     CPTGradientElement *currentElement = self.elementList;
 
-    while ( currentElement != NULL ) {
+    while ( currentElement ) {
         [copy addElement:currentElement];
         currentElement = currentElement->nextElement;
     }
@@ -186,7 +186,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
 
     CPTGradientElement *currentElement = self.elementList;
 
-    while ( currentElement != NULL ) {
+    while ( currentElement ) {
         [coder encodeCGFloat:currentElement->color.red forKey:[NSString stringWithFormat:@"red%lu", (unsigned long)count]];
         [coder encodeCGFloat:currentElement->color.green forKey:[NSString stringWithFormat:@"green%lu", (unsigned long)count]];
         [coder encodeCGFloat:currentElement->color.blue forKey:[NSString stringWithFormat:@"blue%lu", (unsigned long)count]];
@@ -695,7 +695,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
     CPTGradientElement *curElement = self.elementList;
     CPTGradientElement tempElement;
 
-    while ( curElement != NULL ) {
+    while ( curElement ) {
         tempElement             = *curElement;
         tempElement.color.alpha = alpha;
         [newGradient addElement:&tempElement];
@@ -789,7 +789,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
 {
     CPTGradientElement *element = [self elementAtIndex:idx];
 
-    if ( element != NULL ) {
+    if ( element ) {
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
         CGFloat colorComponents[4] = { element->color.red, element->color.green, element->color.blue, element->color.alpha };
         return CGColorCreate(self.colorspace.cgColorSpace, colorComponents);
@@ -917,7 +917,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
 
     CPTGradientElement *list = self.elementList;
 
-    while ( opaqueGradient && (list != NULL)) {
+    while ( opaqueGradient && list ) {
         opaqueGradient = opaqueGradient && (list->color.alpha >= CPTFloat(1.0));
         list           = list->nextElement;
     }
@@ -1183,7 +1183,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
 {
     CPTGradientElement *curElement = self.elementList;
 
-    if ((curElement == NULL) || (newElement->position < curElement->position)) {
+    if ( !curElement || (newElement->position < curElement->position)) {
         CPTGradientElement *tmpNext        = curElement;
         CPTGradientElement *newElementList = calloc(1, sizeof(CPTGradientElement));
         if ( newElementList ) {
@@ -1193,7 +1193,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
         }
     }
     else {
-        while ( curElement->nextElement != NULL &&
+        while ( curElement->nextElement &&
                 !((curElement->position <= newElement->position) &&
                   (newElement->position < curElement->nextElement->position))) {
             curElement = curElement->nextElement;
@@ -1210,7 +1210,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
 {
     CPTGradientElement removedElement;
 
-    if ( self.elementList != NULL ) {
+    if ( self.elementList ) {
         if ( idx == 0 ) {
             CPTGradientElement *tmpNext = self.elementList;
             self.elementList = tmpNext->nextElement;
@@ -1223,7 +1223,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
 
         NSUInteger count                   = 1; // we want to start one ahead
         CPTGradientElement *currentElement = self.elementList;
-        while ( currentElement->nextElement != NULL ) {
+        while ( currentElement->nextElement ) {
             if ( count == idx ) {
                 CPTGradientElement *tmpNext = currentElement->nextElement;
                 currentElement->nextElement = currentElement->nextElement->nextElement;
@@ -1255,7 +1255,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
     CPTGradientElement removedElement;
     CPTGradientElement *curElement = self.elementList;
 
-    if ( curElement != NULL ) {
+    if ( curElement ) {
         if ( curElement->position == position ) {
             CPTGradientElement *tmpNext = self.elementList;
             self.elementList = curElement->nextElement;
@@ -1266,7 +1266,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
             return removedElement;
         }
         else {
-            while ( curElement->nextElement != NULL ) {
+            while ( curElement->nextElement ) {
                 if ( curElement->nextElement->position == position ) {
                     CPTGradientElement *tmpNext = curElement->nextElement;
                     curElement->nextElement = curElement->nextElement->nextElement;
@@ -1295,7 +1295,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
 {
     CPTGradientElement *element = self.elementList;
 
-    while ( element != NULL ) {
+    while ( element ) {
         CPTGradientElement *elementToRemove = element;
         element = element->nextElement;
         free(elementToRemove);
@@ -1309,7 +1309,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
     NSUInteger count                   = 0;
     CPTGradientElement *currentElement = self.elementList;
 
-    while ( currentElement != NULL ) {
+    while ( currentElement ) {
         if ( count == idx ) {
             return currentElement;
         }
@@ -1349,7 +1349,7 @@ void CPTLinearEvaluation(void *__nullable info, const CGFloat *__nonnull in, CGF
     // This grabs the first two colors in the sequence
     CPTGradientElement *color1 = gradient.elementList;
 
-    if ( color1 == NULL ) {
+    if ( !color1 ) {
         out[0] = out[1] = out[2] = out[3] = CPTFloat(1.0);
         return;
     }
@@ -1357,12 +1357,12 @@ void CPTLinearEvaluation(void *__nullable info, const CGFloat *__nonnull in, CGF
     CPTGradientElement *color2 = color1->nextElement;
 
     // make sure first color and second color are on other sides of position
-    while ( color2 != NULL && color2->position < position ) {
+    while ( color2 && color2->position < position ) {
         color1 = color2;
         color2 = color1->nextElement;
     }
     // if we don't have another color then make next color the same color
-    if ( color2 == NULL ) {
+    if ( !color2 ) {
         color2 = color1;
     }
 
@@ -1415,7 +1415,7 @@ void CPTChromaticEvaluation(void *__nullable info, const CGFloat *__nonnull in, 
     // This grabs the first two colors in the sequence
     CPTGradientElement *color1 = gradient.elementList;
 
-    if ( color1 == NULL ) {
+    if ( !color1 ) {
         out[0] = out[1] = out[2] = out[3] = CPTFloat(1.0);
         return;
     }
@@ -1426,13 +1426,13 @@ void CPTChromaticEvaluation(void *__nullable info, const CGFloat *__nonnull in, 
     CGFloat c2[4];
 
     // make sure first color and second color are on other sides of position
-    while ( color2 != NULL && color2->position < position ) {
+    while ( color2 && color2->position < position ) {
         color1 = color2;
         color2 = color1->nextElement;
     }
 
     // if we don't have another color then make next color the same color
-    if ( color2 == NULL ) {
+    if ( !color2 ) {
         color2 = color1;
     }
 
@@ -1492,7 +1492,7 @@ void CPTInverseChromaticEvaluation(void *__nullable info, const CGFloat *__nonnu
     // This grabs the first two colors in the sequence
     CPTGradientElement *color1 = gradient.elementList;
 
-    if ( color1 == NULL ) {
+    if ( !color1 ) {
         out[0] = out[1] = out[2] = out[3] = CPTFloat(1.0);
         return;
     }
@@ -1503,13 +1503,13 @@ void CPTInverseChromaticEvaluation(void *__nullable info, const CGFloat *__nonnu
     CGFloat c2[4];
 
     // make sure first color and second color are on other sides of position
-    while ( color2 != NULL && color2->position < position ) {
+    while ( color2 && color2->position < position ) {
         color1 = color2;
         color2 = color1->nextElement;
     }
 
     // if we don't have another color then make next color the same color
-    if ( color2 == NULL ) {
+    if ( !color2 ) {
         color2 = color1;
     }
 

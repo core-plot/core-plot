@@ -435,7 +435,7 @@
 
     CPTNumberArray *theShape = shapeArray;
 
-    if ( theShape == nil ) {
+    if ( !theShape ) {
         self.shape = @[@(self.numberOfSamples)];
     }
     else {
