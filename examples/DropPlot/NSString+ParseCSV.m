@@ -17,7 +17,7 @@
         NSString *theField = theFields[i];
         if ( inField ) {
             [theConcatenatedField appendString:theField];
-            if ( [theField hasSuffix:@"\""] == YES ) {
+            if ( [theField hasSuffix:@"\""] ) {
                 NSString *field = [theConcatenatedField stringByTrimmingCharactersInSet:quotedCharacterSet];
                 if ( isRemoveWhitespace ) {
                     [theArray addObject:[field stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
@@ -33,7 +33,7 @@
             }
         }
         else {
-            if (([theField hasPrefix:@"\""] == YES) && ([theField hasSuffix:@"\""] == NO)) {
+            if ( [theField hasPrefix:@"\""] && ![theField hasSuffix:@"\""] ) {
                 inField = YES;
                 [theConcatenatedField appendString:theField];
                 [theConcatenatedField appendString:@","];
