@@ -192,8 +192,8 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
  *  - @ref needsDisplayOnBoundsChange = @YES
  *
  *  The new graph will have a @ref plotAreaFrame with a frame equal to the graph&rsquo;s bounds,
- *  a @ref defaultPlotSpace created with the @link CPTGraph::newPlotSpace -newPlotSpace @endlink method,
- *  and an @ref axisSet created with the @link CPTGraph::newAxisSet -newAxisSet @endlink method.
+ *  a @ref defaultPlotSpace created with the @link CPTGraph(AbstractFactoryMethods)::newPlotSpace -newPlotSpace @endlink method,
+ *  and an @ref axisSet created with the @link CPTGraph(AbstractFactoryMethods)::newAxisSet -newAxisSet @endlink method.
  *
  *  @param  newFrame The frame rectangle.
  *  @return          The initialized CPTGraph object.

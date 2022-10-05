@@ -490,8 +490,8 @@ NSDecimal CPTNiceLength(NSDecimal length);
  *  - @ref majorTickLength = @num{5.0}
  *  - @ref labelOffset = @num{2.0}
  *  - @ref minorTickLabelOffset = @num{2.0}
- *  - @ref labelRotation= @num{0.0}
- *  - @ref minorTickLabelRotation= @num{0.0}
+ *  - @ref labelRotation = @num{0.0}
+ *  - @ref minorTickLabelRotation = @num{0.0}
  *  - @ref labelAlignment = #CPTAlignmentCenter
  *  - @ref minorTickLabelAlignment = #CPTAlignmentCenter
  *  - @ref title = @nil
@@ -503,7 +503,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
  *  - @ref tickLabelDirection = #CPTSignNone
  *  - @ref minorTickLabelDirection = #CPTSignNone
  *  - @ref majorGridLineStyle = @nil
- *  - @ref minorGridLineStyle= @nil
+ *  - @ref minorGridLineStyle = @nil
  *  - @ref axisLineCapMin = @nil
  *  - @ref axisLineCapMax = @nil
  *  - @ref labelingOrigin = @num{0}

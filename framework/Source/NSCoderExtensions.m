@@ -267,7 +267,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 #pragma mark Decoding
 
 /** @brief Decodes and returns a number that was previously encoded with
- *  @link NSCoder::encodeCGFloat:forKey: -encodeCGFloat:forKey: @endlink
+ *  @link NSCoder(CPTExtensions)::encodeCGFloat:forKey: -encodeCGFloat:forKey: @endlink
  *  and associated with the string @par{key}.
  *  @param  key The key associated with the number.
  *  @return     The number as a @ref CGFloat.
@@ -282,7 +282,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 }
 
 /** @brief Decodes and returns a point that was previously encoded with
- *  @link NSCoder::encodeCPTPoint:forKey: -encodeCPTPoint:forKey: @endlink
+ *  @link NSCoder(CPTExtensions)::encodeCPTPoint:forKey: -encodeCPTPoint:forKey: @endlink
  *  and associated with the string @par{key}.
  *  @param  key The key associated with the point.
  *  @return     The point.
@@ -302,7 +302,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 }
 
 /** @brief Decodes and returns a size that was previously encoded with
- *  @link NSCoder::encodeCPTSize:forKey: -encodeCPTSize:forKey:@endlink
+ *  @link NSCoder(CPTExtensions)::encodeCPTSize:forKey: -encodeCPTSize:forKey:@endlink
  *  and associated with the string @par{key}.
  *  @param  key The key associated with the size.
  *  @return     The size.
@@ -322,7 +322,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 }
 
 /** @brief Decodes and returns a rectangle that was previously encoded with
- *  @link NSCoder::encodeCPTRect:forKey: -encodeCPTRect:forKey:@endlink
+ *  @link NSCoder(CPTExtensions)::encodeCPTRect:forKey: -encodeCPTRect:forKey:@endlink
  *  and associated with the string @par{key}.
  *  @param  key The key associated with the rectangle.
  *  @return     The rectangle.
@@ -342,7 +342,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 }
 
 /** @brief Decodes and returns an new color space object that was previously encoded with
- *  @link NSCoder::encodeCGColorSpace:forKey: -encodeCGColorSpace:forKey:@endlink
+ *  @link NSCoder(CPTExtensions)::encodeCGColorSpace:forKey: -encodeCGColorSpace:forKey:@endlink
  *  and associated with the string @par{key}.
  *  @param  key The key associated with the color space.
  *  @return     The new path.
@@ -380,7 +380,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 }
 
 /** @brief Decodes and returns a new path object that was previously encoded with
- *  @link NSCoder::encodeCGPath:forKey: -encodeCGPath:forKey:@endlink
+ *  @link NSCoder(CPTExtensions)::encodeCGPath:forKey: -encodeCGPath:forKey:@endlink
  *  and associated with the string @par{key}.
  *  @param  key The key associated with the path.
  *  @return     The new path.
@@ -448,7 +448,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 }
 
 /** @brief Decodes and returns a new image object that was previously encoded with
- *  @link NSCoder::encodeCGImage:forKey: -encodeCGImage:forKey:@endlink
+ *  @link NSCoder(CPTExtensions)::encodeCGImage:forKey: -encodeCGImage:forKey:@endlink
  *  and associated with the string @par{key}.
  *  @param  key The key associated with the image.
  *  @return     The new image.
@@ -526,7 +526,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 }
 
 /** @brief Decodes and returns a decimal number that was previously encoded with
- *  @link NSCoder::encodeDecimal:forKey: -encodeDecimal:forKey:@endlink
+ *  @link NSCoder(CPTExtensions)::encodeDecimal:forKey: -encodeDecimal:forKey:@endlink
  *  and associated with the string @par{key}.
  *  @param  key The key associated with the number.
  *  @return     The number as an @ref NSDecimal.
