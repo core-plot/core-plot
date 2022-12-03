@@ -14,10 +14,10 @@ jobs:
         run: xcodebuild -project framework/CorePlot.xcodeproj -target "UnitTests Mac" -configuration Release ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO
 
       - name: Run unit tests for iOS
-        run: xcodebuild -project framework/CorePlot.xcodeproj -target "UnitTests iOS" -sdk "iphonesimulator" -destination "name=Any iOS Simulator Device" -configuration Release ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO
+        run: xcodebuild -project framework/CorePlot.xcodeproj -target "UnitTests iOS" -sdk "iphonesimulator" -destination "name=iPhone 14 Pro" -configuration Release ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO
 
       - name: Run unit tests for tvOS
-        run: xcodebuild -project framework/CorePlot.xcodeproj -target "UnitTests tvOS" -sdk "appletvsimulator" -destination "name=Any tvOS Simulator Device" -configuration Release ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO
+        run: xcodebuild -project framework/CorePlot.xcodeproj -target "UnitTests tvOS" -sdk "appletvsimulator" -destination "name=Apple TV 4K (2nd generation)" -configuration Release ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO
         
   SPM:
     name: Verify SPM build
@@ -26,10 +26,10 @@ jobs:
       matrix:
         destination:
           [
-            "platform=iOS Simulator,name=Any iOS Simulator Device",
+            "platform=iOS Simulator,name=iPhone 14 Pro",
             "platform=macOS,variant=Mac Catalyst",
             "platform=macOS",
-            "platform=tvOS Simulator,name=Any tvOS Simulator Device",
+            "platform=tvOS Simulator,name=Apple TV 4K (2nd generation)",
           ]
         scheme: ["CorePlot"]
     steps:
