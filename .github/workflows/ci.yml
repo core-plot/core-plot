@@ -8,7 +8,7 @@ jobs:
     runs-on: macOS-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Run unit tests for macOS
         run: xcodebuild -project framework/CorePlot.xcodeproj -target "UnitTests Mac" -configuration Release ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO
@@ -26,7 +26,7 @@ jobs:
       matrix:
         destination:
           [
-            "platform=iOS Simulator,name=iPhone 13 Pro",
+            "platform=iOS Simulator,name=iPhone 14 Pro",
             "platform=macOS,variant=Mac Catalyst",
             "platform=macOS",
             "platform=tvOS Simulator,name=Apple TV 4k",
