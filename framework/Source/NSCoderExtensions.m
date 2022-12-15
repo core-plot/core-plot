@@ -84,16 +84,7 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element);
     if ( colorSpace ) {
         CFDataRef iccProfile = NULL;
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        // CGColorSpaceCopyICCProfile() is deprecated as of macOS 10.13
-        if ( CGColorSpaceCopyICCData ) {
-            iccProfile = CGColorSpaceCopyICCData(colorSpace);
-        }
-        else {
-            iccProfile = CGColorSpaceCopyICCProfile(colorSpace);
-        }
-#pragma clang diagnostic pop
+        iccProfile = CGColorSpaceCopyICCData(colorSpace);
 
         [self encodeObject:(__bridge NSData *)iccProfile forKey:key];
         CFRelease(iccProfile);
@@ -359,16 +350,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
     NSData *iccProfile = [self decodeObjectOfClass:[NSData class]
                                             forKey:key];
     if ( iccProfile ) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        // CGColorSpaceCreateWithICCProfile() is deprecated as of macOS 10.13
-        if ( CGColorSpaceCreateWithICCData ) {
-            colorSpace = CGColorSpaceCreateWithICCData((__bridge CFDataRef)iccProfile);
-        }
-        else {
-            colorSpace = CGColorSpaceCreateWithICCProfile((__bridge CFDataRef)iccProfile);
-        }
-#pragma clang diagnostic pop
+        colorSpace = CGColorSpaceCreateWithICCData((__bridge CFDataRef)iccProfile);
     }
     else {
         NSLog(@"Color space not available for key '%@'. Using generic RGB color space.", key);
