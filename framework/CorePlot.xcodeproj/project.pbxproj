@@ -51,17 +51,6 @@
 			name = "Documentation-iOS";
 			productName = Documentation;
 		};
-		C38A09961A46193F00D45436 /* Universal Library */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = C38A09981A46193F00D45436 /* Build configuration list for PBXAggregateTarget "Universal Library" */;
-			buildPhases = (
-				C38A09971A46193F00D45436 /* ShellScript */,
-			);
-			dependencies = (
-			);
-			name = "Universal Library";
-			productName = Documentation;
-		};
 		C3A5467F1BC1A817005C1BBC /* Universal iOS Framework */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = C3A546811BC1A817005C1BBC /* Build configuration list for PBXAggregateTarget "Universal iOS Framework" */;
@@ -2295,7 +2284,6 @@
 				C36BE54226FF6857004287F2 /* Update SPM Files */,
 				9021E49E0FC5C9DC00443472 /* Documentation-Mac */,
 				C38A09911A4618B600D45436 /* Documentation-iOS */,
-				C38A09961A46193F00D45436 /* Universal Library */,
 				C3A5467F1BC1A817005C1BBC /* Universal iOS Framework */,
 				C37EA5C41BC83E900091C8F7 /* Universal tvOS Framework */,
 				C3AC175B244B594800E7380C /* Universal XCFramework */,
@@ -2409,19 +2397,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#  Build the doxygen documentation for the project and load the docset into Xcode.\n\n#  Use the following to adjust the value of the $DOXYGEN_PATH User-Defined Setting:\n#    Binary install location: /Applications/Doxygen.app/Contents/Resources/doxygen\n#    Source build install location: /usr/local/bin/doxygen\n\n#  Graphical class diagrams require Graphviz.\n#  Graphviz.app is available free online\n# http://www.graphviz.org/Download_macos.php\n\n#  If the config file doesn't exist, run 'doxygen -g \"${SOURCE_ROOT}/../documentation/doxygen/doxygen touch.config\"' to\n#   a get default file.\n\nDOXYGEN_FOLDER=\"${SOURCE_ROOT}/../documentation/doxygen\"\n\nif ! [ -f \"${DOXYGEN_FOLDER}/doxygen.config\" ]\nthen\necho doxygen config file does not exist\n${DOXYGEN_PATH} -g \"${DOXYGEN_FOLDER}/doxygen.config\"\nfi\n\n#  Run doxygen on the updated config file.\n#  Note: doxygen creates a Makefile that does most of the heavy lifting.\n${DOXYGEN_PATH} \"${SOURCE_ROOT}/../documentation/doxygen/doxygen touch.config\"\n\n#  make a copy of the html docs\nDOCS_FOLDER=\"${SOURCE_ROOT}/../documentation/html/iOS\"\nmkdir -p \"${DOCS_FOLDER}\"\ncp -R \"${SOURCE_ROOT}/CorePlotTouchDocs.docset/html/\" \"${DOCS_FOLDER}\"\nrm -Rf \"${SOURCE_ROOT}/CorePlotTouchDocs.docset\"\nrm -f \"${DOCS_FOLDER}/Info.plist\"\nrm -f \"${DOCS_FOLDER}/Makefile\"\nrm -f \"${DOCS_FOLDER}/Nodes.xml\"\nrm -f \"${DOCS_FOLDER}/Tokens.xml\"\n\n# Fix capitalization for GitHub pages\ncd \"${DOCS_FOLDER}\"\nls _*.* | while read a; do n=$(echo $a | sed -e 's/^_//'); mv \"$a\" \"$n\"; done\nls *.html | xargs sed -i '' 's/\\\"_/\\\"/g'\nls *.js | xargs sed -i '' 's/\\\"_/\\\"/g'\nls *.map | xargs sed -i '' 's/\\\"$_/\\\"$/g'\n\nexit 0\n";
-		};
-		C38A09971A46193F00D45436 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\nUFW_TARGET=\"CorePlot-CocoaTouch\"\nUFW_BUILD_DIR=\"${PROJECT_DIR}/../build\"\n\n# Use the latest iphoneos SDK available\nUFW_GREP_RESULT=$(xcodebuild -showsdks | grep -o \"iphoneos.*$\")\nwhile read -r line; do\nUFW_SDK_VERSION=\"${line}\"\ndone <<< \"${UFW_GREP_RESULT}\"\nUFW_SDK_VERSION=$(echo \"${UFW_SDK_VERSION}\" | grep -o \"[0-9].*$\")\n\nUFW_IPHONE_DIR=\"${UFW_BUILD_DIR}/Release-iphoneos\"\nUFW_SIMULATOR_DIR=\"${UFW_BUILD_DIR}/Release-iphonesimulator\"\nUFW_UNIVERSAL_DIR=\"${UFW_BUILD_DIR}/Release-universal\"\nUFW_HEADER_DIR=\"${UFW_UNIVERSAL_DIR}/CorePlotHeaders\"\nUFW_EXE_PATH=\"libCorePlot-CocoaTouch.a\"\n\n# Build Framework\n\nrm -rf \"${UFW_UNIVERSAL_DIR}\"\n\nxcodebuild -scheme \"${UFW_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk iphoneos${UFW_SDK_VERSION} clean build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\nxcodebuild -scheme \"${UFW_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk iphonesimulator${UFW_SDK_VERSION} build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\n\nmkdir -p \"${UFW_UNIVERSAL_DIR}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: mkdir failed\"; exit 1; fi\n\nlipo -create -output \"${UFW_UNIVERSAL_DIR}/${UFW_EXE_PATH}\" \"${UFW_IPHONE_DIR}/${UFW_EXE_PATH}\" \"${UFW_SIMULATOR_DIR}/${UFW_EXE_PATH}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: lipo failed\"; exit 1; fi\n\n# copy header files\nmkdir -p \"${UFW_HEADER_DIR}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: mkdir failed\"; exit 1; fi\n\ncp \"${SOURCE_ROOT}/CorePlot-CocoaTouch.h\" \"${UFW_HEADER_DIR}\"\ncp \"${SOURCE_ROOT}/iPhoneOnly/\"[!_]*.h \"${UFW_HEADER_DIR}/\"\ncp \"${SOURCE_ROOT}/Source/\"[!_]*.h \"${UFW_HEADER_DIR}/\"\n\nrm \"${UFW_HEADER_DIR}/\"*Tests.*\n";
 		};
 		C3A546801BC1A817005C1BBC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3324,28 +3299,6 @@
 			};
 			name = Release;
 		};
-		C38A09991A46193F00D45436 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
-				PRODUCT_NAME = "Documentation-iOS copy";
-				SDKROOT = iphoneos;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-			};
-			name = Debug;
-		};
-		C38A099A1A46193F00D45436 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
-				PRODUCT_NAME = "Documentation-iOS copy";
-				SDKROOT = iphoneos;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
 		C3A546821BC1A817005C1BBC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3488,15 +3441,6 @@
 			buildConfigurations = (
 				C38A09941A4618B600D45436 /* Debug */,
 				C38A09951A4618B600D45436 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C38A09981A46193F00D45436 /* Build configuration list for PBXAggregateTarget "Universal Library" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C38A09991A46193F00D45436 /* Debug */,
-				C38A099A1A46193F00D45436 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
