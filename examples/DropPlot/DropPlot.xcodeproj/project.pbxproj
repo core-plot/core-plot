@@ -439,7 +439,6 @@
 		};
 		C05733CC08A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C39B4CE629622B5D00ABA414 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
 				DEAD_CODE_STRIPPING = YES;
 				SDKROOT = macosx;
@@ -449,7 +448,6 @@
 		};
 		C05733CD08A9546B00998B17 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C39B4CE829622B5D00ABA414 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
 				DEAD_CODE_STRIPPING = YES;
 				SDKROOT = macosx;
