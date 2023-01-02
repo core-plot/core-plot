@@ -104,6 +104,9 @@
 		C3564D1722A2D115000A54C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		C3564D1822A2D115000A54C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C37A40A820E0314800C4FF48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = Base.lproj/Info.plist; sourceTree = "<group>"; };
+		C39B4CE629622B5D00ABA414 /* CorePlotDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotDebug.xcconfig; path = ../../framework/xcconfig/CorePlotDebug.xcconfig; sourceTree = "<group>"; };
+		C39B4CE729622B5D00ABA414 /* CorePlot.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlot.xcconfig; path = ../../framework/xcconfig/CorePlot.xcconfig; sourceTree = "<group>"; };
+		C39B4CE829622B5D00ABA414 /* CorePlotRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotRelease.xcconfig; path = ../../framework/xcconfig/CorePlotRelease.xcconfig; sourceTree = "<group>"; };
 		C3D3937719FD705000148319 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = DropPlot/Images.xcassets; sourceTree = "<group>"; };
 		C3D6210E19DF72E000652CE7 /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/xcconfig/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
 		C3DA082A20E00C3C00F73704 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CPTPlotDocument.xib; sourceTree = "<group>"; };
@@ -183,6 +186,9 @@
 			children = (
 				32DBCF750370BD2300C91783 /* DropPlot_Prefix.pch */,
 				2A37F4B0FDCFA73011CA2CEA /* main.m */,
+				C39B4CE729622B5D00ABA414 /* CorePlot.xcconfig */,
+				C39B4CE629622B5D00ABA414 /* CorePlotDebug.xcconfig */,
+				C39B4CE829622B5D00ABA414 /* CorePlotRelease.xcconfig */,
 				C3D6210E19DF72E000652CE7 /* CorePlotWarnings.xcconfig */,
 			);
 			name = "Other Sources";
@@ -407,63 +413,35 @@
 /* Begin XCBuildConfiguration section */
 		C05733C808A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3D6210E19DF72E000652CE7 /* CorePlotWarnings.xcconfig */;
+			baseConfigurationReference = C39B4CE629622B5D00ABA414 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = DropPlot_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.CorePlot.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = DropPlot;
 			};
 			name = Debug;
 		};
 		C05733C908A9546B00998B17 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3D6210E19DF72E000652CE7 /* CorePlotWarnings.xcconfig */;
+			baseConfigurationReference = C39B4CE829622B5D00ABA414 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEAD_CODE_STRIPPING = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = DropPlot_Prefix.pch;
-				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.CorePlot.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = DropPlot;
 			};
 			name = Release;
 		};
 		C05733CC08A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3D6210E19DF72E000652CE7 /* CorePlotWarnings.xcconfig */;
+			baseConfigurationReference = C39B4CE629622B5D00ABA414 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				DEAD_CODE_STRIPPING = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SYMROOT = "$(SRCROOT)/../../build";
 			};
@@ -471,14 +449,9 @@
 		};
 		C05733CD08A9546B00998B17 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3D6210E19DF72E000652CE7 /* CorePlotWarnings.xcconfig */;
+			baseConfigurationReference = C39B4CE829622B5D00ABA414 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				DEAD_CODE_STRIPPING = YES;
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = s;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				SDKROOT = macosx;
 				SYMROOT = "$(SRCROOT)/../../build";
 			};

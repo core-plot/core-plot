@@ -110,6 +110,9 @@
 		C359603619CE34FB005CDFB9 /* ScatterPlotController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScatterPlotController.swift; sourceTree = "<group>"; };
 		C359603B19CE352A005CDFB9 /* CPTTestApp-iPhone-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "CPTTestApp-iPhone-Bridging-Header.h"; sourceTree = "<group>"; };
 		C37A40F020E0322D00C4FF48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = Base.lproj/Info.plist; sourceTree = "<group>"; };
+		C39B4D392962343B00ABA414 /* CorePlotDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotDebug.xcconfig; path = ../../framework/xcconfig/CorePlotDebug.xcconfig; sourceTree = "<group>"; };
+		C39B4D462962343B00ABA414 /* CorePlotRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotRelease.xcconfig; path = ../../framework/xcconfig/CorePlotRelease.xcconfig; sourceTree = "<group>"; };
+		C39B4D472962343B00ABA414 /* CorePlot.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlot.xcconfig; path = ../../framework/xcconfig/CorePlot.xcconfig; sourceTree = "<group>"; };
 		C3B9F9D317503CDD001CCC50 /* BlueTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlueTexture.png; sourceTree = "<group>"; };
 		C3C3CBDE19EA125D00A0296A /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/xcconfig/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
 		C3CD283D17DE9C95008EED1E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -177,6 +180,9 @@
 			isa = PBXGroup;
 			children = (
 				C359603B19CE352A005CDFB9 /* CPTTestApp-iPhone-Bridging-Header.h */,
+				C39B4D472962343B00ABA414 /* CorePlot.xcconfig */,
+				C39B4D392962343B00ABA414 /* CorePlotDebug.xcconfig */,
+				C39B4D462962343B00ABA414 /* CorePlotRelease.xcconfig */,
 				C3C3CBDE19EA125D00A0296A /* CorePlotWarnings.xcconfig */,
 			);
 			name = "Other Sources";
@@ -429,75 +435,34 @@
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3C3CBDE19EA125D00A0296A /* CorePlotWarnings.xcconfig */;
+			baseConfigurationReference = C39B4D392962343B00ABA414 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = CPTTestApp_iPhone_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.CorePlot.CPTTestAppiPhone;
 				PRODUCT_NAME = "CPTTestApp-iPhone";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SUPPORTS_MACCATALYST = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "CPTTestApp-iPhone-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3C3CBDE19EA125D00A0296A /* CorePlotWarnings.xcconfig */;
+			baseConfigurationReference = C39B4D462962343B00ABA414 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = CPTTestApp_iPhone_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.CorePlot.CPTTestAppiPhone;
 				PRODUCT_NAME = "CPTTestApp-iPhone";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SUPPORTS_MACCATALYST = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "CPTTestApp-iPhone-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3C3CBDE19EA125D00A0296A /* CorePlotWarnings.xcconfig */;
+			baseConfigurationReference = C39B4D392962343B00ABA414 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/Frameworks";
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				SYMROOT = "$(SRCROOT)/../../build";
 				TARGETED_DEVICE_FAMILY = "1,2,6";
@@ -506,20 +471,10 @@
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3C3CBDE19EA125D00A0296A /* CorePlotWarnings.xcconfig */;
+			baseConfigurationReference = C39B4D462962343B00ABA414 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = s;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/Frameworks";
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				SYMROOT = "$(SRCROOT)/../../build";
 				TARGETED_DEVICE_FAMILY = "1,2,6";

@@ -75,6 +75,9 @@
 		C33E19A7198330CA00182AF2 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Source/AppDelegate.swift; sourceTree = "<group>"; };
 		C37A409820E030B500C4FF48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = Base.lproj/Info.plist; sourceTree = "<group>"; };
 		C385066522A9CC740086BAD5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C39B4BED296212A800ABA414 /* CorePlot.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlot.xcconfig; path = ../../framework/xcconfig/CorePlot.xcconfig; sourceTree = "<group>"; };
+		C39B4BFD2962169F00ABA414 /* CorePlotDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotDebug.xcconfig; path = ../../framework/xcconfig/CorePlotDebug.xcconfig; sourceTree = "<group>"; };
+		C39B4BFE2962169F00ABA414 /* CorePlotRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotRelease.xcconfig; path = ../../framework/xcconfig/CorePlotRelease.xcconfig; sourceTree = "<group>"; };
 		C3A1443F197DE35F0048F1FF /* DateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateController.swift; path = Source/DateController.swift; sourceTree = "<group>"; };
 		C3C3CBBF19EA07F600A0296A /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/xcconfig/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
 		C3D0A1B620E0184100BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/DatePlot.xib; sourceTree = "<group>"; };
@@ -187,6 +190,9 @@
 		C33E19A219832EEA00182AF2 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				C39B4BED296212A800ABA414 /* CorePlot.xcconfig */,
+				C39B4BFD2962169F00ABA414 /* CorePlotDebug.xcconfig */,
+				C39B4BFE2962169F00ABA414 /* CorePlotRelease.xcconfig */,
 				C3C3CBBF19EA07F600A0296A /* CorePlotWarnings.xcconfig */,
 			);
 			name = "Other Sources";
@@ -364,78 +370,40 @@
 /* Begin XCBuildConfiguration section */
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3C3CBBF19EA07F600A0296A /* CorePlotWarnings.xcconfig */;
+			baseConfigurationReference = C39B4BFD2962169F00ABA414 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = DatePlot_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.CorePlot.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = DatePlot;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3C3CBBF19EA07F600A0296A /* CorePlotWarnings.xcconfig */;
+			baseConfigurationReference = C39B4BFE2962169F00ABA414 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEAD_CODE_STRIPPING = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = DatePlot_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.CorePlot.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = DatePlot;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3C3CBBF19EA07F600A0296A /* CorePlotWarnings.xcconfig */;
+			baseConfigurationReference = C39B4BFD2962169F00ABA414 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				DEAD_CODE_STRIPPING = YES;
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = "";
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SYMROOT = "$(SRCROOT)/../../build";
 			};
@@ -443,15 +411,8 @@
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3C3CBBF19EA07F600A0296A /* CorePlotWarnings.xcconfig */;
+			baseConfigurationReference = C39B4BFE2962169F00ABA414 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				DEAD_CODE_STRIPPING = YES;
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = s;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				SDKROOT = macosx;
 				SYMROOT = "$(SRCROOT)/../../build";
 			};

@@ -100,10 +100,13 @@
 		28D7ACF60DDB3853001CB0EB /* CPTTestApp_iPadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CPTTestApp_iPadViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		28D7ACF70DDB3853001CB0EB /* CPTTestApp_iPadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CPTTestApp_iPadViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		32CA4F630368D1EE00C91783 /* CPTTestApp_iPad_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTTestApp_iPad_Prefix.pch; sourceTree = "<group>"; };
+		32CA4F630368D1EE00C91783 /* CPTTestApp-iPad_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CPTTestApp-iPad_Prefix.pch"; sourceTree = "<group>"; };
 		BC65758E116549890008F594 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C36E7CC519DE1C1F00EDEACB /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/xcconfig/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
 		C37A40E120E0320500C4FF48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/CPTTestApp_iPad-Info.plist"; sourceTree = "<group>"; };
+		C39B4CEF29622F8700ABA414 /* CorePlot.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlot.xcconfig; path = ../../framework/xcconfig/CorePlot.xcconfig; sourceTree = "<group>"; };
+		C39B4CF029622F8700ABA414 /* CorePlotDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotDebug.xcconfig; path = ../../framework/xcconfig/CorePlotDebug.xcconfig; sourceTree = "<group>"; };
+		C39B4CF129622F8700ABA414 /* CorePlotRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotRelease.xcconfig; path = ../../framework/xcconfig/CorePlotRelease.xcconfig; sourceTree = "<group>"; };
 		C3CD283817DE9C59008EED1E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C3D0A20520E019C900BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CPTTestApp_iPadViewController.xib; sourceTree = "<group>"; };
 		C3D0A20720E019CD00BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainWindow.xib; sourceTree = "<group>"; };
@@ -168,8 +171,11 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				32CA4F630368D1EE00C91783 /* CPTTestApp_iPad_Prefix.pch */,
+				32CA4F630368D1EE00C91783 /* CPTTestApp-iPad_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
+				C39B4CEF29622F8700ABA414 /* CorePlot.xcconfig */,
+				C39B4CF029622F8700ABA414 /* CorePlotDebug.xcconfig */,
+				C39B4CF129622F8700ABA414 /* CorePlotRelease.xcconfig */,
 				C36E7CC519DE1C1F00EDEACB /* CorePlotWarnings.xcconfig */,
 			);
 			name = "Other Sources";
@@ -395,58 +401,30 @@
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C36E7CC519DE1C1F00EDEACB /* CorePlotWarnings.xcconfig */;
+			baseConfigurationReference = C39B4CF029622F8700ABA414 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = CPTTestApp_iPad_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/CPTTestApp_iPad-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.CorePlot.CPTTestAppiPad;
 				PRODUCT_NAME = "CPTTestApp-iPad";
-				SUPPORTS_MACCATALYST = YES;
 			};
 			name = Debug;
 		};
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C36E7CC519DE1C1F00EDEACB /* CorePlotWarnings.xcconfig */;
+			baseConfigurationReference = C39B4CF129622F8700ABA414 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = CPTTestApp_iPad_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/CPTTestApp_iPad-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.CorePlot.CPTTestAppiPad;
 				PRODUCT_NAME = "CPTTestApp-iPad";
-				SUPPORTS_MACCATALYST = YES;
-				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C36E7CC519DE1C1F00EDEACB /* CorePlotWarnings.xcconfig */;
+			baseConfigurationReference = C39B4CF029622F8700ABA414 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				SDKROOT = iphoneos;
 				SYMROOT = "$(SRCROOT)/../../build";
 				TARGETED_DEVICE_FAMILY = "2,6";
@@ -455,19 +433,8 @@
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C36E7CC519DE1C1F00EDEACB /* CorePlotWarnings.xcconfig */;
+			baseConfigurationReference = C39B4CF129622F8700ABA414 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = s;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				SDKROOT = iphoneos;
 				SYMROOT = "$(SRCROOT)/../../build";
 				TARGETED_DEVICE_FAMILY = "2,6";
