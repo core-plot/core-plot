@@ -349,6 +349,8 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
     BOOL handled       = NO;
 
     if ( theGraph ) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-fallthrough"
         switch ( theEvent.phase ) {
             case NSEventPhaseBegan: // Trackpad with no momentum scrolling. Fingers moved on trackpad.
             {
@@ -418,6 +420,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
             default:
                 break;
         }
+#pragma clang diagnostic pop
     }
 
     if ( !handled ) {

@@ -989,7 +989,7 @@
 		C38A0B1C1A46264500D45436 /* CPTPlatformSpecificFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTPlatformSpecificFunctions.h; path = PlatformSpecific/CPTPlatformSpecificFunctions.h; sourceTree = SOURCE_ROOT; };
 		C38A0B1D1A46264500D45436 /* CPTPlatformSpecificFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPTPlatformSpecificFunctions.m; path = PlatformSpecific/CPTPlatformSpecificFunctions.m; sourceTree = SOURCE_ROOT; };
 		C38A0B271A46265300D45436 /* CPTGraphHostingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTGraphHostingView.h; path = PlatformSpecific/CPTGraphHostingView.h; sourceTree = SOURCE_ROOT; };
-		C38A0B281A46265300D45436 /* CPTGraphHostingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = CPTGraphHostingView.m; path = PlatformSpecific/CPTGraphHostingView.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		C38A0B281A46265300D45436 /* CPTGraphHostingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = CPTGraphHostingView.m; path = PlatformSpecific/CPTGraphHostingView.m; sourceTree = SOURCE_ROOT; };
 		C38DD49111A04B7A002A68E7 /* CPTGridLineGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTGridLineGroup.h; sourceTree = "<group>"; };
 		C38DD49211A04B7A002A68E7 /* CPTGridLineGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CPTGridLineGroup.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C3920AC21395B6500045F3BB /* CPTLegend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CPTLegend.h; sourceTree = "<group>"; };
@@ -3026,7 +3026,6 @@
 		1DEB91B208733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CURRENT_PROJECT_VERSION = 2.3;
 			};
 			name = Debug;
@@ -3034,7 +3033,6 @@
 		1DEB91B308733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CURRENT_PROJECT_VERSION = 2.3;
 			};
 			name = Release;

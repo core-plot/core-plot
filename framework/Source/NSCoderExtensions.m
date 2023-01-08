@@ -101,6 +101,8 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 
     elementData[@"type"] = @(element->type);
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-fallthrough"
     switch ( element->type ) {
         case kCGPathElementAddCurveToPoint: // 3 points
             elementData[@"point3.x"] = @(element->points[2].x);
@@ -119,6 +121,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
         case kCGPathElementCloseSubpath: // 0 points
             break;
     }
+#pragma clang diagnostic pop
 
     NSMutableArray<NSMutableDictionary<NSString *, NSNumber *> *> *pathData = (__bridge NSMutableArray<NSMutableDictionary<NSString *, NSNumber *> *> *) info;
 
@@ -154,6 +157,8 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
 
         CGPoint point;
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-fallthrough"
         switch ( type ) {
             case kCGPathElementAddCurveToPoint: // 3 points
                 point.x = [elementData[@"point3.x"] cgFloatValue];
@@ -178,6 +183,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
             case kCGPathElementCloseSubpath: // 0 points
                 break;
         }
+#pragma clang diagnostic pop
     }
 }
 
@@ -384,6 +390,8 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
         CGPoint point2 = CGPointZero;
         CGPoint point3 = CGPointZero;
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-fallthrough"
         switch ( type ) {
             case kCGPathElementAddCurveToPoint: // 3 points
                 newKey = [[NSString alloc] initWithFormat:@"%@[%lu].point3", key, (unsigned long)i];
@@ -402,6 +410,7 @@ void CPTPathApplierFunc(void *__nullable info, const CGPathElement *__nonnull el
             case kCGPathElementCloseSubpath: // 0 points
                 break;
         }
+#pragma clang diagnostic pop
 
         switch ( type ) {
             case kCGPathElementMoveToPoint:

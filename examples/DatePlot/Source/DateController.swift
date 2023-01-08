@@ -13,7 +13,7 @@ class DateController : NSObject, CPTPlotDataSource {
 
     // MARK: - Initialization
 
-    override func awakeFromNib()
+    @MainActor override func awakeFromNib()
     {
         self.plotData = newPlotData()
 
