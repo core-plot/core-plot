@@ -1,10 +1,22 @@
 import UIKit
+import CorePlot
 
 class ScatterPlotController : UIViewController, CPTScatterPlotDataSource, CPTAxisDelegate {
-    private var scatterGraph : CPTXYGraph? = nil
+    private let scatterGraph = CPTXYGraph(frame: .zero)
 
     typealias plotDataType = [CPTScatterPlotField : Double]
-    private var dataForPlot = [plotDataType]()
+
+    private let dataForPlot = {
+        // Add some initial data
+        var contentArray = [plotDataType]()
+        for i in 0 ..< 60 {
+            let x = 1.0 + Double(i) * 0.05
+            let y = 1.2 * Double(arc4random()) / Double(UInt32.max) + 1.2
+            let dataPoint: plotDataType = [.X: x, .Y: y]
+            contentArray.append(dataPoint)
+        }
+        return contentArray
+    }()
 
     // MARK: - Initialization
 
@@ -13,7 +25,7 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource, CPTAxi
         super.viewDidAppear(animated)
 
         // Create graph from theme
-        let newGraph = CPTXYGraph(frame: .zero)
+        let newGraph = self.scatterGraph
         newGraph.apply(CPTTheme(named: .darkGradientTheme))
 
         let hostingView = self.view as! CPTGraphHostingView
@@ -110,28 +122,16 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource, CPTAxi
         fadeInAnimation.fillMode            = .forwards
         fadeInAnimation.toValue             = 1.0
         dataSourceLinePlot.add(fadeInAnimation, forKey: "animateOpacity")
-
-        // Add some initial data
-        var contentArray = [plotDataType]()
-        for i in 0 ..< 60 {
-            let x = 1.0 + Double(i) * 0.05
-            let y = 1.2 * Double(arc4random()) / Double(UInt32.max) + 1.2
-            let dataPoint: plotDataType = [.X: x, .Y: y]
-            contentArray.append(dataPoint)
-        }
-        self.dataForPlot = contentArray
-
-        self.scatterGraph = newGraph
     }
 
     // MARK: - Plot Data Source Methods
 
-    func numberOfRecords(for plot: CPTPlot) -> UInt
+    nonisolated func numberOfRecords(for plot: CPTPlot) -> UInt
     {
         return UInt(self.dataForPlot.count)
     }
 
-    func number(for plot: CPTPlot, field: UInt, record: UInt) -> Any?
+    nonisolated func number(for plot: CPTPlot, field: UInt, record: UInt) -> Any?
     {
         let plotField = CPTScatterPlotField(rawValue: Int(field))
 
@@ -151,7 +151,7 @@ class ScatterPlotController : UIViewController, CPTScatterPlotDataSource, CPTAxi
 
     // MARK: - Axis Delegate Methods
 
-    func axis(_ axis: CPTAxis, shouldUpdateAxisLabelsAtLocations locations: Set<NSNumber>) -> Bool
+    nonisolated func axis(_ axis: CPTAxis, shouldUpdateAxisLabelsAtLocations locations: Set<NSNumber>) -> Bool
     {
         if let formatter = axis.labelFormatter {
             let labelOffset = axis.labelOffset

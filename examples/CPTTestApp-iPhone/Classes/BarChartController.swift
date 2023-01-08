@@ -1,7 +1,8 @@
 import UIKit
+import CorePlot
 
 class BarChartController : UIViewController, CPTBarPlotDataSource {
-    private var barGraph : CPTXYGraph? = nil
+    private let barGraph = CPTXYGraph(frame: .zero)
 
     // MARK: - Initialization
 
@@ -10,7 +11,7 @@ class BarChartController : UIViewController, CPTBarPlotDataSource {
         super.viewDidAppear(animated)
 
         // Create graph from theme
-        let newGraph = CPTXYGraph(frame: .zero)
+        let newGraph = self.barGraph
         newGraph.apply(CPTTheme(named: .darkGradientTheme))
 
         let hostingView = self.view as! CPTGraphHostingView
@@ -125,18 +126,16 @@ class BarChartController : UIViewController, CPTBarPlotDataSource {
         barPlot2.barCornerRadius = 2.0
         barPlot2.identifier      = "Bar Plot 2" as NSString
         newGraph.add(barPlot2, to:plotSpace)
-
-        self.barGraph = newGraph
     }
 
     // MARK: - Plot Data Source Methods
 
-    func numberOfRecords(for plot: CPTPlot) -> UInt
+    nonisolated func numberOfRecords(for plot: CPTPlot) -> UInt
     {
         return 16
     }
 
-    func number(for plot: CPTPlot, field: UInt, record: UInt) -> Any?
+    nonisolated func number(for plot: CPTPlot, field: UInt, record: UInt) -> Any?
     {
         switch CPTBarPlotField(rawValue: Int(field))! {
         case .barLocation:

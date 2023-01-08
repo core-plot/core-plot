@@ -1,9 +1,10 @@
 import UIKit
+@preconcurrency import CorePlot
 
 class PieChartController : UIViewController, CPTPieChartDataSource, CPTPieChartDelegate {
-    private var pieGraph : CPTXYGraph? = nil
+    private let pieGraph = CPTXYGraph(frame: .zero)
 
-    let dataForChart = [20.0, 30.0, 60.0]
+    private let dataForChart = [20.0, 30.0, 60.0]
 
     // MARK: - Initialization
 
@@ -12,7 +13,7 @@ class PieChartController : UIViewController, CPTPieChartDataSource, CPTPieChartD
         super.viewDidAppear(animated)
 
         // Create graph from theme
-        let newGraph = CPTXYGraph(frame: .zero)
+        let newGraph = self.pieGraph
         newGraph.apply(CPTTheme(named: .darkGradientTheme))
 
         let hostingView = self.view as! CPTGraphHostingView
@@ -43,18 +44,16 @@ class PieChartController : UIViewController, CPTPieChartDataSource, CPTPieChartD
         piePlot.borderLineStyle = CPTLineStyle()
         piePlot.delegate        = self
         newGraph.add(piePlot)
-
-        self.pieGraph = newGraph
     }
 
     // MARK: - Plot Data Source Methods
 
-    func numberOfRecords(for plot: CPTPlot) -> UInt
+    nonisolated func numberOfRecords(for plot: CPTPlot) -> UInt
     {
         return UInt(self.dataForChart.count)
     }
 
-    func number(for plot: CPTPlot, field: UInt, record: UInt) -> Any?
+    nonisolated func number(for plot: CPTPlot, field: UInt, record: UInt) -> Any?
     {
         if Int(record) > self.dataForChart.count {
             return nil
@@ -70,7 +69,7 @@ class PieChartController : UIViewController, CPTPieChartDataSource, CPTPieChartD
         }
     }
 
-    func dataLabel(for plot: CPTPlot, record: UInt) -> CPTLayer?
+    nonisolated func dataLabel(for plot: CPTPlot, record: UInt) -> CPTLayer?
     {
         let label = CPTTextLayer(text:"\(record)")
 
@@ -83,7 +82,7 @@ class PieChartController : UIViewController, CPTPieChartDataSource, CPTPieChartD
         return label
     }
 
-    func radialOffset(for piePlot: CPTPieChart, record recordIndex: UInt) -> CGFloat
+    nonisolated func radialOffset(for piePlot: CPTPieChart, record recordIndex: UInt) -> CGFloat
     {
         var offset: CGFloat = 0.0
 
@@ -96,7 +95,7 @@ class PieChartController : UIViewController, CPTPieChartDataSource, CPTPieChartD
 
     // MARK: - Delegate Methods
 
-    func pieChart(_ plot: CPTPieChart, sliceWasSelectedAtRecord idx: UInt) {
-        self.pieGraph?.title = "Selected index: \(idx)"
+    nonisolated func pieChart(_ plot: CPTPieChart, sliceWasSelectedAtRecord idx: UInt) {
+        self.pieGraph.title = "Selected index: \(idx)"
     }
 }
