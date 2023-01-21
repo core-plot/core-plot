@@ -442,7 +442,6 @@
 			buildSettings = {
 				DEAD_CODE_STRIPPING = YES;
 				SDKROOT = macosx;
-				SYMROOT = "$(SRCROOT)/../../build";
 			};
 			name = Debug;
 		};
@@ -451,7 +450,6 @@
 			buildSettings = {
 				DEAD_CODE_STRIPPING = YES;
 				SDKROOT = macosx;
-				SYMROOT = "$(SRCROOT)/../../build";
 			};
 			name = Release;
 		};

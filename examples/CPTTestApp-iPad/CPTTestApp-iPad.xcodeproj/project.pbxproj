@@ -425,7 +425,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				SDKROOT = iphoneos;
-				SYMROOT = "$(SRCROOT)/../../build";
 				TARGETED_DEVICE_FAMILY = "2,6";
 			};
 			name = Debug;
@@ -434,7 +433,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				SDKROOT = iphoneos;
-				SYMROOT = "$(SRCROOT)/../../build";
 				TARGETED_DEVICE_FAMILY = "2,6";
 			};
 			name = Release;

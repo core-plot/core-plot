@@ -404,7 +404,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				SDKROOT = macosx;
-				SYMROOT = "$(SRCROOT)/../../build";
 			};
 			name = Debug;
 		};
@@ -412,7 +411,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				SDKROOT = macosx;
-				SYMROOT = "$(SRCROOT)/../../build";
 			};
 			name = Release;
 		};
