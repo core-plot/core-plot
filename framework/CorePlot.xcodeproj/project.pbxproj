@@ -29,17 +29,6 @@
 			name = "Update SPM Files";
 			productName = "Update SPM Files";
 		};
-		C37EA5C41BC83E900091C8F7 /* Universal tvOS Framework */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = C37EA5C61BC83E900091C8F7 /* Build configuration list for PBXAggregateTarget "Universal tvOS Framework" */;
-			buildPhases = (
-				C37EA5C51BC83E900091C8F7 /* ShellScript */,
-			);
-			dependencies = (
-			);
-			name = "Universal tvOS Framework";
-			productName = Documentation;
-		};
 		C38A09911A4618B600D45436 /* Documentation-iOS */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = C38A09931A4618B600D45436 /* Build configuration list for PBXAggregateTarget "Documentation-iOS" */;
@@ -49,17 +38,6 @@
 			dependencies = (
 			);
 			name = "Documentation-iOS";
-			productName = Documentation;
-		};
-		C3A5467F1BC1A817005C1BBC /* Universal iOS Framework */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = C3A546811BC1A817005C1BBC /* Build configuration list for PBXAggregateTarget "Universal iOS Framework" */;
-			buildPhases = (
-				C3A546801BC1A817005C1BBC /* ShellScript */,
-			);
-			dependencies = (
-			);
-			name = "Universal iOS Framework";
 			productName = Documentation;
 		};
 		C3AC175B244B594800E7380C /* Universal XCFramework */ = {
@@ -2284,8 +2262,6 @@
 				C36BE54226FF6857004287F2 /* Update SPM Files */,
 				9021E49E0FC5C9DC00443472 /* Documentation-Mac */,
 				C38A09911A4618B600D45436 /* Documentation-iOS */,
-				C3A5467F1BC1A817005C1BBC /* Universal iOS Framework */,
-				C37EA5C41BC83E900091C8F7 /* Universal tvOS Framework */,
 				C3AC175B244B594800E7380C /* Universal XCFramework */,
 			);
 		};
@@ -2371,20 +2347,6 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${SOURCE_ROOT}/../scripts/generate_spm_sources_layout.sh\"\n";
 		};
-		C37EA5C51BC83E900091C8F7 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\nUFW_TARGET=\"CorePlot tvOS\"\nUFW_BUILD_DIR=\"${PROJECT_DIR}/../build\"\n\n# Use the latest tvOS SDK available\nUFW_GREP_RESULT=$(xcodebuild -showsdks | grep -o \"appletvos.*$\")\nwhile read -r line; do\nUFW_SDK_VERSION=\"${line}\"\ndone <<< \"${UFW_GREP_RESULT}\"\nUFW_SDK_VERSION=$(echo \"${UFW_SDK_VERSION}\" | grep -o \"[0-9].*$\")\n\nFRAMEWORK_NAME=\"${PROJECT_NAME}\"\n\nUFW_IPHONE_PATH=\"${UFW_BUILD_DIR}/Release-appletvos/${FRAMEWORK_NAME}.framework\"\nUFW_SIMULATOR_PATH=\"${UFW_BUILD_DIR}/Release-appletvsimulator/${FRAMEWORK_NAME}.framework\"\nUFW_UNIVERSAL_DIR=\"${UFW_BUILD_DIR}/Release-appletvuniversal\"\nUFW_FRAMEWORK=\"${UFW_UNIVERSAL_DIR}/${FRAMEWORK_NAME}.framework\"\n\n# Build Framework\n\nrm -rf \"${UFW_UNIVERSAL_DIR}\"\n\nxcodebuild -scheme \"${UFW_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk appletvos${UFW_SDK_VERSION} clean build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\nxcodebuild -scheme \"${UFW_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk appletvsimulator${UFW_SDK_VERSION} build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\n\nmkdir -p \"${UFW_UNIVERSAL_DIR}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: mkdir failed\"; exit 1; fi\n\ncp -r \"${UFW_IPHONE_PATH}/.\" \"${UFW_FRAMEWORK}\"\n\nlipo -create -output \"${UFW_FRAMEWORK}/${FRAMEWORK_NAME}\" \"${UFW_SIMULATOR_PATH}/${FRAMEWORK_NAME}\" \"${UFW_IPHONE_PATH}/${FRAMEWORK_NAME}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: lipo failed\"; exit 1; fi\n";
-		};
 		C38A09921A4618B600D45436 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -2398,20 +2360,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#  Build the doxygen documentation for the project and load the docset into Xcode.\n\n#  Use the following to adjust the value of the $DOXYGEN_PATH User-Defined Setting:\n#    Binary install location: /Applications/Doxygen.app/Contents/Resources/doxygen\n#    Source build install location: /usr/local/bin/doxygen\n\n#  Graphical class diagrams require Graphviz.\n#  Graphviz.app is available free online\n# http://www.graphviz.org/Download_macos.php\n\n#  If the config file doesn't exist, run 'doxygen -g \"${SOURCE_ROOT}/../documentation/doxygen/doxygen touch.config\"' to\n#   a get default file.\n\nDOXYGEN_FOLDER=\"${SOURCE_ROOT}/../documentation/doxygen\"\n\nif ! [ -f \"${DOXYGEN_FOLDER}/doxygen.config\" ]\nthen\necho doxygen config file does not exist\n${DOXYGEN_PATH} -g \"${DOXYGEN_FOLDER}/doxygen.config\"\nfi\n\n#  Run doxygen on the updated config file.\n#  Note: doxygen creates a Makefile that does most of the heavy lifting.\n${DOXYGEN_PATH} \"${SOURCE_ROOT}/../documentation/doxygen/doxygen touch.config\"\n\n#  make a copy of the html docs\nDOCS_FOLDER=\"${SOURCE_ROOT}/../documentation/html/iOS\"\nmkdir -p \"${DOCS_FOLDER}\"\ncp -R \"${SOURCE_ROOT}/CorePlotTouchDocs.docset/html/\" \"${DOCS_FOLDER}\"\nrm -Rf \"${SOURCE_ROOT}/CorePlotTouchDocs.docset\"\nrm -f \"${DOCS_FOLDER}/Info.plist\"\nrm -f \"${DOCS_FOLDER}/Makefile\"\nrm -f \"${DOCS_FOLDER}/Nodes.xml\"\nrm -f \"${DOCS_FOLDER}/Tokens.xml\"\n\n# Fix capitalization for GitHub pages\ncd \"${DOCS_FOLDER}\"\nls _*.* | while read a; do n=$(echo $a | sed -e 's/^_//'); mv \"$a\" \"$n\"; done\nls *.html | xargs sed -i '' 's/\\\"_/\\\"/g'\nls *.js | xargs sed -i '' 's/\\\"_/\\\"/g'\nls *.map | xargs sed -i '' 's/\\\"$_/\\\"$/g'\n\nexit 0\n";
-		};
-		C3A546801BC1A817005C1BBC /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\nUFW_TARGET=\"CorePlot iOS\"\nUFW_BUILD_DIR=\"${PROJECT_DIR}/../build\"\n\n# Use the latest iphoneos SDK available\nUFW_GREP_RESULT=$(xcodebuild -showsdks | grep -o \"iphoneos.*$\")\nwhile read -r line; do\nUFW_SDK_VERSION=\"${line}\"\ndone <<< \"${UFW_GREP_RESULT}\"\nUFW_SDK_VERSION=$(echo \"${UFW_SDK_VERSION}\" | grep -o \"[0-9].*$\")\n\nFRAMEWORK_NAME=\"${PROJECT_NAME}\"\n\nUFW_IPHONE_PATH=\"${UFW_BUILD_DIR}/Release-iphoneos/${FRAMEWORK_NAME}.framework\"\nUFW_SIMULATOR_PATH=\"${UFW_BUILD_DIR}/Release-iphonesimulator/${FRAMEWORK_NAME}.framework\"\nUFW_UNIVERSAL_DIR=\"${UFW_BUILD_DIR}/Release-iphoneuniversal\"\nUFW_FRAMEWORK=\"${UFW_UNIVERSAL_DIR}/${FRAMEWORK_NAME}.framework\"\n\n# Build Framework\n\nrm -rf \"${UFW_UNIVERSAL_DIR}\"\n\nxcodebuild -scheme \"${UFW_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk iphoneos${UFW_SDK_VERSION} clean build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\nxcodebuild -scheme \"${UFW_TARGET}\" -project CorePlot.xcodeproj -configuration Release -sdk iphonesimulator${UFW_SDK_VERSION} build\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: xcodebuild failed\"; exit 1; fi\n\nmkdir -p \"${UFW_UNIVERSAL_DIR}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: mkdir failed\"; exit 1; fi\n\ncp -r \"${UFW_IPHONE_PATH}/.\" \"${UFW_FRAMEWORK}\"\n\nlipo -create -output \"${UFW_FRAMEWORK}/${FRAMEWORK_NAME}\" \"${UFW_SIMULATOR_PATH}/${FRAMEWORK_NAME}\" \"${UFW_IPHONE_PATH}/${FRAMEWORK_NAME}\"\nif [ \"$?\" != \"0\" ]; then echo >&2 \"Error: lipo failed\"; exit 1; fi\n";
 		};
 		C3AC175C244B594800E7380C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3073,28 +3021,6 @@
 			};
 			name = Release;
 		};
-		C37EA5C71BC83E900091C8F7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
-			};
-			name = Debug;
-		};
-		C37EA5C81BC83E900091C8F7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
 		C37EA6901BC83F2A0091C8F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C3C9D08C1BB5A44800931F32 /* CorePlotDebug.xcconfig */;
@@ -3297,28 +3223,6 @@
 			};
 			name = Release;
 		};
-		C3A546821BC1A817005C1BBC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-			};
-			name = Debug;
-		};
-		C3A546831BC1A817005C1BBC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
 		C3AC175E244B594800E7380C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3389,15 +3293,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C37EA5C61BC83E900091C8F7 /* Build configuration list for PBXAggregateTarget "Universal tvOS Framework" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C37EA5C71BC83E900091C8F7 /* Debug */,
-				C37EA5C81BC83E900091C8F7 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		C37EA68F1BC83F2A0091C8F7 /* Build configuration list for PBXNativeTarget "CorePlot tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -3439,15 +3334,6 @@
 			buildConfigurations = (
 				C38A09941A4618B600D45436 /* Debug */,
 				C38A09951A4618B600D45436 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C3A546811BC1A817005C1BBC /* Build configuration list for PBXAggregateTarget "Universal iOS Framework" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C3A546821BC1A817005C1BBC /* Debug */,
-				C3A546831BC1A817005C1BBC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
