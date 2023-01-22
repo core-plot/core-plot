@@ -2977,6 +2977,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 2.3;
+				FUSE_BUILD_SCRIPT_PHASES = YES;
 			};
 			name = Debug;
 		};
@@ -2984,6 +2985,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 2.3;
+				FUSE_BUILD_SCRIPT_PHASES = YES;
 			};
 			name = Release;
 		};
