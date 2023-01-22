@@ -5,10 +5,15 @@ set -e
 SPM_SOURCES_PATH="$SOURCE_ROOT/../spm/Sources/core-plot"
 SPM_PUBLIC_HEADERS_PATH="$SPM_SOURCES_PATH/include"
 
-# Delete all symbolik links from `spm` folder
 function cleanup() {
+    echo "Delete all symbolic links from spm folder"
+    echo "Deleted from $SPM_SOURCES_PATH"
+
     rm -rf "$SPM_PUBLIC_HEADERS_PATH"/*.[hm]
     rm -rf "$SPM_SOURCES_PATH"/*.[hm]
+
+    echo "      Done"
+    echo ""
 }
 
 function generate_spm_public_headers() {
