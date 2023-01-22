@@ -2219,6 +2219,7 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					8DC2EF4F0486A6940098B216 = {
@@ -2977,7 +2978,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 2.3;
-				FUSE_BUILD_SCRIPT_PHASES = YES;
 			};
 			name = Debug;
 		};
@@ -2985,7 +2985,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 2.3;
-				FUSE_BUILD_SCRIPT_PHASES = YES;
 			};
 			name = Release;
 		};
