@@ -5,33 +5,29 @@ on: [push, pull_request]
 jobs:
   UnitTests:
     name: Unit Tests
+    run-name: Unit Tests (${{ matrix.target }})
     runs-on: macOS-latest
     strategy:
       matrix:
         target:
           [
-            "UnitTests Mac",
-            "UnitTests iOS",
-            "UnitTests tvOS",
+            Mac,
+            iOS,
+            tvOS,
           ]
-        sdk: 
-          [
-            "",
-            "iphonesimulator",
-            "appletvsimulator",
-          ]
-        destination:
-          [
-            "",
-            "name=iPhone 14 Pro",
-            "name=Apple TV 4K (2nd generation)",
-          ]
+        include:
+          - target: iOS
+            sdk: iphonesimulator
+            destination: "name=iPhone 14 Pro"
+          - target: tvOS
+            sdk: appletvsimulator
+            destination: "name=Apple TV 4K (2nd generation)"
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Run unit tests
-        run: xcodebuild -project framework/CorePlot.xcodeproj -target "${{ matrix.target }}" sdk "${{ matrix.sdk }}" -destination "${{ matrix.destination }}" -configuration Release ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO
+        run: xcodebuild -project framework/CorePlot.xcodeproj -target "UnitTests ${{ matrix.target }}" sdk "${{ matrix.sdk }}" -destination "${{ matrix.destination }}" -configuration Release ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO
         
   SPM:
     name: Verify SPM build
