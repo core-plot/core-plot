@@ -6,18 +6,32 @@ jobs:
   UnitTests:
     name: Unit Tests
     runs-on: macOS-latest
+    strategy:
+      matrix:
+        target:
+          [
+            "UnitTests Mac",
+            "UnitTests iOS",
+            "UnitTests tvOS",
+          ]
+        sdk: 
+          [
+            "",
+            "iphonesimulator",
+            "appletvsimulator",
+          ]
+        destination:
+          [
+            "",
+            "name=iPhone 14 Pro",
+            "name=Apple TV 4K (2nd generation)",
+          ]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Run unit tests for macOS
-        run: xcodebuild -project framework/CorePlot.xcodeproj -target "UnitTests Mac" -configuration Release ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO
-
-      - name: Run unit tests for iOS
-        run: xcodebuild -project framework/CorePlot.xcodeproj -target "UnitTests iOS" -sdk "iphonesimulator" -destination "name=iPhone 14 Pro" -configuration Release ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO
-
-      - name: Run unit tests for tvOS
-        run: xcodebuild -project framework/CorePlot.xcodeproj -target "UnitTests tvOS" -sdk "appletvsimulator" -destination "name=Apple TV 4K (2nd generation)" -configuration Release ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO
+      - name: Run unit tests
+        run: xcodebuild -project framework/CorePlot.xcodeproj -target "${{ matrix.target }}" sdk "${{ matrix.sdk }}" -destination "${{ matrix.destination }}" -configuration Release ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO
         
   SPM:
     name: Verify SPM build
