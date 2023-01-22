@@ -15,12 +15,15 @@ jobs:
             tvOS,
           ]
         include:
+          - target: Mac
+            sdk: macosx
+            destination: "platform=macOS"
           - target: iOS
             sdk: iphonesimulator
-            destination: "name=iPhone 14 Pro"
+            destination: "platform=iOS Simulator,name=iPhone 14 Pro"
           - target: tvOS
             sdk: appletvsimulator
-            destination: "name=Apple TV 4K (2nd generation)"
+            destination: "platform=tvOS Simulator,name=Apple TV 4K (2nd generation)"
     steps:
       - name: Checkout
         uses: actions/checkout@v3
