@@ -28,7 +28,6 @@ Pod::Spec.new do |s|
   
   s.source_files = 'framework/Source/*.{h,m}', 'framework/CocoaPods/*.h', 'framework/PlatformSpecific/*.{h,m}'
   s.exclude_files = '**/*{TestCase,Tests}.{h,m}', '**/mainpage.h'
-  s.ios.source_files = 'framework/CorePlot-CocoaTouch.h'
   s.osx.source_files = 'framework/MacOnly/*.{h,m}'
   s.private_header_files = '**/_*.h'
 
