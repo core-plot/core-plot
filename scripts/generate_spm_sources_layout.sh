@@ -21,14 +21,17 @@ function generate_spm_public_headers() {
     echo "Generated under $SPM_PUBLIC_HEADERS_PATH"
 
     public_headers_list=$(
-        find "framework" -name "*.[h]" \
-            \! -name "*Test*.[hm]" \
-            \! -name "_*.[hm]" \
-            \! -name "CorePlot-CocoaTouch.h" \
-            \! -name "mainpage.h" \
-            -type f -not -path "*/MacOnly/*" \
+        find "framework" \
+            -type f \
+            -name "*.[h]" \
+            -not -path "*/build/*" \
+            -not -path "*/MacOnly/*" \
             -not -path "framework/CorePlot.h" \
-            -not -path "framework/CocoaPods/CorePlot.h" | sed "s| \([^/]\)|:\1|g"
+            -not -path "framework/CocoaPods/CorePlot.h" \
+            -not -name "*Test*.[hm]" \
+            -not -name "_*.[hm]" \
+            -not -name "mainpage.h" \
+        | sed "s| \([^/]\)|:\1|g"
     )
 
     SRC_ROOT="$(pwd)"
@@ -52,9 +55,14 @@ function generate_spm_private_sources() {
     echo "Generate symbolic links for all private headers/implementations. _*.h && _*.m"
     echo "Generated under $SPM_SOURCES_PATH"
 
-    private_sources_list=$(find "framework" \
-        -name "_*.[mh]" \
-        -type f | sed "s| \([^/]\)|:\1|g")
+    private_sources_list=$(
+        find "framework" \
+            -type f \
+            -name "_*.[mh]" \
+            -not -path "*/build/*" \
+            -not -path "*/MacOnly/*" \
+        | sed "s| \([^/]\)|:\1|g"
+    )
 
     SRC_ROOT="$(pwd)"
 
@@ -78,10 +86,18 @@ function generate_spm_public_sources() {
     echo "Generate symbolic links for all public implementations. *.m"
     echo "Generated under $SPM_SOURCES_PATH"
 
-    public_sources_list=$(find "framework" -name "*.[m]" \
-        \! -name "*Test*.[hm]" \
-        \! -name "_*.[hm]" \
-        -type f -not -path "*/MacOnly/*" | sed "s| \([^/]\)|:\1|g")
+    public_sources_list=$(
+        find "framework" \
+            -type f \
+            -name "*.[m]" \
+            -not -path "*/build/*" \
+            -not -path "*/MacOnly/*" \
+            -not -path "framework/CorePlot.h" \
+            -not -path "framework/CocoaPods/CorePlot.h" \
+            -not -name "*Test*.[hm]" \
+            -not -name "_*.[hm]" \
+        | sed "s| \([^/]\)|:\1|g"
+    )
 
     SRC_ROOT="$(pwd)"
 
