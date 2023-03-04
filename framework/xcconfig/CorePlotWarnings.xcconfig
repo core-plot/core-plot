@@ -122,4 +122,4 @@ IBC_ERRORS = YES
 IBC_NOTICES = YES
 IBC_WARNINGS = YES
 
-WARNING_CFLAGS = -Weverything -Wno-switch-enum -Wno-float-equal -Wno-pedantic -Wno-documentation -Wno-documentation-unknown-command  -Wno-partial-availability -Wno-objc-messaging-id
+WARNING_CFLAGS = -Weverything -Wno-switch-enum -Wno-float-equal -Wno-pedantic -Wno-documentation -Wno-documentation-unknown-command -Wno-objc-messaging-id

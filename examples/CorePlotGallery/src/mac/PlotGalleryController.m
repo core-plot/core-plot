@@ -300,13 +300,21 @@ static NSString *const kCollectionItem   = @"PlotViewItem";
     if ( content && [view isKindOfClass:[NSTextField class]] ) {
         NSTextField *titleTextField = (NSTextField *)view;
 
-        titleTextField.editable        = NO;
-        titleTextField.selectable      = NO;
-        titleTextField.backgroundColor = [NSColor controlAccentColor];
-        titleTextField.textColor       = [NSColor headerTextColor];
-        titleTextField.font            = [NSFont boldSystemFontOfSize:14.0];
-        titleTextField.bordered        = YES;
-        titleTextField.stringValue     = content;
+        titleTextField.editable   = NO;
+        titleTextField.selectable = NO;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunguarded-availability-new"
+        if ( [NSColor instancesRespondToSelector:@selector(controlAccentColor)] ) {
+            titleTextField.backgroundColor = [NSColor controlAccentColor];
+        }
+        else {
+            titleTextField.backgroundColor = [NSColor colorForControlTint:[NSColor currentControlTint]];
+        }
+#pragma clang diagnostic pop
+        titleTextField.textColor   = [NSColor headerTextColor];
+        titleTextField.font        = [NSFont boldSystemFontOfSize:14.0];
+        titleTextField.bordered    = YES;
+        titleTextField.stringValue = content;
     }
 
     return view;
