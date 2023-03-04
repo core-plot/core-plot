@@ -83,11 +83,6 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
  **/
 @synthesize masksToBorder;
 
-/** @property CGFloat contentsScale
- *  @brief The scale factor applied to the layer.
- **/
-@dynamic contentsScale;
-
 /** @property CPTShadow *shadow
  *  @brief The shadow drawn under the layer content. If @nil (the default), no shadow is drawn.
  **/
@@ -986,29 +981,16 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
     NSParameterAssert(newContentsScale > CPTFloat(0.0));
 
     if ( self.contentsScale != newContentsScale ) {
-        if ( [CALayer instancesRespondToSelector:@selector(setContentsScale:)] ) {
-            super.contentsScale = newContentsScale;
-            [self setNeedsDisplay];
+        super.contentsScale = newContentsScale;
+        [self setNeedsDisplay];
 
-            Class layerClass = [CPTLayer class];
-            for ( CALayer *subLayer in self.sublayers ) {
-                if ( [subLayer isKindOfClass:layerClass] ) {
-                    subLayer.contentsScale = newContentsScale;
-                }
+        Class layerClass = [CPTLayer class];
+        for ( CALayer *subLayer in self.sublayers ) {
+            if ( [subLayer isKindOfClass:layerClass] ) {
+                subLayer.contentsScale = newContentsScale;
             }
         }
     }
-}
-
--(CGFloat)contentsScale
-{
-    CGFloat scale = CPTFloat(1.0);
-
-    if ( [CALayer instancesRespondToSelector:@selector(contentsScale)] ) {
-        scale = super.contentsScale;
-    }
-
-    return scale;
 }
 
 -(void)setShadow:(nullable CPTShadow *)newShadow

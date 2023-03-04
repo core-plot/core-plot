@@ -97,7 +97,6 @@ typedef NSMutableSet<CALayer *> CPTMutableSublayerSet;
 
 /// @name Drawing
 /// @{
-@property (readwrite) CGFloat contentsScale;
 @property (nonatomic, readonly) BOOL useFastRendering;
 @property (nonatomic, readwrite, copy, nullable) CPTShadow *shadow;
 @property (nonatomic, readonly) CGSize shadowMargin;
