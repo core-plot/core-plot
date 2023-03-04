@@ -4,8 +4,10 @@
 
 typedef CGFloat (*CPTAnimationTimingFunction)(CGFloat, CGFloat);
 
+#ifdef __cplusplus
 #if __cplusplus
 extern "C" {
+#endif
 #endif
 
 /// @name Linear
@@ -94,6 +96,8 @@ CGFloat CPTAnimationTimingFunctionQuinticInOut(CGFloat time, CGFloat duration);
 
 /// @}
 
+#ifdef __cplusplus
 #if __cplusplus
 }
+#endif
 #endif

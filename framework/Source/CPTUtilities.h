@@ -6,8 +6,10 @@
 
 @class CPTLineStyle;
 
+#ifdef __cplusplus
 #if __cplusplus
 extern "C" {
+#endif
 #endif
 
 /// @name Convert NSDecimal to Primitive Types
@@ -157,8 +159,10 @@ double CPTInverseLogModulus(double value);
 
 /// @}
 
+#ifdef __cplusplus
 #if __cplusplus
 }
+#endif
 #endif
 
 #pragma clang assume_nonnull end

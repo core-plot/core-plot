@@ -33,8 +33,10 @@ typedef struct _CPTNumericDataType {
 }
 CPTNumericDataType;
 
+#ifdef __cplusplus
 #if __cplusplus
 extern "C" {
+#endif
 #endif
 
 /// @name Data Type Utilities
@@ -47,6 +49,8 @@ BOOL CPTDataTypeEqualToDataType(CPTNumericDataType dataType1, CPTNumericDataType
 
 /// @}
 
+#ifdef __cplusplus
 #if __cplusplus
 }
+#endif
 #endif
