@@ -1590,7 +1590,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 
 /**
  *  @brief Marks the receiver as needing to update all data labels before the content is next drawn.
- *  @see @link CPTPlot::relabelIndexRange: -relabelIndexRange: @endlink
+ *  @see CPTPlot @link CPTPlot::relabelIndexRange: -relabelIndexRange: @endlink method.
  **/
 -(void)setNeedsRelabel
 {
