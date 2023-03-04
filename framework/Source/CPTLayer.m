@@ -338,7 +338,7 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
         }
 #else
 #ifdef __IPHONE_13_0
-        if ( @available(iOS 13, *)) {
+        if ( @available(iOS 13, tvOS 13, *)) {
             if ( [UITraitCollection instancesRespondToSelector:@selector(performAsCurrentTraitCollection:)] ) {
                 CPTGraphHostingView *hostingView   = [self findHostingView];
                 UITraitCollection *traitCollection = hostingView.traitCollection;

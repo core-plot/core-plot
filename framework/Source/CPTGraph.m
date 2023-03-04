@@ -396,7 +396,7 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
     }
 #else
 #ifdef __IPHONE_13_0
-    if ( @available(iOS 13, *)) {
+    if ( @available(iOS 13, tvOS 13, *)) {
         if ( [UITraitCollection instancesRespondToSelector:@selector(performAsCurrentTraitCollection:)] ) {
             UITraitCollection *traitCollection = ((UIView *)self.hostingView).traitCollection;
             if ( traitCollection ) {
