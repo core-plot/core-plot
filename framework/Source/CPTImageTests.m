@@ -29,6 +29,7 @@
 
     CGColorSpaceRelease(colorSpace);
     CGImageRelease(cgImage);
+    CGContextRelease(context);
 
     CPTImage *newImage = [self archiveRoundTrip:image];
 

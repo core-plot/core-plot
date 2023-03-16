@@ -77,6 +77,7 @@
 
     CGColorSpaceRelease(colorSpace);
     CGImageRelease(cgImage);
+    CGContextRelease(context);
 
     _CPTFillImage *fill = (_CPTFillImage *)[CPTFill fillWithImage:image];
 
