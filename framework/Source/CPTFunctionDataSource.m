@@ -392,8 +392,8 @@ static void *CPTFunctionDataSourceKVOContext = (void *)&CPTFunctionDataSourceKVO
 
             NSMutableData *data = [[NSMutableData alloc] initWithLength:indexRange.length * 2 * sizeof(double)];
 
-            double *xBytes = data.mutableBytes;
-            double *yBytes = data.mutableBytes + (indexRange.length * sizeof(double));
+            double *xBytes = (double *)data.mutableBytes;
+            double *yBytes = (double *)data.mutableBytes + indexRange.length;
 
             double location = xRange.locationDouble;
             double length   = xRange.lengthDouble;
