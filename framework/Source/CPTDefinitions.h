@@ -9,6 +9,9 @@
 
 /// @file
 
+#pragma mark -
+#pragma mark Memory management
+
 /**
  *  @def CPT_SDK_SUPPORTS_WEAK
  *  @hideinitializer
@@ -37,6 +40,9 @@
 #else
 #define cpt_weak_property unsafe_unretained
 #endif
+
+#pragma mark -
+#pragma mark Attributes
 
 // Deprecated method attribute
 
@@ -72,7 +78,8 @@
 #define cpt_unused __unused
 #endif
 
-// Swift wrappers
+#pragma mark -
+#pragma mark Swift wrappers
 
 /**
  *  @def cpt_swift_enum
@@ -88,7 +95,8 @@
  **/
 #define cpt_swift_struct __attribute__((swift_wrapper(struct)))
 
-// Type safety defines
+#pragma mark -
+#pragma mark Type safety defines
 
 /**
  *  @def CPTFloat
@@ -143,6 +151,9 @@
  *  @brief The not-a-number constant (@NAN), cast to @ref CGFloat.
  **/
 #define CPTNAN ((CGFloat)NAN)
+
+#pragma mark -
+#pragma mark Enumerations
 
 /**
  *  @brief Enumeration of numeric types
@@ -246,6 +257,9 @@ extern const CPTEdgeInsets CPTEdgeInsetsZero; ///< Defines a set of stretchable 
 
 extern const NSStringDrawingOptions CPTStringDrawingOptions; ///< String drawing options used when measuring and drawing text.
 
+#pragma mark -
+#pragma mark Typed data structures
+
 /**
  *  @brief An array of numbers.
  **/
@@ -295,6 +309,9 @@ typedef NSDictionary<NSString *, id> CPTDictionary;
  *  @brief A mutable dictionary with string keys and object values.
  **/
 typedef NSMutableDictionary<NSString *, id> CPTMutableDictionary;
+
+#pragma mark -
+#pragma mark Quick Look
 
 /**
  *  @brief Render a Quick Look image into the given context.
