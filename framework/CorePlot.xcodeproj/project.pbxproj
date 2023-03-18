@@ -1009,6 +1009,11 @@
 		C3CCA03A13E8D85800CE6DB1 /* _CPTConstraintsFixed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = _CPTConstraintsFixed.m; sourceTree = "<group>"; };
 		C3CCA03B13E8D85800CE6DB1 /* _CPTConstraintsRelative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = _CPTConstraintsRelative.h; sourceTree = "<group>"; };
 		C3CCA03C13E8D85800CE6DB1 /* _CPTConstraintsRelative.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = _CPTConstraintsRelative.m; sourceTree = "<group>"; };
+		C3D0F67529C6053E00190D2C /* generate_spm_sources_layout.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = generate_spm_sources_layout.sh; path = ../../scripts/generate_spm_sources_layout.sh; sourceTree = "<group>"; };
+		C3D0F67629C6053E00190D2C /* format_core_plot.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = format_core_plot.sh; path = ../../scripts/format_core_plot.sh; sourceTree = "<group>"; };
+		C3D0F67729C6053E00190D2C /* createrelease.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; name = createrelease.py; path = ../../scripts/createrelease.py; sourceTree = "<group>"; };
+		C3D0F67829C6055700190D2C /* prefixer.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; name = prefixer.py; path = ../../scripts/prefixer.py; sourceTree = "<group>"; };
+		C3D0F67929C6087100190D2C /* uncrustify.cfg */ = {isa = PBXFileReference; lastKnownFileType = text; name = uncrustify.cfg; path = ../../scripts/uncrustify.cfg; sourceTree = "<group>"; };
 		C3D3AD2B13DF8DCE0004EA73 /* CPTLineCap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CPTLineCap.h; sourceTree = "<group>"; };
 		C3D3AD2C13DF8DCE0004EA73 /* CPTLineCap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CPTLineCap.m; sourceTree = "<group>"; };
 		C3D68B83122201A700EB4863 /* CPTNumericDataTypeConversionPerformanceTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTNumericDataTypeConversionPerformanceTests.h; sourceTree = "<group>"; };
@@ -1402,6 +1407,7 @@
 				07BF0D600F2B6FE1002FCEA7 /* Source */,
 				C38A0AA61A4621BC00D45436 /* Platform Specific */,
 				9021E4920FC5C6DD00443472 /* Documentation */,
+				C3D0F67429C604EF00190D2C /* Scripts */,
 				C3B25EDE1AC23A7D0063CCD8 /* CocoaPods */,
 				C3F244BE28DBCABB008DB9A1 /* SPM Umbrella Header */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
@@ -1732,6 +1738,18 @@
 				C3C2847416585085006BA43C /* _CPTAnimationTimingFunctions.m */,
 			);
 			name = Animation;
+			sourceTree = "<group>";
+		};
+		C3D0F67429C604EF00190D2C /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				C3D0F67729C6053E00190D2C /* createrelease.py */,
+				C3D0F67829C6055700190D2C /* prefixer.py */,
+				C3D0F67529C6053E00190D2C /* generate_spm_sources_layout.sh */,
+				C3D0F67629C6053E00190D2C /* format_core_plot.sh */,
+				C3D0F67929C6087100190D2C /* uncrustify.cfg */,
+			);
+			path = Scripts;
 			sourceTree = "<group>";
 		};
 		C3D979A513D2159400145DFF /* Tests */ = {
