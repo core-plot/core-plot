@@ -2240,9 +2240,6 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
-					8DC2EF4F0486A6940098B216 = {
-						DevelopmentTeam = 28ZA45DE7D;
-					};
 					C36BE54226FF6857004287F2 = {
 						CreatedOnToolsVersion = 13.0;
 						DevelopmentTeam = 28ZA45DE7D;
