@@ -2238,7 +2238,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					8DC2EF4F0486A6940098B216 = {
 						DevelopmentTeam = 28ZA45DE7D;
@@ -2920,7 +2920,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C3C9D08C1BB5A44800931F32 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlotTests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				PRODUCT_NAME = UnitTests;
@@ -2937,7 +2936,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C3C9D08D1BB5A45B00931F32 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlotTests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				PRODUCT_NAME = UnitTests;
@@ -2994,6 +2992,7 @@
 		};
 		1DEB91B208733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3C9D08C1BB5A44800931F32 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 2.3;
 			};
@@ -3001,6 +3000,7 @@
 		};
 		1DEB91B308733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3C9D08D1BB5A45B00931F32 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 2.3;
 			};
@@ -3008,6 +3008,7 @@
 		};
 		9021E49F0FC5C9DD00443472 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C34F570D19D8CE5500446248 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
 				PRODUCT_NAME = Documentation;
@@ -3016,6 +3017,7 @@
 		};
 		9021E4A00FC5C9DD00443472 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C34F570D19D8CE5500446248 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
@@ -3026,18 +3028,16 @@
 		};
 		C36BE54326FF6857004287F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C34F570D19D8CE5500446248 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 28ZA45DE7D;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		C36BE54426FF6857004287F2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C34F570D19D8CE5500446248 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 28ZA45DE7D;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -3096,7 +3096,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C3C9D08C1BB5A44800931F32 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-tvOSTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3117,7 +3116,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C3C9D08D1BB5A45B00931F32 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-tvOSTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3190,10 +3188,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C3C9D08C1BB5A44800931F32 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-iOSTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3202,7 +3196,6 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = (
@@ -3216,10 +3209,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C3C9D08D1BB5A45B00931F32 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-iOSTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3228,7 +3217,6 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = (
@@ -3240,6 +3228,7 @@
 		};
 		C38A09941A4618B600D45436 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C34F570D19D8CE5500446248 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
 				PRODUCT_NAME = "Documentation-Mac copy";
@@ -3248,6 +3237,7 @@
 		};
 		C38A09951A4618B600D45436 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C34F570D19D8CE5500446248 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
@@ -3258,6 +3248,7 @@
 		};
 		C3AC175E244B594800E7380C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C34F570D19D8CE5500446248 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3268,6 +3259,7 @@
 		};
 		C3AC175F244B594800E7380C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C34F570D19D8CE5500446248 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;

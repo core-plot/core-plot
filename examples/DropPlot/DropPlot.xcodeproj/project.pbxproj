@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 47;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -258,7 +258,8 @@
 		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1400;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
 			};
 			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "DropPlot" */;
 			compatibilityVersion = "Xcode 6.3";
@@ -416,10 +417,12 @@
 			baseConfigurationReference = C39B4CE629622B5D00ABA414 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@loader_path/../Frameworks",
+				);
 				PRODUCT_NAME = DropPlot;
 			};
 			name = Debug;
@@ -429,16 +432,19 @@
 			baseConfigurationReference = C39B4CE829622B5D00ABA414 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@loader_path/../Frameworks",
+				);
 				PRODUCT_NAME = DropPlot;
 			};
 			name = Release;
 		};
 		C05733CC08A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C39B4CE629622B5D00ABA414 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
 				DEAD_CODE_STRIPPING = YES;
 				SDKROOT = macosx;
@@ -447,6 +453,7 @@
 		};
 		C05733CD08A9546B00998B17 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C39B4CE829622B5D00ABA414 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
 				DEAD_CODE_STRIPPING = YES;
 				SDKROOT = macosx;

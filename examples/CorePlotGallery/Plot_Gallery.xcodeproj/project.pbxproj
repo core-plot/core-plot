@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 47;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -677,7 +677,8 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1400;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					C30D8AF51BCAF99D0003BB70 = {
 						CreatedOnToolsVersion = 7.1;
@@ -1007,10 +1008,12 @@
 			baseConfigurationReference = C3E4280729626F81007C2758 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Plot_Gallery_Mac-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@loader_path/../Frameworks",
+				);
 				PRODUCT_NAME = "Plot Gallery";
 				SDKROOT = macosx;
 			};
@@ -1021,10 +1024,12 @@
 			baseConfigurationReference = C3E4281329626F81007C2758 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Plot_Gallery_Mac-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@loader_path/../Frameworks",
+				);
 				PRODUCT_NAME = "Plot Gallery";
 				SDKROOT = macosx;
 			};
@@ -1032,12 +1037,14 @@
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3E4280729626F81007C2758 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3E4281329626F81007C2758 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
@@ -1057,7 +1064,10 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Plot_Gallery_tvOS-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "Plot Gallery-tvOS";
 				SDKROOT = appletvos;
@@ -1078,7 +1088,10 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Plot_Gallery_tvOS-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "Plot Gallery-tvOS";
 				SDKROOT = appletvos;
@@ -1094,7 +1107,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Plot_Gallery_iOS-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2,6";
@@ -1107,7 +1123,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Plot_Gallery_iOS-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2,6";

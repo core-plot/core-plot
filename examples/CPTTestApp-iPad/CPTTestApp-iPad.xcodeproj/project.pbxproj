@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 47;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -248,7 +248,8 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1230;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						ProvisioningStyle = Manual;
@@ -405,7 +406,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/CPTTestApp_iPad-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_NAME = "CPTTestApp-iPad";
 			};
 			name = Debug;
@@ -416,13 +420,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/CPTTestApp_iPad-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_NAME = "CPTTestApp-iPad";
 			};
 			name = Release;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C39B4CF029622F8700ABA414 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "2,6";
@@ -431,6 +439,7 @@
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C39B4CF129622F8700ABA414 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "2,6";

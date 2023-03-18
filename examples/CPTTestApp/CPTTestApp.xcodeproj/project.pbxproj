@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 47;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -278,7 +278,8 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1420;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "CPTTestApp" */;
 			compatibilityVersion = "Xcode 6.3";
@@ -452,10 +453,13 @@
 			baseConfigurationReference = C39B4BEE2962136300ABA414 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@loader_path/../Frameworks",
+					"@executable_path/../Frameworks",
+				);
 				PRODUCT_NAME = CPTTestApp;
 			};
 			name = Debug;
@@ -465,16 +469,20 @@
 			baseConfigurationReference = C39B4BFB2962136300ABA414 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@loader_path/../Frameworks",
+					"@executable_path/../Frameworks",
+				);
 				PRODUCT_NAME = CPTTestApp;
 			};
 			name = Release;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C39B4BEE2962136300ABA414 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
 				SDKROOT = macosx;
 			};
@@ -482,6 +490,7 @@
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C39B4BFB2962136300ABA414 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
 				SDKROOT = macosx;
 			};
