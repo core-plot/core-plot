@@ -25,7 +25,6 @@ function generate_spm_public_headers() {
             -type f \
             -name "*.[h]" \
             -not -path "*/build/*" \
-            -not -path "*/MacOnly/*" \
             -not -path "framework/CorePlot.h" \
             -not -path "framework/CocoaPods/CorePlot.h" \
             -not -name "*Test*.[hm]" \
@@ -60,7 +59,6 @@ function generate_spm_private_sources() {
             -type f \
             -name "_*.[mh]" \
             -not -path "*/build/*" \
-            -not -path "*/MacOnly/*" \
         | sed "s| \([^/]\)|:\1|g"
     )
 
@@ -91,7 +89,6 @@ function generate_spm_public_sources() {
             -type f \
             -name "*.[m]" \
             -not -path "*/build/*" \
-            -not -path "*/MacOnly/*" \
             -not -path "framework/CorePlot.h" \
             -not -path "framework/CocoaPods/CorePlot.h" \
             -not -name "*Test*.[hm]" \

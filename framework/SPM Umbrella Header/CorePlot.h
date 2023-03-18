@@ -5,6 +5,9 @@
 #import <UIKit/UIKit.h>
 #else
 #import <Cocoa/Cocoa.h>
+
+#import "CPTDecimalNumberValueTransformer.h"
+
 #endif
 
 #import "CPTAnimation.h"
