@@ -177,7 +177,7 @@ static NSString *const kCollectionItem   = @"PlotViewItem";
                                                     bitsPerPixel:32];
 
         NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:layerImage];
-        CGContextRef context             = (CGContextRef)bitmapContext.graphicsPort;
+        CGContextRef context             = bitmapContext.CGContext;
 
         CGContextClearRect(context, CGRectMake(0.0, 0.0, boundsSize.width, boundsSize.height));
         CGContextSetAllowsAntialiasing(context, true);
@@ -190,7 +190,7 @@ static NSString *const kCollectionItem   = @"PlotViewItem";
 
         NSData *tiffData          = image.TIFFRepresentation;
         NSBitmapImageRep *tiffRep = [NSBitmapImageRep imageRepWithData:tiffData];
-        NSData *pngData           = [tiffRep representationUsingType:NSPNGFileType properties:@{}];
+        NSData *pngData           = [tiffRep representationUsingType:NSBitmapImageFileTypePNG properties:@{}];
 
         [pngData writeToURL:url atomically:NO];
     }

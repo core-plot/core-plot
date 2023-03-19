@@ -50,7 +50,7 @@
                                                     hasAlpha:YES
                                                     isPlanar:NO
                                               colorSpaceName:NSCalibratedRGBColorSpace
-                                                bitmapFormat:NSAlphaFirstBitmapFormat
+                                                bitmapFormat:NSBitmapFormatAlphaFirst
                                                  bytesPerRow:0
                                                 bitsPerPixel:0
                                    ];
@@ -59,7 +59,7 @@
     layerImage.size = NSSizeFromCGSize(boundsSize);
 
     NSGraphicsContext *bitmapContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:layerImage];
-    CGContextRef context             = (CGContextRef)bitmapContext.graphicsPort;
+    CGContextRef context             = bitmapContext.CGContext;
 
     CGContextClearRect(context, CPTRectMake(0.0, 0.0, boundsSize.width, boundsSize.height));
     CGContextSetAllowsAntialiasing(context, true);

@@ -341,7 +341,7 @@
         NSImage *image            = [self.graph imageOfLayer];
         NSData *tiffData          = image.TIFFRepresentation;
         NSBitmapImageRep *tiffRep = [NSBitmapImageRep imageRepWithData:tiffData];
-        NSData *pngData           = [tiffRep representationUsingType:NSPNGFileType properties:@{}];
+        NSData *pngData           = [tiffRep representationUsingType:NSBitmapImageFileTypePNG properties:@{}];
 
         NSURL *url = pngSavingDialog.URL;
         if ( url ) {
