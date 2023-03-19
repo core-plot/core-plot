@@ -78,14 +78,3 @@
 #import "CPTXYAxisSet.h"
 #import "CPTXYGraph.h"
 #import "CPTXYPlotSpace.h"
-
-// Private Headers
-#import "CPTAxisLabelGroup.h"
-#import "CPTDebugQuickLook.h"
-#import "CPTDerivedXYGraph.h"
-#import "CPTGridLineGroup.h"
-#import "CPTGridLines.h"
-#import "CPTPlotGroup.h"
-#import "NSCoderExtensions.h"
-#import "NSDecimalNumberExtensions.h"
-#import "NSNumberExtensions.h"

@@ -953,6 +953,9 @@
 		C37A406520E02BA100C4FF48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/CorePlot-CocoaTouchTests-Info.plist"; sourceTree = "<group>"; };
 		C37A406720E02BA500C4FF48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/CorePlot-iOSTests-Info.plist"; sourceTree = "<group>"; };
 		C37A406920E02BE900C4FF48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/CorePlotTests-Info.plist"; sourceTree = "<group>"; };
+		C37A9AB429C69796003B4338 /* CorePlot_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CorePlot_Private.h; sourceTree = "<group>"; };
+		C37A9AB829C698A7003B4338 /* module.private.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.private.modulemap; sourceTree = "<group>"; };
+		C37A9AB929C698A7003B4338 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		C37EA6921BC83F2A0091C8F7 /* CorePlot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CorePlot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C37EA6B71BC83F2D0091C8F7 /* UnitTests tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UnitTests tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C38A09781A46185200D45436 /* CorePlot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CorePlot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1410,6 +1413,7 @@
 				C3D0F67429C604EF00190D2C /* Scripts */,
 				C3B25EDE1AC23A7D0063CCD8 /* CocoaPods */,
 				C3F244BE28DBCABB008DB9A1 /* SPM Umbrella Header */,
+				C37A9AB729C698A7003B4338 /* Module */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
@@ -1627,6 +1631,15 @@
 			name = "Plot Symbols";
 			sourceTree = "<group>";
 		};
+		C37A9AB729C698A7003B4338 /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				C37A9AB829C698A7003B4338 /* module.private.modulemap */,
+				C37A9AB929C698A7003B4338 /* module.modulemap */,
+			);
+			path = Module;
+			sourceTree = SOURCE_ROOT;
+		};
 		C38A0A521A461F5D00D45436 /* Platform Specific */ = {
 			isa = PBXGroup;
 			children = (
@@ -1786,6 +1799,7 @@
 			isa = PBXGroup;
 			children = (
 				C3F244BF28DBCABB008DB9A1 /* CorePlot.h */,
+				C37A9AB429C69796003B4338 /* CorePlot_Private.h */,
 			);
 			path = "SPM Umbrella Header";
 			sourceTree = "<group>";
