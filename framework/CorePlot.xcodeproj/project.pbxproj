@@ -981,6 +981,9 @@
 		C3A695E4146A19BC00AF5653 /* CPTMutablePlotRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTMutablePlotRange.m; sourceTree = "<group>"; };
 		C3AFC9CF0FB62969005DFFDC /* CPTImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CPTImage.h; sourceTree = "<group>"; };
 		C3AFC9D00FB62969005DFFDC /* CPTImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CPTImage.m; sourceTree = "<group>"; };
+		C3B0E7B229CA7B3200FC94B5 /* CorePlotDebugModule.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotDebugModule.xcconfig; path = xcconfig/CorePlotDebugModule.xcconfig; sourceTree = "<group>"; };
+		C3B0E7B329CA7B3200FC94B5 /* CorePlotReleaseModule.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotReleaseModule.xcconfig; path = xcconfig/CorePlotReleaseModule.xcconfig; sourceTree = "<group>"; };
+		C3B0E7B429CA7B6000FC94B5 /* CorePlotModule.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotModule.xcconfig; path = xcconfig/CorePlotModule.xcconfig; sourceTree = "<group>"; };
 		C3B235631009931400970270 /* doxygen-cocoa-tags.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "doxygen-cocoa-tags.xml"; path = "../documentation/doxygen/doxygen-cocoa-tags.xml"; sourceTree = "<group>"; };
 		C3B25EDF1AC23A7D0063CCD8 /* CorePlot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CorePlot.h; sourceTree = "<group>"; };
 		C3BB3C8C1C1661BE00B8742D /* _CPTAnimationNSNumberPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPTAnimationNSNumberPeriod.h; sourceTree = "<group>"; };
@@ -1462,7 +1465,10 @@
 				32DBCF5E0370ADEE00C91783 /* CorePlot_Prefix.pch */,
 				070CF7AE0F3CA7AB0001FFF4 /* CorePlot.h */,
 				C3C9D08C1BB5A44800931F32 /* CorePlotDebug.xcconfig */,
+				C3B0E7B229CA7B3200FC94B5 /* CorePlotDebugModule.xcconfig */,
 				C3C9D08D1BB5A45B00931F32 /* CorePlotRelease.xcconfig */,
+				C3B0E7B329CA7B3200FC94B5 /* CorePlotReleaseModule.xcconfig */,
+				C3B0E7B429CA7B6000FC94B5 /* CorePlotModule.xcconfig */,
 				C31908A41998168C00B61898 /* CorePlot.xcconfig */,
 				C34F570D19D8CE5500446248 /* CorePlotWarnings.xcconfig */,
 			);
@@ -2961,9 +2967,8 @@
 		};
 		1DEB91AE08733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3C9D08C1BB5A44800931F32 /* CorePlotDebug.xcconfig */;
+			baseConfigurationReference = C3B0E7B229CA7B3200FC94B5 /* CorePlotDebugModule.xcconfig */;
 			buildSettings = {
-				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -2982,9 +2987,8 @@
 		};
 		1DEB91AF08733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3C9D08D1BB5A45B00931F32 /* CorePlotRelease.xcconfig */;
+			baseConfigurationReference = C3B0E7B329CA7B3200FC94B5 /* CorePlotReleaseModule.xcconfig */;
 			buildSettings = {
-				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -3055,9 +3059,8 @@
 		};
 		C37EA6901BC83F2A0091C8F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3C9D08C1BB5A44800931F32 /* CorePlotDebug.xcconfig */;
+			baseConfigurationReference = C3B0E7B229CA7B3200FC94B5 /* CorePlotDebugModule.xcconfig */;
 			buildSettings = {
-				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -3080,9 +3083,8 @@
 		};
 		C37EA6911BC83F2A0091C8F7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3C9D08D1BB5A45B00931F32 /* CorePlotRelease.xcconfig */;
+			baseConfigurationReference = C3B0E7B329CA7B3200FC94B5 /* CorePlotReleaseModule.xcconfig */;
 			buildSettings = {
-				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -3145,9 +3147,8 @@
 		};
 		C38A098B1A46185300D45436 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3C9D08C1BB5A44800931F32 /* CorePlotDebug.xcconfig */;
+			baseConfigurationReference = C3B0E7B229CA7B3200FC94B5 /* CorePlotDebugModule.xcconfig */;
 			buildSettings = {
-				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -3171,9 +3172,8 @@
 		};
 		C38A098C1A46185300D45436 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3C9D08D1BB5A45B00931F32 /* CorePlotRelease.xcconfig */;
+			baseConfigurationReference = C3B0E7B329CA7B3200FC94B5 /* CorePlotReleaseModule.xcconfig */;
 			buildSettings = {
-				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";

@@ -1,0 +1,2 @@
+#include "CorePlotModule.xcconfig"
+#include "CorePlotDebug.xcconfig"
