@@ -1,7 +1,7 @@
 #import "CPTDarkGradientThemeTests.h"
 
 #import "_CPTDarkGradientTheme.h"
-#import "CPTDerivedXYGraph.h"
+#import "CPTXYGraphTestCase.h"
 
 @implementation CPTDarkGradientThemeTests
 
@@ -22,13 +22,13 @@
     // Arrange
     _CPTDarkGradientTheme *theme = [[_CPTDarkGradientTheme alloc] init];
 
-    theme.graphClass = [CPTDerivedXYGraph class];
+    theme.graphClass = [CPTXYGraphTestCase class];
 
     // Act
     CPTGraph *graph = [theme newGraph];
 
     // Assert
-    XCTAssertEqual([graph class], [CPTDerivedXYGraph class], @"graph should be of type CPTDerivedXYGraph");
+    XCTAssertEqual([graph class], [CPTXYGraphTestCase class], @"graph should be of type CPTXYGraphTestCase");
 }
 
 @end

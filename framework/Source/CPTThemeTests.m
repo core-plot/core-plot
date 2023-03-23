@@ -5,9 +5,9 @@
 #import "_CPTPlainWhiteTheme.h"
 #import "_CPTSlateTheme.h"
 #import "_CPTStocksTheme.h"
-#import "CPTDerivedXYGraph.h"
 #import "CPTExceptions.h"
 #import "CPTTheme.h"
+#import "CPTXYGraphTestCase.h"
 
 @implementation CPTThemeTests
 
@@ -23,8 +23,8 @@
 {
     CPTTheme *theme = [[CPTTheme alloc] init];
 
-    theme.graphClass = [CPTDerivedXYGraph class];
-    XCTAssertEqual([CPTDerivedXYGraph class], theme.graphClass, @"graphClass should be CPTDerivedXYGraph");
+    theme.graphClass = [CPTXYGraphTestCase class];
+    XCTAssertEqual([CPTXYGraphTestCase class], theme.graphClass, @"graphClass should be CPTXYGraphTestCase");
 }
 
 -(void)testSetGraphUsingCPTGraphShouldThrowException

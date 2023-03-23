@@ -1,8 +1,8 @@
-#import "CPTDerivedXYGraph.h"
+#import "CPTXYGraphTestCase.h"
 
 /**
  *  @brief An empty XY graph class used for testing themes.
  **/
-@implementation CPTDerivedXYGraph
+@implementation CPTXYGraphTestCase
 
 @end

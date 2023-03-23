@@ -416,7 +416,7 @@
 		C37EA6A21BC83F2D0091C8F7 /* CPTImageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D979B413D2340000145DFF /* CPTImageTests.m */; };
 		C37EA6A31BC83F2D0091C8F7 /* CPTDataSourceTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A745E0FB24C7200918464 /* CPTDataSourceTestCase.m */; };
 		C37EA6A41BC83F2D0091C8F7 /* CPTNumericDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF06104D80D400B554F9 /* CPTNumericDataTests.m */; };
-		C37EA6A51BC83F2D0091C8F7 /* CPTDerivedXYGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE611A100F3FB700895A91 /* CPTDerivedXYGraph.m */; };
+		C37EA6A51BC83F2D0091C8F7 /* CPTXYGraphTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE611A100F3FB700895A91 /* CPTXYGraphTestCase.m */; };
 		C37EA6A61BC83F2D0091C8F7 /* CPTXYPlotSpaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C422A630FB1FCD5000CAA43 /* CPTXYPlotSpaceTests.m */; };
 		C37EA6A71BC83F2D0091C8F7 /* CPTTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0730F64D109494D100E95162 /* CPTTestCase.m */; };
 		C37EA6A81BC83F2D0091C8F7 /* CPTPlotRangeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C36E89B911EE7F97003DE309 /* CPTPlotRangeTests.m */; };
@@ -626,7 +626,7 @@
 		C38A0B0A1A46261700D45436 /* _CPTStocksTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BC55023110059F22005DF982 /* _CPTStocksTheme.m */; };
 		C38A0B121A46261F00D45436 /* CPTThemeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E1620CBD100F03A100A84E77 /* CPTThemeTests.m */; };
 		C38A0B131A46261F00D45436 /* CPTDarkGradientThemeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE6051100F27EF00895A91 /* CPTDarkGradientThemeTests.m */; };
-		C38A0B141A46261F00D45436 /* CPTDerivedXYGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE611A100F3FB700895A91 /* CPTDerivedXYGraph.m */; };
+		C38A0B141A46261F00D45436 /* CPTXYGraphTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE611A100F3FB700895A91 /* CPTXYGraphTestCase.m */; };
 		C38A0B1E1A46264500D45436 /* CPTPlatformSpecificCategories.h in Headers */ = {isa = PBXBuildFile; fileRef = C38A0B181A46264500D45436 /* CPTPlatformSpecificCategories.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C38A0B1F1A46264500D45436 /* CPTPlatformSpecificCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = C38A0B191A46264500D45436 /* CPTPlatformSpecificCategories.m */; };
 		C38A0B211A46264500D45436 /* CPTPlatformSpecificDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = C38A0B1A1A46264500D45436 /* CPTPlatformSpecificDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -685,7 +685,7 @@
 		C3D68A5F1220B2B400EB4863 /* CPTScatterPlotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FEBD61110B7E8B00E44D37 /* CPTScatterPlotTests.m */; };
 		C3D68A601220B2BE00EB4863 /* CPTAxisLabelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD23FFB0FFBE78400ADD2E2 /* CPTAxisLabelTests.m */; };
 		C3D68A611220B2C800EB4863 /* CPTDarkGradientThemeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE6051100F27EF00895A91 /* CPTDarkGradientThemeTests.m */; };
-		C3D68A621220B2C900EB4863 /* CPTDerivedXYGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE611A100F3FB700895A91 /* CPTDerivedXYGraph.m */; };
+		C3D68A621220B2C900EB4863 /* CPTXYGraphTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FE611A100F3FB700895A91 /* CPTXYGraphTestCase.m */; };
 		C3D68A631220B2CC00EB4863 /* CPTThemeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E1620CBD100F03A100A84E77 /* CPTThemeTests.m */; };
 		C3D979A413D2136700145DFF /* CPTPlotSpaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D979A313D2136600145DFF /* CPTPlotSpaceTests.m */; };
 		C3D979A913D2328000145DFF /* CPTTimeFormatterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D979A813D2328000145DFF /* CPTTimeFormatterTests.m */; };
@@ -1055,8 +1055,8 @@
 		E1620CBD100F03A100A84E77 /* CPTThemeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTThemeTests.m; sourceTree = "<group>"; };
 		E1FE6050100F27EF00895A91 /* CPTDarkGradientThemeTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTDarkGradientThemeTests.h; sourceTree = "<group>"; };
 		E1FE6051100F27EF00895A91 /* CPTDarkGradientThemeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTDarkGradientThemeTests.m; sourceTree = "<group>"; };
-		E1FE6119100F3FB700895A91 /* CPTDerivedXYGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTDerivedXYGraph.h; sourceTree = "<group>"; };
-		E1FE611A100F3FB700895A91 /* CPTDerivedXYGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTDerivedXYGraph.m; sourceTree = "<group>"; };
+		E1FE6119100F3FB700895A91 /* CPTXYGraphTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTXYGraphTestCase.h; sourceTree = "<group>"; };
+		E1FE611A100F3FB700895A91 /* CPTXYGraphTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTXYGraphTestCase.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1817,8 +1817,8 @@
 				E1620CBD100F03A100A84E77 /* CPTThemeTests.m */,
 				E1FE6050100F27EF00895A91 /* CPTDarkGradientThemeTests.h */,
 				E1FE6051100F27EF00895A91 /* CPTDarkGradientThemeTests.m */,
-				E1FE6119100F3FB700895A91 /* CPTDerivedXYGraph.h */,
-				E1FE611A100F3FB700895A91 /* CPTDerivedXYGraph.m */,
+				E1FE6119100F3FB700895A91 /* CPTXYGraphTestCase.h */,
+				E1FE611A100F3FB700895A91 /* CPTXYGraphTestCase.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -2427,7 +2427,7 @@
 				C3D68A5F1220B2B400EB4863 /* CPTScatterPlotTests.m in Sources */,
 				C3D68A601220B2BE00EB4863 /* CPTAxisLabelTests.m in Sources */,
 				C3D68A611220B2C800EB4863 /* CPTDarkGradientThemeTests.m in Sources */,
-				C3D68A621220B2C900EB4863 /* CPTDerivedXYGraph.m in Sources */,
+				C3D68A621220B2C900EB4863 /* CPTXYGraphTestCase.m in Sources */,
 				C3D68A631220B2CC00EB4863 /* CPTThemeTests.m in Sources */,
 				C3392A481225FB68008DA6BD /* CPTMutableNumericDataTests.m in Sources */,
 				C3392A491225FB69008DA6BD /* CPTNumericDataTests.m in Sources */,
@@ -2666,7 +2666,7 @@
 				C37EA6A21BC83F2D0091C8F7 /* CPTImageTests.m in Sources */,
 				C37EA6A31BC83F2D0091C8F7 /* CPTDataSourceTestCase.m in Sources */,
 				C37EA6A41BC83F2D0091C8F7 /* CPTNumericDataTests.m in Sources */,
-				C37EA6A51BC83F2D0091C8F7 /* CPTDerivedXYGraph.m in Sources */,
+				C37EA6A51BC83F2D0091C8F7 /* CPTXYGraphTestCase.m in Sources */,
 				C37EA6A61BC83F2D0091C8F7 /* CPTXYPlotSpaceTests.m in Sources */,
 				C37EA6A71BC83F2D0091C8F7 /* CPTTestCase.m in Sources */,
 				C37EA6A81BC83F2D0091C8F7 /* CPTPlotRangeTests.m in Sources */,
@@ -2799,7 +2799,7 @@
 				C38A0A8A1A46210A00D45436 /* CPTImageTests.m in Sources */,
 				C38A09D31A461C1800D45436 /* CPTDataSourceTestCase.m in Sources */,
 				C38A09E81A461CB600D45436 /* CPTNumericDataTests.m in Sources */,
-				C38A0B141A46261F00D45436 /* CPTDerivedXYGraph.m in Sources */,
+				C38A0B141A46261F00D45436 /* CPTXYGraphTestCase.m in Sources */,
 				C38A0ABD1A46250B00D45436 /* CPTXYPlotSpaceTests.m in Sources */,
 				C38A09D11A461C1100D45436 /* CPTTestCase.m in Sources */,
 				C38A0A011A461D2E00D45436 /* CPTPlotRangeTests.m in Sources */,

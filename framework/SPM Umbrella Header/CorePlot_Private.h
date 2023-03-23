@@ -12,7 +12,6 @@
 #endif
 
 #import "CPTAxisLabelGroup.h"
-#import "CPTDerivedXYGraph.h"
 #import "CPTGridLineGroup.h"
 #import "CPTGridLines.h"
 #import "CPTPlotGroup.h"
