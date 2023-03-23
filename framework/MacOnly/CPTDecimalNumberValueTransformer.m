@@ -1,4 +1,7 @@
 #import "CPTDecimalNumberValueTransformer.h"
+
+#if TARGET_OS_OSX
+
 #import "NSNumberExtensions.h"
 
 /**
@@ -39,3 +42,5 @@
 /// @endcond
 
 @end
+
+#endif
