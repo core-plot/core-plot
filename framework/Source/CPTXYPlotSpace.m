@@ -1,10 +1,10 @@
 #import "CPTXYPlotSpace.h"
 
+#import "_CPTDebugQuickLook.h"
 #import "CPTAnimation.h"
 #import "CPTAnimationOperation.h"
 #import "CPTAnimationPeriod.h"
 #import "CPTAxisSet.h"
-#import "CPTDebugQuickLook.h"
 #import "CPTExceptions.h"
 #import "CPTGraph.h"
 #import "CPTGraphHostingView.h"
