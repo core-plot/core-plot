@@ -374,6 +374,7 @@
 			baseConfigurationReference = C39B4BFD2962169F00ABA414 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -389,6 +390,7 @@
 			baseConfigurationReference = C39B4BFE2962169F00ABA414 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = (

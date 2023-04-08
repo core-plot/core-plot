@@ -1008,6 +1008,7 @@
 			baseConfigurationReference = C3E4280729626F81007C2758 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Plot_Gallery_Mac-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1024,6 +1025,7 @@
 			baseConfigurationReference = C3E4281329626F81007C2758 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Plot_Gallery_Mac-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1106,6 +1108,7 @@
 			baseConfigurationReference = C3E4280729626F81007C2758 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Plot_Gallery_iOS-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1122,6 +1125,7 @@
 			baseConfigurationReference = C3E4281329626F81007C2758 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Plot_Gallery_iOS-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
