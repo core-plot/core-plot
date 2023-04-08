@@ -932,7 +932,6 @@
 		C342601E0FAE096C00072842 /* _CPTFillGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = _CPTFillGradient.h; sourceTree = "<group>"; };
 		C342601F0FAE096C00072842 /* CPTFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CPTFill.h; sourceTree = "<group>"; };
 		C3490DF120E028CF0089F309 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/CorePlot-Info.plist"; sourceTree = "<group>"; };
-		C3490DF320E028D30089F309 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/CorePlot-CocoaTouch-Info.plist"; sourceTree = "<group>"; };
 		C3490DF520E028D80089F309 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/CorePlot-iOS-Info.plist"; sourceTree = "<group>"; };
 		C3490DF720E028DC0089F309 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/CorePlot-tvOS-Info.plist"; sourceTree = "<group>"; };
 		C349DCB2151AAFBF00BFD6A7 /* CPTCalendarFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CPTCalendarFormatter.h; sourceTree = "<group>"; };
@@ -1442,7 +1441,6 @@
 			children = (
 				071F3CB810FBAB5900D0A7B6 /* License.txt */,
 				C3490DF220E028CF0089F309 /* CorePlot-Info.plist */,
-				C3490DF420E028D30089F309 /* CorePlot-CocoaTouch-Info.plist */,
 				C3490DF620E028D80089F309 /* CorePlot-iOS-Info.plist */,
 				C3490DF820E028DC0089F309 /* CorePlot-tvOS-Info.plist */,
 				089C1666FE841158C02AAC07 /* InfoPlist.strings */,
@@ -2864,15 +2862,6 @@
 				C3490DF120E028CF0089F309 /* Base */,
 			);
 			name = "CorePlot-Info.plist";
-			path = Info;
-			sourceTree = "<group>";
-		};
-		C3490DF420E028D30089F309 /* CorePlot-CocoaTouch-Info.plist */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C3490DF320E028D30089F309 /* Base */,
-			);
-			name = "CorePlot-CocoaTouch-Info.plist";
 			path = Info;
 			sourceTree = "<group>";
 		};
