@@ -1,9 +1,9 @@
 #import "CPTColor.h"
 
+#import "_NSCoderExtensions.h"
 #import "CPTColorSpace.h"
 #import "CPTDefinitions.h"
 #import "CPTPlatformSpecificCategories.h"
-#import "NSCoderExtensions.h"
 
 /// @cond
 

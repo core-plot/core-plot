@@ -1,5 +1,10 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTNumericData.h>
+#import <CorePlot/CPTNumericDataType.h>
+#else
 #import "CPTNumericData.h"
 #import "CPTNumericDataType.h"
+#endif
 
 @interface CPTMutableNumericData : CPTNumericData
 

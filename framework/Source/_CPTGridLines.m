@@ -1,4 +1,4 @@
-#import "CPTGridLines.h"
+#import "_CPTGridLines.h"
 
 #import "CPTAxis.h"
 

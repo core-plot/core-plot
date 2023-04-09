@@ -1,2 +1,4 @@
 #include "CorePlotModule.xcconfig"
 #include "CorePlotDebug.xcconfig"
+
+GCC_PREPROCESSOR_DEFINITIONS = DEBUG=1 CPT_IS_FRAMEWORK $(inherited)

@@ -1,8 +1,14 @@
 #import <TargetConditionals.h>
 
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTColor.h>
+#import <CorePlot/CPTLayer.h>
+#import <CorePlot/CPTPlatformSpecificDefines.h>
+#else
 #import "CPTColor.h"
 #import "CPTLayer.h"
 #import "CPTPlatformSpecificDefines.h"
+#endif
 
 #if TARGET_OS_OSX
 

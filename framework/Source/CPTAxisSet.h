@@ -1,5 +1,10 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTAxis.h>
+#import <CorePlot/CPTLayer.h>
+#else
 #import "CPTAxis.h"
 #import "CPTLayer.h"
+#endif
 
 @class CPTLineStyle;
 

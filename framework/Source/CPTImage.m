@@ -1,8 +1,8 @@
 #import "CPTImage.h"
 
+#import "_NSCoderExtensions.h"
 #import "CPTPlatformSpecificDefines.h"
 #import "CPTUtilities.h"
-#import "NSCoderExtensions.h"
 
 /// @cond
 

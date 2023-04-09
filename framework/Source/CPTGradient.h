@@ -3,7 +3,11 @@
 
 /// @file
 
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTDefinitions.h>
+#else
 #import "CPTDefinitions.h"
+#endif
 
 /**
  *  @brief A structure representing one node in a linked list of RGBA colors.

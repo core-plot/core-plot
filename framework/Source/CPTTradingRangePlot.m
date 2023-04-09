@@ -1,5 +1,7 @@
 #import "CPTTradingRangePlot.h"
 
+#import "_NSCoderExtensions.h"
+#import "_NSNumberExtensions.h"
 #import "CPTColor.h"
 #import "CPTExceptions.h"
 #import "CPTLegend.h"
@@ -11,8 +13,6 @@
 #import "CPTPlotSpaceAnnotation.h"
 #import "CPTUtilities.h"
 #import "CPTXYPlotSpace.h"
-#import "NSCoderExtensions.h"
-#import "NSNumberExtensions.h"
 #import <tgmath.h>
 
 /** @defgroup plotAnimationTradingRangePlot Trading Range Plot

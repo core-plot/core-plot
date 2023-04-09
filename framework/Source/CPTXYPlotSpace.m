@@ -1,6 +1,7 @@
 #import "CPTXYPlotSpace.h"
 
 #import "_CPTDebugQuickLook.h"
+#import "_NSCoderExtensions.h"
 #import "CPTAnimation.h"
 #import "CPTAnimationOperation.h"
 #import "CPTAnimationPeriod.h"
@@ -13,7 +14,6 @@
 #import "CPTPlotArea.h"
 #import "CPTPlotAreaFrame.h"
 #import "CPTUtilities.h"
-#import "NSCoderExtensions.h"
 #import <tgmath.h>
 
 /// @cond

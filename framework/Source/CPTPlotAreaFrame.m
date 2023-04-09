@@ -1,8 +1,8 @@
 #import "CPTPlotAreaFrame.h"
 
+#import "_CPTPlotGroup.h"
 #import "CPTAxisSet.h"
 #import "CPTPlotArea.h"
-#import "CPTPlotGroup.h"
 
 /// @cond
 @interface CPTPlotAreaFrame()

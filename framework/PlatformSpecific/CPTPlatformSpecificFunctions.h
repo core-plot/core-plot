@@ -1,5 +1,11 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTDefinitions.h>
+#import <CorePlot/CPTPlatformSpecificDefines.h>
+#else
 #import "CPTDefinitions.h"
 #import "CPTPlatformSpecificDefines.h"
+#endif
+
 #import <TargetConditionals.h>
 
 #if TARGET_OS_OSX

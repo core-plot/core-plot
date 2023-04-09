@@ -1,5 +1,10 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTDefinitions.h>
+#import <CorePlot/CPTNumericDataType.h>
+#else
 #import "CPTDefinitions.h"
 #import "CPTNumericDataType.h"
+#endif
 
 @interface CPTNumericData : NSObject<NSCopying, NSMutableCopying, NSCoding, NSSecureCoding>
 

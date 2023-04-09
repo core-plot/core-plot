@@ -1,4 +1,8 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTAxis.h>
+#else
 #import "CPTAxis.h"
+#endif
 
 @class CPTConstraints;
 

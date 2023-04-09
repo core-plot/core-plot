@@ -1,0 +1,1 @@
+../../../framework/SPM Umbrella Header/_CorePlot_Private.h

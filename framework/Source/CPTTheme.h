@@ -1,4 +1,8 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTDefinitions.h>
+#else
 #import "CPTDefinitions.h"
+#endif
 
 /**
  *  @brief Theme name type.

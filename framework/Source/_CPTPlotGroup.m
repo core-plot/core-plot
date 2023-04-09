@@ -1,4 +1,4 @@
-#import "CPTPlotGroup.h"
+#import "_CPTPlotGroup.h"
 
 #import "CPTPlot.h"
 

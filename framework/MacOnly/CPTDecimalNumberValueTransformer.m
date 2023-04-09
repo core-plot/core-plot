@@ -2,7 +2,7 @@
 
 #if TARGET_OS_OSX
 
-#import "NSNumberExtensions.h"
+#import "_NSNumberExtensions.h"
 
 /**
  *  @brief A Cocoa Bindings value transformer for NSDecimalNumber objects.

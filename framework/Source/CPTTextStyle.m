@@ -1,8 +1,8 @@
 #import "CPTTextStyle.h"
 
+#import "_NSCoderExtensions.h"
 #import "CPTColor.h"
 #import "CPTMutableTextStyle.h"
-#import "NSCoderExtensions.h"
 
 /// @cond
 @interface CPTTextStyle()

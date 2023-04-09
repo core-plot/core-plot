@@ -1,4 +1,8 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTPlot.h>
+#else
 #import "CPTPlot.h"
+#endif
 
 @class CPTPlotRange;
 

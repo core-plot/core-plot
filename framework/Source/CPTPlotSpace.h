@@ -1,6 +1,12 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTDefinitions.h>
+#import <CorePlot/CPTPlot.h>
+#import <CorePlot/CPTResponder.h>
+#else
 #import "CPTDefinitions.h"
 #import "CPTPlot.h"
 #import "CPTResponder.h"
+#endif
 
 @class CPTLayer;
 @class CPTPlotRange;

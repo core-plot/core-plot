@@ -1,5 +1,7 @@
 #import "CPTRangePlot.h"
 
+#import "_NSCoderExtensions.h"
+#import "_NSNumberExtensions.h"
 #import "CPTExceptions.h"
 #import "CPTFill.h"
 #import "CPTLegend.h"
@@ -12,8 +14,6 @@
 #import "CPTPlotSpaceAnnotation.h"
 #import "CPTUtilities.h"
 #import "CPTXYPlotSpace.h"
-#import "NSCoderExtensions.h"
-#import "NSNumberExtensions.h"
 #import <tgmath.h>
 
 /** @defgroup plotAnimationRangePlot Range Plot

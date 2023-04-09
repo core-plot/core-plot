@@ -1,3 +1,12 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTAxisLabel.h>
+#import <CorePlot/CPTDefinitions.h>
+#import <CorePlot/CPTFill.h>
+#import <CorePlot/CPTLayer.h>
+#import <CorePlot/CPTLimitBand.h>
+#import <CorePlot/CPTPlotRange.h>
+#import <CorePlot/CPTTextStyle.h>
+#else
 #import "CPTAxisLabel.h"
 #import "CPTDefinitions.h"
 #import "CPTFill.h"
@@ -5,6 +14,7 @@
 #import "CPTLimitBand.h"
 #import "CPTPlotRange.h"
 #import "CPTTextStyle.h"
+#endif
 
 /// @file
 

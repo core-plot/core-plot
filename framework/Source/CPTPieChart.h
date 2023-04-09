@@ -1,6 +1,12 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTDefinitions.h>
+#import <CorePlot/CPTFill.h>
+#import <CorePlot/CPTPlot.h>
+#else
 #import "CPTDefinitions.h"
 #import "CPTFill.h"
 #import "CPTPlot.h"
+#endif
 
 /// @file
 

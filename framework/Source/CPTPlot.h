@@ -1,6 +1,12 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTAnnotationHostLayer.h>
+#import <CorePlot/CPTDefinitions.h>
+#import <CorePlot/CPTNumericDataType.h>
+#else
 #import "CPTAnnotationHostLayer.h"
 #import "CPTDefinitions.h"
 #import "CPTNumericDataType.h"
+#endif
 
 /// @file
 

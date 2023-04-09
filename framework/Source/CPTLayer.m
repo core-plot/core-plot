@@ -1,5 +1,6 @@
 #import "CPTLayer.h"
 
+#import "_NSCoderExtensions.h"
 #import "CPTGraph.h"
 #import "CPTGraphHostingView.h"
 #import "CPTPathExtensions.h"
@@ -7,7 +8,6 @@
 #import "CPTPlatformSpecificFunctions.h"
 #import "CPTShadow.h"
 #import "CPTUtilities.h"
-#import "NSCoderExtensions.h"
 #import <objc/runtime.h>
 #import <tgmath.h>
 

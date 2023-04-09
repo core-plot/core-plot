@@ -1,12 +1,12 @@
 #import "CPTPlotArea.h"
 
+#import "_CPTAxisLabelGroup.h"
+#import "_CPTGridLineGroup.h"
+#import "_CPTPlotGroup.h"
 #import "CPTAxis.h"
-#import "CPTAxisLabelGroup.h"
 #import "CPTAxisSet.h"
 #import "CPTFill.h"
-#import "CPTGridLineGroup.h"
 #import "CPTLineStyle.h"
-#import "CPTPlotGroup.h"
 #import "CPTUtilities.h"
 
 static const size_t kCPTNumberOfLayers = 6; // number of primary layers to arrange

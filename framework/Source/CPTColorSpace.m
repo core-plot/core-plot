@@ -1,6 +1,6 @@
 #import "CPTColorSpace.h"
 
-#import "NSCoderExtensions.h"
+#import "_NSCoderExtensions.h"
 
 /** @brief An immutable color space.
  *

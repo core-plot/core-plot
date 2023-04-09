@@ -1,4 +1,8 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTAnimation.h>
+#else
 #import "CPTAnimation.h"
+#endif
 
 @class CPTAnimationOperation;
 @class CPTPlotRange;

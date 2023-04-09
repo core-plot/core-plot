@@ -7,9 +7,9 @@
 #import "_CPTAnimationNSDecimalPeriod.h"
 #import "_CPTAnimationNSNumberPeriod.h"
 #import "_CPTAnimationPlotRangePeriod.h"
+#import "_NSNumberExtensions.h"
 #import "CPTAnimationOperation.h"
 #import "CPTPlotRange.h"
-#import "NSNumberExtensions.h"
 
 /// @cond
 @interface CPTAnimationPeriod()

@@ -1,4 +1,4 @@
-#import "NSDecimalNumberExtensions.h"
+#import "_NSDecimalNumberExtensions.h"
 
 @implementation NSDecimalNumber(CPTExtensions)
 

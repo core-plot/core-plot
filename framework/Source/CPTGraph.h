@@ -1,8 +1,15 @@
 // Abstract class
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTBorderedLayer.h>
+#import <CorePlot/CPTDefinitions.h>
+#import <CorePlot/CPTPlot.h>
+#import <CorePlot/CPTPlotSpace.h>
+#else
 #import "CPTBorderedLayer.h"
 #import "CPTDefinitions.h"
 #import "CPTPlot.h"
 #import "CPTPlotSpace.h"
+#endif
 
 /// @file
 

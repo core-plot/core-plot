@@ -1,4 +1,8 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTPlatformSpecificDefines.h>
+#else
 #import "CPTPlatformSpecificDefines.h"
+#endif
 
 @interface CPTColor : NSObject<NSCopying, NSCoding, NSSecureCoding>
 

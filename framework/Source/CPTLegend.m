@@ -1,5 +1,7 @@
 #import "CPTLegend.h"
 
+#import "_NSCoderExtensions.h"
+#import "_NSNumberExtensions.h"
 #import "CPTExceptions.h"
 #import "CPTFill.h"
 #import "CPTGraph.h"
@@ -8,8 +10,6 @@
 #import "CPTPathExtensions.h"
 #import "CPTTextStyle.h"
 #import "CPTUtilities.h"
-#import "NSCoderExtensions.h"
-#import "NSNumberExtensions.h"
 #import <tgmath.h>
 
 /** @defgroup legendAnimation Legends

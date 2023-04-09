@@ -1,4 +1,8 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTLayer.h>
+#else
 #import "CPTLayer.h"
+#endif
 
 @class CPTPlotArea;
 

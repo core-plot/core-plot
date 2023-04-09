@@ -1,10 +1,10 @@
 #import "CPTLineCap.h"
 
+#import "_NSCoderExtensions.h"
 #import "CPTDefinitions.h"
 #import "CPTFill.h"
 #import "CPTLineStyle.h"
 #import "CPTPlatformSpecificFunctions.h"
-#import "NSCoderExtensions.h"
 #import <tgmath.h>
 
 /// @cond

@@ -697,7 +697,7 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 #pragma mark - iOS, tvOS, Mac Catalyst
 #pragma mark -
 
-#import "NSNumberExtensions.h"
+#import "_NSNumberExtensions.h"
 
 /// @cond
 @interface CPTGraphHostingView()

@@ -1,10 +1,10 @@
 #import "CPTAxisLabel.h"
 
+#import "_NSCoderExtensions.h"
 #import "CPTLayer.h"
 #import "CPTMutableTextStyle.h"
 #import "CPTTextLayer.h"
 #import "CPTUtilities.h"
-#import "NSCoderExtensions.h"
 #import <tgmath.h>
 
 /** @brief An axis label.

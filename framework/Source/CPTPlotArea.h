@@ -1,6 +1,12 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTAnnotationHostLayer.h>
+#import <CorePlot/CPTGraph.h>
+#import <CorePlot/CPTLayer.h>
+#else
 #import "CPTAnnotationHostLayer.h"
 #import "CPTGraph.h"
 #import "CPTLayer.h"
+#endif
 
 @class CPTAxis;
 @class CPTAxisLabelGroup;

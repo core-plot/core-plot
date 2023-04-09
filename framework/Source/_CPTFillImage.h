@@ -1,4 +1,8 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTFill.h>
+#else
 #import "CPTFill.h"
+#endif
 
 @class CPTImage;
 

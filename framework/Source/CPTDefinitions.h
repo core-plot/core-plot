@@ -1,7 +1,7 @@
 #import <Availability.h>
 #import <TargetConditionals.h>
 
-#if __has_include(<UIKit/UIKit.h>)
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
 #import <UIKit/UIKit.h>
 #else
 #import <Cocoa/Cocoa.h>

@@ -1,5 +1,10 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTBorderedLayer.h>
+#import <CorePlot/CPTTextStyle.h>
+#else
 #import "CPTBorderedLayer.h"
 #import "CPTTextStyle.h"
+#endif
 
 /// @file
 

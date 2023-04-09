@@ -1,6 +1,12 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTDefinitions.h>
+#import <CorePlot/CPTPlatformSpecificDefines.h>
+#import <CorePlot/CPTTextStylePlatformSpecific.h>
+#else
 #import "CPTDefinitions.h"
 #import "CPTPlatformSpecificDefines.h"
 #import "CPTTextStylePlatformSpecific.h"
+#endif
 
 @class CPTColor;
 @class CPTTextStyle;

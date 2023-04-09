@@ -1,5 +1,11 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTDefinitions.h>
+#import <CorePlot/CPTResponder.h>
+#else
 #import "CPTDefinitions.h"
 #import "CPTResponder.h"
+#endif
+
 #import <QuartzCore/QuartzCore.h>
 
 /// @file

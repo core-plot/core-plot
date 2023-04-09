@@ -1,7 +1,14 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTDefinitions.h>
+#import <CorePlot/CPTLimitBand.h>
+#import <CorePlot/CPTPlot.h>
+#import <CorePlot/CPTPlotSymbol.h>
+#else
 #import "CPTDefinitions.h"
 #import "CPTLimitBand.h"
 #import "CPTPlot.h"
 #import "CPTPlotSymbol.h"
+#endif
 
 /// @file
 

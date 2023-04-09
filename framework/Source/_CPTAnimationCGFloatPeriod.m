@@ -1,6 +1,6 @@
 #import "_CPTAnimationCGFloatPeriod.h"
 
-#import "NSNumberExtensions.h"
+#import "_NSNumberExtensions.h"
 
 /// @cond
 @interface _CPTAnimationCGFloatPeriod()

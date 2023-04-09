@@ -1,6 +1,6 @@
 #import "_CPTConstraintsRelative.h"
 
-#import "NSCoderExtensions.h"
+#import "_NSCoderExtensions.h"
 #import <tgmath.h>
 
 /// @cond

@@ -1,4 +1,8 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTAnnotation.h>
+#else
 #import "CPTAnnotation.h"
+#endif
 
 @class CPTPlotSpace;
 

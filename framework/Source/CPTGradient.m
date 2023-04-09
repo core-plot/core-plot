@@ -1,10 +1,10 @@
 #import "CPTGradient.h"
 
+#import "_NSCoderExtensions.h"
 #import "CPTColor.h"
 #import "CPTColorSpace.h"
 #import "CPTPlatformSpecificFunctions.h"
 #import "CPTUtilities.h"
-#import "NSCoderExtensions.h"
 #import <tgmath.h>
 
 /// @cond

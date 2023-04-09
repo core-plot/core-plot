@@ -1,4 +1,8 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTFill.h>
+#else
 #import "CPTFill.h"
+#endif
 
 @interface _CPTFillColor : CPTFill<NSCopying, NSCoding, NSSecureCoding>
 

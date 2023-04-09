@@ -1,5 +1,10 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTAnimation.h>
+#import <CorePlot/CPTDefinitions.h>
+#else
 #import "CPTAnimation.h"
 #import "CPTDefinitions.h"
+#endif
 
 @class CPTAnimationPeriod;
 

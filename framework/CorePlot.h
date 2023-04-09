@@ -1,3 +1,5 @@
+#define CPT_IS_FRAMEWORK
+
 #import <TargetConditionals.h>
 
 #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST

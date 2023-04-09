@@ -1,13 +1,14 @@
 #import "CPTAxis.h"
 
-#import "CPTAxisLabelGroup.h"
+#import "_CPTAxisLabelGroup.h"
+#import "_CPTGridLineGroup.h"
+#import "_CPTGridLines.h"
+#import "_NSCoderExtensions.h"
 #import "CPTAxisSet.h"
 #import "CPTAxisTitle.h"
 #import "CPTColor.h"
 #import "CPTExceptions.h"
 #import "CPTGradient.h"
-#import "CPTGridLineGroup.h"
-#import "CPTGridLines.h"
 #import "CPTImage.h"
 #import "CPTLineCap.h"
 #import "CPTLineStyle.h"
@@ -17,7 +18,6 @@
 #import "CPTShadow.h"
 #import "CPTTextLayer.h"
 #import "CPTUtilities.h"
-#import "NSCoderExtensions.h"
 
 /** @defgroup axisAnimation Axes
  *  @brief Axis properties that can be animated using Core Animation.

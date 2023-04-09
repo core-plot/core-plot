@@ -26,6 +26,7 @@ let package = Package(
         .target(
             name: "CorePlot",
             dependencies: [],
-            path: "spm/Sources/core-plot"),
+            path: "spm/Sources/core-plot",
+            publicHeadersPath: "include"),
     ]
 )

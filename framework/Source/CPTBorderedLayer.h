@@ -1,4 +1,8 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTAnnotationHostLayer.h>
+#else
 #import "CPTAnnotationHostLayer.h"
+#endif
 
 @class CPTLineStyle;
 @class CPTFill;

@@ -1,2 +1,4 @@
 #include "CorePlotModule.xcconfig"
 #include "CorePlotRelease.xcconfig"
+
+GCC_PREPROCESSOR_DEFINITIONS = CPT_IS_FRAMEWORK $(inherited)

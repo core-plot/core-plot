@@ -1,4 +1,8 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTAxisSet.h>
+#else
 #import "CPTAxisSet.h"
+#endif
 
 @class CPTXYAxis;
 

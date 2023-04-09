@@ -1,5 +1,6 @@
 #import "CPTBarPlot.h"
 
+#import "_NSCoderExtensions.h"
 #import "CPTColor.h"
 #import "CPTExceptions.h"
 #import "CPTGradient.h"
@@ -12,7 +13,6 @@
 #import "CPTPlotSpaceAnnotation.h"
 #import "CPTUtilities.h"
 #import "CPTXYPlotSpace.h"
-#import "NSCoderExtensions.h"
 #import <tgmath.h>
 
 /** @defgroup plotAnimationBarPlot Bar Plot

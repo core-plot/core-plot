@@ -1,4 +1,8 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTTextStyle.h>
+#else
 #import "CPTTextStyle.h"
+#endif
 
 @class CPTColor;
 

@@ -1,7 +1,7 @@
-#import "NSCoderExtensions.h"
+#import "_NSCoderExtensions.h"
 
+#import "_NSNumberExtensions.h"
 #import "CPTUtilities.h"
-#import "NSNumberExtensions.h"
 
 void CPTPathApplierFunc(void *info, const CGPathElement *element);
 

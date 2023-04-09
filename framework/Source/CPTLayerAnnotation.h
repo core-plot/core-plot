@@ -1,5 +1,10 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTAnnotation.h>
+#import <CorePlot/CPTDefinitions.h>
+#else
 #import "CPTAnnotation.h"
 #import "CPTDefinitions.h"
+#endif
 
 @class CPTConstraints;
 

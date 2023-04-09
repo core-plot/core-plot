@@ -1,5 +1,6 @@
 #import "CPTScatterPlot.h"
 
+#import "_NSCoderExtensions.h"
 #import "CPTExceptions.h"
 #import "CPTFill.h"
 #import "CPTLegend.h"
@@ -12,7 +13,6 @@
 #import "CPTPlotSpaceAnnotation.h"
 #import "CPTUtilities.h"
 #import "CPTXYPlotSpace.h"
-#import "NSCoderExtensions.h"
 #import <tgmath.h>
 
 /** @defgroup plotAnimationScatterPlot Scatter Plot

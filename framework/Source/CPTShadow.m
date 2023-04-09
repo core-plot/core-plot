@@ -1,9 +1,9 @@
 #import "CPTShadow.h"
 
+#import "_NSCoderExtensions.h"
 #import "CPTColor.h"
 #import "CPTDefinitions.h"
 #import "CPTMutableShadow.h"
-#import "NSCoderExtensions.h"
 
 /// @cond
 @interface CPTShadow()

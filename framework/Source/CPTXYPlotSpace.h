@@ -1,6 +1,14 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTPlotSpace.h>
+
+#import <CorePlot/CPTAnimation.h>
+#import <CorePlot/CPTDefinitions.h>
+#else
+#import "CPTPlotSpace.h"
+
 #import "CPTAnimation.h"
 #import "CPTDefinitions.h"
-#import "CPTPlotSpace.h"
+#endif
 
 @class CPTPlotRange;
 

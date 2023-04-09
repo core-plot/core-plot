@@ -1,13 +1,13 @@
 #import "CPTLineStyle.h"
 
+#import "_NSCoderExtensions.h"
+#import "_NSNumberExtensions.h"
 #import "CPTColor.h"
 #import "CPTFill.h"
 #import "CPTGradient.h"
 #import "CPTMutableLineStyle.h"
 #import "CPTPlatformSpecificFunctions.h"
 #import "CPTUtilities.h"
-#import "NSCoderExtensions.h"
-#import "NSNumberExtensions.h"
 
 /// @cond
 @interface CPTLineStyle()

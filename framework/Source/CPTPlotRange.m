@@ -1,8 +1,8 @@
 #import "CPTPlotRange.h"
 
+#import "_NSCoderExtensions.h"
 #import "CPTMutablePlotRange.h"
 #import "CPTUtilities.h"
-#import "NSCoderExtensions.h"
 
 /// @cond
 @interface CPTPlotRange()

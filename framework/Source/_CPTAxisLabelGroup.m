@@ -1,4 +1,4 @@
-#import "CPTAxisLabelGroup.h"
+#import "_CPTAxisLabelGroup.h"
 
 /**
  *  @brief A container layer for the axis labels.

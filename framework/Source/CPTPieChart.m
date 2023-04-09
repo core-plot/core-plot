@@ -1,5 +1,7 @@
 #import "CPTPieChart.h"
 
+#import "_NSCoderExtensions.h"
+#import "_NSNumberExtensions.h"
 #import "CPTColor.h"
 #import "CPTLegend.h"
 #import "CPTLineStyle.h"
@@ -9,8 +11,6 @@
 #import "CPTPlotSpace.h"
 #import "CPTPlotSpaceAnnotation.h"
 #import "CPTUtilities.h"
-#import "NSCoderExtensions.h"
-#import "NSNumberExtensions.h"
 #import <tgmath.h>
 
 /** @defgroup plotAnimationPieChart Pie Chart

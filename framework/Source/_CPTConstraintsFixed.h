@@ -1,4 +1,8 @@
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTConstraints.h>
+#else
 #import "CPTConstraints.h"
+#endif
 
 @interface _CPTConstraintsFixed : CPTConstraints
 

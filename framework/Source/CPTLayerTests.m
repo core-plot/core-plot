@@ -1,8 +1,8 @@
 #import "CPTLayerTests.h"
 
+#import "_NSNumberExtensions.h"
 #import "CPTLayer.h"
 #import "CPTUtilities.h"
-#import "NSNumberExtensions.h"
 
 static const CGFloat precision = CPTFloat(1.0e-6);
 

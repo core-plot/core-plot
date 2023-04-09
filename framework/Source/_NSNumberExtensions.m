@@ -1,4 +1,4 @@
-#import "NSNumberExtensions.h"
+#import "_NSNumberExtensions.h"
 
 @implementation NSNumber(CPTExtensions)
 

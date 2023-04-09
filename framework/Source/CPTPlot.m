@@ -1,5 +1,6 @@
 #import "CPTPlot.h"
 
+#import "_NSCoderExtensions.h"
 #import "CPTExceptions.h"
 #import "CPTFill.h"
 #import "CPTGraph.h"
@@ -15,7 +16,6 @@
 #import "CPTShadow.h"
 #import "CPTTextLayer.h"
 #import "CPTUtilities.h"
-#import "NSCoderExtensions.h"
 #import <tgmath.h>
 
 /** @defgroup plotAnimation Plots

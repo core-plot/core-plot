@@ -1,5 +1,6 @@
 #import "CPTXYAxis.h"
 
+#import "_NSCoderExtensions.h"
 #import "CPTConstraints.h"
 #import "CPTFill.h"
 #import "CPTLimitBand.h"
@@ -10,7 +11,6 @@
 #import "CPTPlotSpace.h"
 #import "CPTUtilities.h"
 #import "CPTXYPlotSpace.h"
-#import "NSCoderExtensions.h"
 #import <tgmath.h>
 
 /// @cond
