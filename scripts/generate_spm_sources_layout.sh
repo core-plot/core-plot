@@ -59,6 +59,7 @@ function generate_spm_private_sources() {
             -type f \
             -name "_*.[mh]" \
             -not -path "*/build/*" \
+            -not -path "framework/_CorePlot_Private.h" \
         | sed "s| \([^/]\)|:\1|g"
     )
 

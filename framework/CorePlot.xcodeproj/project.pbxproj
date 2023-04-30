@@ -697,6 +697,9 @@
 		C3D979BB13D2347400145DFF /* CPTFillTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D979BA13D2347300145DFF /* CPTFillTests.m */; };
 		C3DA34CC107AD7710051DA02 /* _CPTXYTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DA34CA107AD7710051DA02 /* _CPTXYTheme.m */; };
 		C3DA34CD107AD7710051DA02 /* _CPTXYTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = C3DA34CB107AD7710051DA02 /* _CPTXYTheme.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C3E31A9929EF7E4A00310131 /* _CorePlot_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = C3E31A9829EF7E4A00310131 /* _CorePlot_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C3E31A9A29EF7E4A00310131 /* _CorePlot_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = C3E31A9829EF7E4A00310131 /* _CorePlot_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C3E31A9B29EF7E4A00310131 /* _CorePlot_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = C3E31A9829EF7E4A00310131 /* _CorePlot_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C3EE4E6E1A6C15890098F4E6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07BF0D630F2B70B8002FCEA7 /* QuartzCore.framework */; };
 		C3EE4E981A6C1E890098F4E6 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3EE4E971A6C1E890098F4E6 /* Cocoa.framework */; };
 		C3EE4E9A1A6C1F770098F4E6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07BF0D630F2B70B8002FCEA7 /* QuartzCore.framework */; };
@@ -1041,6 +1044,7 @@
 		C3D979BA13D2347300145DFF /* CPTFillTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTFillTests.m; sourceTree = "<group>"; };
 		C3DA34CA107AD7710051DA02 /* _CPTXYTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = _CPTXYTheme.m; sourceTree = "<group>"; };
 		C3DA34CB107AD7710051DA02 /* _CPTXYTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CPTXYTheme.h; sourceTree = "<group>"; };
+		C3E31A9829EF7E4A00310131 /* _CorePlot_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CorePlot_Private.h; sourceTree = "<group>"; };
 		C3EE4E971A6C1E890098F4E6 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C3F244BF28DBCABB008DB9A1 /* CorePlot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CorePlot.h; sourceTree = "<group>"; };
 		C3F31DE71045EB470058520A /* _CPTPlotGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = _CPTPlotGroup.m; sourceTree = "<group>"; };
@@ -1462,6 +1466,7 @@
 			children = (
 				32DBCF5E0370ADEE00C91783 /* CorePlot_Prefix.pch */,
 				070CF7AE0F3CA7AB0001FFF4 /* CorePlot.h */,
+				C3E31A9829EF7E4A00310131 /* _CorePlot_Private.h */,
 				C3C9D08C1BB5A44800931F32 /* CorePlotDebug.xcconfig */,
 				C3B0E7B229CA7B3200FC94B5 /* CorePlotDebugModule.xcconfig */,
 				C3C9D08D1BB5A45B00931F32 /* CorePlotRelease.xcconfig */,
@@ -1829,6 +1834,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3E31A9929EF7E4A00310131 /* _CorePlot_Private.h in Headers */,
 				070CF7B00F3CA7AB0001FFF4 /* CorePlot.h in Headers */,
 				07BF0D720F2B718F002FCEA7 /* CPTGraph.h in Headers */,
 				07BF0D780F2B723A002FCEA7 /* CPTPlotAreaFrame.h in Headers */,
@@ -1992,6 +1998,7 @@
 				C37EA6661BC83F2A0091C8F7 /* _CPTXYTheme.h in Headers */,
 				C37EA6671BC83F2A0091C8F7 /* CPTLayerAnnotation.h in Headers */,
 				C37EA6681BC83F2A0091C8F7 /* _CPTAnimationCGFloatPeriod.h in Headers */,
+				C3E31A9B29EF7E4A00310131 /* _CorePlot_Private.h in Headers */,
 				C37EA6691BC83F2A0091C8F7 /* CPTAxisTitle.h in Headers */,
 				C37EA66A1BC83F2A0091C8F7 /* _CPTSlateTheme.h in Headers */,
 				C37EA66B1BC83F2A0091C8F7 /* CPTMutableNumericData.h in Headers */,
@@ -2095,6 +2102,7 @@
 				C38A0AFE1A46260B00D45436 /* _CPTXYTheme.h in Headers */,
 				C38A0A381A461ED000D45436 /* CPTLayerAnnotation.h in Headers */,
 				C38A0A1D1A461E6E00D45436 /* _CPTAnimationCGFloatPeriod.h in Headers */,
+				C3E31A9A29EF7E4A00310131 /* _CorePlot_Private.h in Headers */,
 				C38A0AF41A4625E800D45436 /* CPTAxisTitle.h in Headers */,
 				C38A0B021A46260B00D45436 /* _CPTSlateTheme.h in Headers */,
 				C3D414781A7D829100B6F5D6 /* CPTMutableNumericData.h in Headers */,
