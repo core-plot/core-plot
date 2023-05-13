@@ -192,7 +192,7 @@
  **/
 +(nonnull instancetype)periodWithStartDecimal:(NSDecimal)aStartDecimal endDecimal:(NSDecimal)anEndDecimal duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
-    NSDecimalNumber *start = NSDecimalIsNotANumber(&aStartDecimal) ? nil : [NSDecimalNumber decimalNumberWithDecimal:aStartDecimal];
+    NSDecimalNumber *start = NSDecimalIsNotANumber(&aStartDecimal) ? nil : [NSDecimalNumber decimalNumberWithDecimal : aStartDecimal];
 
     return [_CPTAnimationNSDecimalPeriod periodWithStartValue:start
                                                      endValue:[NSDecimalNumber decimalNumberWithDecimal:anEndDecimal]
@@ -383,7 +383,7 @@
  **/
 -(nonnull instancetype)initWithStartDecimal:(NSDecimal)aStartDecimal endDecimal:(NSDecimal)anEndDecimal duration:(CGFloat)aDuration withDelay:(CGFloat)aDelay
 {
-    NSDecimalNumber *start = NSDecimalIsNotANumber(&aStartDecimal) ? nil : [NSDecimalNumber decimalNumberWithDecimal:aStartDecimal];
+    NSDecimalNumber *start = NSDecimalIsNotANumber(&aStartDecimal) ? nil : [NSDecimalNumber decimalNumberWithDecimal : aStartDecimal];
 
     self = [[_CPTAnimationNSDecimalPeriod alloc] initWithStartValue:start
                                                            endValue:[NSDecimalNumber decimalNumberWithDecimal:anEndDecimal]
