@@ -38,6 +38,8 @@ typedef NSMutableArray<CPTFill *> CPTMutableFillArray;
 
 /** @category CPTFill(AbstractMethods)
  *  @brief CPTFill abstract methods—must be overridden by subclasses
+ *
+ *  @see CPTFill
  **/
 @interface CPTFill(AbstractMethods)
 

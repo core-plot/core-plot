@@ -33,6 +33,8 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
  *
  *  A plot space determines the mapping between data coordinates
  *  and device coordinates in the plot area.
+ *
+ *  @see CPTPlotSpace(AbstractMethods)
  **/
 @implementation CPTPlotSpace
 

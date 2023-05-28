@@ -19,6 +19,8 @@
 
 /** @category CPTLayer(CPTPlatformSpecificLayerExtensions)
  *  @brief Platform-specific extensions to CPTLayer.
+ *
+ *  @see CPTLayer
  **/
 @interface CPTLayer(CPTPlatformSpecificLayerExtensions)
 
@@ -33,6 +35,8 @@
 
 /** @category NSAttributedString(CPTPlatformSpecificAttributedStringExtensions)
  *  @brief NSAttributedString extensions for drawing styled text.
+ *
+ *  @see NSAttributedString
  **/
 @interface NSAttributedString(CPTPlatformSpecificAttributedStringExtensions)
 
@@ -56,6 +60,8 @@
 
 /** @category CPTLayer(CPTPlatformSpecificLayerExtensions)
  *  @brief Platform-specific extensions to CPTLayer.
+ *
+ *  @see CPTLayer
  **/
 @interface CPTLayer(CPTPlatformSpecificLayerExtensions)
 
@@ -70,6 +76,8 @@
 
 /** @category NSNumber(CPTPlatformSpecificNumberExtensions)
  *  @brief Platform-specific extensions to NSNumber.
+ *
+ *  @see NSNumber
  **/
 @interface NSNumber(CPTPlatformSpecificNumberExtensions)
 
@@ -84,6 +92,8 @@
 
 /** @category NSAttributedString(CPTPlatformSpecificAttributedStringExtensions)
  *  @brief NSAttributedString extensions for drawing styled text.
+ *
+ *  @see NSAttributedString
  **/
 @interface NSAttributedString(CPTPlatformSpecificAttributedStringExtensions)
 

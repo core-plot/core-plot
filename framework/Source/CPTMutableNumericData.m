@@ -21,6 +21,8 @@
  *  which can be more than one byte in size, is referred to as a @quote{sample}.
  *  The structure of this object is similar to the NumPy <code>ndarray</code>
  *  object.
+ *
+ *  @see CPTMutableNumericData(TypeConversion)
  **/
 @implementation CPTMutableNumericData
 

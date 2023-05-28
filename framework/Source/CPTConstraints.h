@@ -21,6 +21,8 @@
 
 /** @category CPTConstraints(AbstractMethods)
  *  @brief CPTConstraints abstract methods—must be overridden by subclasses
+ *
+ *  @see CPTConstraints
  **/
 @interface CPTConstraints(AbstractMethods)
 

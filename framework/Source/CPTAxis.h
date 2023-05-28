@@ -331,6 +331,8 @@ typedef NSMutableArray<__kindof CPTAxis *> CPTMutableAxisArray;
 
 /** @category CPTAxis(AbstractMethods)
  *  @brief CPTAxis abstract methods—must be overridden by subclasses
+ *
+ *  @see CPTAxis
  **/
 @interface CPTAxis(AbstractMethods)
 

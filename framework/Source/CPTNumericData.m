@@ -43,6 +43,8 @@
  *
  *  All integer and floating point types can be represented using big endian or little endian
  *  byte order. Complex and decimal types support only the the host system&rsquo;s native byte order.
+ *
+ *  @see CPTNumericData(TypeConversion)
  **/
 @implementation CPTNumericData
 

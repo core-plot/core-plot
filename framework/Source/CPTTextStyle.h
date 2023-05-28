@@ -43,6 +43,8 @@ typedef NSMutableArray<CPTTextStyle *> CPTMutableTextStyleArray;
 
 /** @category CPTTextStyle(CPTPlatformSpecificTextStyleExtensions)
  *  @brief Platform-specific extensions to CPTTextStyle.
+ *
+ *  @see CPTTextStyle
  **/
 @interface CPTTextStyle(CPTPlatformSpecificTextStyleExtensions)
 
@@ -59,6 +61,8 @@ typedef NSMutableArray<CPTTextStyle *> CPTMutableTextStyleArray;
 
 /** @category NSString(CPTTextStyleExtensions)
  *  @brief NSString extensions for drawing styled text.
+ *
+ *  @see NSString
  **/
 @interface NSString(CPTTextStyleExtensions)
 

@@ -98,6 +98,7 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
  *  @if MacOnly
  *  @see See @ref plotBindings "Plot Bindings" for a list of binding identifiers supported by each plot type.
  *  @endif
+ *  @see CPTPlot(AbstractMethods)
  **/
 @implementation CPTPlot
 

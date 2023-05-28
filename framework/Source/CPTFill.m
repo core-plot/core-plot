@@ -13,6 +13,8 @@
  *  CPTFill instances can be used to fill drawing areas with colors (including patterns),
  *  gradients, and images. Drawing methods are provided to fill rectangular areas and
  *  arbitrary drawing paths.
+ *
+ *  @see CPTFill(AbstractMethods)
  **/
 
 @implementation CPTFill

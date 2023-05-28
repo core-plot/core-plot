@@ -44,6 +44,8 @@ CPTImageSlices;
  *  @if iOSOnly UIImage, @endif
  *  and an @2x version of the image file is available, the image will be rendered correctly on
  *  Retina and non-Retina displays.
+ *
+ *  @see CPTImage(CPTPlatformSpecificImageExtensions)
  **/
 
 @implementation CPTImage

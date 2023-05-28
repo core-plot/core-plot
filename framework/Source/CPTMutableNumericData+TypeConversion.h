@@ -8,6 +8,8 @@
 
 /** @category CPTMutableNumericData(TypeConversion)
  *  @brief Type conversion methods for CPTMutableNumericData.
+ *
+ *  @see CPTMutableNumericData
  **/
 @interface CPTMutableNumericData(TypeConversion)
 

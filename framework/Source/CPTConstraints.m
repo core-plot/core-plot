@@ -8,6 +8,8 @@
 /** @brief Implements a one-dimensional constrained position within a given numeric range.
  *
  *  Supports fixed distance from either end of the range and a proportional fraction of the range.
+ *
+ *  @see CPTConstraints(AbstractMethods)
  **/
 @implementation CPTConstraints
 

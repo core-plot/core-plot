@@ -3,6 +3,8 @@
 
 /** @category NSNumber(CPTExtensions)
  *  @brief Core Plot extensions to NSNumber.
+ *
+ *  @see NSNumber
  **/
 @interface NSNumber(CPTExtensions)
 

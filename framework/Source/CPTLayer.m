@@ -50,6 +50,8 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
  *  bounds, minus any padding. Default animations for changes in position, bounds,
  *  and sublayers are turned off. The default layer is not opaque and does not mask
  *  to bounds.
+ *
+ *  @see CPTLayer(CPTPlatformSpecificLayerExtensions)
  **/
 @implementation CPTLayer
 

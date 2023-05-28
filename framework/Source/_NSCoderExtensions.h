@@ -3,6 +3,8 @@
 
 /** @category NSCoder(CPTExtensions)
  *  @brief Core Plot extensions to NSCoder.
+ *
+ *  @see NSCoder
  **/
 @interface NSCoder(CPTExtensions)
 

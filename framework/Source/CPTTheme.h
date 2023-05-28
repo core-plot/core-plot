@@ -43,6 +43,8 @@ extern CPTThemeName __nonnull const kCPTStocksTheme;       ///< A graph theme wi
 
 /** @category CPTTheme(AbstractMethods)
  *  @brief CPTTheme abstract methods—must be overridden by subclasses
+ *
+ *  @see CPTTheme
  **/
 @interface CPTTheme(AbstractMethods)
 

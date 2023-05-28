@@ -388,6 +388,8 @@ typedef NSMutableArray<__kindof CPTPlot *> CPTMutablePlotArray;
 
 /** @category CPTPlot(AbstractMethods)
  *  @brief CPTPlot abstract methods—must be overridden by subclasses
+ *
+ *  @see CPTPlot
  **/
 @interface CPTPlot(AbstractMethods)
 

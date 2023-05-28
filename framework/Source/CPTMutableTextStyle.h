@@ -16,3 +16,12 @@
 @property (readwrite, assign, nonatomic) NSLineBreakMode lineBreakMode;
 
 @end
+
+/** @category CPTMutableTextStyle(CPTPlatformSpecificMutableTextStyleExtensions)
+ *  @brief Platform-specific extensions to CPTMutableTextStyle
+ *
+ *  @see CPTMutableTextStyle
+ **/
+@interface CPTMutableTextStyle(CPTPlatformSpecificMutableTextStyleExtensions)
+
+@end

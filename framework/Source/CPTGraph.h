@@ -155,6 +155,8 @@ typedef NS_ENUM (NSInteger, CPTGraphLayerType) {
 
 /** @category CPTGraph(AbstractFactoryMethods)
  *  @brief CPTGraph abstract methods—must be overridden by subclasses
+ *
+ *  @see CPTGraph
  **/
 @interface CPTGraph(AbstractFactoryMethods)
 

@@ -216,6 +216,8 @@ typedef NSMutableArray<__kindof CPTPlotSpace *> CPTMutablePlotSpaceArray;
 
 /** @category CPTPlotSpace(AbstractMethods)
  *  @brief CPTPlotSpace abstract methods—must be overridden by subclasses
+ *
+ *  @see CPTPlotSpace
  **/
 @interface CPTPlotSpace(AbstractMethods)
 

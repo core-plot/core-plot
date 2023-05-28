@@ -39,6 +39,8 @@ NSArray * ClassGetSubclasses(Class parentClass);
  *  Using a theme to format the graph does not prevent any of the style properties
  *  from being changed later. Therefore, it is possible to apply initial formatting to
  *  a graph using a theme and then customize the styles to suit the application later.
+ *
+ *  @see CPTTheme(AbstractMethods)
  **/
 @implementation CPTTheme
 

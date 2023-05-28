@@ -2,6 +2,8 @@
 
 /** @category NSDecimalNumber(CPTExtensions)
  *  @brief Core Plot extensions to NSDecimalNumber.
+ *
+ *  @see NSDecimalNumber
  **/
 @interface NSDecimalNumber(CPTExtensions)
 

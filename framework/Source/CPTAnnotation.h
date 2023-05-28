@@ -40,6 +40,8 @@ typedef NSMutableArray<__kindof CPTAnnotation *> CPTMutableAnnotationArray;
 
 /** @category CPTAnnotation(AbstractMethods)
  *  @brief CPTAnnotation abstract methods—must be overridden by subclasses.
+ *
+ *  @see CPTAnnotation
  **/
 @interface CPTAnnotation(AbstractMethods)
 

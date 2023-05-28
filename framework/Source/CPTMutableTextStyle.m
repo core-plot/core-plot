@@ -3,6 +3,8 @@
 /** @brief Mutable wrapper for text style properties.
  *
  *  Use this whenever you need to customize the properties of a text style.
+ *
+ *  @see CPTMutableTextStyle(CPTPlatformSpecificMutableTextStyleExtensions)
  **/
 
 @implementation CPTMutableTextStyle
