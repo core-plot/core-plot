@@ -5,11 +5,43 @@
 #ifdef __OBJC__
     #import <TargetConditionals.h>
 
-    #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_MACCATALYST
+    #if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE || TARGET_OS_TV || TARGET_OS_MACCATALYST
         #import <Foundation/Foundation.h>
         #import <UIKit/UIKit.h>
+
+        #ifndef __IPHONE_3_0
+        #define __IPHONE_3_0 30000
+        #endif
+
+        #ifndef __IPHONE_4_0
+        #define __IPHONE_4_0 40000
+        #endif
+
+        #ifndef __IPHONE_5_0
+        #define __IPHONE_5_0 50000
+        #endif
+
+        #ifndef __IPHONE_7_0
+        #define __IPHONE_7_0 70000
+        #endif
+
+        #ifndef __IPHONE_10_0
+        #define __IPHONE_10_0 100000
+        #endif
+
+        #ifndef __IPHONE_12_0
+        #define __IPHONE_12_0 120000
+        #endif
+
+        #ifndef __IPHONE_13_0
+        #define __IPHONE_13_0 130000
+        #endif
     #else
         #import <Cocoa/Cocoa.h>
+
+        #ifndef MAC_OS_X_VERSION_10_5
+        #define MAC_OS_X_VERSION_10_5 1050
+        #endif
 
         #ifndef MAC_OS_X_VERSION_10_6
         #define MAC_OS_X_VERSION_10_6 1060
@@ -21,6 +53,14 @@
 
         #ifndef MAC_OS_X_VERSION_10_8
         #define MAC_OS_X_VERSION_10_8 1080
+        #endif
+
+        #ifndef MAC_OS_X_VERSION_10_12
+        #define MAC_OS_X_VERSION_10_12 101200
+        #endif
+
+        #ifndef MAC_OS_X_VERSION_10_15
+        #define MAC_OS_X_VERSION_10_15 101500
         #endif
     #endif
 #endif

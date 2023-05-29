@@ -12,7 +12,7 @@
 /**
  *  @brief Enumeration of paragraph alignments.
  **/
-#if (MAC_OS_X_VERSION_MAX_ALLOWED >= 101200)
+#if (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_12)
 typedef NS_ENUM (NSInteger, CPTTextAlignment) {
     CPTTextAlignmentLeft      = NSTextAlignmentLeft,      ///< Left alignment.
     CPTTextAlignmentCenter    = NSTextAlignmentCenter,    ///< Center alignment.
