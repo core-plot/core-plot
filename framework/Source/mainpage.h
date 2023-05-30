@@ -22,7 +22,7 @@
  *  - <a href="https://github.com/core-plot/core-plot/blob/master/documentation/changelog.markdown">Change log</a>
  *  - <a href="https://core-plot.github.io/MacOS/index.html">API documentation</a> for Mac
  *  - <a href="https://core-plot.github.io/iOS/index.html">API documentation</a> for iOS
- *  - API documentation built with <a href="http://www.doxygen.org/">Doxygen</a> and installed locally in Xcode
+ *  - API documentation built with <a href="https://www.doxygen.nl/">Doxygen</a> and installed locally in Xcode
  *  (see the <a href="https://github.com/core-plot/core-plot/blob/master/READMEs/README%20for%20Docs%20Install.md">instructions</a>
  *  in the <strong>READMEs</strong> folder for details)
  *  - <a href="https://github.com/core-plot/core-plot/wiki">Project Wiki</a> on GitHub

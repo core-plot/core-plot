@@ -19,7 +19,7 @@ Documentation of the Core Plot API and high-level architecture can be found in t
   * [Change log](https://github.com/core-plot/core-plot/blob/master/documentation/changelog.markdown)
   * [API documentation](https://core-plot.github.io/MacOS/index.html) for Mac
   * [API documentation](https://core-plot.github.io/iOS/index.html) for iOS and tvOS
-  * API documentation built with [Doxygen](http://www.doxygen.org/) and installed locally in Xcode (see the  [instructions](https://github.com/core-plot/core-plot/blob/master/READMEs/README%20for%20Docs%20Install.md) in the **READMEs** folder for details)
+  * API documentation built with [Doxygen](https://www.doxygen.nl/) and installed locally in Xcode (see the  [instructions](https://github.com/core-plot/core-plot/blob/master/READMEs/README%20for%20Docs%20Install.md) in the **READMEs** folder for details)
   * [Project Wiki](https://github.com/core-plot/core-plot/wiki) on GitHub
   * [Documentation](https://github.com/core-plot/core-plot/tree/master/documentation) folder in the code repository
 
