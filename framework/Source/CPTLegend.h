@@ -1,3 +1,5 @@
+/// @file
+
 #ifdef CPT_IS_FRAMEWORK
 #import <CorePlot/CPTBorderedLayer.h>
 #import <CorePlot/CPTPlot.h>
@@ -5,8 +7,6 @@
 #import "CPTBorderedLayer.h"
 #import "CPTPlot.h"
 #endif
-
-/// @file
 
 @class CPTFill;
 @class CPTLegend;

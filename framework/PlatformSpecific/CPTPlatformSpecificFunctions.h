@@ -1,3 +1,5 @@
+/// @file
+
 #ifdef CPT_IS_FRAMEWORK
 #import <CorePlot/CPTDefinitions.h>
 #import <CorePlot/CPTPlatformSpecificDefines.h>
@@ -12,8 +14,6 @@
 
 #pragma mark macOS
 #pragma mark -
-
-/// @file
 
 #ifdef __cplusplus
 #if __cplusplus
@@ -51,8 +51,6 @@ CPTNativeImage *__nonnull CPTQuickLookImage(CGRect rect, __nonnull CPTQuickLookI
 
 #pragma mark - iOS, tvOS, Mac Catalyst
 #pragma mark -
-
-/// @file
 
 #ifdef __cplusplus
 #if __cplusplus

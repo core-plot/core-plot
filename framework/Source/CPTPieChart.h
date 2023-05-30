@@ -1,3 +1,5 @@
+/// @file
+
 #ifdef CPT_IS_FRAMEWORK
 #import <CorePlot/CPTDefinitions.h>
 #import <CorePlot/CPTFill.h>
@@ -7,8 +9,6 @@
 #import "CPTFill.h"
 #import "CPTPlot.h"
 #endif
-
-/// @file
 
 @class CPTColor;
 @class CPTPieChart;

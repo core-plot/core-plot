@@ -1,6 +1,6 @@
-#import <Foundation/Foundation.h>
-
 /// @file
+
+#import <Foundation/Foundation.h>
 
 /**
  *  @brief Enumeration of data formats for numeric data.

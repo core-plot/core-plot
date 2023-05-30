@@ -1,4 +1,6 @@
 // Abstract class
+/// @file
+
 #ifdef CPT_IS_FRAMEWORK
 #import <CorePlot/CPTBorderedLayer.h>
 #import <CorePlot/CPTDefinitions.h>
@@ -10,8 +12,6 @@
 #import "CPTPlot.h"
 #import "CPTPlotSpace.h"
 #endif
-
-/// @file
 
 @class CPTAxisSet;
 @class CPTGraphHostingView;

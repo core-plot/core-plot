@@ -1,6 +1,6 @@
-#import <Foundation/Foundation.h>
-
 /// @file
+
+#import <Foundation/Foundation.h>
 
 @class CPTFill;
 @class CPTLimitBand;

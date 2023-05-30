@@ -1,3 +1,5 @@
+/// @file
+
 #ifdef CPT_IS_FRAMEWORK
 #import <CorePlot/CPTMutableNumericData.h>
 #import <CorePlot/CPTNumericDataType.h>

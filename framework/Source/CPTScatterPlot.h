@@ -1,3 +1,5 @@
+/// @file
+
 #ifdef CPT_IS_FRAMEWORK
 #import <CorePlot/CPTDefinitions.h>
 #import <CorePlot/CPTLimitBand.h>
@@ -9,8 +11,6 @@
 #import "CPTPlot.h"
 #import "CPTPlotSymbol.h"
 #endif
-
-/// @file
 
 @class CPTLineStyle;
 @class CPTScatterPlot;

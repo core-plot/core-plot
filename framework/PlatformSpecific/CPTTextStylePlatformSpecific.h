@@ -37,8 +37,6 @@ typedef NS_ENUM (NSInteger, CPTTextAlignment) {
 
 #import <UIKit/UIKit.h>
 
-/// @file
-
 /**
  *  @brief Enumeration of paragraph alignments.
  **/

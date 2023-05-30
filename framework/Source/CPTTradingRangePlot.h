@@ -1,3 +1,5 @@
+/// @file
+
 #ifdef CPT_IS_FRAMEWORK
 #import <CorePlot/CPTDefinitions.h>
 #import <CorePlot/CPTFill.h>
@@ -9,8 +11,6 @@
 #import "CPTLineStyle.h"
 #import "CPTPlot.h"
 #endif
-
-/// @file
 
 @class CPTTradingRangePlot;
 

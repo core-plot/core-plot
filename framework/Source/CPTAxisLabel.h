@@ -1,10 +1,10 @@
+/// @file
+
 #ifdef CPT_IS_FRAMEWORK
 #import <CorePlot/CPTDefinitions.h>
 #else
 #import "CPTDefinitions.h"
 #endif
-
-/// @file
 
 @class CPTAxisLabel;
 @class CPTLayer;

@@ -1,7 +1,7 @@
+/// @file
+
 #import <CoreGraphics/CoreGraphics.h>
 #import <Foundation/Foundation.h>
-
-/// @file
 
 @class CPTLineStyle;
 @class CPTFill;

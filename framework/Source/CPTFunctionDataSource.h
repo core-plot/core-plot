@@ -1,3 +1,5 @@
+/// @file
+
 #ifdef CPT_IS_FRAMEWORK
 #import <CorePlot/CPTPlot.h>
 #else
@@ -5,8 +7,6 @@
 #endif
 
 @class CPTPlotRange;
-
-/// @file
 
 /**
  *  @brief A function called to generate plot data in a CPTFunctionDataSource datasource.

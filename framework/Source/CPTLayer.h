@@ -1,3 +1,5 @@
+/// @file
+
 #ifdef CPT_IS_FRAMEWORK
 #import <CorePlot/CPTDefinitions.h>
 #import <CorePlot/CPTResponder.h>
@@ -7,8 +9,6 @@
 #endif
 
 #import <QuartzCore/QuartzCore.h>
-
-/// @file
 
 @class CPTGraph;
 @class CPTLayer;

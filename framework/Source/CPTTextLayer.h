@@ -1,3 +1,5 @@
+/// @file
+
 #ifdef CPT_IS_FRAMEWORK
 #import <CorePlot/CPTBorderedLayer.h>
 #import <CorePlot/CPTTextStyle.h>
@@ -5,8 +7,6 @@
 #import "CPTBorderedLayer.h"
 #import "CPTTextStyle.h"
 #endif
-
-/// @file
 
 extern const CGFloat kCPTTextLayerMarginWidth; ///< Margin width around the text.
 

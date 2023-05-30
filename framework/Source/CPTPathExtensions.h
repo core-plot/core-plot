@@ -1,5 +1,6 @@
-#import <CoreGraphics/CoreGraphics.h>
 /// @file
+
+#import <CoreGraphics/CoreGraphics.h>
 
 #ifdef __cplusplus
 #if __cplusplus

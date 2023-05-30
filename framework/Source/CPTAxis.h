@@ -1,3 +1,5 @@
+/// @file
+
 #ifdef CPT_IS_FRAMEWORK
 #import <CorePlot/CPTAxisLabel.h>
 #import <CorePlot/CPTDefinitions.h>
@@ -15,8 +17,6 @@
 #import "CPTPlotRange.h"
 #import "CPTTextStyle.h"
 #endif
-
-/// @file
 
 @class CPTAxis;
 @class CPTAxisSet;

@@ -1,3 +1,5 @@
+/// @file
+
 #import <Availability.h>
 #import <TargetConditionals.h>
 
@@ -6,8 +8,6 @@
 #else
 #import <Cocoa/Cocoa.h>
 #endif
-
-/// @file
 
 #pragma mark -
 #pragma mark Memory management

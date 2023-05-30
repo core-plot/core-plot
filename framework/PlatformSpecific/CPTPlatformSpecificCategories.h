@@ -1,3 +1,5 @@
+/// @file
+
 #import <TargetConditionals.h>
 
 #ifdef CPT_IS_FRAMEWORK
