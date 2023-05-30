@@ -4,7 +4,7 @@
 #import "CPTFill.h"
 #endif
 
-@interface _CPTFillColor : CPTFill<NSCopying, NSCoding, NSSecureCoding>
+@interface _CPTFillColor : CPTFill
 
 /// @name Initialization
 /// @{

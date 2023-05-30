@@ -6,7 +6,7 @@
 
 @class CPTGradient;
 
-@interface _CPTFillGradient : CPTFill<NSCopying, NSCoding, NSSecureCoding>
+@interface _CPTFillGradient : CPTFill
 
 /// @name Initialization
 /// @{
