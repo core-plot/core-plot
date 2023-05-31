@@ -943,6 +943,7 @@
 		C34AFE6A11021D010041675A /* CPTPlotSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CPTPlotSymbol.m; sourceTree = "<group>"; };
 		C34BF5BA10A67633007F0894 /* CPTPlotArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPlotArea.h; sourceTree = "<group>"; };
 		C34BF5BB10A67633007F0894 /* CPTPlotArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CPTPlotArea.m; sourceTree = "<group>"; };
+		C34C19D72A2803060009BDDA /* generate_core_plot_docs.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = generate_core_plot_docs.sh; sourceTree = "<group>"; };
 		C34F570D19D8CE5500446248 /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = xcconfig/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
 		C3564CBD22A2D0E1000A54C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C36468A80FE5533F0064B186 /* CPTTextStyleTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTTextStyleTests.h; sourceTree = "<group>"; };
@@ -1767,6 +1768,7 @@
 			children = (
 				C3D0F67729C6053E00190D2C /* createrelease.py */,
 				C3D0F67829C6055700190D2C /* prefixer.py */,
+				C34C19D72A2803060009BDDA /* generate_core_plot_docs.sh */,
 				C3D0F67529C6053E00190D2C /* generate_spm_sources_layout.sh */,
 				C3D0F67629C6053E00190D2C /* format_core_plot.sh */,
 				C3D0F67929C6087100190D2C /* uncrustify.cfg */,
@@ -2370,7 +2372,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#  Build the doxygen documentation for the project and load the docset into Xcode.\n\n#  Use the following to adjust the value of the $DOXYGEN_PATH User-Defined Setting:\n#    Binary install location: /Applications/Doxygen.app/Contents/Resources/doxygen\n#    Source build install location: /usr/local/bin/doxygen\n\n#  Graphical class diagrams require Graphviz.\n#  Graphviz.app is available free online\n# http://www.graphviz.org/Download_macos.php\n\n#  If the config file doesn't exist, run 'doxygen -g \"${SOURCE_ROOT}/../documentation/doxygen/doxygen.config\"' to \n#   a get default file.\n\nDOXYGEN_FOLDER=\"${SOURCE_ROOT}/../documentation/doxygen\"\n\nif ! [ -f \"${DOXYGEN_FOLDER}/doxygen.config\" ] \nthen \n  echo doxygen config file does not exist\n  ${DOXYGEN_PATH} -g \"${DOXYGEN_FOLDER}/doxygen.config\"\nfi\n\n#  Run doxygen on the updated config file.\n#  Note: doxygen creates a Makefile that does most of the heavy lifting.\n${DOXYGEN_PATH} \"${DOXYGEN_FOLDER}/doxygen.config\"\n\n#  make a copy of the html docs\nDOCS_FOLDER=\"${SOURCE_ROOT}/../documentation/html/MacOS\"\nmkdir -p \"${DOCS_FOLDER}\"\ncp -R \"${SOURCE_ROOT}/CorePlotDocs.docset/html/\" \"${DOCS_FOLDER}\"\nrm -Rf \"${SOURCE_ROOT}/CorePlotDocs.docset\"\nrm -f \"${DOCS_FOLDER}/Info.plist\"\nrm -f \"${DOCS_FOLDER}/Makefile\"\nrm -f \"${DOCS_FOLDER}/Nodes.xml\"\nrm -f \"${DOCS_FOLDER}/Tokens.xml\"\n\n# Fix capitalization for GitHub pages\ncd \"${DOCS_FOLDER}\"\nls _*.* | while read a; do n=$(echo $a | sed -e 's/^_//'); mv \"$a\" \"$n\"; done\nls *.html | xargs sed -i '' 's/\\\"_/\\\"/g'\nls *.js | xargs sed -i '' 's/\\\"_/\\\"/g'\nls *.map | xargs sed -i '' 's/\\\"$_/\\\"$/g'\n\nexit 0\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${SOURCE_ROOT}/../scripts/generate_core_plot_docs.sh\" doxygen macOS CorePlotDocs\n";
 		};
 		C36BE54626FF6865004287F2 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2402,7 +2404,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#  Build the doxygen documentation for the project and load the docset into Xcode.\n\n#  Use the following to adjust the value of the $DOXYGEN_PATH User-Defined Setting:\n#    Binary install location: /Applications/Doxygen.app/Contents/Resources/doxygen\n#    Source build install location: /usr/local/bin/doxygen\n\n#  Graphical class diagrams require Graphviz.\n#  Graphviz.app is available free online\n# http://www.graphviz.org/Download_macos.php\n\n#  If the config file doesn't exist, run 'doxygen -g \"${SOURCE_ROOT}/../documentation/doxygen/doxygen touch.config\"' to\n#   a get default file.\n\nDOXYGEN_FOLDER=\"${SOURCE_ROOT}/../documentation/doxygen\"\n\nif ! [ -f \"${DOXYGEN_FOLDER}/doxygen.config\" ]\nthen\necho doxygen config file does not exist\n${DOXYGEN_PATH} -g \"${DOXYGEN_FOLDER}/doxygen.config\"\nfi\n\n#  Run doxygen on the updated config file.\n#  Note: doxygen creates a Makefile that does most of the heavy lifting.\n${DOXYGEN_PATH} \"${SOURCE_ROOT}/../documentation/doxygen/doxygen touch.config\"\n\n#  make a copy of the html docs\nDOCS_FOLDER=\"${SOURCE_ROOT}/../documentation/html/iOS\"\nmkdir -p \"${DOCS_FOLDER}\"\ncp -R \"${SOURCE_ROOT}/CorePlotTouchDocs.docset/html/\" \"${DOCS_FOLDER}\"\nrm -Rf \"${SOURCE_ROOT}/CorePlotTouchDocs.docset\"\nrm -f \"${DOCS_FOLDER}/Info.plist\"\nrm -f \"${DOCS_FOLDER}/Makefile\"\nrm -f \"${DOCS_FOLDER}/Nodes.xml\"\nrm -f \"${DOCS_FOLDER}/Tokens.xml\"\n\n# Fix capitalization for GitHub pages\ncd \"${DOCS_FOLDER}\"\nls _*.* | while read a; do n=$(echo $a | sed -e 's/^_//'); mv \"$a\" \"$n\"; done\nls *.html | xargs sed -i '' 's/\\\"_/\\\"/g'\nls *.js | xargs sed -i '' 's/\\\"_/\\\"/g'\nls *.map | xargs sed -i '' 's/\\\"$_/\\\"$/g'\n\nexit 0\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${SOURCE_ROOT}/../scripts/generate_core_plot_docs.sh\" \"doxygen touch\" iOS CorePlotTouchDocs\n";
 		};
 		C3AC175C244B594800E7380C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
