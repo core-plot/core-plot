@@ -47,11 +47,6 @@
 
 #pragma mark -
 
-/** @category CPTAnimationPeriod(AbstractMethods)
- *  @brief CPTAnimationPeriod abstract methods—must be overridden by subclasses
- *
- *  @see CPTAnimationPeriod
- **/
 @interface CPTAnimationPeriod(AbstractMethods)
 
 /// @name Initialization
@@ -73,11 +68,6 @@
 
 #pragma mark -
 
-/** @category CPTAnimation(CPTAnimationPeriodAdditions)
- *  @brief CPTAnimationPeriod convenience methods added to CPTAnimation.
- *
- *  @see CPTAnimation
- **/
 @interface CPTAnimation(CPTAnimationPeriodAdditions)
 
 /// @name CGFloat Property Animation

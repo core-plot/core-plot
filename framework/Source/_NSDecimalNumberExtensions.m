@@ -1,5 +1,10 @@
 #import "_NSDecimalNumberExtensions.h"
 
+/**
+ *  @brief Core Plot extensions to NSDecimalNumber.
+ *
+ *  @see NSDecimalNumber
+ **/
 @implementation NSDecimalNumber(CPTExtensions)
 
 /** @brief Returns the value of the receiver as an NSDecimalNumber.

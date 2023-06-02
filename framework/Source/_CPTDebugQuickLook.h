@@ -17,7 +17,7 @@
 
 #pragma mark -
 
-/** @category NSObject(CPTDebugQuickLookExtension)
+/**
  *  @brief Debugging extensions to NSObject.
  *
  *  @see NSObject

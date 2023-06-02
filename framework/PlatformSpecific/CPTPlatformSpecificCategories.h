@@ -19,11 +19,6 @@
 
 #pragma mark CPTLayer
 
-/** @category CPTLayer(CPTPlatformSpecificLayerExtensions)
- *  @brief Platform-specific extensions to CPTLayer.
- *
- *  @see CPTLayer
- **/
 @interface CPTLayer(CPTPlatformSpecificLayerExtensions)
 
 /// @name Images
@@ -35,11 +30,6 @@
 
 #pragma mark - NSAttributedString
 
-/** @category NSAttributedString(CPTPlatformSpecificAttributedStringExtensions)
- *  @brief NSAttributedString extensions for drawing styled text.
- *
- *  @see NSAttributedString
- **/
 @interface NSAttributedString(CPTPlatformSpecificAttributedStringExtensions)
 
 /// @name Drawing
@@ -60,11 +50,6 @@
 
 #pragma mark - CPTLayer
 
-/** @category CPTLayer(CPTPlatformSpecificLayerExtensions)
- *  @brief Platform-specific extensions to CPTLayer.
- *
- *  @see CPTLayer
- **/
 @interface CPTLayer(CPTPlatformSpecificLayerExtensions)
 
 /// @name Images
@@ -76,11 +61,6 @@
 
 #pragma mark - NSNumber
 
-/** @category NSNumber(CPTPlatformSpecificNumberExtensions)
- *  @brief Platform-specific extensions to NSNumber.
- *
- *  @see NSNumber
- **/
 @interface NSNumber(CPTPlatformSpecificNumberExtensions)
 
 -(BOOL)isLessThan:(nonnull NSNumber *)other;
@@ -92,11 +72,6 @@
 
 #pragma mark - NSAttributedString
 
-/** @category NSAttributedString(CPTPlatformSpecificAttributedStringExtensions)
- *  @brief NSAttributedString extensions for drawing styled text.
- *
- *  @see NSAttributedString
- **/
 @interface NSAttributedString(CPTPlatformSpecificAttributedStringExtensions)
 
 /// @name Drawing

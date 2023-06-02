@@ -2249,6 +2249,11 @@ CPTPlotBinding const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data la
 
 #pragma mark -
 
+/**
+ *  @brief CPTPlot abstract methods—must be overridden by subclasses
+ *
+ *  @see CPTPlot
+ **/
 @implementation CPTPlot(AbstractMethods)
 
 #pragma mark -

@@ -3267,6 +3267,11 @@ NSDecimal CPTNiceLength(NSDecimal length)
 
 #pragma mark -
 
+/**
+ *  @brief CPTAxis abstract methods—must be overridden by subclasses
+ *
+ *  @see CPTAxis
+ **/
 @implementation CPTAxis(AbstractMethods)
 
 /** @brief Converts a position on the axis to drawing coordinates.

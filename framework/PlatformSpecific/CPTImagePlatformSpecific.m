@@ -6,6 +6,11 @@
 #pragma mark macOS
 #pragma mark -
 
+/**
+ *  @brief Platform-specific extensions to CPTImage.
+ *
+ *  @see CPTImage
+ **/
 @implementation CPTImage(CPTPlatformSpecificImageExtensions)
 
 #pragma mark -
@@ -78,6 +83,11 @@
 
 #import "CPTUtilities.h"
 
+/**
+ *  @brief Platform-specific extensions to CPTImage.
+ *
+ *  @see CPTImage
+ **/
 @implementation CPTImage(CPTPlatformSpecificImageExtensions)
 
 #pragma mark -

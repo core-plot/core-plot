@@ -148,6 +148,11 @@
 
 #pragma mark -
 
+/**
+ *  @brief CPTConstraints abstract methods—must be overridden by subclasses
+ *
+ *  @see CPTConstraints
+ **/
 @implementation CPTConstraints(AbstractMethods)
 
 #pragma mark -

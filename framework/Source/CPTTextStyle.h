@@ -43,11 +43,6 @@ typedef NSMutableArray<CPTTextStyle *> CPTMutableTextStyleArray;
 
 #pragma mark -
 
-/** @category CPTTextStyle(CPTPlatformSpecificTextStyleExtensions)
- *  @brief Platform-specific extensions to CPTTextStyle.
- *
- *  @see CPTTextStyle
- **/
 @interface CPTTextStyle(CPTPlatformSpecificTextStyleExtensions)
 
 @property (readonly, nonatomic, nonnull) CPTDictionary *attributes;
@@ -61,11 +56,6 @@ typedef NSMutableArray<CPTTextStyle *> CPTMutableTextStyleArray;
 
 #pragma mark -
 
-/** @category NSString(CPTTextStyleExtensions)
- *  @brief NSString extensions for drawing styled text.
- *
- *  @see NSString
- **/
 @interface NSString(CPTTextStyleExtensions)
 
 /// @name Measurement

@@ -1,5 +1,10 @@
 #import "_NSNumberExtensions.h"
 
+/**
+ *  @brief Core Plot extensions to NSNumber.
+ *
+ *  @see NSNumber
+ **/
 @implementation NSNumber(CPTExtensions)
 
 /** @brief Creates and returns an NSNumber object containing a given value, treating it as a @ref CGFloat.

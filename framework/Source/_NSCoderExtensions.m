@@ -7,6 +7,11 @@ void CPTPathApplierFunc(void *info, const CGPathElement *element);
 
 #pragma mark -
 
+/**
+ *  @brief Core Plot extensions to NSCoder.
+ *
+ *  @see NSCoder
+ **/
 @implementation NSCoder(CPTExtensions)
 
 #pragma mark -

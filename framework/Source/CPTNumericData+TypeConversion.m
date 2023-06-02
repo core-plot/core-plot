@@ -3,6 +3,11 @@
 #import "complex.h"
 #import "CPTUtilities.h"
 
+/**
+ *  @brief Type conversion methods for CPTNumericData.
+ *
+ *  @see CPTNumericData
+ **/
 @implementation CPTNumericData(TypeConversion)
 
 /** @brief Copies the current numeric data and converts the data to a new data type.

@@ -9,6 +9,11 @@
 #pragma mark macOS
 #pragma mark -
 
+/**
+ *  @brief Platform-specific extensions to CPTTextStyle.
+ *
+ *  @see CPTTextStyle
+ **/
 @implementation CPTTextStyle(CPTPlatformSpecificTextStyleExtensions)
 
 /** @property nonnull CPTDictionary *attributes
@@ -133,6 +138,11 @@
 
 #pragma mark -
 
+/**
+ *  @brief Platform-specific extensions to CPTMutableTextStyle
+ *
+ *  @see CPTMutableTextStyle
+ **/
 @implementation CPTMutableTextStyle(CPTPlatformSpecificMutableTextStyleExtensions)
 
 /** @brief Creates and returns a new CPTMutableTextStyle instance initialized from a dictionary of text attributes.
@@ -200,6 +210,11 @@
 
 #pragma mark -
 
+/**
+ *  @brief NSString extensions for drawing styled text.
+ *
+ *  @see NSString
+ **/
 @implementation NSString(CPTTextStyleExtensions)
 
 #pragma mark -
@@ -289,6 +304,11 @@
 #import "CPTColor.h"
 #import <tgmath.h>
 
+/**
+ *  @brief Platform-specific extensions to CPTTextStyle.
+ *
+ *  @see CPTTextStyle
+ **/
 @implementation CPTTextStyle(CPTPlatformSpecificTextStyleExtensions)
 
 /** @property nonnull CPTDictionary *attributes
@@ -396,6 +416,11 @@
 
 #pragma mark -
 
+/**
+ *  @brief Platform-specific extensions to CPTMutableTextStyle
+ *
+ *  @see CPTMutableTextStyle
+ **/
 @implementation CPTMutableTextStyle(CPTPlatformSpecificMutableTextStyleExtensions)
 
 /** @brief Creates and returns a new CPTMutableTextStyle instance initialized from a dictionary of text attributes.
@@ -445,6 +470,12 @@
 @end
 
 #pragma mark -
+
+/**
+ *  @brief NSString extensions for drawing styled text.
+ *
+ *  @see NSString
+ **/
 
 @implementation NSString(CPTTextStyleExtensions)
 

@@ -453,7 +453,28 @@
 /// @endcond
 
 #pragma mark -
+#pragma mark Description
+
+/// @cond
+
+-(nullable NSString *)description
+{
+    return [NSString stringWithFormat:@"<%@ from: %@; to: %@; duration: %g, delay: %g>", super.description, self.startValue, self.endValue, (double)self.duration, (double)self.delay];
+}
+
+/// @endcond
+
+@end
+
+#pragma mark -
 #pragma mark Abstract Methods
+
+/**
+ *  @brief CPTAnimationPeriod abstract methods—must be overridden by subclasses
+ *
+ *  @see CPTAnimationPeriod
+ **/
+@implementation CPTAnimationPeriod(AbstractMethods)
 
 /**
  *  @brief Initialize the start value from the property getter.
@@ -494,22 +515,15 @@
     return NO;
 }
 
-#pragma mark -
-#pragma mark Description
-
-/// @cond
-
--(nullable NSString *)description
-{
-    return [NSString stringWithFormat:@"<%@ from: %@; to: %@; duration: %g, delay: %g>", super.description, self.startValue, self.endValue, (double)self.duration, (double)self.delay];
-}
-
-/// @endcond
-
 @end
 
 #pragma mark -
 
+/**
+ *  @brief CPTAnimationPeriod convenience methods added to CPTAnimation.
+ *
+ *  @see CPTAnimation
+ **/
 @implementation CPTAnimation(CPTAnimationPeriodAdditions)
 
 // CGFloat

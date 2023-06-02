@@ -186,6 +186,11 @@
 #pragma mark -
 #pragma mark Layout
 
+/**
+ *  @brief CPTAnnotation abstract methods—must be overridden by subclasses.
+ *
+ *  @see CPTAnnotation
+ **/
 @implementation CPTAnnotation(AbstractMethods)
 
 /** @brief Positions the content layer relative to its reference anchor.

@@ -36,11 +36,6 @@ typedef NSMutableArray<CPTFill *> CPTMutableFillArray;
 
 @end
 
-/** @category CPTFill(AbstractMethods)
- *  @brief CPTFill abstract methods—must be overridden by subclasses
- *
- *  @see CPTFill
- **/
 @interface CPTFill(AbstractMethods)
 
 @property (nonatomic, readonly, getter = isOpaque) BOOL opaque;

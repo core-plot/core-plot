@@ -8,11 +8,6 @@
 #import "CPTNumericDataType.h"
 #endif
 
-/** @category CPTNumericData(TypeConversion)
- *  @brief Type conversion methods for CPTNumericData.
- *
- *  @see CPTNumericData
- **/
 @interface CPTNumericData(TypeConversion)
 
 /// @name Type Conversion

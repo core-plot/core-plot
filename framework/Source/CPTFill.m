@@ -149,6 +149,11 @@
 
 #pragma mark -
 
+/**
+ *  @brief CPTFill abstract methods—must be overridden by subclasses
+ *
+ *  @see CPTFill
+ **/
 @implementation CPTFill(AbstractMethods)
 
 /** @property BOOL opaque

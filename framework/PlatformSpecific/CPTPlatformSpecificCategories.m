@@ -11,6 +11,11 @@
 
 #pragma mark CPTLayer
 
+/**
+ *  @brief Platform-specific extensions to CPTLayer.
+ *
+ *  @see CPTLayer
+ **/
 @implementation CPTLayer(CPTPlatformSpecificLayerExtensions)
 
 /** @brief Gets an image of the layer contents.
@@ -78,6 +83,11 @@
 
 #pragma mark - NSAttributedString
 
+/**
+ *  @brief NSAttributedString extensions for drawing styled text.
+ *
+ *  @see NSAttributedString
+ **/
 @implementation NSAttributedString(CPTPlatformSpecificAttributedStringExtensions)
 
 /** @brief Draws the styled text into the given graphics context.
@@ -129,6 +139,11 @@
 
 #pragma mark - CPTLayer
 
+/**
+ *  @brief Platform-specific extensions to CPTLayer.
+ *
+ *  @see CPTLayer
+ **/
 @implementation CPTLayer(CPTPlatformSpecificLayerExtensions)
 
 /** @brief Gets an image of the layer contents.
@@ -163,6 +178,11 @@
 
 #pragma mark - NSNumber
 
+/**
+ *  @brief Platform-specific extensions to NSNumber.
+ *
+ *  @see NSNumber
+ **/
 @implementation NSNumber(CPTPlatformSpecificNumberExtensions)
 
 /** @brief Returns a Boolean value that indicates whether the receiver is less than another given number.
@@ -205,6 +225,11 @@
 
 #pragma mark - NSAttributedString
 
+/**
+ *  @brief NSAttributedString extensions for drawing styled text.
+ *
+ *  @see NSAttributedString
+ **/
 @implementation NSAttributedString(CPTPlatformSpecificAttributedStringExtensions)
 
 /** @brief Draws the styled text into the given graphics context.

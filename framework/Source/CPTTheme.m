@@ -284,6 +284,11 @@ NSArray<Class> *ClassGetSubclasses(Class parentClass)
 
 #pragma mark -
 
+/**
+ *  @brief CPTTheme abstract methods—must be overridden by subclasses
+ *
+ *  @see CPTTheme
+ **/
 @implementation CPTTheme(AbstractMethods)
 
 /** @brief Creates a new graph styled with the theme.

@@ -2,6 +2,11 @@
 
 #import "CPTNumericData+TypeConversion.h"
 
+/**
+ *  @brief Type conversion methods for CPTMutableNumericData.
+ *
+ *  @see CPTMutableNumericData
+ **/
 @implementation CPTMutableNumericData(TypeConversion)
 
 /** @property CPTNumericDataType dataType

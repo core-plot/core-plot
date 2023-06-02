@@ -493,6 +493,11 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
 
 #pragma mark -
 
+/**
+ *  @brief CPTPlotSpace abstract methods—must be overridden by subclasses
+ *
+ *  @see CPTPlotSpace
+ **/
 @implementation CPTPlotSpace(AbstractMethods)
 
 /// @cond

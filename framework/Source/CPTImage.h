@@ -46,11 +46,6 @@
 
 #pragma mark -
 
-/** @category CPTImage(CPTPlatformSpecificImageExtensions)
- *  @brief Platform-specific extensions to CPTImage.
- *
- *  @see CPTImage
- **/
 @interface CPTImage(CPTPlatformSpecificImageExtensions)
 
 /// @name Initialization

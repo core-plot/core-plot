@@ -19,11 +19,6 @@
 
 @end
 
-/** @category CPTMutableTextStyle(CPTPlatformSpecificMutableTextStyleExtensions)
- *  @brief Platform-specific extensions to CPTMutableTextStyle
- *
- *  @see CPTMutableTextStyle
- **/
 @interface CPTMutableTextStyle(CPTPlatformSpecificMutableTextStyleExtensions)
 
 @end

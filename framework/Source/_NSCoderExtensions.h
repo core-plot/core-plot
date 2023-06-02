@@ -1,11 +1,6 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import <Foundation/Foundation.h>
 
-/** @category NSCoder(CPTExtensions)
- *  @brief Core Plot extensions to NSCoder.
- *
- *  @see NSCoder
- **/
 @interface NSCoder(CPTExtensions)
 
 /// @name Encoding Data
