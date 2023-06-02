@@ -14,7 +14,7 @@
  *  gradients, and images. Drawing methods are provided to fill rectangular areas and
  *  arbitrary drawing paths.
  *
- *  @see CPTFill(AbstractMethods)
+ *  @see @ref "CPTFill(AbstractMethods)"
  **/
 
 @implementation CPTFill

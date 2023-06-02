@@ -9,7 +9,7 @@
  *
  *  Supports fixed distance from either end of the range and a proportional fraction of the range.
  *
- *  @see CPTConstraints(AbstractMethods)
+ *  @see @ref "CPTConstraints(AbstractMethods)"
  **/
 @implementation CPTConstraints
 

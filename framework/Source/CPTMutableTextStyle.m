@@ -4,7 +4,7 @@
  *
  *  Use this whenever you need to customize the properties of a text style.
  *
- *  @see CPTMutableTextStyle(CPTPlatformSpecificMutableTextStyleExtensions)
+ *  @see @ref "CPTMutableTextStyle(CPTPlatformSpecificMutableTextStyleExtensions)"
  **/
 
 @implementation CPTMutableTextStyle

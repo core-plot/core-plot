@@ -68,7 +68,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
  *  @nil, the axis and grid lines will extend the full width of the plot area.
  *  @image html "axis ranges.png" "Axis Ranges"
  *  @see See @ref axisAnimation "Axes" for a list of animatable properties.
- *  @see CPTAxis(AbstractMethods)
+ *  @see @ref "CPTAxis(AbstractMethods)"
  **/
 @implementation CPTAxis
 

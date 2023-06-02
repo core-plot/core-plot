@@ -9,7 +9,7 @@
  *  of a graph. For example, the graph title is an annotation anchored to the graph.
  *  The annotation content layer can be any CPTLayer.
  *
- *  @see CPTAnnotation(AbstractMethods)
+ *  @see @ref "CPTAnnotation(AbstractMethods)"
  **/
 @implementation CPTAnnotation
 

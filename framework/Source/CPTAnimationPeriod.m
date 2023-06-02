@@ -38,7 +38,7 @@
  *  - @ref CPTPlotRange (NSValue wrapper not used)
  *  @note The starting and ending values must be the same type.
  *
- *  @see CPTAnimationPeriod(AbstractMethods)
+ *  @see @ref "CPTAnimationPeriod(AbstractMethods)"
  **/
 @implementation CPTAnimationPeriod
 

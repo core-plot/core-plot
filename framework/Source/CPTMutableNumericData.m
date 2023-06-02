@@ -22,7 +22,7 @@
  *  The structure of this object is similar to the NumPy <code>ndarray</code>
  *  object.
  *
- *  @see CPTMutableNumericData(TypeConversion)
+ *  @see @ref "CPTMutableNumericData(TypeConversion)"
  **/
 @implementation CPTMutableNumericData
 

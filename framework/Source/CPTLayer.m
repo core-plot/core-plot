@@ -51,7 +51,7 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
  *  and sublayers are turned off. The default layer is not opaque and does not mask
  *  to bounds.
  *
- *  @see CPTLayer(CPTPlatformSpecificLayerExtensions)
+ *  @see @ref "CPTLayer(CPTPlatformSpecificLayerExtensions)"
  **/
 @implementation CPTLayer
 

@@ -48,7 +48,7 @@ typedef NSMutableArray<CPTAnimationOperation *> CPTMutableAnimationArray;
  *  CPTAnimation provides animation support for all of these things. It can animate any property (of the supported data types)
  *  on objects of any class.
  *
- *  @see CPTAnimation(CPTAnimationPeriodAdditions)
+ *  @see @ref "CPTAnimation(CPTAnimationPeriodAdditions)"
  **/
 @implementation CPTAnimation
 

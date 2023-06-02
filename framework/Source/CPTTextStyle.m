@@ -25,7 +25,7 @@
  *
  *  If you need to customize properties, you should create a CPTMutableTextStyle.
  *
- *  @see CPTTextStyle(CPTPlatformSpecificTextStyleExtensions)
+ *  @see @ref "CPTTextStyle(CPTPlatformSpecificTextStyleExtensions)"
  **/
 
 @implementation CPTTextStyle
