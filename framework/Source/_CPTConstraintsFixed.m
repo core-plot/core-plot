@@ -69,11 +69,6 @@
 #pragma mark -
 #pragma mark Positioning
 
-/** @brief Compute the position given a range of values.
- *  @param  lowerBound The lower bound; must be less than or equal to the upperBound.
- *  @param  upperBound The upper bound; must be greater than or equal to the lowerBound.
- *  @return            The calculated position.
- **/
 -(CGFloat)positionForLowerBound:(CGFloat)lowerBound upperBound:(CGFloat)upperBound
 {
     NSAssert(lowerBound <= upperBound, @"lowerBound must be less than or equal to upperBound");

@@ -14,14 +14,4 @@
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)decoder NS_DESIGNATED_INITIALIZER;
 /// @}
 
-/// @name Comparison
-/// @{
--(BOOL)isEqualToConstraint:(nullable CPTConstraints *)otherConstraint;
-/// @}
-
-/// @name Position
-/// @{
--(CGFloat)positionForLowerBound:(CGFloat)lowerBound upperBound:(CGFloat)upperBound;
-/// @}
-
 @end
