@@ -22,7 +22,7 @@
 
 /**
  *  @brief End cap decorations for lines.
- */
+ **/
 @implementation CPTLineCap
 
 /** @property CGSize size;

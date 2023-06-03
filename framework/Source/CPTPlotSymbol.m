@@ -25,7 +25,7 @@
 #pragma mark -
 
 /** @brief Plot symbols for CPTScatterPlot.
- */
+**/
 @implementation CPTPlotSymbol
 
 /** @property CGPoint anchorPoint

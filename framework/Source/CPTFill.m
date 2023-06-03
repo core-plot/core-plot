@@ -158,12 +158,12 @@
 
 /** @property BOOL opaque
  *  @brief If @YES, the fill is completely opaque.
- */
+ **/
 @dynamic opaque;
 
 /** @property nullable CGColorRef cgColor
  *  @brief Returns a @ref CGColorRef describing the fill if the fill can be represented as a color, @NULL otherwise.
- */
+ **/
 @dynamic cgColor;
 
 #pragma mark -

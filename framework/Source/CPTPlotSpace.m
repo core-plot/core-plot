@@ -143,7 +143,7 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
 /** @brief Returns an object initialized from data in a given unarchiver.
  *  @param  coder An unarchiver object.
  *  @return       An object initialized from data in a given unarchiver.
- */
+ **/
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ((self = [super init])) {
@@ -183,7 +183,7 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
  *  @brief Gets the ordered set of categories for the given coordinate, creating it if necessary.
  *  @param  coordinate The axis coordinate.
  *  @return            The ordered set of categories for the given coordinate.
- */
+ **/
 -(nonnull CPTMutableCategorySet *)orderedSetForCoordinate:(CPTCoordinate)coordinate
 {
     NSMutableDictionary<NSNumber *, CPTMutableCategorySet *> *names = self.categoryNames;
@@ -216,7 +216,7 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
  *
  *  @param category   The category name.
  *  @param coordinate The axis coordinate.
- */
+ **/
 -(void)addCategory:(nonnull NSString *)category forCoordinate:(CPTCoordinate)coordinate
 {
     NSParameterAssert(category);
@@ -230,7 +230,7 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
  *  @brief Removes the named category for the given coordinate.
  *  @param category   The category name.
  *  @param coordinate The axis coordinate.
- */
+ **/
 -(void)removeCategory:(nonnull NSString *)category forCoordinate:(CPTCoordinate)coordinate
 {
     NSParameterAssert(category);
@@ -248,7 +248,7 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
  *  @param category   The category name.
  *  @param coordinate The axis coordinate.
  *  @param idx        The index in the list of category names.
- */
+ **/
 -(void)insertCategory:(nonnull NSString *)category forCoordinate:(CPTCoordinate)coordinate atIndex:(NSUInteger)idx
 {
     NSParameterAssert(category);
@@ -264,7 +264,7 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
  *  @brief Replace all category names for the given coordinate with the names in the supplied array.
  *  @param newCategories An array of category names.
  *  @param coordinate    The axis coordinate.
- */
+ **/
 -(void)setCategories:(nullable CPTStringArray *)newCategories forCoordinate:(CPTCoordinate)coordinate
 {
     NSMutableDictionary<NSNumber *, CPTMutableCategorySet *> *names = self.categoryNames;
@@ -289,7 +289,7 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
 
 /**
  *  @brief Remove all categories for every coordinate.
- */
+ **/
 -(void)removeAllCategories
 {
     self.categoryNames = nil;
@@ -299,7 +299,7 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
  *  @brief Returns a list of all category names for the given coordinate.
  *  @param  coordinate The axis coordinate.
  *  @return            An array of category names.
- */
+ **/
 -(nonnull CPTStringArray *)categoriesForCoordinate:(CPTCoordinate)coordinate
 {
     CPTMutableCategorySet *categories = [self orderedSetForCoordinate:coordinate];
@@ -312,7 +312,7 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
  *  @param  coordinate The axis coordinate.
  *  @param  idx        The index in the list of category names.
  *  @return            The category name.
- */
+ **/
 -(nullable NSString *)categoryForCoordinate:(CPTCoordinate)coordinate atIndex:(NSUInteger)idx
 {
     CPTMutableCategorySet *categories = [self orderedSetForCoordinate:coordinate];
@@ -327,7 +327,7 @@ typedef NSMutableOrderedSet<NSString *> CPTMutableCategorySet;
  *  @param  category   The category name.
  *  @param  coordinate The axis coordinate.
  *  @return            The category index.
- */
+ **/
 -(NSUInteger)indexOfCategory:(nonnull NSString *)category forCoordinate:(CPTCoordinate)coordinate
 {
     NSParameterAssert(category);

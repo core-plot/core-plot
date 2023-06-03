@@ -932,7 +932,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
  *  @brief Generate major and minor tick locations using the fixed interval labeling policy.
  *  @param newMajorLocations A new NSSet containing the major tick locations.
  *  @param newMinorLocations A new NSSet containing the minor tick locations.
- */
+ **/
 -(void)generateFixedIntervalMajorTickLocations:(CPTNumberSet *__autoreleasing *)newMajorLocations minorTickLocations:(CPTNumberSet *__autoreleasing *)newMinorLocations
 {
     CPTMutableNumberSet *majorLocations = [NSMutableSet set];
@@ -1012,7 +1012,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
  *  @brief Generate major and minor tick locations using the automatic labeling policy.
  *  @param newMajorLocations A new NSSet containing the major tick locations.
  *  @param newMinorLocations A new NSSet containing the minor tick locations.
- */
+ **/
 -(void)autoGenerateMajorTickLocations:(CPTNumberSet *__autoreleasing *)newMajorLocations minorTickLocations:(CPTNumberSet *__autoreleasing *)newMinorLocations
 {
     // Create sets for locations
@@ -1307,7 +1307,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
  *  @brief Generate major and minor tick locations using the equal divisions labeling policy.
  *  @param newMajorLocations A new NSSet containing the major tick locations.
  *  @param newMinorLocations A new NSSet containing the minor tick locations.
- */
+ **/
 -(void)generateEqualMajorTickLocations:(CPTNumberSet *__autoreleasing *)newMajorLocations minorTickLocations:(CPTNumberSet *__autoreleasing *)newMinorLocations
 {
     CPTMutableNumberSet *majorLocations = [NSMutableSet set];
@@ -1378,7 +1378,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
  *  @internal
  *  @brief Determines a @quote{nice} number (a multiple of @num{2}, @num{5}, or @num{10}) near the given number.
  *  @param x The number to round.
- */
+ **/
 NSDecimal CPTNiceNum(NSDecimal x)
 {
     NSDecimal zero = CPTDecimalFromInteger(0);
@@ -1431,7 +1431,7 @@ NSDecimal CPTNiceNum(NSDecimal x)
  *  @internal
  *  @brief Determines a @quote{nice} range length (a multiple of @num{2}, @num{5}, or @num{10}) less than or equal to the given length.
  *  @param length The length to round.
- */
+ **/
 NSDecimal CPTNiceLength(NSDecimal length)
 {
     NSDecimal zero = CPTDecimalFromInteger(0);
@@ -1470,7 +1470,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
  *  @brief Removes any tick locations falling inside the label exclusion ranges from a set of tick locations.
  *  @param  allLocations A set of tick locations.
  *  @return              The filtered set of tick locations.
- */
+ **/
 -(nullable CPTNumberSet *)filteredTickLocations:(nullable CPTNumberSet *)allLocations
 {
     CPTPlotRangeArray *exclusionRanges = self.labelExclusionRanges;
@@ -1831,7 +1831,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
 /**
  *  @internal
  *  @brief Updates the position of all custom labels, hiding the ones that are outside the visible range.
- */
+ **/
 -(void)updateCustomTickLabels
 {
     CPTMutablePlotRange *range = [[self.plotSpace plotRangeForCoordinate:self.coordinate] mutableCopy];

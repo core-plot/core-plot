@@ -119,7 +119,7 @@
 
 /** @property BOOL opaque
  *  @brief If @YES, the color is completely opaque.
- */
+ **/
 @dynamic opaque;
 
 #pragma mark -
@@ -646,7 +646,7 @@
 /** @brief Returns an object initialized from data in a given unarchiver.
  *  @param  coder An unarchiver object.
  *  @return       An object initialized from data in a given unarchiver.
- */
+ **/
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ((self = [super init])) {

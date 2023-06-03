@@ -204,7 +204,7 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
 /** @brief Override to copy or initialize custom fields of the specified layer.
  *  @param  layer The layer from which custom fields should be copied.
  *  @return       A layer instance with any custom instance variables copied from @par{layer}.
- */
+ **/
 -(nonnull instancetype)initWithLayer:(nonnull id)layer
 {
     if ((self = [super initWithLayer:layer])) {
@@ -265,7 +265,7 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
 /** @brief Returns an object initialized from data in a given unarchiver.
  *  @param  coder An unarchiver object.
  *  @return       An object initialized from data in a given unarchiver.
- */
+ **/
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ((self = [super initWithCoder:coder])) {
@@ -518,7 +518,7 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
 
 /** @brief Updates the layer layout if needed and then draws layer content and the content of all sublayers into the provided graphics context.
  *  @param context The graphics context to draw into.
- */
+ **/
 -(void)layoutAndRenderInContext:(nonnull CGContextRef)context
 {
     [self layoutIfNeeded];

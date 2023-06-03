@@ -96,7 +96,7 @@
 
 /** @property BOOL opaque
  *  @brief If @YES, a line drawn using the line style is completely opaque.
- */
+ **/
 @dynamic opaque;
 
 #pragma mark -

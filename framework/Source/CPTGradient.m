@@ -92,7 +92,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
 
 /** @property BOOL opaque
  *  @brief If @YES, the gradient is completely opaque.
- */
+ **/
 @dynamic opaque;
 
 @synthesize elementList;
