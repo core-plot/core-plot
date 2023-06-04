@@ -37,7 +37,7 @@
  *  - #NSForegroundColorAttributeName: Sets the @link CPTTextStyle::color color @endlink.
  *  - #NSParagraphStyleAttributeName: Sets the @link CPTTextStyle::textAlignment textAlignment @endlink and @link CPTTextStyle::lineBreakMode lineBreakMode @endlink.
  *
- *  Properties associated with missing keys will be inialized to their default values.
+ *  Properties associated with missing keys will be initialized to their default values.
  *
  *  @param  attributes A dictionary of standard text attributes.
  *  @return            A new CPTTextStyle instance.
@@ -153,7 +153,7 @@
  *  - #NSForegroundColorAttributeName: Sets the @link CPTMutableTextStyle::color color @endlink.
  *  - #NSParagraphStyleAttributeName: Sets the @link CPTMutableTextStyle::textAlignment textAlignment @endlink and @link CPTMutableTextStyle::lineBreakMode lineBreakMode @endlink.
  *
- *  Properties associated with missing keys will be inialized to their default values.
+ *  Properties associated with missing keys will be initialized to their default values.
  *
  *  @param  attributes A dictionary of standard text attributes.
  *  @return            A new CPTMutableTextStyle instance.
@@ -332,7 +332,7 @@
  *  - #NSForegroundColorAttributeName: Sets the @link CPTTextStyle::color color @endlink.
  *  - #NSParagraphStyleAttributeName: Sets the @link CPTTextStyle::textAlignment textAlignment @endlink and @link CPTTextStyle::lineBreakMode lineBreakMode @endlink.
  *
- *  Properties associated with missing keys will be inialized to their default values.
+ *  Properties associated with missing keys will be initialized to their default values.
  *
  *  @param  attributes A dictionary of standard text attributes.
  *  @return            A new CPTTextStyle instance.
@@ -431,7 +431,7 @@
  *  - #NSForegroundColorAttributeName: Sets the @link CPTMutableTextStyle::color color @endlink.
  *  - #NSParagraphStyleAttributeName: Sets the @link CPTMutableTextStyle::textAlignment textAlignment @endlink and @link CPTMutableTextStyle::lineBreakMode lineBreakMode @endlink.
  *
- *  Properties associated with missing keys will be inialized to their default values.
+ *  Properties associated with missing keys will be initialized to their default values.
  *
  *  @param  attributes A dictionary of standard text attributes.
  *  @return            A new CPTMutableTextStyle instance.

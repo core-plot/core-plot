@@ -19,7 +19,7 @@
 @implementation CPTLayer(CPTPlatformSpecificLayerExtensions)
 
 /** @brief Gets an image of the layer contents.
- *  @return A native image representation of the layer content.
+ *  @return A platform-native image representation of the layer content.
  **/
 -(nonnull CPTNativeImage *)imageOfLayer
 {
@@ -147,7 +147,7 @@
 @implementation CPTLayer(CPTPlatformSpecificLayerExtensions)
 
 /** @brief Gets an image of the layer contents.
- *  @return A native image representation of the layer content.
+ *  @return A platform-native image representation of the layer content.
  **/
 -(nullable CPTNativeImage *)imageOfLayer
 {

@@ -191,7 +191,7 @@
 #pragma mark -
 #pragma mark Drawing
 
-/** @brief Draws the gradient into the given graphics context inside the provided rectangle.
+/** @brief Draws the fill into the given graphics context inside the provided rectangle.
  *  @param rect    The rectangle to draw into.
  *  @param context The graphics context to draw into.
  **/
@@ -200,7 +200,7 @@
     // do nothing--subclasses override to do drawing here
 }
 
-/** @brief Draws the gradient into the given graphics context clipped to the current drawing path.
+/** @brief Draws the fill into the given graphics context clipped to the current drawing path.
  *  @param context The graphics context to draw into.
  **/
 -(void)fillPathInContext:(nonnull CGContextRef __unused)context
