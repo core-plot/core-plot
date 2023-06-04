@@ -2,7 +2,14 @@
 
 *Cocoa plotting framework for macOS, iOS, and tvOS.*
 
-[![Build Status](https://secure.travis-ci.org/core-plot/core-plot.svg)](http://travis-ci.org/core-plot/core-plot) [![core-plot CI](https://github.com/core-plot/core-plot/actions/workflows/ci.yml/badge.svg)](https://github.com/core-plot/core-plot/actions/workflows/ci.yml) [![Version Status](https://img.shields.io/cocoapods/v/CorePlot.svg)](https://cocoapods.org/pods/CorePlot) [![license MIT](https://img.shields.io/cocoapods/l/CorePlot.svg)](http://opensource.org/licenses/BSD-3-Clause) [![Platform](https://img.shields.io/cocoapods/p/CorePlot.svg)](http://core-plot.github.io) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Swift Package Manager compatible](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
+[![core-plot CI](https://github.com/core-plot/core-plot/actions/workflows/ci.yml/badge.svg)](https://github.com/core-plot/core-plot/actions/workflows/ci.yml)
+[![Cocoapods](https://img.shields.io/cocoapods/v/CorePlot)](https://cocoapods.org/pods/CorePlot)
+[![GitHub license](https://img.shields.io/github/license/core-plot/core-plot?color=brightgreen)](https://opensource.org/licenses/BSD-3-Clause)
+[![Cocoapods platforms](https://img.shields.io/cocoapods/p/CorePlot)](https://core-plot.github.io)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-brightgreen?style=flat)](https://github.com/Carthage/Carthage)
+[![Swift Package Manager compatible](https://img.shields.io/badge/SPM-compatible-brightgreen)](https://github.com/apple/swift-package-manager)
+
+[![GitHub top language](https://img.shields.io/github/languages/top/core-plot/core-plot)]()
 
 # Introduction
 
@@ -49,7 +56,3 @@ Core Plot includes a [script](https://github.com/core-plot/core-plot/blob/master
 
 ## Testing
 Core Plot is intended to be applied in scientific, financial, and other domains where correctness is paramount. In order to assure the quality of the framework, unit testing is integrated. Good test coverage protects developers from introducing accidental regressions, and helps them to experiment and refactor without breaking existing code. See the [unit testing](https://github.com/core-plot/core-plot/wiki/Unit-Testing) wiki page for instructions on how to build unit tests for any new code you add to the project.
-
-# Support Core Plot
-
-<a href="https://flattr.com/submit/auto?user_id=eskroch&url=https%3A%2F%2Fgithub.com%2Fcore-plot" target="_blank"><img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0"></a>
