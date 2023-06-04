@@ -145,6 +145,22 @@
 
 /// @endcond
 
+#pragma mark -
+#pragma mark Debugging
+
+/// @cond
+
+-(nullable id)debugQuickLookObject
+{
+    const CGRect rect = CPTRectMake(0.0, 0.0, 100.0, 100.0);
+
+    return CPTQuickLookImage(rect, ^(CGContextRef context, CGFloat __unused scale, CGRect bounds) {
+        [self fillRect:bounds inContext:context];
+    });
+}
+
+/// @endcond
+
 @end
 
 #pragma mark -
@@ -207,21 +223,5 @@
 {
     // do nothing--subclasses override to do drawing here
 }
-
-#pragma mark -
-#pragma mark Debugging
-
-/// @cond
-
--(nullable id)debugQuickLookObject
-{
-    const CGRect rect = CGRectMake(0.0, 0.0, 100.0, 100.0);
-
-    return CPTQuickLookImage(rect, ^(CGContextRef context, CGFloat __unused scale, CGRect bounds) {
-        [self fillRect:bounds inContext:context];
-    });
-}
-
-/// @endcond
 
 @end
