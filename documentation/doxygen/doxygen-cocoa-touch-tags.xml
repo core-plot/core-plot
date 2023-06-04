@@ -156,7 +156,6 @@
         <filename>https://developer.apple.com/library/ios/#documentation/UIKit/Reference/UIColor_Class/Reference/Reference.html</filename>
         <base>NSObject</base>
         <base>NSCoding-p</base>
-        <base>NSObject-p</base>
     </compound>
     <compound kind="protocol" objc="yes">
         <name>NSCopying</name>
@@ -173,7 +172,6 @@
         <base>NSObject</base>
         <base>NSCoding-p</base>
         <base>NSCopying-p</base>
-        <base>NSMutableCopying-p</base>
     </compound>
     <compound kind="class" objc="yes">
         <name>NSDate</name>
@@ -282,8 +280,6 @@
         <name>NSMutableData</name>
         <filename>https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Classes/NSMutableData_Class/index.html</filename>
         <base>NSData</base>
-        <base>NSCoding-p</base>
-        <base>NSCopying-p</base>
         <base>NSMutableCopying-p</base>
     </compound>
     <compound kind="class" objc="yes">

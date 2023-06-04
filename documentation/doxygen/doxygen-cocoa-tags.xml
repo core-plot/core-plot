@@ -190,7 +190,6 @@
         <base>NSObject</base>
         <base>NSCoding-p</base>
         <base>NSCopying-p</base>
-        <base>NSMutableCopying-p</base>
     </compound>
     <compound kind="class" objc="yes">
         <name>NSDate</name>
@@ -347,8 +346,6 @@
         <name>NSMutableData</name>
         <filename>https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/Foundation/Classes/NSMutableData_Class/index.html</filename>
         <base>NSData</base>
-        <base>NSCoding-p</base>
-        <base>NSCopying-p</base>
         <base>NSMutableCopying-p</base>
     </compound>
     <compound kind="class" objc="yes">
