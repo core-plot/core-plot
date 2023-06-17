@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'CorePlot'
-  s.version  = '2.3'
+  s.version  = '2.4'
   s.license  = 'BSD'
   s.summary  = 'Cocoa plotting framework for macOS, iOS, and tvOS.'
   s.homepage = 'https://github.com/core-plot'
@@ -12,15 +12,15 @@ Pod::Spec.new do |s|
                  'Eric Skroch'    => 'eskroch@mac.com',
                  'Barry Wark'     => 'barrywark@gmail.com' }
 
-  s.source   = { :git => 'https://github.com/core-plot/core-plot.git', :tag => '2.3.0'}
+  s.source   = { :git => 'https://github.com/core-plot/core-plot.git', :branch => 'release-2.4' }
 
   s.description = 'Core Plot is a plotting framework for macOS, iOS, and tvOS. It provides 2D visualization ' \
                   'of data, and is tightly integrated with Apple technologies like Core Animation, ' \
                   'Core Data, and Cocoa Bindings.'
 
-  s.ios.deployment_target = '9.0'
-  s.osx.deployment_target = '10.9'
-  s.tvos.deployment_target = '9.0'
+  s.ios.deployment_target = '12.0'
+  s.osx.deployment_target = '10.14.6'
+  s.tvos.deployment_target = '12.0'
   
   s.ios.header_dir = 'ios'
   s.osx.header_dir = 'osx'
