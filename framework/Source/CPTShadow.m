@@ -18,8 +18,8 @@
 
 /** @brief Immutable wrapper for various shadow drawing properties.
  *
- *  @see See Apple&rsquo;s <a href="https://developer.apple.com/library/mac/#documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_shadows/dq_shadows.html">Quartz 2D</a>
- *  and <a href="https://developer.apple.com/documentation/GraphicsImaging/Reference/CGContext/Reference/reference.html">CGContext</a>
+ *  @see See Apple&rsquo;s <a href="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_shadows/dq_shadows.html">Quartz 2D</a>
+ *  and <a href="https://developer.apple.com/documentation/coregraphics/CGContext">CGContext</a>
  *  documentation for more information about each of these properties.
  *
  *  In general, you will want to create a CPTMutableShadow if you want to customize properties.

@@ -1,0 +1,1086 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<tagfile>
+    <!-- Foundation classes & protocols -->
+    <compound kind="class" objc="yes">
+        <name>NSArray</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSArray</filename>
+        <base>NSObject</base>
+        <base>NSCoding</base>
+        <base>NSCopying</base>
+        <base>NSFastEnumeration</base>
+        <base>NSMutableCopying</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSMutableArray</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSMutableArray</filename>
+        <base>NSObject</base>
+        <base>NSCoding</base>
+        <base>NSCopying</base>
+        <base>NSFastEnumeration</base>
+        <base>NSMutableCopying</base>
+    </compound>
+    
+    <compound kind="class" objc="yes">
+        <name>NSAttributedString</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSAttributedString</filename>
+        <base>NSObject</base>
+        <base>NSCoding</base>
+        <base>NSCopying</base>
+        <base>NSMutableCopying</base>
+    </compound>
+    <compound kind="file">
+        <name>NSAttributedString Key Reference</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSAttributedString/key</filename>
+        <member kind="define">
+            <name>NSFontAttributeName</name>
+            <anchorfile>https://developer.apple.com/documentation/uikit/NSFontAttributeName</anchorfile>
+        </member>
+        <member kind="define">
+            <name>NSForegroundColorAttributeName</name>
+            <anchorfile>https://developer.apple.com/documentation/uikit/NSForegroundColorAttributeName</anchorfile>
+        </member>
+        <member kind="define">
+            <name>NSParagraphStyleAttributeName</name>
+            <anchorfile>https://developer.apple.com/documentation/uikit/NSParagraphStyleAttributeName</anchorfile>
+        </member>
+    </compound>
+    
+    <compound kind="class" objc="yes">
+        <name>NSMutableAttributedString</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSMutableAttributedString</filename>
+        <base>NSObject</base>
+        <base>NSCoding</base>
+        <base>NSCopying</base>
+        <base>NSMutableCopying</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSCalendar</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSCalendar</filename>
+        <base>NSObject</base>
+        <base>NSCoding</base>
+        <base>NSCopying</base>
+    </compound>
+    
+    <compound kind="file">
+        <name>NSCalendar Class Reference</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSCalendar</filename>
+        <member kind="enumeration">
+            <name>NSCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/NSCalendarUnit</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSCalendarUnitEra</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitEra</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSEraCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitEra</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSCalendarUnitYear</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitYear</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSYearCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitYear</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSCalendarUnitMonth</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitMonth</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSMonthCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitMonth</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSCalendarUnitDay</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitDay</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSDayCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitDay</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSCalendarUnitHour</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitHour</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSHourCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitHour</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSCalendarUnitMinute</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitMinute</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSMinuteCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitMinute</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSCalendarUnitSecond</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitSecond</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSSecondCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitSecond</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSCalendarUnitWeekday</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitWeekday</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSWeekdayCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitWeekday</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSCalendarUnitWeekdayOrdinal</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitWeekdayOrdinal</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSWeekdayOrdinalCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitWeekdayOrdinal</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSQuarterCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitDay</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSCalendarUnitQuarter</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitQuarter</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSCalendarUnitWeekOfMonth</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitWeekOfMonth</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSWeekOfMonthCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitWeekOfMonth</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSCalendarUnitWeekOfYear</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitWeekOfYear</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSWeekOfYearCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitWeekOfYear</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSCalendarUnitYearForWeekOfYear</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitYearForWeekOfYear</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSYearForWeekOfYearCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitYearForWeekOfYear</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSCalendarUnitNanosecond</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitNanosecond</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSCalendarUnitCalendar</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitCalendar</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSCalendarCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitCalendar</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSCalendarUnitTimeZone</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitTimeZone</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSTimeZoneCalendarUnit</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscalendarunit/NSCalendarUnitTimeZone</anchorfile>
+        </member>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSCoder</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSCoder</filename>
+        <base>NSObject</base>
+    </compound>
+    <compound kind="protocol" objc="yes">
+        <name>NSCoding</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSCoding</filename>
+        <member kind="function">
+            <type>id</type>
+            <name>initWithCoder:</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscoding/1416145-init</anchorfile>
+            <arglist>(NSCoder *coder)</arglist>
+        </member>
+        <member kind="function">
+            <type>void</type>
+            <name>encodeWithCoder:</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscoding/1413933-encode</anchorfile>
+            <arglist>(NSCoder *coder)</arglist>
+        </member>
+    </compound>
+    <compound kind="protocol" objc="yes">
+        <name>NSCopying</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSCopying</filename>
+        <member kind="function">
+            <type>id</type>
+            <name>copyWithZone:</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nscopying/1410311-copyWithZone</anchorfile>
+            <arglist>(NSZone *zone)</arglist>
+        </member>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSData</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSData</filename>
+        <base>NSObject</base>
+        <base>NSCoding</base>
+        <base>NSCopying</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSDate</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSDate</filename>
+        <base>NSObject</base>
+        <base>NSCoding</base>
+        <base>NSCopying</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSDateFormatter</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSDateFormatter</filename>
+        <base>NSObject</base>
+        <base>NSCoding</base>
+        <base>NSCopying</base>
+    </compound>
+    <compound kind="file">
+        <name>NSDateFormatter Class Reference</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSDateFormatter</filename>
+        <member kind="enumeration">
+            <name>NSDateFormatterStyle</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/NSDateFormatter/NSDateFormatterStyle</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSDateFormatterNoStyle</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/NSDateFormatter/NSDateFormatterNoStyle</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSDateFormatterShortStyle</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/NSDateFormatter/NSDateFormatterShortStyle</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSDateFormatterMediumStyle</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/NSDateFormatter/NSDateFormatterMediumStyle</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSDateFormatterLongStyle</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/NSDateFormatter/NSDateFormatterLongStyle</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSDateFormatterFullStyle</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/NSDateFormatter/NSDateFormatterFullStyle</anchorfile>
+        </member>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSDecimalNumber</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSDecimalNumber</filename>
+        <base>NSNumber</base>
+        <base>NSCoding</base>
+        <base>NSCopying</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSDictionary</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSDictionary</filename>
+        <base>NSObject</base>
+        <base>NSCoding</base>
+        <base>NSCopying</base>
+        <base>NSFastEnumeration</base>
+        <base>NSMutableCopying</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSMutableDictionary</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSMutableDictionary</filename>
+        <base>NSObject</base>
+        <base>NSCoding</base>
+        <base>NSCopying</base>
+        <base>NSFastEnumeration</base>
+        <base>NSMutableCopying</base>
+    </compound>
+    <compound kind="struct">
+        <name>NSFastEnumerationState</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSFastEnumerationState</filename>
+    </compound>
+    <compound kind="protocol" objc="yes">
+        <name>NSFastEnumeration</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSFastEnumeration</filename>
+        <member kind="function">
+            <type>NSUInteger</type>
+            <name>countByEnumeratingWithState:objects:count:</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nsfastenumeration/1412867-countByEnumerating</anchorfile>
+            <arglist>(NSFastEnumerationState *state, id _Nullable *buffer, NSUInteger len)</arglist>
+        </member>
+    </compound>
+    <compound kind="protocol" objc="yes">
+        <name>NSMutableCopying</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSMutableCopying</filename>
+        <member kind="function">
+            <type>id</type>
+            <name>mutableCopyWithZone:</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nsmutablecopying/1414175-mutablecopy</anchorfile>
+            <arglist>(NSZone *zone)</arglist>
+        </member>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSMutableData</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSMutableData</filename>
+        <base>NSData</base>
+        <base>NSMutableCopying</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSNull</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSNull</filename>
+        <base>NSObject</base>
+        <base>NSCoding</base>
+        <base>NSCopying</base>
+        <member kind="function" static="yes">
+            <type>NSNull *</type>
+            <name>null</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nsnull/1520557-null</anchorfile>
+        </member>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSNumber</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSNumber</filename>
+        <base>NSValue</base>
+        <base>NSCoding</base>
+        <base>NSCopying</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSNumberFormatter</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSNumberFormatter</filename>
+        <base>NSFormatter</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSFormatter</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSFormatter</filename>
+        <base>NSObject</base>
+        <base>NSCoding</base>
+        <base>NSCopying</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSObject</name>
+        <filename>https://developer.apple.com/documentation/objectivec/NSObject</filename>
+        <base>NSObject-p</base>
+        <member kind="function" static="yes">
+            <type>instancetype</type>
+            <name>alloc</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/nsobject/1571958-alloc</anchorfile>
+        </member>
+        <member kind="function" static="yes">
+            <type>instancetype</type>
+            <name>allocWithZone:</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/nsobject/1571945-allocWithZone</anchorfile>
+            <arglist>(struct _NSZone *zone</arglist>
+        </member>
+        <member kind="function" static="yes">
+            <type>Class</type>
+            <name>class</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/nsobject/1571950-class</anchorfile>
+        </member>
+        <member kind="function" static="yes">
+            <type>void</type>
+            <name>initialize</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/nsobject/1418639-initialize</anchorfile>
+        </member>
+        <member kind="function" static="yes">
+            <type>void</type>
+            <name>load</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/nsobject/1418815-load</anchorfile>
+        </member>
+        <member kind="function" static="yes">
+            <type>instancetype</type>
+            <name>new</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/nsobject/1571948-new</anchorfile>
+        </member>
+        <member kind="property">
+            <type>Class</type>
+            <name>classForCoder</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/nsobject/1411876-classForCoder</anchorfile>
+        </member>
+        <member kind="function">
+            <type>id</type>
+            <name>copy</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/nsobject/1418807-copy</anchorfile>
+        </member>
+        <member kind="function">
+            <type>id</type>
+            <name>copyWithZone:</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/nsobject/1571953-copyWithZone</anchorfile>
+            <arglist>(struct _NSZone *zone</arglist>
+        </member>
+        <member kind="function">
+            <type>void</type>
+            <name>dealloc</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/nsobject/1571947-dealloc</anchorfile>
+        </member>
+        <member kind="function">
+            <type>instancetype</type>
+            <name>init</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/nsobject/1418641-init</anchorfile>
+        </member>
+        <member kind="function">
+            <type>id</type>
+            <name>mutableCopy</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/nsobject/1418978-mutablecopy</anchorfile>
+        </member>
+        <member kind="function">
+            <type>id</type>
+            <name>mutableCopyWithZone:</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/nsobject/1571956-mutableCopyWithZone</anchorfile>
+            <arglist>(struct _NSZone *zone</arglist>
+        </member>
+    </compound>
+    <compound kind="protocol" objc="yes">
+        <name>NSObject-p</name>
+        <filename>https://developer.apple.com/documentation/objectivec/NSObjectProtocol</filename>
+        <member kind="property">
+            <type>NSString *</type>
+            <name>description</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/1418956-nsobject/1418746-description</anchorfile>
+        </member>
+        <member kind="property">
+            <type>NSUInteger</type>
+            <name>hash</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/1418956-nsobject/1418859-hash</anchorfile>
+        </member>
+        <member kind="function">
+            <type>BOOL</type>
+            <name>isEqual:</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/1418956-nsobject/1418795-isEqual</anchorfile>
+            <arglist>(id object)</arglist>
+        </member>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSParagraphStyle</name>
+        <filename>https://developer.apple.com/documentation/uikit/NSParagraphStyle</filename>
+        <base>NSObject</base>
+        <base>NSCoding</base>
+        <base>NSCopying</base>
+        <base>NSMutableCopying</base>
+    </compound>
+    <compound kind="file">
+        <name>NSLineBreakMode Enumeration Reference</name>
+        <filename>https://developer.apple.com/documentation/uikit/NSLineBreakMode</filename>
+        <member kind="enumeration">
+            <name>NSLineBreakMode</name>
+            <anchorfile>https://developer.apple.com/documentation/uikit/NSLineBreakMode</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSLineBreakByWordWrapping</name>
+            <anchorfile>https://developer.apple.com/documentation/uikit/NSLineBreakMode/ByWordWrapping</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSLineBreakByCharWrapping</name>
+            <anchorfile>https://developer.apple.com/documentation/uikit/NSLineBreakMode/ByCharWrapping</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSLineBreakByClipping</name>
+            <anchorfile>https://developer.apple.com/documentation/uikit/NSLineBreakMode/ByClipping</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSLineBreakByTruncatingHead</name>
+            <anchorfile>https://developer.apple.com/documentation/uikit/NSLineBreakMode/ByTruncatingHead</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSLineBreakByTruncatingTail</name>
+            <anchorfile>https://developer.apple.com/documentation/uikit/NSLineBreakMode/ByTruncatingTail</anchorfile>
+        </member>
+        <member kind="enumvalue">
+            <name>NSLineBreakByTruncatingMiddle</name>
+            <anchorfile>https://developer.apple.com/documentation/uikit/NSLineBreakMode/ByTruncatingMiddle</anchorfile>
+        </member>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSSet</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSSet</filename>
+        <base>NSObject</base>
+        <base>NSCoding</base>
+        <base>NSCopying</base>
+        <base>NSFastEnumeration</base>
+        <base>NSMutableCopying</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSMutableSet</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSMutableSet</filename>
+        <base>NSObject</base>
+        <base>NSCoding</base>
+        <base>NSCopying</base>
+        <base>NSFastEnumeration</base>
+        <base>NSMutableCopying</base>
+    </compound>
+    <compound kind="protocol" objc="yes">
+        <name>NSSecureCoding</name>
+        <filename>https://developer.apple.com/library/mac/documentation/Foundation/Reference/NSSecureCoding_Protocol_Ref</filename>
+        <member kind="function" static="yes">
+            <type>BOOL</type>
+            <name>supportsSecureCoding</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/nssecurecoding/1855946-supportsSecureCoding</anchorfile>
+        </member>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSString</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSString</filename>
+        <base>NSObject</base>
+        <base>NSCoding</base>
+        <base>NSCopying</base>
+        <base>NSMutableCopying</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSValue</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSValue</filename>
+        <base>NSObject</base>
+        <base>NSCoding</base>
+        <base>NSCopying</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSValueTransformer</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSValueTransformer</filename>
+        <base>NSObject</base>
+    </compound>
+    
+    <!-- Core Graphics -->
+    <compound kind="file">
+        <name>CGColor Reference</name>
+        <filename>https://developer.apple.com/documentation/coregraphics/CGColor</filename>
+        <member kind="typedef">
+            <name>CGColorRef</name>
+            <anchorfile>https://developer.apple.com/documentation/coregraphics/CGColorRef</anchorfile>
+        </member>
+    </compound>
+    <compound kind="file">
+        <name>CGColorSpace Reference</name>
+        <filename>https://developer.apple.com/documentation/coregraphics/CGColorSpace</filename>
+        <member kind="typedef">
+            <name>CGColorSpaceRef</name>
+            <anchorfile>https://developer.apple.com/documentation/coregraphics/CGColorSpaceRef</anchorfile>
+        </member>
+        <member kind="function">
+            <type>CGColorSpaceRef</type>
+            <name>CGColorSpaceCreateDeviceRGB</name>
+            <anchorfile>https://developer.apple.com/documentation/coregraphics/1408837-CGColorSpaceCreateDeviceRGB</anchorfile>
+        </member>
+        <member kind="function">
+            <type>CGColorSpaceRef</type>
+            <name>CGColorSpaceCreateWithName</name>
+            <anchorfile>https://developer.apple.com/documentation/coregraphics/1408921-CGColorSpaceCreateWithName</anchorfile>
+        </member>
+        <member kind="define">
+            <name>kCGColorSpaceGenericRGB</name>
+            <anchorfile>https://developer.apple.com/documentation/coregraphics/kCGColorSpaceGenericRGB</anchorfile>
+        </member>
+        <member kind="define">
+            <name>kCGColorSpaceSRGB</name>
+            <anchorfile>https://developer.apple.com/documentation/coregraphics/kCGColorSpaceSRGB</anchorfile>
+        </member>
+    </compound>
+    <compound kind="file">
+        <name>CGContext Reference</name>
+        <filename>https://developer.apple.com/documentation/coregraphics/CGContext</filename>
+        <member kind="typedef">
+            <name>CGContextRef</name>
+            <anchorfile>https://developer.apple.com/documentation/coregraphics/CGContextRef</anchorfile>
+        </member>
+    </compound>
+    <compound kind="file">
+        <name>CGFunction Reference</name>
+        <filename>https://developer.apple.com/documentation/coregraphics/CGFunction</filename>
+        <member kind="typedef">
+            <name>CGFunctionRef</name>
+            <anchorfile>https://developer.apple.com/documentation/coregraphics/CGFunctionRef</anchorfile>
+        </member>
+    </compound>
+    <compound kind="file">
+        <name>Core Graphics Reference</name>
+        <filename>https://developer.apple.com/documentation/coregraphics</filename>
+        <member kind="typedef">
+            <name>CGFloat</name>
+            <anchorfile>https://developer.apple.com/documentation/corefoundation/CGFloat</anchorfile>
+        </member>
+        <member kind="typedef">
+            <name>CGPoint</name>
+            <anchorfile>https://developer.apple.com/documentation/corefoundation/CGPoint</anchorfile>
+        </member>
+        <member kind="typedef">
+            <name>CGRect</name>
+            <anchorfile>https://developer.apple.com/documentation/corefoundation/CGRect</anchorfile>
+        </member>
+        <member kind="typedef">
+            <name>CGRectNull</name>
+            <anchorfile>https://developer.apple.com/documentation/corefoundation/CGRectNull</anchorfile>
+        </member>
+        <member kind="typedef">
+            <name>CGSize</name>
+            <anchorfile>https://developer.apple.com/documentation/corefoundation/CGSize</anchorfile>
+        </member>
+        <member kind="typedef">
+            <name>CGVector</name>
+            <anchorfile>https://developer.apple.com/documentation/corefoundation/CGVector</anchorfile>
+        </member>
+        <member kind="function">
+            <type>CGPoint</type>
+            <name>CGPointMake</name>
+            <anchorfile>https://developer.apple.com/documentation/coregraphics/1455746-CGPointMake</anchorfile>
+            <arglist>(CGFloat x, CGFloat y)</arglist>
+        </member>
+        <member kind="function">
+            <type>CGRect</type>
+            <name>CGRectInset</name>
+            <anchorfile>https://developer.apple.com/documentation/coregraphics/1454218-CGRectInset</anchorfile>
+            <arglist>(CGRect rect, CGFloat dx, CGFloat dy)</arglist>
+        </member>
+        <member kind="function">
+            <type>CGRect</type>
+            <name>CGRectMake</name>
+            <anchorfile>https://developer.apple.com/documentation/coregraphics/1455245-CGRectMake</anchorfile>
+            <arglist>(CGFloat x, CGFloat y, CGFloat width, CGFloat height)</arglist>
+        </member>
+        <member kind="function">
+            <type>CGSize</type>
+            <name>CGSizeMake</name>
+            <anchorfile>https://developer.apple.com/documentation/coregraphics/1455082-CGSizeMake</anchorfile>
+            <arglist>(CGFloat width, CGFloat height)</arglist>
+        </member>
+    </compound>
+    <compound kind="file">
+        <name>CGImage Reference</name>
+        <filename>https://developer.apple.com/documentation/coregraphics/CGImage</filename>
+        <member kind="typedef">
+            <name>CGImageRef</name>
+            <anchorfile>https://developer.apple.com/documentation/coregraphics/CGImageRef</anchorfile>
+        </member>
+    </compound>
+    <compound kind="file">
+        <name>CGPath Reference</name>
+        <filename>https://developer.apple.com/documentation/coregraphics/CGPath</filename>
+        <member kind="typedef">
+            <name>CGPathRef</name>
+            <anchorfile>https://developer.apple.com/documentation/coregraphics/CGPathRef</anchorfile>
+        </member>
+        <member kind="typedef">
+            <name>CGLineCap</name>
+            <anchorfile>https://developer.apple.com/documentation/coregraphics/CGLineCap</anchorfile>
+        </member>
+        <member kind="define">
+            <name>kCGLineCapButt</name>
+            <anchorfile>https://developer.apple.com/documentation/coregraphics/CGLineCap/Butt</anchorfile>
+        </member>
+        <member kind="define">
+            <name>kCGLineCapRound</name>
+            <anchorfile>https://developer.apple.com/documentation/coregraphics/CGLineCap/Round</anchorfile>
+        </member>
+        <member kind="define">
+            <name>kCGLineCapSquare</name>
+            <anchorfile>https://developer.apple.com/documentation/coregraphics/CGLineCap/Square</anchorfile>
+        </member>
+        <member kind="typedef">
+            <name>CGLineJoin</name>
+            <anchorfile>https://developer.apple.com/documentation/coregraphics/CGLineJoin</anchorfile>
+        </member>
+        <member kind="define">
+            <name>kCGLineJoinMiter</name>
+            <anchorfile>https://developer.apple.com/documentation/coregraphics/CGLineJoin/Miter</anchorfile>
+        </member>
+        <member kind="define">
+            <name>kCGLineJoinRound</name>
+            <anchorfile>https://developer.apple.com/documentation/coregraphics/CGLineJoin/Round</anchorfile>
+        </member>
+        <member kind="define">
+            <name>kCGLineJoinBevel</name>
+            <anchorfile>https://developer.apple.com/documentation/coregraphics/CGLineJoin/Bevel</anchorfile>
+        </member>
+    </compound>
+    <compound kind="file">
+        <name>CGShading Reference</name>
+        <filename>https://developer.apple.com/documentation/coregraphics/CGShading</filename>
+        <member kind="typedef">
+            <name>CGShadingRef</name>
+            <anchorfile>https://developer.apple.com/documentation/coregraphics/CGShadingRef</anchorfile>
+        </member>
+    </compound>
+
+    <!-- Core Animation -->
+    <compound kind="file">
+        <name>Core Animation Data Types Reference</name>
+        <filename>https://developer.apple.com/documentation/quartzcore/core_animation_data_types</filename>
+        <member kind="typedef">
+            <name>CAMediaTimingFillMode</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/CAMediaTimingFillMode</anchorfile>
+        </member>
+    </compound>
+
+    <compound kind="class" objc="yes">
+        <name>CAAnimation</name>
+        <filename>https://developer.apple.com/documentation/quartzcore/CAAnimation</filename>
+        <base>NSObject</base>
+    </compound>
+    <compound kind="protocol" objc="yes">
+        <name>CAAnimationDelegate</name>
+        <filename>https://developer.apple.com/documentation/quartzcore/CAAnimationDelegate</filename>
+        <base>NSObject-p</base>
+        <member kind="function" static="yes">
+            <type>void</type>
+            <name>animationDidStart:</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/caanimationdelegate/2097265-animationDidStart</anchorfile>
+            <arglist>(CAAnimation *anim)</arglist>
+        </member>
+        <member kind="function" static="yes">
+            <type>void</type>
+            <name>animationDidStop:finished:</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/caanimationdelegate/2097259-animationDidStop</anchorfile>
+            <arglist>(CAAnimation *anim, BOOL flag)</arglist>
+        </member>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>CALayer</name>
+        <filename>https://developer.apple.com/documentation/quartzcore/CALayer</filename>
+        <base>NSObject</base>
+        <base>NSCoding</base>
+        <base>CAMediaTiming</base>
+        <member kind="property">
+            <type>CGPoint</type>
+            <name>anchorPoint</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/calayer/1410817-anchorPoint</anchorfile>
+        </member>
+        <member kind="property">
+            <type>CGRect</type>
+            <name>bounds</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/calayer/1410915-bounds</anchorfile>
+        </member>
+        <member kind="property">
+            <type>CGFloat</type>
+            <name>contentsScale</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/calayer/1410746-contentsScale</anchorfile>
+        </member>
+        <member kind="property">
+            <type>CGFloat</type>
+            <name>cornerRadius</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/calayer/1410818-cornerRadius</anchorfile>
+        </member>
+        <member kind="property">
+            <type>id&lt;CALayerDelegate&gt;</type>
+            <name>delegate</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/calayer/1410984-delegate</anchorfile>
+        </member>
+        <member kind="property">
+            <type>CGRect</type>
+            <name>frame</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/calayer/1410779-frame</anchorfile>
+        </member>
+        <member kind="property">
+            <type>BOOL</type>
+            <name>masksToBounds</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/calayer/1410896-masksToBounds</anchorfile>
+        </member>
+        <member kind="property">
+            <type>BOOL</type>
+            <name>needsDisplayOnBoundsChange</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/calayer/1410923-needsDisplayOnBoundsChange</anchorfile>
+        </member>
+        <member kind="property">
+            <type>BOOL</type>
+            <name>opacity</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/calayer/1410933-opacity</anchorfile>
+        </member>
+        <member kind="property">
+            <type>BOOL</type>
+            <name>opaque</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/calayer/1410763-opaque</anchorfile>
+        </member>
+        <member kind="function" static="yes">
+            <type>instancetype</type>
+            <name>layer</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/calayer/1410793-layer</anchorfile>
+        </member>
+        <member kind="function">
+            <type>BOOL</type>
+            <name>containsPoint:</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/calayer/1410857-containsPoint</anchorfile>
+            <arglist>(CGPoint p)</arglist>
+        </member>
+        <member kind="function">
+            <type>void</type>
+            <name>drawInContext:</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/calayer/1410757-drawInContext</anchorfile>
+            <arglist>(CGContextRef ctx)</arglist>
+        </member>
+        <member kind="function">
+            <type>instancetype</type>
+            <name>init</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/calayer/1410835-init</anchorfile>
+        </member>
+        <member kind="function">
+            <type>instancetype</type>
+            <name>initWithLayer:</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/calayer/1410842-initWithLayer</anchorfile>
+            <arglist>(id layer)</arglist>
+        </member>
+        <member kind="function">
+            <type>void</type>
+            <name>layoutSublayers</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/calayer/1410935-layoutSublayers</anchorfile>
+        </member>
+        <member kind="function">
+            <type>void</type>
+            <name>setNeedsDisplay</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/calayer/1410855-setNeedsDisplay</anchorfile>
+        </member>
+        <member kind="function">
+            <type>void</type>
+            <name>setNeedsDisplayInRect:</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/calayer/1410800-setNeedsDisplayInRect</anchorfile>
+            <arglist>(CGRect r)</arglist>
+        </member>
+        <member kind="function">
+            <type>void</type>
+            <name>setNeedsLayout</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/calayer/1410946-setNeedsLayout</anchorfile>
+        </member>
+    </compound>
+    <compound kind="protocol" objc="yes">
+        <name>CALayerDelegate</name>
+        <filename>https://developer.apple.com/documentation/quartzcore/CALayerDelegate</filename>
+        <base>NSObject-p</base>
+        <member kind="function" static="yes">
+            <type>id</type>
+            <name>actionForLayer:forKey:</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/calayerdelegate/2097264-actionForLayer</anchorfile>
+            <arglist>(CALayer *layer, NSString * event)</arglist>
+        </member>
+        <member kind="function" static="yes">
+            <type>void</type>
+            <name>displayLayer:</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/calayerdelegate/2097261-displayLayer</anchorfile>
+            <arglist>(CALayer *layer)</arglist>
+        </member>
+        <member kind="function" static="yes">
+            <type>void</type>
+            <name>drawLayer:inContext:</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/calayerdelegate/2097262-drawLayer</anchorfile>
+            <arglist>(CALayer *layer, CGContextRef ctx)</arglist>
+        </member>
+        <member kind="function" static="yes">
+            <type>void</type>
+            <name>layerWillDraw:</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/calayerdelegate/2097263-layerWillDraw</anchorfile>
+            <arglist>(CALayer *layer)</arglist>
+        </member>
+        <member kind="function" static="yes">
+            <type>void</type>
+            <name>layoutSublayersOfLayer:</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/calayerdelegate/2097257-layoutSublayersOfLayer</anchorfile>
+            <arglist>(CALayer *layer)</arglist>
+        </member>
+    </compound>
+    <compound kind="protocol" objc="yes">
+        <name>CAMediaTiming</name>
+        <filename>https://developer.apple.com/documentation/quartzcore/CAMediaTiming</filename>
+        <member kind="property">
+            <type>BOOL</type>
+            <name>autoreverses</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/camediatiming/1427645-autoreverses</anchorfile>
+        </member>
+        <member kind="property">
+            <type>CFTimeInterval</type>
+            <name>beginTime</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/camediatiming/1427654-begintime</anchorfile>
+        </member>
+        <member kind="property">
+            <type>CFTimeInterval</type>
+            <name>duration</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/camediatiming/1427652-duration</anchorfile>
+        </member>
+        <member kind="property">
+            <type>CAMediaTimingFillMode</type>
+            <name>fillMode</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/camediatiming/1427656-fillMode</anchorfile>
+        </member>
+        <member kind="property">
+            <type>float</type>
+            <name>repeatCount</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/camediatiming/1427666-repeatCount</anchorfile>
+        </member>
+        <member kind="property">
+            <type>CFTimeInterval</type>
+            <name>repeatDuration</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/camediatiming/1427643-repeatDuration</anchorfile>
+        </member>
+        <member kind="property">
+            <type>float</type>
+            <name>speed</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/camediatiming/1427647-speed</anchorfile>
+        </member>
+        <member kind="property">
+            <type>CFTimeInterval</type>
+            <name>timeOffset</name>
+            <anchorfile>https://developer.apple.com/documentation/quartzcore/camediatiming/1427650-timeOffset</anchorfile>
+        </member>
+    </compound>
+    
+    <!-- Core Data -->
+    <compound kind="class" objc="yes">
+        <name>NSPropertyDescription</name>
+        <filename>https://developer.apple.com/documentation/coredata/NSPropertyDescription</filename>
+        <base>NSObject</base>
+    </compound>
+    <compound kind="class" objc="yes">
+        <name>NSAttributeDescription</name>
+        <filename>https://developer.apple.com/documentation/coredata/NSAttributeDescription</filename>
+        <base>NSPropertyDescription</base>
+    </compound>
+
+    <!-- Core Image -->
+    <compound kind="class" objc="yes">
+        <name>CIImage</name>
+        <filename>https://developer.apple.com/documentation/coreimage/CIImage</filename>
+        <base>NSObject</base>
+        <base>NSCoding</base>
+        <base>NSCopying</base>
+    </compound>
+    
+    <!-- Core Foundation -->
+    <compound kind="file">
+        <name>Byte-Order Utilties Reference</name>
+        <filename>https://developer.apple.com/documentation/corefoundation/byte-order_utilities</filename>
+        <member kind="typedef">
+            <name>CFByteOrder</name>
+            <anchorfile>https://developer.apple.com/documentation/corefoundation/CFByteOrder</anchorfile>
+        </member>
+    </compound>
+    <compound kind="file">
+        <name>Time Utilities Reference</name>
+        <filename>https://developer.apple.com/documentation/corefoundation/time_utilities</filename>
+        <member kind="typedef">
+            <name>CFTimeInterval</name>
+            <anchorfile>https://developer.apple.com/documentation/corefoundation/CFTimeInterval</anchorfile>
+        </member>
+    </compound>
+    <compound kind="file">
+        <name>NSNumber Functions Reference</name>
+        <filename>https://developer.apple.com/documentation/foundation/NSNumber</filename>
+        <member kind="function">
+            <type>BOOL</type>
+            <name>NSDecimalIsNotANumber</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/1414177-NSDecimalIsNotANumber</anchorfile>
+            <arglist>(const NSDecimal *dcm)</arglist>
+        </member>
+    </compound>
+    
+    <!-- Objective-C/Foundation Data Types -->
+    <compound kind="file">
+        <name>Obective-C Runtime Utlities Reference</name>
+        <filename>https://developer.apple.com/documentation/objectivec/objective-c_runtime</filename>
+        <member kind="typedef">
+            <name>BOOL</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/BOOL</anchorfile>
+        </member>
+        <member kind="typedef">
+            <name>Class</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/Class</anchorfile>
+        </member>
+        <member kind="typedef">
+            <name>id</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/id</anchorfile>
+        </member>
+        <member kind="typedef">
+            <name>NSInteger</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/NSInteger</anchorfile>
+        </member>
+        <member kind="typedef">
+            <name>NSUInteger</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/NSUInteger</anchorfile>
+        </member>
+        <member kind="define">
+            <name>YES</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/YES</anchorfile>
+        </member>
+        <member kind="define">
+            <name>NO</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/NO</anchorfile>
+        </member>
+        <member kind="define">
+            <name>nil</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/nil-2gl</anchorfile>
+        </member>
+        <member kind="define">
+            <name>Nil</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/Nil</anchorfile>
+        </member>
+        <member kind="typedef">
+            <name>SEL</name>
+            <anchorfile>https://developer.apple.com/documentation/objectivec/SEL</anchorfile>
+        </member>
+    </compound>
+    
+    <compound kind="file">
+        <name>Foundation Collections Reference</name>
+        <filename>https://developer.apple.com/documentation/foundation/collections</filename>
+        <member kind="define">
+            <name>NSNotFound</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/NSNotFound-8f9</anchorfile>
+        </member>
+    </compound>
+    
+    <compound kind="file">
+        <name>Foundation Data Types Reference</name>
+        <filename>https://developer.apple.com/documentation/foundation/numbers_data_and_basic_values</filename>
+        <member kind="typedef">
+            <name>NSDecimal</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/NSDecimal</anchorfile>
+        </member>
+        <member kind="typedef">
+            <name>NSRange</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/NSRange</anchorfile>
+        </member>
+        <member kind="typedef">
+            <name>NSRect</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/NSRect</anchorfile>
+        </member>
+        <member kind="typedef">
+            <name>NSZone</name>
+            <anchorfile>https://developer.apple.com/documentation/foundation/NSZone</anchorfile>
+        </member>
+    </compound>
+
+    <compound kind="file">
+        <name>Kernel Data Types Reference</name>
+        <filename>https://developer.apple.com/documentation/kernel/kernel_data_types</filename>
+        <member kind="typedef">
+            <name>int8_t</name>
+            <anchorfile>https://developer.apple.com/documentation/kernel/int8_t</anchorfile>
+        </member>
+        <member kind="typedef">
+            <name>int16_t</name>
+            <anchorfile>https://developer.apple.com/documentation/kernel/int16_t</anchorfile>
+        </member>
+        <member kind="typedef">
+            <name>int32_t</name>
+            <anchorfile>https://developer.apple.com/documentation/kernel/int32_t</anchorfile>
+        </member>
+        <member kind="typedef">
+            <name>int64_t</name>
+            <anchorfile>https://developer.apple.com/documentation/kernel/int64_t</anchorfile>
+        </member>
+        <member kind="typedef">
+            <name>size_t</name>
+            <anchorfile>https://developer.apple.com/documentation/kernel/size_t</anchorfile>
+        </member>
+        <member kind="typedef">
+            <name>uint8_t</name>
+            <anchorfile>https://developer.apple.com/documentation/kernel/uint8_t</anchorfile>
+        </member>
+        <member kind="typedef">
+            <name>uint16_t</name>
+            <anchorfile>https://developer.apple.com/documentation/kernel/uint16_t</anchorfile>
+        </member>
+        <member kind="typedef">
+            <name>uint32_t</name>
+            <anchorfile>https://developer.apple.com/documentation/kernel/uint32_t</anchorfile>
+        </member>
+        <member kind="typedef">
+            <name>uint64_t</name>
+            <anchorfile>https://developer.apple.com/documentation/kernel/uint64_t</anchorfile>
+        </member>
+    </compound>
+</tagfile>

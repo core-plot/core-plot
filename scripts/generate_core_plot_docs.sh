@@ -1,6 +1,11 @@
 #!/bin/sh
 
-#  Build the doxygen documentation for the project and load the docset into Xcode.
+#  Build the doxygen documentation for the project
+
+#  Required script parameters:
+#   $1: Doxygen .config filename
+#   $2: Output folder name
+#   $3: Docset filename (defined in the .config file)
 
 #  Use the following to adjust the value of the $DOXYGEN_PATH User-Defined Setting:
 #    Binary install location: /Applications/Doxygen.app/Contents/Resources/doxygen
@@ -46,5 +51,13 @@ ls _*.* | while read a; do n=$(echo $a | sed -e 's/^_//'); mv "$a" "$n"; done
 ls *.html | xargs sed -i '' 's/\"_/\"/g'
 ls *.js | xargs sed -i '' 's/\"_/\"/g'
 ls *.map | xargs sed -i '' 's/\"$_/\"$/g'
+
+# Remove ".html" from Apple documentation links
+findString="\(apple\.com[A-Z0-9/]*/[A-Z0-9_-]*\)\.html"
+replaceString="\1"
+
+for filename in *.html; do
+    sed -i "" "s#${findString}#${replaceString}#gi" ${filename}
+done
 
 exit 0
