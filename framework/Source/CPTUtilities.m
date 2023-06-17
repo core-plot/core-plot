@@ -991,6 +991,17 @@ CGRect CPTAlignIntegralRectToUserSpace(__nonnull CGContextRef context, CGRect re
     return CGContextConvertRectToUserSpace(context, rect);
 }
 
+/**
+ *  @brief Aligns a bordered rectangle in user space in device space, positioning it where the border will be drawn the sharpest.
+ *
+ *  Ensures that the x and y coordinates are aligned on or between pixels in device space
+ *  and the width and height are an integer number of device pixels.
+ *
+ *  @param  context         The graphics context.
+ *  @param  rect            The rectangle in user space.
+ *  @param  borderLineStyle The border line style.
+ *  @return                 The device aligned rectangle in user space.
+ **/
 CGRect CPTAlignBorderedRectToUserSpace(__nonnull CGContextRef context, CGRect rect, CPTLineStyle *__nonnull borderLineStyle)
 {
     CGRect borderRect;

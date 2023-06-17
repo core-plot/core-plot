@@ -37,7 +37,7 @@
 @dynamic textAlignment;
 
 /** @property NSLineBreakMode lineBreakMode
- *  @brief The line break mode used when laying out the text. Default is @link NSParagraphStyle::NSLineBreakByWordWrapping NSLineBreakByWordWrapping @endlink.
+ *  @brief The line break mode used when laying out the text. Default is #NSLineBreakByWordWrapping.
  **/
 @dynamic lineBreakMode;
 

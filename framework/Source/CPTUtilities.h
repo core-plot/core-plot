@@ -114,14 +114,34 @@ CPTRGBAColor CPTRGBAColorFromCGColor(__nonnull CGColorRef color);
 /// @{
 
 /**
- *  @brief A function called to align a point in a CGContext.
+ *  @fn CPTAlignPointFunction
+ *  @brief A function called to align a point in a @ref CGContextRef.
+ *
+ *  @param  context The graphics context.
+ *  @param  point   The point in user space.
+ *  @return         The device aligned point in user space.
  **/
-typedef CGPoint (*CPTAlignPointFunction)(__nonnull CGContextRef, CGPoint);
+typedef CGPoint (*CPTAlignPointFunction)(__nonnull CGContextRef context, CGPoint point);
 
 /**
- *  @brief A function called to align a rectangle in a CGContext.
+ *  @fn CPTAlignSizeFunction
+ *  @brief A function called to align a size in a @ref CGContextRef.
+ *
+ *  @param  context The graphics context.
+ *  @param  size    The size in user space.
+ *  @return         The device aligned size in user space.
  **/
-typedef CGRect (*CPTAlignRectFunction)(__nonnull CGContextRef, CGRect);
+typedef CGSize (*CPTAlignSizeFunction)(__nonnull CGContextRef context, CGSize size);
+
+/**
+ *  @fn CPTAlignRectFunction
+ *  @brief A function called to align a rectangle in a @ref CGContextRef.
+ *
+ *  @param  context The graphics context.
+ *  @param  rect    The rectangle in user space.
+ *  @return         The device aligned rectangle in user space.
+ **/
+typedef CGRect (*CPTAlignRectFunction)(__nonnull CGContextRef context, CGRect rect);
 
 CGPoint CPTAlignPointToUserSpace(__nonnull CGContextRef context, CGPoint point);
 CGSize CPTAlignSizeToUserSpace(__nonnull CGContextRef context, CGSize size);
