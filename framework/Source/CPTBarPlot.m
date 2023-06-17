@@ -326,15 +326,15 @@ CPTBarPlotBinding const CPTBarPlotBindingBarWidths     = @"barWidths";     ///< 
                                     forKey:@"CPTBarPlot.fill"] copy];
         num = [coder decodeObjectOfClass:[NSNumber class]
                                   forKey:@"CPTBarPlot.barWidth"];
-        barWidth = num ? num : @0.0;
+        barWidth = num != nil ? num : @0.0;
         num      = [coder decodeObjectOfClass:[NSNumber class]
                                        forKey:@"CPTBarPlot.barOffset"];
-        barOffset           = num ? num : @0.0;
+        barOffset           = num != nil ? num : @0.0;
         barCornerRadius     = [coder decodeCGFloatForKey:@"CPTBarPlot.barCornerRadius"];
         barBaseCornerRadius = [coder decodeCGFloatForKey:@"CPTBarPlot.barBaseCornerRadius"];
         num                 = [coder decodeObjectOfClass:[NSNumber class]
                                                   forKey:@"CPTBarPlot.baseValue"];
-        baseValue                     = num ? num : @0.0;
+        baseValue                     = num != nil ? num : @0.0;
         barsAreHorizontal             = [coder decodeBoolForKey:@"CPTBarPlot.barsAreHorizontal"];
         barBasesVary                  = [coder decodeBoolForKey:@"CPTBarPlot.barBasesVary"];
         barWidthsAreInViewCoordinates = [coder decodeBoolForKey:@"CPTBarPlot.barWidthsAreInViewCoordinates"];
@@ -632,7 +632,7 @@ CPTBarPlotBinding const CPTBarPlotBindingBarWidths     = @"barWidths";     ///< 
 
         for ( NSUInteger idx = indexRange.location; idx < maxIndex; idx++ ) {
             NSNumber *width = [theDataSource barWidthForBarPlot:self recordIndex:idx];
-            if ( width ) {
+            if ( width != nil ) {
                 [array addObject:width];
             }
             else {
@@ -1179,7 +1179,7 @@ CPTBarPlotBinding const CPTBarPlotBindingBarWidths     = @"barWidths";     ///< 
 {
     NSNumber *theBarWidth = [self cachedValueForKey:CPTBarPlotBindingBarWidths recordIndex:idx];
 
-    if ( !theBarWidth || (theBarWidth == [CPTPlot nilData])) {
+    if ((theBarWidth == nil) || (theBarWidth == [CPTPlot nilData])) {
         theBarWidth = self.barWidth;
     }
 

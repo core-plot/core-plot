@@ -775,7 +775,7 @@
 
     for ( NSUInteger i = 0; i < sampleCount; i++ ) {
         NSNumber *sampleValue = [self sampleValue:i];
-        if ( sampleValue ) {
+        if ( sampleValue != nil ) {
             [samples addObject:sampleValue];
         }
     }

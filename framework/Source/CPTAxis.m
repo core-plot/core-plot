@@ -809,7 +809,7 @@ NSDecimal CPTNiceLength(NSDecimal length);
                                               forKey:@"CPTAxis.axisLineCapMax"] copy];
         NSNumber *origin = [coder decodeObjectOfClass:[NSNumber class]
                                                forKey:@"CPTAxis.labelingOrigin"];
-        labelingOrigin      = origin ? origin : @0.0;
+        labelingOrigin      = origin != nil ? origin : @0.0;
         majorIntervalLength = [coder decodeObjectOfClass:[NSNumber class]
                                                   forKey:@"CPTAxis.majorIntervalLength"];
         minorTicksPerInterval       = (NSUInteger)[coder decodeIntegerForKey:@"CPTAxis.minorTicksPerInterval"];
@@ -2567,7 +2567,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
 {
     BOOL needsUpdate = YES;
 
-    if ( newLocation ) {
+    if ( newLocation != nil ) {
         NSNumber *location = newLocation;
         needsUpdate = ![titleLocation isEqualToNumber:location];
     }
@@ -2874,7 +2874,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
 {
     BOOL needsUpdate = YES;
 
-    if ( newLabelingOrigin ) {
+    if ( newLabelingOrigin != nil ) {
         needsUpdate = ![labelingOrigin isEqualToNumber:newLabelingOrigin];
     }
 
@@ -2889,7 +2889,7 @@ NSDecimal CPTNiceLength(NSDecimal length)
 {
     BOOL needsUpdate = YES;
 
-    if ( newIntervalLength ) {
+    if ( newIntervalLength != nil ) {
         NSNumber *interval = newIntervalLength;
         needsUpdate = ![majorIntervalLength isEqualToNumber:interval];
     }

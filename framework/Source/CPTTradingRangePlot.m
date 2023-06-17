@@ -586,7 +586,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 
         for ( NSUInteger idx = indexRange.location; idx < maxIndex; idx++ ) {
             NSNumber *width = [theDataSource barWidthForTradingRangePlot:self recordIndex:idx];
-            if ( width ) {
+            if ( width != nil ) {
                 [array addObject:width];
             }
             else {
@@ -1176,7 +1176,7 @@ static const CPTCoordinate dependentCoord   = CPTCoordinateY;
 {
     NSNumber *theBarWidth = [self cachedValueForKey:CPTTradingRangePlotBindingBarWidths recordIndex:idx];
 
-    if ( !theBarWidth || (theBarWidth == [CPTPlot nilData])) {
+    if ((theBarWidth == nil) || (theBarWidth == [CPTPlot nilData])) {
         theBarWidth = @(self.barWidth);
     }
 

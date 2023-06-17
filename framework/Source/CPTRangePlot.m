@@ -664,7 +664,7 @@ typedef struct CGPointError CGPointError;
 
         for ( NSUInteger idx = indexRange.location; idx < maxIndex; idx++ ) {
             NSNumber *width = [theDataSource barWidthForRangePlot:self recordIndex:idx];
-            if ( width ) {
+            if ( width != nil ) {
                 [array addObject:width];
             }
             else {
@@ -1021,7 +1021,7 @@ typedef struct CGPointError CGPointError;
 {
     NSNumber *theBarWidth = [self cachedValueForKey:CPTRangePlotBindingBarWidths recordIndex:idx];
 
-    if ( !theBarWidth || (theBarWidth == [CPTPlot nilData])) {
+    if ((theBarWidth == nil) || (theBarWidth == [CPTPlot nilData])) {
         theBarWidth = @(self.barWidth);
     }
 

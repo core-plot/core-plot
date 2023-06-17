@@ -113,7 +113,7 @@
         alignment = (CPTAlignment)[coder decodeIntegerForKey:@"CPTAxisLabel.alignment"];
         NSNumber *location = [coder decodeObjectOfClass:[NSNumber class]
                                                  forKey:@"CPTAxisLabel.tickLocation"];
-        tickLocation = location ? location : @0.0;
+        tickLocation = location != nil ? location : @0.0;
     }
     return self;
 }
@@ -332,7 +332,7 @@
     else if ( [object isKindOfClass:[self class]] ) {
         NSNumber *location = ((CPTAxisLabel *)object).tickLocation;
 
-        if ( location ) {
+        if ( location != nil ) {
             return [self.tickLocation isEqualToNumber:location];
         }
         else {

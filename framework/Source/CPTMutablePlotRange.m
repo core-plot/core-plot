@@ -302,7 +302,7 @@
 
 -(void)setLocation:(nonnull NSNumber *)newLocation
 {
-    NSParameterAssert(newLocation);
+    NSParameterAssert(newLocation != nil);
 
     self.inValueUpdate = YES;
 
@@ -314,7 +314,7 @@
 
 -(void)setLength:(nonnull NSNumber *)newLength
 {
-    NSParameterAssert(newLength);
+    NSParameterAssert(newLength != nil);
 
     self.inValueUpdate = YES;
 

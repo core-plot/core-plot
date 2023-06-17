@@ -166,8 +166,8 @@
  **/
 -(nonnull instancetype)initWithLocation:(nonnull NSNumber *)loc length:(nonnull NSNumber *)len
 {
-    NSParameterAssert(loc);
-    NSParameterAssert(len);
+    NSParameterAssert(loc != nil);
+    NSParameterAssert(len != nil);
 
     if ((self = [super init])) {
         locationDecimal = loc.decimalValue;

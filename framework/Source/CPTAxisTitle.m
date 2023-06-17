@@ -58,7 +58,7 @@
 
         NSNumber *location = ((CPTAxisLabel *)object).tickLocation;
 
-        if ( location ) {
+        if ( location != nil ) {
             return [self.tickLocation isEqualToNumber:location];
         }
         else {

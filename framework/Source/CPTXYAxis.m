@@ -872,7 +872,7 @@
 {
     BOOL needsUpdate = YES;
 
-    if ( newPosition ) {
+    if ( newPosition != nil ) {
         NSNumber *position = newPosition;
         needsUpdate = ![orthogonalPosition isEqualToNumber:position];
     }

@@ -597,7 +597,7 @@ static NSString *const barPlot2       = @"Bar Plot 2";
     const CGFloat duration = 0.25;
     NSNumber *barWidth     = plot.barWidth;
 
-    if ( barWidth ) {
+    if ( barWidth != nil ) {
         [CPTAnimation animate:plot
                      property:@"barWidth"
                    fromNumber:plot.barWidth
