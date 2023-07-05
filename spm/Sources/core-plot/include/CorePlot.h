@@ -1,1 +1,1 @@
-../../../../framework/SPM Umbrella Header/CorePlot.h
+../../../../framework/CorePlot.h

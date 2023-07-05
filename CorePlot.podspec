@@ -26,18 +26,22 @@ Pod::Spec.new do |s|
   s.osx.header_dir = 'osx'
   s.tvos.header_dir = 'tvos'
   
-  s.source_files = 'framework/Source/*.{h,m}', 'framework/CocoaPods/*.h', 'framework/PlatformSpecific/*.{h,m}'
+  s.source_files = 'framework/*CorePlot*.h', 'framework/Source/*.{h,m}', 'framework/PlatformSpecific/*.{h,m}'
   s.exclude_files = '**/*{TestCase,Tests}.{h,m}', '**/mainpage.h'
   s.osx.source_files = 'framework/MacOnly/*.{h,m}'
-  s.private_header_files = '**/_*.h'
+  s.project_header_files = '**/_*.h'
 
   s.requires_arc  = true
+
+  s.module_map = false
+
+  s.xcconfig = { 'DEFINES_MODULE' => 'YES' }
   s.ios.xcconfig  = { 'HEADER_SEARCH_PATHS' => '"${PODS_ROOT}/Headers/Private/CorePlot/ios"' }
   s.osx.xcconfig  = { 'HEADER_SEARCH_PATHS' => '"${PODS_ROOT}/Headers/Private/CorePlot/osx"' }
   s.tvos.xcconfig = { 'HEADER_SEARCH_PATHS' => '"${PODS_ROOT}/Headers/Private/CorePlot/tvos"' }
-  
+
   s.frameworks     = 'QuartzCore'
   s.ios.frameworks = 'UIKit', 'Foundation'
-  s.tvos.frameworks = 'UIKit', 'Foundation'
   s.osx.frameworks = 'Cocoa'
+  s.tvos.frameworks = 'UIKit', 'Foundation'
 end

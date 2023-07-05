@@ -1,6 +1,0 @@
-framework module CorePlot_Private {
-  umbrella header "_CorePlot_Private.h"
-
-  export *
-  module * { export * }
-}
