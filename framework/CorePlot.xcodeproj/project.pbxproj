@@ -778,7 +778,7 @@
 		071F3CB810FBAB5900D0A7B6 /* License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = License.txt; path = ../License.txt; sourceTree = SOURCE_ROOT; };
 		072161E911D1F6BD009CC871 /* CPTAnnotationHostLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAnnotationHostLayer.h; sourceTree = "<group>"; };
 		072161EA11D1F6BD009CC871 /* CPTAnnotationHostLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CPTAnnotationHostLayer.m; sourceTree = "<group>"; };
-		0730F600109492D800E95162 /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0730F600109492D800E95162 /* UnitTests Mac.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UnitTests Mac.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0730F64C109494D100E95162 /* CPTTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTTestCase.h; sourceTree = "<group>"; };
 		0730F64D109494D100E95162 /* CPTTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTTestCase.m; sourceTree = "<group>"; };
 		07321BBF0F37370D00F423D8 /* CPTExceptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTExceptions.h; sourceTree = "<group>"; };
@@ -978,6 +978,7 @@
 		C3A259E12A329D1D00D2BDA7 /* doxygen-common-tags.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "doxygen-common-tags.xml"; path = "../documentation/doxygen/doxygen-common-tags.xml"; sourceTree = "<group>"; };
 		C3A695E3146A19BC00AF5653 /* CPTMutablePlotRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTMutablePlotRange.h; sourceTree = "<group>"; };
 		C3A695E4146A19BC00AF5653 /* CPTMutablePlotRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTMutablePlotRange.m; sourceTree = "<group>"; };
+		C3AE08292A58CB0300C1022A /* CorePlotDocumentation.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotDocumentation.xcconfig; path = xcconfig/CorePlotDocumentation.xcconfig; sourceTree = "<group>"; };
 		C3AFC9CF0FB62969005DFFDC /* CPTImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CPTImage.h; sourceTree = "<group>"; };
 		C3AFC9D00FB62969005DFFDC /* CPTImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CPTImage.m; sourceTree = "<group>"; };
 		C3B0E7B229CA7B3200FC94B5 /* CorePlotDebugModule.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotDebugModule.xcconfig; path = xcconfig/CorePlotDebugModule.xcconfig; sourceTree = "<group>"; };
@@ -1121,7 +1122,7 @@
 			isa = PBXGroup;
 			children = (
 				8DC2EF5B0486A6940098B216 /* CorePlot.framework */,
-				0730F600109492D800E95162 /* UnitTests.xctest */,
+				0730F600109492D800E95162 /* UnitTests Mac.xctest */,
 				C38A09781A46185200D45436 /* CorePlot.framework */,
 				C38A09821A46185300D45436 /* UnitTests iOS.xctest */,
 				C37EA6921BC83F2A0091C8F7 /* CorePlot.framework */,
@@ -1465,6 +1466,7 @@
 				C3B0E7B429CA7B6000FC94B5 /* CorePlotModule.xcconfig */,
 				C31908A41998168C00B61898 /* CorePlot.xcconfig */,
 				C34F570D19D8CE5500446248 /* CorePlotWarnings.xcconfig */,
+				C3AE08292A58CB0300C1022A /* CorePlotDocumentation.xcconfig */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -2133,7 +2135,7 @@
 			);
 			name = "UnitTests Mac";
 			productName = UnitTests;
-			productReference = 0730F600109492D800E95162 /* UnitTests.xctest */;
+			productReference = 0730F600109492D800E95162 /* UnitTests Mac.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		8DC2EF4F0486A6940098B216 /* CorePlot Mac */ = {
@@ -2909,7 +2911,6 @@
 			buildSettings = {
 				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlotTests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				PRODUCT_NAME = UnitTests;
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/Source",
@@ -2925,7 +2926,6 @@
 			buildSettings = {
 				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlotTests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				PRODUCT_NAME = UnitTests;
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/Source",
@@ -2944,7 +2944,6 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-Info.plist";
 				INSTALL_PATH = "@rpath";
-				PRODUCT_NAME = CorePlot;
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/Source",
@@ -2964,7 +2963,6 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "$(SRCROOT)/Info/Base.lproj/CorePlot-Info.plist";
 				INSTALL_PATH = "@rpath";
-				PRODUCT_NAME = CorePlot;
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/Source",
@@ -2993,21 +2991,15 @@
 		};
 		9021E49F0FC5C9DD00443472 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C34F570D19D8CE5500446248 /* CorePlotWarnings.xcconfig */;
+			baseConfigurationReference = C3AE08292A58CB0300C1022A /* CorePlotDocumentation.xcconfig */;
 			buildSettings = {
-				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
-				PRODUCT_NAME = Documentation;
 			};
 			name = Debug;
 		};
 		9021E4A00FC5C9DD00443472 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C34F570D19D8CE5500446248 /* CorePlotWarnings.xcconfig */;
+			baseConfigurationReference = C3AE08292A58CB0300C1022A /* CorePlotDocumentation.xcconfig */;
 			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
-				PRODUCT_NAME = Documentation;
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
@@ -3015,7 +3007,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C34F570D19D8CE5500446248 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
@@ -3023,7 +3014,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C34F570D19D8CE5500446248 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -3042,7 +3032,6 @@
 					"@loader_path/Frameworks",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = CorePlot;
 				SDKROOT = appletvos;
 				USER_HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/Source",
@@ -3066,7 +3055,6 @@
 					"@loader_path/Frameworks",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = CorePlot;
 				SDKROOT = appletvos;
 				USER_HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/Source",
@@ -3086,7 +3074,6 @@
 					"@loader_path/Frameworks",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				USER_HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/Source",
@@ -3106,7 +3093,6 @@
 					"@loader_path/Frameworks",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				USER_HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/Source",
@@ -3130,7 +3116,6 @@
 					"@loader_path/Frameworks",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = CorePlot;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = (
@@ -3155,7 +3140,6 @@
 					"@loader_path/Frameworks",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = CorePlot;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = (
@@ -3176,7 +3160,6 @@
 					"@loader_path/Frameworks",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = (
@@ -3197,7 +3180,6 @@
 					"@loader_path/Frameworks",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = (
@@ -3209,21 +3191,15 @@
 		};
 		C38A09941A4618B600D45436 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C34F570D19D8CE5500446248 /* CorePlotWarnings.xcconfig */;
+			baseConfigurationReference = C3AE08292A58CB0300C1022A /* CorePlotDocumentation.xcconfig */;
 			buildSettings = {
-				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
-				PRODUCT_NAME = "Documentation-Mac copy";
 			};
 			name = Debug;
 		};
 		C38A09951A4618B600D45436 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C34F570D19D8CE5500446248 /* CorePlotWarnings.xcconfig */;
+			baseConfigurationReference = C3AE08292A58CB0300C1022A /* CorePlotDocumentation.xcconfig */;
 			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
-				PRODUCT_NAME = "Documentation-Mac copy";
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
@@ -3231,10 +3207,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C34F570D19D8CE5500446248 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
-				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 			};
 			name = Debug;
 		};
@@ -3242,12 +3214,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C34F570D19D8CE5500446248 /* CorePlotWarnings.xcconfig */;
 			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};

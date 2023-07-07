@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -255,7 +255,7 @@
 		C309C23323B3E12500DEDE9D /* PlotViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlotViewItem.xib; path = "Plot Gallery-Mac/PlotViewItem.xib"; sourceTree = "<group>"; };
 		C309C23523B3E21500DEDE9D /* PlotViewItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PlotViewItem.m; path = src/mac/PlotViewItem.m; sourceTree = "<group>"; };
 		C309C23723B3E29F00DEDE9D /* PlotViewItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PlotViewItem.h; path = src/mac/PlotViewItem.h; sourceTree = "<group>"; };
-		C30D8AF61BCAF99D0003BB70 /* Plot Gallery-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Plot Gallery-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C30D8AF61BCAF99D0003BB70 /* Plot Gallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Plot Gallery.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C30D8AF91BCAF99D0003BB70 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = src/tvOS/main.m; sourceTree = "<group>"; };
 		C30D8AFB1BCAF99D0003BB70 /* AppDelegateTV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegateTV.h; path = src/tvOS/AppDelegateTV.h; sourceTree = "<group>"; };
 		C30D8AFC1BCAF99D0003BB70 /* AppDelegateTV.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegateTV.m; path = src/tvOS/AppDelegateTV.m; sourceTree = "<group>"; };
@@ -272,7 +272,7 @@
 		C3490DD920E025760089F309 /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Base; path = Base.lproj/Icon.icns; sourceTree = "<group>"; };
 		C3490DDB20E025B60089F309 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/Plot_Gallery_iOS-Info.plist"; sourceTree = "<group>"; };
 		C3490DDF20E026410089F309 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/Plot_Gallery_tvOS-Info.plist"; sourceTree = "<group>"; };
-		C34CB52E1BC9A76A009270A0 /* Plot Gallery-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Plot Gallery-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C34CB52E1BC9A76A009270A0 /* Plot Gallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Plot Gallery.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34CB5451BC9A83C009270A0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Plot Gallery-iOS/Images.xcassets"; sourceTree = "<group>"; };
 		C34CB5471BC9A889009270A0 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = src/ios/AppDelegate.h; sourceTree = "<group>"; };
 		C34CB5481BC9A889009270A0 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = src/ios/AppDelegate.m; sourceTree = "<group>"; };
@@ -392,8 +392,8 @@
 			isa = PBXGroup;
 			children = (
 				8D1107320486CEB800E47090 /* Plot Gallery.app */,
-				C34CB52E1BC9A76A009270A0 /* Plot Gallery-iOS.app */,
-				C30D8AF61BCAF99D0003BB70 /* Plot Gallery-tvOS.app */,
+				C34CB52E1BC9A76A009270A0 /* Plot Gallery.app */,
+				C30D8AF61BCAF99D0003BB70 /* Plot Gallery.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -524,7 +524,7 @@
 			isa = PBXGroup;
 			children = (
 				4F4892891290FFCD00EDB93F /* CorePlot.framework */,
-				4F48928B1290FFCD00EDB93F /* UnitTests.xctest */,
+				4F48928B1290FFCD00EDB93F /* UnitTests Mac.xctest */,
 				C3D4146F1A7D824700B6F5D6 /* CorePlot.framework */,
 				C3D414711A7D824700B6F5D6 /* UnitTests iOS.xctest */,
 				C30D8B181BCAF99D0003BB70 /* CorePlot.framework */,
@@ -649,7 +649,7 @@
 			);
 			name = "Plot Gallery-tvOS";
 			productName = "Plot Gallery tvOS";
-			productReference = C30D8AF61BCAF99D0003BB70 /* Plot Gallery-tvOS.app */;
+			productReference = C30D8AF61BCAF99D0003BB70 /* Plot Gallery.app */;
 			productType = "com.apple.product-type.application";
 		};
 		C34CB52D1BC9A76A009270A0 /* Plot Gallery-iOS */ = {
@@ -668,7 +668,7 @@
 			);
 			name = "Plot Gallery-iOS";
 			productName = "Plot Gallery-iOS";
-			productReference = C34CB52E1BC9A76A009270A0 /* Plot Gallery-iOS.app */;
+			productReference = C34CB52E1BC9A76A009270A0 /* Plot Gallery.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -726,10 +726,10 @@
 			remoteRef = 4F4892881290FFCD00EDB93F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4F48928B1290FFCD00EDB93F /* UnitTests.xctest */ = {
+		4F48928B1290FFCD00EDB93F /* UnitTests Mac.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = UnitTests.xctest;
+			path = "UnitTests Mac.xctest";
 			remoteRef = 4F48928A1290FFCD00EDB93F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1071,7 +1071,7 @@
 					"@executable_path/Frameworks",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "Plot Gallery-tvOS";
+				PRODUCT_NAME = "Plot Gallery";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 12.0;
@@ -1095,7 +1095,7 @@
 					"@executable_path/Frameworks",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "Plot Gallery-tvOS";
+				PRODUCT_NAME = "Plot Gallery";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 12.0;
@@ -1114,7 +1114,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Plot Gallery";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
@@ -1131,7 +1131,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Plot Gallery";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};

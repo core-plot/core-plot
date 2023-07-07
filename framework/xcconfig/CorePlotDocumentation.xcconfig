@@ -1,0 +1,3 @@
+PRODUCT_NAME = $(TARGET_NAME)
+
+DOXYGEN_PATH = /Applications/Doxygen.app/Contents/Resources/doxygen;

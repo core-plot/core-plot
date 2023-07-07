@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -259,7 +259,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 			};
 			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "DropPlot" */;
 			compatibilityVersion = "Xcode 6.3";
@@ -424,7 +424,6 @@
 					"$(inherited)",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_NAME = DropPlot;
 			};
 			name = Debug;
 		};
@@ -440,7 +439,6 @@
 					"$(inherited)",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_NAME = DropPlot;
 			};
 			name = Release;
 		};

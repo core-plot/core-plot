@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -261,7 +261,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						LastSwiftMigration = 1020;
@@ -445,7 +445,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_NAME = "CPTTestApp-iPhone";
 			};
 			name = Debug;
 		};
@@ -460,7 +459,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_NAME = "CPTTestApp-iPhone";
 			};
 			name = Release;
 		};

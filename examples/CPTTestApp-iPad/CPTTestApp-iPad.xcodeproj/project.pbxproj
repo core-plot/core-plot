@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -249,7 +249,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						ProvisioningStyle = Manual;
@@ -411,7 +411,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_NAME = "CPTTestApp-iPad";
 			};
 			name = Debug;
 		};
@@ -426,7 +425,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_NAME = "CPTTestApp-iPad";
 			};
 			name = Release;
 		};

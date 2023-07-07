@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -282,7 +282,7 @@
 		07E0DF80109C4E9500F108D2 /* UnitTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = UnitTests.xctest;
+			path = "UnitTests Mac.xctest";
 			remoteRef = 07E0DF7F109C4E9500F108D2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -381,7 +381,6 @@
 					"$(inherited)",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_NAME = DatePlot;
 			};
 			name = Debug;
 		};
@@ -397,7 +396,6 @@
 					"$(inherited)",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_NAME = DatePlot;
 			};
 			name = Release;
 		};
