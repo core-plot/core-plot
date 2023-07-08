@@ -28,7 +28,6 @@ Pod::Spec.new do |s|
   
   s.source_files = 'framework/*CorePlot*.h', 'framework/Source/*.{h,m}', 'framework/PlatformSpecific/*.{h,m}'
   s.exclude_files = '**/*{TestCase,Tests}.{h,m}', '**/mainpage.h'
-  s.osx.source_files = 'framework/MacOnly/*.{h,m}'
   s.project_header_files = '**/_*.h'
 
   s.requires_arc  = true

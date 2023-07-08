@@ -2934,7 +2934,6 @@
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/Source",
-					"$(SRCROOT)/MacOnly",
 					"$(SRCROOT)/PlatformSpecific",
 				);
 			};
@@ -2949,7 +2948,6 @@
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/Source",
-					"$(SRCROOT)/MacOnly",
 					"$(SRCROOT)/PlatformSpecific",
 				);
 			};
@@ -2967,7 +2965,6 @@
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/Source",
-					"$(SRCROOT)/MacOnly",
 					"$(SRCROOT)/PlatformSpecific",
 				);
 				WRAPPER_EXTENSION = framework;
@@ -2986,7 +2983,6 @@
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/Source",
-					"$(SRCROOT)/MacOnly",
 					"$(SRCROOT)/PlatformSpecific",
 				);
 				WRAPPER_EXTENSION = framework;
