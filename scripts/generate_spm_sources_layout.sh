@@ -25,6 +25,7 @@ function generate_spm_public_headers() {
             -type f \
             -name "*.[h]" \
             -not -path "*/build/*" \
+            -not -path "framework/CorePlot.h" \
             -not -name "*Test*.[hm]" \
             -not -name "_*.[hm]" \
             -not -name "mainpage.h" \
@@ -87,6 +88,7 @@ function generate_spm_public_sources() {
             -type f \
             -name "*.[m]" \
             -not -path "*/build/*" \
+            -not -path "framework/CorePlot.h" \
             -not -name "*Test*.[hm]" \
             -not -name "_*.[hm]" \
         | sed "s| \([^/]\)|:\1|g"
