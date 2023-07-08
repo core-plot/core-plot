@@ -5,8 +5,8 @@ Follow these steps to create a Core Plot release and post it to GitHub:
 1. Ensure the following tools are installed on your development machine:
 
     <ul>
-        <li>Xcode 11</li>
-        <li>[Doxygen](http://www.stack.nl/~dimitri/doxygen/download.html#latestsrc), version 1.8.12 or later, installed in <strong>/Applications</strong></li>
+        <li>Xcode 14 or later</li>
+        <li>[Doxygen](http://www.stack.nl/~dimitri/doxygen/download.html#latestsrc), version 1.9.7 or later, installed in <strong>/Applications</strong></li>
         <li>[Graphviz](http://www.graphviz.org/Download_macos.php), version 2.36.0 or later</li>
     </ul>
 
@@ -18,7 +18,7 @@ Follow these steps to create a Core Plot release and post it to GitHub:
 
     `s.source = { :git => 'https://github.com/core-plot/core-plot.git' }`
 
-5. In the "Core Plot" project build settings, set the "Current Project Version" to the release version. Commit the change in Git.
+5. In the **CorePlotModule.xcconfig** configuration file, set the `CURRENT_PROJECT_VERSION` to the release version. Commit the change in Git.
 
 6. Using Git, ensure your local Core Plot source directory is in sync with the public repository on GitHub.
 
