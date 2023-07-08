@@ -1,6 +1,6 @@
 #import "CPTDecimalNumberValueTransformer.h"
 
-#if TARGET_OS_OSX
+#if TARGET_OS_OSX || TARGET_OS_MACCATALYST
 
 #import "_NSNumberExtensions.h"
 

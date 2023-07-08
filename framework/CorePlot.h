@@ -1,4 +1,4 @@
-#if defined __has_include
+#ifdef __has_include
 #if __has_include(<CorePlot/CPTAnimation.h>)
 #define CPT_IS_FRAMEWORK
 #endif
@@ -14,12 +14,6 @@
 #else
 
 #import <Cocoa/Cocoa.h>
-
-#ifdef CPT_IS_FRAMEWORK
-#import <CorePlot/CPTDecimalNumberValueTransformer.h>
-#else
-#import "CPTDecimalNumberValueTransformer.h"
-#endif
 
 #endif
 
@@ -158,5 +152,15 @@
 #import "CPTXYAxisSet.h"
 #import "CPTXYGraph.h"
 #import "CPTXYPlotSpace.h"
+
+#endif
+
+#if TARGET_OS_OSX || TARGET_OS_MACCATALYST
+
+#ifdef CPT_IS_FRAMEWORK
+#import <CorePlot/CPTDecimalNumberValueTransformer.h>
+#else
+#import "CPTDecimalNumberValueTransformer.h"
+#endif
 
 #endif
