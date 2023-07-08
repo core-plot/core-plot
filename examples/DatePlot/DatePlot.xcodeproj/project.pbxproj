@@ -103,7 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				076184C10F3CAD5900A89A76 /* CorePlot.framework */,
-				07E0DF80109C4E9500F108D2 /* UnitTests.xctest */,
+				07E0DF80109C4E9500F108D2 /* UnitTests Mac.xctest */,
 				C3F04DB81B44CCFD0002322A /* CorePlot.framework */,
 				C3F04DBA1B44CCFD0002322A /* UnitTests iOS.xctest */,
 				C310CE5C1C0A3DB500C4FCB4 /* CorePlot.framework */,
@@ -279,7 +279,7 @@
 			remoteRef = 076184C00F3CAD5900A89A76 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		07E0DF80109C4E9500F108D2 /* UnitTests.xctest */ = {
+		07E0DF80109C4E9500F108D2 /* UnitTests Mac.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = "UnitTests Mac.xctest";
@@ -374,7 +374,6 @@
 			baseConfigurationReference = C39B4BFD2962169F00ABA414 /* CorePlotDebug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -389,7 +388,6 @@
 			baseConfigurationReference = C39B4BFE2962169F00ABA414 /* CorePlotRelease.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Base.lproj/Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = (

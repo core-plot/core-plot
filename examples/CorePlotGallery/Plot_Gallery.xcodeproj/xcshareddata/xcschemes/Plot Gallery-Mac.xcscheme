@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8D1107260486CEB800E47090"
-               BuildableName = "Plot Gallery-Mac.app"
+               BuildableName = "Plot Gallery.app"
                BlueprintName = "Plot Gallery-Mac"
                ReferencedContainer = "container:Plot_Gallery.xcodeproj">
             </BuildableReference>
@@ -32,7 +32,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8D1107260486CEB800E47090"
-            BuildableName = "Plot Gallery-Mac.app"
+            BuildableName = "Plot Gallery.app"
             BlueprintName = "Plot Gallery-Mac"
             ReferencedContainer = "container:Plot_Gallery.xcodeproj">
          </BuildableReference>
@@ -55,7 +55,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8D1107260486CEB800E47090"
-            BuildableName = "Plot Gallery-Mac.app"
+            BuildableName = "Plot Gallery.app"
             BlueprintName = "Plot Gallery-Mac"
             ReferencedContainer = "container:Plot_Gallery.xcodeproj">
          </BuildableReference>
@@ -72,7 +72,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8D1107260486CEB800E47090"
-            BuildableName = "Plot Gallery-Mac.app"
+            BuildableName = "Plot Gallery.app"
             BlueprintName = "Plot Gallery-Mac"
             ReferencedContainer = "container:Plot_Gallery.xcodeproj">
          </BuildableReference>
