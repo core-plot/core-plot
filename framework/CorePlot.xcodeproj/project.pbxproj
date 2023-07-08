@@ -655,6 +655,10 @@
 		C3BB931A1B729BD200004527 /* _CPTDebugQuickLook.h in Headers */ = {isa = PBXBuildFile; fileRef = C3BB93181B729BD200004527 /* _CPTDebugQuickLook.h */; };
 		C3BFFD1112274CB500DE22AC /* CPTNumericDataTypeConversionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C97EF08104D80D400B554F9 /* CPTNumericDataTypeConversionTests.m */; };
 		C3C1C0801790D3B400E8B1B7 /* CPTLayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C1C07F1790D3B400E8B1B7 /* CPTLayerTests.m */; };
+		C3C58E532A58FECA00E295B0 /* CPTDecimalNumberValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 070A73DA0F5D8C910014FA84 /* CPTDecimalNumberValueTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C3C58E542A58FF8500E295B0 /* CPTDecimalNumberValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 070A73DA0F5D8C910014FA84 /* CPTDecimalNumberValueTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C3C58E552A58FFB700E295B0 /* CPTDecimalNumberValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 070A73DB0F5D8C910014FA84 /* CPTDecimalNumberValueTransformer.m */; };
+		C3C58E562A58FFB800E295B0 /* CPTDecimalNumberValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 070A73DB0F5D8C910014FA84 /* CPTDecimalNumberValueTransformer.m */; };
 		C3C9CB0E165DB4D500739006 /* CPTAnimationOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = C3C9CB0C165DB4D500739006 /* CPTAnimationOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3C9CB0F165DB4D500739006 /* CPTAnimationOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C9CB0D165DB4D500739006 /* CPTAnimationOperation.m */; };
 		C3C9CB13165DB50300739006 /* CPTAnimationPeriod.h in Headers */ = {isa = PBXBuildFile; fileRef = C3C9CB11165DB50300739006 /* CPTAnimationPeriod.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2009,6 +2013,7 @@
 				C37EA67D1BC83F2A0091C8F7 /* _CPTAnimationPlotRangePeriod.h in Headers */,
 				C37EA67E1BC83F2A0091C8F7 /* CPTFunctionDataSource.h in Headers */,
 				C37EA67F1BC83F2A0091C8F7 /* CPTGradient.h in Headers */,
+				C3C58E542A58FF8500E295B0 /* CPTDecimalNumberValueTransformer.h in Headers */,
 				C37EA6801BC83F2A0091C8F7 /* _CPTAnimationCGPointPeriod.h in Headers */,
 				C37EA6811BC83F2A0091C8F7 /* _NSDecimalNumberExtensions.h in Headers */,
 				C37EA6821BC83F2A0091C8F7 /* CPTAxis.h in Headers */,
@@ -2112,6 +2117,7 @@
 				C38A0A2C1A461EAA00D45436 /* _CPTAnimationPlotRangePeriod.h in Headers */,
 				C38A09FE1A461D1800D45436 /* CPTFunctionDataSource.h in Headers */,
 				C38A0A5E1A4620D400D45436 /* CPTGradient.h in Headers */,
+				C3C58E532A58FECA00E295B0 /* CPTDecimalNumberValueTransformer.h in Headers */,
 				C38A0A201A461E8800D45436 /* _CPTAnimationCGPointPeriod.h in Headers */,
 				C38A0A9E1A4621A500D45436 /* _NSDecimalNumberExtensions.h in Headers */,
 				C38A0AF11A4625E800D45436 /* CPTAxis.h in Headers */,
@@ -2553,6 +2559,7 @@
 				C37EA5D01BC83F2A0091C8F7 /* _NSCoderExtensions.m in Sources */,
 				C37EA5D11BC83F2A0091C8F7 /* CPTMutableNumericData.m in Sources */,
 				C37EA5D21BC83F2A0091C8F7 /* CPTNumericData+TypeConversion.m in Sources */,
+				C3C58E562A58FFB800E295B0 /* CPTDecimalNumberValueTransformer.m in Sources */,
 				C37EA5D31BC83F2A0091C8F7 /* CPTTheme.m in Sources */,
 				C37EA5D41BC83F2A0091C8F7 /* CPTDefinitions.m in Sources */,
 				C37EA5D51BC83F2A0091C8F7 /* _CPTFillImage.m in Sources */,
@@ -2686,6 +2693,7 @@
 				C38A0AA01A4621AC00D45436 /* _NSCoderExtensions.m in Sources */,
 				C38A09DD1A461C8100D45436 /* CPTMutableNumericData.m in Sources */,
 				C38A09DF1A461C8500D45436 /* CPTNumericData+TypeConversion.m in Sources */,
+				C3C58E552A58FFB700E295B0 /* CPTDecimalNumberValueTransformer.m in Sources */,
 				C38A0B041A46261700D45436 /* CPTTheme.m in Sources */,
 				C38A09F01A461CD900D45436 /* CPTDefinitions.m in Sources */,
 				C38A0A811A4620F700D45436 /* _CPTFillImage.m in Sources */,

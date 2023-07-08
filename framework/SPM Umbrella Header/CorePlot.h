@@ -26,6 +26,7 @@
 #import "CPTColor.h"
 #import "CPTColorSpace.h"
 #import "CPTConstraints.h"
+#import "CPTDecimalNumberValueTransformer.h"
 #import "CPTDefinitions.h"
 #import "CPTExceptions.h"
 #import "CPTFill.h"
@@ -76,9 +77,3 @@
 #import "CPTXYAxisSet.h"
 #import "CPTXYGraph.h"
 #import "CPTXYPlotSpace.h"
-
-#if TARGET_OS_OSX || TARGET_OS_MACCATALYST
-
-#import "CPTDecimalNumberValueTransformer.h"
-
-#endif

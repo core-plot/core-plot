@@ -34,6 +34,7 @@
 #import <CorePlot/CPTColor.h>
 #import <CorePlot/CPTColorSpace.h>
 #import <CorePlot/CPTConstraints.h>
+#import <CorePlot/CPTDecimalNumberValueTransformer.h>
 #import <CorePlot/CPTDefinitions.h>
 #import <CorePlot/CPTExceptions.h>
 #import <CorePlot/CPTFill.h>
@@ -102,6 +103,7 @@
 #import "CPTColor.h"
 #import "CPTColorSpace.h"
 #import "CPTConstraints.h"
+#import "CPTDecimalNumberValueTransformer.h"
 #import "CPTDefinitions.h"
 #import "CPTExceptions.h"
 #import "CPTFill.h"
@@ -152,15 +154,5 @@
 #import "CPTXYAxisSet.h"
 #import "CPTXYGraph.h"
 #import "CPTXYPlotSpace.h"
-
-#endif
-
-#if TARGET_OS_OSX || TARGET_OS_MACCATALYST
-
-#ifdef CPT_IS_FRAMEWORK
-#import <CorePlot/CPTDecimalNumberValueTransformer.h>
-#else
-#import "CPTDecimalNumberValueTransformer.h"
-#endif
 
 #endif
