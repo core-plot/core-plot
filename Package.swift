@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "CorePlot",
     platforms: [
-              .macOS(.v10_14),
+              .macOS(.v10_13),
               .iOS(.v12),
               .tvOS(.v12)
           ],
