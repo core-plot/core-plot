@@ -304,6 +304,7 @@ static NSString *const kCollectionItem   = @"PlotViewItem";
         titleTextField.selectable = NO;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability-new"
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         if ( [NSColor instancesRespondToSelector:@selector(controlAccentColor)] ) {
             titleTextField.backgroundColor = [NSColor controlAccentColor];
         }
