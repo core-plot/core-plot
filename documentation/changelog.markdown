@@ -4,7 +4,7 @@
 
 This release updates Core Plot to be compatible with Xcode 14, Mac Catalyst, and the Swift Package Manager. It adds support for the Swift Package Manager and Mac Catalyst.
 
-The Mac deployment target is now macOS 10.14.6. The iOS deployment target has changed to iOS 12.0. The tvOS deployment target has changed to tvOS 12.0. The iOS static library is obsolete and has been removed.
+The Mac deployment target is now macOS 10.13. The iOS deployment target has changed to iOS 12.0. The tvOS deployment target has changed to tvOS 12.0. The iOS static library is obsolete and has been removed.
 
 The iOS and tvOS framework targets have been removed because lipo cannot combine device and simulator builds for Apple Silicon in the same output file (both use arm64). Use the Universal XCFramework that contains all platforms and architectures instead.
 
@@ -13,7 +13,7 @@ The iOS and tvOS framework targets have been removed because lipo cannot combine
 
 - **New**: Mac Catalyst support
 - **New**: Swift Package Manager support
-- **Changed**: Updated the deployment targets for all supported operating systems for the minimums required by Xcode 14. The Mac deployment target is now macOS 10.14.6. The iOS deployment target is now iOS 12.0. The tvOS deployment target is now tvOS 12.0.
+- **Changed**: Updated the deployment targets for all supported operating systems for the minimums required by Xcode 14. The Mac deployment target is now macOS 10.13. The iOS deployment target is now iOS 12.0. The tvOS deployment target is now tvOS 12.0.
 - **Changed**: Miscellaneous bug fixes and cleanup.
 - **Removed**: Removed the iOS static library.
 - **Removed**: Removed the iOS and tvOS framework targets.
