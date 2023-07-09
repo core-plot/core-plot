@@ -1,6 +1,6 @@
 #!/bin/sh
 
-#  Build the doxygen documentation for the project
+#  Build the Doxygen documentation for the project
 
 #  Required script parameters:
 #   $1: Doxygen .config filename
@@ -22,12 +22,12 @@ DOXYGEN_FOLDER="${SOURCE_ROOT}/../documentation/doxygen"
 
 if ! [ -f "${DOXYGEN_FOLDER}/$1.config" ]
 then
-  echo doxygen config file does not exist
+  echo Doxygen config file does not exist
   ${DOXYGEN_PATH} -g "${DOXYGEN_FOLDER}/$1.config"
 fi
 
-#  Run doxygen on the updated config file.
-#  Note: doxygen creates a Makefile that does most of the heavy lifting.
+#  Run Doxygen on the updated config file.
+#  Note: Doxygen creates a Makefile that does most of the heavy lifting.
 ${DOXYGEN_PATH} "${DOXYGEN_FOLDER}/$1.config"
 
 #  make a copy of the html docs
