@@ -451,7 +451,7 @@
 
 /** @brief Creates and returns a new CPTColor instance initialized with the provided platform-native color.
  *
- *  The color can be a dynamic system color or catalog color. This adds support for Dark Mode in iOS13.
+ *  The color can be a dynamic system color or catalog color. This adds support for Dark Mode in iOS 13.
  *
  *  @param  newColor The color to wrap.
  *  @return          A new CPTColor instance initialized with the provided platform-native color.
