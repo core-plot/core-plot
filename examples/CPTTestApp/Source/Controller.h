@@ -1,6 +1,6 @@
 #import "RotationView.h"
-#import <Cocoa/Cocoa.h>
-#import <CorePlot/CorePlot.h>
+@import Cocoa;
+@import CorePlot;
 
 @interface Controller : NSArrayController<CPTPlotDataSource, CPTRotationDelegate, CPTPlotAreaDelegate, CPTPlotSpaceDelegate, CPTBarPlotDelegate>
 

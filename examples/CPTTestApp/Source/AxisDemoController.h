@@ -1,5 +1,5 @@
-#import <Cocoa/Cocoa.h>
-#import <CorePlot/CorePlot.h>
+@import Cocoa;
+@import CorePlot;
 
 @interface AxisDemoController : NSObject
 

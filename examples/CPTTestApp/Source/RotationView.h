@@ -3,8 +3,8 @@
 // CPTTestApp
 //
 
-#import <Cocoa/Cocoa.h>
-#import <QuartzCore/QuartzCore.h>
+@import Cocoa;
+@import QuartzCore;
 
 @protocol CPTRotationDelegate;
 
