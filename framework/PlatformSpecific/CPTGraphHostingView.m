@@ -773,6 +773,15 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
     // This undoes the normal coordinate space inversion that UIViews apply to their layers
     self.layer.sublayerTransform = CATransform3DMakeScale(CPTFloat(1.0), CPTFloat(-1.0), CPTFloat(1.0));
+
+#ifdef __IPHONE_17_0
+    if ( @available(iOS 17, tvOS 17,  *)) {
+        [self registerForTraitChanges:@[[UITraitCollection class]]
+                          withHandler: ^(__unused id<UITraitEnvironment> traitEnvironment, __unused UITraitCollection *previousCollection) {
+                              [self.hostedGraph setNeedsDisplayAllLayers];
+                          }];
+    }
+#endif
 }
 
 -(nonnull instancetype)initWithFrame:(CGRect)frame
@@ -1045,12 +1054,15 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
     [self setNeedsDisplay];
 }
 
+#if (__is_target_os(iphoneos) && (!defined(__IPHONE_17_0) || (__IPHONE_OS_VERSION_MIN_REQUIRED<__IPHONE_17_0))) || (__is_target_os(tvos) && (!defined(__TVOS_17_0) || (__TV_OS_VERSION_MIN_REQUIRED<__TVOS_17_0)))
 -(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
 {
     [super traitCollectionDidChange:previousTraitCollection];
 
     [self.hostedGraph setNeedsDisplayAllLayers];
 }
+
+#endif
 
 /// @endcond
 

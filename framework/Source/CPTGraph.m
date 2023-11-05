@@ -386,11 +386,25 @@ CPTGraphPlotSpaceKey const CPTGraphPlotSpaceNotificationKey       = @"CPTGraphPl
 #if TARGET_OS_OSX
     // Workaround since @available macro is not there
     if ( [NSView instancesRespondToSelector:@selector(effectiveAppearance)] ) {
-        NSAppearance *oldAppearance = NSAppearance.currentAppearance;
-        NSView *view                = (NSView *)self.hostingView;
-        NSAppearance.currentAppearance = view.effectiveAppearance;
-        [super layoutAndRenderInContext:context];
-        NSAppearance.currentAppearance = oldAppearance;
+        NSView *view = (NSView *)self.hostingView;
+
+        if ( [NSAppearance instancesRespondToSelector:@selector(performAsCurrentDrawingAppearance:)] ) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunguarded-availability-new"
+            [view.effectiveAppearance performAsCurrentDrawingAppearance: ^{
+                [super layoutAndRenderInContext:context];
+            }];
+#pragma clang diagnostic pop
+        }
+        else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            NSAppearance *oldAppearance = NSAppearance.currentAppearance;
+            NSAppearance.currentAppearance = view.effectiveAppearance;
+            [super layoutAndRenderInContext:context];
+            NSAppearance.currentAppearance = oldAppearance;
+#pragma clang diagnostic pop
+        }
     }
     else {
         [super layoutAndRenderInContext:context];

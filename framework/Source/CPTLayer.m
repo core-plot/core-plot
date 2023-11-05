@@ -330,10 +330,23 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
 
         if ( [NSView instancesRespondToSelector:@selector(effectiveAppearance)] ) {
             CPTGraphHostingView *hostingView = [self findHostingView];
-            NSAppearance *oldAppearance      = NSAppearance.currentAppearance;
-            NSAppearance.currentAppearance = hostingView.effectiveAppearance;
-            [super display];
-            NSAppearance.currentAppearance = oldAppearance;
+            if ( [NSAppearance instancesRespondToSelector:@selector(performAsCurrentDrawingAppearance:)] ) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunguarded-availability-new"
+                [hostingView.effectiveAppearance performAsCurrentDrawingAppearance: ^{
+                    [super display];
+                }];
+#pragma clang diagnostic pop
+            }
+            else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+                NSAppearance *oldAppearance = NSAppearance.currentAppearance;
+                NSAppearance.currentAppearance = hostingView.effectiveAppearance;
+                [super display];
+                NSAppearance.currentAppearance = oldAppearance;
+#pragma clang diagnostic pop
+            }
         }
         else {
             [super display];

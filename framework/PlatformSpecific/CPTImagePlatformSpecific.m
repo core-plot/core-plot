@@ -127,9 +127,31 @@
     CGDataProviderRef dataProvider = NULL;
     CGImageRef cgImage             = NULL;
 
+#ifdef __IPHONE_13_0
+    if ( @available(iOS 13, tvOS 13,  *)) {
+        for ( UISceneSession *session in UIApplication.sharedApplication.openSessions ) {
+            UIScene *scene = session.scene;
+
+            if ( [scene isKindOfClass:[UIWindowScene class]] ) {
+                for ( UIWindow *window in ((UIWindowScene *)scene).windows ) {
+                    imageScale = MAX(imageScale, window.contentScaleFactor);
+                }
+            }
+        }
+    }
+    else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        for ( UIScreen *screen in [UIScreen screens] ) {
+            imageScale = MAX(imageScale, screen.scale);
+        }
+#pragma clang diagnostic pop
+    }
+#else
     for ( UIScreen *screen in [UIScreen screens] ) {
         imageScale = MAX(imageScale, screen.scale);
     }
+#endif
 
     if ( imageScale > CPTFloat(1.0)) {
         NSMutableString *hiDpiPath = [path mutableCopy];
