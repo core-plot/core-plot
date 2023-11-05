@@ -977,6 +977,8 @@
 		C38DD49211A04B7A002A68E7 /* _CPTGridLineGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = _CPTGridLineGroup.m; sourceTree = "<group>"; };
 		C3920AC21395B6500045F3BB /* CPTLegend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CPTLegend.h; sourceTree = "<group>"; };
 		C3920AC31395B6500045F3BB /* CPTLegend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CPTLegend.m; sourceTree = "<group>"; };
+		C395043F2AF723E3000843D0 /* CorePlotExamplesDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotExamplesDebug.xcconfig; path = xcconfig/CorePlotExamplesDebug.xcconfig; sourceTree = "<group>"; };
+		C39504402AF723E3000843D0 /* CorePlotExamplesRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotExamplesRelease.xcconfig; path = xcconfig/CorePlotExamplesRelease.xcconfig; sourceTree = "<group>"; };
 		C3978E0413CE653B00A420D9 /* _NSCoderExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _NSCoderExtensions.h; sourceTree = "<group>"; };
 		C3978E0513CE653B00A420D9 /* _NSCoderExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _NSCoderExtensions.m; sourceTree = "<group>"; };
 		C3A259E12A329D1D00D2BDA7 /* doxygen-common-tags.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "doxygen-common-tags.xml"; path = "../documentation/doxygen/doxygen-common-tags.xml"; sourceTree = "<group>"; };
@@ -1468,6 +1470,8 @@
 				070CF7AE0F3CA7AB0001FFF4 /* CorePlot.h */,
 				C3C9D08C1BB5A44800931F32 /* CorePlotDebug.xcconfig */,
 				C3B0E7B229CA7B3200FC94B5 /* CorePlotDebugModule.xcconfig */,
+				C395043F2AF723E3000843D0 /* CorePlotExamplesDebug.xcconfig */,
+				C39504402AF723E3000843D0 /* CorePlotExamplesRelease.xcconfig */,
 				C3C9D08D1BB5A45B00931F32 /* CorePlotRelease.xcconfig */,
 				C3B0E7B329CA7B3200FC94B5 /* CorePlotReleaseModule.xcconfig */,
 				C3B0E7B429CA7B6000FC94B5 /* CorePlotModule.xcconfig */,

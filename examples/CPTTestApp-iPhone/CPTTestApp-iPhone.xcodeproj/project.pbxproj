@@ -110,11 +110,9 @@
 		C359603619CE34FB005CDFB9 /* ScatterPlotController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScatterPlotController.swift; sourceTree = "<group>"; };
 		C359603B19CE352A005CDFB9 /* CPTTestApp-iPhone-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "CPTTestApp-iPhone-Bridging-Header.h"; sourceTree = "<group>"; };
 		C37A40F020E0322D00C4FF48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = Base.lproj/Info.plist; sourceTree = "<group>"; };
-		C39B4D392962343B00ABA414 /* CorePlotDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotDebug.xcconfig; path = ../../framework/xcconfig/CorePlotDebug.xcconfig; sourceTree = "<group>"; };
-		C39B4D462962343B00ABA414 /* CorePlotRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotRelease.xcconfig; path = ../../framework/xcconfig/CorePlotRelease.xcconfig; sourceTree = "<group>"; };
-		C39B4D472962343B00ABA414 /* CorePlot.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlot.xcconfig; path = ../../framework/xcconfig/CorePlot.xcconfig; sourceTree = "<group>"; };
+		C39504A22AF72860000843D0 /* CorePlotExamplesDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotExamplesDebug.xcconfig; path = ../../framework/xcconfig/CorePlotExamplesDebug.xcconfig; sourceTree = "<group>"; };
+		C39504A32AF72860000843D0 /* CorePlotExamplesRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotExamplesRelease.xcconfig; path = ../../framework/xcconfig/CorePlotExamplesRelease.xcconfig; sourceTree = "<group>"; };
 		C3B9F9D317503CDD001CCC50 /* BlueTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlueTexture.png; sourceTree = "<group>"; };
-		C3C3CBDE19EA125D00A0296A /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/xcconfig/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
 		C3CD283D17DE9C95008EED1E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C3D0A22820E01A0600BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PieChart.xib; sourceTree = "<group>"; };
 		C3D0A22920E01A0600BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/BarChart.xib; sourceTree = "<group>"; };
@@ -180,10 +178,8 @@
 			isa = PBXGroup;
 			children = (
 				C359603B19CE352A005CDFB9 /* CPTTestApp-iPhone-Bridging-Header.h */,
-				C39B4D472962343B00ABA414 /* CorePlot.xcconfig */,
-				C39B4D392962343B00ABA414 /* CorePlotDebug.xcconfig */,
-				C39B4D462962343B00ABA414 /* CorePlotRelease.xcconfig */,
-				C3C3CBDE19EA125D00A0296A /* CorePlotWarnings.xcconfig */,
+				C39504A22AF72860000843D0 /* CorePlotExamplesDebug.xcconfig */,
+				C39504A32AF72860000843D0 /* CorePlotExamplesRelease.xcconfig */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -222,7 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				C3D414BB1A7D846500B6F5D6 /* CorePlot.framework */,
-				C3D414BD1A7D846500B6F5D6 /* UnitTests.xctest */,
+				C3D414BD1A7D846500B6F5D6 /* UnitTests Mac.xctest */,
 				C3D414BF1A7D846500B6F5D6 /* CorePlot.framework */,
 				C3D414C11A7D846500B6F5D6 /* UnitTests iOS.xctest */,
 				C31D01F21D10F506008C1EF2 /* CorePlot.framework */,
@@ -317,10 +313,10 @@
 			remoteRef = C3D414BA1A7D846500B6F5D6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C3D414BD1A7D846500B6F5D6 /* UnitTests.xctest */ = {
+		C3D414BD1A7D846500B6F5D6 /* UnitTests Mac.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = UnitTests.xctest;
+			path = "UnitTests Mac.xctest";
 			remoteRef = C3D414BC1A7D846500B6F5D6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -436,7 +432,7 @@
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C39B4D392962343B00ABA414 /* CorePlotDebug.xcconfig */;
+			baseConfigurationReference = C39504A22AF72860000843D0 /* CorePlotExamplesDebug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COPY_PHASE_STRIP = NO;
@@ -450,7 +446,7 @@
 		};
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C39B4D462962343B00ABA414 /* CorePlotRelease.xcconfig */;
+			baseConfigurationReference = C39504A32AF72860000843D0 /* CorePlotExamplesRelease.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COPY_PHASE_STRIP = NO;
@@ -464,7 +460,7 @@
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C39B4D392962343B00ABA414 /* CorePlotDebug.xcconfig */;
+			baseConfigurationReference = C39504A22AF72860000843D0 /* CorePlotExamplesDebug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -478,7 +474,7 @@
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C39B4D462962343B00ABA414 /* CorePlotRelease.xcconfig */;
+			baseConfigurationReference = C39504A32AF72860000843D0 /* CorePlotExamplesRelease.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				LD_RUNPATH_SEARCH_PATHS = (

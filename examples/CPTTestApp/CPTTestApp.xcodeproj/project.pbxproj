@@ -114,10 +114,8 @@
 		C37A40A620E030C000C4FF48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = Base.lproj/Info.plist; sourceTree = "<group>"; };
 		C38017DF124132610052B00D /* SelectionDemoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectionDemoController.h; path = Source/SelectionDemoController.h; sourceTree = "<group>"; };
 		C38017E0124132610052B00D /* SelectionDemoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectionDemoController.m; path = Source/SelectionDemoController.m; sourceTree = "<group>"; };
-		C3880C3919DCD6A000ED0618 /* CorePlotWarnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotWarnings.xcconfig; path = ../../framework/xcconfig/CorePlotWarnings.xcconfig; sourceTree = "<group>"; };
-		C39B4BEE2962136300ABA414 /* CorePlotDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotDebug.xcconfig; path = ../../framework/xcconfig/CorePlotDebug.xcconfig; sourceTree = "<group>"; };
-		C39B4BFB2962136300ABA414 /* CorePlotRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotRelease.xcconfig; path = ../../framework/xcconfig/CorePlotRelease.xcconfig; sourceTree = "<group>"; };
-		C39B4BFC2962136300ABA414 /* CorePlot.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlot.xcconfig; path = ../../framework/xcconfig/CorePlot.xcconfig; sourceTree = "<group>"; };
+		C39504502AF72782000843D0 /* CorePlotExamplesRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotExamplesRelease.xcconfig; path = ../../framework/xcconfig/CorePlotExamplesRelease.xcconfig; sourceTree = "<group>"; };
+		C395045A2AF72782000843D0 /* CorePlotExamplesDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotExamplesDebug.xcconfig; path = ../../framework/xcconfig/CorePlotExamplesDebug.xcconfig; sourceTree = "<group>"; };
 		C3D0A1A320E017E400BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AxisDemo.xib; sourceTree = "<group>"; };
 		C3D0A1A420E017E400BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CPTTestApp.xib; sourceTree = "<group>"; };
 		C3D0A1A520E017E400BA2921 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PlotSymbolDemo.xib; sourceTree = "<group>"; };
@@ -143,7 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				07032B6A11ABB9E000463D20 /* CorePlot.framework */,
-				07032B6C11ABB9E000463D20 /* UnitTests.xctest */,
+				07032B6C11ABB9E000463D20 /* UnitTests Mac.xctest */,
 				C371E4D11BB714EC00AC18DB /* CorePlot.framework */,
 				C371E4D31BB714EC00AC18DB /* UnitTests iOS.xctest */,
 				C3CBFB6A1BE5874200519EE8 /* CorePlot.framework */,
@@ -218,10 +216,8 @@
 			children = (
 				32CA4F630368D1EE00C91783 /* CPTTestApp_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
-				C39B4BFC2962136300ABA414 /* CorePlot.xcconfig */,
-				C39B4BEE2962136300ABA414 /* CorePlotDebug.xcconfig */,
-				C39B4BFB2962136300ABA414 /* CorePlotRelease.xcconfig */,
-				C3880C3919DCD6A000ED0618 /* CorePlotWarnings.xcconfig */,
+				C395045A2AF72782000843D0 /* CorePlotExamplesDebug.xcconfig */,
+				C39504502AF72782000843D0 /* CorePlotExamplesRelease.xcconfig */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -315,7 +311,7 @@
 			remoteRef = 07032B6911ABB9E000463D20 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		07032B6C11ABB9E000463D20 /* UnitTests.xctest */ = {
+		07032B6C11ABB9E000463D20 /* UnitTests Mac.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = "UnitTests Mac.xctest";
@@ -450,7 +446,7 @@
 /* Begin XCBuildConfiguration section */
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C39B4BEE2962136300ABA414 /* CorePlotDebug.xcconfig */;
+			baseConfigurationReference = C395045A2AF72782000843D0 /* CorePlotExamplesDebug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -467,7 +463,7 @@
 		};
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C39B4BFB2962136300ABA414 /* CorePlotRelease.xcconfig */;
+			baseConfigurationReference = C39504502AF72782000843D0 /* CorePlotExamplesRelease.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -484,7 +480,7 @@
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C39B4BEE2962136300ABA414 /* CorePlotDebug.xcconfig */;
+			baseConfigurationReference = C395045A2AF72782000843D0 /* CorePlotExamplesDebug.xcconfig */;
 			buildSettings = {
 				SDKROOT = macosx;
 			};
@@ -492,7 +488,7 @@
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C39B4BFB2962136300ABA414 /* CorePlotRelease.xcconfig */;
+			baseConfigurationReference = C39504502AF72782000843D0 /* CorePlotExamplesRelease.xcconfig */;
 			buildSettings = {
 				SDKROOT = macosx;
 			};

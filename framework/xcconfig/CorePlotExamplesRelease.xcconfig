@@ -1,0 +1,3 @@
+#include "CorePlotRelease.xcconfig"
+
+FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../framework/build/**"
