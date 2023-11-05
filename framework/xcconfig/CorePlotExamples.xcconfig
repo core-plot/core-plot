@@ -1,0 +1,1 @@
+FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../framework/**"

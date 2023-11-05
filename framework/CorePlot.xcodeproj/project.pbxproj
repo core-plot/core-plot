@@ -982,6 +982,7 @@
 		C3978E0413CE653B00A420D9 /* _NSCoderExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _NSCoderExtensions.h; sourceTree = "<group>"; };
 		C3978E0513CE653B00A420D9 /* _NSCoderExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _NSCoderExtensions.m; sourceTree = "<group>"; };
 		C3A259E12A329D1D00D2BDA7 /* doxygen-common-tags.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "doxygen-common-tags.xml"; path = "../documentation/doxygen/doxygen-common-tags.xml"; sourceTree = "<group>"; };
+		C3A305202AF7D8AF00BD5A61 /* CorePlotExamples.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotExamples.xcconfig; path = xcconfig/CorePlotExamples.xcconfig; sourceTree = "<group>"; };
 		C3A695E3146A19BC00AF5653 /* CPTMutablePlotRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTMutablePlotRange.h; sourceTree = "<group>"; };
 		C3A695E4146A19BC00AF5653 /* CPTMutablePlotRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTMutablePlotRange.m; sourceTree = "<group>"; };
 		C3AE08292A58CB0300C1022A /* CorePlotDocumentation.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CorePlotDocumentation.xcconfig; path = xcconfig/CorePlotDocumentation.xcconfig; sourceTree = "<group>"; };
@@ -1470,6 +1471,7 @@
 				070CF7AE0F3CA7AB0001FFF4 /* CorePlot.h */,
 				C3C9D08C1BB5A44800931F32 /* CorePlotDebug.xcconfig */,
 				C3B0E7B229CA7B3200FC94B5 /* CorePlotDebugModule.xcconfig */,
+				C3A305202AF7D8AF00BD5A61 /* CorePlotExamples.xcconfig */,
 				C395043F2AF723E3000843D0 /* CorePlotExamplesDebug.xcconfig */,
 				C39504402AF723E3000843D0 /* CorePlotExamplesRelease.xcconfig */,
 				C3C9D08D1BB5A45B00931F32 /* CorePlotRelease.xcconfig */,
