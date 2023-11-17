@@ -18,7 +18,8 @@ typedef NS_ENUM (NSInteger, CPTDataTypeFormat) {
  *  @brief Enumeration of memory arrangements for multi-dimensional data arrays.
  *  @see See <a href="https://en.wikipedia.org/wiki/Row-major_order">Wikipedia</a> for more information.
  **/
-typedef NS_CLOSED_ENUM(NSInteger, CPTDataOrder) {
+typedef NS_CLOSED_ENUM(NSInteger, CPTDataOrder)
+{
     CPTDataOrderRowsFirst,   ///< Numeric data is arranged in row-major order.
     CPTDataOrderColumnsFirst ///< Numeric data is arranged in column-major order.
 };

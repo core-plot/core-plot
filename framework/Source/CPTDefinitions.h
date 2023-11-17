@@ -209,7 +209,8 @@ CPTRGBAColor;
 /**
  *  @brief Enumeration of label positioning offset directions
  **/
-typedef NS_CLOSED_ENUM(NSInteger, CPTSign) {
+typedef NS_CLOSED_ENUM(NSInteger, CPTSign)
+{
     CPTSignNone     = 0,  ///< No offset
     CPTSignPositive = +1, ///< Positive offset
     CPTSignNegative = -1  ///< Negative offset
