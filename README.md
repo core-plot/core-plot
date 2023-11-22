@@ -1,15 +1,12 @@
+<img src="/documentation/Objects%20and%20Layers.graffle/image1.png" alt="Core Plot logo" width="150"/>
+
 # Core Plot
 
 *Cocoa plotting framework for macOS, iOS, and tvOS.*
 
-[![core-plot CI](https://github.com/core-plot/core-plot/actions/workflows/ci.yml/badge.svg)](https://github.com/core-plot/core-plot/actions/workflows/ci.yml)
-[![Cocoapods](https://img.shields.io/cocoapods/v/CorePlot)](https://cocoapods.org/pods/CorePlot)
-[![GitHub license](https://img.shields.io/github/license/core-plot/core-plot?color=brightgreen)](https://opensource.org/licenses/BSD-3-Clause)
-[![Cocoapods platforms](https://img.shields.io/cocoapods/p/CorePlot)](https://core-plot.github.io)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-brightgreen?style=flat)](https://github.com/Carthage/Carthage)
-[![Swift Package Manager compatible](https://img.shields.io/badge/SPM-compatible-brightgreen)](https://github.com/apple/swift-package-manager)
-
-[![GitHub top language](https://img.shields.io/github/languages/top/core-plot/core-plot)]()
+[![Cocoapods platforms](https://img.shields.io/cocoapods/p/CorePlot?color=bright-green)](https://core-plot.github.io) [![core-plot CI](https://github.com/core-plot/core-plot/actions/workflows/ci.yml/badge.svg)](https://github.com/core-plot/core-plot/actions/workflows/ci.yml)
+[![Cocoapods](https://img.shields.io/cocoapods/v/CorePlot?color=bright-green)](https://cocoapods.org/pods/CorePlot) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-brightgreen?style=flat)](https://github.com/Carthage/Carthage) [![Swift Package Manager compatible](https://img.shields.io/badge/SPM-compatible-brightgreen)](https://github.com/apple/swift-package-manager)
+[![GitHub license](https://img.shields.io/github/license/core-plot/core-plot?color=bright-green)](https://opensource.org/licenses/BSD-3-Clause)
 
 # Introduction
 
