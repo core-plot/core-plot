@@ -113,6 +113,11 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
  **/
 @synthesize globalYRange;
 
+/** @property double skewAngle
+ *  @brief If using CPTScaleTypeSkew, what angle (in degrees) to skew by
+ */
+@synthesize skewAngle;
+
 /** @property CPTScaleType xScaleType
  *  @brief The scale type of the x coordinate. Defaults to #CPTScaleTypeLinear.
  **/
@@ -183,6 +188,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
  *  - @ref yRange = [@num{0}, @num{1}]
  *  - @ref globalXRange = @nil
  *  - @ref globalYRange = @nil
+ *  - @ref skewAngle = @num{45.0}
  *  - @ref xScaleType = #CPTScaleTypeLinear
  *  - @ref yScaleType = #CPTScaleTypeLinear
  *  - @ref allowsMomentum = @NO
@@ -203,6 +209,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
         yRange           = [[CPTPlotRange alloc] initWithLocation:@0.0 length:@1.0];
         globalXRange     = nil;
         globalYRange     = nil;
+        skewAngle        = 45.0;
         xScaleType       = CPTScaleTypeLinear;
         yScaleType       = CPTScaleTypeLinear;
         lastDragPoint    = CGPointZero;
@@ -246,6 +253,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
     [coder encodeCGFloat:self.momentumAcceleration forKey:@"CPTXYPlotSpace.momentumAcceleration"];
     [coder encodeCGFloat:self.bounceAcceleration forKey:@"CPTXYPlotSpace.bounceAcceleration"];
     [coder encodeCGFloat:self.minimumDisplacementToDrag forKey:@"CPTXYPlotSpace.minimumDisplacementToDrag"];
+    [coder encodeDouble:self.skewAngle forKey:@"CPTXYPlotSpace.skewAngle"];
 
     // No need to archive these properties:
     // lastDragPoint
@@ -274,6 +282,7 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
                                             forKey:@"CPTXYPlotSpace.globalYRange"] copy];
         xScaleType = (CPTScaleType)[coder decodeIntegerForKey:@"CPTXYPlotSpace.xScaleType"];
         yScaleType = (CPTScaleType)[coder decodeIntegerForKey:@"CPTXYPlotSpace.yScaleType"];
+        skewAngle = [coder decodeDoubleForKey:@"CPTXYPlotSpace.skewAngle"];
 
         if ( [coder containsValueForKey:@"CPTXYPlotSpace.allowsMomentum"] ) {
             self.allowsMomentum = [coder decodeBoolForKey:@"CPTXYPlotSpace.allowsMomentum"];
@@ -1048,7 +1057,35 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         case CPTScaleTypeCategory:
             viewPoint.x = [self viewCoordinateForViewLength:plotArea.widthDecimal linearPlotRange:self.xRange plotCoordinateValue:plotPoint[CPTCoordinateX].decimalValue];
             break;
-
+            
+        case CPTScaleTypeSkew:
+        {
+            // Relate the plot space width to the height by the
+            // skewAngle we are going to transform by.
+            double dx = layerSize.width;
+            double dy = tan(self.skewAngle * M_PI / 180.0) * dx;
+            
+            // We need to know our Y coordinate to compute
+            // how much the horizontal offset is to skew the data point.
+            double y;
+            switch (self.yScaleType) {
+                // If the Y coordinate is in linear space
+                case CPTScaleTypeLinear:
+                    y = [self viewCoordinateForViewLength:plotArea.heightDecimal linearPlotRange:self.yRange plotCoordinateValue:plotPoint[CPTCoordinateY].decimalValue];
+                    break;
+                // If the Y coordinate is in log space
+                case CPTScaleTypeLog:
+                    y = [self viewCoordinateForViewLength:layerSize.height logPlotRange:self.yRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY].doubleValue];
+                    break;
+                default:
+                    [NSException raise:CPTException format:@" Y Scale type not supported in CPTXYPlotSpace when using CPTScaleTYpeSkew for X Scale"];
+            }
+            // get un-transformed view coordinate for our X point
+            double x = [self viewCoordinateForViewLength:plotArea.widthDecimal linearPlotRange:self.xRange plotCoordinateValue:plotPoint[CPTCoordinateX].decimalValue];
+            // transform the point in view coordinate space
+            viewPoint.x = x + ((y) / dy) * (dx);
+            break;
+        }
         case CPTScaleTypeLog:
             viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logPlotRange:self.xRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateX].doubleValue];
             break;
@@ -1066,7 +1103,10 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         case CPTScaleTypeCategory:
             viewPoint.y = [self viewCoordinateForViewLength:plotArea.heightDecimal linearPlotRange:self.yRange plotCoordinateValue:plotPoint[CPTCoordinateY].decimalValue];
             break;
-
+        case CPTScaleTypeSkew:
+        {
+            [NSException raise:CPTException format:@" Y Scale type currently not supported in CPTXYPlotSpace"];
+        }
         case CPTScaleTypeLog:
             viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logPlotRange:self.yRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY].doubleValue];
             break;
@@ -1102,7 +1142,35 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         case CPTScaleTypeCategory:
             viewPoint.x = [self viewCoordinateForViewLength:plotArea.widthDecimal linearPlotRange:self.xRange plotCoordinateValue:plotPoint[CPTCoordinateX]];
             break;
-
+            
+        case CPTScaleTypeSkew:
+        {
+            // Relate the plot space width to the height by the
+            // skewAngle we are going to transform by.
+            double dx = layerSize.width;
+            double dy = tan(self.skewAngle * M_PI / 180.0) * dx;
+            
+            // We need to know our Y coordinate to compute
+            // how much the horizontal offset is to skew the data point.
+            double y = CPTDecimalDoubleValue(plotPoint[CPTCoordinateY]);
+            switch (self.yScaleType) {
+                // If the Y coordinate is in linear space
+                case CPTScaleTypeLinear:
+                    y = [self viewCoordinateForViewLength:plotArea.heightDecimal linearPlotRange:self.yRange plotCoordinateValue:plotPoint[CPTCoordinateY]];
+                    break;
+                // If the Y coordinate is in log space
+                case CPTScaleTypeLog:
+                    y = [self viewCoordinateForViewLength:layerSize.height logPlotRange:self.yRange doublePrecisionPlotCoordinateValue:y];
+                    break;
+                default:
+                    [NSException raise:CPTException format:@" Y Scale type not supported in CPTXYPlotSpace when using CPTScaleTYpeSkew for X Scale"];
+            }
+            // get un-transformed view coordinate for our X point
+            double x = [self viewCoordinateForViewLength:plotArea.widthDecimal linearPlotRange:self.xRange plotCoordinateValue:plotPoint[CPTCoordinateX]];
+            // transform the point in view coordinate space
+            viewPoint.x = x + ((y) / dy) * (dx);
+            break;
+        }
         case CPTScaleTypeLog:
         {
             double x = CPTDecimalDoubleValue(plotPoint[CPTCoordinateX]);
@@ -1127,6 +1195,11 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
             viewPoint.y = [self viewCoordinateForViewLength:plotArea.heightDecimal linearPlotRange:self.yRange plotCoordinateValue:plotPoint[CPTCoordinateY]];
             break;
 
+        case CPTScaleTypeSkew:
+        {
+            [NSException raise:CPTException format:@" Y Scale type currently not supported in CPTXYPlotSpace"];
+            break;
+        }
         case CPTScaleTypeLog:
         {
             double y = CPTDecimalDoubleValue(plotPoint[CPTCoordinateY]);
@@ -1168,7 +1241,34 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         case CPTScaleTypeCategory:
             viewPoint.x = [self viewCoordinateForViewLength:layerSize.width linearPlotRange:self.xRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateX]];
             break;
-
+        case CPTScaleTypeSkew:
+        {
+            // Relate the plot space width to the height by the
+            // skewAngle we are going to transform by.
+            double dx = layerSize.width;
+            double dy = tan(self.skewAngle * M_PI / 180.0) * dx;
+            
+            // We need to know our Y coordinate to compute
+            // how much the horizontal offset is to skew the data point.
+            double y;
+            switch (self.yScaleType) {
+                // If the Y coordinate is in linear space
+                case CPTScaleTypeLinear:
+                    y = [self viewCoordinateForViewLength:layerSize.height linearPlotRange:self.yRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY]];
+                    break;
+                // If the Y coordinate is in log space
+                case CPTScaleTypeLog:
+                    y =  [self viewCoordinateForViewLength:layerSize.height logPlotRange:self.yRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY]];
+                    break;
+                default:
+                    [NSException raise:CPTException format:@" Y Scale type not supported in CPTXYPlotSpace when using CPTScaleTYpeSkew for X Scale"];
+            }
+            // get un-transformed view coordinate for our X point
+            double x = [self viewCoordinateForViewLength:layerSize.width linearPlotRange:self.xRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateX]];
+            // transform the point in view coordinate space
+            viewPoint.x = x + ((y) / dy) * (dx);
+            break;
+        }
         case CPTScaleTypeLog:
             viewPoint.x = [self viewCoordinateForViewLength:layerSize.width logPlotRange:self.xRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateX]];
             break;
@@ -1186,7 +1286,11 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         case CPTScaleTypeCategory:
             viewPoint.y = [self viewCoordinateForViewLength:layerSize.height linearPlotRange:self.yRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY]];
             break;
-
+        case CPTScaleTypeSkew:
+        {
+            [NSException raise:CPTException format:@" Y Scale type currently not supported in CPTXYPlotSpace"];
+            break;
+        }
         case CPTScaleTypeLog:
             viewPoint.y = [self viewCoordinateForViewLength:layerSize.height logPlotRange:self.yRange doublePrecisionPlotCoordinateValue:plotPoint[CPTCoordinateY]];
             break;
@@ -1225,11 +1329,21 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
     switch ( self.xScaleType ) {
         case CPTScaleTypeLinear:
         case CPTScaleTypeCategory:
-            plotPoint[CPTCoordinateX] = [NSDecimalNumber decimalNumberWithDecimal:[self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.x)
-                                                                                                    linearPlotRange:self.xRange
-                                                                                                       boundsLength:plotArea.widthDecimal]];
+            plotPoint[CPTCoordinateX] = [NSDecimalNumber decimalNumberWithDecimal:[self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.x) linearPlotRange:self.xRange boundsLength:plotArea.widthDecimal]];
             break;
-
+            
+        case CPTScaleTypeSkew:
+        {
+            double dx = boundsSize.width;
+            double dy = tan(self.skewAngle * M_PI / 180.0) * dx;
+            double y = point.y;
+            
+            point.x -= ((y) / dy) * (dx);
+            
+            plotPoint[CPTCoordinateX] = [NSDecimalNumber decimalNumberWithDecimal:[self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.x)
+                linearPlotRange:self.xRange boundsLength:plotArea.widthDecimal]];
+            break;
+        }
         case CPTScaleTypeLog:
             plotPoint[CPTCoordinateX] = @([self doublePrecisionPlotCoordinateForViewLength:point.x logPlotRange:self.xRange boundsLength:boundsSize.width]);
             break;
@@ -1245,11 +1359,13 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
     switch ( self.yScaleType ) {
         case CPTScaleTypeLinear:
         case CPTScaleTypeCategory:
-            plotPoint[CPTCoordinateY] = [NSDecimalNumber decimalNumberWithDecimal:[self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.y)
-                                                                                                    linearPlotRange:self.yRange
-                                                                                                       boundsLength:plotArea.heightDecimal]];
+            plotPoint[CPTCoordinateY] = [NSDecimalNumber decimalNumberWithDecimal:[self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.y) linearPlotRange:self.yRange boundsLength:plotArea.heightDecimal]];
             break;
-
+        case CPTScaleTypeSkew:
+        {
+            [NSException raise:CPTException format:@" Y Scale type currently not supported in CPTXYPlotSpace"];
+            break;
+        }
         case CPTScaleTypeLog:
             plotPoint[CPTCoordinateY] = @([self doublePrecisionPlotCoordinateForViewLength:point.y logPlotRange:self.yRange boundsLength:boundsSize.height]);
             break;
@@ -1288,7 +1404,16 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         case CPTScaleTypeCategory:
             plotPoint[CPTCoordinateX] = [self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.x) linearPlotRange:self.xRange boundsLength:plotArea.widthDecimal];
             break;
-
+        case CPTScaleTypeSkew:
+        {
+            double dx = boundsSize.width;
+            double dy = tan(self.skewAngle * M_PI / 180.0) * dx;
+            double y = point.y;
+            
+            point.x -= ((y) / dy) * (dx);
+            plotPoint[CPTCoordinateX] = [self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.x) linearPlotRange:self.xRange boundsLength:plotArea.widthDecimal];
+            break;
+        }
         case CPTScaleTypeLog:
             plotPoint[CPTCoordinateX] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.x logPlotRange:self.xRange boundsLength:boundsSize.width]);
             break;
@@ -1306,7 +1431,11 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         case CPTScaleTypeCategory:
             plotPoint[CPTCoordinateY] = [self plotCoordinateForViewLength:CPTDecimalFromCGFloat(point.y) linearPlotRange:self.yRange boundsLength:plotArea.heightDecimal];
             break;
-
+        case CPTScaleTypeSkew:
+        {
+            [NSException raise:CPTException format:@" Y Scale type currently not supported in CPTXYPlotSpace"];
+            break;
+        }
         case CPTScaleTypeLog:
             plotPoint[CPTCoordinateY] = CPTDecimalFromDouble([self doublePrecisionPlotCoordinateForViewLength:point.y logPlotRange:self.yRange boundsLength:boundsSize.height]);
             break;
@@ -1342,7 +1471,17 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         case CPTScaleTypeCategory:
             plotPoint[CPTCoordinateX] = [self doublePrecisionPlotCoordinateForViewLength:point.x linearPlotRange:self.xRange boundsLength:boundsSize.width];
             break;
+        case CPTScaleTypeSkew:
+        {
+            double dx = boundsSize.width;
+            double dy = tan(self.skewAngle * M_PI / 180.0) * dx;
+            double y = point.y;
+            
+            point.x -= ((y) / dy) * (dx);
 
+            plotPoint[CPTCoordinateX] = [self doublePrecisionPlotCoordinateForViewLength:point.x linearPlotRange:self.xRange boundsLength:boundsSize.width];
+            break;
+        }
         case CPTScaleTypeLog:
             plotPoint[CPTCoordinateX] = [self doublePrecisionPlotCoordinateForViewLength:point.x logPlotRange:self.xRange boundsLength:boundsSize.width];
             break;
@@ -1360,7 +1499,11 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         case CPTScaleTypeCategory:
             plotPoint[CPTCoordinateY] = [self doublePrecisionPlotCoordinateForViewLength:point.y linearPlotRange:self.yRange boundsLength:boundsSize.height];
             break;
-
+        case CPTScaleTypeSkew:
+        {
+            [NSException raise:CPTException format:@" Y Scale type currently not supported in CPTXYPlotSpace"];
+            break;
+        }
         case CPTScaleTypeLog:
             plotPoint[CPTCoordinateY] = [self doublePrecisionPlotCoordinateForViewLength:point.y logPlotRange:self.yRange boundsLength:boundsSize.height];
             break;
@@ -1932,7 +2075,11 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         case CPTScaleTypeLinear:
             xScaleTypeDesc = @"CPTScaleTypeLinear";
             break;
-
+            
+        case CPTScaleTypeSkew:
+            xScaleTypeDesc = @"CPTScaleTypeSkew";
+            break;
+            
         case CPTScaleTypeLog:
             xScaleTypeDesc = @"CPTScaleTypeLog";
             break;
@@ -1966,6 +2113,9 @@ CGFloat CPTFirstPositiveRoot(CGFloat a, CGFloat b, CGFloat c)
         case CPTScaleTypeLinear:
             yScaleTypeDesc = @"CPTScaleTypeLinear";
             break;
+            
+        case CPTScaleTypeSkew:
+            yScaleTypeDesc = @"CPTScaleTypeSkew";
 
         case CPTScaleTypeLog:
             yScaleTypeDesc = @"CPTScaleTypeLog";
