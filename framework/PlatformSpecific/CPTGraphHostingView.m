@@ -779,12 +779,12 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
         __weak __typeof(self) weakSelf = self;
         [self registerForTraitChanges:@[[UITraitCollection class]]
                           withHandler: ^(__unused id<UITraitEnvironment> traitEnvironment, __unused UITraitCollection *previousCollection) {
-            __typeof(self) strongSelf = weakSelf;
-            if (!strongSelf) {
-                return;
-            }
-            [strongSelf.hostedGraph setNeedsDisplayAllLayers];
-        }];
+                              __typeof(self) strongSelf = weakSelf;
+                              if ( !strongSelf ) {
+                                  return;
+                              }
+                              [strongSelf.hostedGraph setNeedsDisplayAllLayers];
+                          }];
     }
 #endif
 }
