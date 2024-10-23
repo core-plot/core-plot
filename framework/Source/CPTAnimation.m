@@ -406,21 +406,21 @@ typedef NSMutableArray<CPTAnimationOperation *> CPTMutableAnimationArray;
                 NSDecimal buffer = ((NSDecimalNumber *)tweenedValue).decimalValue;
 
                 typedef void (*SetterType)(id, SEL, NSDecimal);
-                SetterType setterMethod = (SetterType)[boundObject methodForSelector:boundSetter];
+                SetterType setterMethod = (SetterType)(void *)[boundObject methodForSelector:boundSetter];
                 setterMethod(boundObject, boundSetter, buffer);
             }
             else if ( valueClass && [tweenedValue isKindOfClass:[NSNumber class]] ) {
                 NSNumber *value = (NSNumber *)tweenedValue;
 
                 typedef void (*NumberSetterType)(id, SEL, NSNumber *);
-                NumberSetterType setterMethod = (NumberSetterType)[boundObject methodForSelector:boundSetter];
+                NumberSetterType setterMethod = (NumberSetterType)(void *)[boundObject methodForSelector:boundSetter];
                 setterMethod(boundObject, boundSetter, value);
             }
             else if ( [tweenedValue isKindOfClass:[CPTPlotRange class]] ) {
                 CPTPlotRange *range = (CPTPlotRange *)tweenedValue;
 
                 typedef void (*RangeSetterType)(id, SEL, CPTPlotRange *);
-                RangeSetterType setterMethod = (RangeSetterType)[boundObject methodForSelector:boundSetter];
+                RangeSetterType setterMethod = (RangeSetterType)(void *)[boundObject methodForSelector:boundSetter];
                 setterMethod(boundObject, boundSetter, range);
             }
             else {

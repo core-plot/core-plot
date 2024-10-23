@@ -8,7 +8,7 @@
 -(void)setStartValueFromObject:(nonnull id)boundObject propertyGetter:(nonnull SEL)boundGetter
 {
     typedef NSValue *(*GetterType)(id, SEL);
-    GetterType getterMethod = (GetterType)[boundObject methodForSelector:boundGetter];
+    GetterType getterMethod = (GetterType)(void *)[boundObject methodForSelector:boundGetter];
 
     self.startValue = getterMethod(boundObject, boundGetter);
 }
@@ -20,7 +20,7 @@
     }
 
     typedef CPTPlotRange *(*GetterType)(id, SEL);
-    GetterType getterMethod = (GetterType)[boundObject methodForSelector:boundGetter];
+    GetterType getterMethod = (GetterType)(void *)[boundObject methodForSelector:boundGetter];
 
     CPTPlotRange *current = getterMethod(boundObject, boundGetter);
     CPTPlotRange *start   = (CPTPlotRange *)self.startValue;
