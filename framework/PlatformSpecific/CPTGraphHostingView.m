@@ -776,10 +776,15 @@ static void *CPTGraphHostingViewKVOContext = (void *)&CPTGraphHostingViewKVOCont
 
 #ifdef __IPHONE_17_0
     if ( @available(iOS 17, tvOS 17,  *)) {
+        __weak __typeof(self) weakSelf = self;
         [self registerForTraitChanges:@[[UITraitCollection class]]
                           withHandler: ^(__unused id<UITraitEnvironment> traitEnvironment, __unused UITraitCollection *previousCollection) {
-                              [self.hostedGraph setNeedsDisplayAllLayers];
-                          }];
+            __typeof(self) strongSelf = weakSelf;
+            if (!strongSelf) {
+                return;
+            }
+            [strongSelf.hostedGraph setNeedsDisplayAllLayers];
+        }];
     }
 #endif
 }
