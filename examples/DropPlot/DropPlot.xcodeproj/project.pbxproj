@@ -442,7 +442,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C39504672AF727D1000843D0 /* CorePlotExamplesDebug.xcconfig */;
 			buildSettings = {
-				DEAD_CODE_STRIPPING = YES;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -451,7 +450,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C39504712AF727D1000843D0 /* CorePlotExamplesRelease.xcconfig */;
 			buildSettings = {
-				DEAD_CODE_STRIPPING = YES;
 				SDKROOT = macosx;
 			};
 			name = Release;
