@@ -2,6 +2,7 @@ import Foundation
 import Cocoa
 import CorePlot
 
+@MainActor
 class DateController : NSObject, CPTPlotDataSource {
     private let oneDay : Double = 24 * 60 * 60
 
@@ -13,9 +14,11 @@ class DateController : NSObject, CPTPlotDataSource {
 
     // MARK: - Initialization
 
-    @MainActor override func awakeFromNib()
+    override func awakeFromNib()
     {
-        self.plotData = newPlotData()
+        MainActor.assumeIsolated {
+            self.plotData = newPlotData()
+        }
 
         // If you make sure your dates are calculated at noon, you shouldn't have to
         // worry about daylight savings. If you use midnight, you will have to adjust
@@ -27,10 +30,6 @@ class DateController : NSObject, CPTPlotDataSource {
 
         let theme = CPTTheme(named: .darkGradientTheme)
         newGraph.apply(theme)
-
-        if let host = self.hostView {
-            host.hostedGraph = newGraph
-        }
 
         // Setup scatter plot space
         let plotSpace = newGraph.defaultPlotSpace as! CPTXYPlotSpace
@@ -72,10 +71,16 @@ class DateController : NSObject, CPTPlotDataSource {
         dataSourceLinePlot.dataSource = self
         newGraph.add(dataSourceLinePlot)
 
-        self.graph = newGraph
+        MainActor.assumeIsolated {
+            self.graph = newGraph
+
+            if let host = self.hostView {
+                host.hostedGraph = newGraph
+            }
+        }
     }
 
-    func newPlotData() -> [Double]
+    nonisolated func newPlotData() -> [Double]
     {
         var newData = [Double]()
 
@@ -88,22 +93,30 @@ class DateController : NSObject, CPTPlotDataSource {
 
     // MARK: - Plot Data Source Methods
 
-    func numberOfRecords(for plot: CPTPlot) -> UInt
+    nonisolated func numberOfRecords(for plot: CPTPlot) -> UInt
     {
-        return UInt(self.plotData.count)
+        MainActor.assumeIsolated {
+            return UInt(self.plotData.count)
+        }
     }
 
-    func number(for plot: CPTPlot, field: UInt, record: UInt) -> Any?
+    nonisolated func number(for plot: CPTPlot, field: UInt, record: UInt) -> Any?
     {
+        var result : NSNumber?
+
         switch CPTScatterPlotField(rawValue: Int(field))! {
         case .X:
-            return (oneDay * Double(record)) as NSNumber
-            
+            result = (oneDay * Double(record)) as NSNumber
+
         case .Y:
-            return self.plotData[Int(record)] as NSNumber
+            MainActor.assumeIsolated {
+                result = self.plotData[Int(record)] as NSNumber
+            }
 
         @unknown default:
-            return nil
+            result = nil
         }
+
+        return result
     }
 }

@@ -3,7 +3,7 @@ import UIKit
 //  Toolbar icons in the application are courtesy of Joseph Wain / glyphish.com
 //  See the license file in the GlyphishIcons directory for more information on these icons
 
-@UIApplicationMain
+@main
 
 class iPhoneAppDelegate : NSObject, UIApplicationDelegate, UITabBarControllerDelegate
 {

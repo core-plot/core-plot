@@ -1,6 +1,7 @@
 import UIKit
 @preconcurrency import CorePlot
 
+@MainActor
 class PieChartController : UIViewController, CPTPieChartDataSource, CPTPieChartDelegate {
     private let pieGraph = CPTXYGraph(frame: .zero)
 
@@ -96,6 +97,8 @@ class PieChartController : UIViewController, CPTPieChartDataSource, CPTPieChartD
     // MARK: - Delegate Methods
 
     nonisolated func pieChart(_ plot: CPTPieChart, sliceWasSelectedAtRecord idx: UInt) {
-        self.pieGraph.title = "Selected index: \(idx)"
+        MainActor.assumeIsolated {
+            self.pieGraph.title = "Selected index: \(idx)"
+        }
     }
 }
