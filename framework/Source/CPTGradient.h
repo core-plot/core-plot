@@ -12,11 +12,11 @@
 /**
  *  @brief A structure representing one node in a linked list of RGBA colors.
  **/
-typedef struct _CPTGradientElement {
+typedef struct CPTGradientElement {
     CPTRGBAColor color;    ///< Color
     CGFloat      position; ///< Gradient position (0 ≤ @par{position} ≤ 1)
 
-    struct _CPTGradientElement *__nullable nextElement; ///< Pointer to the next CPTGradientElement in the list (last element == @NULL)
+    struct CPTGradientElement *__nullable nextElement; ///< Pointer to the next CPTGradientElement in the list (last element == @NULL)
 }
 CPTGradientElement;
 

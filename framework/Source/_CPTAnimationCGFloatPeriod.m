@@ -3,7 +3,7 @@
 #import "_NSNumberExtensions.h"
 
 /// @cond
-@interface _CPTAnimationCGFloatPeriod()
+@interface CPTAnimationCGFloatPeriod()
 
 CGFloat CPTCurrentFloatValue(id __nonnull boundObject, SEL __nonnull boundGetter);
 
@@ -12,7 +12,7 @@ CGFloat CPTCurrentFloatValue(id __nonnull boundObject, SEL __nonnull boundGetter
 
 #pragma mark -
 
-@implementation _CPTAnimationCGFloatPeriod
+@implementation CPTAnimationCGFloatPeriod
 
 CGFloat CPTCurrentFloatValue(id __nonnull boundObject, SEL __nonnull boundGetter)
 {

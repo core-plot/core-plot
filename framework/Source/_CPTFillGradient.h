@@ -8,7 +8,7 @@
 
 @class CPTGradient;
 
-@interface _CPTFillGradient : CPTFill
+@interface CPTFillGradient : CPTFill
 
 /// @name Initialization
 /// @{

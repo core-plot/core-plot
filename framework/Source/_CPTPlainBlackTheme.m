@@ -16,7 +16,7 @@ CPTThemeName const kCPTPlainBlackTheme = @"Plain Black";
 /**
  *  @brief Creates a CPTXYGraph instance formatted with black backgrounds and white lines.
  **/
-@implementation _CPTPlainBlackTheme
+@implementation CPTPlainBlackTheme
 
 +(nonnull CPTThemeName)name
 {

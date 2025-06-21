@@ -4,7 +4,7 @@
 #import <tgmath.h>
 
 /// @cond
-@interface _CPTConstraintsRelative()
+@interface CPTConstraintsRelative()
 
 @property (nonatomic, readwrite) CGFloat offset;
 
@@ -18,7 +18,7 @@
  *
  *  Supports fixed distance from either end of the range and a proportional fraction of the range.
  **/
-@implementation _CPTConstraintsRelative
+@implementation CPTConstraintsRelative
 
 @synthesize offset;
 
@@ -50,7 +50,7 @@
     if ( [self class] != [otherConstraint class] ) {
         return NO;
     }
-    return self.offset == ((_CPTConstraintsRelative *)otherConstraint).offset;
+    return self.offset == ((CPTConstraintsRelative *)otherConstraint).offset;
 }
 
 #pragma mark -
@@ -72,7 +72,7 @@
 
 -(nonnull id)copyWithZone:(nullable NSZone *)zone
 {
-    _CPTConstraintsRelative *copy = [[[self class] allocWithZone:zone] init];
+    CPTConstraintsRelative *copy = [[[self class] allocWithZone:zone] init];
 
     copy.offset = self.offset;
 
@@ -93,7 +93,7 @@
 
 -(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
-    [coder encodeCGFloat:self.offset forKey:@"_CPTConstraintsRelative.offset"];
+    [coder encodeCGFloat:self.offset forKey:@"CPTConstraintsRelative.offset"];
 }
 
 /// @endcond
@@ -105,7 +105,7 @@
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ((self = [super init])) {
-        offset = [coder decodeCGFloatForKey:@"_CPTConstraintsRelative.offset"];
+        offset = [coder decodeCGFloatForKey:@"CPTConstraintsRelative.offset"];
     }
     return self;
 }

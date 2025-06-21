@@ -3,7 +3,7 @@
 #import "CPTColor.h"
 
 /// @cond
-@interface _CPTFillColor()
+@interface CPTFillColor()
 
 @property (nonatomic, readwrite, copy, nonnull) CPTColor *fillColor;
 
@@ -16,7 +16,7 @@
  *  Drawing methods are provided to fill rectangular areas and arbitrary drawing paths.
  **/
 
-@implementation _CPTFillColor
+@implementation CPTFillColor
 
 /** @property nonnull CPTColor *fillColor
  *  @brief The fill color.
@@ -26,9 +26,9 @@
 #pragma mark -
 #pragma mark Init/Dealloc
 
-/** @brief Initializes a newly allocated _CPTFillColor object with the provided color.
+/** @brief Initializes a newly allocated CPTFillColor object with the provided color.
  *  @param  aColor The color.
- *  @return        The initialized _CPTFillColor object.
+ *  @return        The initialized CPTFillColor object.
  **/
 -(nonnull instancetype)initWithColor:(nonnull CPTColor *)aColor
 {
@@ -87,7 +87,7 @@
 
 -(nonnull id)copyWithZone:(nullable NSZone *)zone
 {
-    _CPTFillColor *copy = [[[self class] allocWithZone:zone] init];
+    CPTFillColor *copy = [[[self class] allocWithZone:zone] init];
 
     copy.fillColor = self.fillColor;
 
@@ -108,7 +108,7 @@
 
 -(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
-    [coder encodeObject:self.fillColor forKey:@"_CPTFillColor.fillColor"];
+    [coder encodeObject:self.fillColor forKey:@"CPTFillColor.fillColor"];
 }
 
 /// @endcond
@@ -121,7 +121,7 @@
 {
     if ((self = [super init])) {
         CPTColor *color = [coder decodeObjectOfClass:[CPTColor class]
-                                              forKey:@"_CPTFillColor.fillColor"];
+                                              forKey:@"CPTFillColor.fillColor"];
 
         if ( color ) {
             fillColor = color;

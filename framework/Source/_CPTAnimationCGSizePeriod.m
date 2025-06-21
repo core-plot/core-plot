@@ -1,7 +1,7 @@
 #import "_CPTAnimationCGSizePeriod.h"
 
 /// @cond
-@interface _CPTAnimationCGSizePeriod()
+@interface CPTAnimationCGSizePeriod()
 
 CGSize CPTCurrentSizeValue(id __nonnull boundObject, SEL __nonnull boundGetter);
 
@@ -10,7 +10,7 @@ CGSize CPTCurrentSizeValue(id __nonnull boundObject, SEL __nonnull boundGetter);
 
 #pragma mark -
 
-@implementation _CPTAnimationCGSizePeriod
+@implementation CPTAnimationCGSizePeriod
 
 CGSize CPTCurrentSizeValue(id __nonnull boundObject, SEL __nonnull boundGetter)
 {

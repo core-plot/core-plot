@@ -2,7 +2,7 @@
 
 #import "CPTUtilities.h"
 
-@implementation _CPTAnimationNSNumberPeriod
+@implementation CPTAnimationNSNumberPeriod
 
 -(void)setStartValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter
 {

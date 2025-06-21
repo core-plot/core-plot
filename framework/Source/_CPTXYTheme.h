@@ -6,6 +6,6 @@
 #import "CPTTheme.h"
 #endif
 
-@interface _CPTXYTheme : CPTTheme
+@interface CPTXYTheme : CPTTheme
 
 @end

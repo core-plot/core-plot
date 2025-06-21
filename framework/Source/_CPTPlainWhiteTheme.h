@@ -6,6 +6,6 @@
 #import "_CPTXYTheme.h"
 #endif
 
-@interface _CPTPlainWhiteTheme : _CPTXYTheme
+@interface CPTPlainWhiteTheme : CPTXYTheme
 
 @end

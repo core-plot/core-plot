@@ -51,7 +51,7 @@
 {
     CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
 
-    XCTAssertTrue([theme isKindOfClass:[_CPTDarkGradientTheme class]], @"Should be _CPTDarkGradientTheme");
+    XCTAssertTrue([theme isKindOfClass:[CPTDarkGradientTheme class]], @"Should be CPTDarkGradientTheme");
 
     [self archiveRoundTrip:theme toClass:[CPTTheme class]];
 }
@@ -60,7 +60,7 @@
 {
     CPTTheme *theme = [CPTTheme themeNamed:kCPTPlainBlackTheme];
 
-    XCTAssertTrue([theme isKindOfClass:[_CPTPlainBlackTheme class]], @"Should be _CPTPlainBlackTheme");
+    XCTAssertTrue([theme isKindOfClass:[CPTPlainBlackTheme class]], @"Should be CPTPlainBlackTheme");
 
     [self archiveRoundTrip:theme toClass:[CPTTheme class]];
 }
@@ -69,7 +69,7 @@
 {
     CPTTheme *theme = [CPTTheme themeNamed:kCPTPlainWhiteTheme];
 
-    XCTAssertTrue([theme isKindOfClass:[_CPTPlainWhiteTheme class]], @"Should be _CPTPlainWhiteTheme");
+    XCTAssertTrue([theme isKindOfClass:[CPTPlainWhiteTheme class]], @"Should be CPTPlainWhiteTheme");
 
     [self archiveRoundTrip:theme toClass:[CPTTheme class]];
 }
@@ -78,7 +78,7 @@
 {
     CPTTheme *theme = [CPTTheme themeNamed:kCPTStocksTheme];
 
-    XCTAssertTrue([theme isKindOfClass:[_CPTStocksTheme class]], @"Should be _CPTStocksTheme");
+    XCTAssertTrue([theme isKindOfClass:[CPTStocksTheme class]], @"Should be CPTStocksTheme");
 
     [self archiveRoundTrip:theme toClass:[CPTTheme class]];
 }
@@ -87,7 +87,7 @@
 {
     CPTTheme *theme = [CPTTheme themeNamed:kCPTSlateTheme];
 
-    XCTAssertTrue([theme isKindOfClass:[_CPTSlateTheme class]], @"Should be _CPTSlateTheme");
+    XCTAssertTrue([theme isKindOfClass:[CPTSlateTheme class]], @"Should be CPTSlateTheme");
 
     [self archiveRoundTrip:theme toClass:[CPTTheme class]];
 }

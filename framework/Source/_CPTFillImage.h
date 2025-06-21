@@ -8,7 +8,7 @@
 
 @class CPTImage;
 
-@interface _CPTFillImage : CPTFill
+@interface CPTFillImage : CPTFill
 
 /// @name Initialization
 /// @{

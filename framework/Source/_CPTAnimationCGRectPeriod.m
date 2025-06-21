@@ -1,7 +1,7 @@
 #import "_CPTAnimationCGRectPeriod.h"
 
 /// @cond
-@interface _CPTAnimationCGRectPeriod()
+@interface CPTAnimationCGRectPeriod()
 
 CGRect CPTCurrentRectValue(id __nonnull boundObject, SEL __nonnull boundGetter);
 
@@ -10,7 +10,7 @@ CGRect CPTCurrentRectValue(id __nonnull boundObject, SEL __nonnull boundGetter);
 
 #pragma mark -
 
-@implementation _CPTAnimationCGRectPeriod
+@implementation CPTAnimationCGRectPeriod
 
 CGRect CPTCurrentRectValue(id __nonnull boundObject, SEL __nonnull boundGetter)
 {

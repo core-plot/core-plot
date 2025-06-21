@@ -3,7 +3,7 @@
 #import "CPTImage.h"
 
 /// @cond
-@interface _CPTFillImage()
+@interface CPTFillImage()
 
 @property (nonatomic, readwrite, copy, nonnull) CPTImage *fillImage;
 
@@ -16,7 +16,7 @@
  *  Drawing methods are provided to fill rectangular areas and arbitrary drawing paths.
  **/
 
-@implementation _CPTFillImage
+@implementation CPTFillImage
 
 /** @property nonnull CPTImage *fillImage
  *  @brief The fill image.
@@ -26,9 +26,9 @@
 #pragma mark -
 #pragma mark Init/Dealloc
 
-/** @brief Initializes a newly allocated _CPTFillImage object with the provided image.
+/** @brief Initializes a newly allocated CPTFillImage object with the provided image.
  *  @param  anImage The image.
- *  @return         The initialized _CPTFillImage object.
+ *  @return         The initialized CPTFillImage object.
  **/
 -(nonnull instancetype)initWithImage:(nonnull CPTImage *)anImage
 {
@@ -80,7 +80,7 @@
 
 -(nonnull id)copyWithZone:(nullable NSZone *)zone
 {
-    _CPTFillImage *copy = [[[self class] allocWithZone:zone] init];
+    CPTFillImage *copy = [[[self class] allocWithZone:zone] init];
 
     copy.fillImage = self.fillImage;
 
@@ -101,7 +101,7 @@
 
 -(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
-    [coder encodeObject:self.fillImage forKey:@"_CPTFillImage.fillImage"];
+    [coder encodeObject:self.fillImage forKey:@"CPTFillImage.fillImage"];
 }
 
 /// @endcond
@@ -114,7 +114,7 @@
 {
     if ((self = [super init])) {
         CPTImage *image = [coder decodeObjectOfClass:[CPTImage class]
-                                              forKey:@"_CPTFillImage.fillImage"];
+                                              forKey:@"CPTFillImage.fillImage"];
 
         if ( image ) {
             fillImage = image;

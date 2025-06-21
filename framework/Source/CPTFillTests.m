@@ -8,7 +8,7 @@
 #import "CPTGradient.h"
 #import "CPTImage.h"
 
-@interface _CPTFillColor()
+@interface CPTFillColor()
 
 @property (nonatomic, readwrite, copy, nonnull) CPTColor *fillColor;
 
@@ -16,7 +16,7 @@
 
 #pragma mark -
 
-@interface _CPTFillGradient()
+@interface CPTFillGradient()
 
 @property (nonatomic, readwrite, copy, nonnull) CPTGradient *fillGradient;
 
@@ -24,7 +24,7 @@
 
 #pragma mark -
 
-@interface _CPTFillImage()
+@interface CPTFillImage()
 
 @property (nonatomic, readwrite, copy, nonnull) CPTImage *fillImage;
 
@@ -39,18 +39,18 @@
 
 -(void)testKeyedArchivingRoundTripColor
 {
-    _CPTFillColor *fill = (_CPTFillColor *)[CPTFill fillWithColor:[CPTColor redColor]];
+    CPTFillColor *fill = (CPTFillColor *)[CPTFill fillWithColor:[CPTColor redColor]];
 
-    _CPTFillColor *newFill = [self archiveRoundTrip:fill toClass:[CPTFill class]];
+    CPTFillColor *newFill = [self archiveRoundTrip:fill toClass:[CPTFill class]];
 
     XCTAssertEqualObjects(fill.fillColor, newFill.fillColor, @"Fill with color not equal");
 }
 
 -(void)testKeyedArchivingRoundTripGradient
 {
-    _CPTFillGradient *fill = (_CPTFillGradient *)[CPTFill fillWithGradient:[CPTGradient rainbowGradient]];
+    CPTFillGradient *fill = (CPTFillGradient *)[CPTFill fillWithGradient:[CPTGradient rainbowGradient]];
 
-    _CPTFillGradient *newFill = [self archiveRoundTrip:fill toClass:[CPTFill class]];
+    CPTFillGradient *newFill = [self archiveRoundTrip:fill toClass:[CPTFill class]];
 
     XCTAssertEqualObjects(fill.fillGradient, newFill.fillGradient, @"Fill with gradient not equal");
 }
@@ -79,9 +79,9 @@
     CGImageRelease(cgImage);
     CGContextRelease(context);
 
-    _CPTFillImage *fill = (_CPTFillImage *)[CPTFill fillWithImage:image];
+    CPTFillImage *fill = (CPTFillImage *)[CPTFill fillWithImage:image];
 
-    _CPTFillImage *newFill = [self archiveRoundTrip:fill toClass:[CPTFill class]];
+    CPTFillImage *newFill = [self archiveRoundTrip:fill toClass:[CPTFill class]];
 
     XCTAssertEqualObjects(fill.fillImage, newFill.fillImage, @"Fill with image not equal");
 }

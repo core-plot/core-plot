@@ -19,7 +19,7 @@ CPTThemeName const kCPTDarkGradientTheme = @"Dark Gradients";
 /**
  *  @brief Creates a CPTXYGraph instance formatted with dark gray gradient backgrounds and light gray lines.
  **/
-@implementation _CPTDarkGradientTheme
+@implementation CPTDarkGradientTheme
 
 +(nonnull CPTThemeName)name
 {

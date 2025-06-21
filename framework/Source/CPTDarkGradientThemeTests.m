@@ -8,7 +8,7 @@
 -(void)testNewThemeShouldBeCPTXYGraph
 {
     // Arrange
-    _CPTDarkGradientTheme *theme = [[_CPTDarkGradientTheme alloc] init];
+    CPTDarkGradientTheme *theme = [[CPTDarkGradientTheme alloc] init];
 
     // Act
     CPTGraph *graph = [theme newGraph];
@@ -20,7 +20,7 @@
 -(void)testNewThemeSetGraphClassReturnedClassShouldBeOfCorrectType
 {
     // Arrange
-    _CPTDarkGradientTheme *theme = [[_CPTDarkGradientTheme alloc] init];
+    CPTDarkGradientTheme *theme = [[CPTDarkGradientTheme alloc] init];
 
     theme.graphClass = [CPTXYGraphTestCase class];
 

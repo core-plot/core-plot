@@ -6,7 +6,7 @@
 #import "CPTFill.h"
 #endif
 
-@interface _CPTFillColor : CPTFill
+@interface CPTFillColor : CPTFill
 
 /// @name Initialization
 /// @{

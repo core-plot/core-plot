@@ -6,6 +6,6 @@
 #import "_CPTXYTheme.h"
 #endif
 
-@interface _CPTStocksTheme : _CPTXYTheme
+@interface CPTStocksTheme : CPTXYTheme
 
 @end

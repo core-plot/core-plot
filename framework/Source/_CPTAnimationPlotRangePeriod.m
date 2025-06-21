@@ -3,7 +3,7 @@
 #import "CPTPlotRange.h"
 #import "CPTUtilities.h"
 
-@implementation _CPTAnimationPlotRangePeriod
+@implementation CPTAnimationPlotRangePeriod
 
 -(void)setStartValueFromObject:(nonnull id)boundObject propertyGetter:(nonnull SEL)boundGetter
 {

@@ -1,5 +1,5 @@
 #import "CPTAnimationPeriod.h"
 
-@interface _CPTAnimationCGSizePeriod : CPTAnimationPeriod
+@interface CPTAnimationCGSizePeriod : CPTAnimationPeriod
 
 @end

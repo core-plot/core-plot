@@ -3,7 +3,7 @@
 #import "_NSCoderExtensions.h"
 
 /// @cond
-@interface _CPTConstraintsFixed()
+@interface CPTConstraintsFixed()
 
 @property (nonatomic, readwrite) CGFloat offset;
 @property (nonatomic, readwrite) BOOL isFixedToLower;
@@ -18,7 +18,7 @@
  *
  *  Supports fixed distance from either end of the range and a proportional fraction of the range.
  **/
-@implementation _CPTConstraintsFixed
+@implementation CPTConstraintsFixed
 
 @synthesize offset;
 @synthesize isFixedToLower;
@@ -62,8 +62,8 @@
     if ( [self class] != [otherConstraint class] ) {
         return NO;
     }
-    return (self.offset == ((_CPTConstraintsFixed *)otherConstraint).offset) &&
-           (self.isFixedToLower == ((_CPTConstraintsFixed *)otherConstraint).isFixedToLower);
+    return (self.offset == ((CPTConstraintsFixed *)otherConstraint).offset) &&
+           (self.isFixedToLower == ((CPTConstraintsFixed *)otherConstraint).isFixedToLower);
 }
 
 #pragma mark -
@@ -92,7 +92,7 @@
 
 -(nonnull id)copyWithZone:(nullable NSZone *)zone
 {
-    _CPTConstraintsFixed *copy = [[[self class] allocWithZone:zone] init];
+    CPTConstraintsFixed *copy = [[[self class] allocWithZone:zone] init];
 
     copy.offset         = self.offset;
     copy.isFixedToLower = self.isFixedToLower;
@@ -114,8 +114,8 @@
 
 -(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
-    [coder encodeCGFloat:self.offset forKey:@"_CPTConstraintsFixed.offset"];
-    [coder encodeBool:self.isFixedToLower forKey:@"_CPTConstraintsFixed.isFixedToLower"];
+    [coder encodeCGFloat:self.offset forKey:@"CPTConstraintsFixed.offset"];
+    [coder encodeBool:self.isFixedToLower forKey:@"CPTConstraintsFixed.isFixedToLower"];
 }
 
 /// @endcond
@@ -127,8 +127,8 @@
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     if ((self = [super init])) {
-        offset         = [coder decodeCGFloatForKey:@"_CPTConstraintsFixed.offset"];
-        isFixedToLower = [coder decodeBoolForKey:@"_CPTConstraintsFixed.isFixedToLower"];
+        offset         = [coder decodeCGFloatForKey:@"CPTConstraintsFixed.offset"];
+        isFixedToLower = [coder decodeBoolForKey:@"CPTConstraintsFixed.isFixedToLower"];
     }
     return self;
 }

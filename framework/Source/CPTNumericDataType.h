@@ -27,7 +27,7 @@ typedef NS_CLOSED_ENUM(NSInteger, CPTDataOrder)
 /**
  *  @brief Structure that describes the encoding of numeric data samples.
  **/
-typedef struct _CPTNumericDataType {
+typedef struct CPTNumericDataType {
     CPTDataTypeFormat dataTypeFormat; ///< Data type format
     size_t            sampleBytes;    ///< Number of bytes in each sample
     CFByteOrder       byteOrder;      ///< Byte order

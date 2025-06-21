@@ -198,7 +198,7 @@ typedef NS_ENUM (NSInteger, CPTCoordinate) {
 /**
  *  @brief RGBA color for gradients
  **/
-typedef struct _CPTRGBAColor {
+typedef struct CPTRGBAColor {
     CGFloat red;   ///< The red component (0 ≤ @par{red} ≤ 1).
     CGFloat green; ///< The green component (0 ≤ @par{green} ≤ 1).
     CGFloat blue;  ///< The blue component (0 ≤ @par{blue} ≤ 1).
@@ -246,7 +246,7 @@ typedef NS_ENUM (NSInteger, CPTAlignment) {
 /**
  *  @brief Edge inset distances for stretchable images.
  **/
-typedef struct _CPTEdgeInsets {
+typedef struct CPTEdgeInsets {
     CGFloat top;    ///< The top inset.
     CGFloat left;   ///< The left inset.
     CGFloat bottom; ///< The bottom inset.

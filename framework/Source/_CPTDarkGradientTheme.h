@@ -6,6 +6,6 @@
 #import "_CPTXYTheme.h"
 #endif
 
-@interface _CPTDarkGradientTheme : _CPTXYTheme
+@interface CPTDarkGradientTheme : CPTXYTheme
 
 @end

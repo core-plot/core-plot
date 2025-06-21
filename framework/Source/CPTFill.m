@@ -28,7 +28,7 @@
  **/
 +(nonnull instancetype)fillWithColor:(nonnull CPTColor *)aColor
 {
-    return [[_CPTFillColor alloc] initWithColor:aColor];
+    return [[CPTFillColor alloc] initWithColor:aColor];
 }
 
 /** @brief Creates and returns a new CPTFill instance initialized with a given gradient.
@@ -37,7 +37,7 @@
  **/
 +(nonnull instancetype)fillWithGradient:(nonnull CPTGradient *)aGradient
 {
-    return [[_CPTFillGradient alloc] initWithGradient:aGradient];
+    return [[CPTFillGradient alloc] initWithGradient:aGradient];
 }
 
 /** @brief Creates and returns a new CPTFill instance initialized with a given image.
@@ -46,7 +46,7 @@
  **/
 +(nonnull instancetype)fillWithImage:(nonnull CPTImage *)anImage
 {
-    return [[_CPTFillImage alloc] initWithImage:anImage];
+    return [[CPTFillImage alloc] initWithImage:anImage];
 }
 
 /** @brief Initializes a newly allocated CPTFill object with the provided color.
@@ -55,7 +55,7 @@
  **/
 -(nonnull instancetype)initWithColor:(nonnull CPTColor *)aColor
 {
-    self = [[_CPTFillColor alloc] initWithColor:aColor];
+    self = [[CPTFillColor alloc] initWithColor:aColor];
 
     return self;
 }
@@ -66,7 +66,7 @@
  **/
 -(nonnull instancetype)initWithGradient:(nonnull CPTGradient *)aGradient
 {
-    self = [[_CPTFillGradient alloc] initWithGradient:aGradient];
+    self = [[CPTFillGradient alloc] initWithGradient:aGradient];
 
     return self;
 }
@@ -77,7 +77,7 @@
  **/
 -(nonnull instancetype)initWithImage:(nonnull CPTImage *)anImage
 {
-    self = [[_CPTFillImage alloc] initWithImage:anImage];
+    self = [[CPTFillImage alloc] initWithImage:anImage];
 
     return self;
 }
@@ -108,21 +108,21 @@
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
     id fill = [coder decodeObjectOfClass:[CPTColor class]
-                                  forKey:@"_CPTFillColor.fillColor"];
+                                  forKey:@"CPTFillColor.fillColor"];
 
     if ( fill ) {
         return [self initWithColor:fill];
     }
 
     id gradient = [coder decodeObjectOfClass:[CPTGradient class]
-                                      forKey:@"_CPTFillGradient.fillGradient"];
+                                      forKey:@"CPTFillGradient.fillGradient"];
 
     if ( gradient ) {
         return [self initWithGradient:gradient];
     }
 
     id image = [coder decodeObjectOfClass:[CPTImage class]
-                                   forKey:@"_CPTFillImage.fillImage"];
+                                   forKey:@"CPTFillImage.fillImage"];
 
     if ( image ) {
         return [self initWithImage:image];

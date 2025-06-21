@@ -3,7 +3,7 @@
 #import "CPTUtilities.h"
 
 /// @cond
-@interface _CPTAnimationNSDecimalPeriod()
+@interface CPTAnimationNSDecimalPeriod()
 
 NSDecimal CPTCurrentDecimalValue(id __nonnull boundObject, SEL __nonnull boundGetter);
 
@@ -12,7 +12,7 @@ NSDecimal CPTCurrentDecimalValue(id __nonnull boundObject, SEL __nonnull boundGe
 
 #pragma mark -
 
-@implementation _CPTAnimationNSDecimalPeriod
+@implementation CPTAnimationNSDecimalPeriod
 
 NSDecimal CPTCurrentDecimalValue(id __nonnull boundObject, SEL __nonnull boundGetter)
 {

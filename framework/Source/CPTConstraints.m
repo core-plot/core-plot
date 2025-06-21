@@ -22,7 +22,7 @@
  **/
 +(nonnull instancetype)constraintWithLowerOffset:(CGFloat)newOffset
 {
-    return [[_CPTConstraintsFixed alloc] initWithLowerOffset:newOffset];
+    return [[CPTConstraintsFixed alloc] initWithLowerOffset:newOffset];
 }
 
 /** @brief Creates and returns a new CPTConstraints instance initialized with a fixed offset from the upper bound.
@@ -31,7 +31,7 @@
  **/
 +(nonnull instancetype)constraintWithUpperOffset:(CGFloat)newOffset
 {
-    return [[_CPTConstraintsFixed alloc] initWithUpperOffset:newOffset];
+    return [[CPTConstraintsFixed alloc] initWithUpperOffset:newOffset];
 }
 
 /** @brief Creates and returns a new CPTConstraints instance initialized with a proportional offset relative to the bounds.
@@ -44,7 +44,7 @@
  **/
 +(nonnull instancetype)constraintWithRelativeOffset:(CGFloat)newOffset
 {
-    return [[_CPTConstraintsRelative alloc] initWithRelativeOffset:newOffset];
+    return [[CPTConstraintsRelative alloc] initWithRelativeOffset:newOffset];
 }
 
 #pragma mark -
@@ -56,7 +56,7 @@
  **/
 -(nonnull instancetype)initWithLowerOffset:(CGFloat)newOffset
 {
-    self = [[_CPTConstraintsFixed alloc] initWithLowerOffset:newOffset];
+    self = [[CPTConstraintsFixed alloc] initWithLowerOffset:newOffset];
 
     return self;
 }
@@ -67,7 +67,7 @@
  **/
 -(nonnull instancetype)initWithUpperOffset:(CGFloat)newOffset
 {
-    self = [[_CPTConstraintsFixed alloc] initWithUpperOffset:newOffset];
+    self = [[CPTConstraintsFixed alloc] initWithUpperOffset:newOffset];
 
     return self;
 }
@@ -82,7 +82,7 @@
  **/
 -(nonnull instancetype)initWithRelativeOffset:(CGFloat)newOffset
 {
-    self = [[_CPTConstraintsRelative alloc] initWithRelativeOffset:newOffset];
+    self = [[CPTConstraintsRelative alloc] initWithRelativeOffset:newOffset];
 
     return self;
 }
@@ -112,9 +112,9 @@
 
 -(nullable instancetype)initWithCoder:(nonnull NSCoder *)coder
 {
-    if ( [coder containsValueForKey:@"_CPTConstraintsFixed.offset"] ) {
-        CGFloat offset      = [coder decodeCGFloatForKey:@"_CPTConstraintsFixed.offset"];
-        BOOL isFixedToLower = [coder decodeBoolForKey:@"_CPTConstraintsFixed.isFixedToLower"];
+    if ( [coder containsValueForKey:@"CPTConstraintsFixed.offset"] ) {
+        CGFloat offset      = [coder decodeCGFloatForKey:@"CPTConstraintsFixed.offset"];
+        BOOL isFixedToLower = [coder decodeBoolForKey:@"CPTConstraintsFixed.isFixedToLower"];
         if ( isFixedToLower ) {
             return [self initWithLowerOffset:offset];
         }
@@ -122,8 +122,8 @@
             return [self initWithUpperOffset:offset];
         }
     }
-    else if ( [coder containsValueForKey:@"_CPTConstraintsRelative.offset"] ) {
-        CGFloat offset = [coder decodeCGFloatForKey:@"_CPTConstraintsRelative.offset"];
+    else if ( [coder containsValueForKey:@"CPTConstraintsRelative.offset"] ) {
+        CGFloat offset = [coder decodeCGFloatForKey:@"CPTConstraintsRelative.offset"];
         return [self initWithRelativeOffset:offset];
     }
 

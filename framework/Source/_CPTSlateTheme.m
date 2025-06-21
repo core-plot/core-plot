@@ -19,7 +19,7 @@ CPTThemeName const kCPTSlateTheme = @"Slate";
 /**
  *  @brief Creates a CPTXYGraph instance with colors that match the default iPhone navigation bar, toolbar buttons, and table views.
  **/
-@implementation _CPTSlateTheme
+@implementation CPTSlateTheme
 
 +(nonnull CPTThemeName)name
 {

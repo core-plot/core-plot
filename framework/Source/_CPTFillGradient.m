@@ -3,7 +3,7 @@
 #import "CPTGradient.h"
 
 /// @cond
-@interface _CPTFillGradient()
+@interface CPTFillGradient()
 
 @property (nonatomic, readwrite, copy, nonnull) CPTGradient *fillGradient;
 
@@ -16,7 +16,7 @@
  *  Drawing methods are provided to fill rectangular areas and arbitrary drawing paths.
  **/
 
-@implementation _CPTFillGradient
+@implementation CPTFillGradient
 
 /** @property nonnull CPTGradient *fillGradient
  *  @brief The fill gradient.
@@ -26,9 +26,9 @@
 #pragma mark -
 #pragma mark Init/Dealloc
 
-/** @brief Initializes a newly allocated _CPTFillGradient object with the provided gradient.
+/** @brief Initializes a newly allocated CPTFillGradient object with the provided gradient.
  *  @param  aGradient The gradient.
- *  @return           The initialized _CPTFillGradient object.
+ *  @return           The initialized CPTFillGradient object.
  **/
 -(nonnull instancetype)initWithGradient:(nonnull CPTGradient *)aGradient
 {
@@ -73,7 +73,7 @@
 
 -(nonnull id)copyWithZone:(nullable NSZone *)zone
 {
-    _CPTFillGradient *copy = [[[self class] allocWithZone:zone] init];
+    CPTFillGradient *copy = [[[self class] allocWithZone:zone] init];
 
     copy.fillGradient = self.fillGradient;
 
@@ -94,7 +94,7 @@
 
 -(void)encodeWithCoder:(nonnull NSCoder *)coder
 {
-    [coder encodeObject:self.fillGradient forKey:@"_CPTFillGradient.fillGradient"];
+    [coder encodeObject:self.fillGradient forKey:@"CPTFillGradient.fillGradient"];
 }
 
 /// @endcond
@@ -107,7 +107,7 @@
 {
     if ((self = [super init])) {
         CPTGradient *gradient = [coder decodeObjectOfClass:[CPTGradient class]
-                                                    forKey:@"_CPTFillGradient.fillGradient"];
+                                                    forKey:@"CPTFillGradient.fillGradient"];
 
         if ( gradient ) {
             fillGradient = gradient;

@@ -18,7 +18,7 @@ typedef NS_ENUM (NSInteger, CPTSlice) {
     CPTSliceBottomRight ///< Bottom right corner
 };
 
-typedef struct _CPTImageSlices {
+typedef struct CPTImageSlices {
     __nonnull CGImageRef slice[9]; ///< The image slices used to render a stretchable image.
 }
 CPTImageSlices;

@@ -1,7 +1,7 @@
 #import "_CPTAnimationCGPointPeriod.h"
 
 /// @cond
-@interface _CPTAnimationCGPointPeriod()
+@interface CPTAnimationCGPointPeriod()
 
 CGPoint CPTCurrentPointValue(id __nonnull boundObject, SEL __nonnull boundGetter);
 
@@ -10,7 +10,7 @@ CGPoint CPTCurrentPointValue(id __nonnull boundObject, SEL __nonnull boundGetter
 
 #pragma mark -
 
-@implementation _CPTAnimationCGPointPeriod
+@implementation CPTAnimationCGPointPeriod
 
 CGPoint CPTCurrentPointValue(id __nonnull boundObject, SEL __nonnull boundGetter)
 {

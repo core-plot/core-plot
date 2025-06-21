@@ -6,7 +6,7 @@
 #import "CPTConstraints.h"
 #endif
 
-@interface _CPTConstraintsFixed : CPTConstraints
+@interface CPTConstraintsFixed : CPTConstraints
 
 /// @name Initialization
 /// @{
