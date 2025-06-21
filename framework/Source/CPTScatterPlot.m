@@ -1964,9 +1964,9 @@ CPTScatterPlotBinding const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; /
     if ( self.dataLineStyle &&
          (!symbolTouchUpHandled || self.allowSimultaneousSymbolAndPlotSelection) &&
          ([theDelegate respondsToSelector:@selector(scatterPlotDataLineTouchDown:)] ||
-          [theDelegate respondsToSelector:@selector(scatterPlot:dataLineTouchDownWithEvent:)] ||
-          [theDelegate respondsToSelector:@selector(scatterPlotDataLineWasSelected:)] ||
-          [theDelegate respondsToSelector:@selector(scatterPlot:dataLineWasSelectedWithEvent:)])) {
+             [theDelegate respondsToSelector:@selector(scatterPlot:dataLineTouchDownWithEvent:)] ||
+             [theDelegate respondsToSelector:@selector(scatterPlotDataLineWasSelected:)] ||
+             [theDelegate respondsToSelector:@selector(scatterPlot:dataLineWasSelectedWithEvent:)])) {
         plotSelected = [self plotWasLineHitByInteractionPoint:interactionPoint];
         if ( plotSelected ) {
             // Let the delegate know that the plot was selected.
@@ -2093,9 +2093,9 @@ CPTScatterPlotBinding const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; /
     if ( self.dataLineStyle &&
          (!symbolSelectHandled || self.allowSimultaneousSymbolAndPlotSelection) &&
          ([theDelegate respondsToSelector:@selector(scatterPlotDataLineTouchUp:)] ||
-          [theDelegate respondsToSelector:@selector(scatterPlot:dataLineTouchUpWithEvent:)] ||
-          [theDelegate respondsToSelector:@selector(scatterPlotDataLineWasSelected:)] ||
-          [theDelegate respondsToSelector:@selector(scatterPlot:dataLineWasSelectedWithEvent:)])) {
+             [theDelegate respondsToSelector:@selector(scatterPlot:dataLineTouchUpWithEvent:)] ||
+             [theDelegate respondsToSelector:@selector(scatterPlotDataLineWasSelected:)] ||
+             [theDelegate respondsToSelector:@selector(scatterPlot:dataLineWasSelectedWithEvent:)])) {
         plotSelected = [self plotWasLineHitByInteractionPoint:interactionPoint];
 
         if ( plotSelected ) {
