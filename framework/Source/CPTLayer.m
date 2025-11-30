@@ -330,22 +330,28 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
 
         if ( [NSView instancesRespondToSelector:@selector(effectiveAppearance)] ) {
             CPTGraphHostingView *hostingView = [self findHostingView];
-            if ( [NSAppearance instancesRespondToSelector:@selector(performAsCurrentDrawingAppearance:)] ) {
+            NSAppearance *appearance = hostingView.effectiveAppearance;
+
+            if ( appearance && [NSAppearance instancesRespondToSelector:@selector(performAsCurrentDrawingAppearance:)] ) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability-new"
-                [hostingView.effectiveAppearance performAsCurrentDrawingAppearance: ^{
+                [appearance performAsCurrentDrawingAppearance: ^{
                     [super display];
                 }];
 #pragma clang diagnostic pop
             }
-            else {
+            else if ( appearance ) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
                 NSAppearance *oldAppearance = NSAppearance.currentAppearance;
-                NSAppearance.currentAppearance = hostingView.effectiveAppearance;
+                NSAppearance.currentAppearance = appearance;
                 [super display];
                 NSAppearance.currentAppearance = oldAppearance;
 #pragma clang diagnostic pop
+            }
+            else {
+                // No hosting view; fall back to the default rendering path so the layer still draws.
+                [super display];
             }
         }
         else {
