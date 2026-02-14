@@ -39,8 +39,7 @@ typedef NS_ENUM (NSInteger, CPTPieChartField) {
 /**
  *  @brief Enumeration of pie slice drawing directions.
  **/
-typedef NS_CLOSED_ENUM(NSInteger, CPTPieDirection)
-{
+typedef NS_CLOSED_ENUM (NSInteger, CPTPieDirection) {
     CPTPieDirectionClockwise,       ///< Pie slices are drawn in a clockwise direction.
     CPTPieDirectionCounterClockwise ///< Pie slices are drawn in a counter-clockwise direction.
 };
