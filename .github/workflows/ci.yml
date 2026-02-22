@@ -20,10 +20,10 @@ jobs:
             destination: "platform=macOS"
           - target: iOS
             sdk: iphonesimulator
-            destination: "platform=iOS Simulator,name=iPhone 14 Pro"
+            destination: "platform=iOS Simulator,name=iPhone 17 Pro"
           - target: tvOS
             sdk: appletvsimulator
-            destination: "platform=tvOS Simulator,name=Apple TV 4K (2nd generation)"
+            destination: "platform=tvOS Simulator,name=Apple TV 4K (3rd generation)"
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -38,10 +38,10 @@ jobs:
       matrix:
         destination:
           [
-            "platform=iOS Simulator,name=iPhone 14 Pro",
+            "platform=iOS Simulator,name=iPhone 17 Pro",
             "platform=macOS,variant=Mac Catalyst",
             "platform=macOS",
-            "platform=tvOS Simulator,name=Apple TV 4K (2nd generation)",
+            "platform=tvOS Simulator,name=Apple TV 4K (3rd generation)",
           ]
         scheme: ["CorePlot"]
     steps:
