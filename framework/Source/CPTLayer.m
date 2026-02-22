@@ -330,7 +330,7 @@ CPTLayerNotification const CPTLayerBoundsDidChangeNotification = @"CPTLayerBound
 
         if ( [NSView instancesRespondToSelector:@selector(effectiveAppearance)] ) {
             CPTGraphHostingView *hostingView = [self findHostingView];
-            NSAppearance *appearance = hostingView.effectiveAppearance;
+            NSAppearance *appearance         = hostingView.effectiveAppearance;
 
             if ( appearance && [NSAppearance instancesRespondToSelector:@selector(performAsCurrentDrawingAppearance:)] ) {
 #pragma clang diagnostic push
