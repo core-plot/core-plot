@@ -125,4 +125,4 @@ IBC_ERRORS = YES
 IBC_NOTICES = YES
 IBC_WARNINGS = YES
 
-WARNING_CFLAGS = -Weverything -Wno-switch-default -Wno-switch-enum -Wno-float-equal -Wno-pedantic -Wno-documentation -Wno-documentation-unknown-command -Wno-objc-messaging-id -Wno-declaration-after-statement -Wno-missing-include-dirs
+WARNING_CFLAGS = -Weverything -Wno-switch-default -Wno-switch-enum -Wno-float-equal -Wno-pedantic -Wno-documentation -Wno-documentation-unknown-command -Wno-objc-messaging-id -Wno-declaration-after-statement -Wno-implicit-int-enum-cast -Wno-implicit-int-float-conversion -Wno-implicit-int-conversion-on-negation -Wno-implicit-void-ptr-cast -Wno-missing-include-dirs -Wno-nrvo

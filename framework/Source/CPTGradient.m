@@ -1018,7 +1018,7 @@ static void CPTResolveHSV(CGFloat *__nonnull color1, CGFloat *__nonnull color2);
         return (NSUInteger)theHash;
     }
     else {
-        return (NSUInteger)(self.blendingMode + self.gradientType);
+        return (NSUInteger)self.blendingMode + (NSUInteger)self.gradientType;
     }
 }
 
