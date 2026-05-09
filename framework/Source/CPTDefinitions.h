@@ -178,6 +178,7 @@ typedef NS_ENUM (NSInteger, CPTErrorBarType) {
  **/
 typedef NS_ENUM (NSInteger, CPTScaleType) {
     CPTScaleTypeLinear,    ///< Linear axis scale
+    CPTScaleTypeSkew,      ///< Linear axis scale that is skewed relative to orthogonal coordinate
     CPTScaleTypeLog,       ///< Logarithmic axis scale
     CPTScaleTypeAngular,   ///< Angular axis scale (not implemented)
     CPTScaleTypeDateTime,  ///< Date/time axis scale (not implemented)
